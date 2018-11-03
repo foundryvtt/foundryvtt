@@ -1,0 +1,355 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>User Interface Elements &mdash; Foundry Virtual Tabletop 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Rolling Dice" href="dice.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Foundry Virtual Tabletop
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Foundry Virtual Tabletop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">Anticipated Features and Timelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="connection.html">Hosting and Connectivity Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entities.html">Game Entities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="canvas.html">The Game Canvas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dice.html">Rolling Dice</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">User Interface Elements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#dialog-window">Dialog Window</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tabbed-navigation">Tabbed Navigation</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Foundry Virtual Tabletop</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>User Interface Elements</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/pages/ui.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="user-interface-elements">
+<span id="ui"></span><h1>User Interface Elements<a class="headerlink" href="#user-interface-elements" title="Permalink to this headline">¶</a></h1>
+<p>Mod developers may wish to re-use standard user interface elements, referred to as <strong>Applications</strong>. This page details
+the existing application classes which can easily be extended to create an interactive interface element within the
+DOM.</p>
+<div class="section" id="dialog-window">
+<h2>Dialog Window<a class="headerlink" href="#dialog-window" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="#Dialog" title="Dialog"><code class="xref js js-class docutils literal notranslate"><span class="pre">Dialog()</span></code></a> class provides an extension of <code class="xref js js-class docutils literal notranslate"><span class="pre">WindowApplication()</span></code> which makes it easy to create modal
+dialog prompts.</p>
+<dl class="class">
+<dt id="Dialog">
+<em class="property">class </em><code class="descname">Dialog</code><span class="sig-paren">(</span><em>dialogData</em><span class="sig-paren">)</span><a class="headerlink" href="#Dialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a modal dialog window displaying a title, a message, and a set of buttons which trigger callback functions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dialogData</strong> (<em>Object</em>) – An object of dialog data which configures how the modal window is rendered</li>
+<li><strong>dialogData.title</strong> (<em>String</em>) – The window title</li>
+<li><strong>dialogData.content</strong> (<em>String</em>) – HTML content</li>
+<li><strong>dialogData.close</strong> (<em>function</em>) – Common callback operations to perform when the dialog is closed</li>
+<li><strong>dialogData.buttons</strong> (<em>Object</em>) – Action buttons which trigger callback functions. Buttons are defined as an Object with the format <code class="docutils literal notranslate"><span class="pre">{name:</span> <span class="pre">buttonData}</span></code>. Valid keys for buttonData include:</li>
+<li><strong>dialogData.buttons.button.icon</strong> (<em>String</em>) – A button icon</li>
+<li><strong>dialogData.buttons.button.label</strong> (<em>String</em>) – A button label</li>
+<li><strong>dialogData.buttons.button.callback</strong> (<em>function</em>) – A callback function taking no arguments</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples:</strong></p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Dialog</span><span class="p">({</span>
+ <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;Test Dialog&quot;</span><span class="p">,</span>
+ <span class="nx">content</span><span class="o">:</span> <span class="s2">&quot;&lt;p&gt;You must choose either Option 1, or Option 2&lt;/p&gt;&quot;</span><span class="p">,</span>
+ <span class="nx">buttons</span><span class="o">:</span> <span class="p">{</span>
+  <span class="nx">one</span><span class="o">:</span> <span class="p">{</span>
+   <span class="nx">icon</span><span class="o">:</span> <span class="s1">&#39;&lt;i class=&quot;fas fa-check&quot;&gt;&lt;/i&gt;&#39;</span><span class="p">,</span>
+   <span class="nx">label</span><span class="o">:</span> <span class="s2">&quot;Option One&quot;</span><span class="p">,</span>
+   <span class="nx">callback</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Chose One&quot;</span><span class="p">)</span>
+  <span class="p">},</span>
+  <span class="nx">two</span><span class="o">:</span> <span class="p">{</span>
+   <span class="nx">icon</span><span class="o">:</span> <span class="s1">&#39;&lt;i class=&quot;fas fa-times&quot;&gt;&lt;/i&gt;&#39;</span><span class="p">,</span>
+   <span class="nx">label</span><span class="o">:</span> <span class="s2">&quot;Option Two&quot;</span><span class="p">,</span>
+   <span class="nx">callback</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Chose Two&quot;</span><span class="p">)</span>
+  <span class="p">}</span>
+ <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">d</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt id="Dialog.Application.render">
+<code class="descclassname">Dialog.Application.</code><code class="descname">render</code><span class="sig-paren">(</span><em>force=true</em><span class="sig-paren">)</span><a class="headerlink" href="#Dialog.Application.render" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render the Application.
+If the application is already present in the DOM it will be refreshed.
+If it is not yet added to the DOM it will only be rendered if rendering is forced.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>force</strong> (<em>Boolean</em>) – Add the application to the DOM before rendering, if it does not already exist</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="tabbed-navigation">
+<h2>Tabbed Navigation<a class="headerlink" href="#tabbed-navigation" title="Permalink to this headline">¶</a></h2>
+<p>To make effective use of screen space, it often makes sense to sibling concepts into a tabbed navigation area. The
+<a class="reference internal" href="#Tabs" title="Tabs"><code class="xref js js-class docutils literal notranslate"><span class="pre">Tabs()</span></code></a> class helps to implement this easily. Simply create instances of the <a class="reference internal" href="#Tabs" title="Tabs"><code class="xref js js-class docutils literal notranslate"><span class="pre">Tabs()</span></code></a> class when you
+register event listeners for your UI element and the instance will do the rest of the work for you.</p>
+<dl class="class">
+<dt id="Tabs">
+<em class="property">class </em><code class="descname">Tabs</code><span class="sig-paren">(</span><em>tabs</em><span class="sig-paren">)</span><a class="headerlink" href="#Tabs" title="Permalink to this definition">¶</a></dt>
+<dd><p>A helper class for creating tabbed containers.
+Create one Tabs instance per tabbed navigation container in your application.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>tabs</strong> (<em>HTMLElement|JQuery</em>) – An HTML element or JQuery object representing the tab navigation container.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples:</strong></p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span>&lt;!-- Example HTML --&gt;
+&lt;ol class=&quot;tabs&quot;&gt;
+ &lt;li class=&quot;tab&quot; data-tab=&quot;tab1&quot;&gt;Tab 1&lt;/li&gt;
+ &lt;li class=&quot;tab&quot; data-tab=&quot;tab2&quot;&gt;Tab 2&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;content&quot; data-tab=&quot;tab1&quot;&gt;Content 1&lt;/div&gt;
+&lt;div class=&quot;content&quot; data-tab=&quot;tab2&quot;&gt;Content 2&lt;/div&gt;
+</pre></div>
+</div>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// JavaScript Listener</span>
+<span class="kd">let</span> <span class="nx">nav</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.tabs&#39;</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">tabs</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Tabs</span><span class="p">(</span><span class="nx">nav</span><span class="p">,</span> <span class="s2">&quot;tab1&quot;</span><span class="p">,</span> <span class="nx">t</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Tab ${t} was clicked&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<dl class="function">
+<dt id="Tabs.activateTab">
+<code class="descclassname">Tabs.</code><code class="descname">activateTab</code><span class="sig-paren">(</span><em>tab</em><span class="sig-paren">)</span><a class="headerlink" href="#Tabs.activateTab" title="Permalink to this definition">¶</a></dt>
+<dd><p>Activate a tab by it’s name. This gets called automatically when a tab in the navigation is clicked,
+however you may also call this function directly.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>tab</strong> (<em>String</em>) – The name of the tab to activate</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="dice.html" class="btn btn-neutral" title="Rolling Dice" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Foundry Gaming LLC.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

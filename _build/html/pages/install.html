@@ -1,0 +1,286 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installation Instructions &mdash; Foundry Virtual Tabletop 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Foundry Virtual Tabletop
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Foundry Virtual Tabletop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">Anticipated Features and Timelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="connection.html">Hosting and Connectivity Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entities.html">Game Entities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="canvas.html">The Game Canvas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dice.html">Rolling Dice</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui.html">User Interface Elements</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Foundry Virtual Tabletop</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Installation Instructions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/pages/install.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installation-instructions">
+<h1>Installation Instructions<a class="headerlink" href="#installation-instructions" title="Permalink to this headline">¶</a></h1>
+<p>These are the basic setup instructions for manually installing the Foundry VTT application.</p>
+<div class="admonition error">
+<p class="first admonition-title">Error</p>
+<p class="last">Foundry VTT is not yet released or available to the public. These instructions are internal for authorized developers!</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">You will only be able to follow these instructions if you have been granted access to the source code.</p>
+</div>
+<p>Once the project gets closer to release, these steps will be automated as part of a normal application installer.</p>
+<div class="section" id="windows-application">
+<h2>Windows Application<a class="headerlink" href="#windows-application" title="Permalink to this headline">¶</a></h2>
+<p>Follow these steps to install the Foundry VTT software on Windows as a native desktop application.</p>
+<ol class="arabic">
+<li><p class="first"><strong>Install Node.js.</strong> In order to develop the app you will need to install Node.js. You can download installers for
+Node from the following URL <code class="docutils literal notranslate"><span class="pre">https://nodejs.org/en/download/</span></code>.</p>
+</li>
+<li><p class="first"><strong>Create Parent Directory and Clone Repository.</strong> Create a parent directory in a location of your choosing, for
+example (in my case) <code class="docutils literal notranslate"><span class="pre">D://Games/FoundryVTT</span></code>. Clone the contents of this repository into the <code class="docutils literal notranslate"><span class="pre">app</span></code> subfolder
+of this parent directory.</p>
+</li>
+<li><p class="first"><strong>Download Node-Webkit.</strong> Lastly, you will need to download the contents of Node-Webkit <code class="docutils literal notranslate"><span class="pre">https://nwjs.io/</span></code>
+which provides the application layer. Choose the SDK version so you can debug the server background window.
+Download the nwjs archive to the same parent folder <code class="docutils literal notranslate"><span class="pre">FoundryVTT</span></code> and extract it as a subfolder named <code class="docutils literal notranslate"><span class="pre">nwjs</span></code>.
+You should now have two subfolders, one named <code class="docutils literal notranslate"><span class="pre">app</span></code> and one named <code class="docutils literal notranslate"><span class="pre">nwjs</span></code>.</p>
+</li>
+<li><p class="first"><strong>Install Dependency Modules.</strong> Go into your app folder, open the command prompt with <code class="docutils literal notranslate"><span class="pre">cmd</span></code> and install
+dependency node modules using <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">install</span></code>. This may take some time.</p>
+</li>
+<li><p class="first"><strong>Run the Application.</strong> Lastly, we can run the application from the command line using.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">..</span>\<span class="n">nwjs</span>\<span class="n">nw</span><span class="o">.</span><span class="n">exe</span> <span class="o">.</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p><strong>Why is all this necessary?</strong> In a final distributed version this will all be bundled and none of these steps will
+be required, but keeping things separate for now is better for development while things are rapidly changing.</p>
+</div>
+<div class="section" id="dedicated-server">
+<h2>Dedicated Server<a class="headerlink" href="#dedicated-server" title="Permalink to this headline">¶</a></h2>
+<p>These instructions are for installing Foundry VTT on a Linux host to run as a dedicated headless server.</p>
+<ol class="arabic">
+<li><p class="first"><strong>Install Node.js.</strong> First install node.js, the following is the easiest way for AWS instances.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">yum</span> <span class="n">update</span> <span class="o">-</span><span class="n">y</span>
+<span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">gcc</span> <span class="n">gcc</span><span class="o">-</span><span class="n">c</span><span class="o">++</span> <span class="n">make</span> <span class="n">openssl</span><span class="o">-</span><span class="n">devel</span>
+<span class="n">curl</span> <span class="o">--</span><span class="n">silent</span> <span class="o">--</span><span class="n">location</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">rpm</span><span class="o">.</span><span class="n">nodesource</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">setup_8</span><span class="o">.</span><span class="n">x</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">bash</span> <span class="o">-</span>
+<span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">nodejs</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><strong>Clone the Repository.</strong> Pull the repository contents to a directory of your choice, in this case I use
+<code class="docutils literal notranslate"><span class="pre">${HOME}/foundryvtt</span></code>.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">~</span>
+<span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">git</span>
+<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">gitlab</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">foundrynet</span><span class="o">/</span><span class="n">foundry</span><span class="o">-</span><span class="n">vtt</span><span class="o">.</span><span class="n">git</span> <span class="n">foundryvtt</span> <span class="o">-</span><span class="n">b</span> <span class="n">master</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><strong>Install dependency packages.</strong> Use <code class="docutils literal notranslate"><span class="pre">npm</span></code> to install all the required packages.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">foundryvtt</span>
+<span class="n">npm</span> <span class="n">install</span>
+<span class="n">npm</span> <span class="n">audit</span> <span class="n">fix</span> <span class="o">--</span><span class="n">force</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><strong>Run the server.</strong> We can start the server using the basic Node invocation but passing the <cite>–headless</cite> flag.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">node</span> <span class="n">main</span><span class="o">.</span><span class="n">js</span> <span class="o">--</span><span class="n">headless</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Foundry Gaming LLC.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

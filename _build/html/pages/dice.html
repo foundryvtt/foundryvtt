@@ -1,0 +1,413 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Rolling Dice &mdash; Foundry Virtual Tabletop 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="User Interface Elements" href="ui.html" />
+    <link rel="prev" title="Token Status Effects" href="tokens/effects.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Foundry Virtual Tabletop
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Foundry Virtual Tabletop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">Anticipated Features and Timelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="connection.html">Hosting and Connectivity Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="entities.html">Game Entities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="canvas.html">The Game Canvas</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Rolling Dice</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#basic-rolls">Basic Rolls</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#keep-or-drop-results">Keep or Drop Results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#re-roll-certain-results">Re-roll Certain Results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#explode-certain-results">Explode Certain Results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#count-successes">Count Successes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#dice-roll-api">Dice Roll API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ui.html">User Interface Elements</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Foundry Virtual Tabletop</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Rolling Dice</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/pages/dice.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="rolling-dice">
+<h1>Rolling Dice<a class="headerlink" href="#rolling-dice" title="Permalink to this headline">¶</a></h1>
+<p>At the core of most tabletop games is the requirement to roll dice. This page details the support for various dice
+macros which are provided by Foundry VTT. The software has a rich underlying API</p>
+<div class="section" id="basic-rolls">
+<h2>Basic Rolls<a class="headerlink" href="#basic-rolls" title="Permalink to this headline">¶</a></h2>
+<p>For basic dice rolls, you and your players will most frequently type a <cite>formula</cite> in chat which is automatically parsed
+and evaluated to display a dice roll result. Dice roll formulas begin with either <cite>/roll</cite> or <cite>/r</cite> for short. The
+syntax for a basic roll imitates common RPGs where <code class="docutils literal notranslate"><span class="pre">/roll</span> <span class="pre">ydX</span></code> would roll an X-sided die y times. For example, to
+roll five six-sided dice (d6):</p>
+<p><code class="docutils literal notranslate"><span class="pre">/roll</span> <span class="pre">5d6</span></code></p>
+<p>Dice rolls also accept modifiers after the roll which alter the behavior of the group of rolled dice. In general, roll
+modifiers work by adding extra syntax on to the end of the roll, <code class="docutils literal notranslate"><span class="pre">/roll</span> <span class="pre">ydX{mods}</span></code>.</p>
+<div class="section" id="keep-or-drop-results">
+<h3>Keep or Drop Results<a class="headerlink" href="#keep-or-drop-results" title="Permalink to this headline">¶</a></h3>
+<p>A desired number of high or low rolls may be kept or dropped using the following roll modifiers.</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">kh{N}</span></code> Keep the highest <code class="docutils literal notranslate"><span class="pre">N</span></code> dice out of the group that were rolled.</li>
+<li><code class="docutils literal notranslate"><span class="pre">kl{N}</span></code> Keep the lowest <code class="docutils literal notranslate"><span class="pre">N</span></code> dice out of the group that were rolled.</li>
+<li><code class="docutils literal notranslate"><span class="pre">dh{N}</span></code> Drop the highest <code class="docutils literal notranslate"><span class="pre">N</span></code> dice out of the group that were rolled.</li>
+<li><code class="docutils literal notranslate"><span class="pre">dl{N}</span></code> Drop the lowest <code class="docutils literal notranslate"><span class="pre">N</span></code> dice out of the group that were rolled.</li>
+</ul>
+</div>
+<div class="section" id="re-roll-certain-results">
+<h3>Re-roll Certain Results<a class="headerlink" href="#re-roll-certain-results" title="Permalink to this headline">¶</a></h3>
+<p>Specific results may be re-rolled by specifying a re-roll target or range.</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">r{y}</span></code>      Re-roll any dice where the result was <code class="docutils literal notranslate"><span class="pre">y</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">r&gt;{y}</span></code>     Re-roll any dice where the result was greater than <code class="docutils literal notranslate"><span class="pre">y</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">r&gt;={y}</span></code>    Re-roll any dice where the result was greater than or equal to <code class="docutils literal notranslate"><span class="pre">y</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">r&lt;{y}</span></code>     Re-roll any dice where the result was less than <code class="docutils literal notranslate"><span class="pre">y</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">r&lt;={y}</span></code>    Re-roll any dice where the result was less than or equal to <code class="docutils literal notranslate"><span class="pre">y</span></code>.</li>
+</ul>
+</div>
+<div class="section" id="explode-certain-results">
+<h3>Explode Certain Results<a class="headerlink" href="#explode-certain-results" title="Permalink to this headline">¶</a></h3>
+<p>“Exploding” dice are supported where further dice of the same type are rolled until no more results of a certain value
+have been rolled.</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">x{y}</span></code>      Roll an additional dice each time a die rolls <code class="docutils literal notranslate"><span class="pre">y</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">x&gt;{y}</span></code>     Roll an additional dice if any dice rolls greater than <code class="docutils literal notranslate"><span class="pre">y</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">x&gt;={y}</span></code>    Roll an additional dice if any dice rolls greater than or equal to <code class="docutils literal notranslate"><span class="pre">y</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">x&lt;{y}</span></code>     Roll an additional dice if any dice rolls less than or equal to <code class="docutils literal notranslate"><span class="pre">y</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">x&lt;={y}</span></code>    Roll an additional dice if any dice rolls less than or equal to <code class="docutils literal notranslate"><span class="pre">y</span></code>.</li>
+</ul>
+</div>
+<div class="section" id="count-successes">
+<h3>Count Successes<a class="headerlink" href="#count-successes" title="Permalink to this headline">¶</a></h3>
+<p>You can roll a set of dice and count the number of times a certain result or range of results was achieved.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This is still TO-DO. The planned syntax is described below but not yet added</p>
+</div>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">s{y}</span></code>      Count the number of dice which resulted in <code class="docutils literal notranslate"><span class="pre">y</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">s&gt;{y}</span></code>     Count the number of dice which rolled greater than <code class="docutils literal notranslate"><span class="pre">y</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">s&gt;={y}</span></code>    Count the number of dice which rolled greater than or equal to <code class="docutils literal notranslate"><span class="pre">y</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">s&lt;{y}</span></code>     Count the number of dice which rolled less than or equal to <code class="docutils literal notranslate"><span class="pre">y</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">s&lt;={y}</span></code>    Count the number of dice which rolled less than or equal to <code class="docutils literal notranslate"><span class="pre">y</span></code>.</li>
+</ul>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="dice-roll-api">
+<h2>Dice Roll API<a class="headerlink" href="#dice-roll-api" title="Permalink to this headline">¶</a></h2>
+<p>For mod developers, you may want to customize in-depth the behavior of dice rolling. You can interact directly with
+the Roll API by creating instances of the <a class="reference internal" href="#Roll" title="Roll"><code class="xref js js-class docutils literal notranslate"><span class="pre">Roll()</span></code></a> class.</p>
+<dl class="class">
+<dt id="Roll">
+<em class="property">class </em><code class="descname">Roll</code><span class="sig-paren">(</span><em>formula</em>, <em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#Roll" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class provides the basic API for conducting dice rolls.
+The basic structure for a dice roll is a string formula and an object of data against which to parse it.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>formula</strong> (<em>String</em>) – The string formula to parse</li>
+<li><strong>data</strong> (<em>Object</em>) – The data object against which to parse attributes within the formula</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Roll</strong> – An evaluated Roll object</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples:</strong></p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// Attack with advantage!</span>
+<span class="kd">let</span> <span class="nx">r</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Roll</span><span class="p">(</span><span class="s2">&quot;2d20kh + @prof + @strMod&quot;</span><span class="p">,</span> <span class="p">{</span><span class="nx">prof</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">strMod</span><span class="o">:</span> <span class="mi">4</span><span class="p">});</span>
+
+<span class="c1">// The parsed components of the roll formula</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">parts</span><span class="p">);</span>    <span class="c1">// [Die, +, 2, +, 4]</span>
+
+<span class="c1">// The resulting equation after it was parsed</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">result</span><span class="p">);</span>   <span class="c1">// 16 + 2 + 4</span>
+
+<span class="c1">// The total resulting from the roll</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">total</span><span class="p">);</span>    <span class="c1">// 22</span>
+</pre></div>
+</div>
+<dl class="attribute">
+<dt id="Roll.data">
+<code class="descclassname">Roll.</code><code class="descname">data</code><a class="headerlink" href="#Roll.data" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> Object</p>
+<p>The original provided data</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Roll.dice">
+<code class="descclassname">Roll.</code><code class="descname">dice</code><a class="headerlink" href="#Roll.dice" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> Array</p>
+<p>Get an Array of any <code class="xref js js-class docutils literal notranslate"><span class="pre">Die()</span></code> objects which were rolled as part of the evaluation of this roll</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Roll.formula">
+<code class="descclassname">Roll.</code><code class="descname">formula</code><a class="headerlink" href="#Roll.formula" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> String</p>
+<p>The cleaned formula</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Roll.fromMessage">
+<code class="descclassname">Roll.</code><code class="descname">fromMessage</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="headerlink" href="#Roll.fromMessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse a chat message into a roll formula by removing the initial roll prefix.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> (<em>String</em>) – A chat message starting with “/roll” or “/r”</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Roll.parts">
+<code class="descclassname">Roll.</code><code class="descname">parts</code><a class="headerlink" href="#Roll.parts" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> Array</p>
+<p>An array of parsed formula parts</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Roll.result">
+<code class="descclassname">Roll.</code><code class="descname">result</code><a class="headerlink" href="#Roll.result" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> String</p>
+<p>The parsed and evaluated formula converted back to a final string</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Roll.toMessage">
+<code class="descclassname">Roll.</code><code class="descname">toMessage</code><span class="sig-paren">(</span><em>chatOptions</em><span class="sig-paren">)</span><a class="headerlink" href="#Roll.toMessage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Post a Roll instance to the chat log, converting it to a chat message.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>chatOptions</strong> (<em>Object</em>) – An object configuring the behavior of the resulting chat message.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Roll.total">
+<code class="descclassname">Roll.</code><code class="descname">total</code><a class="headerlink" href="#Roll.total" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> Number</p>
+<p>The cumulative numeric result of the entire rolled formula</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ui.html" class="btn btn-neutral float-right" title="User Interface Elements" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tokens/effects.html" class="btn btn-neutral" title="Token Status Effects" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Foundry Gaming LLC.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

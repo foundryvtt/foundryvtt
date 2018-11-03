@@ -1,0 +1,295 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The Background Layer &mdash; Foundry Virtual Tabletop 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="The Grid Layer" href="grid.html" />
+    <link rel="prev" title="The Game Canvas" href="../canvas.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Foundry Virtual Tabletop
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Foundry Virtual Tabletop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../features.html">Anticipated Features and Timelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../connection.html">Hosting and Connectivity Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../entities.html">Game Entities</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../canvas.html">The Game Canvas</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">The Background Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#scene-configuration">Scene Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#background-api">Background API</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="grid.html">The Grid Layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="walls.html">The Walls Layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tokens.html">The Tokens Layer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dice.html">Rolling Dice</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ui.html">User Interface Elements</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Foundry Virtual Tabletop</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../canvas.html">The Game Canvas</a> &raquo;</li>
+        
+      <li>The Background Layer</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/pages/canvas/background.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="the-background-layer">
+<span id="canvas-background"></span><h1>The Background Layer<a class="headerlink" href="#the-background-layer" title="Permalink to this headline">¶</a></h1>
+<p>The Background Layer is the bottom-most layer of the tabletop Canvas. The Background Layer is responsible for
+rendering your underlying background image and defining the interactable area of the scene. By default,
+the canvas uses an interactive area which is 1.5 times the dimensions of your background image (with a minimum
+of 1000px.)</p>
+<div class="section" id="scene-configuration">
+<h2>Scene Configuration<a class="headerlink" href="#scene-configuration" title="Permalink to this headline">¶</a></h2>
+<p>When configuring a <strong>Scene</strong>, the fields under the <strong>Background</strong> section modify how the Background Layer is
+rendered.</p>
+<img alt="../../_images/scene-configuration.jpg" src="../../_images/scene-configuration.jpg" />
+<p>Each background configuration option is described below:</p>
+<dl class="docutils">
+<dt>Background</dt>
+<dd>An image file to use as the scene background. The image file must be accessible to the host server, either
+served locally by the host or served remotely from a location which allows cross-origin resource sharing
+(CORS).</dd>
+<dt>Height</dt>
+<dd>The height in pixels of the image file. If this is not specified it will be automatically determined by
+the provided image file. Specifying a larger or smaller size than the native image height will result in
+it being scaled.</dd>
+<dt>Width</dt>
+<dd>The width in pixels of the image file. If this is not specified it will be automatically determined by
+the provided image file. Specifying a larger or smaller size than the native image width will result in
+it being scaled.</dd>
+<dt>Background Color</dt>
+<dd>The color of the canvas area surrounding the background image can be configured using this color selector.</dd>
+</dl>
+<p>In the above example, we configure the <strong>Thieves’ Den</strong> scene to use a certain background image with configured
+pixel dimensions. The background image is 1960 by 2100 pixels, and therefore the active game space allowed by
+the canvas will be 2940 by 3150 pixels with the map image in the center.</p>
+</div>
+<div class="section" id="background-api">
+<h2>Background API<a class="headerlink" href="#background-api" title="Permalink to this headline">¶</a></h2>
+<p>Mod developers may wish to interact with or manipulate this layer and can do so using the singleton instance of
+the <a class="reference internal" href="#BackgroundLayer" title="BackgroundLayer"><code class="xref js js-class docutils literal notranslate"><span class="pre">BackgroundLayer()</span></code></a> class which is accessible from within the client as <code class="docutils literal notranslate"><span class="pre">canvas.background</span></code>.</p>
+<dl class="class">
+<dt id="BackgroundLayer">
+<em class="property">class </em><code class="descname">BackgroundLayer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BackgroundLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>A PIXI.Container subclass of CanvasLayer responsible for rendering the scene background image.
+The singleton instance of this class is accessed through <code class="docutils literal notranslate"><span class="pre">canvas.background</span></code>.</p>
+<dl class="function">
+<dt id="BackgroundLayer.draw">
+<code class="descclassname">BackgroundLayer.</code><code class="descname">draw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#BackgroundLayer.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw the background image.
+We first load the image texture and store it in the PIXI loader.
+Once the requested image has been fully loaded we draw it as a PIXI.Sprite</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>BackgroundLayer</strong> – Returns the instance of the Background Layer for convenient chaining</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="grid.html" class="btn btn-neutral float-right" title="The Grid Layer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../canvas.html" class="btn btn-neutral" title="The Game Canvas" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Foundry Gaming LLC.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.1',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
