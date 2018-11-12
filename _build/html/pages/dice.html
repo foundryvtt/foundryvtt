@@ -263,6 +263,30 @@ The basic structure for a dice roll is a string formula and an object of data ag
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">total</span><span class="p">);</span>    <span class="c1">// 22</span>
 </pre></div>
 </div>
+<dl class="function">
+<dt id="Roll.alter">
+<code class="descclassname">Roll.</code><code class="descname">alter</code><span class="sig-paren">(</span><em>formula</em>, <em>add</em>, <em>multi</em><span class="sig-paren">)</span><a class="headerlink" href="#Roll.alter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alter a formula by adding or multiplying the number of dice included in each roll term</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>formula</strong> (<em>String</em>) – The original formula to modify</li>
+<li><strong>add</strong> (<em>Number</em>) – A number of dice to add to each term</li>
+<li><strong>multi</strong> (<em>Number</em>) – A multiplier for the number of dice in each term</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Examples:</strong></p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">Roll</span><span class="p">.</span><span class="nx">alter</span><span class="p">(</span><span class="s2">&quot;4d8 + 4 + 2d4&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="o">&gt;</span> <span class="mi">9</span><span class="nx">d8</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">5</span><span class="nx">d4</span>
+</pre></div>
+</div>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="Roll.data">
 <code class="descclassname">Roll.</code><code class="descname">data</code><a class="headerlink" href="#Roll.data" title="Permalink to this definition">¶</a></dt>

@@ -105,12 +105,19 @@ a ``Custom TPC Rule`` for port ``30000`` (or a different port of your choice).
 3. Connect to your new host via SSH. You will need to configure your SSH client to use the security key-pair provided
 by AWS.
 
-4. Update software versions and install ``nodejs`` to host the server.::
+4. Update software versions and install ``nodejs`` to host the server.
 
-    sudo yum update -y
+   For Red Hat / Amazon Linux::
+
     sudo yum install -y gcc gcc-c++ make openssl-devel
     curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -
     sudo yum install -y nodejs
+
+   For Debian / Ubuntu::
+
+    sudo apt install -y build-essential libssl-dev curl
+    curl -sL https://deb.nodesource.com/setup_8.x | sudo bash -
+    sudo apt install -y nodejs
 
 5. Download and extract the Linux version of the software in your home directory (or somewhere else if you prefer).::
 
@@ -119,9 +126,9 @@ by AWS.
 	unzip foundryvtt.zip
 	rm foundryvtt.zip
 
-6.	Start the server, being sure to pass the headless flag: ``node main.js --headless``.
+6. Start the server, being sure to pass the headless flag: ``node main.js --headless``.
 
-7. 	Once the server is running, both you and your players can connect to the server using the public IP address of
+7. Once the server is running, both you and your players can connect to the server using the public IP address of
 your EC2 server which is listed in the AWS dashboard for your instance, for example ``http://x.x.x.x:30000``.
 
 ------
@@ -154,3 +161,9 @@ When using that map as the source for a new Scene - you should reference the fil
 
 	worlds/my-world/maps/dungeons/deadly-dungeon-01.jpg
 
+
+..  warning:: **Regarding File Naming Conventions:**
+    Since Foundry VTT works as a web server, you should be sure to use directory and file names which conform to web
+    file and URL encoding conventions. You should generally avoid using spaces or special characters as these are
+    likely to cause issues when serving your content to other players. See `Google URL Guidelines
+    <https://developers.google.com/maps/documentation/urls/url-encoding>`_ for more detail.
