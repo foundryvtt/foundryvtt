@@ -24,9 +24,10 @@ copyright = '2018, Foundry Gaming LLC'
 author = 'Andrew Clayton'
 
 # The short X.Y version
-version = ''
+version = '0.0.6'
+
 # The full version, including alpha/beta/rc tags
-release = '0.1'
+release = 'Alpha 0.0.6'
 
 
 # -- General configuration ---------------------------------------------------
@@ -44,7 +45,7 @@ extensions = [
 ]
 
 # Configure JavaScript documentation
-js_source_path = '../public/scripts/'
+js_source_path = '../public/scripts'
 primary_domain = 'js'
 
 # Add any paths that contain templates here, relative to this directory.
@@ -69,7 +70,7 @@ language = None
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'foundry.js']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = None

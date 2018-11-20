@@ -1,0 +1,426 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The Application Class &mdash; Foundry Virtual Tabletop Alpha 0.0.6 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Dialog Window" href="dialog.html" />
+    <link rel="prev" title="Creating UI Elements" href="../ui.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Foundry Virtual Tabletop
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.6
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Foundry Virtual Tabletop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../features.html">Anticipated Features and Timelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../connection.html">Hosting and Connectivity Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../entities.html">Game Entities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../canvas.html">The Game Canvas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dice.html">Rolling Dice</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../ui.html">Creating UI Elements</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">The Application Class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#application-example">Application Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dialog.html">Dialog Window</a></li>
+<li class="toctree-l2"><a class="reference internal" href="helpers.html">Tabbed Navigation</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Foundry Virtual Tabletop</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../ui.html">Creating UI Elements</a> &raquo;</li>
+        
+      <li>The Application Class</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/pages/apps/application.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="the-application-class">
+<span id="application"></span><h1>The Application Class<a class="headerlink" href="#the-application-class" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference internal" href="#Application" title="Application"><code class="xref js js-class docutils literal notranslate"><span class="pre">Application()</span></code></a> class provides the foundation for UI elements in Foundry VTT. As a developer, you
+should extend this class to define your own custom UI concepts which can be rendered in-game.</p>
+<dl class="class">
+<dt id="Application">
+<em class="property">class </em><code class="descname">Application</code><span class="sig-paren">(</span><em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#Application" title="Permalink to this definition">¶</a></dt>
+<dd><p>The standard application window that is rendered for a large variety of UI elements in Foundry VTT</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>options</strong> (<em>Object</em>) – Configuration options which control how the application is rendered</li>
+<li><strong>options.height</strong> (<em>Number</em>) – The height in pixels (or “auto”) for the rendered element</li>
+<li><strong>options.width</strong> (<em>Number</em>) – The width in pixels (or “auto”) for the rendered element</li>
+<li><strong>options.top</strong> (<em>Number</em>) – The vertical position (from the top) of the rendered element</li>
+<li><strong>options.left</strong> (<em>Number</em>) – The horizontal position (from the left) of the rendered element</li>
+<li><strong>options.popOut</strong> (<em>Boolean</em>) – Display the element wrapped in a containing window frame (true, the default) or only the inner HTML (false).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="function">
+<dt id="Application.activateListeners">
+<code class="descclassname">Application.</code><code class="descname">activateListeners</code><span class="sig-paren">(</span><em>html</em><span class="sig-paren">)</span><a class="headerlink" href="#Application.activateListeners" title="Permalink to this definition">¶</a></dt>
+<dd><p>Once the HTML for an Application has been rendered, activate event listeners which provide interactivity for
+the application</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>html</strong> (<em>jQuery|HTMLElement</em>) – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Application.appId">
+<code class="descclassname">Application.</code><code class="descname">appId</code><a class="headerlink" href="#Application.appId" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> Number</p>
+<p>The application ID is a unique incrementing integer which is used to identify every application window
+drawn by the VTT</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Application.close">
+<code class="descclassname">Application.</code><code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Application.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close the application and un-register references to it within UI mappings</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Application.defaultOptions">
+<code class="descclassname">Application.</code><code class="descname">defaultOptions</code><a class="headerlink" href="#Application.defaultOptions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assign the default options which are supported by this Application</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Application.element">
+<code class="descclassname">Application.</code><code class="descname">element</code><a class="headerlink" href="#Application.element" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> jQuery|HTMLElement</p>
+<p>Return the active application element, if it currently exists in the DOM</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Application.options">
+<code class="descclassname">Application.</code><code class="descname">options</code><a class="headerlink" href="#Application.options" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> Object</p>
+<p>The options provided to this application upon initialization</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Application.popOut">
+<code class="descclassname">Application.</code><code class="descname">popOut</code><a class="headerlink" href="#Application.popOut" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> boolean</p>
+<p>Control the rendering style of the application. If popOut is true, the application is rendered in its own
+wrapper window, otherwise only the inner app content is rendered</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Application.position">
+<code class="descclassname">Application.</code><code class="descname">position</code><a class="headerlink" href="#Application.position" title="Permalink to this definition">¶</a></dt>
+<dd><p>A convenient reference to the positioning attributes provided as Application options</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Application.render">
+<code class="descclassname">Application.</code><code class="descname">render</code><span class="sig-paren">(</span><em>force=false</em><span class="sig-paren">)</span><a class="headerlink" href="#Application.render" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrap the rendered application in a containing outer frame</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>force</strong> (<em>Boolean</em>) – Add the rendered application to the DOM if it is not already present. If false, the Application will only be re-rendered if it is already present.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Application.template">
+<code class="descclassname">Application.</code><code class="descname">template</code><a class="headerlink" href="#Application.template" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> String</p>
+<p>The path to the HTML template file which should be used to render the inner content of the app</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Application.title">
+<code class="descclassname">Application.</code><code class="descname">title</code><a class="headerlink" href="#Application.title" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> String</p>
+<p>An Application window should define its own title definition logic which may be dynamic depending on its data</p>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="application-example">
+<h2>Application Example<a class="headerlink" href="#application-example" title="Permalink to this headline">¶</a></h2>
+<p>This section provides a working example Application that could be defined in your game. When creating a module, or
+a UI component of a game system, you would pair this JavaScript code which defines the Application with an HTML
+template (<code class="docutils literal notranslate"><span class="pre">options.template</span></code>) as well as accompanying CSS rules to define how the HTML should be styled.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="cm"> * A simple demo application which displays each active player&#39;s impersonated Actor</span>
+<span class="cm"> * Displays the portrait and health bar for that Actor</span>
+<span class="cm"> */</span>
+
+<span class="kr">class</span> <span class="nx">PartySummary</span> <span class="kr">extends</span> <span class="nx">Application</span> <span class="p">{</span>
+
+  <span class="cm">/**</span>
+<span class="cm">   * Define default options for the PartySummary application</span>
+<span class="cm">   */</span>
+  <span class="kr">static</span> <span class="nx">get</span> <span class="nx">defaultOptions</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">options</span> <span class="o">=</span> <span class="kr">super</span><span class="p">.</span><span class="nx">defaultOptions</span><span class="p">;</span>
+    <span class="nx">options</span><span class="p">.</span><span class="nx">template</span> <span class="o">=</span> <span class="s2">&quot;public/modules/party-summary/templates/summary.html&quot;</span><span class="p">;</span>
+    <span class="nx">options</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="mi">600</span><span class="p">;</span>
+    <span class="nx">options</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="s2">&quot;auto&quot;</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">options</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="cm">/* -------------------------------------------- */</span>
+
+  <span class="cm">/**</span>
+<span class="cm">   * Return the data used to render the summary template</span>
+<span class="cm">   * Get all the active users</span>
+<span class="cm">   * The impersonated character for each player is available as user.character</span>
+<span class="cm">   */</span>
+   <span class="nx">getData</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">game</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">entities</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">u</span> <span class="p">=&gt;</span> <span class="nx">u</span><span class="p">.</span><span class="nx">active</span><span class="p">);</span>
+   <span class="p">}</span>
+
+  <span class="cm">/* -------------------------------------------- */</span>
+
+  <span class="cm">/**</span>
+<span class="cm">   * Add some event listeners to the UI to provide interactivity</span>
+<span class="cm">   * Let&#39;s have the game highlight each player&#39;s token when their name is clicked on</span>
+<span class="cm">   */</span>
+  <span class="nx">activateListeners</span><span class="p">(</span><span class="nx">html</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="nx">html</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;.actor-name&quot;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="nx">ev</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="nx">ev</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+
+      <span class="c1">// Get the actor which was clicked and the active token(s) for that actor</span>
+      <span class="kd">let</span> <span class="nx">actorId</span> <span class="o">=</span> <span class="nx">ev</span><span class="p">.</span><span class="nx">currentTarget</span><span class="p">.</span><span class="nx">parentElement</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span><span class="s2">&quot;data-actor-id&quot;</span><span class="p">),</span>
+          <span class="nx">actor</span> <span class="o">=</span> <span class="nx">game</span><span class="p">.</span><span class="nx">actors</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">actorId</span><span class="p">),</span>
+          <span class="nx">tokens</span> <span class="o">=</span> <span class="nx">actor</span><span class="p">.</span><span class="nx">getActiveTokens</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+
+      <span class="c1">// Highlight active token(s) by triggering the token&#39;s mouse-over handler</span>
+      <span class="k">for</span> <span class="p">(</span> <span class="kd">let</span> <span class="nx">t</span> <span class="k">of</span> <span class="nx">tokens</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="nx">t</span><span class="p">.</span><span class="nx">_onMouseOver</span><span class="p">();</span>
+      <span class="p">}</span>
+    <span class="p">})</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>To render your party summary UI to the player, all that needs to be done is to create an instance of the
+application class and call it’s render function.</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">ps</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PartySummary</span><span class="p">();</span>
+<span class="nx">ps</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="dialog.html" class="btn btn-neutral float-right" title="Dialog Window" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../ui.html" class="btn btn-neutral" title="Creating UI Elements" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Foundry Gaming LLC.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'Alpha 0.0.6',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

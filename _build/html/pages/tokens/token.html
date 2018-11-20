@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>The Token Object &mdash; Foundry Virtual Tabletop 0.1 documentation</title>
+  <title>The Token Object &mdash; Foundry Virtual Tabletop Alpha 0.0.6 documentation</title>
   
 
   
@@ -57,6 +57,10 @@
           
             
             
+              <div class="version">
+                0.0.6
+              </div>
+            
           
 
           
@@ -98,7 +102,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../dice.html">Rolling Dice</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ui.html">User Interface Elements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ui.html">Creating UI Elements</a></li>
 </ul>
 
             
@@ -170,7 +174,7 @@
   <div class="section" id="the-token-object">
 <h1>The Token Object<a class="headerlink" href="#the-token-object" title="Permalink to this headline">¶</a></h1>
 <p>As a mod developer, you may find yourselves wanting to interact with the tokens which are active within a
-<code class="xref js js-class docutils literal notranslate"><span class="pre">Scene()</span></code> and are drawn within the <a class="reference internal" href="../canvas/tokens.html#TokenLayer" title="TokenLayer"><code class="xref js js-class docutils literal notranslate"><span class="pre">TokenLayer()</span></code></a>. The <a class="reference internal" href="#Token" title="Token"><code class="xref js js-class docutils literal notranslate"><span class="pre">Token()</span></code></a> class provides a rich API for
+<a class="reference internal" href="../entities/scene.html#Scene" title="Scene"><code class="xref js js-class docutils literal notranslate"><span class="pre">Scene()</span></code></a> and are drawn within the <a class="reference internal" href="../canvas/tokens.html#TokenLayer" title="TokenLayer"><code class="xref js js-class docutils literal notranslate"><span class="pre">TokenLayer()</span></code></a>. The <a class="reference internal" href="#Token" title="Token"><code class="xref js js-class docutils literal notranslate"><span class="pre">Token()</span></code></a> class provides a rich API for
 interacting with these tokens.</p>
 <dl class="class">
 <dt id="Token">
@@ -529,7 +533,7 @@ TODO: If the token is in the middle of a moment animation, do not push the rotat
 
 <dl class="function">
 <dt id="Token.shiftPosition">
-<code class="descclassname">Token.</code><code class="descname">shiftPosition</code><span class="sig-paren">(</span><em>offsetX</em>, <em>offsetY</em>, <em>push=true</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.shiftPosition" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Token.</code><code class="descname">shiftPosition</code><span class="sig-paren">(</span><em>dx</em>, <em>dy</em>, <em>push=true</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.shiftPosition" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform an incremental token movement, shifting the token’s position by some number of grid units.
 The offset parameters will move the token by that number of grid spaces in one or both directions.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -537,8 +541,8 @@ The offset parameters will move the token by that number of grid spaces in one o
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>offsetX</strong> (<em>Number</em>) – The number of grid units to shift along the X-axis</li>
-<li><strong>offsetY</strong> (<em>Number</em>) – The number of grid units to shift along the Y-axis</li>
+<li><strong>dx</strong> (<em>Number</em>) – The number of grid units to shift along the X-axis</li>
+<li><strong>dy</strong> (<em>Number</em>) – The number of grid units to shift along the Y-axis</li>
 <li><strong>push</strong> (<em>Boolean</em>) – Whether or not to push the updated token position to other connected clients</li>
 </ul>
 </td>
@@ -689,7 +693,7 @@ For active Scenes also draw the Token update on the canvas</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.1',
+            VERSION:'Alpha 0.0.6',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

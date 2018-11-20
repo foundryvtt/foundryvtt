@@ -1,33 +1,19 @@
 ..  _ui:
 
-User Interface Elements
-***********************
+Creating UI Elements
+********************
 
-Mod developers may wish to re-use standard user interface elements, referred to as **Applications**. This page details
-the existing application classes which can easily be extended to create an interactive interface element within the
-DOM.
+A key aspect of developing systems, modules, or custom interfaces for your world is defining and rendering UI
+elements which give your game-master or players access to and control over underlying game data.
 
+The key building block of UI elements in Foundry VTT is the :class:`Application` class which provides a core
+framework for rendering blocks of HTML into the tabletop client. The pages within this section provide 
+documentation on how to create Applications using this framework.
 
-Dialog Window
-=============
+..  toctree::
+    :caption: UI Concepts
+    :maxdepth: 1
 
-The :class:`Dialog` class provides an extension of :class:`WindowApplication` which makes it easy to create modal
-dialog prompts.
-
-
-.. autoclass:: Dialog
-    :members:
-
-    .. autofunction:: Application#render
-
-
-
-Tabbed Navigation
-=================
-
-To make effective use of screen space, it often makes sense to sibling concepts into a tabbed navigation area. The
-:class:`Tabs` class helps to implement this easily. Simply create instances of the :class:`Tabs` class when you
-register event listeners for your UI element and the instance will do the rest of the work for you.
-
-..  autoclass:: Tabs
-    :members:
+    apps/application.rst
+    apps/dialog.rst
+    apps/helpers.rst

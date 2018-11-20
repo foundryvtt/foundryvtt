@@ -1,7 +1,7 @@
 ..	_actor:
 
-The Actor Entity
-****************
+Actors
+******
 
 One of the most fundamental entities within Foundry Virtual Tabletop is the Actor. Actors are the protagonists,
 enemies, allies, and personalities within the World that you create. The game System defines the exact types of actors
@@ -19,7 +19,7 @@ override this to a subclass included in their own definition.
 
 ----
 
-..  contents:: Actor API Layers
+..  contents:: Actor API Components
 
 ----
 
@@ -45,7 +45,7 @@ The Actors Collection
 The Actor Class
 ===============
 
-..  autoclass:: Actor
+..  autoclass:: CONFIG.Actor
     :members:
 
 ----

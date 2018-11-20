@@ -1,0 +1,470 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Items &mdash; Foundry Virtual Tabletop Alpha 0.0.6 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Scenes" href="scene.html" />
+    <link rel="prev" title="Actors" href="actor.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Foundry Virtual Tabletop
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.6
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Foundry Virtual Tabletop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../features.html">Anticipated Features and Timelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../connection.html">Hosting and Connectivity Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../entities.html">Game Entities</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="actor.html">Actors</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Items</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-items-collection">The Items Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-item-class">The Item Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-item-sheet">The Item Sheet</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="scene.html">Scenes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compendium.html">Compendium Packs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../canvas.html">The Game Canvas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dice.html">Rolling Dice</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ui.html">Creating UI Elements</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Foundry Virtual Tabletop</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../entities.html">Game Entities</a> &raquo;</li>
+        
+      <li>Items</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/pages/entities/item.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="items">
+<span id="item"></span><h1><a class="toc-backref" href="#id1">Items</a><a class="headerlink" href="#items" title="Permalink to this headline">¶</a></h1>
+<p>Item entities represent objects or features that are owned by an Actor. While the term item tends to imply physical
+possessions, as a developer in Foundry Virtual Tabletop you should consider Items as the building block for anything
+that can be owned by an Actor. For example, in the D&amp;D5e system, Item types are used for Classes, Spells, and Feats
+in addition to standard inventory and equipment.</p>
+<p>The FVTT framework provides core APIs for manipulating and modifying Items including support to allow Items to belong
+to an Actor to modify the Actor’s owned version of that Item.</p>
+<p>There are several important API layers which are useful when working with Items. The <a class="reference internal" href="#Items" title="Items"><code class="xref js js-class docutils literal notranslate"><span class="pre">Items()</span></code></a> collection has
+all of the <code class="xref js js-class docutils literal notranslate"><span class="pre">Item()</span></code> instances which are defined at the World level (as oppoosed to owned items which belong to
+a specific actor). This Items collection is available under <code class="docutils literal notranslate"><span class="pre">game.items</span></code>.</p>
+<p>The <code class="xref js js-class docutils literal notranslate"><span class="pre">Item()</span></code> class represents a single item which may be unowned (and defined at the World level) or owned (and
+defined at the Actor level). Owned items which belong to an <code class="xref js js-class docutils literal notranslate"><span class="pre">Actor()</span></code> are defined in that actor’s data model
+under <code class="docutils literal notranslate"><span class="pre">actor.data.items</span></code>. The <code class="xref js js-class docutils literal notranslate"><span class="pre">Item()</span></code> class may be overridden by a system or module by defining the
+<code class="docutils literal notranslate"><span class="pre">Config.Item.entityClass</span></code> global configuration value.</p>
+<p>When viewing or interacting with an item’s data, the item is rendered and edited using the <a class="reference internal" href="#ItemSheet" title="ItemSheet"><code class="xref js js-class docutils literal notranslate"><span class="pre">ItemSheet()</span></code></a> class
+which can be extended or overridden by systems or modules. To override the default implementation, a mod should
+define the <code class="docutils literal notranslate"><span class="pre">CONFIG.Item.sheetClass</span></code> global configuration value.</p>
+<hr class="docutils" />
+<div class="contents topic" id="item-api-components">
+<p class="topic-title first">Item API Components</p>
+<ul class="simple">
+<li><a class="reference internal" href="#items" id="id1">Items</a><ul>
+<li><a class="reference internal" href="#the-items-collection" id="id2">The Items Collection</a></li>
+<li><a class="reference internal" href="#the-item-class" id="id3">The Item Class</a></li>
+<li><a class="reference internal" href="#the-item-sheet" id="id4">The Item Sheet</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<hr class="docutils" />
+<div class="section" id="the-items-collection">
+<h2><a class="toc-backref" href="#id2">The Items Collection</a><a class="headerlink" href="#the-items-collection" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Items">
+<em class="property">class </em><code class="descname">Items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Items" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <code class="xref js js-class docutils literal notranslate"><span class="pre">Collection()</span></code> of <code class="xref js js-class docutils literal notranslate"><span class="pre">Item()</span></code> entities
+The items collection is accessible within the game as <code class="docutils literal notranslate"><span class="pre">game.items</span></code></p>
+<dl class="function">
+<dt id="Items.Collection.insert">
+<code class="descclassname">Items.Collection.</code><code class="descname">insert</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="headerlink" href="#Items.Collection.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a new Entity to the Collection, asserting that they are of the correct type</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>entity</strong> (<em>Entity</em>) – The entity instance to add to the collection</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Items.Collection.remove">
+<code class="descclassname">Items.Collection.</code><code class="descname">remove</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#Items.Collection.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove an Entity from the Collection by its ID.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>id</strong> (<em>String</em>) – The entity ID which should be removed</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Items.Collection.get">
+<code class="descclassname">Items.Collection.</code><code class="descname">get</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#Items.Collection.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an element from the collection by ID</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>id</strong> (<em>String</em>) – The entity ID to retrieve from the collection</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Entity</strong> – The retrieved Entity, if the ID was found, otherwise null;</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Items.Collection.index">
+<code class="descclassname">Items.Collection.</code><code class="descname">index</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#Items.Collection.index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the index of an entity within the collection by its ID</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>id</strong> (<em>String</em>) – The entity ID to retrieve from the collection</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Number</strong> – The index of the Entity within the collection, if found, otherwise -1;</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Items.Collection.render">
+<code class="descclassname">Items.Collection.</code><code class="descname">render</code><span class="sig-paren">(</span><em>force</em><span class="sig-paren">)</span><a class="headerlink" href="#Items.Collection.render" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render all applications associated with this Collection</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Items.importFromCollection">
+<code class="descclassname">Items.</code><code class="descname">importFromCollection</code><span class="sig-paren">(</span><em>collection</em>, <em>entryId</em><span class="sig-paren">)</span><a class="headerlink" href="#Items.importFromCollection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Import an Item from a compendium collection, adding it to the current World</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>collection</strong> (<em>String</em>) – The name of the pack from which to import</li>
+<li><strong>entryId</strong> (<em>String</em>) – The ID of the compendium entry to import</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Promise</strong> – A Promise containing the imported Item</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Items.object">
+<code class="descclassname">Items.</code><code class="descname">object</code><a class="headerlink" href="#Items.object" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elements of the Items collection are instances of the Item class, or a subclass thereof</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<hr class="docutils" />
+<div class="section" id="the-item-class">
+<h2><a class="toc-backref" href="#id3">The Item Class</a><a class="headerlink" href="#the-item-class" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="CONFIG.Item">
+<em class="property">class </em><code class="descclassname">CONFIG.</code><code class="descname">Item</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#CONFIG.Item" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configuration for the default Item entity class</p>
+</dd></dl>
+
+</div>
+<hr class="docutils" />
+<div class="section" id="the-item-sheet">
+<h2><a class="toc-backref" href="#id4">The Item Sheet</a><a class="headerlink" href="#the-item-sheet" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="ItemSheet">
+<em class="property">class </em><code class="descname">ItemSheet</code><span class="sig-paren">(</span><em>item</em>, <em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#ItemSheet" title="Permalink to this definition">¶</a></dt>
+<dd><p>The default Item Sheet</p>
+<p>This is a Application that is responsible for rendering an item’s attributes and allowing the item to be
+edited.</p>
+<p>System modifications may elect to override this class to better suit their own game system by re-defining the value
+<code class="docutils literal notranslate"><span class="pre">CONFIG.Item.sheetClass</span></code>.</p>
+<p>For basic or aesthetic modifications, overriding this class entirely may not be necessary and you may simply wish
+to replace the default HTML template. This can be accomplished by re-defning <code class="docutils literal notranslate"><span class="pre">CONFIG.ItemSheet.template</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>item</strong> (<em>Item</em>) – The Item instance being displayed within the sheet.</li>
+<li><strong>options</strong> (<em>Object</em>) – Additional options which modify the rendering of the item.</li>
+<li><strong>options.editable</strong> (<em>Boolean</em>) – Is the item editable? Default is true.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="function">
+<dt id="ItemSheet.activateListeners">
+<code class="descclassname">ItemSheet.</code><code class="descname">activateListeners</code><span class="sig-paren">(</span><em>html</em><span class="sig-paren">)</span><a class="headerlink" href="#ItemSheet.activateListeners" title="Permalink to this definition">¶</a></dt>
+<dd><p>Activate listeners which provide interactivity for item sheet events</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>html</strong> (<em>jQuery</em>) – The HTML object returned by template rendering</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ItemSheet.actor">
+<code class="descclassname">ItemSheet.</code><code class="descname">actor</code><a class="headerlink" href="#ItemSheet.actor" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> Actor</p>
+<p>The Actor instance which owns this item. This may be null if the item is unowned.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ItemSheet.defaultOptions">
+<code class="descclassname">ItemSheet.</code><code class="descname">defaultOptions</code><a class="headerlink" href="#ItemSheet.defaultOptions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assign the default options which are supported by the CharacterSelect menu</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="ItemSheet.getData">
+<code class="descclassname">ItemSheet.</code><code class="descname">getData</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ItemSheet.getData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Customize the data provided to the item sheet for rendering. By default we just duplicate the item data.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ItemSheet.title">
+<code class="descclassname">ItemSheet.</code><code class="descname">title</code><a class="headerlink" href="#ItemSheet.title" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> String</p>
+<p>The displayed window title for the item sheet - just the item’s name by default</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="scene.html" class="btn btn-neutral float-right" title="Scenes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="actor.html" class="btn btn-neutral" title="Actors" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Foundry Gaming LLC.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'Alpha 0.0.6',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
