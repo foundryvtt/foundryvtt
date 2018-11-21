@@ -51,4 +51,6 @@ Thanks and Attributions
 
 * **Audio** Thanks to Mike Koenig, and other Contributors: https://soundbible.com
 
+* **Audio** Thanks to Dymewiz and other Contributors: https://freesound.org
+
 * **SVG Icons** Thanks to Contributors, https://game-icons.net
