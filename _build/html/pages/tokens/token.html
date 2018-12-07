@@ -233,23 +233,6 @@ This attribute returns a object of coordinates <code class="docutils literal not
 </dd></dl>
 
 <dl class="function">
-<dt id="Token.checkSight">
-<code class="descclassname">Token.</code><code class="descname">checkSight</code><span class="sig-paren">(</span><em>position</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.checkSight" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check the token sight to determine its visibility polygon</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>position</strong> (<em>Object</em>) – Optionally, check sight for a given target position, instead of the token’s center</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
 <dt id="Token.clone">
 <code class="descclassname">Token.</code><code class="descname">clone</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Token.clone" title="Permalink to this definition">¶</a></dt>
 <dd><p>Copy the Token, returning a new PIXI.Container with identical attributes
@@ -336,6 +319,12 @@ For active Scenes, also remove the Token container from the canvas</p>
 </table>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="Token.dimRadius">
+<code class="descclassname">Token.</code><code class="descname">dimRadius</code><a class="headerlink" href="#Token.dimRadius" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translate the token’s sight distance in units into a radius in pixels.</p>
+</dd></dl>
+
 <dl class="function">
 <dt id="Token.drawBars">
 <code class="descclassname">Token.</code><code class="descname">drawBars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Token.drawBars" title="Permalink to this definition">¶</a></dt>
@@ -407,6 +396,46 @@ For active Scenes, also remove the Token container from the canvas</p>
 <dd><p>Draw the token’s nameplate as a text object</p>
 </dd></dl>
 
+<dl class="function">
+<dt id="Token.getLightRadius">
+<code class="descclassname">Token.</code><code class="descname">getLightRadius</code><span class="sig-paren">(</span><em>units</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.getLightRadius" title="Permalink to this definition">¶</a></dt>
+<dd><p>A generic transformation to turn a certain number of grid units into a radius in canvas pixels</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>units</strong> (<em>Number</em>) – The radius in grid units</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>number</strong> – The radius in canvas units</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Token.getSightOrigin">
+<code class="descclassname">Token.</code><code class="descname">getSightOrigin</code><span class="sig-paren">(</span><em>position</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.getSightOrigin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the token’s sight origin, tailored for the direction of their movement velocity to break ties with walls</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>position</strong> – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Object</strong> –</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="Token.inCombat">
 <code class="descclassname">Token.</code><code class="descname">inCombat</code><a class="headerlink" href="#Token.inCombat" title="Permalink to this definition">¶</a></dt>
@@ -452,9 +481,20 @@ visible radius.</p>
 
 <dl class="function">
 <dt id="Token.release">
-<code class="descclassname">Token.</code><code class="descname">release</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Token.release" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Token.</code><code class="descname">release</code><span class="sig-paren">(</span><em>resetSight=true</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.release" title="Permalink to this definition">¶</a></dt>
 <dd><p>Release player control of the token, unsubscribing to drag, movement, or rotation events.
 Return a Boolean for whether the token release was successful.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>resetSight</strong> (<em>Boolean</em>) – Trigger a re-initialization of the sight layer, this may not be necessary</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
@@ -549,12 +589,6 @@ The offset parameters will move the token by that number of grid spaces in one o
 </tr>
 </tbody>
 </table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Token.sightRadius">
-<code class="descclassname">Token.</code><code class="descname">sightRadius</code><a class="headerlink" href="#Token.sightRadius" title="Permalink to this definition">¶</a></dt>
-<dd><p>Translate the token’s sight distance in units into a radius in pixels.</p>
 </dd></dl>
 
 <dl class="function">

@@ -14,4 +14,5 @@ used within Foundry Virtual Tabletop and the API layers which allow you to modif
     entities/actor
     entities/item
     entities/scene
+    entities/audio
     entities/compendium
