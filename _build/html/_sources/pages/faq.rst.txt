@@ -54,3 +54,6 @@ Thanks and Attributions
 * **Audio** Thanks to Dymewiz and other Contributors: https://freesound.org
 
 * **SVG Icons** Thanks to Contributors, https://game-icons.net
+
+* **Potion Artwork** Thanks to Melle, https://opengameart.org/content/fantasy-potion-set
+

@@ -282,8 +282,8 @@ global configuration.</p>
 
 <dl class="function">
 <dt id="Scenes.Collection.render">
-<code class="descclassname">Scenes.Collection.</code><code class="descname">render</code><span class="sig-paren">(</span><em>force</em><span class="sig-paren">)</span><a class="headerlink" href="#Scenes.Collection.render" title="Permalink to this definition">¶</a></dt>
-<dd><p>Render all applications associated with this Collection</p>
+<code class="descclassname">Scenes.Collection.</code><code class="descname">render</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Scenes.Collection.render" title="Permalink to this definition">¶</a></dt>
+<dd><p>Re-render any currently visible applications associated with this Collection</p>
 </dd></dl>
 
 <dl class="function">
@@ -304,6 +304,18 @@ global configuration.</p>
 </table>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="Scenes.object">
+<code class="descclassname">Scenes.</code><code class="descname">object</code><a class="headerlink" href="#Scenes.object" title="Permalink to this definition">¶</a></dt>
+<dd><p>Elements of the Scenes collection are instances of the Scene class</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Scenes.socketListeners">
+<code class="descclassname">Scenes.</code><code class="descname">socketListeners</code><span class="sig-paren">(</span><em>socket</em><span class="sig-paren">)</span><a class="headerlink" href="#Scenes.socketListeners" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open additional socket listeners which transact Actor data</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -314,6 +326,26 @@ global configuration.</p>
 <dt id="Scene">
 <em class="property">class </em><code class="descname">Scene</code><span class="sig-paren">(</span><em>data</em>, <em>apps</em><span class="sig-paren">)</span><a class="headerlink" href="#Scene" title="Permalink to this definition">¶</a></dt>
 <dd><p>The Scene entity</p>
+<dl class="function">
+<dt id="Scene._onUpdate">
+<code class="descclassname">Scene.</code><code class="descname">_onUpdate</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#Scene._onUpdate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Additional updating steps for the Scene entity when new data is saved which trigger some related updates.</p>
+<p>If the updated scene is active, re-draw the canvas
+If sight/vision settings were changed, re-initialize sight
+If the scene name or image were changed update the directory collection</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data</strong> (<em>Object</em>) – The new data object which was used to update the Scene</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="function">
 <dt id="Scene.deleteToken">
 <code class="descclassname">Scene.</code><code class="descname">deleteToken</code><span class="sig-paren">(</span><em>tokenId</em>, <em>push=false</em><span class="sig-paren">)</span><a class="headerlink" href="#Scene.deleteToken" title="Permalink to this definition">¶</a></dt>
@@ -342,32 +374,6 @@ global configuration.</p>
 <dt id="Scene.sheet">
 <code class="descclassname">Scene.</code><code class="descname">sheet</code><a class="headerlink" href="#Scene.sheet" title="Permalink to this definition">¶</a></dt>
 <dd><p>The Scene sheet is the singleton instance of SceneSheet</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="Scene.socketListeners">
-<code class="descclassname">Scene.</code><code class="descname">socketListeners</code><span class="sig-paren">(</span><em>socket</em><span class="sig-paren">)</span><a class="headerlink" href="#Scene.socketListeners" title="Permalink to this definition">¶</a></dt>
-<dd><p>Open socket listeners which transact Scene data</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>socket</strong> (<em>Socket</em>) – <div class="line-block">
-<div class="line">The socket.io connection</div>
-</div>
-</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="Scene.update">
-<code class="descclassname">Scene.</code><code class="descname">update</code><span class="sig-paren">(</span><em>data</em>, <em>push</em><span class="sig-paren">)</span><a class="headerlink" href="#Scene.update" title="Permalink to this definition">¶</a></dt>
-<dd><p>Modify scene update logic. If the updated scene is currently active, we need to re-draw the canvas</p>
 </dd></dl>
 
 <dl class="function">

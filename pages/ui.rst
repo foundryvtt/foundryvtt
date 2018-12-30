@@ -16,4 +16,5 @@ documentation on how to create Applications using this framework.
 
     apps/application.rst
     apps/dialog.rst
+    apps/notifications.rst
     apps/helpers.rst

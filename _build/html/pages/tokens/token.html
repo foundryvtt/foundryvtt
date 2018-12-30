@@ -250,14 +250,16 @@ If you plan to use it permanently you should emit a <code class="docutils litera
 
 <dl class="function">
 <dt id="Token.control">
-<code class="descclassname">Token.</code><code class="descname">control</code><span class="sig-paren">(</span><em>releaseOthers=true</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.control" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Token.</code><code class="descname">control</code><span class="sig-paren">(</span><em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.control" title="Permalink to this definition">¶</a></dt>
 <dd><p>Assume control over the Token, allowing for drag, movement, or rotation events to occur.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>releaseOthers</strong> (<em>Boolean</em>) – Optionally, you may force any other controlled tokens to be released.</li>
+<li><strong>options</strong> (<em>Object</em>) – Optional parameters which customize how control of the Token is acquired.</li>
+<li><strong>options.releaseOthers</strong> (<em>Boolean</em>) – Release any other controlled tokens first</li>
+<li><strong>options.initializeSight</strong> (<em>Boolean</em>) – Reinitialize the sight layer</li>
 </ul>
 </td>
 </tr>
@@ -323,6 +325,12 @@ For active Scenes, also remove the Token container from the canvas</p>
 <dt id="Token.dimRadius">
 <code class="descclassname">Token.</code><code class="descname">dimRadius</code><a class="headerlink" href="#Token.dimRadius" title="Permalink to this definition">¶</a></dt>
 <dd><p>Translate the token’s sight distance in units into a radius in pixels.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Token.draw">
+<code class="descclassname">Token.</code><code class="descname">draw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Token.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw the token completely from scratch</p>
 </dd></dl>
 
 <dl class="function">
@@ -397,6 +405,12 @@ For active Scenes, also remove the Token container from the canvas</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="Token.drawOverlay">
+<code class="descclassname">Token.</code><code class="descname">drawOverlay</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Token.drawOverlay" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw the token overlay icon which may optionally display a single overlay effect</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="Token.getLightRadius">
 <code class="descclassname">Token.</code><code class="descname">getLightRadius</code><span class="sig-paren">(</span><em>units</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.getLightRadius" title="Permalink to this definition">¶</a></dt>
 <dd><p>A generic transformation to turn a certain number of grid units into a radius in canvas pixels</p>
@@ -418,19 +432,13 @@ For active Scenes, also remove the Token container from the canvas</p>
 
 <dl class="function">
 <dt id="Token.getSightOrigin">
-<code class="descclassname">Token.</code><code class="descname">getSightOrigin</code><span class="sig-paren">(</span><em>position</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.getSightOrigin" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Token.</code><code class="descname">getSightOrigin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Token.getSightOrigin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the token’s sight origin, tailored for the direction of their movement velocity to break ties with walls</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>position</strong> – </li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Object</strong> –</p>
-</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>Object</strong> –</td>
 </tr>
 </tbody>
 </table>
@@ -518,7 +526,7 @@ TODO: If the token is in the middle of a moment animation, do not push the rotat
 
 <dl class="function">
 <dt id="Token.setPosition">
-<code class="descclassname">Token.</code><code class="descname">setPosition</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>snap=true</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.setPosition" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Token.</code><code class="descname">setPosition</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.setPosition" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the token’s position by comparing its center position vs the nearest grid vertex</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -527,7 +535,6 @@ TODO: If the token is in the middle of a moment animation, do not push the rotat
 <tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
 <li><strong>x</strong> (<em>Number</em>) – The x-coordinate of the token center</li>
 <li><strong>y</strong> (<em>Number</em>) – The y-coordinate of the token center</li>
-<li><strong>snap</strong> (<em>Boolean</em>) – Snap the token to the nearest grid square</li>
 </ul>
 </td>
 </tr>
@@ -572,8 +579,27 @@ TODO: If the token is in the middle of a moment animation, do not push the rotat
 </dd></dl>
 
 <dl class="function">
+<dt id="Token.shiftMany">
+<code class="descclassname">Token.</code><code class="descname">shiftMany</code><span class="sig-paren">(</span><em>dx</em>, <em>dy</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.shiftMany" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move many Tokens simultaneously, avoiding unnecessary re-draws of the Sight layer
+This moves all tokens individually using the Token.shiftPosition method and passes the noSight argument to update</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dx</strong> (<em>Number</em>) – The number of grid units to shift along the X-axis</li>
+<li><strong>dy</strong> (<em>Number</em>) – The number of grid units to shift along the Y-axis</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="Token.shiftPosition">
-<code class="descclassname">Token.</code><code class="descname">shiftPosition</code><span class="sig-paren">(</span><em>dx</em>, <em>dy</em>, <em>push=true</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.shiftPosition" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Token.</code><code class="descname">shiftPosition</code><span class="sig-paren">(</span><em>dx</em>, <em>dy</em>, <em>...args</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.shiftPosition" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform an incremental token movement, shifting the token’s position by some number of grid units.
 The offset parameters will move the token by that number of grid spaces in one or both directions.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -583,7 +609,7 @@ The offset parameters will move the token by that number of grid spaces in one o
 <tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
 <li><strong>dx</strong> (<em>Number</em>) – The number of grid units to shift along the X-axis</li>
 <li><strong>dy</strong> (<em>Number</em>) – The number of grid units to shift along the Y-axis</li>
-<li><strong>push</strong> (<em>Boolean</em>) – Whether or not to push the updated token position to other connected clients</li>
+<li><strong>args</strong> (<em>*</em>) – Additional arguments forwarded on to Token.update</li>
 </ul>
 </td>
 </tr>
@@ -641,7 +667,7 @@ Copy the existing Array in order to ensure the update method detects the data as
 
 <dl class="function">
 <dt id="Token.update">
-<code class="descclassname">Token.</code><code class="descname">update</code><span class="sig-paren">(</span><em>data</em>, <em>push=false</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.update" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Token.</code><code class="descname">update</code><span class="sig-paren">(</span><em>data</em>, <em>push=false</em>, <em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the Token with new data and push that update back to the server.</p>
 <p>New token data is either generated by the client or provided from the server through the <code class="docutils literal notranslate"><span class="pre">updateToken</span></code> socket.
 If the updated data is originated locally, it can be pushed back to the server and emitted to other clients.</p>
@@ -652,6 +678,7 @@ If the updated data is originated locally, it can be pushed back to the server a
 <tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
 <li><strong>data</strong> (<em>Object</em>) – The data object from which to update the token</li>
 <li><strong>push</strong> (<em>Boolean</em>) – Push the token update to the server</li>
+<li><strong>options</strong> (<em>Object</em>) – Additional options which customize the way the token is updated</li>
 </ul>
 </td>
 </tr>

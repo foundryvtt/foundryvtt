@@ -1,0 +1,344 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Sending Notifications &mdash; Foundry Virtual Tabletop Alpha 0.0.6 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Tabbed Navigation" href="helpers.html" />
+    <link rel="prev" title="Dialog Window" href="dialog.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Foundry Virtual Tabletop
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.6
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Foundry Virtual Tabletop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../features.html">Anticipated Features and Timelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../connection.html">Hosting and Connectivity Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../entities.html">Game Entities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../canvas.html">The Game Canvas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dice.html">Rolling Dice</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../ui.html">Creating UI Elements</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="application.html">The Application Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dialog.html">Dialog Window</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Sending Notifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="helpers.html">Tabbed Navigation</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Foundry Virtual Tabletop</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../ui.html">Creating UI Elements</a> &raquo;</li>
+        
+      <li>Sending Notifications</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/pages/apps/notifications.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="sending-notifications">
+<span id="notifications"></span><h1>Sending Notifications<a class="headerlink" href="#sending-notifications" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference internal" href="#Notifications" title="Notifications"><code class="xref js js-class docutils literal notranslate"><span class="pre">Notifications()</span></code></a> class provides an <a class="reference internal" href="application.html#Application" title="Application"><code class="xref js js-class docutils literal notranslate"><span class="pre">Application()</span></code></a> implementation which makes it easy to display
+contextual notifications to clients. There should only be a singleton instance of this class, so rather than creating
+your own instance please use the existing instance which is available as <cite>ui.notifications</cite>.</p>
+<dl class="class">
+<dt id="Notifications">
+<em class="property">class </em><code class="descname">Notifications</code><span class="sig-paren">(</span><em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#Notifications" title="Permalink to this definition">¶</a></dt>
+<dd><p>A common framework for displaying notifications to the client.
+Submitted notifications are added to a queue, and up to 3 notifications are displayed at once.
+Each notification is displayed for 5 seconds at which point further notifications are pulled from the queue.</p>
+<p><strong>Examples:</strong></p>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="nx">ui</span><span class="p">.</span><span class="nx">notifications</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s2">&quot;This is an info message&quot;</span><span class="p">);</span>
+<span class="nx">ui</span><span class="p">.</span><span class="nx">notifications</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s2">&quot;This is a warning message&quot;</span><span class="p">);</span>
+<span class="nx">ui</span><span class="p">.</span><span class="nx">notifications</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&quot;This is an error message&quot;</span><span class="p">);</span>
+<span class="nx">ui</span><span class="p">.</span><span class="nx">notifications</span><span class="p">.</span><span class="nx">info</span><span class="p">(</span><span class="s2">&quot;This is a 4th message which will not be shown until the first info message is done&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<dl class="attribute">
+<dt id="Notifications.active">
+<code class="descclassname">Notifications.</code><code class="descname">active</code><a class="headerlink" href="#Notifications.active" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> Array</p>
+<p>Notifications which are currently displayed</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Notifications.defaultOptions">
+<code class="descclassname">Notifications.</code><code class="descname">defaultOptions</code><a class="headerlink" href="#Notifications.defaultOptions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configure the default behavior of the notifications application</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Notifications.error">
+<code class="descclassname">Notifications.</code><code class="descname">error</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="headerlink" href="#Notifications.error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display a notification with the “error” type</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> (<em>String</em>) – The content of the notification message</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Notifications.info">
+<code class="descclassname">Notifications.</code><code class="descname">info</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="headerlink" href="#Notifications.info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display a notification with the “info” type</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> (<em>String</em>) – The content of the notification message</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Notifications.notify">
+<code class="descclassname">Notifications.</code><code class="descname">notify</code><span class="sig-paren">(</span><em>message</em>, <em>type</em><span class="sig-paren">)</span><a class="headerlink" href="#Notifications.notify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Push a new notification into the queue</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> (<em>String</em>) – The content of the notification message</li>
+<li><strong>type</strong> (<em>String</em>) – The type of notification, currently “info”, “warning”, and “error” are supported</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Notifications.queue">
+<code class="descclassname">Notifications.</code><code class="descname">queue</code><a class="headerlink" href="#Notifications.queue" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> Array</p>
+<p>Submitted notifications which are queued for display</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Notifications.warn">
+<code class="descclassname">Notifications.</code><code class="descname">warn</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="headerlink" href="#Notifications.warn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display a notification with the “warning” type</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> (<em>String</em>) – The content of the notification message</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="helpers.html" class="btn btn-neutral float-right" title="Tabbed Navigation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="dialog.html" class="btn btn-neutral" title="Dialog Window" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Foundry Gaming LLC.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'Alpha 0.0.6',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
