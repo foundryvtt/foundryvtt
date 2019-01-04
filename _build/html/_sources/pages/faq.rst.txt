@@ -8,7 +8,7 @@ making fast progress and the software is now in Alpha testing for groups of supp
 
 We are actively collecting feedback and working to continue improving the software for Beta testing which I hope will
 begin in early 2019. I currently anticipate that the first release version of the software will be ready by around 
-April, 2019.
+July, 2019.
 
 Opportunities to participate in Alpha or Beta testing phases is available by supporting the project on Patreon at
 https://patreon.com/foundryvtt.

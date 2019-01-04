@@ -260,7 +260,10 @@ The basic structure for a dice roll is a string formula and an object of data ag
 <span class="c1">// The parsed components of the roll formula</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">parts</span><span class="p">);</span>    <span class="c1">// [Die, +, 2, +, 4]</span>
 
-<span class="c1">// The resulting equation after it was parsed</span>
+<span class="c1">// Execute the roll</span>
+<span class="nx">r</span><span class="p">.</span><span class="nx">roll</span><span class="p">();</span>
+
+<span class="c1">// The resulting equation after it was rolled</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">result</span><span class="p">);</span>   <span class="c1">// 16 + 2 + 4</span>
 
 <span class="c1">// The total resulting from the roll</span>
@@ -285,18 +288,11 @@ The basic structure for a dice roll is a string formula and an object of data ag
 </table>
 <p><strong>Examples:</strong></p>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">r</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Roll</span><span class="p">(</span><span class="s2">&quot;4d8 + 4 + 2d4&quot;</span><span class="p">);</span>
-<span class="nx">r</span><span class="p">.</span><span class="nx">alter</span><span class="p">(</span><span class="s2">&quot;4d8 + 4 + 2d4&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="nx">r</span><span class="p">.</span><span class="nx">alter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
 <span class="nx">r</span><span class="p">.</span><span class="nx">formula</span><span class="p">;</span>
 <span class="o">&gt;</span> <span class="mi">9</span><span class="nx">d8</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">5</span><span class="nx">d4</span>
 </pre></div>
 </div>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Roll.arithmeticOperators">
-<code class="descclassname">Roll.</code><code class="descname">arithmeticOperators</code><a class="headerlink" href="#Roll.arithmeticOperators" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>type:</strong> Array.&lt;String&gt;</p>
-<p>Record supported arithmetic operators for Roll instances</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -311,13 +307,6 @@ The basic structure for a dice roll is a string formula and an object of data ag
 <code class="descclassname">Roll.</code><code class="descname">dice</code><a class="headerlink" href="#Roll.dice" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>type:</strong> Array</p>
 <p>Get an Array of any <code class="xref js js-class docutils literal notranslate"><span class="pre">Die()</span></code> objects which were rolled as part of the evaluation of this roll</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Roll.diceRgx">
-<code class="descclassname">Roll.</code><code class="descname">diceRgx</code><a class="headerlink" href="#Roll.diceRgx" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>type:</strong> String</p>
-<p>The regular expression used to identify a Die component of a Roll</p>
 </dd></dl>
 
 <dl class="attribute">
