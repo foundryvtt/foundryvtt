@@ -50,7 +50,7 @@ The Scenes Collection
 The Scene Class
 ===============
 
-..  autoclass:: Scene
+..  autoclass:: raw.Scene
     :members:
 
 ----

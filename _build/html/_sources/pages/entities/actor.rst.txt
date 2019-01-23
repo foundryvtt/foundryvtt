@@ -45,7 +45,7 @@ The Actors Collection
 The Actor Class
 ===============
 
-..  autoclass:: CONFIG.Actor
+..  autoclass:: raw.Actor
     :members:
 
 ----

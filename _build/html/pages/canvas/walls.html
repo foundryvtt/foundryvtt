@@ -209,30 +209,12 @@ the <a class="reference internal" href="#WallsLayer" title="WallsLayer"><code cl
 <dl class="class">
 <dt id="WallsLayer">
 <em class="property">class </em><code class="descname">WallsLayer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#WallsLayer" title="Permalink to this definition">¶</a></dt>
-<dd><p>A CanvasLayer responsible for drawing walls and computing sight</p>
+<dd><p>The Walls Layer Container which extends PlaceablesLayer to provide a layer of the primary game canvas</p>
 <dl class="function">
 <dt id="WallsLayer.activate">
 <code class="descclassname">WallsLayer.</code><code class="descname">activate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#WallsLayer.activate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override the activation behavior of the walls layer.
-When active, we show the walls with full opacity and make them interactive.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="WallsLayer.addWall">
-<code class="descclassname">WallsLayer.</code><code class="descname">addWall</code><span class="sig-paren">(</span><em>wallData</em><span class="sig-paren">)</span><a class="headerlink" href="#WallsLayer.addWall" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add a single new Wall to the Walls Layer without re-drawing all walls.
-Re-compute token visibility after the new wall is created.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>wallData</strong> (<em>Object</em>) – The data used to construct a new Wall</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
+<dd><p>Override the activation behavior of the PlaceablesLayer.
+While active, ambient sound previews are displayed.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -260,17 +242,32 @@ Vision-blocking walls include:</p>
 </ol>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="WallsLayer.dataArray">
+<code class="descclassname">WallsLayer.</code><code class="descname">dataArray</code><a class="headerlink" href="#WallsLayer.dataArray" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> Array</p>
+<p>Define the source data array underlying the placeable objects contained in this layer</p>
+</dd></dl>
+
 <dl class="function">
 <dt id="WallsLayer.deactivate">
 <code class="descclassname">WallsLayer.</code><code class="descname">deactivate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#WallsLayer.deactivate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override the deactivation behavior of the walls layer.
-When inactive, walls are mostly transparent and non-interactive.</p>
+<dd><p>Override the deactivation behavior of the PlaceablesLayer.
+When inactive, ambient sound previews are hidden from view.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="WallsLayer.doors">
+<code class="descclassname">WallsLayer.</code><code class="descname">doors</code><a class="headerlink" href="#WallsLayer.doors" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> Array</p>
+<p>An Array of Wall instances in the current Scene which act as Doors</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="WallsLayer.draw">
 <code class="descclassname">WallsLayer.</code><code class="descname">draw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#WallsLayer.draw" title="Permalink to this definition">¶</a></dt>
-<dd><p>Draw the WallsLayer, placing each wall exists in the scene</p>
+<dd><p>Draw the WallsLayer, placing each wall exists in the scene
+Draw each Wall within the scene as a child of the objects container</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -303,10 +300,17 @@ Used to shortcut calculation of line-of-sight</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="WallsLayer.placeableClass">
+<code class="descclassname">WallsLayer.</code><code class="descname">placeableClass</code><a class="headerlink" href="#WallsLayer.placeableClass" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> PIXI.Container</p>
+<p>Define a Container implementation used to render placeable objects contained in this layer</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="WallsLayer.walls">
 <code class="descclassname">WallsLayer.</code><code class="descname">walls</code><a class="headerlink" href="#WallsLayer.walls" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>type:</strong> PIXI.Container</p>
-<p>The Walls Container</p>
+<p>The Walls Container - just references objects array for backwards compatibility</p>
 </dd></dl>
 
 </dd></dl>

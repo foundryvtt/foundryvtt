@@ -11,8 +11,9 @@ used within Foundry Virtual Tabletop and the API layers which allow you to modif
     :name: entities
     :maxdepth: 1
 
+    entities/user
     entities/actor
     entities/item
     entities/scene
-    entities/audio
+    entities/playlist
     entities/compendium
