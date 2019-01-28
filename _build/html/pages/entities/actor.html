@@ -329,6 +329,67 @@ The actors collection is accessible within the game as <code class="docutils lit
 <dd><p>The Actor class is a type of <code class="xref js js-class docutils literal notranslate"><span class="pre">Entity()</span></code> which represents the protagonists, characters, enemies, and more that
 inhabit the World.</p>
 <dl class="function">
+<dt id="raw.Actor.Entity.create">
+<code class="descclassname">raw.Actor.Entity.</code><code class="descname">create</code><span class="sig-paren">(</span><em>data</em>, <em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Actor.Entity.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new entity using provided input data
+The data for entity creation is typically provided from the server through the ‘create&lt;Entity&gt;’ socket
+Alternatively, the creation event may originate locally and the new entity can be pushed back to the server</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>data</strong> (<em>Object</em>) – The data with which to create the entity</li>
+<li><strong>options</strong> (<em>Object</em>) – Additional options which customize the creation workflow</li>
+<li><strong>options.temporary</strong> (<em>Boolean</em>) – Create a temporary entity which is not saved to the world database. Default is false.</li>
+<li><strong>options.displaySheet</strong> (<em>Boolean</em>) – Show the configuration sheet for the created entity once it is created. Default is true.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Promise</strong> – A Promise which resolves to contain the created Entity</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="raw.Actor.Entity.update">
+<code class="descclassname">raw.Actor.Entity.</code><code class="descname">update</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Actor.Entity.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the current entity using new data
+This new data is typically provided from the server through the ‘update&lt;Entity&gt;’ socket
+Alternatively, the update may originate locally, in which case it can be pushed back to the server</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>data</strong> (<em>Object</em>) – The data with which to update the entity</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Promise</strong> – A Promise which resolves to the updated Entity</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="raw.Actor.Entity.delete">
+<code class="descclassname">raw.Actor.Entity.</code><code class="descname">delete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#raw.Actor.Entity.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete the entity, removing it from its collection and deleting its data record</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>Promise</strong> – A Promise which resolves to the ID of the deleted Entity once handled by the server</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="raw.Actor._onUpdate">
 <code class="descclassname">raw.Actor.</code><code class="descname">_onUpdate</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Actor._onUpdate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Additional updating steps for the Actor entity when new data is saved which trigger some related updates.</p>
@@ -491,12 +552,9 @@ The imported Item is then added to the Actor as an owned item.</p>
 <dt id="ActorSheet">
 <em class="property">class </em><code class="descname">ActorSheet</code><span class="sig-paren">(</span><em>actor</em>, <em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#ActorSheet" title="Permalink to this definition">¶</a></dt>
 <dd><p>The default Actor Sheet</p>
-<p>This is a <a class="reference internal" href="../apps/application.html#Application" title="Application"><code class="xref js js-class docutils literal notranslate"><span class="pre">Application()</span></code></a> that is responsible for rendering an actor’s attributes and allowing the actor
-to be edited.</p>
+<p>This Application is responsible for rendering an actor’s attributes and allowing the actor to be edited.</p>
 <p>System modifications may elect to override this class to better suit their own game system by re-defining the value
 <code class="docutils literal notranslate"><span class="pre">CONFIG.Actor.sheetClass</span></code>.</p>
-<p>For basic or aesthetic modifications, overriding this class entirely may not be necessary and you may simply wish
-to replace the default HTML template. This can be accomplished by re-defining <code class="docutils literal notranslate"><span class="pre">CONFIG.ActorSheet.template</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -529,9 +587,10 @@ These listeners handle basic stuff like form submission or updating images</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="ActorSheet.defaultOptions">
-<code class="descclassname">ActorSheet.</code><code class="descname">defaultOptions</code><a class="headerlink" href="#ActorSheet.defaultOptions" title="Permalink to this definition">¶</a></dt>
-<dd><p>Assign the default options which are supported by the CharacterSelect menu</p>
+<dt id="ActorSheet.actor">
+<code class="descclassname">ActorSheet.</code><code class="descname">actor</code><a class="headerlink" href="#ActorSheet.actor" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> Actor</p>
+<p>A convenience reference to the Actor entity</p>
 </dd></dl>
 
 <dl class="function">

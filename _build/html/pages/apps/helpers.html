@@ -92,6 +92,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../dice.html">Rolling Dice</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../ui.html">Creating UI Elements</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="application.html">The Application Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="forms.html">The Form Application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templating.html">Templating and Handlebars</a></li>
+<li class="toctree-l2"><a class="reference internal" href="templating.html#core-template-helpers">Core Template Helpers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dialog.html">Dialog Window</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notifications.html">Sending Notifications</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Tabbed Navigation</a></li>
@@ -186,36 +189,43 @@ Create one Tabs instance per tabbed navigation container in your application.</p
 </table>
 <p><strong>Examples:</strong></p>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span>&lt;!-- Example HTML --&gt;
-&lt;ol class=&quot;tabs&quot;&gt;
- &lt;li class=&quot;tab&quot; data-tab=&quot;tab1&quot;&gt;Tab 1&lt;/li&gt;
- &lt;li class=&quot;tab&quot; data-tab=&quot;tab2&quot;&gt;Tab 2&lt;/li&gt;
-&lt;/ol&gt;
+&lt;nav class=&quot;tabs&quot; data-group=&quot;group1&quot;&gt;
+ &lt;a class=&quot;item&quot; data-tab=&quot;tab1&quot;&gt;Tab 1&lt;/li&gt;
+ &lt;a class=&quot;item&quot; data-tab=&quot;tab2&quot;&gt;Tab 2&lt;/li&gt;
+&lt;/nav&gt;
 
-&lt;div class=&quot;content&quot; data-tab=&quot;tab1&quot;&gt;Content 1&lt;/div&gt;
-&lt;div class=&quot;content&quot; data-tab=&quot;tab2&quot;&gt;Content 2&lt;/div&gt;
+&lt;div class=&quot;tab&quot; data-tab=&quot;tab1&quot; data-group=&quot;group1&quot;&gt;Content 1&lt;/div&gt;
+&lt;div class=&quot;tab&quot; data-tab=&quot;tab2&quot; data-group=&quot;group1&quot;&gt;Content 2&lt;/div&gt;
 </pre></div>
 </div>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// JavaScript Listener</span>
-<span class="kd">let</span> <span class="nx">nav</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.tabs&#39;</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">tabs</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Tabs</span><span class="p">(</span><span class="nx">nav</span><span class="p">,</span> <span class="s2">&quot;tab1&quot;</span><span class="p">,</span> <span class="nx">t</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Tab ${t} was clicked&quot;</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">nav</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.tabs[data-group=&quot;group1&quot;]&#39;</span><span class="p">);</span>
+<span class="k">new</span> <span class="nx">Tabs</span><span class="p">(</span><span class="nx">nav</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">initial</span><span class="o">:</span> <span class="s2">&quot;tab1&quot;</span><span class="p">,</span>
+  <span class="nx">callback</span><span class="o">:</span> <span class="nx">t</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Tab ${t} was clicked&quot;</span><span class="p">)</span>
+<span class="p">});</span>
 </pre></div>
 </div>
-<dl class="function">
-<dt id="Tabs.activateTab">
-<code class="descclassname">Tabs.</code><code class="descname">activateTab</code><span class="sig-paren">(</span><em>tab</em><span class="sig-paren">)</span><a class="headerlink" href="#Tabs.activateTab" title="Permalink to this definition">¶</a></dt>
-<dd><p>Activate a tab by it’s name. This gets called automatically when a tab in the navigation is clicked,
-however you may also call this function directly.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>tab</strong> (<em>String</em>) – The name of the tab to activate</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
+<dl class="attribute">
+<dt id="Tabs.active">
+<code class="descclassname">Tabs.</code><code class="descname">active</code><a class="headerlink" href="#Tabs.active" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> jQuery</p>
+<p>The currently active tab</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Tabs.group">
+<code class="descclassname">Tabs.</code><code class="descname">group</code><a class="headerlink" href="#Tabs.group" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> jQuery</p>
+<p>The named tab group
+Retrieved as a property since the composition of the DOM may change over time</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Tabs.tabs">
+<code class="descclassname">Tabs.</code><code class="descname">tabs</code><a class="headerlink" href="#Tabs.tabs" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> jQuery</p>
+<p>The collection of tabs</p>
 </dd></dl>
 
 </dd></dl>

@@ -53,6 +53,10 @@ The Scene Class
 ..  autoclass:: raw.Scene
     :members:
 
+    .. autofunction:: Entity.create
+    .. autofunction:: Entity#update
+    .. autofunction:: Entity#delete
+
 ----
 
 The Scene Sheet

@@ -48,6 +48,10 @@ The Actor Class
 ..  autoclass:: raw.Actor
     :members:
 
+    .. autofunction:: Entity.create
+    .. autofunction:: Entity#update
+    .. autofunction:: Entity#delete
+
 ----
 
 The Actor Sheet

@@ -230,7 +230,7 @@
 
 <dl class="function">
 <dt id="User.Entity.create">
-<code class="descclassname">User.Entity.</code><code class="descname">create</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#User.Entity.create" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">User.Entity.</code><code class="descname">create</code><span class="sig-paren">(</span><em>data</em>, <em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#User.Entity.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a new entity using provided input data
 The data for entity creation is typically provided from the server through the ‘create&lt;Entity&gt;’ socket
 Alternatively, the creation event may originate locally and the new entity can be pushed back to the server</p>
@@ -240,6 +240,9 @@ Alternatively, the creation event may originate locally and the new entity can b
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
 <li><strong>data</strong> (<em>Object</em>) – The data with which to create the entity</li>
+<li><strong>options</strong> (<em>Object</em>) – Additional options which customize the creation workflow</li>
+<li><strong>options.temporary</strong> (<em>Boolean</em>) – Create a temporary entity which is not saved to the world database. Default is false.</li>
+<li><strong>options.displaySheet</strong> (<em>Boolean</em>) – Show the configuration sheet for the created entity once it is created. Default is true.</li>
 </ul>
 </td>
 </tr>

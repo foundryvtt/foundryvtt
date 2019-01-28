@@ -15,6 +15,8 @@ documentation on how to create Applications using this framework.
     :maxdepth: 1
 
     apps/application.rst
+    apps/forms.rst
+    apps/templating.rst
     apps/dialog.rst
     apps/notifications.rst
     apps/helpers.rst

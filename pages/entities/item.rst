@@ -52,8 +52,12 @@ The Items Collection
 The Item Class
 ===============
 
-..  autoclass:: CONFIG.Item
+..  autoclass:: raw.Item
     :members:
+
+    .. autofunction:: Entity.create
+    .. autofunction:: Entity#update
+    .. autofunction:: Entity#delete
 
 ----
 

@@ -279,36 +279,6 @@ and example usage of the Howl API.</p>
 <dd><p>Re-render any currently visible applications associated with this Collection</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="Playlists.play">
-<code class="descclassname">Playlists.</code><code class="descname">play</code><span class="sig-paren">(</span><em>data</em>, <em>push</em><span class="sig-paren">)</span><a class="headerlink" href="#Playlists.play" title="Permalink to this definition">¶</a></dt>
-<dd><p>Play a one-off sound effect which is not part of a Playlist</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>data</strong> (<em>Object</em>) – An object configuring the audio data to play</li>
-<li><strong>data.src</strong> (<em>String</em>) – The audio source file path, either a public URL or a local path relative to the public directory</li>
-<li><strong>data.volume</strong> (<em>Number</em>) – The volume level at which to play the audio, between 0 and 1.</li>
-<li><strong>data.autoplay</strong> (<em>Boolean</em>) – Begin playback of the audio effect immediately once it is loaded.</li>
-<li><strong>data.loop</strong> (<em>Boolean</em>) – Loop the audio effect and continue playing it until it is manually stopped.</li>
-<li><strong>push</strong> (<em>Boolean</em>) – Push the audio sound effect to other connected clients?</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Howl</strong> – A Howl instance which controls audio playback.</p>
-</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Examples:</strong></p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// Play the sound of a locked door for all players</span>
-<span class="nx">Audio</span><span class="p">.</span><span class="nx">play</span><span class="p">({</span><span class="nx">src</span><span class="o">:</span> <span class="s2">&quot;sounds/lock.wav&quot;</span><span class="p">,</span> <span class="nx">volume</span><span class="o">:</span> <span class="mf">0.8</span><span class="p">,</span> <span class="nx">autoplay</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">loop</span><span class="o">:</span> <span class="kc">false</span><span class="p">},</span> <span class="kc">true</span><span class="p">);</span>
-</pre></div>
-</div>
-</dd></dl>
-
 <dl class="attribute">
 <dt id="Playlists.playing">
 <code class="descclassname">Playlists.</code><code class="descname">playing</code><a class="headerlink" href="#Playlists.playing" title="Permalink to this definition">¶</a></dt>
