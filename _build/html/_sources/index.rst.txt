@@ -63,13 +63,11 @@ Foundry VTT attempts to innovate in several key areas.
     stored in an embedded database which means that even if you end up moving away from Foundry VTT in the future, you
     will still have all your data that you can migrate to a new platform.
 
-
-
 -----
 
 
-Hosting a Session
-=================
+Hosting Modes
+=============
 
 There are two primary means of hosting a game session in Foundry VTT.
 
@@ -105,3 +103,17 @@ As you are visiting the demo, please be aware of several key factors and ground 
 .. note:: The current Foundry VTT demo password is ``foundry``. This password may rotate if needed to prevent abuse.
 
 Those disclaimers aside, you can find the demo here: http://foundryvtt.com:30000
+
+
+-----
+
+Join our Discord
+================
+
+.. image:: http://ashenfoundry.s3.amazonaws.com/media/user_1/screen/discord_banner-2017-07-09.png
+    :target: https://discordapp.com/invite/DDBZUDf
+
+If you would like to get involved in Foundry Virtual Tabletop development and participate in conversation with an
+active group of fellow RPG enthusiasts, please join us in `Discord <https://discordapp.com/invite/DDBZUDf>`_.
+The Discord server is the best place to get daily updates on product development, learn about testing opportunities,
+and provide feedback on how Foundry VTT can achieve its greatest potential. Hope to see you there!
