@@ -250,12 +250,13 @@ drawn by the VTT</p>
 <dt id="Application.getData">
 <code class="descclassname">Application.</code><code class="descname">getData</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Application.getData" title="Permalink to this definition">¶</a></dt>
 <dd><p>An application should define the data object used to render its template.
+This function may either return an Object directly, or a Promise which resolves to an Object
 If undefined, the default implementation will return an empty object allowing only for rendering of static HTML</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>Object</strong> –</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>Object|Promise</strong> –</td>
 </tr>
 </tbody>
 </table>
@@ -285,7 +286,8 @@ wrapper window, otherwise only the inner app content is rendered</p>
 <dl class="function">
 <dt id="Application.render">
 <code class="descclassname">Application.</code><code class="descname">render</code><span class="sig-paren">(</span><em>force=false</em><span class="sig-paren">)</span><a class="headerlink" href="#Application.render" title="Permalink to this definition">¶</a></dt>
-<dd><p>Wrap the rendered application in a containing outer frame</p>
+<dd><p>Render the Application by evaluating it’s HTML template against the object of data provided by the getData method
+If the Application is rendered as a pop-out window, wrap the contained HTML in an outer frame with window controls</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

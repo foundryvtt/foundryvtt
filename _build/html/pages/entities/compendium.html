@@ -237,6 +237,13 @@ which provides the spells available within the SRD has the collection name “dn
 </pre></div>
 </div>
 <dl class="function">
+<dt id="Compendium._render">
+<code class="descclassname">Compendium.</code><code class="descname">_render</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Compendium._render" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override the default <a class="reference internal" href="../apps/application.html#Application" title="Application"><code class="xref js js-class docutils literal notranslate"><span class="pre">Application()</span></code></a> rendering logic to wrap the render call in a promise which
+retrieves the compendium data.</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="Compendium.close">
 <code class="descclassname">Compendium.</code><code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Compendium.close" title="Permalink to this definition">¶</a></dt>
 <dd><p>Customize Compendium closing behavior to toggle the sidebar folder status icon</p>
@@ -253,6 +260,21 @@ which provides the spells available within the SRD has the collection name “dn
 <code class="descclassname">Compendium.</code><code class="descname">entity</code><a class="headerlink" href="#Compendium.entity" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>type:</strong> String</p>
 <p>The Entity type which is allowed to be stored in this collection</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Compendium.getData">
+<code class="descclassname">Compendium.</code><code class="descname">getData</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Compendium.getData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the Compendium index as the data for rendering
+First query the server to obtain the index and then return it once prepared</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>Promise.Object</strong> – The data to render</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
@@ -328,14 +350,6 @@ Contains names and IDs of all data in the compendium</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="Compendium.index">
-<code class="descclassname">Compendium.</code><code class="descname">index</code><a class="headerlink" href="#Compendium.index" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>type:</strong> Array</p>
-<p>An index of data contained within this compendium.
-The index is empty until <code class="docutils literal notranslate"><span class="pre">getIndex()</span></code> is called.</p>
-</dd></dl>
-
-<dl class="attribute">
 <dt id="Compendium.metadata">
 <code class="descclassname">Compendium.</code><code class="descname">metadata</code><a class="headerlink" href="#Compendium.metadata" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>type:</strong> Object</p>
@@ -358,24 +372,6 @@ The index is empty until <code class="docutils literal notranslate"><span class=
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
 <li><strong>entryId</strong> (<em>String</em>) – The compendium entry ID to remove</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="Compendium.render">
-<code class="descclassname">Compendium.</code><code class="descname">render</code><span class="sig-paren">(</span><em>force=false</em><span class="sig-paren">)</span><a class="headerlink" href="#Compendium.render" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override the default <a class="reference internal" href="../apps/application.html#Application" title="Application"><code class="xref js js-class docutils literal notranslate"><span class="pre">Application()</span></code></a> rendering logic to wrap the render call in a promise which
-retrieves the compendium data.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>force</strong> (<em>Boolean</em>) – Render even if the app is not currently present in the DOM</li>
 </ul>
 </td>
 </tr>
