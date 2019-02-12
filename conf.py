@@ -76,6 +76,11 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'foundry.js']
 pygments_style = None
 
 
+# Load custom CSS file
+def setup(app):
+    app.add_stylesheet('fvtt.css')
+
+
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for

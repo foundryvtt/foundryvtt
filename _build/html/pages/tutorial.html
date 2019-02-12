@@ -1,0 +1,390 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Getting Started with FVTT &mdash; Foundry Virtual Tabletop Alpha 0.0.6 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/fvtt.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Game Entities" href="entities.html" />
+    <link rel="prev" title="Hosting and Connectivity Guide" href="connection.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Foundry Virtual Tabletop
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.6
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Foundry Virtual Tabletop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">Anticipated Features and Timelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="connection.html">Hosting and Connectivity Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started with FVTT</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation-and-application-setup">Installation and Application Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#worlds-systems-and-modules">Worlds, Systems, and Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-a-world">Creating a World</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#player-configuration">Player Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#first-steps-in-your-world">First Steps in your World</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-a-scene">Creating a Scene</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#creating-actors-and-placing-tokens">Creating Actors and Placing Tokens</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="entities.html">Game Entities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dice.html">Rolling Dice</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">Developer API Documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Foundry Virtual Tabletop</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Getting Started with FVTT</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/pages/tutorial.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="getting-started-with-fvtt">
+<h1>Getting Started with FVTT<a class="headerlink" href="#getting-started-with-fvtt" title="Permalink to this headline">¶</a></h1>
+<p>Foundry Virtual Tabletop is a powerful application with lots of features, so it can be overwhelming to a new
+game-master, even if you have previous experience using virtual tabletop software. This page attempts to walk you
+through the major concepts in Foundry VTT and guide you through the process of creating your first game-ready
+Scene.</p>
+<div class="contents local topic" id="tutorial-contents">
+<p class="topic-title first">Tutorial Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#installation-and-application-setup" id="id4">Installation and Application Setup</a></li>
+<li><a class="reference internal" href="#worlds-systems-and-modules" id="id5">Worlds, Systems, and Modules</a><ul>
+<li><a class="reference internal" href="#creating-a-world" id="id6">Creating a World</a></li>
+<li><a class="reference internal" href="#player-configuration" id="id7">Player Configuration</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#first-steps-in-your-world" id="id8">First Steps in your World</a><ul>
+<li><a class="reference internal" href="#creating-a-scene" id="id9">Creating a Scene</a></li>
+<li><a class="reference internal" href="#creating-actors-and-placing-tokens" id="id10">Creating Actors and Placing Tokens</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="installation-and-application-setup">
+<h2><a class="toc-backref" href="#tutorial-contents">Installation and Application Setup</a><a class="headerlink" href="#installation-and-application-setup" title="Permalink to this headline">¶</a></h2>
+<p>This page does not go into the installation process in detail. For instructions on how to set up the application and
+how to configure things for multi-player hosting please see the <a class="reference internal" href="connection.html#hosting"><span class="std std-ref">Hosting and Connectivity Guide</span></a>.</p>
+</div>
+<div class="section" id="worlds-systems-and-modules">
+<h2><a class="toc-backref" href="#tutorial-contents">Worlds, Systems, and Modules</a><a class="headerlink" href="#worlds-systems-and-modules" title="Permalink to this headline">¶</a></h2>
+<p>When first starting Foundry Virtual Tabletop, you will be prompted to create your first World. Each world is a
+collection of data and content which together defines the areas (Scenes), characters (Actors), things (Items), and
+more that your players will experience during the game. Each world is stored in it’s own named folder inside the
+<code class="docutils literal notranslate"><span class="pre">public/worlds</span></code> directory of your Foundry Virtual Tabletop folder.</p>
+<dl class="docutils">
+<dt>Game Systems</dt>
+<dd>Each World depends on one (and only one) game System. Each System defines key concepts, data structures, rules, and
+user interfaces which are specific to the game system being played. Example game systems would be <strong>Pathfinder</strong> or
+<strong>Savage Worlds</strong>.</dd>
+<dt>Modules</dt>
+<dd>At this point, it’s worth specifically mentioning the concept of a Module, and how they relate to Worlds and
+Systems. Each Module is an extension of a game System which contributes additional features, interfaces, tools, or
+content. Modules can range quite broadly from a quality of life enhancement suite which adds extra functionality
+to streamline running your game system to a specialized content pack that contributes a custom set of Scenes,
+Actors, or Items.</dd>
+</dl>
+<div class="section" id="creating-a-world">
+<h3><a class="toc-backref" href="#tutorial-contents">Creating a World</a><a class="headerlink" href="#creating-a-world" title="Permalink to this headline">¶</a></h3>
+<div class="figure" id="id1">
+<img alt="../_images/world-config.jpg" src="../_images/world-config.jpg" />
+<p class="caption"><span class="caption-text">This is the World configuration screen, used to create and update worlds.</span></p>
+</div>
+<p>When creating a new world, you must fill in some mandatory details. The world name is a human-readable string that may
+contain special characters. The file path to your world defines the subdirectory name within the <code class="docutils literal notranslate"><span class="pre">public/worlds</span></code>
+folder where your world will be saved.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The file path for your world will be used in web URLs, so it is best to adhere to common web standards in choosing
+this name. Avoid spaces or special characters, instead using hyphens to separate multiple terms.</p>
+</div>
+<p>You must choose the Game System that your world will use. Foundry VTT comes with some common game systems built-in,
+but more game systems are available through our excellent community of mod developers. To install a new game system,
+simply download the system definition and extract it within the <code class="docutils literal notranslate"><span class="pre">public/systems</span></code> folder. For a new system to be
+recognized by the software you must restart the application.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">A world’s game system cannot be changed once the world is created, since any data created in that world will use
+the data model and schema for that system.</p>
+</div>
+<p>Lastly, you may provide a text description of your World that can be used to keep track of details about the world or
+advertise it to potential players.</p>
+</div>
+<div class="section" id="player-configuration">
+<h3><a class="toc-backref" href="#tutorial-contents">Player Configuration</a><a class="headerlink" href="#player-configuration" title="Permalink to this headline">¶</a></h3>
+<p>One important final setup step is to create and configure the Users who will be joining your game. You should create
+a User record for each player you expect to join your game. Control of Actors and other permissions are configured at
+the User level, so having different users allows you to give players access to different content.</p>
+<div class="figure" id="id2">
+<img alt="../_images/player-config.jpg" src="../_images/player-config.jpg" />
+<p class="caption"><span class="caption-text">This is the Users configuration screen, used to create, edit, or delete User records.</span></p>
+</div>
+<p>Each user is assigned a permission level which controls what capabilities they will have within the Virtual Tabletop.
+Additionally each user can have an Access Key which defines a simple password that can be used to restrict access to
+each User.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The Access Keys used in Foundry Virtual Tabletop are NOT cryptographically secure. Please do not reuse any password
+that you also use for other important accounts or services.</p>
+</div>
+<p>In the above example, I have created three Users for my world: Sam, Jill, and Dan. Each user (including the Game-Master)
+has a different permission level assigned. Each permission level is described below:</p>
+<dl class="docutils">
+<dt>Gamemaster</dt>
+<dd>Users with the Gamemaster permission level have full control over the world and it’s data. Be cautious which users
+you allow to have GM permission, and it is advisable to assign an access key for any GM players.</dd>
+<dt>Player</dt>
+<dd>The most basic level of permission. Players can join the game and be given access to control or observe Actors and
+Items. Basic player accounts do not have some of the permissions which Trusted Players possess.</dd>
+<dt>Trusted Player</dt>
+<dd>A player flagged as “trusted” has some additional capabilities beyond that of an ordinary player. Trusted players
+can be allowed access to upload image files to the host’s file system (token artwork, for example). Trusted
+players are also allowed to place AoE measurement templates on the game canvas.</dd>
+<dt>Assistant Gamemaster</dt>
+<dd>An assistant GM is similar to a regular GameMaster, they can see the entire game canvas and can create or edit all
+content. Some permissions are limited, however: Assistant GMs are not allowed to delete Actors, Scenes, or Items.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="first-steps-in-your-world">
+<h2><a class="toc-backref" href="#tutorial-contents">First Steps in your World</a><a class="headerlink" href="#first-steps-in-your-world" title="Permalink to this headline">¶</a></h2>
+<p>Once you have created your World you can join the game using your GameMaster user. At this point, you have a blank
+canvas from which to create brand new content, or import content from modules and compendium packs. There are many
+possible paths to take in creating a World in Foundry Virtual Tabletop, for the purposes of this tutorial I will walk
+you through the typical order in which I would set things up, but feel free to explore or find your own path.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Whenever you load a new World, the game starts as Paused. This prevents players from immediately moving their
+Tokens. You can pause or un-pause the session at any time by pressing the spacebar.</p>
+</div>
+<div class="section" id="creating-a-scene">
+<h3><a class="toc-backref" href="#tutorial-contents">Creating a Scene</a><a class="headerlink" href="#creating-a-scene" title="Permalink to this headline">¶</a></h3>
+<p>My preferred first step in creating a new World is to start by setting up a Scene. Think of Scenes as the locations
+and maps that your players will explore. Scenes are displayed in the game canvas and contain objects used to populate
+and define the area like Tokens, Walls, Light Sources, Sounds, Event Triggers, and more.</p>
+<p>To create a new Scene, open the Scenes Directory (the map icon, 3rd from the left) in the sidebar on the right-side
+of the screen. At the bottom of the sidebar, you can create a new Scene directly, or first create a Folder which you
+can use to organize your Scenes into groups. You can always create Folders later and add existing scenes to them with
+mouse drag+drop.</p>
+<p>To learn all about Scenes and their settings please visit the following page: <a class="reference internal" href="entities/scene.html#scene"><span class="std std-ref">The Scene Entity</span></a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For this section of the tutorial, I recommend creating a Scene using a battle-map rather than a regional or world
+map, as that will make it easier to follow the tutorial. If you want to follow along exactly, you can use map
+shown in this tutorial which is available on
+<a class="reference external" href="https://www.deviantart.com/foundryatropos/art/Foundry-Tavern-at-Night-746759206/">DeviantArt</a>.</p>
+</div>
+<div class="figure" id="id3">
+<a class="reference external image-reference" href="../_static/images/tutorial-scene.jpg"><img alt="../_images/tutorial-scene.jpg" src="../_images/tutorial-scene.jpg" /></a>
+<p class="caption"><span class="caption-text">I have created an example Scene using the configuration options displayed above.</span></p>
+</div>
+<p>Once you have created a Scene, let’s first learn some basics of navigation. Click and drag with your right-mouse
+button to pan the scene, shifting the view of the background image. Use your mouse wheel (or touch zoom) to zoom in
+and out. Once you have a feel for basic Scene navigation, let’s learn how to populate the scene with Actors which will
+represent both player and non-player characters in this area of the world.</p>
+</div>
+<div class="section" id="creating-actors-and-placing-tokens">
+<h3><a class="toc-backref" href="#tutorial-contents">Creating Actors and Placing Tokens</a><a class="headerlink" href="#creating-actors-and-placing-tokens" title="Permalink to this headline">¶</a></h3>
+<p>TODO.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="entities.html" class="btn btn-neutral float-right" title="Game Entities" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="connection.html" class="btn btn-neutral" title="Hosting and Connectivity Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Foundry Gaming LLC.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'Alpha 0.0.6',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

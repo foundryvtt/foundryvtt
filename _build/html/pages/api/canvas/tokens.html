@@ -1,0 +1,1040 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The Tokens Layer &mdash; Foundry Virtual Tabletop Alpha 0.0.6 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/fvtt.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="The Dice Rolling API" href="../dice.html" />
+    <link rel="prev" title="The Walls Layer" href="walls.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Foundry Virtual Tabletop
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.6
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Foundry Virtual Tabletop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../features.html">Anticipated Features and Timelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../connection.html">Hosting and Connectivity Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Getting Started with FVTT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../entities.html">Game Entities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dice.html">Rolling Dice</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../api.html">Developer API Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../entities.html">Game Entities API</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../canvas.html">The Game Canvas</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="background.html">The Background Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grid.html">The Grid Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="walls.html">The Walls Layer</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">The Tokens Layer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#the-token-layer">The Token Layer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-token-object">The Token Object</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#token-status-effects">Token Status Effects</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../dice.html">The Dice Rolling API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ui.html">Creating UI Elements</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Foundry Virtual Tabletop</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../api.html">Developer API Documentation</a> &raquo;</li>
+        
+          <li><a href="../canvas.html">The Game Canvas</a> &raquo;</li>
+        
+      <li>The Tokens Layer</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/pages/api/canvas/tokens.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="the-tokens-layer">
+<span id="canvastokens"></span><h1>The Tokens Layer<a class="headerlink" href="#the-tokens-layer" title="Permalink to this headline">¶</a></h1>
+<p>The Tokens Layer is the middle layer of the tabletop Canvas and it contains all the Sprites which represent
+actors within the game space. Tokens are placed onto the Tokens Layer by dragging actors from the Actors
+Directory (in the right sidebar) onto the canvas.</p>
+<hr class="docutils" />
+<div class="section" id="the-token-layer">
+<h2>The Token Layer<a class="headerlink" href="#the-token-layer" title="Permalink to this headline">¶</a></h2>
+<p>All tokens which are rendered on the canvas are drawn as children of the <a class="reference internal" href="#TokenLayer" title="TokenLayer"><code class="xref js js-class docutils literal notranslate"><span class="pre">TokenLayer()</span></code></a>. The token layer may be
+accessed globally as <code class="docutils literal notranslate"><span class="pre">canvas.tokens</span></code> and provides the following API.</p>
+<dl class="class">
+<dt id="TokenLayer">
+<em class="property">class </em><code class="descname">TokenLayer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#TokenLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Token Container subclass of the PlaceablesLayer</p>
+<dl class="function">
+<dt id="TokenLayer.activate">
+<code class="descclassname">TokenLayer.</code><code class="descname">activate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#TokenLayer.activate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override the activation behavior of the PlaceablesLayer.
+This layer is never interactive</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="TokenLayer.controlledTokens">
+<code class="descclassname">TokenLayer.</code><code class="descname">controlledTokens</code><a class="headerlink" href="#TokenLayer.controlledTokens" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> Array</p>
+<p>An Array of tokens which are currently controlled</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="TokenLayer.dataArray">
+<code class="descclassname">TokenLayer.</code><code class="descname">dataArray</code><a class="headerlink" href="#TokenLayer.dataArray" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> Array</p>
+<p>Define the source data array underlying the placeable objects contained in this layer</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="TokenLayer.deactivate">
+<code class="descclassname">TokenLayer.</code><code class="descname">deactivate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#TokenLayer.deactivate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override the deactivation behavior of the PlaceablesLayer.
+Allow tokens to remain visible even when the layer is inactive</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="TokenLayer.draw">
+<code class="descclassname">TokenLayer.</code><code class="descname">draw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#TokenLayer.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw the TokenLayer.
+Draw each contained Token within the scene as a child of the objects container</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>TokenLayer</strong> –</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="TokenLayer.drawSelect">
+<code class="descclassname">TokenLayer.</code><code class="descname">drawSelect</code><span class="sig-paren">(</span><em>event</em><span class="sig-paren">)</span><a class="headerlink" href="#TokenLayer.drawSelect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw the select rectangle given an event originated within the base canvas layer</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>event</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="TokenLayer.ownedTokens">
+<code class="descclassname">TokenLayer.</code><code class="descname">ownedTokens</code><a class="headerlink" href="#TokenLayer.ownedTokens" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> Array</p>
+<p>An Array of tokens which belong to actors which are owned</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="TokenLayer.placeableClass">
+<code class="descclassname">TokenLayer.</code><code class="descname">placeableClass</code><a class="headerlink" href="#TokenLayer.placeableClass" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> PIXI.Container</p>
+<p>Define a Container implementation used to render placeable objects contained in this layer</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="TokenLayer.playerTokens">
+<code class="descclassname">TokenLayer.</code><code class="descname">playerTokens</code><a class="headerlink" href="#TokenLayer.playerTokens" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> Array</p>
+<p>An Array of tokens which belong to the impersonated character</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="TokenLayer.releaseAllTokens">
+<code class="descclassname">TokenLayer.</code><code class="descname">releaseAllTokens</code><span class="sig-paren">(</span><em>resetSight</em><span class="sig-paren">)</span><a class="headerlink" href="#TokenLayer.releaseAllTokens" title="Permalink to this definition">¶</a></dt>
+<dd><p>Release control of all tokens on the board</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="TokenLayer.select">
+<code class="descclassname">TokenLayer.</code><code class="descname">select</code><a class="headerlink" href="#TokenLayer.select" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> PIXI.Graphics</p>
+<p>Token Selection Rectangle</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="TokenLayer.selectTokens">
+<code class="descclassname">TokenLayer.</code><code class="descname">selectTokens</code><span class="sig-paren">(</span><em>coords</em><span class="sig-paren">)</span><a class="headerlink" href="#TokenLayer.selectTokens" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select all the tokens within a provided set of rectangular coordinates.
+Control any tokens within the area which you are able to control based on token permissions.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="TokenLayer.tokens">
+<code class="descclassname">TokenLayer.</code><code class="descname">tokens</code><a class="headerlink" href="#TokenLayer.tokens" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> Array</p>
+<p>An Array of all tokens which are present in the Scene</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<hr class="docutils" />
+<div class="section" id="the-token-object">
+<h2>The Token Object<a class="headerlink" href="#the-token-object" title="Permalink to this headline">¶</a></h2>
+<p>As a mod developer, you may find yourselves wanting to interact with the tokens which are active within a
+<code class="xref js js-class docutils literal notranslate"><span class="pre">Scene()</span></code> and are drawn within the <a class="reference internal" href="#TokenLayer" title="TokenLayer"><code class="xref js js-class docutils literal notranslate"><span class="pre">TokenLayer()</span></code></a>. The <a class="reference internal" href="#Token" title="Token"><code class="xref js js-class docutils literal notranslate"><span class="pre">Token()</span></code></a> class provides a rich API for
+interacting with these tokens.</p>
+<dl class="class">
+<dt id="Token">
+<em class="property">class </em><code class="descname">Token</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#Token" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of the Token class represents a character token rendered on the game canvas.
+Each Token is reference using a numeric <code class="docutils literal notranslate"><span class="pre">id</span></code> which indexes its position within the scene.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data</strong> (<em>Object</em>) – An object of token data which is used to construct a new Token.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="function">
+<dt id="Token._onCreate">
+<code class="descclassname">Token.</code><code class="descname">_onCreate</code><span class="sig-paren">(</span><em>sceneId</em>, <em>tokenData</em><span class="sig-paren">)</span><a class="headerlink" href="#Token._onCreate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handle token creation requests, adding the new token to the Scene data
+For active Scenes, also draw a new Token onto the canvas</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>sceneId</strong> (<em>String</em>) – The ID of the scene where the token is being created</li>
+<li><strong>tokenData</strong> (<em>Object</em>) – The data object from which to create the new token</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Token._onDelete">
+<code class="descclassname">Token.</code><code class="descname">_onDelete</code><span class="sig-paren">(</span><em>sceneId</em><span class="sig-paren">)</span><a class="headerlink" href="#Token._onDelete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handle token deletion requests, deleting the token by ID from the Scene data
+For active Scenes, also remove the Token container from the canvas</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>sceneId</strong> (<em>String</em>) – The ID of the scene where the token is being created</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Token._onUpdate">
+<code class="descclassname">Token.</code><code class="descname">_onUpdate</code><span class="sig-paren">(</span><em>sceneId</em>, <em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#Token._onUpdate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the Token with new data and push that update back to the server.</p>
+<p>New token data is either generated by the client or provided from the server through the <code class="docutils literal notranslate"><span class="pre">updateToken</span></code> socket.
+If the updated data is originated locally, it can be pushed back to the server and emitted to other clients.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>sceneId</strong> (<em>String</em>) – The ID of the scene where the token is being created</li>
+<li><strong>data</strong> (<em>Object</em>) – The data object from which to update new token</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Token.actor">
+<code class="descclassname">Token.</code><code class="descname">actor</code><a class="headerlink" href="#Token.actor" title="Permalink to this definition">¶</a></dt>
+<dd><p>If this token modifies an actor entry, retrieve it</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Token.brightRadius">
+<code class="descclassname">Token.</code><code class="descname">brightRadius</code><a class="headerlink" href="#Token.brightRadius" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translate the token’s bright light distance in units into a radius in pixels.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Token.canViewBars">
+<code class="descclassname">Token.</code><code class="descname">canViewBars</code><a class="headerlink" href="#Token.canViewBars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test whether the current User is able to view the Token resource bars</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Token.canViewNameplate">
+<code class="descclassname">Token.</code><code class="descname">canViewNameplate</code><a class="headerlink" href="#Token.canViewNameplate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test whether the current User is able to view the Token nameplate</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Token.center">
+<code class="descclassname">Token.</code><code class="descname">center</code><a class="headerlink" href="#Token.center" title="Permalink to this definition">¶</a></dt>
+<dd><p>Token position is defined by the top-left coordinate of the token’s image
+However, for some calculations it is useful to have coordinates for the token’s center.
+This attribute returns a object of coordinates <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> representing the center of the token’s icon.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Token.checkCollision">
+<code class="descclassname">Token.</code><code class="descname">checkCollision</code><span class="sig-paren">(</span><em>moveData</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.checkCollision" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check for collision when attempting a move to a new position</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>moveData</strong> (<em>Object</em>) – An Object containing data for the attempted movement</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Boolean</strong> – A true/false indicator for whether the attempted movement caused a collision</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Token.clone">
+<code class="descclassname">Token.</code><code class="descname">clone</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Token.clone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy the Token, returning a new PIXI.Container with identical attributes
+The returned Token is non-interactive, and has no Id
+If you plan to use it permanently you should emit a <code class="docutils literal notranslate"><span class="pre">tokenCreate</span></code> event</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>Token</strong> – A new non-interactive Token sprite</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Token.control">
+<code class="descclassname">Token.</code><code class="descname">control</code><span class="sig-paren">(</span><em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.control" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assume control over the Token, allowing for drag, movement, or rotation events to occur.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>options</strong> (<em>Object</em>) – Optional parameters which customize how control of the Token is acquired.</li>
+<li><strong>options.releaseOthers</strong> (<em>Boolean</em>) – Release any other controlled tokens first</li>
+<li><strong>options.initializeSight</strong> (<em>Boolean</em>) – Reinitialize the sight layer</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Boolean</strong> – A Boolean flag denoting whether or not token control was successful.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Token.degrees">
+<code class="descclassname">Token.</code><code class="descname">degrees</code><a class="headerlink" href="#Token.degrees" title="Permalink to this definition">¶</a></dt>
+<dd><p>The icon rotation of a token is typically expressed in radians.
+For some use cases it is convenient to express that rotation in degrees.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Token.dimRadius">
+<code class="descclassname">Token.</code><code class="descname">dimRadius</code><a class="headerlink" href="#Token.dimRadius" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translate the token’s sight distance in units into a radius in pixels.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Token.draw">
+<code class="descclassname">Token.</code><code class="descname">draw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Token.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw the Token completely from scratch</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>Token</strong> –</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Token.drawBars">
+<code class="descclassname">Token.</code><code class="descname">drawBars</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Token.drawBars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw the token resource bar, if enabled</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>PIXI.Container</strong> – The resource bars for the Token</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Token.drawBorder">
+<code class="descclassname">Token.</code><code class="descname">drawBorder</code><span class="sig-paren">(</span><em>color</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.drawBorder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw rectangular token border</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>color</strong> (<em>Number</em>) – A hex color code</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>PIXI.Graphics</strong> – The rectangular Token border</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Token.drawControls">
+<code class="descclassname">Token.</code><code class="descname">drawControls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Token.drawControls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw the quick controls menu to the right side of the token. Quick controls allow for the following actions:</p>
+<ol class="arabic simple">
+<li>Toggle token visibility</li>
+<li>Add or remove token status effects</li>
+<li>Add or remove the token from the current combat encounter</li>
+</ol>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>PIXI.Container</strong> – A container which includes the Token quick control icons as children</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Token.drawEffects">
+<code class="descclassname">Token.</code><code class="descname">drawEffects</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Token.drawEffects" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw a container for token status effects on the left side of the Token</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>PIXI.Container</strong> –</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Token.drawIcon">
+<code class="descclassname">Token.</code><code class="descname">drawIcon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Token.drawIcon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw the token icon</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>PIXI.Sprite</strong> – The sprite icon for the token</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Token.drawNameplate">
+<code class="descclassname">Token.</code><code class="descname">drawNameplate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Token.drawNameplate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw the token’s nameplate as a text object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>PIXI.Text</strong> – The Text object for the Token nameplate</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Token.drawOverlay">
+<code class="descclassname">Token.</code><code class="descname">drawOverlay</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Token.drawOverlay" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw the token overlay icon which may optionally display a single overlay effect</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>PIXI.Container</strong> –</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Token.getLightRadius">
+<code class="descclassname">Token.</code><code class="descname">getLightRadius</code><span class="sig-paren">(</span><em>units</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.getLightRadius" title="Permalink to this definition">¶</a></dt>
+<dd><p>A generic transformation to turn a certain number of grid units into a radius in canvas pixels</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>units</strong> (<em>Number</em>) – The radius in grid units</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>number</strong> – The radius in canvas units</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Token.getSightOrigin">
+<code class="descclassname">Token.</code><code class="descname">getSightOrigin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Token.getSightOrigin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the token’s sight origin, tailored for the direction of their movement velocity to break ties with walls</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>Object</strong> –</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Token.h">
+<code class="descclassname">Token.</code><code class="descname">h</code><a class="headerlink" href="#Token.h" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> Number</p>
+<p>Translate the token’s grid height into a pixel height based on the canvas size</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Token.inCombat">
+<code class="descclassname">Token.</code><code class="descname">inCombat</code><a class="headerlink" href="#Token.inCombat" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> Boolean</p>
+<p>An indicator for whether or not this token is currently involved in the active combat encounter.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Token.isVisible">
+<code class="descclassname">Token.</code><code class="descname">isVisible</code><a class="headerlink" href="#Token.isVisible" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> Boolean</p>
+<p>Determine whether the Token is visible to the calling user’s perspective.
+If the user is a GM, all tokens are visible
+If the user is a player, owned tokens which are not hidden are visible
+Otherwise only tokens which are within the vision polygon are visible.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Token.layer">
+<code class="descclassname">Token.</code><code class="descname">layer</code><a class="headerlink" href="#Token.layer" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> PlaceablesLayer</p>
+<p>Provide a reference to the canvas layer which contains placeable objects of this type</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Token.limitMovement">
+<code class="descclassname">Token.</code><code class="descname">limitMovement</code><span class="sig-paren">(</span><em>start</em>, <em>end</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.limitMovement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a requested movement position, return an equivalent object with x and y coordinates limited by the token’s
+visible radius.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>start</strong> (<em>Object</em>) – The initial location</li>
+<li><strong>end</strong> (<em>Object</em>) – The attempted destination</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Object</strong> – The allowed movement coordinates</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Token.name">
+<code class="descclassname">Token.</code><code class="descname">name</code><a class="headerlink" href="#Token.name" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> String</p>
+<p>Convenience access to the token’s nameplate string</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Token.owner">
+<code class="descclassname">Token.</code><code class="descname">owner</code><a class="headerlink" href="#Token.owner" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Boolean flag for whether the current game User has permission to control this token</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Token.release">
+<code class="descclassname">Token.</code><code class="descname">release</code><span class="sig-paren">(</span><em>resetSight</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.release" title="Permalink to this definition">¶</a></dt>
+<dd><p>Release player control of the token, unsubscribing to drag, movement, or rotation events.
+Return a Boolean for whether the token release was successful.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>resetSight</strong> (<em>Boolean</em>) – Trigger a re-initialization of the sight layer, this may not be necessary</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Token.rotate">
+<code class="descclassname">Token.</code><code class="descname">rotate</code><span class="sig-paren">(</span><em>delta</em>, <em>snap=false</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.rotate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Incrementally shift the token’s rotation by some delta degrees</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>delta</strong> (<em>Number</em>) – An offset of rotation in degrees</li>
+<li><strong>snap</strong> (<em>Boolean</em>) – Snap rotation to the closest 45 degree increment</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Token.rotateMany">
+<code class="descclassname">Token.</code><code class="descname">rotateMany</code><span class="sig-paren">(</span><em>offsets</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.rotateMany" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start from facing south [0, 1] with angle 0
+Work clockwise, moving first to south-west [-1, 1]</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>offsets</strong> (<em>Array</em>) – The keyboard offset directions in which movement is requested</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Token.setPosition">
+<code class="descclassname">Token.</code><code class="descname">setPosition</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.setPosition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the token’s position by comparing its center position vs the nearest grid vertex</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> (<em>Number</em>) – The x-coordinate of the token center</li>
+<li><strong>y</strong> (<em>Number</em>) – The y-coordinate of the token center</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Token.setRotation">
+<code class="descclassname">Token.</code><code class="descname">setRotation</code><span class="sig-paren">(</span><em>angle</em>, <em>snap</em>, <em>push</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.setRotation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the token’s rotation by providing an angle in degrees, internally converting to the radians that PIXI uses</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>angle</strong> – </li>
+<li><strong>snap</strong> – </li>
+<li><strong>push</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Token.setVisibility">
+<code class="descclassname">Token.</code><code class="descname">setVisibility</code><span class="sig-paren">(</span><em>hidden</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.setVisibility" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modify the token’s current visibility. Tokens which are hidden are only visible to GM users.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>hidden</strong> (<em>Boolean</em>) – The new visibility status which should be applied to the token.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Token.shiftMany">
+<code class="descclassname">Token.</code><code class="descname">shiftMany</code><span class="sig-paren">(</span><em>dx</em>, <em>dy</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.shiftMany" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move many Tokens simultaneously, avoiding unnecessary re-draws of the Sight layer
+This moves all tokens individually using the Token.shiftPosition method and passes the noSight argument to update</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dx</strong> (<em>Number</em>) – The number of grid units to shift along the X-axis</li>
+<li><strong>dy</strong> (<em>Number</em>) – The number of grid units to shift along the Y-axis</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Token.shiftPosition">
+<code class="descclassname">Token.</code><code class="descname">shiftPosition</code><span class="sig-paren">(</span><em>dx</em>, <em>dy</em>, <em>...args</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.shiftPosition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform an incremental token movement, shifting the token’s position by some number of grid units.
+The offset parameters will move the token by that number of grid spaces in one or both directions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dx</strong> (<em>Number</em>) – The number of grid units to shift along the X-axis</li>
+<li><strong>dy</strong> (<em>Number</em>) – The number of grid units to shift along the Y-axis</li>
+<li><strong>args</strong> (<em>*</em>) – Additional arguments forwarded on to Token.update</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Token.toggleCombat">
+<code class="descclassname">Token.</code><code class="descname">toggleCombat</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Token.toggleCombat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add current Token to, or remove from the current set of combat participants</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Token.toggleControl">
+<code class="descclassname">Token.</code><code class="descname">toggleControl</code><span class="sig-paren">(</span><em>control</em>, <em>isActive</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.toggleControl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Toggle the control buttons active state - rendering the icon and border differently for active vs. inactive</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>control</strong> (<em>PIXI.Container</em>) – <div class="line-block">
+<div class="line">The control icon to toggle the appearance for</div>
+</div>
+</li>
+<li><strong>isActive</strong> (<em>Boolean</em>) – <div class="line-block">
+<div class="line">The new active state for the control</div>
+</div>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Token.toggleEffect">
+<code class="descclassname">Token.</code><code class="descname">toggleEffect</code><span class="sig-paren">(</span><em>texture</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.toggleEffect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Toggle an active effect by it’s texture path.
+Copy the existing Array in order to ensure the update method detects the data as changed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>texture</strong> (<em>String</em>) – The texture file-path of the effect icon to toggle on the Token.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Token.toggleOverlay">
+<code class="descclassname">Token.</code><code class="descname">toggleOverlay</code><span class="sig-paren">(</span><em>texture</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.toggleOverlay" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set or remove the overlay texture for the Token by providing a new texture path</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>texture</strong> (<em>String</em>) – The texture file-path of the effect to set as the Token overlay icon</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Token.w">
+<code class="descclassname">Token.</code><code class="descname">w</code><a class="headerlink" href="#Token.w" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> Number</p>
+<p>Translate the token’s grid width into a pixel width based on the canvas size</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<hr class="docutils" />
+<div class="section" id="token-status-effects">
+<h2>Token Status Effects<a class="headerlink" href="#token-status-effects" title="Permalink to this headline">¶</a></h2>
+<p>Mod developers may want to customize the set of status effects which can be applied to tokens. The game system provides
+the flexibility to accomplish this by interacting with the <a class="reference internal" href="#TokenEffects" title="TokenEffects"><code class="xref js js-class docutils literal notranslate"><span class="pre">TokenEffects()</span></code></a> class.</p>
+<dl class="class">
+<dt id="TokenEffects">
+<em class="property">class </em><code class="descname">TokenEffects</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#TokenEffects" title="Permalink to this definition">¶</a></dt>
+<dd><p>A singleton canvas element which allows the player to assign status effect icons to tokens they control.
+Whenever a player wants to assign status effect icons to a token we just reposition the same container.</p>
+<p>Mod developers can customize the set of icons which are valid token status effects by altering the
+<code class="docutils literal notranslate"><span class="pre">CONFIG.statusEffects</span></code> Array.</p>
+<dl class="function">
+<dt id="TokenEffects.activate">
+<code class="descclassname">TokenEffects.</code><code class="descname">activate</code><span class="sig-paren">(</span><em>token</em><span class="sig-paren">)</span><a class="headerlink" href="#TokenEffects.activate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Activate the TokenEffects ui and display it next to the specified token.
+Set the token that the interface is actively modifying to direct click events on the effect icons.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>token</strong> (<a class="reference internal" href="#Token" title="Token"><em>Token</em></a>) – The Token next to which the status effects icons should be displayed</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="TokenEffects.deactivate">
+<code class="descclassname">TokenEffects.</code><code class="descname">deactivate</code><span class="sig-paren">(</span><em>token</em><span class="sig-paren">)</span><a class="headerlink" href="#TokenEffects.deactivate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hide the TokenEffects container from view and unset the active token that it modifies.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../dice.html" class="btn btn-neutral float-right" title="The Dice Rolling API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="walls.html" class="btn btn-neutral" title="The Walls Layer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Foundry Gaming LLC.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'Alpha 0.0.6',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

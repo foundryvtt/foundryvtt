@@ -1,0 +1,256 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The Game Canvas &mdash; Foundry Virtual Tabletop Alpha 0.0.6 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/fvtt.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="The Background Layer" href="canvas/background.html" />
+    <link rel="prev" title="Compendium Content Packs" href="entities/compendium.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Foundry Virtual Tabletop
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.6
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Foundry Virtual Tabletop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../features.html">Anticipated Features and Timelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../connection.html">Hosting and Connectivity Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Getting Started with FVTT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../entities.html">Game Entities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dice.html">Rolling Dice</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">Developer API Documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="entities.html">Game Entities API</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">The Game Canvas</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="canvas/background.html">The Background Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="canvas/grid.html">The Grid Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="canvas/walls.html">The Walls Layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="canvas/tokens.html">The Tokens Layer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dice.html">The Dice Rolling API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ui.html">Creating UI Elements</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Foundry Virtual Tabletop</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../api.html">Developer API Documentation</a> &raquo;</li>
+        
+      <li>The Game Canvas</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/pages/api/canvas.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="the-game-canvas">
+<span id="canvas"></span><h1>The Game Canvas<a class="headerlink" href="#the-game-canvas" title="Permalink to this headline">¶</a></h1>
+<p>The virtual tabletop environment in Foundry VTT is implemented using an HTML5 canvas.
+The canvas itself is constructed using an ordered sequence of layers.
+Understanding the canvas layers will be helpful when building within the application.</p>
+<div class="toctree-wrapper compound" id="canvas-layers">
+<p class="caption"><span class="caption-text">Canvas Layers</span><a class="headerlink" href="#canvas-layers" title="Permalink to this toctree">¶</a></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="canvas/background.html">The Background Layer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="canvas/grid.html">The Grid Layer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="canvas/walls.html">The Walls Layer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="canvas/tokens.html">The Tokens Layer</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="canvas/background.html" class="btn btn-neutral float-right" title="The Background Layer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="entities/compendium.html" class="btn btn-neutral" title="Compendium Content Packs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Foundry Gaming LLC.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'Alpha 0.0.6',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

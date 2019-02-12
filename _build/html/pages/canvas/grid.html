@@ -26,10 +26,9 @@
 
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/fvtt.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="The Walls Layer" href="walls.html" />
-    <link rel="prev" title="The Background Layer" href="background.html" /> 
+    <link rel="search" title="Search" href="../../search.html" /> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -83,25 +82,14 @@
             
             
               <p class="caption"><span class="caption-text">Table of Contents</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../index.html">Foundry Virtual Tabletop</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../features.html">Anticipated Features and Timelines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../connection.html">Hosting and Connectivity Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Getting Started with FVTT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../entities.html">Game Entities</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../canvas.html">The Game Canvas</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="background.html">The Background Layer</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">The Grid Layer</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#scene-configuration">Scene Configuration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#grid-layer-api">Grid Layer API</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="walls.html">The Walls Layer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tokens.html">The Tokens Layer</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../dice.html">Rolling Dice</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ui.html">Creating UI Elements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">Foundry Virtual Tabletop API Documentation</a></li>
 </ul>
 
             
@@ -147,8 +135,6 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../canvas.html">The Game Canvas</a> &raquo;</li>
-        
       <li>The Grid Layer</li>
     
     
@@ -175,30 +161,6 @@ orienting and segmenting the game space into grid spaces. Currently only a squar
 grid support is flagged as a feature for work during Beta development.</p>
 <p>The Grid provides convenience tools for measuring distance, restricting token movement, and providing guide
 lines for anchoring wall segments or other canvas features.</p>
-<div class="section" id="scene-configuration">
-<h2>Scene Configuration<a class="headerlink" href="#scene-configuration" title="Permalink to this headline">¶</a></h2>
-<p>When configuring a <strong>Scene</strong>, there are a number of fields underneath the <strong>Grid</strong> section which controls how
-the grid is measured and rendered.</p>
-<img alt="../../_images/scene-configuration.jpg" src="../../_images/scene-configuration.jpg" />
-<p>Each Grid option is described below:</p>
-<dl class="docutils">
-<dt>Grid Size</dt>
-<dd>The pixel dimensions of each grid square.</dd>
-<dt>Grid Distance</dt>
-<dd>The amount of in-game distance each grid square represents.</dd>
-<dt>Grid Units</dt>
-<dd>The units of measure for the grid distance.</dd>
-<dt>Grid Color</dt>
-<dd>The color with which the grid lines are displayed.</dd>
-<dt>Grid Opacity</dt>
-<dd>The level of transparency of the grid lines. Less opacity results in a more transparent grid.</dd>
-</dl>
-<p>In the <strong>Thieves’ Den</strong> scene we use a 70 pixel grid (for compatibility with Roll20). This results in a 28 by 30
-grid which overlays the map image. The grid lines are drawn in white color, but with a low opacity making them
-only faintly rendered against the background image.</p>
-</div>
-<div class="section" id="grid-layer-api">
-<h2>Grid Layer API<a class="headerlink" href="#grid-layer-api" title="Permalink to this headline">¶</a></h2>
 <p>Mod developers may wish to interact with or manipulate this layer and can do so using the singleton instance of
 the <a class="reference internal" href="#GridLayer" title="GridLayer"><code class="xref js js-class docutils literal notranslate"><span class="pre">GridLayer()</span></code></a> class which is accessible from within the client as <code class="docutils literal notranslate"><span class="pre">canvas.grid</span></code>.</p>
 <dl class="class">
@@ -279,22 +241,12 @@ the <a class="reference internal" href="#GridLayer" title="GridLayer"><code clas
 </dd></dl>
 
 </div>
-</div>
 
 
            </div>
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="walls.html" class="btn btn-neutral float-right" title="The Walls Layer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="background.html" class="btn btn-neutral" title="The Background Layer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

@@ -1,0 +1,32 @@
+.. _userAPI:
+
+The User Entity
+***************
+
+Each connected client corresponds to a :class:`User` instance. Control of Actors and other permissions are configured
+at the User level, so having different users allows you to give players access to different content. Each user is
+assigned a permission level which controls what capabilities they will have within the Virtual Tabletop.
+
+----
+
+The Users Collection
+====================
+
+..  autoclass:: Users
+    :members:
+
+    .. autofunction:: Collection#insert
+    .. autofunction:: Collection#remove
+    .. autofunction:: Collection#get
+
+----
+
+The User Instance
+=================
+
+..  autoclass:: User
+    :members:
+
+    .. autofunction:: Entity.create
+    .. autofunction:: Entity#update
+    .. autofunction:: Entity#delete

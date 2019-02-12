@@ -26,10 +26,11 @@
 
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/fvtt.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Creating UI Elements" href="ui.html" />
-    <link rel="prev" title="Token Status Effects" href="tokens/effects.html" /> 
+    <link rel="next" title="Developer API Documentation" href="api.html" />
+    <link rel="prev" title="Compendium Packs" href="entities/compendium.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -88,8 +89,8 @@
 <li class="toctree-l1"><a class="reference internal" href="features.html">Anticipated Features and Timelines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="connection.html">Hosting and Connectivity Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Getting Started with FVTT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="entities.html">Game Entities</a></li>
-<li class="toctree-l1"><a class="reference internal" href="canvas.html">The Game Canvas</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Rolling Dice</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#basic-rolls">Basic Rolls</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#keep-or-drop-results">Keep or Drop Results</a></li>
@@ -98,10 +99,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#count-successes">Count Successes</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#dice-roll-api">Dice Roll API</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="ui.html">Creating UI Elements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">Developer API Documentation</a></li>
 </ul>
 
             
@@ -174,9 +174,11 @@ macros which are provided by Foundry VTT. The software has a rich underlying API
 <h2>Basic Rolls<a class="headerlink" href="#basic-rolls" title="Permalink to this headline">¶</a></h2>
 <p>For basic dice rolls, you and your players will most frequently type a <cite>formula</cite> in chat which is automatically parsed
 and evaluated to display a dice roll result. Dice roll formulas begin with either <cite>/roll</cite> or <cite>/r</cite> for short. The
-syntax for a basic roll imitates common RPGs where <code class="docutils literal notranslate"><span class="pre">/roll</span> <span class="pre">ydX</span></code> would roll an X-sided die y times. For example, to
-roll five six-sided dice (d6):</p>
-<p><code class="docutils literal notranslate"><span class="pre">/roll</span> <span class="pre">5d6</span></code></p>
+syntax for a basic roll imitates common RPGs where <code class="docutils literal notranslate"><span class="pre">/roll</span> <span class="pre">ydX</span></code> would roll an X-sided die y times. For example,
+<code class="docutils literal notranslate"><span class="pre">/roll</span> <span class="pre">5d6</span></code> would roll five six-sided dice (d6). Generally:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">/roll</span> <span class="pre">{N}d{S}</span></code> Roll <code class="docutils literal notranslate"><span class="pre">N</span></code> dice with <code class="docutils literal notranslate"><span class="pre">S</span></code> sides each and return the total result.</li>
+</ul>
 <p>Dice rolls also accept modifiers after the roll which alter the behavior of the group of rolled dice. In general, roll
 modifiers work by adding extra syntax on to the end of the roll, <code class="docutils literal notranslate"><span class="pre">/roll</span> <span class="pre">ydX{mods}</span></code>.</p>
 <div class="section" id="keep-or-drop-results">
@@ -228,168 +230,6 @@ have been rolled.</p>
 </ul>
 </div>
 </div>
-<hr class="docutils" />
-<div class="section" id="dice-roll-api">
-<h2>Dice Roll API<a class="headerlink" href="#dice-roll-api" title="Permalink to this headline">¶</a></h2>
-<p>For mod developers, you may want to customize in-depth the behavior of dice rolling. You can interact directly with
-the Roll API by creating instances of the <a class="reference internal" href="#Roll" title="Roll"><code class="xref js js-class docutils literal notranslate"><span class="pre">Roll()</span></code></a> class.</p>
-<dl class="class">
-<dt id="Roll">
-<em class="property">class </em><code class="descname">Roll</code><span class="sig-paren">(</span><em>formula</em>, <em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#Roll" title="Permalink to this definition">¶</a></dt>
-<dd><p>This class provides the basic API for conducting dice rolls.
-The basic structure for a dice roll is a string formula and an object of data against which to parse it.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>formula</strong> (<em>String</em>) – The string formula to parse</li>
-<li><strong>data</strong> (<em>Object</em>) – The data object against which to parse attributes within the formula</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Roll</strong> – An evaluated Roll object</p>
-</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Examples:</strong></p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// Attack with advantage!</span>
-<span class="kd">let</span> <span class="nx">r</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Roll</span><span class="p">(</span><span class="s2">&quot;2d20kh + @prof + @strMod&quot;</span><span class="p">,</span> <span class="p">{</span><span class="nx">prof</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">strMod</span><span class="o">:</span> <span class="mi">4</span><span class="p">});</span>
-
-<span class="c1">// The parsed components of the roll formula</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">parts</span><span class="p">);</span>    <span class="c1">// [Die, +, 2, +, 4]</span>
-
-<span class="c1">// Execute the roll</span>
-<span class="nx">r</span><span class="p">.</span><span class="nx">roll</span><span class="p">();</span>
-
-<span class="c1">// The resulting equation after it was rolled</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">result</span><span class="p">);</span>   <span class="c1">// 16 + 2 + 4</span>
-
-<span class="c1">// The total resulting from the roll</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">total</span><span class="p">);</span>    <span class="c1">// 22</span>
-</pre></div>
-</div>
-<dl class="function">
-<dt id="Roll.alter">
-<code class="descclassname">Roll.</code><code class="descname">alter</code><span class="sig-paren">(</span><em>add</em>, <em>multiply</em><span class="sig-paren">)</span><a class="headerlink" href="#Roll.alter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alter the Roll formula by adding or multiplying the number of dice included in each roll term</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>add</strong> (<em>Number</em>) – A number of dice to add to each Die term</li>
-<li><strong>multiply</strong> (<em>Number</em>) – A multiplier for the number of dice in each Die term</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Examples:</strong></p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">r</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Roll</span><span class="p">(</span><span class="s2">&quot;4d8 + 4 + 2d4&quot;</span><span class="p">);</span>
-<span class="nx">r</span><span class="p">.</span><span class="nx">alter</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
-<span class="nx">r</span><span class="p">.</span><span class="nx">formula</span><span class="p">;</span>
-<span class="o">&gt;</span> <span class="mi">9</span><span class="nx">d8</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">5</span><span class="nx">d4</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Roll.data">
-<code class="descclassname">Roll.</code><code class="descname">data</code><a class="headerlink" href="#Roll.data" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>type:</strong> Object</p>
-<p>The original provided data</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Roll.dice">
-<code class="descclassname">Roll.</code><code class="descname">dice</code><a class="headerlink" href="#Roll.dice" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>type:</strong> Array</p>
-<p>Get an Array of any <code class="xref js js-class docutils literal notranslate"><span class="pre">Die()</span></code> objects which were rolled as part of the evaluation of this roll</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Roll.formula">
-<code class="descclassname">Roll.</code><code class="descname">formula</code><a class="headerlink" href="#Roll.formula" title="Permalink to this definition">¶</a></dt>
-<dd><p>Express the Roll as a formatted string formula</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Roll.parts">
-<code class="descclassname">Roll.</code><code class="descname">parts</code><a class="headerlink" href="#Roll.parts" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>type:</strong> Array</p>
-<p>An array of parsed formula parts</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="Roll.render">
-<code class="descclassname">Roll.</code><code class="descname">render</code><span class="sig-paren">(</span><em>chatOptions</em><span class="sig-paren">)</span><a class="headerlink" href="#Roll.render" title="Permalink to this definition">¶</a></dt>
-<dd><p>Render a Roll instance to HTML</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>chatOptions</strong> (<em>Object</em>) – An object configuring the behavior of the resulting chat message.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Promise</strong> – A Promise which resolves to the rendered HTML</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Roll.result">
-<code class="descclassname">Roll.</code><code class="descname">result</code><a class="headerlink" href="#Roll.result" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>type:</strong> String</p>
-<p>The result of all rolled formula parts</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="Roll.roll">
-<code class="descclassname">Roll.</code><code class="descname">roll</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Roll.roll" title="Permalink to this definition">¶</a></dt>
-<dd><p>Execute the Roll, replacing dice and evaluating the total result</p>
-<p><strong>Examples:</strong></p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">r</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Roll</span><span class="p">(</span><span class="s2">&quot;2d6 + 4 + 1d4&quot;</span><span class="p">);</span>
-<span class="nx">r</span><span class="p">.</span><span class="nx">roll</span><span class="p">();</span>
-<span class="o">&gt;</span> <span class="mi">12</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="function">
-<dt id="Roll.toMessage">
-<code class="descclassname">Roll.</code><code class="descname">toMessage</code><span class="sig-paren">(</span><em>chatData</em><span class="sig-paren">)</span><a class="headerlink" href="#Roll.toMessage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Dispatch a Roll instance to a new ChatMessage entity</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>chatData</strong> (<em>Object</em>) – The data object to use when creating the message</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Promise.&lt;ChatMessage&gt;</strong> – A promise which resolves to the created Chat Message</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Roll.total">
-<code class="descclassname">Roll.</code><code class="descname">total</code><a class="headerlink" href="#Roll.total" title="Permalink to this definition">¶</a></dt>
-<dd><p>Express the total result of the roll</p>
-</dd></dl>
-
-</dd></dl>
-
-</div>
 </div>
 
 
@@ -400,10 +240,10 @@ The basic structure for a dice roll is a string formula and an object of data ag
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="ui.html" class="btn btn-neutral float-right" title="Creating UI Elements" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="api.html" class="btn btn-neutral float-right" title="Developer API Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="tokens/effects.html" class="btn btn-neutral" title="Token Status Effects" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="entities/compendium.html" class="btn btn-neutral" title="Compendium Packs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

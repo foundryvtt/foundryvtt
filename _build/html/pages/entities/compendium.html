@@ -26,10 +26,11 @@
 
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/fvtt.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="The Game Canvas" href="../canvas.html" />
-    <link rel="prev" title="Audio Playlists" href="playlist.html" /> 
+    <link rel="next" title="Rolling Dice" href="../dice.html" />
+    <link rel="prev" title="The Scene Entity" href="scene.html" /> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -88,21 +89,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../features.html">Anticipated Features and Timelines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../connection.html">Hosting and Connectivity Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Getting Started with FVTT</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../entities.html">Game Entities</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="user.html">Users</a></li>
-<li class="toctree-l2"><a class="reference internal" href="actor.html">Actors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="item.html">Items</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scene.html">Scenes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="playlist.html">Audio Playlists</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Compendium Packs</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#compendium-api-usage">Compendium API Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scene.html">The Scene Entity</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Compendium Packs</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../canvas.html">The Game Canvas</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../dice.html">Rolling Dice</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ui.html">Creating UI Elements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">Developer API Documentation</a></li>
 </ul>
 
             
@@ -174,215 +168,7 @@
 <p>Compendium packs provide content creators and game-masters with an amazing way to store and organize their content. The following video
 provides an overview of the Compendium system and it’s basic usage.</p>
 <iframe width="640" height="360" src="https://www.youtube.com/embed/JMWPjX0QZkA" frameborder="0" allow="autoplay;
- encrypted-media" allowfullscreen style="margin-bottom:1em;"></iframe><div class="section" id="compendium-api-usage">
-<h2>Compendium API Usage<a class="headerlink" href="#compendium-api-usage" title="Permalink to this headline">¶</a></h2>
-<p>Module developers can interact with compendia in a programmatic way using the API offered by the <a class="reference internal" href="#Compendium" title="Compendium"><code class="xref js js-class docutils literal notranslate"><span class="pre">Compendium()</span></code></a> class.</p>
-<dl class="class">
-<dt id="Compendium">
-<em class="property">class </em><code class="descname">Compendium</code><span class="sig-paren">(</span><em>metadata</em>, <em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#Compendium" title="Permalink to this definition">¶</a></dt>
-<dd><p>The Compendium class provides an interface for interacting with compendium packs which are
-collections of similar Entities which are stored outside of the world database but able to
-be easily imported into an active session.</p>
-<p>When the game session is initialized, each available compendium pack is constructed and
-added to the <code class="docutils literal notranslate"><span class="pre">game.packs</span></code>.</p>
-<p>Each Compendium is distinctly referenced using its canonical “collection” name which is a
-unique string that contains the module name which provides the compendium as well as the
-name of the pack within that module. For example, in the D&amp;D5e system, the compendium pack
-which provides the spells available within the SRD has the collection name “dnd5e.spells”.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>metadata</strong> (<em>Object</em>) – The compendium metadata, an object provided by game.data</li>
-<li><strong>options</strong> (<em>Object</em>) – Application rendering options</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Examples:</strong></p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// Let&#39;s learn the collection names of all the compendium packs available within a game</span>
-<span class="nx">game</span><span class="p">.</span><span class="nx">packs</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">p</span> <span class="p">=&gt;</span> <span class="nx">p</span><span class="p">.</span><span class="nx">collection</span><span class="p">);</span>
-
-<span class="c1">// Suppose we are working with a particular pack named &quot;dnd5e.spells&quot;</span>
-<span class="kr">const</span> <span class="nx">pack</span> <span class="o">=</span> <span class="nx">game</span><span class="p">.</span><span class="nx">packs</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">p</span> <span class="p">=&gt;</span> <span class="nx">p</span><span class="p">.</span><span class="nx">collection</span> <span class="o">===</span> <span class="s2">&quot;dnd5e.spells&quot;</span><span class="p">);</span>
-
-<span class="c1">// We can load the index of the pack which contains all entity IDs, names, and image icons</span>
-<span class="nx">pack</span><span class="p">.</span><span class="nx">getIndex</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">index</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">index</span><span class="p">));</span>
-
-<span class="c1">// We can find a specific entry in the compendium by its name</span>
-<span class="kd">let</span> <span class="nx">entry</span> <span class="o">=</span> <span class="nx">pack</span><span class="p">.</span><span class="nx">index</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">e</span> <span class="p">=&gt;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="s2">&quot;Acid Splash&quot;</span><span class="p">);</span>
-
-<span class="c1">// Given the entity ID of &quot;Acid Splash&quot; we can load the full Entity from the compendium</span>
-<span class="nx">pack</span><span class="p">.</span><span class="nx">getEntity</span><span class="p">(</span><span class="nx">entry</span><span class="p">.</span><span class="nx">id</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">spell</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">spell</span><span class="p">));</span>
-</pre></div>
-</div>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="c1">// We often may want to programmatically create new Compendium content</span>
-<span class="c1">// Let&#39;s start by creating a custom spell as an Item instance</span>
-<span class="kd">let</span> <span class="nx">itemData</span> <span class="o">=</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Custom Death Ray&quot;</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;Spell&quot;</span><span class="p">};</span>
-<span class="kd">let</span> <span class="nx">item</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Item</span><span class="p">(</span><span class="nx">itemData</span><span class="p">);</span>
-
-<span class="c1">// Once we have an entity for our new Compendium entry we can import it, if the pack is unlocked</span>
-<span class="nx">pack</span><span class="p">.</span><span class="nx">importEntity</span><span class="p">(</span><span class="nx">item</span><span class="p">);</span>
-
-<span class="c1">// When the entity is imported into the compendium it will be assigned a new ID, so let&#39;s find it</span>
-<span class="nx">pack</span><span class="p">.</span><span class="nx">getIndex</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">index</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="kd">let</span> <span class="nx">entry</span> <span class="o">=</span> <span class="nx">index</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">e</span> <span class="p">=&gt;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="nx">itemData</span><span class="p">.</span><span class="nx">name</span><span class="p">));</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">entry</span><span class="p">);</span>
-<span class="p">});</span>
-
-<span class="c1">// If we decide to remove an entry from the compendium we can do that by the entry ID</span>
-<span class="nx">pack</span><span class="p">.</span><span class="nx">removeEntry</span><span class="p">(</span><span class="nx">entry</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
-</pre></div>
-</div>
-<dl class="function">
-<dt id="Compendium._render">
-<code class="descclassname">Compendium.</code><code class="descname">_render</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Compendium._render" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override the default <a class="reference internal" href="../apps/application.html#Application" title="Application"><code class="xref js js-class docutils literal notranslate"><span class="pre">Application()</span></code></a> rendering logic to wrap the render call in a promise which
-retrieves the compendium data.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="Compendium.close">
-<code class="descclassname">Compendium.</code><code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Compendium.close" title="Permalink to this definition">¶</a></dt>
-<dd><p>Customize Compendium closing behavior to toggle the sidebar folder status icon</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Compendium.collection">
-<code class="descclassname">Compendium.</code><code class="descname">collection</code><a class="headerlink" href="#Compendium.collection" title="Permalink to this definition">¶</a></dt>
-<dd><p>The canonical Compendium name - comprised of the originating module and the pack name</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Compendium.entity">
-<code class="descclassname">Compendium.</code><code class="descname">entity</code><a class="headerlink" href="#Compendium.entity" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>type:</strong> String</p>
-<p>The Entity type which is allowed to be stored in this collection</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="Compendium.getData">
-<code class="descclassname">Compendium.</code><code class="descname">getData</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Compendium.getData" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the Compendium index as the data for rendering
-First query the server to obtain the index and then return it once prepared</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>Promise.Object</strong> – The data to render</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="Compendium.getEntity">
-<code class="descclassname">Compendium.</code><code class="descname">getEntity</code><span class="sig-paren">(</span><em>entryId</em><span class="sig-paren">)</span><a class="headerlink" href="#Compendium.getEntity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get a single Compendium entry as an Entity instance</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>entryId</strong> (<em>String</em>) – The compendium entry ID to instantiate</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Promise</strong> – A Promise containing the returned Entity</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="Compendium.getEntry">
-<code class="descclassname">Compendium.</code><code class="descname">getEntry</code><span class="sig-paren">(</span><em>entryId</em><span class="sig-paren">)</span><a class="headerlink" href="#Compendium.getEntry" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get a single Compendium entry as an Object</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>entryId</strong> (<em>String</em>) – The compendium entry ID to retrieve</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Promise</strong> – A Promise containing the return entry data, or undefined</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="Compendium.getIndex">
-<code class="descclassname">Compendium.</code><code class="descname">getIndex</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Compendium.getIndex" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the Compendium index
-Contains names and IDs of all data in the compendium</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>Promise</strong> – A Promise containing an index of all compendium entries</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="Compendium.importEntity">
-<code class="descclassname">Compendium.</code><code class="descname">importEntity</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="headerlink" href="#Compendium.importEntity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Import a new Entity into a Compendium pack</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>entity</strong> (<em>Entity</em>) – The Entity instance you wish to import</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Compendium.metadata">
-<code class="descclassname">Compendium.</code><code class="descname">metadata</code><a class="headerlink" href="#Compendium.metadata" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>type:</strong> Object</p>
-<p>The compendium metadata which defines the compendium content and location</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Compendium.public">
-<code class="descclassname">Compendium.</code><code class="descname">public</code><a class="headerlink" href="#Compendium.public" title="Permalink to this definition">¶</a></dt>
-<dd><p>Is this Compendium pack publicly visible to all players or private for the GM only?</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="Compendium.removeEntity">
-<code class="descclassname">Compendium.</code><code class="descname">removeEntity</code><span class="sig-paren">(</span><em>entryId</em><span class="sig-paren">)</span><a class="headerlink" href="#Compendium.removeEntity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Remove a single Compendium entry by its ID</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>entryId</strong> (<em>String</em>) – The compendium entry ID to remove</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-</div>
+ encrypted-media" allowfullscreen style="margin-bottom:1em;"></iframe></div>
 
 
            </div>
@@ -392,10 +178,10 @@ Contains names and IDs of all data in the compendium</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../canvas.html" class="btn btn-neutral float-right" title="The Game Canvas" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../dice.html" class="btn btn-neutral float-right" title="Rolling Dice" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="playlist.html" class="btn btn-neutral" title="Audio Playlists" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="scene.html" class="btn btn-neutral" title="The Scene Entity" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

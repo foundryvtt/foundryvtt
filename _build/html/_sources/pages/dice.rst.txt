@@ -9,10 +9,10 @@ Basic Rolls
 
 For basic dice rolls, you and your players will most frequently type a `formula` in chat which is automatically parsed
 and evaluated to display a dice roll result. Dice roll formulas begin with either `/roll` or `/r` for short. The
-syntax for a basic roll imitates common RPGs where ``/roll ydX`` would roll an X-sided die y times. For example, to
-roll five six-sided dice (d6):
+syntax for a basic roll imitates common RPGs where ``/roll ydX`` would roll an X-sided die y times. For example,
+``/roll 5d6`` would roll five six-sided dice (d6). Generally:
 
-``/roll 5d6``
+* ``/roll {N}d{S}`` Roll ``N`` dice with ``S`` sides each and return the total result.
 
 Dice rolls also accept modifiers after the roll which alter the behavior of the group of rolled dice. In general, roll
 modifiers work by adding extra syntax on to the end of the roll, ``/roll ydX{mods}``.
@@ -63,15 +63,3 @@ You can roll a set of dice and count the number of times a certain result or ran
 * ``s<{y}``     Count the number of dice which rolled less than or equal to ``y``.
 * ``s<={y}``    Count the number of dice which rolled less than or equal to ``y``.
 
-
-----------
-
-
-Dice Roll API
-=============
-
-For mod developers, you may want to customize in-depth the behavior of dice rolling. You can interact directly with
-the Roll API by creating instances of the :class:`Roll` class.
-
-..  autoclass:: Roll
-    :members:

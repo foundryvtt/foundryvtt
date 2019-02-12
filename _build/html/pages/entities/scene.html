@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Scenes &mdash; Foundry Virtual Tabletop Alpha 0.0.6 documentation</title>
+  <title>The Scene Entity &mdash; Foundry Virtual Tabletop Alpha 0.0.6 documentation</title>
   
 
   
@@ -26,10 +26,11 @@
 
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/fvtt.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Audio Playlists" href="playlist.html" />
-    <link rel="prev" title="Items" href="item.html" /> 
+    <link rel="next" title="Compendium Packs" href="compendium.html" />
+    <link rel="prev" title="Game Entities" href="../entities.html" /> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -88,23 +89,18 @@
 <li class="toctree-l1"><a class="reference internal" href="../features.html">Anticipated Features and Timelines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../connection.html">Hosting and Connectivity Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Getting Started with FVTT</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../entities.html">Game Entities</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="user.html">Users</a></li>
-<li class="toctree-l2"><a class="reference internal" href="actor.html">Actors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="item.html">Items</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Scenes</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#the-scenes-collection">The Scenes Collection</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#the-scene-class">The Scene Class</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#the-scene-sheet">The Scene Sheet</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">The Scene Entity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#scene-configuration">Scene Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-scene-entity-api">The Scene Entity API</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="playlist.html">Audio Playlists</a></li>
 <li class="toctree-l2"><a class="reference internal" href="compendium.html">Compendium Packs</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../canvas.html">The Game Canvas</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../dice.html">Rolling Dice</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ui.html">Creating UI Elements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">Developer API Documentation</a></li>
 </ul>
 
             
@@ -152,7 +148,7 @@
         
           <li><a href="../entities.html">Game Entities</a> &raquo;</li>
         
-      <li>Scenes</li>
+      <li>The Scene Entity</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -171,267 +167,87 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="scenes">
-<span id="scene"></span><h1><a class="toc-backref" href="#id1">Scenes</a><a class="headerlink" href="#scenes" title="Permalink to this headline">¶</a></h1>
-<p>Scene entities represent the areas of a World that the players may explore. Scenes may depict a variety of settings
+  <div class="section" id="the-scene-entity">
+<span id="scene"></span><h1>The Scene Entity<a class="headerlink" href="#the-scene-entity" title="Permalink to this headline">¶</a></h1>
+<p>Scenes represent the areas of a World that the players may explore. Scenes may depict a variety of settings
 ranging from world or regional maps all the way down to small buildings or dungeons. At each point in time, one
-Scene may be treated as the <code class="docutils literal notranslate"><span class="pre">active</span></code> scene. The same scene is active for all users. For each individual user a
+Scene is classified as the <code class="docutils literal notranslate"><span class="pre">active</span></code> scene. The same scene is active for all users. For each individual user a
 different Scene may be treated as the <code class="docutils literal notranslate"><span class="pre">viewed</span></code> scene, which is the area currently rendered on the game canvas
-for that user. The Foundry VTT framework provides APIs for manipulating and modifying Scene structure and
-configuration.</p>
-<p>There are several important API layers which are useful when working with Scenes. The <a class="reference internal" href="#Scenes" title="Scenes"><code class="xref js js-class docutils literal notranslate"><span class="pre">Scenes()</span></code></a> collection
-contains all of the <code class="xref js js-class docutils literal notranslate"><span class="pre">Scene()</span></code> instances which are defined by the World, the collection of these scenes is
-available as <code class="docutils literal notranslate"><span class="pre">game.scenes</span></code>.</p>
-<p>When modifying the scene configuration, the data is rendered and edited using the <a class="reference internal" href="#SceneSheet" title="SceneSheet"><code class="xref js js-class docutils literal notranslate"><span class="pre">SceneSheet()</span></code></a> class which
-can be extended or overridden by systems or modules. To override the default implementation, a module should
-define the <code class="docutils literal notranslate"><span class="pre">Config.Scene.sheetClass</span></code> global configuration value.</p>
-<p>Additionally, each scene has rich notes associated with it which are customizable using the <code class="xref js js-class docutils literal notranslate"><span class="pre">SceneNotes()</span></code>
-class. Similarly, this class can be overridden or extended by modules by altering the <code class="docutils literal notranslate"><span class="pre">Config.Scene.notesClass</span></code>
-global configuration.</p>
-<hr class="docutils" />
-<div class="contents topic" id="scene-api-components">
-<p class="topic-title first">Scene API Components</p>
+for that user.</p>
+<div class="contents local topic" id="working-with-scenes">
+<p class="topic-title first">Working with Scenes</p>
 <ul class="simple">
-<li><a class="reference internal" href="#scenes" id="id1">Scenes</a><ul>
-<li><a class="reference internal" href="#the-scenes-collection" id="id2">The Scenes Collection</a></li>
-<li><a class="reference internal" href="#the-scene-class" id="id3">The Scene Class</a></li>
-<li><a class="reference internal" href="#the-scene-sheet" id="id4">The Scene Sheet</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#scene-configuration" id="id1">Scene Configuration</a></li>
+<li><a class="reference internal" href="#the-scene-entity-api" id="id2">The Scene Entity API</a></li>
 </ul>
 </div>
-<hr class="docutils" />
-<div class="section" id="the-scenes-collection">
-<h2><a class="toc-backref" href="#id2">The Scenes Collection</a><a class="headerlink" href="#the-scenes-collection" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="Scenes">
-<em class="property">class </em><code class="descname">Scenes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Scenes" title="Permalink to this definition">¶</a></dt>
-<dd><p>The collection of Scene entities</p>
-<dl class="function">
-<dt id="Scenes.Collection.insert">
-<code class="descclassname">Scenes.Collection.</code><code class="descname">insert</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="headerlink" href="#Scenes.Collection.insert" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add a new Entity to the Collection, asserting that they are of the correct type</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>entity</strong> (<em>Entity</em>) – The entity instance to add to the collection</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="Scenes.Collection.remove">
-<code class="descclassname">Scenes.Collection.</code><code class="descname">remove</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#Scenes.Collection.remove" title="Permalink to this definition">¶</a></dt>
-<dd><p>Remove an Entity from the Collection by its ID.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>id</strong> (<em>String</em>) – The entity ID which should be removed</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="Scenes.Collection.get">
-<code class="descclassname">Scenes.Collection.</code><code class="descname">get</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#Scenes.Collection.get" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get an element from the collection by ID</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>id</strong> (<em>String</em>) – The entity ID to retrieve from the collection</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Entity</strong> – The retrieved Entity, if the ID was found, otherwise null;</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="Scenes.Collection.index">
-<code class="descclassname">Scenes.Collection.</code><code class="descname">index</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#Scenes.Collection.index" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieve the index of an entity within the collection by its ID</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>id</strong> (<em>String</em>) – The entity ID to retrieve from the collection</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Number</strong> – The index of the Entity within the collection, if found, otherwise -1;</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="Scenes.Collection.render">
-<code class="descclassname">Scenes.Collection.</code><code class="descname">render</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Scenes.Collection.render" title="Permalink to this definition">¶</a></dt>
-<dd><p>Re-render any currently visible applications associated with this Collection</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="Scenes.activate">
-<code class="descclassname">Scenes.</code><code class="descname">activate</code><span class="sig-paren">(</span><em>sceneId</em>, <em>push=false</em><span class="sig-paren">)</span><a class="headerlink" href="#Scenes.activate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set a new Scene as active</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>sceneId</strong> (<em>String</em>) – The ID of the scene to activate</li>
-<li><strong>push</strong> (<em>Boolean</em>) – Push the scene activation to other connected clients</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Scenes.object">
-<code class="descclassname">Scenes.</code><code class="descname">object</code><a class="headerlink" href="#Scenes.object" title="Permalink to this definition">¶</a></dt>
-<dd><p>Elements of the Scenes collection are instances of the Scene class</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="Scenes.socketListeners">
-<code class="descclassname">Scenes.</code><code class="descname">socketListeners</code><span class="sig-paren">(</span><em>socket</em><span class="sig-paren">)</span><a class="headerlink" href="#Scenes.socketListeners" title="Permalink to this definition">¶</a></dt>
-<dd><p>Open additional socket listeners which transact Actor data</p>
-</dd></dl>
-
-</dd></dl>
-
+<div class="section" id="scene-configuration">
+<h2><a class="toc-backref" href="#working-with-scenes">Scene Configuration</a><a class="headerlink" href="#scene-configuration" title="Permalink to this headline">¶</a></h2>
+<p>The Scene configuration menu allows you to customize the structure and appearance of each area within your world. This
+configuration is displayed automatically when a new Scene is created, but can always be accessed by left-clicking on
+the Scene in the sidebar directory, or by right clicking on the Scene in the top navigation bar and selecting
+“Configure”.</p>
+<img alt="../../_images/scene-config.jpg" src="../../_images/scene-config.jpg" />
+<p>The fields which you can customize while configuring a Scene are detailed below:</p>
+<dl class="docutils">
+<dt>Scene Name</dt>
+<dd>The title of the scene that will appear in the Scenes directory in the sidebar and in the Scene navigation bar
+at the top of the screen.</dd>
+<dt>Background Image</dt>
+<dd>The file path or web address of the background image you wish to use for your scene. The icon to the right of the
+field will open a File Picker that helps you to locate images within your public directory.</dd>
+<dt>Width</dt>
+<dd>The rendered width of your scene, in pixels. If you do not fill this field out, the application will figure out
+the width automatically once the image is loaded.</dd>
+<dt>Height</dt>
+<dd>The rendered height of your scene, in pixels. If you do not fill this field out, the application will figure out
+the width automatically once the image is loaded.</dd>
+<dt>Grid Size</dt>
+<dd>The grid size, in pixels, that should be used to define grid squares within the Scene. The grid is drawn starting
+from the top-left corner of the map image. If your background image has a visible grid already baked into the
+image, and if that grid does not align perfectly with the top-left corner of the image, you may need to use the
+Shift Horizontal and Vertical settings below to offset the image.</dd>
+<dt>Shift Horizontal</dt>
+<dd>Shift the background image horizontally by a number of pixels to better line up pre-drawn grid lines. Positive
+numbers shift the image to the right, negative numbers to the left.</dd>
+<dt>Shift Vertical</dt>
+<dd>Shift the background image vertically by a number of pixels to better line up pre-drawn grid lines. Positive
+numbers shift the image down, negative numbers up.</dd>
+<dt>Grid Units</dt>
+<dd>The unit of measure that each square of space represents in this map. For battlemaps this may be on the order of
+feet or meters, for a large region map each individual grid space could represent miles or kilometers. You may
+put whatever string value you wish in this field, it is only used for tooltip displays when measuring.</dd>
+<dt>Grid Distance</dt>
+<dd>The number of grid units which each space represents. For example, in a battlemap if the Grid Units are feet
+then a single square might represent 5 units of distance.</dd>
+<dt>Grid Color</dt>
+<dd>Customize the color of the rendered grid.</dd>
+<dt>Grid Opacity</dt>
+<dd>Customize the transparency of the grid. Higher opacity results in a less transparent grid, and vice versa. If you
+set this slider all the way to zero (left) the grid will not be visible at all.</dd>
+<dt>Token Vision</dt>
+<dd>If this setting is enabled, visibility of the scene will require ownership of a Token which is placed in the scene
+and has a vision setting. If this setting is disabled, players will be able to see a scene even if they do not have
+a token present. This setting must be enabled to make use of Fog of War and Dynamic Lighting features.</dd>
+<dt>Global Illumination</dt>
+<dd>If this setting is enabled, the entire scene will be affected by Bright Light, allowing full visibility for any
+areas of the scene where an owned token has line-of-sight. This setting will have no effect if Token Vision is
+disabled.</dd>
+<dt>Accessibility</dt>
+<dd>Scenes may be kept as “GM Only” in which case players will not be able to access them unless the a Gamemaster user
+activates the scene. If accessibility is set to All Players, then players may choose to view the scene themselves
+if it is available in the navigation bar. You probably what to keep your secret dungeon level set to GM Only while
+alternatively it makes sense to set region map the party is exploring to be viewed by “All Players”.</dd>
+<dt>Show in Navigation</dt>
+<dd>If this setting is enabled, the scene will appear in the Navigation bar at the top of the screen. This navigation
+menu is best used for scenes you plan to actively use during the course of a game session for convenient access.
+You can also add or remove scenes from the navigation menu by right clicking on the Scene in the sidebar directory.</dd>
+</dl>
 </div>
-<hr class="docutils" />
-<div class="section" id="the-scene-class">
-<h2><a class="toc-backref" href="#id3">The Scene Class</a><a class="headerlink" href="#the-scene-class" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="raw.Scene">
-<em class="property">class </em><code class="descclassname">raw.</code><code class="descname">Scene</code><span class="sig-paren">(</span><em>data</em>, <em>apps</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Scene" title="Permalink to this definition">¶</a></dt>
-<dd><p>The Scene entity</p>
-<dl class="function">
-<dt id="raw.Scene.Entity.create">
-<code class="descclassname">raw.Scene.Entity.</code><code class="descname">create</code><span class="sig-paren">(</span><em>data</em>, <em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Scene.Entity.create" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a new entity using provided input data
-The data for entity creation is typically provided from the server through the ‘create&lt;Entity&gt;’ socket
-Alternatively, the creation event may originate locally and the new entity can be pushed back to the server</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>data</strong> (<em>Object</em>) – The data with which to create the entity</li>
-<li><strong>options</strong> (<em>Object</em>) – Additional options which customize the creation workflow</li>
-<li><strong>options.temporary</strong> (<em>Boolean</em>) – Create a temporary entity which is not saved to the world database. Default is false.</li>
-<li><strong>options.displaySheet</strong> (<em>Boolean</em>) – Show the configuration sheet for the created entity once it is created. Default is true.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Promise</strong> – A Promise which resolves to contain the created Entity</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="raw.Scene.Entity.update">
-<code class="descclassname">raw.Scene.Entity.</code><code class="descname">update</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Scene.Entity.update" title="Permalink to this definition">¶</a></dt>
-<dd><p>Update the current entity using new data
-This new data is typically provided from the server through the ‘update&lt;Entity&gt;’ socket
-Alternatively, the update may originate locally, in which case it can be pushed back to the server</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>data</strong> (<em>Object</em>) – The data with which to update the entity</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Promise</strong> – A Promise which resolves to the updated Entity</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="raw.Scene.Entity.delete">
-<code class="descclassname">raw.Scene.Entity.</code><code class="descname">delete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#raw.Scene.Entity.delete" title="Permalink to this definition">¶</a></dt>
-<dd><p>Delete the entity, removing it from its collection and deleting its data record</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>Promise</strong> – A Promise which resolves to the ID of the deleted Entity once handled by the server</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="raw.Scene._onUpdate">
-<code class="descclassname">raw.Scene.</code><code class="descname">_onUpdate</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Scene._onUpdate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Additional updating steps for the Scene entity when new data is saved which trigger some related updates.</p>
-<p>If the updated scene is active, re-draw the canvas
-If sight/vision settings were changed, re-initialize sight
-If the scene name or image were changed update the directory collection</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>data</strong> (<em>Object</em>) – The new data object which was used to update the Scene</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="raw.Scene.notes">
-<code class="descclassname">raw.Scene.</code><code class="descname">notes</code><a class="headerlink" href="#raw.Scene.notes" title="Permalink to this definition">¶</a></dt>
-<dd><p>A singleton instance of the SheetNotes class</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="raw.Scene.view">
-<code class="descclassname">raw.Scene.</code><code class="descname">view</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#raw.Scene.view" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set this scene as the current view</p>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-<hr class="docutils" />
-<div class="section" id="the-scene-sheet">
-<h2><a class="toc-backref" href="#id4">The Scene Sheet</a><a class="headerlink" href="#the-scene-sheet" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="SceneSheet">
-<em class="property">class </em><code class="descname">SceneSheet</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SceneSheet" title="Permalink to this definition">¶</a></dt>
-<dd><p>A Scene configuration sheet</p>
-</dd></dl>
-
+<div class="section" id="the-scene-entity-api">
+<h2><a class="toc-backref" href="#working-with-scenes">The Scene Entity API</a><a class="headerlink" href="#the-scene-entity-api" title="Permalink to this headline">¶</a></h2>
+<p>For module developers interested in working with Scenes, API documentation for scenes and associated classes is
+available in the <a class="reference internal" href="../api/entities/scene.html#sceneapi"><span class="std std-ref">The Scene Entity</span></a> page.</p>
 </div>
 </div>
 
@@ -443,10 +259,10 @@ If the scene name or image were changed update the directory collection</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="playlist.html" class="btn btn-neutral float-right" title="Audio Playlists" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="compendium.html" class="btn btn-neutral float-right" title="Compendium Packs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="item.html" class="btn btn-neutral" title="Items" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../entities.html" class="btn btn-neutral" title="Game Entities" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

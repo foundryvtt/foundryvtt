@@ -1,0 +1,651 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The Audio Playlist Entity &mdash; Foundry Virtual Tabletop Alpha 0.0.6 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/fvtt.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Compendium Content Packs" href="compendium.html" />
+    <link rel="prev" title="The Item Entity" href="item.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Foundry Virtual Tabletop
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.6
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Foundry Virtual Tabletop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../features.html">Anticipated Features and Timelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../connection.html">Hosting and Connectivity Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Getting Started with FVTT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../entities.html">Game Entities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dice.html">Rolling Dice</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../api.html">Developer API Documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../entities.html">Game Entities API</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="user.html">The User Entity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scene.html">The Scene Entity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="actor.html">The Actor Entity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="item.html">The Item Entity</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">The Audio Playlist Entity</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#the-audio-collection">The Audio Collection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-playlist-entity">The Playlist Entity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#playlist-configuration-sheet">Playlist Configuration Sheet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#playlist-track-configuration-sheet">Playlist Track Configuration Sheet</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="compendium.html">Compendium Content Packs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../entities.html#the-entity-abstract-class">The Entity Abstract Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../entities.html#the-collection-abstract-class">The Collection Abstract Class</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../canvas.html">The Game Canvas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dice.html">The Dice Rolling API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ui.html">Creating UI Elements</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Foundry Virtual Tabletop</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../api.html">Developer API Documentation</a> &raquo;</li>
+        
+          <li><a href="../entities.html">Game Entities API</a> &raquo;</li>
+        
+      <li>The Audio Playlist Entity</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/pages/api/entities/playlist.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="the-audio-playlist-entity">
+<span id="playlistapi"></span><h1>The Audio Playlist Entity<a class="headerlink" href="#the-audio-playlist-entity" title="Permalink to this headline">¶</a></h1>
+<p>Audio in Foundry VTT provides a key layer to improve immersion and enrich gameplay. The core software provides APIs
+for audio effects which are triggered programmatically as well as audio Playlists which are user-defined Entities.
+Overall audio management is controlled by the <a class="reference internal" href="#Playlists" title="Playlists"><code class="xref js js-class docutils literal notranslate"><span class="pre">Playlists()</span></code></a> collection while the <a class="reference internal" href="#Playlist" title="Playlist"><code class="xref js js-class docutils literal notranslate"><span class="pre">Playlist()</span></code></a> class implements
+the individual playlist entity.</p>
+<hr class="docutils" />
+<div class="section" id="the-audio-collection">
+<h2>The Audio Collection<a class="headerlink" href="#the-audio-collection" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Playlists">
+<em class="property">class </em><code class="descname">Playlists</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Playlists" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Playlists collection serves a dual purpose in Foundry VTT.
+Firstly, it is the collection of pre-defined Playlist entities.
+Secondly, it provides convenience APIs for programmatically triggering playback of audio effects.</p>
+<p>Audio playback in Foundry VTT is managed by Howler.js (<a class="reference external" href="https://howlerjs.com/">https://howlerjs.com/</a>). Several methods and
+attributes in this API return <code class="xref js js-class docutils literal notranslate"><span class="pre">Howl()</span></code> instances. See the Howler documentation for details
+and example usage of the Howl API.</p>
+<dl class="function">
+<dt id="Playlists.Collection.insert">
+<code class="descclassname">Playlists.Collection.</code><code class="descname">insert</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="headerlink" href="#Playlists.Collection.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a new Entity to the Collection, asserting that they are of the correct type</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>entity</strong> (<a class="reference internal" href="../entities.html#Entity" title="Entity"><em>Entity</em></a>) – The entity instance to add to the collection</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Playlists.Collection.remove">
+<code class="descclassname">Playlists.Collection.</code><code class="descname">remove</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#Playlists.Collection.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove an Entity from the Collection by its ID.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>id</strong> (<em>String</em>) – The entity ID which should be removed</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Playlists.Collection.get">
+<code class="descclassname">Playlists.Collection.</code><code class="descname">get</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#Playlists.Collection.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an element from the collection by ID</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>id</strong> (<em>String</em>) – The entity ID to retrieve from the collection</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Entity</strong> – The retrieved Entity, if the ID was found, otherwise null;</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Playlists.Collection.index">
+<code class="descclassname">Playlists.Collection.</code><code class="descname">index</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#Playlists.Collection.index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the index of an entity within the collection by its ID</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>id</strong> (<em>String</em>) – The entity ID to retrieve from the collection</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Number</strong> – The index of the Entity within the collection, if found, otherwise -1;</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Playlists.Collection.render">
+<code class="descclassname">Playlists.Collection.</code><code class="descname">render</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Playlists.Collection.render" title="Permalink to this definition">¶</a></dt>
+<dd><p>Re-render any currently visible applications associated with this Collection</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Playlists.playing">
+<code class="descclassname">Playlists.</code><code class="descname">playing</code><a class="headerlink" href="#Playlists.playing" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> Array</p>
+<p>Return the subset of Playlist entities which are currently playing</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<hr class="docutils" />
+<div class="section" id="the-playlist-entity">
+<h2>The Playlist Entity<a class="headerlink" href="#the-playlist-entity" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="Playlist">
+<em class="property">class </em><code class="descname">Playlist</code><span class="sig-paren">(</span><em>data</em>, <em>apps</em><span class="sig-paren">)</span><a class="headerlink" href="#Playlist" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Playlist class provides an API for managing the playlist entities which are configured and
+saved to the World database.</p>
+<p>Each playlist has a unique <cite>_id</cite> and may contain one or more sounds. Each sound (or track) may
+be played individually or simultaneously with other tracks in the playlist.</p>
+<dl class="function">
+<dt id="Playlist.Entity.create">
+<code class="descclassname">Playlist.Entity.</code><code class="descname">create</code><span class="sig-paren">(</span><em>data</em>, <em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#Playlist.Entity.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new entity using provided input data
+The data for entity creation is typically provided from the server through the ‘create&lt;Entity&gt;’ socket
+Alternatively, the creation event may originate locally and the new entity can be pushed back to the server</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>data</strong> (<em>Object</em>) – The data with which to create the entity</li>
+<li><strong>options</strong> (<em>Object</em>) – Additional options which customize the creation workflow</li>
+<li><strong>options.temporary</strong> (<em>Boolean</em>) – Create a temporary entity which is not saved to the world database. Default is false.</li>
+<li><strong>options.displaySheet</strong> (<em>Boolean</em>) – Show the configuration sheet for the created entity once it is created. Default is true.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Promise</strong> – A Promise which resolves to contain the created Entity</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Playlist.Entity.update">
+<code class="descclassname">Playlist.Entity.</code><code class="descname">update</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#Playlist.Entity.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the current entity using new data
+This new data is typically provided from the server through the ‘update&lt;Entity&gt;’ socket
+Alternatively, the update may originate locally, in which case it can be pushed back to the server</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>data</strong> (<em>Object</em>) – The data with which to update the entity</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Promise</strong> – A Promise which resolves to the updated Entity</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Playlist.Entity.delete">
+<code class="descclassname">Playlist.Entity.</code><code class="descname">delete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Playlist.Entity.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete the entity, removing it from its collection and deleting its data record</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>Promise</strong> – A Promise which resolves to the ID of the deleted Entity once handled by the server</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Playlist._onUpdate">
+<code class="descclassname">Playlist.</code><code class="descname">_onUpdate</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#Playlist._onUpdate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Additional updating steps for the Playlist entity when new data is saved which trigger some related updates.</p>
+<p>Modify the playing status of each track
+Modify the status of the overall playlist</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data</strong> (<em>Object</em>) – The new data object which was used to update the Playlist</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Playlist.collection">
+<code class="descclassname">Playlist.</code><code class="descname">collection</code><a class="headerlink" href="#Playlist.collection" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> Playlists</p>
+<p>Return a reference to the Playlists collection to which each Playlist belongs</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Playlist.createSound">
+<code class="descclassname">Playlist.</code><code class="descname">createSound</code><span class="sig-paren">(</span><em>data</em>, <em>push=false</em><span class="sig-paren">)</span><a class="headerlink" href="#Playlist.createSound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new sound track within this Playlist.
+The creation request is submitted to the server where the item is assigned an ID
+The return item (with itemID) is then added to the Playlist.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data</strong> (<em>Object</em>) – Data for the new audio track</li>
+<li><strong>push</strong> (<em>Boolean</em>) – Push the track creation request to other clients?</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Playlist.cycleMode">
+<code class="descclassname">Playlist.</code><code class="descname">cycleMode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Playlist.cycleMode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cycle the playlist mode</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>Promise.&lt;Playlist&gt;</strong> – A promise which resolves to the updated Playlist instance</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Playlist.deleteSound">
+<code class="descclassname">Playlist.</code><code class="descname">deleteSound</code><span class="sig-paren">(</span><em>trackId</em>, <em>push=false</em><span class="sig-paren">)</span><a class="headerlink" href="#Playlist.deleteSound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a sound track from the Playlist
+The deletion request is submitted to the server where it is removed by ID</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>trackId</strong> (<em>Number</em>) – ID of the track to remove</li>
+<li><strong>push</strong> (<em>Boolean</em>) – Push the track deletion to other clients?</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Playlist.howls">
+<code class="descclassname">Playlist.</code><code class="descname">howls</code><a class="headerlink" href="#Playlist.howls" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> Object</p>
+<p>Each sound which is played within the Playlist has a created Howl instance.
+The keys of this object are the sound IDs and the values are the Howl instances.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Playlist.mode">
+<code class="descclassname">Playlist.</code><code class="descname">mode</code><a class="headerlink" href="#Playlist.mode" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> Number</p>
+<p>The playback mode for the Playlist instance</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Playlist.playAll">
+<code class="descclassname">Playlist.</code><code class="descname">playAll</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Playlist.playAll" title="Permalink to this definition">¶</a></dt>
+<dd><p>Begin simultaneous playback for all sounds in the Playlist</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Playlist.playSound">
+<code class="descclassname">Playlist.</code><code class="descname">playSound</code><span class="sig-paren">(</span><em>sound</em><span class="sig-paren">)</span><a class="headerlink" href="#Playlist.playSound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Play (or stop) a single sound from the Playlist</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>sound</strong> (<em>Object</em>) – The sound object to begin playback</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Playlist.shuffleOrder">
+<code class="descclassname">Playlist.</code><code class="descname">shuffleOrder</code><a class="headerlink" href="#Playlist.shuffleOrder" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> Array</p>
+<p>Playlists may have a shuffle order which gets chosen when the playback is started on shuffle mode</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Playlist.sounds">
+<code class="descclassname">Playlist.</code><code class="descname">sounds</code><a class="headerlink" href="#Playlist.sounds" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> Array</p>
+<p>An Array of the sound data contained within this Playlist entity</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Playlist.stopAll">
+<code class="descclassname">Playlist.</code><code class="descname">stopAll</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Playlist.stopAll" title="Permalink to this definition">¶</a></dt>
+<dd><p>End playback for any/all currently playing sounds within the Playlist</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Playlist.updateSound">
+<code class="descclassname">Playlist.</code><code class="descname">updateSound</code><span class="sig-paren">(</span><em>data</em>, <em>push=false</em><span class="sig-paren">)</span><a class="headerlink" href="#Playlist.updateSound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update a single sound track within the Playlist</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data</strong> (<em>Object</em>) – New sound data</li>
+<li><strong>push</strong> (<em>Boolean</em>) – Push the updated track data to other clients?</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<hr class="docutils" />
+<div class="section" id="playlist-configuration-sheet">
+<h2>Playlist Configuration Sheet<a class="headerlink" href="#playlist-configuration-sheet" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="PlaylistConfig">
+<em class="property">class </em><code class="descname">PlaylistConfig</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PlaylistConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Playlist Configuration Sheet</p>
+<dl class="function">
+<dt id="PlaylistConfig.getData">
+<code class="descclassname">PlaylistConfig.</code><code class="descname">getData</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PlaylistConfig.getData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provide data to the form</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>Object</strong> – The data provided to the template when rendering the form</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="PlaylistConfig.title">
+<code class="descclassname">PlaylistConfig.</code><code class="descname">title</code><a class="headerlink" href="#PlaylistConfig.title" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dynamic application window title</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<hr class="docutils" />
+<div class="section" id="playlist-track-configuration-sheet">
+<h2>Playlist Track Configuration Sheet<a class="headerlink" href="#playlist-track-configuration-sheet" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="PlaylistSoundConfig">
+<em class="property">class </em><code class="descname">PlaylistSoundConfig</code><span class="sig-paren">(</span><em>playlist</em>, <em>sound</em>, <em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#PlaylistSoundConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Playlist Sound Configuration Sheet</p>
+<dl class="function">
+<dt id="PlaylistSoundConfig.getData">
+<code class="descclassname">PlaylistSoundConfig.</code><code class="descname">getData</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PlaylistSoundConfig.getData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provide data to the form</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>Object</strong> – The data provided to the template when rendering the form</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="PlaylistSoundConfig.title">
+<code class="descclassname">PlaylistSoundConfig.</code><code class="descname">title</code><a class="headerlink" href="#PlaylistSoundConfig.title" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dynamic application window title</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="compendium.html" class="btn btn-neutral float-right" title="Compendium Content Packs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="item.html" class="btn btn-neutral" title="The Item Entity" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Foundry Gaming LLC.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'Alpha 0.0.6',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

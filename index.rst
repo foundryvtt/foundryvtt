@@ -20,10 +20,10 @@ roleplaying games in a beautiful and intuitive web-based application.
     pages/features
     pages/faq
     pages/connection
+    pages/tutorial
     pages/entities
-    pages/canvas
     pages/dice
-    pages/ui
+    pages/api
 
 
 About Foundry VTT

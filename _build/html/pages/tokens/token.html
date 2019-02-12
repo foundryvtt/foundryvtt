@@ -26,10 +26,9 @@
 
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/fvtt.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Token Status Effects" href="effects.html" />
-    <link rel="prev" title="The Tokens Layer" href="../canvas/tokens.html" /> 
+    <link rel="search" title="Search" href="../../search.html" /> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -83,26 +82,14 @@
             
             
               <p class="caption"><span class="caption-text">Table of Contents</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../index.html">Foundry Virtual Tabletop</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../features.html">Anticipated Features and Timelines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../connection.html">Hosting and Connectivity Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Getting Started with FVTT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../entities.html">Game Entities</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../canvas.html">The Game Canvas</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../canvas/background.html">The Background Layer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../canvas/grid.html">The Grid Layer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../canvas/walls.html">The Walls Layer</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../canvas/tokens.html">The Tokens Layer</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">The Token Object</a></li>
-<li class="toctree-l3"><a class="reference internal" href="effects.html">Token Status Effects</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../canvas/tokens.html#token-layer-api">Token Layer API</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../dice.html">Rolling Dice</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../ui.html">Creating UI Elements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">Developer API Documentation</a></li>
 </ul>
 
             
@@ -148,10 +135,6 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../canvas.html">The Game Canvas</a> &raquo;</li>
-        
-          <li><a href="../canvas/tokens.html">The Tokens Layer</a> &raquo;</li>
-        
       <li>The Token Object</li>
     
     
@@ -174,7 +157,7 @@
   <div class="section" id="the-token-object">
 <h1>The Token Object<a class="headerlink" href="#the-token-object" title="Permalink to this headline">¶</a></h1>
 <p>As a mod developer, you may find yourselves wanting to interact with the tokens which are active within a
-<code class="xref js js-class docutils literal notranslate"><span class="pre">Scene()</span></code> and are drawn within the <a class="reference internal" href="../canvas/tokens.html#TokenLayer" title="TokenLayer"><code class="xref js js-class docutils literal notranslate"><span class="pre">TokenLayer()</span></code></a>. The <a class="reference internal" href="#Token" title="Token"><code class="xref js js-class docutils literal notranslate"><span class="pre">Token()</span></code></a> class provides a rich API for
+<code class="xref js js-class docutils literal notranslate"><span class="pre">Scene()</span></code> and are drawn within the <a class="reference internal" href="../api/canvas/tokens.html#TokenLayer" title="TokenLayer"><code class="xref js js-class docutils literal notranslate"><span class="pre">TokenLayer()</span></code></a>. The <a class="reference internal" href="#Token" title="Token"><code class="xref js js-class docutils literal notranslate"><span class="pre">Token()</span></code></a> class provides a rich API for
 interacting with these tokens.</p>
 <dl class="class">
 <dt id="Token">
@@ -612,6 +595,24 @@ Return a Boolean for whether the token release was successful.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="Token.rotateMany">
+<code class="descclassname">Token.</code><code class="descname">rotateMany</code><span class="sig-paren">(</span><em>offsets</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.rotateMany" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start from facing south [0, 1] with angle 0
+Work clockwise, moving first to south-west [-1, 1]</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>offsets</strong> (<em>Array</em>) – The keyboard offset directions in which movement is requested</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="Token.setPosition">
 <code class="descclassname">Token.</code><code class="descname">setPosition</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.setPosition" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the token’s position by comparing its center position vs the nearest grid vertex</p>
@@ -769,12 +770,6 @@ Copy the existing Array in order to ensure the update method detects the data as
 </table>
 </dd></dl>
 
-<dl class="function">
-<dt id="Token.undoMovement">
-<code class="descclassname">Token.</code><code class="descname">undoMovement</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Token.undoMovement" title="Permalink to this definition">¶</a></dt>
-<dd><p>Revert a Token movement by returning to the prior position, if one is available</p>
-</dd></dl>
-
 <dl class="attribute">
 <dt id="Token.w">
 <code class="descclassname">Token.</code><code class="descname">w</code><a class="headerlink" href="#Token.w" title="Permalink to this definition">¶</a></dt>
@@ -791,15 +786,6 @@ Copy the existing Array in order to ensure the update method detects the data as
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="effects.html" class="btn btn-neutral float-right" title="Token Status Effects" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="../canvas/tokens.html" class="btn btn-neutral" title="The Tokens Layer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

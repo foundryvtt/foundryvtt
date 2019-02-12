@@ -1,4 +1,4 @@
-..	_hosting:
+.. _hosting:
 
 Hosting and Connectivity Guide
 ******************************

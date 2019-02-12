@@ -7,13 +7,9 @@ used within Foundry Virtual Tabletop and the API layers which allow you to modif
 
 
 ..  toctree::
-    :caption: Major Entity Types
+    :caption: Entity Types
     :name: entities
     :maxdepth: 1
 
-    entities/user
-    entities/actor
-    entities/item
     entities/scene
-    entities/playlist
     entities/compendium
