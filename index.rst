@@ -24,6 +24,7 @@ roleplaying games in a beautiful and intuitive web-based application.
     pages/entities
     pages/dice
     pages/api
+    license
 
 
 About Foundry VTT
