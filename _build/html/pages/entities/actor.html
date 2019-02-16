@@ -93,12 +93,10 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../entities.html">Game Entities</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="scene.html">The Scene Entity</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">The Actor Entity</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#actor-and-token-configuration">Actor and Token Configuration</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#actor-permissions">Actor Permissions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#modify-actor-token">Modify Actor Token</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#token-configuration-options">Token Configuration Options</a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="#actor-creation-and-configuration">Actor Creation and Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#actor-permissions">Actor Permissions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#default-actor-token">Default Actor Token</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#token-configuration-options">Token Configuration Options</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#the-actor-entity-api">The Actor Entity API</a></li>
 </ul>
 </li>
@@ -183,12 +181,18 @@ these actors will represent the characters which the player Users impersonate an
 <div class="contents local topic" id="working-with-actors">
 <p class="topic-title first">Working with Actors</p>
 <ul class="simple">
-<li><a class="reference internal" href="#actor-and-token-configuration" id="id2">Actor and Token Configuration</a></li>
-<li><a class="reference internal" href="#the-actor-entity-api" id="id3">The Actor Entity API</a></li>
+<li><a class="reference internal" href="#actor-creation-and-configuration" id="id2">Actor Creation and Configuration</a></li>
+<li><a class="reference internal" href="#actor-permissions" id="id3">Actor Permissions</a></li>
+<li><a class="reference internal" href="#default-actor-token" id="id4">Default Actor Token</a></li>
+<li><a class="reference internal" href="#token-configuration-options" id="id5">Token Configuration Options</a></li>
+<li><a class="reference internal" href="#the-actor-entity-api" id="id6">The Actor Entity API</a></li>
 </ul>
 </div>
-<div class="section" id="actor-and-token-configuration">
-<h2><a class="toc-backref" href="#working-with-actors">Actor and Token Configuration</a><a class="headerlink" href="#actor-and-token-configuration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="actor-creation-and-configuration">
+<h2><a class="toc-backref" href="#working-with-actors">Actor Creation and Configuration</a><a class="headerlink" href="#actor-creation-and-configuration" title="Permalink to this headline">¶</a></h2>
+<p>To create a new Actor, visit the Actors Directory in the sidebar by clicking on the icon that looks like a group of
+people. At the bottom of this directory tab you can create a new Actor, or first create a Folder that you can use to
+organize many actors.</p>
 <p>Actor configuration is handled through the Actor Sheet which is opened by left clicking on an Actor entry in the
 sidebar directory or by double-clicking on a token within a Scene. The Actor Sheet itself is usually a system-specific
 implementation, so the details of what can be configured at an Actor level will vary by game system.</p>
@@ -196,8 +200,9 @@ implementation, so the details of what can be configured at an Actor level will 
 <img alt="../../_images/actor-config.jpg" src="../../_images/actor-config.jpg" />
 <p class="caption"><span class="caption-text">The Actor Sheet which is specific to the basic D&amp;D5e game system implementation</span></p>
 </div>
+</div>
 <div class="section" id="actor-permissions">
-<h3>Actor Permissions<a class="headerlink" href="#actor-permissions" title="Permalink to this headline">¶</a></h3>
+<h2><a class="toc-backref" href="#working-with-actors">Actor Permissions</a><a class="headerlink" href="#actor-permissions" title="Permalink to this headline">¶</a></h2>
 <p>Each Actor can have permissions configured at an individual User level. Actor permissions control which User or Users
 may see or edit that Actor, or impersonate it’s Token. To modify the permissions configured for an Actor, right-click
 on the Actor entry in the sidebar and select the Permissions option.</p>
@@ -219,8 +224,8 @@ able to see through the Token’s perspective on the active Scene, but not contr
 the perspective of their Token.</dd>
 </dl>
 </div>
-<div class="section" id="modify-actor-token">
-<h3>Modify Actor Token<a class="headerlink" href="#modify-actor-token" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="default-actor-token">
+<h2><a class="toc-backref" href="#working-with-actors">Default Actor Token</a><a class="headerlink" href="#default-actor-token" title="Permalink to this headline">¶</a></h2>
 <p>The Token Configuration sheet controls and customizes how an Actor is represented within a Scene. Each Actor has a
 default token configuration which defines a template for that token when it is placed. Once a token is actually placed,
 it is an independent copy which can be configured differently from the Actor’s prototype.</p>
@@ -234,7 +239,7 @@ in the header of the Actor sheet.</li>
 Configuration menu.</p>
 </div>
 <div class="section" id="token-configuration-options">
-<h3>Token Configuration Options<a class="headerlink" href="#token-configuration-options" title="Permalink to this headline">¶</a></h3>
+<h2><a class="toc-backref" href="#working-with-actors">Token Configuration Options</a><a class="headerlink" href="#token-configuration-options" title="Permalink to this headline">¶</a></h2>
 <img alt="../../_images/token-config.jpg" src="../../_images/token-config.jpg" />
 <p>The Token Configuration sheet features the following options which are shown in the above image and explained in the
 table below.</p>
@@ -319,7 +324,6 @@ secondary resource bar.</dd>
 <dd>Set the values of the secondary resource bar that apply to this particular token. If the Token’s data is
 linked to it’s parent Actor, that Actor’s values will also be changed.</dd>
 </dl>
-</div>
 </div>
 <div class="section" id="the-actor-entity-api">
 <h2><a class="toc-backref" href="#working-with-actors">The Actor Entity API</a><a class="headerlink" href="#the-actor-entity-api" title="Permalink to this headline">¶</a></h2>

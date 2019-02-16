@@ -14,8 +14,12 @@ these actors will represent the characters which the player Users impersonate an
     :backlinks: top
 
 
-Actor and Token Configuration
-=============================
+Actor Creation and Configuration
+================================
+
+To create a new Actor, visit the Actors Directory in the sidebar by clicking on the icon that looks like a group of
+people. At the bottom of this directory tab you can create a new Actor, or first create a Folder that you can use to 
+organize many actors.
 
 Actor configuration is handled through the Actor Sheet which is opened by left clicking on an Actor entry in the 
 sidebar directory or by double-clicking on a token within a Scene. The Actor Sheet itself is usually a system-specific 
@@ -25,9 +29,8 @@ implementation, so the details of what can be configured at an Actor level will 
     
     The Actor Sheet which is specific to the basic D&D5e game system implementation
 
-
 Actor Permissions
------------------
+=================
 
 Each Actor can have permissions configured at an individual User level. Actor permissions control which User or Users
 may see or edit that Actor, or impersonate it's Token. To modify the permissions configured for an Actor, right-click
@@ -55,8 +58,8 @@ Owner
     the perspective of their Token.
 
 
-Modify Actor Token
-------------------
+Default Actor Token
+===================
 
 The Token Configuration sheet controls and customizes how an Actor is represented within a Scene. Each Actor has a
 default token configuration which defines a template for that token when it is placed. Once a token is actually placed, 
@@ -74,7 +77,7 @@ Configuration menu.
 
 
 Token Configuration Options
----------------------------
+===========================
 
 .. image:: /_static/images/token-config.jpg
 
