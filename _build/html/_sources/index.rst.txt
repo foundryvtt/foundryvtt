@@ -19,7 +19,7 @@ roleplaying games in a beautiful and intuitive web-based application.
     self
     pages/features
     pages/faq
-    pages/connection
+    pages/hosting
     pages/tutorial
     pages/entities
     pages/dice

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Actors &mdash; Foundry Virtual Tabletop Alpha 0.0.6 documentation</title>
+  <title>The Actor Entity &mdash; Foundry Virtual Tabletop Alpha 0.0.6 documentation</title>
   
 
   
@@ -29,8 +29,8 @@
   <link rel="stylesheet" href="../../_static/fvtt.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Items" href="item.html" />
-    <link rel="prev" title="Game Entities" href="../entities.html" /> 
+    <link rel="next" title="Compendium Packs" href="compendium.html" />
+    <link rel="prev" title="The Scene Entity" href="scene.html" /> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -88,22 +88,26 @@
 <li class="toctree-l1"><a class="reference internal" href="../../index.html">Foundry Virtual Tabletop</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../features.html">Anticipated Features and Timelines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../connection.html">Hosting and Connectivity Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosting.html">Hosting and Connectivity Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Getting Started with FVTT</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../entities.html">Game Entities</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Actors</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#the-actors-collection">The Actors Collection</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#the-actor-class">The Actor Class</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#the-actor-sheet">The Actor Sheet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scene.html">The Scene Entity</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">The Actor Entity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#actor-and-token-configuration">Actor and Token Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#actor-permissions">Actor Permissions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modify-actor-token">Modify Actor Token</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#token-configuration-options">Token Configuration Options</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="item.html">Items</a></li>
-<li class="toctree-l2"><a class="reference internal" href="scene.html">The Scene Entity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="playlist.html">Audio Playlists</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-actor-entity-api">The Actor Entity API</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="compendium.html">Compendium Packs</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../dice.html">Rolling Dice</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">Developer API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">End User License Agreement</a></li>
 </ul>
 
             
@@ -151,7 +155,7 @@
         
           <li><a href="../entities.html">Game Entities</a> &raquo;</li>
         
-      <li>Actors</li>
+      <li>The Actor Entity</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -170,437 +174,157 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="actors">
-<span id="actor"></span><h1><a class="toc-backref" href="#id1">Actors</a><a class="headerlink" href="#actors" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="the-actor-entity">
+<span id="actor"></span><h1>The Actor Entity<a class="headerlink" href="#the-actor-entity" title="Permalink to this headline">¶</a></h1>
 <p>One of the most fundamental entities within Foundry Virtual Tabletop is the Actor. Actors are the protagonists,
-enemies, allies, and personalities within the World that you create. The game System defines the exact types of actors
-which are relevant, but for most role-playing games actors will, at the very least, represent the characters which the
-players impersonate.</p>
-<p>For application developers there are three important layers which are useful when working with Actors. The
-<a class="reference internal" href="#Actors" title="Actors"><code class="xref js js-class docutils literal notranslate"><span class="pre">Actors()</span></code></a> collection manages the set of actor entities which are present within the world. Each individual actor
-within that collection is an instance of the <code class="xref js js-class docutils literal notranslate"><span class="pre">Actor()</span></code> class (by default). Game systems which want more control
-over the behaviors and attributes of an actor may override this to a subclass included in their own definition.</p>
-<p>When viewing or interacting with an actor inside the tabletop framework, the actor’s data is rendered and edited using
-the <a class="reference internal" href="#ActorSheet" title="ActorSheet"><code class="xref js js-class docutils literal notranslate"><span class="pre">ActorSheet()</span></code></a> class (by default). Game systems which want to fine-tune how the actor data is rendered may
-override this to a subclass included in their own definition.</p>
-<hr class="docutils" />
-<div class="contents topic" id="actor-api-components">
-<p class="topic-title first">Actor API Components</p>
+allies, monsters, antagonists, and persons within the World that you create. The game System being used has control
+to define the exact types of actors which are relevant for it’s gameplay, but for most tabletop roleplaying systems
+these actors will represent the characters which the player Users impersonate and the foes they encounter.</p>
+<div class="contents local topic" id="working-with-actors">
+<p class="topic-title first">Working with Actors</p>
 <ul class="simple">
-<li><a class="reference internal" href="#actors" id="id1">Actors</a><ul>
-<li><a class="reference internal" href="#the-actors-collection" id="id2">The Actors Collection</a></li>
-<li><a class="reference internal" href="#the-actor-class" id="id3">The Actor Class</a></li>
-<li><a class="reference internal" href="#the-actor-sheet" id="id4">The Actor Sheet</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#actor-and-token-configuration" id="id2">Actor and Token Configuration</a></li>
+<li><a class="reference internal" href="#the-actor-entity-api" id="id3">The Actor Entity API</a></li>
 </ul>
 </div>
-<hr class="docutils" />
-<div class="section" id="the-actors-collection">
-<h2><a class="toc-backref" href="#id2">The Actors Collection</a><a class="headerlink" href="#the-actors-collection" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="Actors">
-<em class="property">class </em><code class="descname">Actors</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Actors" title="Permalink to this definition">¶</a></dt>
-<dd><p>The <code class="xref js js-class docutils literal notranslate"><span class="pre">Collection()</span></code> of <code class="xref js js-class docutils literal notranslate"><span class="pre">Actor()</span></code> entities
-The actors collection is accessible within the game as <code class="docutils literal notranslate"><span class="pre">game.actors</span></code></p>
-<dl class="function">
-<dt id="Actors.Collection.insert">
-<code class="descclassname">Actors.Collection.</code><code class="descname">insert</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="headerlink" href="#Actors.Collection.insert" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add a new Entity to the Collection, asserting that they are of the correct type</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>entity</strong> (<a class="reference internal" href="../api/entities.html#Entity" title="Entity"><em>Entity</em></a>) – The entity instance to add to the collection</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="Actors.Collection.remove">
-<code class="descclassname">Actors.Collection.</code><code class="descname">remove</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#Actors.Collection.remove" title="Permalink to this definition">¶</a></dt>
-<dd><p>Remove an Entity from the Collection by its ID.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>id</strong> (<em>String</em>) – The entity ID which should be removed</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="Actors.Collection.get">
-<code class="descclassname">Actors.Collection.</code><code class="descname">get</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#Actors.Collection.get" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get an element from the collection by ID</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>id</strong> (<em>String</em>) – The entity ID to retrieve from the collection</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Entity</strong> – The retrieved Entity, if the ID was found, otherwise null;</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="Actors.Collection.index">
-<code class="descclassname">Actors.Collection.</code><code class="descname">index</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#Actors.Collection.index" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieve the index of an entity within the collection by its ID</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>id</strong> (<em>String</em>) – The entity ID to retrieve from the collection</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Number</strong> – The index of the Entity within the collection, if found, otherwise -1;</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="Actors.Collection.render">
-<code class="descclassname">Actors.Collection.</code><code class="descname">render</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Actors.Collection.render" title="Permalink to this definition">¶</a></dt>
-<dd><p>Re-render any currently visible applications associated with this Collection</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="Actors.importFromCollection">
-<code class="descclassname">Actors.</code><code class="descname">importFromCollection</code><span class="sig-paren">(</span><em>collection</em>, <em>entryId</em><span class="sig-paren">)</span><a class="headerlink" href="#Actors.importFromCollection" title="Permalink to this definition">¶</a></dt>
-<dd><p>Import an Actor from a compendium collection, adding it to the current World</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>collection</strong> (<em>String</em>) – The name of the pack from which to import</li>
-<li><strong>entryId</strong> (<em>String</em>) – The ID of the compendium entry to import</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Promise</strong> – A Promise containing the imported Actor</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Actors.object">
-<code class="descclassname">Actors.</code><code class="descname">object</code><a class="headerlink" href="#Actors.object" title="Permalink to this definition">¶</a></dt>
-<dd><p>Elements of the Actors collection are instances of the Actor class, or a subclass thereof</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="Actors.socketListeners">
-<code class="descclassname">Actors.</code><code class="descname">socketListeners</code><span class="sig-paren">(</span><em>socket</em><span class="sig-paren">)</span><a class="headerlink" href="#Actors.socketListeners" title="Permalink to this definition">¶</a></dt>
-<dd><p>Open additional socket listeners which transact Actor data</p>
-</dd></dl>
-
-</dd></dl>
-
+<div class="section" id="actor-and-token-configuration">
+<h2><a class="toc-backref" href="#working-with-actors">Actor and Token Configuration</a><a class="headerlink" href="#actor-and-token-configuration" title="Permalink to this headline">¶</a></h2>
+<p>Actor configuration is handled through the Actor Sheet which is opened by left clicking on an Actor entry in the
+sidebar directory or by double-clicking on a token within a Scene. The Actor Sheet itself is usually a system-specific
+implementation, so the details of what can be configured at an Actor level will vary by game system.</p>
+<div class="figure" id="id1">
+<img alt="../../_images/actor-config.jpg" src="../../_images/actor-config.jpg" />
+<p class="caption"><span class="caption-text">The Actor Sheet which is specific to the basic D&amp;D5e game system implementation</span></p>
 </div>
-<hr class="docutils" />
-<div class="section" id="the-actor-class">
-<h2><a class="toc-backref" href="#id3">The Actor Class</a><a class="headerlink" href="#the-actor-class" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="raw.Actor">
-<em class="property">class </em><code class="descclassname">raw.</code><code class="descname">Actor</code><span class="sig-paren">(</span><em>data</em>, <em>apps</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Actor" title="Permalink to this definition">¶</a></dt>
-<dd><p>The Actor class is a type of <a class="reference internal" href="../api/entities.html#Entity" title="Entity"><code class="xref js js-class docutils literal notranslate"><span class="pre">Entity()</span></code></a> which represents the protagonists, characters, enemies, and more that
-inhabit the World.</p>
-<dl class="function">
-<dt id="raw.Actor.Entity.create">
-<code class="descclassname">raw.Actor.Entity.</code><code class="descname">create</code><span class="sig-paren">(</span><em>data</em>, <em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Actor.Entity.create" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a new entity using provided input data
-The data for entity creation is typically provided from the server through the ‘create&lt;Entity&gt;’ socket
-Alternatively, the creation event may originate locally and the new entity can be pushed back to the server</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>data</strong> (<em>Object</em>) – The data with which to create the entity</li>
-<li><strong>options</strong> (<em>Object</em>) – Additional options which customize the creation workflow</li>
-<li><strong>options.temporary</strong> (<em>Boolean</em>) – Create a temporary entity which is not saved to the world database. Default is false.</li>
-<li><strong>options.displaySheet</strong> (<em>Boolean</em>) – Show the configuration sheet for the created entity once it is created. Default is true.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Promise</strong> – A Promise which resolves to contain the created Entity</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="raw.Actor.Entity.update">
-<code class="descclassname">raw.Actor.Entity.</code><code class="descname">update</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Actor.Entity.update" title="Permalink to this definition">¶</a></dt>
-<dd><p>Update the current entity using new data
-This new data is typically provided from the server through the ‘update&lt;Entity&gt;’ socket
-Alternatively, the update may originate locally, in which case it can be pushed back to the server</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>data</strong> (<em>Object</em>) – The data with which to update the entity</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Promise</strong> – A Promise which resolves to the updated Entity</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="raw.Actor.Entity.delete">
-<code class="descclassname">raw.Actor.Entity.</code><code class="descname">delete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#raw.Actor.Entity.delete" title="Permalink to this definition">¶</a></dt>
-<dd><p>Delete the entity, removing it from its collection and deleting its data record</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>Promise</strong> – A Promise which resolves to the ID of the deleted Entity once handled by the server</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="raw.Actor._onUpdate">
-<code class="descclassname">raw.Actor.</code><code class="descname">_onUpdate</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Actor._onUpdate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Additional updating steps for the Actor entity when new data is saved which trigger some related updates.</p>
-<p>Re-render the parent collection if names, images, or permissions have changed
-Re-render active tokens if their linked attribute has changed</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>data</strong> (<em>Object</em>) – The new data object which was used to update the Actor</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="raw.Actor.createOwnedItem">
-<code class="descclassname">raw.Actor.</code><code class="descname">createOwnedItem</code><span class="sig-paren">(</span><em>itemData</em>, <em>push=false</em>, <em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Actor.createOwnedItem" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a new item owned by this Actor.
-The creation request is submitted to the server where the item is assigned an ID
-The return item (with itemID) is then added to the actor.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>itemData</strong> (<em>Object</em>) – Data for the newly owned item</li>
-<li><strong>push</strong> (<em>Boolean</em>) – Push the item creation request to other clients?</li>
-<li><strong>options</strong> (<em>Object</em>) – Item creation options</li>
-<li><strong>options.renderSheet</strong> (<em>Boolean</em>) – Render the Item sheet for the newly created item data</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Promise</strong> – A Promise containing the newly created owned Item instance</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="raw.Actor.deleteOwnedItem">
-<code class="descclassname">raw.Actor.</code><code class="descname">deleteOwnedItem</code><span class="sig-paren">(</span><em>itemId</em>, <em>push=false</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Actor.deleteOwnedItem" title="Permalink to this definition">¶</a></dt>
-<dd><p>Delete an owned item by its ID</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>itemId</strong> (<em>Number</em>) – The ID of the item to delete</li>
-<li><strong>push</strong> (<em>Boolean</em>) – Push the item deletion to other clients?</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Promise</strong> – A Promise resolving to the deleted item ID</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="raw.Actor.getActiveTokens">
-<code class="descclassname">raw.Actor.</code><code class="descname">getActiveTokens</code><span class="sig-paren">(</span><em>linked=false</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Actor.getActiveTokens" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieve an Array of active tokens which represent this Actor in the current canvas Scene.
-If the canvas is not currently active, or there are no linked actors, the returned Array will be empty.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>linked</strong> (<em>Boolean</em>) – Only return tokens which are linked to the Actor. Default (false) is to return all tokens even those which are not linked.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Array</strong> – An array of tokens in the current Scene which reference this Actor.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="raw.Actor.img">
-<code class="descclassname">raw.Actor.</code><code class="descname">img</code><a class="headerlink" href="#raw.Actor.img" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>type:</strong> String</p>
-<p>A convenient reference to the file path of the Actor’s profile image</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="raw.Actor.importItemFromCollection">
-<code class="descclassname">raw.Actor.</code><code class="descname">importItemFromCollection</code><span class="sig-paren">(</span><em>collection</em>, <em>entryId</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Actor.importItemFromCollection" title="Permalink to this definition">¶</a></dt>
-<dd><p>Import a new owned Item from a compendium collection
-The imported Item is then added to the Actor as an owned item.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>collection</strong> (<em>String</em>) – The name of the pack from which to import</li>
-<li><strong>entryId</strong> (<em>String</em>) – The ID of the compendium entry to import</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="raw.Actor.isPC">
-<code class="descclassname">raw.Actor.</code><code class="descname">isPC</code><a class="headerlink" href="#raw.Actor.isPC" title="Permalink to this definition">¶</a></dt>
-<dd><p>A boolean flag for whether this Actor is a player-owned character.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="raw.Actor.items">
-<code class="descclassname">raw.Actor.</code><code class="descname">items</code><a class="headerlink" href="#raw.Actor.items" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>type:</strong> Array</p>
-<p>A convenient reference to the Array of Items which are owned by the Actor</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="raw.Actor.token">
-<code class="descclassname">raw.Actor.</code><code class="descname">token</code><a class="headerlink" href="#raw.Actor.token" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>type:</strong> Object</p>
-<p>A convenient reference to the default Token data for the Actor</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="raw.Actor.updateOwnedItem">
-<code class="descclassname">raw.Actor.</code><code class="descname">updateOwnedItem</code><span class="sig-paren">(</span><em>itemData</em>, <em>push=false</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Actor.updateOwnedItem" title="Permalink to this definition">¶</a></dt>
-<dd><p>Update an owned item using provided new data</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>itemData</strong> (<em>Object</em>) – Data for the item to update</li>
-<li><strong>push</strong> (<em>Boolean</em>) – Push the item update to other clients?</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Promise</strong> – A Promise resolving to the updated Item</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
+<div class="section" id="actor-permissions">
+<h3>Actor Permissions<a class="headerlink" href="#actor-permissions" title="Permalink to this headline">¶</a></h3>
+<p>Each Actor can have permissions configured at an individual User level. Actor permissions control which User or Users
+may see or edit that Actor, or impersonate it’s Token. To modify the permissions configured for an Actor, right-click
+on the Actor entry in the sidebar and select the Permissions option.</p>
+<img alt="../../_images/permission-config.jpg" src="../../_images/permission-config.jpg" />
+<p>A single permission level may be assigned to all users at once, or individually user-by-user. A permission given to
+a specific User will override the level of permission given to all Users.</p>
+<dl class="docutils">
+<dt>None</dt>
+<dd>The User is not able to see the Actor in the sidebar, open its’ sheet, or control its’ Token. This is the default
+permission level.</dd>
+<dt>Limited</dt>
+<dd>The User is able to see the Actor entry in the sidebar, and observe limited (but not full) details regarding that
+Actor. Users with limited permission cannot control the Actor’s token.</dd>
+<dt>Observer</dt>
+<dd>The User is able to see the Actor’s entry in the sidebar directory and open it’s character sheet. The User is also
+able to see through the Token’s perspective on the active Scene, but not control that Token.</dd>
+<dt>Owner</dt>
+<dd>The User has full control over the actor and can open and edit their Actor sheet as well as control and see from
+the perspective of their Token.</dd>
+</dl>
 </div>
-<hr class="docutils" />
-<div class="section" id="the-actor-sheet">
-<h2><a class="toc-backref" href="#id4">The Actor Sheet</a><a class="headerlink" href="#the-actor-sheet" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="ActorSheet">
-<em class="property">class </em><code class="descname">ActorSheet</code><span class="sig-paren">(</span><em>actor</em>, <em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#ActorSheet" title="Permalink to this definition">¶</a></dt>
-<dd><p>The default Actor Sheet</p>
-<p>This Application is responsible for rendering an actor’s attributes and allowing the actor to be edited.</p>
-<p>System modifications may elect to override this class to better suit their own game system by re-defining the value
-<code class="docutils literal notranslate"><span class="pre">CONFIG.Actor.sheetClass</span></code>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>actor</strong> (<em>Actor</em>) – The Actor instance being displayed within the sheet.</li>
-<li><strong>options</strong> (<em>Object</em>) – Additional options which modify the rendering of the Actor’s sheet.</li>
-<li><strong>options.editable</strong> (<em>Boolean</em>) – Is the Actor editable? Default is true.</li>
+<div class="section" id="modify-actor-token">
+<h3>Modify Actor Token<a class="headerlink" href="#modify-actor-token" title="Permalink to this headline">¶</a></h3>
+<p>The Token Configuration sheet controls and customizes how an Actor is represented within a Scene. Each Actor has a
+default token configuration which defines a template for that token when it is placed. Once a token is actually placed,
+it is an independent copy which can be configured differently from the Actor’s prototype.</p>
+<p>To modify the default token configuration for an Actor, you may either:</p>
+<ol class="arabic simple">
+<li>Click the <strong>Configure Token</strong> button in the header of an Actor sheet.</li>
+<li>Edit the configuration for an existing Token and, while having that configured token selected, click <strong>Assign Token</strong>
+in the header of the Actor sheet.</li>
+</ol>
+<p>To modify a Token which has already been placed within the Scene, double right-click the token to access the Token
+Configuration menu.</p>
+</div>
+<div class="section" id="token-configuration-options">
+<h3>Token Configuration Options<a class="headerlink" href="#token-configuration-options" title="Permalink to this headline">¶</a></h3>
+<img alt="../../_images/token-config.jpg" src="../../_images/token-config.jpg" />
+<p>The Token Configuration sheet features the following options which are shown in the above image and explained in the
+table below.</p>
+<dl class="docutils">
+<dt>Nameplate</dt>
+<dd>Configure the name which is shown for the token, this can potentially be different from the name of the actual
+Actor.</dd>
+<dt>Show Nameplate</dt>
+<dd><p class="first">Configure the level of visibility for the token’s nameplate. The following options are supported:</p>
+<ul class="last simple">
+<li>None - The nameplate will not be shown</li>
+<li>Control - Displayed when the Token is currently controlled</li>
+<li>Owner Hover - Displayed when the token is hovered over by a User who owns the token’s Actor</li>
+<li>Hover - Displayed when the token is hovered over by any User</li>
+<li>Owner - Always displayed to any User who owns the token’s Actor</li>
+<li>Always - Always displayed to every User</li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
-<dl class="function">
-<dt id="ActorSheet.activateListeners">
-<code class="descclassname">ActorSheet.</code><code class="descname">activateListeners</code><span class="sig-paren">(</span><em>html</em><span class="sig-paren">)</span><a class="headerlink" href="#ActorSheet.activateListeners" title="Permalink to this definition">¶</a></dt>
-<dd><p>Activate the default set of listeners for the Actor Sheet
-These listeners handle basic stuff like form submission or updating images</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>html</strong> (<em>JQuery</em>) – The rendered template ready to have listeners attached</li>
+</dd>
+<dt>Actor Template</dt>
+<dd>Specify which Actor that is present within the World defines the Actor data which describes the Token.</dd>
+<dt>Link Data</dt>
+<dd>When enabled, changes to the resource pools either on the base Actor or on the Token itself will reflect
+in the other location. As a general rule of thumb, Tokens should be linked if their Actor is a unique
+character, such that there would only be one instance of that Actor within any particular Scene. Alternatively,
+Tokens should not be linked when the Actor entry represents a generic creature or type of character. When
+data is not linked, each Token will have independent resources pools and turn order tracking.</dd>
+<dt>Disposition</dt>
+<dd>For non-player characters, setting a Token disposition allows for the colored border shown around a Token
+to be drawn in a different color which can differentiate enemies from allies during combat encounters.</dd>
+<dt>Image Path</dt>
+<dd>The file path to the artwork that is used for the Token. This file must either be served locally from within
+the <code class="docutils literal notranslate"><span class="pre">public</span></code> directory or from some publicly accessible web location.</dd>
+<dt>Width</dt>
+<dd>The number of grid units in the horizontal dimension that this token occupies. A token which uses a single
+grid square would have a width of 1.</dd>
+<dt>Height</dt>
+<dd>The number of grid units in the vertical dimension that this token occupies. A token which uses a single
+grid square would have a height of 1.</dd>
+<dt>Scale</dt>
+<dd>A scaling ratio for the size of the Token’s artwork. The token base is unaffected by this value, but the
+visual size of the artwork will change with scale. Numbers greater than 1 result in larger token artwork
+while numbers less than 1 result in smaller token artwork.</dd>
+<dt>Lock Rotation</dt>
+<dd>If this setting is enabled the token cannot be rotated. This setting is typically ideal for portrait style
+tokens where the artwork orientation is more ideally fixed.</dd>
+<dt>Dim Vision</dt>
+<dd>For scenes which require Token Vision, this setting specifies the visible radius with which the Token can
+see as if in dim light conditions.</dd>
+<dt>Bright Vision</dt>
+<dd>For scenes which require Token Vision, this setting specifies the visible radius with which the Token can
+see as if in bright light conditions. Please note that both this setting and the Dim Vision setting are
+radii with respect to the token location as the origin, so typically the Bright Vision radius is a smaller
+number than the Dim Vision setting.</dd>
+<dt>Emit Dim Light</dt>
+<dd>For scenes which require Token Vision, this setting specifies a distance of dim light emitted by this token
+that is visible by all other tokens.</dd>
+<dt>Emit Bright Light</dt>
+<dd>For scenes which require Token Vision, this setting specifies a distance of bright light emitted by this
+token that is visible by all other tokens. As with the above settings, these distances are radii with respect
+to the token center, so typically Emit Bright Light is a smaller number than the Emit Dim Light setting.</dd>
+<dt>Display Bars</dt>
+<dd><p class="first">Configure the level of visibility for the token’s resource bars. The following options are supported:</p>
+<ul class="last simple">
+<li>None - Resource bars will not be shown</li>
+<li>Control - Displayed when the Token is currently controlled</li>
+<li>Owner Hover - Displayed when the token is hovered over by a User who owns the token’s Actor</li>
+<li>Hover - Displayed when the token is hovered over by any User</li>
+<li>Owner - Always displayed to any User who owns the token’s Actor</li>
+<li>Always - Always displayed to every User</li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="ActorSheet.actor">
-<code class="descclassname">ActorSheet.</code><code class="descname">actor</code><a class="headerlink" href="#ActorSheet.actor" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>type:</strong> Actor</p>
-<p>A convenience reference to the Actor entity</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="ActorSheet.getData">
-<code class="descclassname">ActorSheet.</code><code class="descname">getData</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ActorSheet.getData" title="Permalink to this definition">¶</a></dt>
-<dd><p>Prepare data for rendering the Actor sheet
-The prepared data object contains both the actor data as well as additional sheet options</p>
-</dd></dl>
-
-</dd></dl>
-
+</dd>
+<dt>Bar 1 Attribute</dt>
+<dd>Select the attribute from the Actor’s available data fields which should be displayed using the Token’s
+primary resource bar.</dd>
+<dt>Bar 1 Data (Current / Max)</dt>
+<dd>Set the values of the primary resource bar that apply to this particular token. If the Token’s data is
+linked to it’s parent Actor, that Actor’s values will also be changed.</dd>
+<dt>Bar 2 Attribute</dt>
+<dd>Select the attribute from the Actor’s available data fields which should be displayed using the Token’s
+secondary resource bar.</dd>
+<dt>Bar 2 Data (Current / Max)</dt>
+<dd>Set the values of the secondary resource bar that apply to this particular token. If the Token’s data is
+linked to it’s parent Actor, that Actor’s values will also be changed.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="the-actor-entity-api">
+<h2><a class="toc-backref" href="#working-with-actors">The Actor Entity API</a><a class="headerlink" href="#the-actor-entity-api" title="Permalink to this headline">¶</a></h2>
+<p>For module developers interested in working with Scenes, API documentation for scenes and associated classes is
+available in the <a class="reference internal" href="../api/entities/actor.html#actorapi"><span class="std std-ref">The Actor Entity</span></a> page.</p>
 </div>
 </div>
 
@@ -612,10 +336,10 @@ The prepared data object contains both the actor data as well as additional shee
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="item.html" class="btn btn-neutral float-right" title="Items" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="compendium.html" class="btn btn-neutral float-right" title="Compendium Packs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../entities.html" class="btn btn-neutral" title="Game Entities" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="scene.html" class="btn btn-neutral" title="The Scene Entity" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

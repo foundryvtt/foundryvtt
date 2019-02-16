@@ -107,6 +107,9 @@ Assistant Gamemaster
     An assistant GM is similar to a regular GameMaster, they can see the entire game canvas and can create or edit all
     content. Some permissions are limited, however: Assistant GMs are not allowed to delete Actors, Scenes, or Items.
 
+Even if you don't have any specific players in mind for your world yet, I recommend creating at least one Player user
+that you can use for testing out your content from the perspective of a potential player.
+
 
 First Steps in your World
 =========================
@@ -153,4 +156,22 @@ represent both player and non-player characters in this area of the world.
 Creating Actors and Placing Tokens
 ----------------------------------
 
-TODO.
+Once you have created and configured a Scene, a great next step to practice is creating an Actor and placing that
+Actor within the Scene by creating a Token. To learn all about Actors and their properties please visit the 
+following page: :ref:`actor`.
+
+.. figure:: /_static/images/actor-config.jpg
+    
+    Creating an Actor will allow you to test placing Tokens as well as experiencing the Scene from the player's 
+    perspective.
+
+Once you have created an Actor, a good idea is to assign permission to that Actor to one of your player User 
+accounts. To do this, right click on the Actor entry in the sidebar and click Permissions. Give the OWNER 
+permission to a user you want to have full control over this Actor.
+
+A typical next step in the Actor creation workflow is to configure the default Token that represents this new
+Actor. Click the **Configure Token** button at the top of the Actor sheet and follow the instructions on the 
+Actor Entity page linked above.
+
+Once the Actor's default token is configured, click and drag the Actor from the sidebar onto the tabletop canvas
+for the Scene you created to place the Actor's configured Token into the Scene you created previously.

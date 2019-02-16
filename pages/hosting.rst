@@ -19,7 +19,7 @@ In a self-hosted setting, the application runs on your own computer and creates 
 
 **Advantages**
 
-* Free.
+* Free (assuming you have a computer).
 * Almost zero setup.
 * Easy management of content using your own computer's file system.
 
@@ -33,19 +33,19 @@ In a self-hosted setting, the application runs on your own computer and creates 
 Dedicated
 ---------
 
-In a dedicated hosting setting, the application runs on a persistent web server and all players (including the GM) connect to the game session. The dedicated hosting mode is most similar to the experience of Roll20 or Astral.
+In a dedicated hosting setting, the application runs on a persistent web server using node.js and all players (including the GM) connect to the game session. The dedicated hosting mode is most similar to the experience of Roll20 or Astral.
 
 **Advantages**
 
 * Your world is always online, although gameplay can be paused in between sessions
-* Clients can easily connect to your world regardless of local network configurations.
+* Clients connect to your world regardless of local network configurations.
 * Network transfer speeds are typically faster than self-hosted resulting in a better player experience.
 
 **Disadvantages**
 
-* You need to have or pay for a web server.
-* Somewhat more complicated setup, especially for users who are unfamiliar with Linux.
-* Your world's static files (maps, tokens, music) need to be transferred to the host server.
+* Requires a accessible web server which is configured to serve the Foundry VTT application.
+* More complicated initial setup, especially for users who are unfamiliar with web hosting.
+* Your world's static files (maps, tokens, music) need to be served from a static location or from the web server.
 
 ------
 
@@ -105,6 +105,7 @@ a ``Custom TPC Rule`` for port ``30000`` (or a different port of your choice).
 3. Connect to your new host via SSH. You will need to configure your SSH client to use the security key-pair provided
 by AWS.
 
+
 4. Update software versions and install ``nodejs`` to host the server.
 
    For Red Hat / Amazon Linux::
@@ -119,28 +120,29 @@ by AWS.
     curl -sL https://deb.nodesource.com/setup_8.x | sudo bash -
     sudo apt install -y nodejs
 
-5. Download and extract the Linux version of the software in your home directory (or somewhere else if you prefer).::
+    For Windows: Download and install node.js from https://nodejs.org/en/download/
 
-	cd ~
-	curl -s <Linux Alpha Download URL> > foundryvtt.zip
-	unzip foundryvtt.zip
-	rm foundryvtt.zip
+
+5. Download and extract the Foundry Virtual Tabletop version of the platform architecture.
 
 6. Start the server, being sure to pass the headless flag: ``node main.js --headless``.
 
 7. Once the server is running, both you and your players can connect to the server using the public IP address of
-your EC2 server which is listed in the AWS dashboard for your instance, for example ``http://x.x.x.x:30000``.
+your web host, for example ``http://x.x.x.x:30000``.
 
 ------
 
 
-Changing Your Port
-==================
+Command Line Arguments
+======================
 
-By default, Foundry VTT uses port ``30000``. You can change this by manually editing the ``options.json`` file in
-the root of your installation directory.
+By default, Foundry VTT uses port ``30000``. You can modify which port is used by passing the ``--port=<port>`` flag
+at runtime.
 
-..	note:: Eventually I will add a settings menu where this can be configured without a manual file edit required.
+You can also specify the name of a world directory that should be automatically loaded when the software starts by
+passing the ``--world=<worldname>`` flag.
+
+------
 
 
 Where Do I Put My Content?

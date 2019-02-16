@@ -12,4 +12,5 @@ used within Foundry Virtual Tabletop and the API layers which allow you to modif
     :maxdepth: 1
 
     entities/scene
+    entities/actor
     entities/compendium
