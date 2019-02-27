@@ -283,17 +283,20 @@ global configuration.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="Scenes.activate">
-<code class="descclassname">Scenes.</code><code class="descname">activate</code><span class="sig-paren">(</span><em>sceneId</em>, <em>push=false</em><span class="sig-paren">)</span><a class="headerlink" href="#Scenes.activate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set a new Scene as active</p>
+<dt id="Scenes.importFromCollection">
+<code class="descclassname">Scenes.</code><code class="descname">importFromCollection</code><span class="sig-paren">(</span><em>collection</em>, <em>entryId</em><span class="sig-paren">)</span><a class="headerlink" href="#Scenes.importFromCollection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Import a Scene from a compendium collection, adding it to the current World</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>sceneId</strong> (<em>String</em>) – The ID of the scene to activate</li>
-<li><strong>push</strong> (<em>Boolean</em>) – Push the scene activation to other connected clients</li>
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>collection</strong> (<em>String</em>) – The name of the pack from which to import</li>
+<li><strong>entryId</strong> (<em>String</em>) – The ID of the compendium entry to import</li>
 </ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Promise</strong> – A Promise containing the imported Scene</p>
 </td>
 </tr>
 </tbody>
@@ -423,6 +426,20 @@ If the scene name or image were changed update the directory collection</p>
 <p>Track the viewed position of each scene (while in memory only, not persisted)
 When switching back to a previously viewed scene, we can automatically pan to the previous position.
 Object with keys: x, y, scale</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="raw.Scene.activate">
+<code class="descclassname">raw.Scene.</code><code class="descname">activate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#raw.Scene.activate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set this scene as currently active</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>Promise</strong> – A Promise which resolves to the current scene once it has been successfully activated</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">

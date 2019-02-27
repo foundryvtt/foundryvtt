@@ -200,11 +200,39 @@ accessed globally as <code class="docutils literal notranslate"><span class="pre
 This layer is never interactive</p>
 </dd></dl>
 
+<dl class="function">
+<dt id="TokenLayer.concludeAnimation">
+<code class="descclassname">TokenLayer.</code><code class="descname">concludeAnimation</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#TokenLayer.concludeAnimation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Immediately conclude the animation of any/all tokens</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="TokenLayer.controlledTokens">
 <code class="descclassname">TokenLayer.</code><code class="descname">controlledTokens</code><a class="headerlink" href="#TokenLayer.controlledTokens" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>type:</strong> Array</p>
 <p>An Array of tokens which are currently controlled</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="TokenLayer.cycleTokens">
+<code class="descclassname">TokenLayer.</code><code class="descname">cycleTokens</code><span class="sig-paren">(</span><em>direction</em>, <em>reset</em><span class="sig-paren">)</span><a class="headerlink" href="#TokenLayer.cycleTokens" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cycle the controlled token by rotating through the list of Owned Tokens that are available within the Scene
+Tokens are currently sorted in order of their TokenID</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>direction</strong> (<em>Boolean</em>) – Which direction to cycle. A “truthy” value cycles forward, while a “falsey” value cycles backwards.</li>
+<li><strong>reset</strong> (<em>Boolean</em>) – Restart the cycle order back at the beginning?</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Boolean</strong> – A flag for whether token control was cycled</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
@@ -217,8 +245,8 @@ This layer is never interactive</p>
 <dl class="function">
 <dt id="TokenLayer.deactivate">
 <code class="descclassname">TokenLayer.</code><code class="descname">deactivate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#TokenLayer.deactivate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Override the deactivation behavior of the PlaceablesLayer.
-Allow tokens to remain visible even when the layer is inactive</p>
+<dd><p>Override the deactivation behavior of this layer.
+Placeables on this layer remain visible even when the layer is inactive.</p>
 </dd></dl>
 
 <dl class="function">
@@ -267,13 +295,6 @@ Draw each contained Token within the scene as a child of the objects container</
 <p>Define a Container implementation used to render placeable objects contained in this layer</p>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="TokenLayer.playerTokens">
-<code class="descclassname">TokenLayer.</code><code class="descname">playerTokens</code><a class="headerlink" href="#TokenLayer.playerTokens" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>type:</strong> Array</p>
-<p>An Array of tokens which belong to the impersonated character</p>
-</dd></dl>
-
 <dl class="function">
 <dt id="TokenLayer.releaseAllTokens">
 <code class="descclassname">TokenLayer.</code><code class="descname">releaseAllTokens</code><span class="sig-paren">(</span><em>resetSight</em><span class="sig-paren">)</span><a class="headerlink" href="#TokenLayer.releaseAllTokens" title="Permalink to this definition">¶</a></dt>
@@ -292,13 +313,6 @@ Draw each contained Token within the scene as a child of the objects container</
 <code class="descclassname">TokenLayer.</code><code class="descname">selectTokens</code><span class="sig-paren">(</span><em>coords</em><span class="sig-paren">)</span><a class="headerlink" href="#TokenLayer.selectTokens" title="Permalink to this definition">¶</a></dt>
 <dd><p>Select all the tokens within a provided set of rectangular coordinates.
 Control any tokens within the area which you are able to control based on token permissions.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="TokenLayer.tokens">
-<code class="descclassname">TokenLayer.</code><code class="descname">tokens</code><a class="headerlink" href="#TokenLayer.tokens" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>type:</strong> Array</p>
-<p>An Array of all tokens which are present in the Scene</p>
 </dd></dl>
 
 </dd></dl>
@@ -430,22 +444,6 @@ This attribute returns a object of coordinates <code class="docutils literal not
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Boolean</strong> – A true/false indicator for whether the attempted movement caused a collision</p>
 </td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="Token.clone">
-<code class="descclassname">Token.</code><code class="descname">clone</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Token.clone" title="Permalink to this definition">¶</a></dt>
-<dd><p>Copy the Token, returning a new PIXI.Container with identical attributes
-The returned Token is non-interactive, and has no Id
-If you plan to use it permanently you should emit a <code class="docutils literal notranslate"><span class="pre">tokenCreate</span></code> event</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>Token</strong> – A new non-interactive Token sprite</td>
 </tr>
 </tbody>
 </table>
