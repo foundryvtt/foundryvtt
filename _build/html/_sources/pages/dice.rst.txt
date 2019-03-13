@@ -22,10 +22,10 @@ Keep or Drop Results
 
 A desired number of high or low rolls may be kept or dropped using the following roll modifiers.
 
-* ``kh{N}`` Keep the highest ``N`` dice out of the group that were rolled.
-* ``kl{N}`` Keep the lowest ``N`` dice out of the group that were rolled.
-* ``dh{N}`` Drop the highest ``N`` dice out of the group that were rolled.
-* ``dl{N}`` Drop the lowest ``N`` dice out of the group that were rolled.
+* ``kh{N}``     Keep the highest ``N`` dice out of the group that were rolled.
+* ``kl{N}``     Keep the lowest ``N`` dice out of the group that were rolled.
+* ``dh{N}``     Drop the highest ``N`` dice out of the group that were rolled.
+* ``dl{N}``     Drop the lowest ``N`` dice out of the group that were rolled.
 
 Re-roll Certain Results
 -----------------------
@@ -55,11 +55,19 @@ Count Successes
 
 You can roll a set of dice and count the number of times a certain result or range of results was achieved.
 
-..  warning:: This is still TO-DO. The planned syntax is described below but not yet added
+* ``cs={y}``     Count the number of dice which resulted exactly in ``y``.
+* ``cs>{y}``     Count the number of dice which rolled greater than ``y``.
+* ``cs>={y}``    Count the number of dice which rolled greater than or equal to ``y``.
+* ``cs<{y}``     Count the number of dice which rolled less than or equal to ``y``.
+* ``cs<={y}``    Count the number of dice which rolled less than or equal to ``y``.
 
-* ``s{y}``      Count the number of dice which resulted in ``y``.
-* ``s>{y}``     Count the number of dice which rolled greater than ``y``.
-* ``s>={y}``    Count the number of dice which rolled greater than or equal to ``y``.
-* ``s<{y}``     Count the number of dice which rolled less than or equal to ``y``.
-* ``s<={y}``    Count the number of dice which rolled less than or equal to ``y``.
+Margin of Success
+-----------------
 
+Roll a set of dice and compare the total against some target, keeping the difference as the result.
+
+* ``ms={y}``      Subtract ``y`` from the rolled total and return the difference.
+* ``ms>{y}``      Same as above.
+* ``ms>={y}``     Same as above.
+* ``ms<{y}``      Subtract the rolled total from `y` and return the difference.
+* ``ms<={y}``     Same as above.

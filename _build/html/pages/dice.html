@@ -97,6 +97,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#re-roll-certain-results">Re-roll Certain Results</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#explode-certain-results">Explode Certain Results</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#count-successes">Count Successes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#margin-of-success">Margin of Success</a></li>
 </ul>
 </li>
 </ul>
@@ -186,10 +187,10 @@ modifiers work by adding extra syntax on to the end of the roll, <code class="do
 <h3>Keep or Drop Results<a class="headerlink" href="#keep-or-drop-results" title="Permalink to this headline">¶</a></h3>
 <p>A desired number of high or low rolls may be kept or dropped using the following roll modifiers.</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">kh{N}</span></code> Keep the highest <code class="docutils literal notranslate"><span class="pre">N</span></code> dice out of the group that were rolled.</li>
-<li><code class="docutils literal notranslate"><span class="pre">kl{N}</span></code> Keep the lowest <code class="docutils literal notranslate"><span class="pre">N</span></code> dice out of the group that were rolled.</li>
-<li><code class="docutils literal notranslate"><span class="pre">dh{N}</span></code> Drop the highest <code class="docutils literal notranslate"><span class="pre">N</span></code> dice out of the group that were rolled.</li>
-<li><code class="docutils literal notranslate"><span class="pre">dl{N}</span></code> Drop the lowest <code class="docutils literal notranslate"><span class="pre">N</span></code> dice out of the group that were rolled.</li>
+<li><code class="docutils literal notranslate"><span class="pre">kh{N}</span></code>     Keep the highest <code class="docutils literal notranslate"><span class="pre">N</span></code> dice out of the group that were rolled.</li>
+<li><code class="docutils literal notranslate"><span class="pre">kl{N}</span></code>     Keep the lowest <code class="docutils literal notranslate"><span class="pre">N</span></code> dice out of the group that were rolled.</li>
+<li><code class="docutils literal notranslate"><span class="pre">dh{N}</span></code>     Drop the highest <code class="docutils literal notranslate"><span class="pre">N</span></code> dice out of the group that were rolled.</li>
+<li><code class="docutils literal notranslate"><span class="pre">dl{N}</span></code>     Drop the lowest <code class="docutils literal notranslate"><span class="pre">N</span></code> dice out of the group that were rolled.</li>
 </ul>
 </div>
 <div class="section" id="re-roll-certain-results">
@@ -218,16 +219,23 @@ have been rolled.</p>
 <div class="section" id="count-successes">
 <h3>Count Successes<a class="headerlink" href="#count-successes" title="Permalink to this headline">¶</a></h3>
 <p>You can roll a set of dice and count the number of times a certain result or range of results was achieved.</p>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">This is still TO-DO. The planned syntax is described below but not yet added</p>
-</div>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">s{y}</span></code>      Count the number of dice which resulted in <code class="docutils literal notranslate"><span class="pre">y</span></code>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">s&gt;{y}</span></code>     Count the number of dice which rolled greater than <code class="docutils literal notranslate"><span class="pre">y</span></code>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">s&gt;={y}</span></code>    Count the number of dice which rolled greater than or equal to <code class="docutils literal notranslate"><span class="pre">y</span></code>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">s&lt;{y}</span></code>     Count the number of dice which rolled less than or equal to <code class="docutils literal notranslate"><span class="pre">y</span></code>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">s&lt;={y}</span></code>    Count the number of dice which rolled less than or equal to <code class="docutils literal notranslate"><span class="pre">y</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">cs={y}</span></code>     Count the number of dice which resulted exactly in <code class="docutils literal notranslate"><span class="pre">y</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">cs&gt;{y}</span></code>     Count the number of dice which rolled greater than <code class="docutils literal notranslate"><span class="pre">y</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">cs&gt;={y}</span></code>    Count the number of dice which rolled greater than or equal to <code class="docutils literal notranslate"><span class="pre">y</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">cs&lt;{y}</span></code>     Count the number of dice which rolled less than or equal to <code class="docutils literal notranslate"><span class="pre">y</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">cs&lt;={y}</span></code>    Count the number of dice which rolled less than or equal to <code class="docutils literal notranslate"><span class="pre">y</span></code>.</li>
+</ul>
+</div>
+<div class="section" id="margin-of-success">
+<h3>Margin of Success<a class="headerlink" href="#margin-of-success" title="Permalink to this headline">¶</a></h3>
+<p>Roll a set of dice and compare the total against some target, keeping the difference as the result.</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">ms={y}</span></code>      Subtract <code class="docutils literal notranslate"><span class="pre">y</span></code> from the rolled total and return the difference.</li>
+<li><code class="docutils literal notranslate"><span class="pre">ms&gt;{y}</span></code>      Same as above.</li>
+<li><code class="docutils literal notranslate"><span class="pre">ms&gt;={y}</span></code>     Same as above.</li>
+<li><code class="docutils literal notranslate"><span class="pre">ms&lt;{y}</span></code>      Subtract the rolled total from <cite>y</cite> and return the difference.</li>
+<li><code class="docutils literal notranslate"><span class="pre">ms&lt;={y}</span></code>     Same as above.</li>
 </ul>
 </div>
 </div>
