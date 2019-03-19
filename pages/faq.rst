@@ -88,15 +88,26 @@ backwards compatibility. Please feel empowered to begin creating worlds that you
 
 
 Thanks and Attributions
------------------------
+=======================
 
-* **Audio** Thanks to Mike Koenig, and other Contributors: https://soundbible.com
+Audio
+-----
 
-* **Audio** Thanks to Dymewiz and other Contributors: https://freesound.org
+* Thanks to Mike Koenig, and other Contributors: https://soundbible.com
 
-* **Spell Icons** Thanks to J. W. Bjerk (eleazzar) for "Painterly Spell Icons" series: https://opengameart.org
+* Thanks to Dymewiz and other Contributors: https://freesound.org
 
-* **SVG Icons** Thanks to Contributors, https://game-icons.net
+Artwork and Icons
+-----------------
 
-* **Potion Artwork** Thanks to Melle, https://opengameart.org/content/fantasy-potion-set
+* Thanks to J. W. Bjerk (eleazzar) for "Painterly Spell Icons" series: https://opengameart.org
 
+* Thanks to Contributors, https://game-icons.net
+
+* Potion Artwork** Thanks to Melle, https://opengameart.org/content/fantasy-potion-set
+
+* Dice by Mike Valstar from the Noun Project
+
+* Dice by Dank By Design from the Noun Project
+
+* Dice by Heberti Almeida from the Noun Project
