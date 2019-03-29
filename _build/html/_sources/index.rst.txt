@@ -19,12 +19,14 @@ roleplaying games in a beautiful and intuitive web-based application.
     self
     pages/features
     pages/faq
+    pages/license
     pages/hosting
     pages/tutorial
     pages/entities
     pages/dice
     pages/api
-    license
+    pages/modules
+    pages/partnerships
 
 
 About Foundry VTT

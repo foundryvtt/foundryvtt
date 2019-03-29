@@ -88,6 +88,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../index.html">Foundry Virtual Tabletop</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../features.html">Anticipated Features and Timelines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">End User License Agreement</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../hosting.html">Hosting and Connectivity Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Getting Started with FVTT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../entities.html">Game Entities</a></li>
@@ -109,7 +110,8 @@
 <li class="toctree-l2"><a class="reference internal" href="ui.html">Creating UI Elements</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../license.html">End User License Agreement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">Featured Game Systems and Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../partnerships.html">Community Partnerships</a></li>
 </ul>
 
             
@@ -300,6 +302,34 @@ Alternatively, the creation event may originate locally and the new entity can b
 </dd></dl>
 
 <dl class="function">
+<dt id="Entity.exportToJSON">
+<code class="descclassname">Entity.</code><code class="descname">exportToJSON</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Entity.exportToJSON" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export entity data to a JSON file which can be saved by the client and later imported into a different session</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Entity.getFlag">
+<code class="descclassname">Entity.</code><code class="descname">getFlag</code><span class="sig-paren">(</span><em>scope</em>, <em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#Entity.getFlag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the value of a “flag” for this Entity
+See the setFlag method for more details on flags</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>scope</strong> (<em>String</em>) – The flag scope which namespaces the key</li>
+<li><strong>key</strong> (<em>String</em>) – The flag key</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>*</strong> – The flag value</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="Entity.hasPerm">
 <code class="descclassname">Entity.</code><code class="descname">hasPerm</code><span class="sig-paren">(</span><em>user</em>, <em>permission</em><span class="sig-paren">)</span><a class="headerlink" href="#Entity.hasPerm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Test whether a provided User has ownership permission over the Entity instance</p>
@@ -320,6 +350,40 @@ Alternatively, the creation event may originate locally and the new entity can b
 </table>
 </dd></dl>
 
+<dl class="function">
+<dt id="Entity.importDialog">
+<code class="descclassname">Entity.</code><code class="descname">importDialog</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Entity.importDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render an import dialog for updating the data related to this Entity through an exported JSON file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>Promise.&lt;void&gt;</strong> –</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Entity.importFromJSON">
+<code class="descclassname">Entity.</code><code class="descname">importFromJSON</code><span class="sig-paren">(</span><em>json</em><span class="sig-paren">)</span><a class="headerlink" href="#Entity.importFromJSON" title="Permalink to this definition">¶</a></dt>
+<dd><p>Import data and update this entity</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>json</strong> (<em>String</em>) – JSON data string</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Promise.&lt;Entity&gt;</strong> – The updated Entity</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="Entity.permission">
 <code class="descclassname">Entity.</code><code class="descname">permission</code><a class="headerlink" href="#Entity.permission" title="Permalink to this definition">¶</a></dt>
@@ -330,6 +394,35 @@ Alternatively, the creation event may originate locally and the new entity can b
 <dt id="Entity.render">
 <code class="descclassname">Entity.</code><code class="descname">render</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Entity.render" title="Permalink to this definition">¶</a></dt>
 <dd><p>Render all of the applications which are connected to this Entity</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Entity.setFlag">
+<code class="descclassname">Entity.</code><code class="descname">setFlag</code><span class="sig-paren">(</span><em>scope</em>, <em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#Entity.setFlag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assign a “flag” to this Entity.
+Flags represent key-value type data which can be used to store flexible or arbitrary data required by either
+the core software, game systems, or user-created modules.</p>
+<p>Each flag should be set using a scope which provides a namespace for the flag to help prevent collisions.</p>
+<p>Flags set by the core software use the “core” scope.
+Flags set by game systems or modules should use the canonical name attribute for the module
+Flags set by an individual world should “world” as the scope.</p>
+<p>Flag values can assume almost any data type. Setting a flag value to null will delete that flag.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>scope</strong> (<em>String</em>) – The flag scope which namespaces the key</li>
+<li><strong>key</strong> (<em>String</em>) – The flag key</li>
+<li><strong>value</strong> (<em>*</em>) – The flag value</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Promise.&lt;Entity&gt;</strong> – A Promise resolving to the updated Entity</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">

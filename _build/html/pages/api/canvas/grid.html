@@ -88,6 +88,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../index.html">Foundry Virtual Tabletop</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../features.html">Anticipated Features and Timelines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">End User License Agreement</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../hosting.html">Hosting and Connectivity Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Getting Started with FVTT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../entities.html">Game Entities</a></li>
@@ -105,7 +106,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../ui.html">Creating UI Elements</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../../license.html">End User License Agreement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Featured Game Systems and Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../partnerships.html">Community Partnerships</a></li>
 </ul>
 
             
@@ -194,8 +196,8 @@ the <a class="reference internal" href="#GridLayer" title="GridLayer"><code clas
 </dd></dl>
 
 <dl class="function">
-<dt id="GridLayer.getNearestCenter">
-<code class="descclassname">GridLayer.</code><code class="descname">getNearestCenter</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#GridLayer.getNearestCenter" title="Permalink to this definition">¶</a></dt>
+<dt id="GridLayer.getCenter">
+<code class="descclassname">GridLayer.</code><code class="descname">getCenter</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#GridLayer.getCenter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a pair of coordinates (x, y), return the center of the grid square which contains that point</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -208,14 +210,8 @@ the <a class="reference internal" href="#GridLayer" title="GridLayer"><code clas
 </dd></dl>
 
 <dl class="function">
-<dt id="GridLayer.getNearestVertex">
-<code class="descclassname">GridLayer.</code><code class="descname">getNearestVertex</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#GridLayer.getNearestVertex" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given a pair of coordinates (x0,y0) return the closest grid vertex (x1, y1)</p>
-</dd></dl>
-
-<dl class="function">
 <dt id="GridLayer.getSnappedPosition">
-<code class="descclassname">GridLayer.</code><code class="descname">getSnappedPosition</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>interval=1</em><span class="sig-paren">)</span><a class="headerlink" href="#GridLayer.getSnappedPosition" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">GridLayer.</code><code class="descname">getSnappedPosition</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>interval</em><span class="sig-paren">)</span><a class="headerlink" href="#GridLayer.getSnappedPosition" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a pair of coordinates (x1,y1), return the grid coordinates (x2,y2) which represent the snapped position</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -246,10 +242,17 @@ the <a class="reference internal" href="#GridLayer" title="GridLayer"><code clas
 </table>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="GridLayer.grid">
+<code class="descclassname">GridLayer.</code><code class="descname">grid</code><a class="headerlink" href="#GridLayer.grid" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> PIXI.Container</p>
+<p>The Grid container</p>
+</dd></dl>
+
 <dl class="function">
 <dt id="GridLayer.measureDistance">
 <code class="descclassname">GridLayer.</code><code class="descname">measureDistance</code><span class="sig-paren">(</span><em>p0</em>, <em>p1</em><span class="sig-paren">)</span><a class="headerlink" href="#GridLayer.measureDistance" title="Permalink to this definition">¶</a></dt>
-<dd><p>Measure the distance between two grid coordinates</p>
+<dd><p>Measure the distance between two pixel coordinates</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -269,6 +272,13 @@ the <a class="reference internal" href="#GridLayer" title="GridLayer"><code clas
 <code class="descclassname">GridLayer.</code><code class="descname">size</code><a class="headerlink" href="#GridLayer.size" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>type:</strong> Number</p>
 <p>A convenient reference to the pixel grid size used throughout this layer</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="GridLayer.type">
+<code class="descclassname">GridLayer.</code><code class="descname">type</code><a class="headerlink" href="#GridLayer.type" title="Permalink to this definition">¶</a></dt>
+<dd><p><strong>type:</strong> String</p>
+<p>The grid type rendered in this Scene</p>
 </dd></dl>
 
 </dd></dl>

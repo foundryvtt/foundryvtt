@@ -87,12 +87,14 @@
 <li class="toctree-l1"><a class="reference internal" href="index.html">Foundry Virtual Tabletop</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/features.html">Anticipated Features and Timelines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/license.html">End User License Agreement</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/hosting.html">Hosting and Connectivity Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/tutorial.html">Getting Started with FVTT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/entities.html">Game Entities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/dice.html">Rolling Dice</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pages/api.html">Developer API Documentation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="license.html">End User License Agreement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/modules.html">Featured Game Systems and Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/partnerships.html">Community Partnerships</a></li>
 </ul>
 
             
@@ -247,10 +249,12 @@
 </li>
       <li><a href="pages/api/canvas/background.html#BackgroundLayer.activate">BackgroundLayer.activate() (BackgroundLayer method)</a>
 </li>
-      <li><a href="pages/api/canvas/background.html#BackgroundLayer.draw">BackgroundLayer.draw() (BackgroundLayer method)</a>
+      <li><a href="pages/api/canvas/background.html#BackgroundLayer.createThumbnail">BackgroundLayer.createThumbnail() (BackgroundLayer method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pages/api/canvas/background.html#BackgroundLayer.draw">BackgroundLayer.draw() (BackgroundLayer method)</a>
+</li>
       <li><a href="pages/api/canvas/background.html#BackgroundLayer.img">BackgroundLayer.img (BackgroundLayer attribute)</a>
 </li>
       <li><a href="pages/api/canvas/background.html#BackgroundLayer.isVideo">BackgroundLayer.isVideo (BackgroundLayer attribute)</a>
@@ -293,10 +297,10 @@
 </li>
       <li><a href="pages/api/entities.html#Collection.socketListeners">Collection.socketListeners() (Collection method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pages/api/entities.html#Collection.source">Collection.source (Collection attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pages/api/entities.html#Collection.update">Collection.update() (Collection method)</a>
 </li>
       <li><a href="pages/api/entities/compendium.html#Compendium">Compendium() (class)</a>
@@ -310,6 +314,8 @@
       <li><a href="pages/api/entities/compendium.html#Compendium.create">Compendium.create() (Compendium method)</a>
 </li>
       <li><a href="pages/api/entities/compendium.html#Compendium.entity">Compendium.entity (Compendium attribute)</a>
+</li>
+      <li><a href="pages/api/entities/compendium.html#Compendium.getContent">Compendium.getContent() (Compendium method)</a>
 </li>
       <li><a href="pages/api/entities/compendium.html#Compendium.getData">Compendium.getData() (Compendium method)</a>
 </li>
@@ -345,8 +351,6 @@
 </li>
       <li><a href="pages/api/dice.html#Die.explode">Die.explode() (Die method)</a>
 </li>
-      <li><a href="pages/api/dice.html#Die.exploded">Die.exploded (Die attribute)</a>
-</li>
       <li><a href="pages/api/dice.html#Die.faces">Die.faces (Die attribute)</a>
 </li>
   </ul></td>
@@ -356,8 +360,6 @@
       <li><a href="pages/api/dice.html#Die.keepLowest">Die.keepLowest() (Die method)</a>
 </li>
       <li><a href="pages/api/dice.html#Die.reroll">Die.reroll() (Die method)</a>
-</li>
-      <li><a href="pages/api/dice.html#Die.rerolled">Die.rerolled (Die attribute)</a>
 </li>
       <li><a href="pages/api/dice.html#Die.results">Die.results (Die attribute)</a>
 </li>
@@ -385,13 +387,23 @@
 </li>
       <li><a href="pages/api/entities.html#Entity.entity">Entity.entity (Entity attribute)</a>
 </li>
+      <li><a href="pages/api/entities.html#Entity.exportToJSON">Entity.exportToJSON() (Entity method)</a>
+</li>
+      <li><a href="pages/api/entities.html#Entity.getFlag">Entity.getFlag() (Entity method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pages/api/entities.html#Entity.hasPerm">Entity.hasPerm() (Entity method)</a>
 </li>
+      <li><a href="pages/api/entities.html#Entity.importDialog">Entity.importDialog() (Entity method)</a>
+</li>
+      <li><a href="pages/api/entities.html#Entity.importFromJSON">Entity.importFromJSON() (Entity method)</a>
+</li>
       <li><a href="pages/api/entities.html#Entity.permission">Entity.permission (Entity attribute)</a>
 </li>
       <li><a href="pages/api/entities.html#Entity.render">Entity.render() (Entity method)</a>
+</li>
+      <li><a href="pages/api/entities.html#Entity.setFlag">Entity.setFlag() (Entity method)</a>
 </li>
       <li><a href="pages/api/entities.html#Entity.sheet">Entity.sheet (Entity attribute)</a>
 </li>
@@ -433,19 +445,21 @@
 </li>
       <li><a href="pages/api/canvas/grid.html#GridLayer.draw">GridLayer.draw() (GridLayer method)</a>
 </li>
-      <li><a href="pages/api/canvas/grid.html#GridLayer.getNearestCenter">GridLayer.getNearestCenter() (GridLayer method)</a>
+      <li><a href="pages/api/canvas/grid.html#GridLayer.getCenter">GridLayer.getCenter() (GridLayer method)</a>
 </li>
-      <li><a href="pages/api/canvas/grid.html#GridLayer.getNearestVertex">GridLayer.getNearestVertex() (GridLayer method)</a>
+      <li><a href="pages/api/canvas/grid.html#GridLayer.getSnappedPosition">GridLayer.getSnappedPosition() (GridLayer method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="pages/api/canvas/grid.html#GridLayer.getSnappedPosition">GridLayer.getSnappedPosition() (GridLayer method)</a>
-</li>
       <li><a href="pages/api/canvas/grid.html#GridLayer.getTopLeft">GridLayer.getTopLeft() (GridLayer method)</a>
+</li>
+      <li><a href="pages/api/canvas/grid.html#GridLayer.grid">GridLayer.grid (GridLayer attribute)</a>
 </li>
       <li><a href="pages/api/canvas/grid.html#GridLayer.measureDistance">GridLayer.measureDistance() (GridLayer method)</a>
 </li>
       <li><a href="pages/api/canvas/grid.html#GridLayer.size">GridLayer.size (GridLayer attribute)</a>
+</li>
+      <li><a href="pages/api/canvas/grid.html#GridLayer.type">GridLayer.type (GridLayer attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -623,14 +637,14 @@
 </li>
       <li><a href="pages/api/entities/scene.html#raw.Scene">raw.Scene() (class)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pages/api/entities/scene.html#raw.Scene._onDelete">raw.Scene._onDelete() (raw.Scene method)</a>
 </li>
       <li><a href="pages/api/entities/scene.html#raw.Scene._onUpdate">raw.Scene._onUpdate() (raw.Scene method)</a>
 </li>
       <li><a href="pages/api/entities/scene.html#raw.Scene._view">raw.Scene._view (raw.Scene attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pages/api/entities/scene.html#raw.Scene._viewPosition">raw.Scene._viewPosition (raw.Scene attribute)</a>
 </li>
       <li><a href="pages/api/entities/scene.html#raw.Scene.activate">raw.Scene.activate() (raw.Scene method)</a>
@@ -642,6 +656,8 @@
       <li><a href="pages/api/entities/scene.html#raw.Scene.Entity.update">raw.Scene.Entity.update() (raw.Scene.Entity method)</a>
 </li>
       <li><a href="pages/api/entities/scene.html#raw.Scene.notes">raw.Scene.notes (raw.Scene attribute)</a>
+</li>
+      <li><a href="pages/api/entities/scene.html#raw.Scene.update">raw.Scene.update() (raw.Scene method)</a>
 </li>
       <li><a href="pages/api/entities/scene.html#raw.Scene.view">raw.Scene.view() (raw.Scene method)</a>
 </li>
@@ -657,6 +673,12 @@
 </li>
       <li><a href="pages/api/dice.html#Roll.formula">Roll.formula (Roll attribute)</a>
 </li>
+      <li><a href="pages/api/dice.html#Roll.fromJSON">Roll.fromJSON() (Roll method)</a>
+</li>
+      <li><a href="pages/api/dice.html#Roll.getActorData">Roll.getActorData() (Roll method)</a>
+</li>
+      <li><a href="pages/api/dice.html#Roll.getTooltip">Roll.getTooltip() (Roll method)</a>
+</li>
       <li><a href="pages/api/dice.html#Roll.parts">Roll.parts (Roll attribute)</a>
 </li>
       <li><a href="pages/api/dice.html#Roll.render">Roll.render() (Roll method)</a>
@@ -666,6 +688,8 @@
       <li><a href="pages/api/dice.html#Roll.rgx">Roll.rgx (Roll attribute)</a>
 </li>
       <li><a href="pages/api/dice.html#Roll.roll">Roll.roll() (Roll method)</a>
+</li>
+      <li><a href="pages/api/dice.html#Roll.toJSON">Roll.toJSON() (Roll method)</a>
 </li>
       <li><a href="pages/api/dice.html#Roll.toMessage">Roll.toMessage() (Roll method)</a>
 </li>
@@ -698,6 +722,8 @@
       <li><a href="pages/api/entities/scene.html#Scenes.socketListeners">Scenes.socketListeners() (Scenes method)</a>
 </li>
       <li><a href="pages/api/entities/scene.html#SceneSheet">SceneSheet() (class)</a>
+</li>
+      <li><a href="pages/api/entities/scene.html#SceneSheet.getData">SceneSheet.getData() (SceneSheet method)</a>
 </li>
   </ul></td>
 </tr></table>

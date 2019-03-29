@@ -88,6 +88,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../index.html">Foundry Virtual Tabletop</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../features.html">Anticipated Features and Timelines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">End User License Agreement</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../hosting.html">Hosting and Connectivity Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Getting Started with FVTT</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../entities.html">Game Entities</a></li>
@@ -103,7 +104,8 @@
 <li class="toctree-l2"><a class="reference internal" href="ui.html">Creating UI Elements</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../license.html">End User License Agreement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">Featured Game Systems and Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../partnerships.html">Community Partnerships</a></li>
 </ul>
 
             
@@ -275,6 +277,55 @@ The basic structure for a dice roll is a string formula and an object of data ag
 <dd><p>Express the Roll as a formatted string formula</p>
 </dd></dl>
 
+<dl class="function">
+<dt id="Roll.fromJSON">
+<code class="descclassname">Roll.</code><code class="descname">fromJSON</code><span class="sig-paren">(</span><em>json</em><span class="sig-paren">)</span><a class="headerlink" href="#Roll.fromJSON" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recreate a Roll instance using a provided JSON string</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>json</strong> (<em>String</em>) – Serialized JSON data representing the Roll</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Roll</strong> – A revived Roll instance</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Roll.getActorData">
+<code class="descclassname">Roll.</code><code class="descname">getActorData</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Roll.getActorData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Acquire data object representing the most-likely current actor.
+This data can be included in the invocation of a Roll instance for evaluating dynamic attributes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>Object</strong> – An object of data representing the current Actor (if any)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Roll.getTooltip">
+<code class="descclassname">Roll.</code><code class="descname">getTooltip</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Roll.getTooltip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render the tooltip HTML for a Roll instance</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>Promise.&lt;HTMLElement&gt;</strong> –</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="Roll.parts">
 <code class="descclassname">Roll.</code><code class="descname">parts</code><a class="headerlink" href="#Roll.parts" title="Permalink to this definition">¶</a></dt>
@@ -295,7 +346,7 @@ The basic structure for a dice roll is a string formula and an object of data ag
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Promise</strong> – A Promise which resolves to the rendered HTML</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Promise.&lt;HTMLElement&gt;</strong> – A Promise which resolves to the rendered HTML</p>
 </td>
 </tr>
 </tbody>
@@ -305,8 +356,7 @@ The basic structure for a dice roll is a string formula and an object of data ag
 <dl class="attribute">
 <dt id="Roll.result">
 <code class="descclassname">Roll.</code><code class="descname">result</code><a class="headerlink" href="#Roll.result" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>type:</strong> String</p>
-<p>The result of all rolled formula parts</p>
+<dd><p>The resulting arithmetic expression after rolls have been evaluated</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -325,6 +375,20 @@ The basic structure for a dice roll is a string formula and an object of data ag
 <span class="o">&gt;</span> <span class="mi">12</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="function">
+<dt id="Roll.toJSON">
+<code class="descclassname">Roll.</code><code class="descname">toJSON</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Roll.toJSON" title="Permalink to this definition">¶</a></dt>
+<dd><p>Structure the Roll data as an object suitable for JSON stringification</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>Object</strong> – Structured data which can be serialized into JSON</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
@@ -443,32 +507,17 @@ Dice which have been re-rolled or have already exploded cannot explode</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Array</strong> – The complete set of rolls</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Die</strong> – The updated die containing new rolls</p>
 </td>
 </tr>
 </tbody>
 </table>
 <p><strong>Examples:</strong></p>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">die</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Die</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>
-<span class="nx">die</span><span class="p">.</span><span class="nx">roll</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>             <span class="c1">// Roll 6d8</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">die</span><span class="p">.</span><span class="nx">rolls</span><span class="p">);</span>  <span class="c1">// [8,3,6,4,2,7]</span>
-<span class="nx">die</span><span class="p">.</span><span class="nx">explode</span><span class="p">([</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">]);</span>      <span class="c1">// Explode on 7s and 8s, rolling additional dice</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">die</span><span class="p">.</span><span class="nx">rolls</span><span class="p">);</span>  <span class="c1">// [8,3,6,4,2,7,7,2,3]</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Die.exploded">
-<code class="descclassname">Die.</code><code class="descname">exploded</code><a class="headerlink" href="#Die.exploded" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>type:</strong> Array</p>
-<p>Track the index positions of rolls which have been exploded</p>
-<p><strong>Examples:</strong></p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">die</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Die</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
-<span class="nx">die</span><span class="p">.</span><span class="nx">roll</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>               <span class="c1">// Roll 6d6</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">die</span><span class="p">.</span><span class="nx">rolls</span><span class="p">);</span>    <span class="c1">// [6,4,1,2,3,4]</span>
-<span class="nx">die</span><span class="p">.</span><span class="nx">explode</span><span class="p">([</span><span class="mi">4</span><span class="p">]);</span>          <span class="c1">// Explode any 4s</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">die</span><span class="p">.</span><span class="nx">exploded</span><span class="p">);</span> <span class="c1">// [1,5]</span>
+<span class="nx">die</span><span class="p">.</span><span class="nx">roll</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>               <span class="c1">// Roll 6d8</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">die</span><span class="p">.</span><span class="nx">results</span><span class="p">);</span>  <span class="c1">// [8,3,6,4,2,7]</span>
+<span class="nx">die</span><span class="p">.</span><span class="nx">explode</span><span class="p">([</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">]);</span>        <span class="c1">// Explode on 7s and 8s, rolling additional dice</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">die</span><span class="p">.</span><span class="nx">results</span><span class="p">);</span>  <span class="c1">// [8,3,6,4,2,7,7,2,3]</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -498,7 +547,7 @@ Dice which have been re-rolled or have already exploded cannot explode</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Array</strong> – The filtered results</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Die</strong> – The updated die containing new rolls</p>
 </td>
 </tr>
 </tbody>
@@ -555,34 +604,17 @@ Dice which have already been re-rolled will not be re-rolled again</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Array</strong> – The complete set of rolls</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Die</strong> – The updated die containing new rolls</p>
 </td>
 </tr>
 </tbody>
 </table>
 <p><strong>Examples:</strong></p>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">die</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Die</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
-<span class="nx">die</span><span class="p">.</span><span class="nx">roll</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>             <span class="c1">// Roll 3d4</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">die</span><span class="p">.</span><span class="nx">rolls</span><span class="p">);</span>  <span class="c1">// [1,3,4]</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">die</span><span class="p">.</span><span class="nx">result</span><span class="p">);</span> <span class="c1">// [1,3,4]</span>
-<span class="nx">die</span><span class="p">.</span><span class="nx">reroll</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]);</span>       <span class="c1">// Re-roll 1s or 2s</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">die</span><span class="p">.</span><span class="nx">rolls</span><span class="p">);</span>  <span class="c1">// [1,3,4,2]</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">die</span><span class="p">.</span><span class="nx">result</span><span class="p">);</span> <span class="c1">// [3,4,2]</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Die.rerolled">
-<code class="descclassname">Die.</code><code class="descname">rerolled</code><a class="headerlink" href="#Die.rerolled" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>type:</strong> Array</p>
-<p>Track the index positions of rolls which have been rerolled</p>
-<p><strong>Examples:</strong></p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">die</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Die</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
-<span class="nx">die</span><span class="p">.</span><span class="nx">roll</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>               <span class="c1">// Roll 6d6</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">die</span><span class="p">.</span><span class="nx">rolls</span><span class="p">);</span>    <span class="c1">// [6,4,1,2,3,4]</span>
-<span class="nx">die</span><span class="p">.</span><span class="nx">reroll</span><span class="p">([</span><span class="mi">1</span><span class="p">]);</span>           <span class="c1">// Reroll any 1s</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">die</span><span class="p">.</span><span class="nx">rerolled</span><span class="p">);</span> <span class="c1">// [2]</span>
+<span class="nx">die</span><span class="p">.</span><span class="nx">roll</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>               <span class="c1">// Roll 3d4</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">die</span><span class="p">.</span><span class="nx">results</span><span class="p">);</span>  <span class="c1">// [1,3,4]</span>
+<span class="nx">die</span><span class="p">.</span><span class="nx">reroll</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]);</span>         <span class="c1">// Re-roll 1s or 2s</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">die</span><span class="p">.</span><span class="nx">results</span><span class="p">);</span>  <span class="c1">// [3,4,2]</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -595,7 +627,7 @@ Dice which have already been re-rolled will not be re-rolled again</p>
 <p><strong>Examples:</strong></p>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">die</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Die</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
 <span class="nx">die</span><span class="p">.</span><span class="nx">roll</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>               <span class="c1">// Roll 6d6</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">die</span><span class="p">.</span><span class="nx">rolls</span><span class="p">);</span>    <span class="c1">// [6,4,1,2,3,4]</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">die</span><span class="p">.</span><span class="nx">results</span><span class="p">);</span>  <span class="c1">// [6,4,1,2,3,4]</span>
 <span class="nx">die</span><span class="p">.</span><span class="nx">keepHighest</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>        <span class="c1">// Keep the 2 best results</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">die</span><span class="p">.</span><span class="nx">results</span><span class="p">);</span>  <span class="c1">// [6,4]</span>
 </pre></div>
@@ -615,16 +647,16 @@ Dice which have already been re-rolled will not be re-rolled again</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Array</strong> – The array of results</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Die</strong> – The updated die containing new rolls</p>
 </td>
 </tr>
 </tbody>
 </table>
 <p><strong>Examples:</strong></p>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">die</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Die</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
-<span class="nx">die</span><span class="p">.</span><span class="nx">roll</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>             <span class="c1">// Roll 6d6</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">die</span><span class="p">.</span><span class="nx">rolls</span><span class="p">);</span>  <span class="c1">// [5,2,4,4,1,6]</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">die</span><span class="p">.</span><span class="nx">total</span><span class="p">);</span>  <span class="c1">// 22</span>
+<span class="nx">die</span><span class="p">.</span><span class="nx">roll</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>               <span class="c1">// Roll 6d6</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">die</span><span class="p">.</span><span class="nx">results</span><span class="p">);</span>  <span class="c1">// [5,2,4,4,1,6]</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">die</span><span class="p">.</span><span class="nx">total</span><span class="p">);</span>    <span class="c1">// 22</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -637,7 +669,7 @@ Dice which have already been re-rolled will not be re-rolled again</p>
 <p><strong>Examples:</strong></p>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">die</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Die</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
 <span class="nx">die</span><span class="p">.</span><span class="nx">roll</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>             <span class="c1">// Roll 4d4</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">die</span><span class="p">.</span><span class="nx">rolls</span><span class="p">);</span>  <span class="c1">// [3,1,1,4]</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">die</span><span class="p">.</span><span class="nx">rolls</span><span class="p">);</span>  <span class="c1">// [{...}, {...}, {...}, {...}]</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -661,9 +693,9 @@ Dice which have already been re-rolled will not be re-rolled again</p>
 <p>The sum of all kept results</p>
 <p><strong>Examples:</strong></p>
 <div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="kd">let</span> <span class="nx">die</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Die</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
-<span class="nx">die</span><span class="p">.</span><span class="nx">roll</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>             <span class="c1">// Roll 2d20</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">die</span><span class="p">.</span><span class="nx">rolls</span><span class="p">)</span>   <span class="c1">// [6,17]</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">die</span><span class="p">.</span><span class="nx">total</span><span class="p">)</span>   <span class="c1">// 23</span>
+<span class="nx">die</span><span class="p">.</span><span class="nx">roll</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>               <span class="c1">// Roll 2d20</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">die</span><span class="p">.</span><span class="nx">results</span><span class="p">)</span>   <span class="c1">// [6,17]</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">die</span><span class="p">.</span><span class="nx">total</span><span class="p">)</span>     <span class="c1">// 23</span>
 </pre></div>
 </div>
 </dd></dl>
