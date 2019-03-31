@@ -27,6 +27,7 @@ roleplaying games in a beautiful and intuitive web-based application.
     pages/api
     pages/modules
     pages/partnerships
+    notes/notes
 
 
 About Foundry VTT
