@@ -439,6 +439,23 @@ If the updated data is originated locally, it can be pushed back to the server a
 <dd><p>If this token modifies an actor entry, retrieve it</p>
 </dd></dl>
 
+<dl class="function">
+<dt id="Token.animateMovement">
+<code class="descclassname">Token.</code><code class="descname">animateMovement</code><span class="sig-paren">(</span><em>ray</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.animateMovement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Animate Token movement along a certain path which is defined by a Ray object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>ray</strong> (<em>Ray</em>) – The path along which to animate Token movement</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="Token.brightLightRadius">
 <code class="descclassname">Token.</code><code class="descname">brightLightRadius</code><a class="headerlink" href="#Token.brightLightRadius" title="Permalink to this definition">¶</a></dt>
@@ -704,15 +721,19 @@ Return a Boolean for whether the token release was successful.</p>
 <dl class="function">
 <dt id="Token.setPosition">
 <code class="descclassname">Token.</code><code class="descname">setPosition</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#Token.setPosition" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set the token’s position by comparing its center position vs the nearest grid vertex</p>
+<dd><p>Set the token’s position by comparing its center position vs the nearest grid vertex
+Return a Promise that resolves to the Token once the animation for the movement has been completed</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
 <li><strong>x</strong> (<em>Number</em>) – The x-coordinate of the token center</li>
 <li><strong>y</strong> (<em>Number</em>) – The y-coordinate of the token center</li>
 </ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Promise</strong> – The Token after animation has completed</p>
 </td>
 </tr>
 </tbody>

@@ -95,6 +95,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../dice.html">Rolling Dice</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../api.html">Developer API Documentation</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../entities.html">Game Entities API</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="abstract.html">Entity and Collection Abstractions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="user.html">The User Entity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="scene.html">The Scene Entity</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">The Actor Entity</a><ul>
@@ -106,8 +107,6 @@
 <li class="toctree-l3"><a class="reference internal" href="item.html">The Item Entity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="playlist.html">The Audio Playlist Entity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="compendium.html">Compendium Content Packs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../entities.html#the-entity-abstract-class">The Entity Abstract Class</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../entities.html#the-collection-abstract-class">The Collection Abstract Class</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../canvas.html">The Game Canvas</a></li>
@@ -202,7 +201,7 @@ override this to a subclass included in their own definition.</p>
 <dl class="class">
 <dt id="Actors">
 <em class="property">class </em><code class="descname">Actors</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Actors" title="Permalink to this definition">¶</a></dt>
-<dd><p>The <a class="reference internal" href="../entities.html#Collection" title="Collection"><code class="xref js js-class docutils literal notranslate"><span class="pre">Collection()</span></code></a> of <code class="xref js js-class docutils literal notranslate"><span class="pre">Actor()</span></code> entities
+<dd><p>The <a class="reference internal" href="abstract.html#Collection" title="Collection"><code class="xref js js-class docutils literal notranslate"><span class="pre">Collection()</span></code></a> of <code class="xref js js-class docutils literal notranslate"><span class="pre">Actor()</span></code> entities
 The actors collection is accessible within the game as <code class="docutils literal notranslate"><span class="pre">game.actors</span></code></p>
 <dl class="function">
 <dt id="Actors.Collection.insert">
@@ -213,7 +212,7 @@ The actors collection is accessible within the game as <code class="docutils lit
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>entity</strong> (<a class="reference internal" href="../entities.html#Entity" title="Entity"><em>Entity</em></a>) – The entity instance to add to the collection</li>
+<li><strong>entity</strong> (<a class="reference internal" href="abstract.html#Entity" title="Entity"><em>Entity</em></a>) – The entity instance to add to the collection</li>
 </ul>
 </td>
 </tr>
@@ -326,7 +325,7 @@ The actors collection is accessible within the game as <code class="docutils lit
 <dl class="class">
 <dt id="raw.Actor">
 <em class="property">class </em><code class="descclassname">raw.</code><code class="descname">Actor</code><span class="sig-paren">(</span><em>data</em>, <em>apps</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Actor" title="Permalink to this definition">¶</a></dt>
-<dd><p>The Actor class is a type of <a class="reference internal" href="../entities.html#Entity" title="Entity"><code class="xref js js-class docutils literal notranslate"><span class="pre">Entity()</span></code></a> which represents the protagonists, characters, enemies, and more that
+<dd><p>The Actor class is a type of <a class="reference internal" href="abstract.html#Entity" title="Entity"><code class="xref js js-class docutils literal notranslate"><span class="pre">Entity()</span></code></a> which represents the protagonists, characters, enemies, and more that
 inhabit the World.</p>
 <dl class="function">
 <dt id="raw.Actor.Entity.create">
@@ -469,6 +468,26 @@ If the canvas is not currently active, or there are no linked actors, the return
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Array</strong> – An array of tokens in the current Scene which reference this Actor.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="raw.Actor.getOwnedItem">
+<code class="descclassname">raw.Actor.</code><code class="descname">getOwnedItem</code><span class="sig-paren">(</span><em>itemId</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Actor.getOwnedItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an owned item by it’s ID, initialized as an Item entity class</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>itemId</strong> (<em>Number</em>) – The ID of the owned item</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Item|null</strong> – An Item class instance for that owned item or null if the itemId does not exist</p>
 </td>
 </tr>
 </tbody>

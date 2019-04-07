@@ -95,6 +95,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../dice.html">Rolling Dice</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../api.html">Developer API Documentation</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../entities.html">Game Entities API</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="abstract.html">Entity and Collection Abstractions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="user.html">The User Entity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="scene.html">The Scene Entity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="actor.html">The Actor Entity</a></li>
@@ -106,8 +107,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="playlist.html">The Audio Playlist Entity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="compendium.html">Compendium Content Packs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../entities.html#the-entity-abstract-class">The Entity Abstract Class</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../entities.html#the-collection-abstract-class">The Collection Abstract Class</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../canvas.html">The Game Canvas</a></li>
@@ -212,7 +211,7 @@ define the <code class="docutils literal notranslate"><span class="pre">CONFIG.I
 <dl class="class">
 <dt id="Items">
 <em class="property">class </em><code class="descname">Items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Items" title="Permalink to this definition">¶</a></dt>
-<dd><p>The <a class="reference internal" href="../entities.html#Collection" title="Collection"><code class="xref js js-class docutils literal notranslate"><span class="pre">Collection()</span></code></a> of <code class="xref js js-class docutils literal notranslate"><span class="pre">Item()</span></code> entities
+<dd><p>The <a class="reference internal" href="abstract.html#Collection" title="Collection"><code class="xref js js-class docutils literal notranslate"><span class="pre">Collection()</span></code></a> of <code class="xref js js-class docutils literal notranslate"><span class="pre">Item()</span></code> entities
 The items collection is accessible within the game as <code class="docutils literal notranslate"><span class="pre">game.items</span></code></p>
 <dl class="function">
 <dt id="Items.Collection.insert">
@@ -223,7 +222,7 @@ The items collection is accessible within the game as <code class="docutils lite
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>entity</strong> (<a class="reference internal" href="../entities.html#Entity" title="Entity"><em>Entity</em></a>) – The entity instance to add to the collection</li>
+<li><strong>entity</strong> (<a class="reference internal" href="abstract.html#Entity" title="Entity"><em>Entity</em></a>) – The entity instance to add to the collection</li>
 </ul>
 </td>
 </tr>
@@ -449,6 +448,27 @@ OwnedItems have permission that the player has for the parent Actor.</p>
 <dt id="raw.Item.isOwned">
 <code class="descclassname">raw.Item.</code><code class="descname">isOwned</code><a class="headerlink" href="#raw.Item.isOwned" title="Permalink to this definition">¶</a></dt>
 <dd><p>A flag for whether the item is owned by an Actor entity</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="raw.Item.update">
+<code class="descclassname">raw.Item.</code><code class="descname">update</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Item.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extend the base Entity update logic to update owned items as well.
+See Entity.update for more complete API documentation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>data</strong> (<em>Object</em>) – The data with which to update the entity</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Promise</strong> – A Promise which resolves to the updated Entity</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>

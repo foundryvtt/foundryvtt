@@ -10,6 +10,7 @@ functionality are detailed on the following pages.
     :caption: Entity API
     :maxdepth: 2
 
+    entities/abstract
     entities/user
     entities/scene
     entities/actor
@@ -17,18 +18,3 @@ functionality are detailed on the following pages.
     entities/playlist
     entities/compendium
 
-----
-
-The Entity Abstract Class
-=========================
-
-.. autoclass:: Entity
-    :members:
-
-----
-
-The Collection Abstract Class
-=============================
-
-.. autoclass:: Collection
-    :members:

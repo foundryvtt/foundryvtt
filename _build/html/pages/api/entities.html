@@ -29,7 +29,7 @@
   <link rel="stylesheet" href="../../_static/fvtt.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="The User Entity" href="entities/user.html" />
+    <link rel="next" title="Entity and Collection Abstractions" href="entities/abstract.html" />
     <link rel="prev" title="Developer API Documentation" href="../api.html" /> 
 
   
@@ -95,14 +95,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../dice.html">Rolling Dice</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">Developer API Documentation</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Game Entities API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="entities/abstract.html">Entity and Collection Abstractions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="entities/user.html">The User Entity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="entities/scene.html">The Scene Entity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="entities/actor.html">The Actor Entity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="entities/item.html">The Item Entity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="entities/playlist.html">The Audio Playlist Entity</a></li>
 <li class="toctree-l3"><a class="reference internal" href="entities/compendium.html">Compendium Content Packs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#the-entity-abstract-class">The Entity Abstract Class</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#the-collection-abstract-class">The Collection Abstract Class</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="canvas.html">The Game Canvas</a></li>
@@ -182,11 +181,16 @@
             
   <div class="section" id="game-entities-api">
 <span id="entityapi"></span><h1>Game Entities API<a class="headerlink" href="#game-entities-api" title="Permalink to this headline">¶</a></h1>
-<p>Each Entity type in Foundry Virtual Tabletop extends the base <a class="reference internal" href="#Entity" title="Entity"><code class="xref js js-class docutils literal notranslate"><span class="pre">Entity()</span></code></a> class. These implementations and related
+<p>Each Entity type in Foundry Virtual Tabletop extends the base <a class="reference internal" href="entities/abstract.html#Entity" title="Entity"><code class="xref js js-class docutils literal notranslate"><span class="pre">Entity()</span></code></a> class. These implementations and related
 functionality are detailed on the following pages.</p>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Entity API</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="entities/abstract.html">Entity and Collection Abstractions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="entities/abstract.html#the-entity-class">The Entity Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities/abstract.html#the-collection-class">The Collection Class</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="entities/user.html">The User Entity</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="entities/user.html#the-users-collection">The Users Collection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="entities/user.html#the-user-instance">The User Instance</a></li>
@@ -223,482 +227,6 @@ functionality are detailed on the following pages.</p>
 </li>
 </ul>
 </div>
-<hr class="docutils" />
-<div class="section" id="the-entity-abstract-class">
-<h2>The Entity Abstract Class<a class="headerlink" href="#the-entity-abstract-class" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="Entity">
-<em class="property">class </em><code class="descname">Entity</code><span class="sig-paren">(</span><em>data</em>, <em>collection</em>, <em>apps</em><span class="sig-paren">)</span><a class="headerlink" href="#Entity" title="Permalink to this definition">¶</a></dt>
-<dd><p>A class pattern for all primary data entities within the Foundry VTT Framework</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>data</strong> (<em>Object</em>) – <div class="line-block">
-<div class="line">The data Object with which to create the Entity</div>
-</div>
-</li>
-<li><strong>collection</strong> (<a class="reference internal" href="#Collection" title="Collection"><em>Collection</em></a>) – <div class="line-block">
-<div class="line">An Array or Collection instance to which the Entity belongs</div>
-</div>
-</li>
-<li><strong>apps</strong> (<em>Array</em>) – <div class="line-block">
-<div class="line">An Array of Application instances which the Entity modifies</div>
-</div>
-</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<dl class="attribute">
-<dt id="Entity.collection">
-<code class="descclassname">Entity.</code><code class="descname">collection</code><a class="headerlink" href="#Entity.collection" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a reference to the Collection class which stores Entity instances of this type.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="Entity.create">
-<code class="descclassname">Entity.</code><code class="descname">create</code><span class="sig-paren">(</span><em>data</em>, <em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#Entity.create" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a new entity using provided input data
-The data for entity creation is typically provided from the server through the ‘create&lt;Entity&gt;’ socket
-Alternatively, the creation event may originate locally and the new entity can be pushed back to the server</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>data</strong> (<em>Object</em>) – The data with which to create the entity</li>
-<li><strong>options</strong> (<em>Object</em>) – Additional options which customize the creation workflow</li>
-<li><strong>options.temporary</strong> (<em>Boolean</em>) – Create a temporary entity which is not saved to the world database. Default is false.</li>
-<li><strong>options.displaySheet</strong> (<em>Boolean</em>) – Show the configuration sheet for the created entity once it is created. Default is true.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Promise</strong> – A Promise which resolves to contain the created Entity</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="Entity.delete">
-<code class="descclassname">Entity.</code><code class="descname">delete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Entity.delete" title="Permalink to this definition">¶</a></dt>
-<dd><p>Delete the entity, removing it from its collection and deleting its data record</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>Promise</strong> – A Promise which resolves to the ID of the deleted Entity once handled by the server</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Entity.entity">
-<code class="descclassname">Entity.</code><code class="descname">entity</code><a class="headerlink" href="#Entity.entity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the parent class in the inheritance chain that extends Entity directly. This is the base entity type.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="Entity.exportToJSON">
-<code class="descclassname">Entity.</code><code class="descname">exportToJSON</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Entity.exportToJSON" title="Permalink to this definition">¶</a></dt>
-<dd><p>Export entity data to a JSON file which can be saved by the client and later imported into a different session</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="Entity.getFlag">
-<code class="descclassname">Entity.</code><code class="descname">getFlag</code><span class="sig-paren">(</span><em>scope</em>, <em>key</em><span class="sig-paren">)</span><a class="headerlink" href="#Entity.getFlag" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the value of a “flag” for this Entity
-See the setFlag method for more details on flags</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>scope</strong> (<em>String</em>) – The flag scope which namespaces the key</li>
-<li><strong>key</strong> (<em>String</em>) – The flag key</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>*</strong> – The flag value</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="Entity.hasPerm">
-<code class="descclassname">Entity.</code><code class="descname">hasPerm</code><span class="sig-paren">(</span><em>user</em>, <em>permission</em><span class="sig-paren">)</span><a class="headerlink" href="#Entity.hasPerm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Test whether a provided User has ownership permission over the Entity instance</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>user</strong> (<a class="reference internal" href="entities/user.html#User" title="User"><em>User</em></a>) – The user to test for permission</li>
-<li><strong>permission</strong> (<em>Number</em>) – The permission level to test</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Boolean</strong> – Whether or not the user has the permission for this Entity</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="Entity.importDialog">
-<code class="descclassname">Entity.</code><code class="descname">importDialog</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Entity.importDialog" title="Permalink to this definition">¶</a></dt>
-<dd><p>Render an import dialog for updating the data related to this Entity through an exported JSON file</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>Promise.&lt;void&gt;</strong> –</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="Entity.importFromJSON">
-<code class="descclassname">Entity.</code><code class="descname">importFromJSON</code><span class="sig-paren">(</span><em>json</em><span class="sig-paren">)</span><a class="headerlink" href="#Entity.importFromJSON" title="Permalink to this definition">¶</a></dt>
-<dd><p>Import data and update this entity</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>json</strong> (<em>String</em>) – JSON data string</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Promise.&lt;Entity&gt;</strong> – The updated Entity</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Entity.permission">
-<code class="descclassname">Entity.</code><code class="descname">permission</code><a class="headerlink" href="#Entity.permission" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the current user’s permission level</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="Entity.render">
-<code class="descclassname">Entity.</code><code class="descname">render</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Entity.render" title="Permalink to this definition">¶</a></dt>
-<dd><p>Render all of the applications which are connected to this Entity</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="Entity.setFlag">
-<code class="descclassname">Entity.</code><code class="descname">setFlag</code><span class="sig-paren">(</span><em>scope</em>, <em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#Entity.setFlag" title="Permalink to this definition">¶</a></dt>
-<dd><p>Assign a “flag” to this Entity.
-Flags represent key-value type data which can be used to store flexible or arbitrary data required by either
-the core software, game systems, or user-created modules.</p>
-<p>Each flag should be set using a scope which provides a namespace for the flag to help prevent collisions.</p>
-<p>Flags set by the core software use the “core” scope.
-Flags set by game systems or modules should use the canonical name attribute for the module
-Flags set by an individual world should “world” as the scope.</p>
-<p>Flag values can assume almost any data type. Setting a flag value to null will delete that flag.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>scope</strong> (<em>String</em>) – The flag scope which namespaces the key</li>
-<li><strong>key</strong> (<em>String</em>) – The flag key</li>
-<li><strong>value</strong> (<em>*</em>) – The flag value</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Promise.&lt;Entity&gt;</strong> – A Promise resolving to the updated Entity</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Entity.sheet">
-<code class="descclassname">Entity.</code><code class="descname">sheet</code><a class="headerlink" href="#Entity.sheet" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>type:</strong> BaseEntitySheet</p>
-<p>A property which gets or creates a singleton instance of the sheet class used to render and edit data for this
-particular entity type.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="Entity.update">
-<code class="descclassname">Entity.</code><code class="descname">update</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#Entity.update" title="Permalink to this definition">¶</a></dt>
-<dd><p>Update the current entity using new data
-This new data is typically provided from the server through the ‘update&lt;Entity&gt;’ socket
-Alternatively, the update may originate locally, in which case it can be pushed back to the server</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>data</strong> (<em>Object</em>) – The data with which to update the entity</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Promise</strong> – A Promise which resolves to the updated Entity</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-</div>
-<hr class="docutils" />
-<div class="section" id="the-collection-abstract-class">
-<h2>The Collection Abstract Class<a class="headerlink" href="#the-collection-abstract-class" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="Collection">
-<em class="property">class </em><code class="descname">Collection</code><span class="sig-paren">(</span><em>data</em>, <em>apps</em><span class="sig-paren">)</span><a class="headerlink" href="#Collection" title="Permalink to this definition">¶</a></dt>
-<dd><p>A class pattern for collections of Entity objects within the Foundry VTT Framework</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>data</strong> (<em>Object</em>) – An Array of Entity data from which to create instances</li>
-<li><strong>apps</strong> (<em>Array</em>) – An Array of Application instances which the Collection modifies</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<dl class="attribute">
-<dt id="Collection.apps">
-<code class="descclassname">Collection.</code><code class="descname">apps</code><a class="headerlink" href="#Collection.apps" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>type:</strong> Array</p>
-<p>An Array of application references which will be automatically updated when the collection content changes</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="Collection.create">
-<code class="descclassname">Collection.</code><code class="descname">create</code><span class="sig-paren">(</span><em>data</em>, <em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#Collection.create" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a new entity using provided input data
-The data for entity creation is provided from the server through the create&lt;Entity&gt; socket</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>data</strong> (<em>Object</em>) – The data with which to create the entity</li>
-<li><strong>options</strong> (<em>Object</em>) – Additional options which customize the creation workflow</li>
-<li><strong>options.temporary</strong> (<em>Boolean</em>) – Create a temporary entity which is not saved to the world database. Default is false.</li>
-<li><strong>options.displaySheet</strong> (<em>Boolean</em>) – Show the configuration sheet for the created entity once it is created. Default is true.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Entity</strong> – The created Entity instance</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="Collection.delete">
-<code class="descclassname">Collection.</code><code class="descname">delete</code><span class="sig-paren">(</span><em>entityId</em><span class="sig-paren">)</span><a class="headerlink" href="#Collection.delete" title="Permalink to this definition">¶</a></dt>
-<dd><p>Delete an existing Entity from this Collection using its ID</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>entityId</strong> (<em>String</em>) – The entity ID which should be locally deleted</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>String</strong> – The ID of the entity which was successfully deleted</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Collection.entities">
-<code class="descclassname">Collection.</code><code class="descname">entities</code><a class="headerlink" href="#Collection.entities" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>type:</strong> Array</p>
-<p>An Array of all the Entity instances of this type which are contained within the collection</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Collection.entity">
-<code class="descclassname">Collection.</code><code class="descname">entity</code><a class="headerlink" href="#Collection.entity" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>type:</strong> String</p>
-<p>Return the base Entity name which this collection manages.</p>
-<p>This should always be the primitive name of the entity type, not the name of a specific subclass implementation
-For example “Actor”, not “Actor5e”</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="Collection.get">
-<code class="descclassname">Collection.</code><code class="descname">get</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#Collection.get" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get an element from the collection by ID</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>id</strong> (<em>String</em>) – The entity ID to retrieve from the collection</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Entity</strong> – The retrieved Entity, if the ID was found, otherwise null;</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="Collection.index">
-<code class="descclassname">Collection.</code><code class="descname">index</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#Collection.index" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieve the index of an entity within the collection by its ID</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>id</strong> (<em>String</em>) – The entity ID to retrieve from the collection</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Number</strong> – The index of the Entity within the collection, if found, otherwise -1;</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="Collection.insert">
-<code class="descclassname">Collection.</code><code class="descname">insert</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="headerlink" href="#Collection.insert" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add a new Entity to the Collection, asserting that they are of the correct type</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>entity</strong> (<a class="reference internal" href="#Entity" title="Entity"><em>Entity</em></a>) – The entity instance to add to the collection</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Collection.instance">
-<code class="descclassname">Collection.</code><code class="descname">instance</code><a class="headerlink" href="#Collection.instance" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>type:</strong> Collection</p>
-<p>Return a reference to the singleton instance of this Collection
-By default, a Collection is located in <cite>game[Collection.name]</cite>, for example <cite>game.actors</cite></p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Collection.name">
-<code class="descclassname">Collection.</code><code class="descname">name</code><a class="headerlink" href="#Collection.name" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>type:</strong> String</p>
-<p>The Collection name</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Collection.object">
-<code class="descclassname">Collection.</code><code class="descname">object</code><a class="headerlink" href="#Collection.object" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>type:</strong> Entity</p>
-<p>Return a reference to the Entity subclass which should be used when creating elements of this Collection</p>
-<p>This should always be an explicit reference to the class which is used in this game to represent the entity,
-and not the base implementation of that entity type.
-For example <code class="xref js js-class docutils literal notranslate"><span class="pre">Actor5e()</span></code> not <code class="xref js js-class docutils literal notranslate"><span class="pre">Actor()</span></code></p>
-</dd></dl>
-
-<dl class="function">
-<dt id="Collection.remove">
-<code class="descclassname">Collection.</code><code class="descname">remove</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="headerlink" href="#Collection.remove" title="Permalink to this definition">¶</a></dt>
-<dd><p>Remove an Entity from the Collection by its ID.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>id</strong> (<em>String</em>) – The entity ID which should be removed</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="Collection.render">
-<code class="descclassname">Collection.</code><code class="descname">render</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Collection.render" title="Permalink to this definition">¶</a></dt>
-<dd><p>Re-render any currently visible applications associated with this Collection</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="Collection.socketListeners">
-<code class="descclassname">Collection.</code><code class="descname">socketListeners</code><span class="sig-paren">(</span><em>socket</em><span class="sig-paren">)</span><a class="headerlink" href="#Collection.socketListeners" title="Permalink to this definition">¶</a></dt>
-<dd><p>Activate socket listeners related to this particular Entity type</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
-<li><strong>socket</strong> (<em>Socket</em>) – The open game socket</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="Collection.source">
-<code class="descclassname">Collection.</code><code class="descname">source</code><a class="headerlink" href="#Collection.source" title="Permalink to this definition">¶</a></dt>
-<dd><p><strong>type:</strong> Object</p>
-<p>A reference to the original source data provided by the server</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="Collection.update">
-<code class="descclassname">Collection.</code><code class="descname">update</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#Collection.update" title="Permalink to this definition">¶</a></dt>
-<dd><p>Update an existing Entity within the Collection using provided update data
-The data used to update an entity is provided through the update&lt;Entity&gt; socket</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
-<li><strong>data</strong> (<em>Object</em>) – The data with which to update the entity</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Entity</strong> – The updated Entity instance</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-</div>
 </div>
 
 
@@ -709,7 +237,7 @@ The data used to update an entity is provided through the update&lt;Entity&gt; s
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="entities/user.html" class="btn btn-neutral float-right" title="The User Entity" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="entities/abstract.html" class="btn btn-neutral float-right" title="Entity and Collection Abstractions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../api.html" class="btn btn-neutral" title="Developer API Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
