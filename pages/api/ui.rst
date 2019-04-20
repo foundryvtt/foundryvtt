@@ -14,9 +14,9 @@ documentation on how to create Applications using this framework.
     :caption: UI Concepts
     :maxdepth: 1
 
+    apps/templates.rst
     apps/application.rst
     apps/forms.rst
-    apps/templating.rst
     apps/dialog.rst
     apps/notifications.rst
     apps/helpers.rst

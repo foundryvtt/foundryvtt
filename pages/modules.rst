@@ -90,8 +90,8 @@ played to the chat log.
 Pathfinder (Original)
 =====================
 
-The D&D5e system comes bundled with the base Foundry VTT installation, however you may also access the source code,
-view open issues, or submit pull requests here: https://gitlab.com/foundrynet/pathfinder
+The Pathfinder system comes bundled with the base Foundry VTT installation, however you may also access the source
+code, view open issues, or submit pull requests here: https://gitlab.com/foundrynet/pathfinder
 
 
 -------

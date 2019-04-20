@@ -30,7 +30,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="The Form Application" href="forms.html" />
-    <link rel="prev" title="Creating UI Elements" href="../ui.html" /> 
+    <link rel="prev" title="HTML Templates and Handlebars" href="templates.html" /> 
 
   
   <script src="../../../_static/js/modernizr.min.js"></script>
@@ -98,13 +98,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../canvas.html">The Game Canvas</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dice.html">Dice Rolling API</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../ui.html">Creating UI Elements</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="templates.html">HTML Templates and Handlebars</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">The Application Class</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#application-example">Application Example</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="forms.html">The Form Application</a></li>
-<li class="toctree-l3"><a class="reference internal" href="templating.html">Templating and Handlebars</a></li>
-<li class="toctree-l3"><a class="reference internal" href="templating.html#core-template-helpers">Core Template Helpers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dialog.html">Dialog Window</a></li>
 <li class="toctree-l3"><a class="reference internal" href="notifications.html">Sending Notifications</a></li>
 <li class="toctree-l3"><a class="reference internal" href="helpers.html">Tabbed Navigation</a></li>
@@ -204,6 +203,7 @@ should extend this class to define your own custom UI concepts which can be rend
 <li><strong>options.left</strong> (<em>Number</em>) – The horizontal position (from the left) of the rendered element</li>
 <li><strong>options.popOut</strong> (<em>Boolean</em>) – Display the element wrapped in a containing window frame (true, the default) or only the inner HTML (false).</li>
 <li><strong>options.minimizable</strong> (<em>Boolean</em>) – Customize whether the application is able to be minimized by double-clicking the header. Default behavior is the value of <cite>options.popOut</cite></li>
+<li><strong>options.resizable</strong> (<em>Boolean</em>) – Customize whether a window application window may be re-sized by dragging a handle in the bottom-right corner of the window display.</li>
 </ul>
 </td>
 </tr>
@@ -295,12 +295,13 @@ wrapper window, otherwise only the inner app content is rendered</p>
 <dl class="attribute">
 <dt id="Application.position">
 <code class="descclassname">Application.</code><code class="descname">position</code><a class="headerlink" href="#Application.position" title="Permalink to this definition">¶</a></dt>
-<dd><p>A convenient reference to the positioning attributes provided as Application options</p>
+<dd><p><strong>type:</strong> Object</p>
+<p>Track the current position and dimensions of the Application UI</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="Application.render">
-<code class="descclassname">Application.</code><code class="descname">render</code><span class="sig-paren">(</span><em>force=false</em><span class="sig-paren">)</span><a class="headerlink" href="#Application.render" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Application.</code><code class="descname">render</code><span class="sig-paren">(</span><em>force=false</em>, <em>position</em><span class="sig-paren">)</span><a class="headerlink" href="#Application.render" title="Permalink to this definition">¶</a></dt>
 <dd><p>Render the Application by evaluating it’s HTML template against the object of data provided by the getData method
 If the Application is rendered as a pop-out window, wrap the contained HTML in an outer frame with window controls</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -309,6 +310,7 @@ If the Application is rendered as a pop-out window, wrap the contained HTML in a
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
 <li><strong>force</strong> (<em>Boolean</em>) – Add the rendered application to the DOM if it is not already present. If false, the Application will only be re-rendered if it is already present.</li>
+<li><strong>position</strong> (<em>Object</em>) – Positioning options which are applied when rendering the new Application</li>
 </ul>
 </td>
 </tr>
@@ -318,7 +320,7 @@ If the Application is rendered as a pop-out window, wrap the contained HTML in a
 
 <dl class="function">
 <dt id="Application.setPosition">
-<code class="descclassname">Application.</code><code class="descname">setPosition</code><span class="sig-paren">(</span><em>left</em>, <em>top</em><span class="sig-paren">)</span><a class="headerlink" href="#Application.setPosition" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Application.</code><code class="descname">setPosition</code><span class="sig-paren">(</span><em>left</em>, <em>top</em>, <em>width</em>, <em>height</em><span class="sig-paren">)</span><a class="headerlink" href="#Application.setPosition" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the application position and store it’s new location</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -327,6 +329,8 @@ If the Application is rendered as a pop-out window, wrap the contained HTML in a
 <tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
 <li><strong>left</strong> (<em>Number</em>) – </li>
 <li><strong>top</strong> (<em>Number</em>) – </li>
+<li><strong>width</strong> (<em>Number</em>) – </li>
+<li><strong>height</strong> (<em>Number</em>) – </li>
 </ul>
 </td>
 </tr>
@@ -429,7 +433,7 @@ application class and call it’s render function.</p>
         <a href="forms.html" class="btn btn-neutral float-right" title="The Form Application" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../ui.html" class="btn btn-neutral" title="Creating UI Elements" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="templates.html" class="btn btn-neutral" title="HTML Templates and Handlebars" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

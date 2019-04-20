@@ -56,6 +56,12 @@ example:
 There is a lot you can do inside Handlebars templates, and I encourage you to spend some time with the documentation
 and examples for the Handlebars.js library (https://handlebarsjs.com/) in order to learn what is possible.
 
+As you begin to frequently render structured HTML elements within the VTT, you will likely find yourself wanting more
+structure to manage the application windows and data they contain. Once you understand the basics of manual template
+rendering, a great next step is to learn about the convenience layer and abstraction provided by :ref:`application`
+which allows you to define render-able HTML windows using a class pattern.
+
+
 Core Template Helpers
 =====================
 
