@@ -29,13 +29,13 @@ This module allows for you to import a character from D&D Beyond and create a pl
 This is extremely useful for players who use D&D Beyond as a campaign management tool as you can update existing
 actors using data stored in D&D Beyond.
 
-Roll20 OGL Importer
+Roll20 NPC Importer
 -------------------
 
 https://github.com/syl3r86/roll20npcimporter
 
-This module is capable of importing JSON data that has been exported from the Roll20 platform if you are using the
-Shaped Sheet.
+This module is capable of importing JSON data of NPCs that has been exported from the Roll20 platform if you are using the
+Shaped or OGL Sheet.
 
 
 FVTT Enhancement Suite
@@ -64,6 +64,14 @@ This module extends the compendium functionality in the D&D5e system to offer mo
 allows you to search and filter by various spell characteristics including level, class, spell school, casting time,
 and more!
 
+
+NPC Compendium Browser
+----------------------
+
+https://github.com/syl3r86/npc-browser
+
+This module extends the compendium functionality in the D&D5e system to offer more rich browser functionality that
+allows you to search and filter NPCs via various filters like challenge rating, type, size, and more!
 
 Spellbook Tweaker
 -----------------
