@@ -43,7 +43,7 @@ The Items Collection
 The Item Class
 ==============
 
-..  autoclass:: raw.Item
+..  autoclass:: foundry.Item
     :members:
 
     .. autofunction:: Entity.create

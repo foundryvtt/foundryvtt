@@ -325,12 +325,12 @@ global configuration.</p>
 <div class="section" id="the-scene-class">
 <h2>The Scene Class<a class="headerlink" href="#the-scene-class" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="raw.Scene">
-<em class="property">class </em><code class="descclassname">raw.</code><code class="descname">Scene</code><span class="sig-paren">(</span><em>data</em>, <em>apps</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Scene" title="Permalink to this definition">¶</a></dt>
+<dt id="foundry.Scene">
+<em class="property">class </em><code class="descclassname">foundry.</code><code class="descname">Scene</code><span class="sig-paren">(</span><em>data</em>, <em>apps</em><span class="sig-paren">)</span><a class="headerlink" href="#foundry.Scene" title="Permalink to this definition">¶</a></dt>
 <dd><p>The Scene entity</p>
 <dl class="function">
-<dt id="raw.Scene.Entity.create">
-<code class="descclassname">raw.Scene.Entity.</code><code class="descname">create</code><span class="sig-paren">(</span><em>data</em>, <em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Scene.Entity.create" title="Permalink to this definition">¶</a></dt>
+<dt id="foundry.Scene.Entity.create">
+<code class="descclassname">foundry.Scene.Entity.</code><code class="descname">create</code><span class="sig-paren">(</span><em>data</em>, <em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#foundry.Scene.Entity.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a new entity using provided input data
 The data for entity creation is typically provided from the server through the ‘create&lt;Entity&gt;’ socket
 Alternatively, the creation event may originate locally and the new entity can be pushed back to the server</p>
@@ -354,8 +354,8 @@ Alternatively, the creation event may originate locally and the new entity can b
 </dd></dl>
 
 <dl class="function">
-<dt id="raw.Scene.Entity.update">
-<code class="descclassname">raw.Scene.Entity.</code><code class="descname">update</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Scene.Entity.update" title="Permalink to this definition">¶</a></dt>
+<dt id="foundry.Scene.Entity.update">
+<code class="descclassname">foundry.Scene.Entity.</code><code class="descname">update</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#foundry.Scene.Entity.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the current entity using new data
 This new data is typically provided from the server through the ‘update&lt;Entity&gt;’ socket
 Alternatively, the update may originate locally, in which case it can be pushed back to the server</p>
@@ -376,8 +376,8 @@ Alternatively, the update may originate locally, in which case it can be pushed 
 </dd></dl>
 
 <dl class="function">
-<dt id="raw.Scene.Entity.delete">
-<code class="descclassname">raw.Scene.Entity.</code><code class="descname">delete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#raw.Scene.Entity.delete" title="Permalink to this definition">¶</a></dt>
+<dt id="foundry.Scene.Entity.delete">
+<code class="descclassname">foundry.Scene.Entity.</code><code class="descname">delete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#foundry.Scene.Entity.delete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete the entity, removing it from its collection and deleting its data record</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -390,14 +390,14 @@ Alternatively, the update may originate locally, in which case it can be pushed 
 </dd></dl>
 
 <dl class="function">
-<dt id="raw.Scene._onDelete">
-<code class="descclassname">raw.Scene.</code><code class="descname">_onDelete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#raw.Scene._onDelete" title="Permalink to this definition">¶</a></dt>
+<dt id="foundry.Scene._onDelete">
+<code class="descclassname">foundry.Scene.</code><code class="descname">_onDelete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#foundry.Scene._onDelete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Additional updating steps for the Scene entity the entity is deleted</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="raw.Scene._onUpdate">
-<code class="descclassname">raw.Scene.</code><code class="descname">_onUpdate</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Scene._onUpdate" title="Permalink to this definition">¶</a></dt>
+<dt id="foundry.Scene._onUpdate">
+<code class="descclassname">foundry.Scene.</code><code class="descname">_onUpdate</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#foundry.Scene._onUpdate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Additional updating steps for the Scene entity when new data is saved which trigger some related updates.</p>
 <p>If the updated scene is active, re-draw the canvas
 If sight/vision settings were changed, re-initialize sight
@@ -416,15 +416,15 @@ If the scene name or image were changed update the directory collection</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="raw.Scene._view">
-<code class="descclassname">raw.Scene.</code><code class="descname">_view</code><a class="headerlink" href="#raw.Scene._view" title="Permalink to this definition">¶</a></dt>
+<dt id="foundry.Scene._view">
+<code class="descclassname">foundry.Scene.</code><code class="descname">_view</code><a class="headerlink" href="#foundry.Scene._view" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>type:</strong> Boolean</p>
 <p>Track whether the scene is the active view</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="raw.Scene._viewPosition">
-<code class="descclassname">raw.Scene.</code><code class="descname">_viewPosition</code><a class="headerlink" href="#raw.Scene._viewPosition" title="Permalink to this definition">¶</a></dt>
+<dt id="foundry.Scene._viewPosition">
+<code class="descclassname">foundry.Scene.</code><code class="descname">_viewPosition</code><a class="headerlink" href="#foundry.Scene._viewPosition" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>type:</strong> Object</p>
 <p>Track the viewed position of each scene (while in memory only, not persisted)
 When switching back to a previously viewed scene, we can automatically pan to the previous position.
@@ -432,8 +432,8 @@ Object with keys: x, y, scale</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="raw.Scene.activate">
-<code class="descclassname">raw.Scene.</code><code class="descname">activate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#raw.Scene.activate" title="Permalink to this definition">¶</a></dt>
+<dt id="foundry.Scene.activate">
+<code class="descclassname">foundry.Scene.</code><code class="descname">activate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#foundry.Scene.activate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set this scene as currently active</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -446,14 +446,14 @@ Object with keys: x, y, scale</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="raw.Scene.notes">
-<code class="descclassname">raw.Scene.</code><code class="descname">notes</code><a class="headerlink" href="#raw.Scene.notes" title="Permalink to this definition">¶</a></dt>
+<dt id="foundry.Scene.notes">
+<code class="descclassname">foundry.Scene.</code><code class="descname">notes</code><a class="headerlink" href="#foundry.Scene.notes" title="Permalink to this definition">¶</a></dt>
 <dd><p>A singleton instance of the SheetNotes class</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="raw.Scene.update">
-<code class="descclassname">raw.Scene.</code><code class="descname">update</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Scene.update" title="Permalink to this definition">¶</a></dt>
+<dt id="foundry.Scene.update">
+<code class="descclassname">foundry.Scene.</code><code class="descname">update</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#foundry.Scene.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extend the default Entity update method to add additional functionality for handling Scene thumbnails</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -472,8 +472,8 @@ Object with keys: x, y, scale</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="raw.Scene.view">
-<code class="descclassname">raw.Scene.</code><code class="descname">view</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#raw.Scene.view" title="Permalink to this definition">¶</a></dt>
+<dt id="foundry.Scene.view">
+<code class="descclassname">foundry.Scene.</code><code class="descname">view</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#foundry.Scene.view" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set this scene as the current view</p>
 </dd></dl>
 

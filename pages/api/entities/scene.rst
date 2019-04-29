@@ -36,7 +36,7 @@ The Scenes Collection
 The Scene Class
 ===============
 
-..  autoclass:: raw.Scene
+..  autoclass:: foundry.Scene
     :members:
 
     .. autofunction:: Entity.create

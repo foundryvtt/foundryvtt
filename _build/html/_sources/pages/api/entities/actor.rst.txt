@@ -31,7 +31,7 @@ The Actors Collection
 The Actor Class
 ===============
 
-..  autoclass:: raw.Actor
+..  autoclass:: foundry.Actor
     :members:
 
     .. autofunction:: Entity.create

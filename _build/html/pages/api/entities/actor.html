@@ -311,6 +311,25 @@ The actors collection is accessible within the game as <code class="docutils lit
 </dd></dl>
 
 <dl class="function">
+<dt id="Actors.registerSheet">
+<code class="descclassname">Actors.</code><code class="descname">registerSheet</code><span class="sig-paren">(</span><em>scope</em>, <em>cls</em>, <em>type=null</em><span class="sig-paren">)</span><a class="headerlink" href="#Actors.registerSheet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register an Actor sheet class as a candidate which can be used to display Actors of a given type</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>scope</strong> (<em>String</em>) – Provide a unique namespace scope for this sheet</li>
+<li><strong>cls</strong> (<a class="reference internal" href="../apps/application.html#Application" title="Application"><em>Application</em></a>) – A defined Application class used to render the sheet</li>
+<li><strong>type</strong> (<em>String</em>) – An optional Actor type for which this sheet can be used</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="Actors.socketListeners">
 <code class="descclassname">Actors.</code><code class="descname">socketListeners</code><span class="sig-paren">(</span><em>socket</em><span class="sig-paren">)</span><a class="headerlink" href="#Actors.socketListeners" title="Permalink to this definition">¶</a></dt>
 <dd><p>Open additional socket listeners which transact Actor data</p>
@@ -323,13 +342,13 @@ The actors collection is accessible within the game as <code class="docutils lit
 <div class="section" id="the-actor-class">
 <h2>The Actor Class<a class="headerlink" href="#the-actor-class" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="raw.Actor">
-<em class="property">class </em><code class="descclassname">raw.</code><code class="descname">Actor</code><span class="sig-paren">(</span><em>data</em>, <em>apps</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Actor" title="Permalink to this definition">¶</a></dt>
+<dt id="foundry.Actor">
+<em class="property">class </em><code class="descclassname">foundry.</code><code class="descname">Actor</code><span class="sig-paren">(</span><em>data</em>, <em>apps</em><span class="sig-paren">)</span><a class="headerlink" href="#foundry.Actor" title="Permalink to this definition">¶</a></dt>
 <dd><p>The Actor class is a type of <a class="reference internal" href="abstract.html#Entity" title="Entity"><code class="xref js js-class docutils literal notranslate"><span class="pre">Entity()</span></code></a> which represents the protagonists, characters, enemies, and more that
 inhabit the World.</p>
 <dl class="function">
-<dt id="raw.Actor.Entity.create">
-<code class="descclassname">raw.Actor.Entity.</code><code class="descname">create</code><span class="sig-paren">(</span><em>data</em>, <em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Actor.Entity.create" title="Permalink to this definition">¶</a></dt>
+<dt id="foundry.Actor.Entity.create">
+<code class="descclassname">foundry.Actor.Entity.</code><code class="descname">create</code><span class="sig-paren">(</span><em>data</em>, <em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#foundry.Actor.Entity.create" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a new entity using provided input data
 The data for entity creation is typically provided from the server through the ‘create&lt;Entity&gt;’ socket
 Alternatively, the creation event may originate locally and the new entity can be pushed back to the server</p>
@@ -353,8 +372,8 @@ Alternatively, the creation event may originate locally and the new entity can b
 </dd></dl>
 
 <dl class="function">
-<dt id="raw.Actor.Entity.update">
-<code class="descclassname">raw.Actor.Entity.</code><code class="descname">update</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Actor.Entity.update" title="Permalink to this definition">¶</a></dt>
+<dt id="foundry.Actor.Entity.update">
+<code class="descclassname">foundry.Actor.Entity.</code><code class="descname">update</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#foundry.Actor.Entity.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the current entity using new data
 This new data is typically provided from the server through the ‘update&lt;Entity&gt;’ socket
 Alternatively, the update may originate locally, in which case it can be pushed back to the server</p>
@@ -375,8 +394,8 @@ Alternatively, the update may originate locally, in which case it can be pushed 
 </dd></dl>
 
 <dl class="function">
-<dt id="raw.Actor.Entity.delete">
-<code class="descclassname">raw.Actor.Entity.</code><code class="descname">delete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#raw.Actor.Entity.delete" title="Permalink to this definition">¶</a></dt>
+<dt id="foundry.Actor.Entity.delete">
+<code class="descclassname">foundry.Actor.Entity.</code><code class="descname">delete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#foundry.Actor.Entity.delete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete the entity, removing it from its collection and deleting its data record</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -389,8 +408,8 @@ Alternatively, the update may originate locally, in which case it can be pushed 
 </dd></dl>
 
 <dl class="function">
-<dt id="raw.Actor._onUpdate">
-<code class="descclassname">raw.Actor.</code><code class="descname">_onUpdate</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Actor._onUpdate" title="Permalink to this definition">¶</a></dt>
+<dt id="foundry.Actor._onUpdate">
+<code class="descclassname">foundry.Actor.</code><code class="descname">_onUpdate</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#foundry.Actor._onUpdate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Additional updating steps for the Actor entity when new data is saved which trigger some related updates.</p>
 <p>Re-render the parent collection if names, images, or permissions have changed
 Re-render active tokens if their linked attribute has changed</p>
@@ -408,8 +427,8 @@ Re-render active tokens if their linked attribute has changed</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="raw.Actor.createOwnedItem">
-<code class="descclassname">raw.Actor.</code><code class="descname">createOwnedItem</code><span class="sig-paren">(</span><em>itemData</em>, <em>push=false</em>, <em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Actor.createOwnedItem" title="Permalink to this definition">¶</a></dt>
+<dt id="foundry.Actor.createOwnedItem">
+<code class="descclassname">foundry.Actor.</code><code class="descname">createOwnedItem</code><span class="sig-paren">(</span><em>itemData</em>, <em>push=false</em>, <em>options</em><span class="sig-paren">)</span><a class="headerlink" href="#foundry.Actor.createOwnedItem" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a new item owned by this Actor.
 The creation request is submitted to the server where the item is assigned an ID
 The return item (with itemID) is then added to the actor.</p>
@@ -433,8 +452,8 @@ The return item (with itemID) is then added to the actor.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="raw.Actor.deleteOwnedItem">
-<code class="descclassname">raw.Actor.</code><code class="descname">deleteOwnedItem</code><span class="sig-paren">(</span><em>itemId</em>, <em>push=false</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Actor.deleteOwnedItem" title="Permalink to this definition">¶</a></dt>
+<dt id="foundry.Actor.deleteOwnedItem">
+<code class="descclassname">foundry.Actor.</code><code class="descname">deleteOwnedItem</code><span class="sig-paren">(</span><em>itemId</em>, <em>push=false</em><span class="sig-paren">)</span><a class="headerlink" href="#foundry.Actor.deleteOwnedItem" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete an owned item by its ID</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -454,8 +473,8 @@ The return item (with itemID) is then added to the actor.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="raw.Actor.getActiveTokens">
-<code class="descclassname">raw.Actor.</code><code class="descname">getActiveTokens</code><span class="sig-paren">(</span><em>linked=false</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Actor.getActiveTokens" title="Permalink to this definition">¶</a></dt>
+<dt id="foundry.Actor.getActiveTokens">
+<code class="descclassname">foundry.Actor.</code><code class="descname">getActiveTokens</code><span class="sig-paren">(</span><em>linked=false</em><span class="sig-paren">)</span><a class="headerlink" href="#foundry.Actor.getActiveTokens" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve an Array of active tokens which represent this Actor in the current canvas Scene.
 If the canvas is not currently active, or there are no linked actors, the returned Array will be empty.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -475,8 +494,8 @@ If the canvas is not currently active, or there are no linked actors, the return
 </dd></dl>
 
 <dl class="function">
-<dt id="raw.Actor.getOwnedItem">
-<code class="descclassname">raw.Actor.</code><code class="descname">getOwnedItem</code><span class="sig-paren">(</span><em>itemId</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Actor.getOwnedItem" title="Permalink to this definition">¶</a></dt>
+<dt id="foundry.Actor.getOwnedItem">
+<code class="descclassname">foundry.Actor.</code><code class="descname">getOwnedItem</code><span class="sig-paren">(</span><em>itemId</em><span class="sig-paren">)</span><a class="headerlink" href="#foundry.Actor.getOwnedItem" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get an owned item by it’s ID, initialized as an Item entity class</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -495,15 +514,15 @@ If the canvas is not currently active, or there are no linked actors, the return
 </dd></dl>
 
 <dl class="attribute">
-<dt id="raw.Actor.img">
-<code class="descclassname">raw.Actor.</code><code class="descname">img</code><a class="headerlink" href="#raw.Actor.img" title="Permalink to this definition">¶</a></dt>
+<dt id="foundry.Actor.img">
+<code class="descclassname">foundry.Actor.</code><code class="descname">img</code><a class="headerlink" href="#foundry.Actor.img" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>type:</strong> String</p>
 <p>A convenient reference to the file path of the Actor’s profile image</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="raw.Actor.importItemFromCollection">
-<code class="descclassname">raw.Actor.</code><code class="descname">importItemFromCollection</code><span class="sig-paren">(</span><em>collection</em>, <em>entryId</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Actor.importItemFromCollection" title="Permalink to this definition">¶</a></dt>
+<dt id="foundry.Actor.importItemFromCollection">
+<code class="descclassname">foundry.Actor.</code><code class="descname">importItemFromCollection</code><span class="sig-paren">(</span><em>collection</em>, <em>entryId</em><span class="sig-paren">)</span><a class="headerlink" href="#foundry.Actor.importItemFromCollection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Import a new owned Item from a compendium collection
 The imported Item is then added to the Actor as an owned item.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -521,28 +540,28 @@ The imported Item is then added to the Actor as an owned item.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="raw.Actor.isPC">
-<code class="descclassname">raw.Actor.</code><code class="descname">isPC</code><a class="headerlink" href="#raw.Actor.isPC" title="Permalink to this definition">¶</a></dt>
+<dt id="foundry.Actor.isPC">
+<code class="descclassname">foundry.Actor.</code><code class="descname">isPC</code><a class="headerlink" href="#foundry.Actor.isPC" title="Permalink to this definition">¶</a></dt>
 <dd><p>A boolean flag for whether this Actor is a player-owned character.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="raw.Actor.items">
-<code class="descclassname">raw.Actor.</code><code class="descname">items</code><a class="headerlink" href="#raw.Actor.items" title="Permalink to this definition">¶</a></dt>
+<dt id="foundry.Actor.items">
+<code class="descclassname">foundry.Actor.</code><code class="descname">items</code><a class="headerlink" href="#foundry.Actor.items" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>type:</strong> Array</p>
 <p>A convenient reference to the Array of Items which are owned by the Actor</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="raw.Actor.token">
-<code class="descclassname">raw.Actor.</code><code class="descname">token</code><a class="headerlink" href="#raw.Actor.token" title="Permalink to this definition">¶</a></dt>
+<dt id="foundry.Actor.token">
+<code class="descclassname">foundry.Actor.</code><code class="descname">token</code><a class="headerlink" href="#foundry.Actor.token" title="Permalink to this definition">¶</a></dt>
 <dd><p><strong>type:</strong> Object</p>
 <p>A convenient reference to the default Token data for the Actor</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="raw.Actor.updateOwnedItem">
-<code class="descclassname">raw.Actor.</code><code class="descname">updateOwnedItem</code><span class="sig-paren">(</span><em>itemData</em>, <em>push=false</em><span class="sig-paren">)</span><a class="headerlink" href="#raw.Actor.updateOwnedItem" title="Permalink to this definition">¶</a></dt>
+<dt id="foundry.Actor.updateOwnedItem">
+<code class="descclassname">foundry.Actor.</code><code class="descname">updateOwnedItem</code><span class="sig-paren">(</span><em>itemData</em>, <em>push=false</em><span class="sig-paren">)</span><a class="headerlink" href="#foundry.Actor.updateOwnedItem" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update an owned item using provided new data</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
