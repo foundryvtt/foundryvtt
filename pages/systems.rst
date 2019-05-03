@@ -29,7 +29,7 @@ would create the file ``public/systems/mysystem/system.json``.
       ],
       "styles": [
         "styles/system-styles-1.css",
-        "styles/system-styles-2.css
+        "styles/system-styles-2.css"
       ],
       "packs": [
         {
@@ -47,7 +47,7 @@ would create the file ``public/systems/mysystem/system.json``.
           "module": "mysystem",
           "path": "packs/items.db",
           "entity": "Item"
-        },
+        }
       ],
       "languages": ["en"],
       "initiative": "1d20",
