@@ -27,7 +27,7 @@ The Audio Collection
 The Playlist Entity
 ===================
 
-..  autoclass:: Playlist
+..  autoclass:: foundry.Playlist
     :members:
 
     .. autofunction:: Entity.create

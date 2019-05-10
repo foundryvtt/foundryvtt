@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Version 0.1.7, 2019-02-14 &mdash; Foundry Virtual Tabletop Alpha 0.0.6 documentation</title>
+  <title>Version 0.2.7, 2019-04-17 &mdash; Foundry Virtual Tabletop Alpha 0.0.6 documentation</title>
   
 
   
@@ -29,8 +29,8 @@
   <link rel="stylesheet" href="../_static/fvtt.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Version 0.2.0, 2019-02-15" href="notes-0.2.0.html" />
-    <link rel="prev" title="Version 0.1.6, 2019-02-13" href="notes-0.1.6.html" /> 
+    <link rel="next" title="Version 0.2.8, 2019-04-25" href="notes-0.2.8.html" />
+    <link rel="prev" title="Version 0.2.6, 2019-04-13" href="notes-0.2.6.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -100,7 +100,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="notes.html">Update Notes Archive</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="notes-0.1.5.html">Version 0.1.5, 2019-02-07</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notes-0.1.6.html">Version 0.1.6, 2019-02-13</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Version 0.1.7, 2019-02-14</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notes-0.1.7.html">Version 0.1.7, 2019-02-14</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notes-0.2.0.html">Version 0.2.0, 2019-02-15</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notes-0.2.1.html">Version 0.2.1, 2019-02-17</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notes-0.2.2.html">Version 0.2.2, 2019-02-26</a></li>
@@ -108,7 +108,7 @@
 <li class="toctree-l2"><a class="reference internal" href="notes-0.2.4.html">Version 0.2.4, 2019-03-18</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notes-0.2.5.html">Version 0.2.5, 2019-03-30</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notes-0.2.6.html">Version 0.2.6, 2019-04-13</a></li>
-<li class="toctree-l2"><a class="reference internal" href="notes-0.2.7.html">Version 0.2.7, 2019-04-17</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Version 0.2.7, 2019-04-17</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notes-0.2.8.html">Version 0.2.8, 2019-04-25</a></li>
 <li class="toctree-l2"><a class="reference internal" href="notes-0.2.9.html">Version 0.2.9, 2019-05-09</a></li>
 </ul>
@@ -160,13 +160,13 @@
         
           <li><a href="notes.html">Update Notes Archive</a> &raquo;</li>
         
-      <li>Version 0.1.7, 2019-02-14</li>
+      <li>Version 0.2.7, 2019-04-17</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/notes/notes-0.1.7.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/notes/notes-0.2.7.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -179,27 +179,38 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="version-0-1-7-2019-02-14">
-<h1>Version 0.1.7, 2019-02-14<a class="headerlink" href="#version-0-1-7-2019-02-14" title="Permalink to this headline">¶</a></h1>
-<h2>Alpha 0.1.7 Hotfix Notes</h2>
-<p>This is a hotfix version addressing several issues which emerged through the <code>0.1.6</code> update. The bug fixes are detailed below.</p>
+  <div class="section" id="version-0-2-7-2019-04-17">
+<h1>Version 0.2.7, 2019-04-17<a class="headerlink" href="#version-0-2-7-2019-04-17" title="Permalink to this headline">¶</a></h1>
+<h2>Beta 0.2.7 Update Notes</h2>
+
+<p>Greetings friends and supporters! I'm sharing another Foundry Virtual Tabletop Beta update a bit ahead of schedule. This new version, <code>0.2.7</code>, is being released now to address a number of bugs which emerged in the previous version that were not caught. Rather than waiting a normal update cycle (10-14 days) to post an update that fixes these bugs I wanted to address as many as possible and post this update right away.</p>
+
+<p>With this update completed, I'll work on accomplishing a more meaningful feature update with <code>0.2.8</code> which I will try to release by the end of April. Thanks to all the testers who highlighted some of the problems in the previous update version. Furthermore, since this update is heavily focused on resolving problematic bugs, this update will not have an early-release period for Council-tier Patrons but rather is immediately available for all Patrons.</p>
+
+<p><a href="https://gitlab.com/foundrynet/foundryvtt/boards" target="_blank" title="FVTT Story Board">https://gitlab.com/foundrynet/foundryvtt/boards</a></p>
 <hr/>
 
 <h3>Core Bug Fixes</h3>
 <ul>
-	<li>Resolve a blocking problem for multiplayer connectivity where the user cookie check was performed too soon preventing players from joining a game session.</li>
-	<li>Fix a loophole with chat sanitization that caused too many valid HTML tags or attributes to be stripped from messages.</li>
-	<li>Corrected an issue with Scene activation which caused the combat tracker to not properly update the turn order in the new Scene.</li>
-	<li>Fix an issue with the "End Combat" button which was not properly clearing the turn order tracker unless the browser was manually refreshed.</li>
-	<li>Improve the behavior of token combat control icons such that they are properly updated when tokens are added or removed from combat, either through the token control UI or through the combat tracker itself.</li>
+	<li>Corrected a server-side error which prevented Scene update operations from being correctly acknowledged back to the requesting client.</li>
+	<li>Resolved a problem which prevented players from being able to delete Items from their own inventory.</li>
+	<li>Specified that the folder attribute be a required field for JournalEntry entities which prevents an entry from being incorrectly orphaned if dragged out of it's Journal chapter.</li>
+	<li>Fixed an error for various placeable objects like MeasuredTemplates, Tiles, and Light sources which caused a circular JSON error when rendering their configuration sheets.</li>
+	<li>Improved an issue with the EULA signature process, which was previously repeatedly prompting the user after signing until the server was restarted.</li>
+	<li>Resolved a console error which resulted when ruler measurement did not pass a valid destination object.</li>
+	<li>Corrected a permissions failure which prevented players with the TRUSTED level from deleting MeasurementTemplates which they had placed in a Scene.</li>
+	<li>Fixed an issue with drag and drop operations to change an Entity folder, which was correctly saving in the server but not propagating back to the client.</li>
+	<li>Corrected the context menu applied to combatants in the updated Combat Tracker to ensure that the "Remove Combatant" context option works as expected.</li>
+	<li>Fixed an issue with the new Combat Tracker reset button which could cause the turn of the combat round to overflow out of bounds once initiatives were re-rolled.</li>
+	<li>Improved the behavior of the new resizable window function such that Applications with an "auto" width or height will properly re-render its dimensions dynamically. This resolved a problem with the FilePicker UI in particular that prevented it from being easily used.</li>
 </ul>
 <hr/>
 
-<h3>D&D5e Bug Fixes</h3>
+<h3>Core Software, APIs, and Module Development</h3>
 <ul>
-	<li>Fix an issue with short and long rest buttons which prevented them from functioning correctly.</li>
-	<li>Improve the chat log display of short and long rest icons, detailing the number of hit dice and hit points spent or regained.</li>
-	<li>Fix an incorrectly displayed Spell DC for spells which set a different spellcasting ability than the default one chosen on the character sheet.</li>
+	<li>World configuration JSON files may now specify styles and scripts using glob-style patterns, as is supported for systems and modules.</li>
+	<li>Added the <code>pauseGame</code> hook which will fire whenever the paused state changes.</li>
+	<li>Improved the Application.setPosition method to separate the update logic for positioning and dimension data as needed.</li>
 </ul>
 <hr/>
 </div>
@@ -212,10 +223,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="notes-0.2.0.html" class="btn btn-neutral float-right" title="Version 0.2.0, 2019-02-15" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="notes-0.2.8.html" class="btn btn-neutral float-right" title="Version 0.2.8, 2019-04-25" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="notes-0.1.6.html" class="btn btn-neutral" title="Version 0.1.6, 2019-02-13" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="notes-0.2.6.html" class="btn btn-neutral" title="Version 0.2.6, 2019-04-13" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

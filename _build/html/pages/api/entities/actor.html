@@ -200,7 +200,7 @@ override this to a subclass included in their own definition.</p>
 <h2>The Actors Collection<a class="headerlink" href="#the-actors-collection" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="Actors">
-<em class="property">class </em><code class="descname">Actors</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Actors" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descname">Actors</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#Actors" title="Permalink to this definition">¶</a></dt>
 <dd><p>The <a class="reference internal" href="abstract.html#Collection" title="Collection"><code class="xref js js-class docutils literal notranslate"><span class="pre">Collection()</span></code></a> of <code class="xref js js-class docutils literal notranslate"><span class="pre">Actor()</span></code> entities
 The actors collection is accessible within the game as <code class="docutils literal notranslate"><span class="pre">game.actors</span></code></p>
 <dl class="function">
@@ -312,7 +312,7 @@ The actors collection is accessible within the game as <code class="docutils lit
 
 <dl class="function">
 <dt id="Actors.registerSheet">
-<code class="descclassname">Actors.</code><code class="descname">registerSheet</code><span class="sig-paren">(</span><em>scope</em>, <em>cls</em>, <em>type=null</em><span class="sig-paren">)</span><a class="headerlink" href="#Actors.registerSheet" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Actors.</code><code class="descname">registerSheet</code><span class="sig-paren">(</span><em>scope</em>, <em>cls</em>, <em>types</em>, <em>makeDefault</em><span class="sig-paren">)</span><a class="headerlink" href="#Actors.registerSheet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Register an Actor sheet class as a candidate which can be used to display Actors of a given type</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -321,7 +321,8 @@ The actors collection is accessible within the game as <code class="docutils lit
 <tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
 <li><strong>scope</strong> (<em>String</em>) – Provide a unique namespace scope for this sheet</li>
 <li><strong>cls</strong> (<a class="reference internal" href="../apps/application.html#Application" title="Application"><em>Application</em></a>) – A defined Application class used to render the sheet</li>
-<li><strong>type</strong> (<em>String</em>) – An optional Actor type for which this sheet can be used</li>
+<li><strong>types</strong> (<em>Array</em>) – An Array of types for which this sheet can be used</li>
+<li><strong>makeDefault</strong> (<em>Boolean</em>) – Make this sheet the default choice for provided types? Default is false</li>
 </ul>
 </td>
 </tr>
@@ -333,6 +334,25 @@ The actors collection is accessible within the game as <code class="docutils lit
 <dt id="Actors.socketListeners">
 <code class="descclassname">Actors.</code><code class="descname">socketListeners</code><span class="sig-paren">(</span><em>socket</em><span class="sig-paren">)</span><a class="headerlink" href="#Actors.socketListeners" title="Permalink to this definition">¶</a></dt>
 <dd><p>Open additional socket listeners which transact Actor data</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="Actors.unregisterSheet">
+<code class="descclassname">Actors.</code><code class="descname">unregisterSheet</code><span class="sig-paren">(</span><em>scope</em>, <em>cls</em>, <em>types</em><span class="sig-paren">)</span><a class="headerlink" href="#Actors.unregisterSheet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unregister an Actor sheet class, removing it from the list of avaliable sheet Applications to use</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>scope</strong> (<em>String</em>) – Provide a unique namespace scope for this sheet</li>
+<li><strong>cls</strong> (<a class="reference internal" href="../apps/application.html#Application" title="Application"><em>Application</em></a>) – A defined Application class used to render the sheet</li>
+<li><strong>types</strong> (<em>Array</em>) – An Array of types for which this sheet should be removed</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>

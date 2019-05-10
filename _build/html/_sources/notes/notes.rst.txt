@@ -19,4 +19,7 @@ This page contains an archive of published update notes dating back to late stag
     notes-0.2.3
     notes-0.2.4
     notes-0.2.5
-
+    notes-0.2.6
+    notes-0.2.7
+    notes-0.2.8
+    notes-0.2.9

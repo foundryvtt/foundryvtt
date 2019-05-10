@@ -201,6 +201,7 @@ should extend this class to define your own custom UI concepts which can be rend
 <li><strong>options.width</strong> (<em>Number</em>) – The width in pixels (or “auto”) for the rendered element</li>
 <li><strong>options.top</strong> (<em>Number</em>) – The vertical position (from the top) of the rendered element</li>
 <li><strong>options.left</strong> (<em>Number</em>) – The horizontal position (from the left) of the rendered element</li>
+<li><strong>options.template</strong> (<em>String</em>) – The default HTML template path to use for applications of this type</li>
 <li><strong>options.popOut</strong> (<em>Boolean</em>) – Display the element wrapped in a containing window frame (true, the default) or only the inner HTML (false).</li>
 <li><strong>options.minimizable</strong> (<em>Boolean</em>) – Customize whether the application is able to be minimized by double-clicking the header. Default behavior is the value of <cite>options.popOut</cite></li>
 <li><strong>options.resizable</strong> (<em>Boolean</em>) – Customize whether a window application window may be re-sized by dragging a handle in the bottom-right corner of the window display.</li>
@@ -245,7 +246,16 @@ drawn by the VTT</p>
 <dl class="function">
 <dt id="Application.close">
 <code class="descclassname">Application.</code><code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Application.close" title="Permalink to this definition">¶</a></dt>
-<dd><p>Close the application and un-register references to it within UI mappings</p>
+<dd><p>Close the application and un-register references to it within UI mappings
+This function returns a Promise which resolves once the window closing animation concludes</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>Promise</strong> –</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
