@@ -56,13 +56,25 @@ In a self-hosted configuration, you will need to ensure that clients can connect
 There are multiple ways to achieve this and you can use a combination of approaches for different players. By default,
 Foundry Virtual Tabletop runs on port ``30000``.
 
-1. **Local Area Network**. If your players are on the same network as you, they should be able to connect to your
+..  warning:: **Firewall Rules:**
+    For all self-hosted configuration models you will need to be sure that your local operating system firewall is 
+    not blocking network traffic for the application. For Windows users, you should be prompted to allow (or deny)
+    a firewall exception when the Foundry VTT application is first started. If you have followed other steps to 
+    allow connectivity but users are still unable to connect, be sure to check your Firewall rules.
+
+Local Area Network
+------------------
+
+If your players are on the same network as you, they should be able to connect to your
 computer using your local IP address. To discover your own local IP address: for Windows check your Connection Settings
 or use ``ipconfig`` from the Command Prompt, for Mac look at Network Settings under System Preferences or use
 ``ipconfig`` in your Terminal, for Linux use ``hostname -i``. Local network players should connect to your local
 IP address and port, for example ``http://x.x.x.x:30000``.
 
-2. **Port Forwarding**. If your players are connecting over the internet, they will use your public IP address.
+Port Forwarding
+---------------
+
+If your players are connecting over the internet, they will use your public IP address.
 Use a site like http://whatismyip.host/ to easily discover your public IP address. In order for this to work, you
 will need to forward web traffic for your local network to send the Foundry VTT port to your computer's local IP
 address. This step is required in order for your network to know where to send the connection. Port forwarding can
@@ -72,7 +84,10 @@ forwarding is done within your router configuration interface. The website https
 instructions for the most common router configurations. Once the port is forwarded corretly players can connect
 to your public IP address in the browser ``http://x.x.x.x:30000``.
 
-3. **Virtual Private Network**. If your players are remote but port forwarding is not an option, a third option can be
+Virtual Private Network
+-----------------------
+
+If your players are remote but port forwarding is not an option, a third option can be
 to use a VPN service. Please be aware - if you find yourself in this situation, the dedicated hosting option may be a
 better choice for you. With a virtual private network, other users will have access to details about your computer as
 well as any content (like documents or pictures) that you are sharing with your local network. If you do choose to go
@@ -91,58 +106,63 @@ network traffic may be blocked by your operating system firewall.
 Dedicated Configuration
 =======================
 
+To configure Foundry Virtual Tabletop for a dedicated server configuration there are a few simple steps to follow. Firstly
+you will need to create a server instance on which you want to host the Foundry VTT application. Secondly you will need
+to install Node.js and the Foundry VTT software.
 
-The configuration for a dedicated server will vary somewhat depending on your hosting platform and networking
-requirements. This section provides a simple configuration example for running the server using an AWS free tier
-t2.micro instance (https://aws.amazon.com/ec2/).
+Launch a Server Instance
+------------------------
 
-1. Launch a t2.micro (or larger) instance using the Linux distribution of your choice. These instructions are for the
-standard Amazon Linux AMI.
+The configuration for a dedicated server will vary somewhat depending on your hosting platform and networking requirements. 
+This section provides a simple configuration example for running the server using an AWS instance (https://aws.amazon.com/ec2/). 
+Foundry Virtual Tabletop can work even with a t2.micro size instance which is supported by the free tier program which is an
+easy way to begin trying out the software.
 
-2. Configure the inbound rules for your instance security group using the AWS dashboard to allow inbound traffic using
-a ``Custom TPC Rule`` for port ``30000`` (or a different port of your choice).
+To get started, launch a t2.micro (or larger) instance using the Linux distribution of your choice. These instructions are for 
+the standard Amazon Linux AMI. Configure the inbound rules for your instance security group using the AWS dashboard to allow 
+inbound traffic using a ``Custom TPC Rule`` for port ``30000`` (or a different port of your choice). Lastly, connect to your 
+new host via SSH. You will need to configure your SSH client to use the security key-pair provided by AWS.
 
-3. Connect to your new host via SSH. You will need to configure your SSH client to use the security key-pair provided
-by AWS.
+Install Software
+----------------
 
+To get started with Foundry VTT, you will need to install ``nodejs`` which is used to host the server.
 
-4. Update software versions and install ``nodejs`` to host the server.
-
-   For Red Hat / Amazon Linux::
+**For Red Hat / Amazon Linux**::
 
     sudo yum install -y gcc gcc-c++ make openssl-devel
-    curl --silent --location https://rpm.nodesource.com/setup_8.x | sudo bash -
+    curl --silent --location https://rpm.nodesource.com/setup | sudo bash -
     sudo yum install -y nodejs
 
-   For Debian / Ubuntu::
+**For Debian / Ubuntu**::
 
     sudo apt install -y build-essential libssl-dev curl
-    curl -sL https://deb.nodesource.com/setup_8.x | sudo bash -
+    curl -sL https://deb.nodesource.com/setup | sudo bash -
     sudo apt install -y nodejs
 
-    For Windows: Download and install node.js from https://nodejs.org/en/download/
+..  note:: **Node.js for Windows**
+    Note that you can run a dedicated server from Windows also, for Windows you should download and install node.js from 
+    https://nodejs.org/en/download/. 
 
+Once Node.js is installed, next download and extract the latest Foundry Virtual Tabletop Linux version from Patreon.::
 
-5. Download and extract the Foundry Virtual Tabletop version of the platform architecture.
+    wget https://s3-us-west-2.amazonaws.com/foundryvtt/releases/<patreon-link-here>.zip -O foundryvtt.zip
+    unzip foundryvtt.zip
 
-6. Start the server, being sure to pass the headless flag: ``node main.js --headless``.
+Start the Server
+----------------
 
-7. Once the server is running, both you and your players can connect to the server using the public IP address of
-your web host, for example ``http://x.x.x.x:30000``.
+Once you have extracted the Foundry VTT software and installed Node.js you can start the server by calling the main 
+process script: ``node main.js``. 
 
-------
+**Additional Command-Line Options**
+    
+--port      [Optional] You may specify a specific port on which to run the application. The default is 30000.
+--world     [Optional] You may specify the name of a specific World directory which should be automatically 
+            loaded when the server is started.
 
-
-Command Line Arguments
-======================
-
-By default, Foundry VTT uses port ``30000``. You can modify which port is used by passing the ``--port=<port>`` flag
-at runtime.
-
-You can also specify the name of a world directory that should be automatically loaded when the software starts by
-passing the ``--world=<worldname>`` flag.
-
-------
+Once the server is running, both you and your players can connect to the server using the public IP address of your 
+web host, for example ``http://x.x.x.x:30000``.
 
 
 Where Do I Put My Content?

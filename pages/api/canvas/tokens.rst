@@ -28,7 +28,7 @@ As a mod developer, you may find yourselves wanting to interact with the tokens 
 interacting with these tokens.
 
 
-..  autoclass:: Token
+..  autoclass:: foundry.Token
     :members:
 
 -----
