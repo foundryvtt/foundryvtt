@@ -3,19 +3,22 @@
 Hosting and Connectivity Guide
 ******************************
 
-In Foundry Virtual Tabletop, a game session has one **host** and several **clients**. In order to enjoy a multi-player gaming experience the clients must be able to connect to the host which is running the tabletop software. 
+In Foundry Virtual Tabletop, a game session has one **host** and several **clients**. In order to enjoy a multi-player
+gaming experience the clients must be able to connect to the host which is running the tabletop software.
 
 ------
 
 Hosting Modes
 =============
 
-There are two main hosting modes. The following section attempts to help you understand which hosting mode may be the best choice for you.
+There are two main hosting modes. The following section attempts to help you understand which hosting mode may be the
+best choice for you.
 
 Self-Hosted
 -----------
 
-In a self-hosted setting, the application runs on your own computer and creates a local web server which allows other players to connect directly to your computer. The self-hosted mode is most similar to the setup of Fantasy Grounds, Maptool, or GM Forge.
+In a self-hosted setting, the application runs on your own computer and creates a local web server which allows other
+players to connect directly to your computer. The self-hosted mode is most similar to the setup of Fantasy Grounds, Maptool, or GM Forge.
 
 **Advantages**
 
@@ -33,7 +36,9 @@ In a self-hosted setting, the application runs on your own computer and creates 
 Dedicated
 ---------
 
-In a dedicated hosting setting, the application runs on a persistent web server using node.js and all players (including the GM) connect to the game session. The dedicated hosting mode is most similar to the experience of Roll20 or Astral.
+In a dedicated hosting setting, the application runs on a persistent web server using node.js and all players
+(including the GM) connect to the game session. The dedicated hosting mode is most similar to the experience of
+Roll20 or Astral Tabletop.
 
 **Advantages**
 
@@ -153,7 +158,7 @@ Start the Server
 ----------------
 
 Once you have extracted the Foundry VTT software and installed Node.js you can start the server by calling the main 
-process script: ``node main.js``. 
+process script: ``node resources/app/main.js``.
 
 **Additional Command-Line Options**
     
@@ -169,15 +174,21 @@ Where Do I Put My Content?
 ==========================
 
 Once your server is up and running the first step is to create a new World. Once you have a world created, you will
-want to start making static content like maps, tokens, audio files, and more available to be used in your world. Your
-world data is stored in the ``public/worlds/<your-world>`` directory. Feel free to use any directory structure you
-want within the ``public`` folder for organizing your content either for a single world or to be shared across
-multiple worlds.
+want to start making static content like maps, tokens, audio files, and more available to be used in your world.
+
+The base application data is located in the ``<foundryvtt>/resources/app`` directory. Static content which is able to
+be served to other players who connect to your game is located in the ``public`` folder within this directory. Within
+the public folder you will find subfolders for ``worlds``, and ``modules`` where you will place most of your user
+created content.
+
+Specifically, the data for your world is stored in the directory ``<foundryvtt>/resources/app/public/worlds/<your-world>``.
+Feel free to use any directory structure you want within your world and module folders for organizing your content,
+but please avoid renaming or deleting pre-existing folders as that may break certain assumptions of the application.
 
 When referencing file locations within the VTT - all paths are relative to the ``public`` folder which is your content
 root. For example; suppose you create the following file::
 
-	public/worlds/my-world/maps/dungeons/deadly-dungeon-01.jpg
+	<foundryvtt>/resources/app/public/worlds/my-world/maps/dungeons/deadly-dungeon-01.jpg
 
 When using that map as the source for a new Scene - you should reference the file location as::
 
