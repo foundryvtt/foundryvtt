@@ -7,7 +7,7 @@ I am an independent developer working on this as a hobby project. I am not worki
 making fast progress and the software is now in closed Alpha testing (since November) for Patreon supporters and friends.
 
 I am actively collecting feedback and working to continue improving the software for Beta testing. I expect Closed beta 
-testing phases to begin in mid-February, 2018.
+testing phases to begin in mid-February, 2019.
 
 I expect Beta testing to occur for 5-6 months which would potentially allow for an initial release version of the software 
 around August, 2019. This schedule is highly subject to change, however, so please be sure to check back for future 

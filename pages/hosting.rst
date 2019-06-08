@@ -135,14 +135,14 @@ To get started with Foundry VTT, you will need to install ``nodejs`` which is us
 
 **For Red Hat / Amazon Linux**::
 
-    sudo yum install -y gcc gcc-c++ make openssl-devel
-    curl --silent --location https://rpm.nodesource.com/setup | sudo bash -
+    sudo yum install -y openssl-devel
+    curl --silent --location https://rpm.nodesource.com/setup_10.x | sudo bash -
     sudo yum install -y nodejs
 
 **For Debian / Ubuntu**::
 
-    sudo apt install -y build-essential libssl-dev curl
-    curl -sL https://deb.nodesource.com/setup | sudo bash -
+    sudo apt install -y libssl-dev
+    curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -
     sudo apt install -y nodejs
 
 ..  note:: **Node.js for Windows**
