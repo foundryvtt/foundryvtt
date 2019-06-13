@@ -9,5 +9,5 @@ To keep track of the the current features which are being worked on or planned, 
 
 ..  csv-table::
     :file: ../_static/features.csv
-    :widths: 20, 60, 15, 15
+    :widths: 25, 60, 15
     :header-rows: 1
