@@ -114,8 +114,8 @@ to keep an eye on my progress!
 
 As you are visiting the demo, please be aware of several key factors and ground rules.
 
-1.  This demo is "pre-Alpha". I am not yet near feature complete. There will be bugs. There will be things that do not
-    work at all. There will be things that are obviously incomplete.
+1.  This demo showcases the current Beta version of Foundry VTT. The software is not yet feature complete, and you may
+	encounter some minor bugs, but it is an accurate reflection of the current experience with the Beta software.
 
 2.  I am hosting this demo server for a limited number of sample player accounts. Please don't monopolize the limited
     slots by leaving your browser connected for hours.

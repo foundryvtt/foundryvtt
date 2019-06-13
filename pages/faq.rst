@@ -4,16 +4,15 @@ Frequently Asked Questions
 **How far along is this product in development? What is the timeline for testing phases? When will this be released?**
 
 I am an independent developer working on this as a hobby project. I am not working on this full time, however, I am
-making fast progress and the software is now in closed Alpha testing (since November) for Patreon supporters and friends.
+making fast progress. The software has gone through successful Alpha testing from November through March and is now in
+closed Beta testing for Patreon supporters.
 
-I am actively collecting feedback and working to continue improving the software for Beta testing. I expect Closed beta 
-testing phases to begin in mid-February, 2019.
+The Beta testing process is used to actively collect feedback and continue improving the software along the path 
+towards a full release. Beta testing is expected to continue without interruption until the full product release in 
+late 2019. This schedule is subject to change, depending on the rate of development progress, the quality of implemented
+features, and the amount of work still remaining in order to satisfy my original product vision. 
 
-I expect Beta testing to occur for 5-6 months which would potentially allow for an initial release version of the software 
-around August, 2019. This schedule is highly subject to change, however, so please be sure to check back for future 
-updates.
-
-Opportunities to participate in Alpha or Beta testing phases is available by supporting the project on Patreon at
+Opportunities to participate in the current phase of Beta testing is available by supporting the project on Patreon at
 https://patreon.com/foundryvtt.
 
 -------
