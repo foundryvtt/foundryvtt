@@ -103,6 +103,16 @@ You can add these to any item on the favourite list or remove them by changing t
 This uses the same data that is used by Moerill#7205's adnd5e module, since this data is not supported by default.
 
 
+Polymorpher
+-----------
+
+https://github.com/syl3r86/polymorpher
+
+A module for Foundry VTT that lets you polymorph characters into any other character! 
+Just drag any Actor (NPC or Character) ontop of another Actor to change the later into the prior.
+Support droping both from Compendium or the sidebar.
+
+
 -------
 
 
@@ -148,3 +158,13 @@ https://github.com/PaulEndri/fvtt-compendium-importer/tree/master/compendium-imp
 The compendium importer module allows for you to export an entire Foundry VTT compendium pack to a JSON file which
 can be saved locally. The module also includes the functionality to re-load a compendium from existing JSON so that
 content can be easily shared between users. Fantastic!
+
+
+Display Mode
+------------
+
+https://github.com/syl3r86/displaymode
+
+Hide all those pesky display elements you don't need for using foundry on the table.
+Hides the Sidebar, Navigation (scene links at the top of the page), navigation (control buttons on the left side of the page) and the connected player indicator.
+Toggles visibility of all those via clicking the anvil icon in the top left corner.
