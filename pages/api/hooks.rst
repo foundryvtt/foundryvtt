@@ -2,50 +2,50 @@
 Available API Hooks
 *******************
 
+This page provides an (incomplete) reference of available Hooks within Foundry VTT. Hooks provide a mechanism to perform
+certain action when various events occur. Each hook transacts a different set of arguments, but the standard syntax for 
+registering a handler function is as follows:
+
+``Hooks.on(eventName, (...args) => {});``
+
 
 Initialization and Setup
 ========================
 
-`init`
+``init()``
 
-`canvasInit`
+``canvasInit()``
 
-`ready`
-
-
-Entities
-========
-
-For each Entity type the following hooks are available.
-
-`preCreate<Entity>`
-
-`create<Entity>`
-
-`preUpdate<Entity>`
-
-`update<Entity>`
-
-`preDelete<Entity>`
-
-`delete<Entity>`
+``ready()``
 
 
-Placeable Objects
-=================
+Entity and Object Database Operations
+=====================================
 
-For each PlaceableObject type the following hooks are available
+For each :class:`Entity` (Actor, Scene, Item, ...) type the following hooks are available.
 
-`preCreate<Object>`
+``preCreate<Entity>(createData, options)``
 
-`create<Object>`
+``create<Entity>(createdData, options)``
 
-`preUpdate<Object>`
+``preUpdate<Entity>(updateData, options)``
 
-`update<Object>`
+``update<Entity>(updatedData, options)``
 
-`preDelete<Object>`
+``preDelete<Entity>(deleteId, options)``
 
-`delete<Object>`
+``delete<Entity>(deletedId, options)``
 
+For each :class:`PlaceableObject` (Token, Wall, OwnedItem, Tile, ...) the following hooks are available.
 
+``preCreate<Object>(parentId, createData, options)``
+
+``create<Object>(parentId, createdData, options)``
+
+``preUpdate<Object>(parentId, updateData, options)``
+
+``update<Object>(parentId, updatedData, options)``
+
+``preDelete<Object>(parentId, deleteId, options)``
+
+``delete<Object>(parentId, deletedId, options)``

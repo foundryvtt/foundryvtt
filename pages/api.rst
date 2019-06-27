@@ -14,4 +14,5 @@ amazing add-on software which augments and extends the base functionality of the
     api/entities
     api/canvas
     api/dice
+    api/hooks
     api/ui
