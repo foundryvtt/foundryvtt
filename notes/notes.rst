@@ -26,3 +26,4 @@ This page contains an archive of published update notes dating back to late stag
     notes-0.2.10
     notes-0.3.0
     notes-0.3.1
+    notes-0.3.2
