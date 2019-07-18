@@ -1,0 +1,94 @@
+<h2>Beta 0.3.3 Update Notes</h2>
+
+<p>Hey everyone, it's time for another exciting Foundry Virtual Tabletop beta update, with version <code>0.3.3</code> that adds a huge number of new features and bug-fixes. With 70 issues addressed in this update it is a new record for the largest update (in terms of issue count) ever! This update includes some big new features like Token Actor Data Extension, support for Universal Plug-and-Play which removes the need for port forwarding, group editing for Wall objects, addition of the initial system for Weather Effects, and server-side storage for Fog of War exploration. These major feature improvements are partnered with a lot of helpful bug fixes and API improvements.</p>
+
+<p>Thank you all for appreciating my work, providing thoughtful feedback, and encouraging me to do even more. As always, please keep an eye on the development progress board here for visibility into what features are in progress and coming up next!</p>
+
+<p><a href="https://gitlab.com/foundrynet/foundryvtt/boards" target="_blank" title="FVTT Story Board">https://gitlab.com/foundrynet/foundryvtt/boards</a></p>
+<hr/>
+
+<h3>New Features</h3>
+<ul>
+	<li>This update adds support for <strong>Token Actor Data Extensions</strong> which allow any token, even one which is not linked to a base Actor entity, to have it's data model updated. This allows for some really amazing possibilities, like having Tokens whose statistics, items, or abilities are randomized at the time of the Token being placed. Double clicking a Token will continue to open an Actor Sheet for that token, changes to this sheet are applied as Token actor-data overrides if the Token is not linked to the actor directly. Furthermore, this change allows for Token-specific resource bars to be deprecated and removed from the Token data model. The attribute bars displayed for Tokens now refer directly to that Token's actor data. This is a powerful change, but it adds a several new complexities or situations that developers may encounter. Furthermore, the relationship between Tokens and Actors has historically been confusing to users - so more work will certainly be required to ensure that Game-Masters can easily understand the system.</li>
+	<li>Automatic support for <a href="https://en.wikipedia.org/wiki/Universal_Plug_and_Play" title="UPnP" target="_blank">Universal Plug-and-Play (UPnP)</a> has been added to Foundry Virtual Tabletop. If your local network allows for UPnP, this means that you no longer need to deal with Port Forwarding in order to allow others to connect to your game! Sincere thanks to KaKaRoTo for helping to demonstrate this proof of concept and advocating for this improvement. I believe it will provide a big benefit for new users who are discovering the software and are uncomfortable with the challenges of port forwarding.</li>
+	<li>Added support for <strong>group editing of Wall objects</strong> which allows you to select multiple walls and edit or delete them as a chained sequence. Clicking on a Wall while on the Walls Layer will select the wall. Holding SHIFT while clicking walls will add or remove walls from the controlled set. Holding ALT while clicking on a wall will select all Walls which belong to the chained set of linked endpoints. Double-clicking a wall endpoint while a set of walls are controlled will allow you to edit the properties of all Walls with a single update, for example, if you want to switch a set of existing walls to be invisible or terrain typed.</li>
+	<li>Added the first implementation of <strong>Weather Effects</strong> with support for Rain, Snow, and Autumn Leaves weather effects. More weather effect types and variable settings for each effect type will be coming in a future update, but I'm very excited to add this initial functionality for testing as a proof-of-concept.</li>
+	<li>Fog of War exploration now features <strong>server-side persistence</strong>. Previously fog data was stored client-side per User. This could fail if the User connected on different devices or reset their browser cache. Now fog exploration data is stored as part of the World data, protecting players from data loss in fog exploration progress.</li>
+	<li>Added a new Tile HUD which mirrors the behavior and functionality of the Token HUD for controlling Tile visiblity settings. Right clicking upon a Tile (while on the Tiles Layer) will activate the HUD for controlling that Tile.</li>
+	<li>Tile objects can now be <strong>locked in place</strong> to prevent them from being accidentally modified or moved. The conntrol to lock or unlock a Tile is available in the Tile HUD.</li>
+	<li>The styling and performance of the World Setup page has been improved to load data asynchronously to speed up the process of browsing and editing World information before a game is started. Each World can now be assigned a <strong>World Banner Image</strong> which can be used to provide additional visual flair to each world. This world banner will be reused in other places in the future.</li>
+	<li>A toggled mode has been added to the Canvas Notes Layer which allows for <strong>Map Notes to remain visible</strong> and interactable while on the Token layer. This can be ideal for maps where exploration and reference of key points of interest plays an important role. There is <em>not yet</em> a way to store this setting in a persistent way, but this will be added in a future update.</li>
+	<li>Added a visual toggle to <strong>collapse the sidebar</strong> to a minimal version only containing the tab buttons (which can still be right-clicked to pop them out). This can be a great way to keep the UI clean when not in use to focus on the game canvas.</li>
+	<li>The position and zoom level of the camera in a Scene will now be remembed, so that re-rendering of the Canvas due to settings changes will now cause the camera to reset back to a default position, instead it will now stay fixed in its previous location for a more smooth user experience.</li>
+	<li>Added localization support for the Wall Configuration sheet.</li>
+	<li>Added support for WebP as a valid and supported image file format.</li>
+	<li>When selecting an audio file for a Sound track in a Playlist, the title for the track will be automatically populated using the selected file name if a name has not been otherwise set.</li>
+	<li>Generalized the behavior of the rectangular select tool to now work with all PlaceableObject layers. This tool is currently only enabled for Tokens and Tiles, but the underlying functionality to support rectangular selection for other PlaceableObjects is now possible and will be added in a subsequent update.</li>
+</ul>
+<hr/>
+
+<h3>Core Bug Fixes</h3>
+<ul>
+	<li>Resolved a serious problem with Measured Template grid highlighting which neglected to account for the amount of distance represented by each grid square, resulting in an exponential increase in computation for large template sizes.</li>
+	<li>Fixed a bug whereby tokens which collided with a Wall during a groupwise Token movement would be rocketed towards the top-left of the Canvas instead of having their movement stopped.</li>
+	<li>Corrected an issue with whispered messages where spaces in a player name prevented the whisper from being sent.</li>
+	<li>Dice rolling will now accept a capital 'D' for the number of dice rolled, for example <code>/r 4D6</code> and <code>/r 4d6</code> are equivalent.</li>
+	<li>Fixed an issue which sometimes prevented Token vision from being correctly initialized when the page is first loaded due to an asynchronous behavior which was not properly resolving before downstream steps were triggered.</li>
+	<li>The Combat Tracker sidebar UI was incorrectly treating initiative rolls of zero as an indication that the combatant has not yet rolled initiative. This is now resolved and a result of zero is allowed, despite being highly unfortunate.</li>
+	<li>Fixed a bug in the Simple Worldbuilding system which threw a fatal error when the Sheet Configuration UI was activated.</li>
+	<li>Changing the visibility permission for Compendium Packs was not applying immediately for other connected players, this has been corrected.</li>
+	<li>An issue with the new in-app World Compendium deletion logic caused it to be (accidentally) restored if re-created with the same name during the same session. Now deleting a World Compendium is, actually, permanent.</li>
+	<li>Fixed a failure which could occur during World migration where a compendium pack was not connected before an attempted migration was applied.</li>
+	<li>An issue in the Sound CRUD workflow which failed to provide the parent Playlist ID to the socket event has been fixed.</li>
+	<li>Prevented a failure in the Combat Tracker which caused the "Reset Initiative" button to break the functionality of the app.</li>
+	<li>The file paths returned by the server using it's client-side file paths transformer will now always return URI encoded paths.</li>
+	<li>A bug in the Player Configuration view caused a new User to be created when the Enter key was pressed in an input field instead of submitting the form to update changed users.</li>
+	<li>Fixed a bug which prevented the new TokenConfig sheet from rendering if a Token no longer references a valid and existing Actor.</li>
+	<li>Closed a loophole which caused ChatMessage entities which contain Roll objects to render their HTML content twice, once in the <code>toMessage</code> function and again in the main <code>ChatMessage.render</code> call.</li>
+	<li>Corrected an error which prevented the main menu (ESC) from being rendered after a ContextMenu was closed and destroyed.</li>
+	<li>Fixed a bug which accidentally allowed a Token with <code>hasVision</code> enabled but zero distane assigned to it's vision settings could incorrectly reveal the entire map Fog of War as was the behavior for GM users prior to the addition of this checkbox.</li>
+	<li>A problem with Tile objects could cause strange and unpredictable results when resizing them using the drag handler, flipping the tile aspect ratio or size. This has been addressed and the resizing process for tiles should now work in an intuitive way.</li>
+	<li>Fixed a problem that could cause the Chat Log to become unloadable if it contained a message which was originally posted by a User who has since been deleted.</li>
+	<li>Corrected a defect with the volume sliders for Playlist audio which allowed players to change the default volume level played for all players instead of (as intended) only locally overriding their own playback volume.</li>
+	<li>A bug could allow Players (non-GM) to move the position of Tiles, a permission which should only be allowed to GM users.</li>
+	<li>Improved the Canvas initialization behavior to eliminate a problem which could occur where the aspect ratio of the viewport changed while the Canvas was being rendered. A redundant check at the end of the drawing process looks to see whether the dimensions changed while drawing.</li>
+	<li>In some situations, status effects applied to a Token do not show up immediately for a Combatant in the Combat Tracker. This has been more reliable, so that applied status effects will appear immediately in the Tracker.</li>
+	<li>Clicking on a combatant in the tracker will no longer attempt to pan the map to that Token's location if the user is not viewing the Scene in which the Combat Encounter occurs.</li>
+	<li>Fixed an issue with the <code>_activateEditor</code> function in a FormApplication which could cause it to be fired before the HTML of the application was ready for use.</li>
+	<li>A minimized ActorSheet would incorrectly attempt to re-render itself as maximized when a portion of the Actor data is changed. Instead this update will now happen in the background and leave the application minimized.</li>
+	<li>Fixed a resource contention issue which could cause icons from Token status effects to become unusable depending on the load order of the PIXI Canvas.</li>
+</ul>
+<hr/>
+
+<h3>Core Software, APIs, and Module Development</h3>
+<ul>
+	<li>Refactored the event names used for Compendium operations to better standardize their design with other CRUD or GET workflows.</li>
+	<li>The signatures used for Hooks which interact with Entity and EmbeddedEntity CRUD workflows have been updated and made more consistent in terms of their naming conventions and the arguments which they transact. Please see <a href="https://gitlab.com/foundrynet/foundryvtt/issues/1131" title="GitLab Issue" target="_blank">This Issue</a> for documentation and examples of how hooks (and pre-hooks) work after this update. Please note, in particular, that update-type operations now also provide the differential data object as an argument to the hook, allowing the user to see exactly what data was changed.</li>
+	<li>The <code>setProperty</code> utility function will now assign Array elements by positional index if the parent object is already of the Array type. <a href="https://gitlab.com/foundrynet/foundryvtt/issues/1155" title="GitLab Issue" target="_blank">See Here</a> for more details.</li>
+	<li>The structure of Canvas Layer interaction listeners has been changed to delegate click and drag events from the base Canvas stage itself, rather than having each Canvas layer implement it's own interaction managers.</li>
+	<li>Previously, updating a Compendium entry required importing the entity to the World, updating the Entity data, deleting the previous entry from the Compendium, and re-importing the updated version. This was a really awkward workflow, and can now be replaced with a much more elegant API method to edit compendium content directly. Please note that there is not <em>yet</em> a UI-based method for doing this in-game, but that functionality can be added in a subsequent update now that the underlying API exists. <a href="https://gitlab.com/foundrynet/foundryvtt/issues/1066" title="GitLab Issue" target="_blank">See Here</a> for more details.</li>
+	<li>A <code>Combat</code> entity will now persist the prior <code>(round, turn, tokenId)</code> which can be used to understand what has changed relative to the prior combat state.</li>
+	<li>Improved the behavior of the <code>Entity.create</code> method to accept dot-string style properties provided as part of the initial creation request.</li>
+	<li>The <code>ContextMenu</code> event handler now allows events to propagate even if a context menu is triggered, in case other systems or modules are awaiting a right-click event for other reasons. Furthermore, the triggering event which spawns a ContextMenu UI can now be configured as an additional option when the menu is instantiated.</li>
+	<li>The initial implementation of localization support erroneously named the localization module as <code>il8n</code> when it should be <code>i18n</code>. This has been renamed.</li>
+	<li>The CSS rules for Applications has been overhauled to make extensive use of <code>overflow-y: auto</code> instead of <code>overflow-y: scroll</code>. This could cause some styling changes to be forced upon downstream modules.</li>
+	<li>Switched the Scene Notes application to activate it's editor via a button instead of starting with the editor always active.</li>
+	<li>The set of active <code>Application</code> instances which should be refreshed when an Entity data is updated has been converted from an Array to an Object. This is still recorded as <code>entity.apps</code>, but this is now an object where the keys are appIds and the values are Application instances.</li>
+	<li>Deleting a <code>Scene</code> entity will now propagate deletion to <code>CombatEncounter</code> and <code>FogExploration</code> documents which belong to that particular Scene.</li>
+	<li>Added global constants for the allowed file extension types allowed for different media as <code>IMAGE_FILE_EXTENSIONS</code>, <code>VIDEO_FILE_EXTENSIONS</code>, and <code>AUDIO_FILE_EXTENSIONS</code>.</li>
+	<li>The FilePicker ui will now dispatch an <code>onChange</code> event to the linked input field when a file is selected in the picker.</li>
+	<li>Standardized the <code>user-select</code> styling rules across browsers including Firefox, Opera, and Safari.</li>
+	<li>Applied a sensible tabulation order to the Playlist Track configuration sheet.</li>
+	<li>Fixed the behavior of the <code>JournalEntry.show()</code> method to correctly force display of the Journal content if (and only if) the force parameter is passed as true.</li>
+	<li>Added support for <code>flags</code> in the data model for Folder entities. Folder flags can be used by modules or systems to store certain data at the Folder level which modifies behavior of that folder (or its contents).</li>
+	<li>Changed the behavior of the <code>Roll.parts</code> Array to now be immutable. Once rolled, the <code>roll</code> method cannot be called again, however a <code>reroll</code> method has been added which provides a Factory for creating a new Roll object with the same formula and data.</li>
+</ul>
+<hr/>
+
+<h3>D&D5e System Improvements</h3>
+<ul>
+	<li>Incorporate updates to the Class Features compendium using new pre-configured items provided courtesy of Thor's Wrath on Discord.</li>
+	<li>Fixed a bug with experience gain per challenge rating for high CRs (26-30) which were previously incorrect.</li>
+	<li>Redesigned the HTML structure of the D&D5e Actor Sheet to provide a more consistent and responsive experience across different browsers.</li>
+</ul>
+<hr/>
