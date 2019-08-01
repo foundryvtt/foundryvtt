@@ -49,3 +49,9 @@ For each :class:`PlaceableObject` (Token, Wall, OwnedItem, Tile, ...) the follow
 ``preDelete<Object>(parentId, deleteId, options)``
 
 ``delete<Object>(parentId, deletedId, options)``
+
+
+Applications and Interface
+==========================
+
+``sidebarCollapse(sidebar, collapsed)``
