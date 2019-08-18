@@ -1,170 +1,88 @@
 .. _modules:
 
-Featured Game Systems and Modules
-*********************************
+Installing Game Systems and Modules
+***********************************
 
-Foundry Virtual Tabletop prides itself on providing a platform for community developers to use their skills in HTML,
-JavaScript, and CSS to create modules which enhance or extend platform functionality. This page celebrates some of
-many excellent community-developed modules that are available now for use with Foundry VTT.
-
-..  contents:: Tutorial Contents
-    :depth: 1
-    :local:
-    :backlinks: top
+Foundry Virtual Tabletop provides a strong platform for community developers to use skills in HTML, JavaScript, and
+CSS to create modules or entire game systems which extend and enhance platform functionality. This page describes where
+to find modules and systems and how to install them for use in Foundry VTT.
 
 -------
 
-Dungeons & Dragons 5th Edition
-==============================
+Game Systems
+============
 
-The D&D5e system comes bundled with the base Foundry VTT installation, however you may also access the source code,
-view open issues, or submit pull requests here: https://gitlab.com/foundrynet/dnd5e
+Game Systems provide the underlying rule-sets and definitions needed to play games by defining the types of entities
+(Actors, Items, etc...) and the data they contain. This extends and empowers the core software to incorporate System
+specific rules and behaviors. To discover additional game Systems which are available for use or for testing, please
+browse the Community Wiki Page here: https://foundry-vtt-community.github.io/wiki/Community-Game-Systems/
 
-D&D Beyond Character Importer
------------------------------
+System Installation Process
+---------------------------
 
-https://github.com/sillvva/foundry-vtt-modules/tree/master/ddb-importer
+To install a new game System for Foundry Virtual Tabletop, follow these steps:
 
-This module allows for you to import a character from D&D Beyond and create a player character Actor in Foundry VTT.
-This is extremely useful for players who use D&D Beyond as a campaign management tool as you can update existing
-actors using data stored in D&D Beyond.
+1.  Download the .zip archive of the System from the provided location.
+2.  Extract the zip archive into the ``/resources/app/public/systems`` folder. The folder name for each
+    installed System must match exactly with it's canonical name, and take care that an extra layer of folder nesting
+    was not inadvertently added by the extraction process. For example, if installing the System for Dungeons & Dragons
+    5th Edition (dnd5e), you would end up with a file path that looks like
+    ``/resources/app/public/systems/dnd5e/system.json``.
+3.  Restart Foundry Virtual Tabletop.
+4.  Confirm that the installed System is now available for selection when creating a new World.
 
-Roll20 NPC Importer
--------------------
+Changing the System of an Existing World
+----------------------------------------
 
-https://github.com/syl3r86/roll20npcimporter
+..  warning::
+    There is (currently) no guaranteed or officially supported method for migrating an existing World from one game
+    System to another. The following steps may introduce errors or data loss. Be sure to copy your original world first
+    in case this procedure does not work. Do this at your own risk.
 
-This module is capable of importing JSON data of NPCs that has been exported from the Roll20 platform if you are using the
-Shaped or OGL Sheet.
+To change the System used by an existing World, follow these steps.
 
+1.  Acknowledge the warning message written at the top of this section, and understand this is a potentially risky
+    process.
+2.  Open the ``world.json`` file in a text editor.
+3.  Change the ``"system"`` field to the canonical name of your desired new System.
+4.  Set the ``"systemVersion"`` field to ``0`` (the value zero) to force a System migration next time that world is
+    loaded.
+5.  Restart Foundry Virtual Tabletop and attempt to load the world.
 
-FVTT Enhancement Suite
-----------------------
+-------
 
-https://github.com/sillvva/foundry-vtt-modules/tree/master/fvtt-enhancement-suite
+Modules
+=======
 
-One of the first D&D5e modules for FVTT! The enhancement suite adds the ability to define and store custom chat macros
-which can be posted to chat and evaluated against the data of a controlled Token.
+Modules enhance or replace functionality of Foundry Virtual Tabletop by extending the behavior of the core software
+and Systems to add new content, features, or aesthetics. Modules can contain anything ranging from entirely new
+tools to pre-build adventure paths which can be imported into existing Worlds.
 
-
-Better NPC Sheet
-----------------
-
-https://github.com/syl3r86/BetterNPCSheet5e
-
-This module redesigns the NPC character sheet in the D&D5e system to visually represent the classic printed book style
-that is used in official modules and sources.
-
-Spell Compendium Browser
-------------------------
-
-https://github.com/syl3r86/Spell-Browser
-
-This module extends the compendium functionality in the D&D5e system to offer more rich browser functionality that
-allows you to search and filter by various spell characteristics including level, class, spell school, casting time,
-and more!
+To discover the broad range of modules which are currently available and under development please browse the Community
+Wiki page https://foundry-vtt-community.github.io/wiki/Community-Modules/.
 
 
-NPC Compendium Browser
-----------------------
+System Installation Process
+---------------------------
 
-https://github.com/syl3r86/npc-browser
+To manually install modules, follow these steps.
 
-This module extends the compendium functionality in the D&D5e system to offer more rich browser functionality that
-allows you to search and filter NPCs via various filters like challenge rating, type, size, and more!
+1.  Download the .zip archive of the Module from the provided location.
+2.  Extract the zip archive into the ``/resources/app/public/modules`` folder. The folder name for each
+    installed System must match exactly with it's canonical name, and take care that an extra layer of folder nesting
+    was not inadvertently added by the extraction process. For example, if installing the SVG Loader (svg-loader)
+    module, the resulting file path should be ``/resources/app/public/modules/svg-loader/module.json``.
+3.  Restart Foundry Virtual Tabletop.
+4.  Confirm that the installed Module is now available for selection in the Module Management panel of your World.
 
-Spellbook Tweaker
+
+Module Management
 -----------------
 
-https://github.com/syl3r86/Spellbook-Tweaker
+Module are not automatically activated. Different modules are supported under different Systems, and each World may
+independently choose the set of Modules which are used within it. Modules can even be toggled on or off for different
+game sessions. To manage these preferences, activate the Module Management panel within your World through the Settings
+tab of the Sidebar.
 
-This module adds some quality-of-life improvements to the way that the spellbook is displayed on character sheets in
-the D&D5e system.
-
-
-Item Card Sounds
-----------------
-
-https://gitlab.com/moerills-fvtt-modules/item-sounds
-
-The Item Card Sounds module allows you to assign a particular audio file to weapons, spells, or other types of "items"
-in the D&D5e system. This will allow those sound effects to play automatically when a particular spell or weapon is
-played to the chat log.
-
-
-Favourite Item Tab
-------------------
-
-https://github.com/syl3r86/favtab
-
-Adds a Favourite tab to display a customized list of items, feats and spells. Usable with the default dnd5e Character sheet. 
-You can add any item from the inventory, spellbook or feature section of the Charactersheet. This module also gives access to item charges. 
-You can add these to any item on the favourite list or remove them by changing the maximum to 0. 
-This uses the same data that is used by Moerill#7205's adnd5e module, since this data is not supported by default.
-
-
-Polymorpher
------------
-
-https://github.com/syl3r86/polymorpher
-
-A module for Foundry VTT that lets you polymorph characters into any other character! 
-Just drag any Actor (NPC or Character) ontop of another Actor to change the later into the prior.
-Support droping both from Compendium or the sidebar.
-
-
--------
-
-
-Pathfinder (Original)
-=====================
-
-The Pathfinder system comes bundled with the base Foundry VTT installation, however you may also access the source
-code, view open issues, or submit pull requests here: https://gitlab.com/foundrynet/pathfinder
-
-
--------
-
-
-System Agnostic Modules
-=======================
-
-The following modules will work with any game system.
-
-
-SVG Wall Loader - Supports Dungeon Fog!
----------------------------------------
-
-https://gitlab.com/moerills-fvtt-modules/svg-loader
-
-The SVG Wall loader is capable of importing a SVG file which defines the walls, doors, and light sources from a .svg
-file. This SVG spec can be generated by a large number of systems, but in particular the module features out-of-the-box
-support for DUNGEONFOG. You can learn more about Dungeon Fog on our :ref:`partnerships` page.
-
-Token Randomizer
-----------------
-
-https://gitlab.com/moerills-fvtt-modules/token-randomizer
-
-This module adds a variety of flexible options for randomising Token properties when the Token is first placed into a
-Scene. The module supports random selection from a set of token artwork, automatic prefix addition, numeric name
-indexing, or (if using the D&D5e system) randomizing Token health based on the formula defined by the base Actor.
-
-Compendium Importer
--------------------
-
-https://github.com/PaulEndri/fvtt-compendium-importer/tree/master/compendium-importer
-
-The compendium importer module allows for you to export an entire Foundry VTT compendium pack to a JSON file which
-can be saved locally. The module also includes the functionality to re-load a compendium from existing JSON so that
-content can be easily shared between users. Fantastic!
-
-
-Display Mode
-------------
-
-https://github.com/syl3r86/displaymode
-
-Hide all those pesky display elements you don't need for using foundry on the table.
-Hides the Sidebar, Navigation (scene links at the top of the page), navigation (control buttons on the left side of the page) and the connected player indicator.
-Toggles visibility of all those via clicking the anvil icon in the top left corner.
+Each installed and compatible Module is listed here, selecting or un-selecting the checkbox to the left of the module
+will toggle whether the module is active within the world.

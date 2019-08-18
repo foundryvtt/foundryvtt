@@ -22,6 +22,7 @@ roleplaying games in a beautiful and intuitive web-based application.
     pages/license
     pages/hosting
     pages/tutorial
+    pages/glossary
     pages/entities
     pages/dice
     pages/api
