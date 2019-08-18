@@ -35,6 +35,22 @@ and Systems to add new content, features, or aesthetics. Modules can contain any
 to pre-build adventure paths which can be imported into existing Worlds. Modules are located inside the
 ``/app/resources/public/modules`` folder. <:ref:`modules`>
 
+Placeable Object
+----------------
+
+Placeable Objects are the term used broadly for elements that can be placed into a Scene and represented on the game
+Canvas. These objects are stored within the Scene where they exist. The following list references the Placeable Object
+types in Foundry VTT.
+
+* Token <todo>
+* Wall <todo>
+* Tile <todo>
+* Drawing <todo>
+* Ambient Light <todo>
+* Ambient Sound <todo>
+* Measured Template <todo>
+* Note <todo>
+
 World
 -----
 

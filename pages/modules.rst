@@ -62,7 +62,7 @@ To discover the broad range of modules which are currently available and under d
 Wiki page https://foundry-vtt-community.github.io/wiki/Community-Modules/.
 
 
-System Installation Process
+Module Installation Process
 ---------------------------
 
 To manually install modules, follow these steps.
