@@ -6,11 +6,34 @@ Community Partnerships
 Foundry Virtual Tabletop is proud to have established partnerships with several other teams or creators who are
 producing fantastic software and content in the virtual tabletop space.
 
+Forgotten Adventures
+====================
+
+.. image:: /_static/images/forgotten-adventures.png
+    :align: left
+    :target: https://www.patreon.com/forgottenadventures/
+
+Forgotten Adventures is an artistic community of virtual tabletop gaming enthusiasts organized by Stryxin, a devoted
+artist and dungeon master who creates tokens, props, textures, and battlemaps specifically designed with virtual 
+tabletop gaming in mind. Patreon supporters of Forgotten Adventures gain access to the complete portfolio of assets
+with new releases arriving several times per month. Stryxin is even tackling an incredibly ambitious goal to draw 
+creature tokens for every D&D5e monster.
+
+I am thrilled to partner with Stryxin and Forgotten Adventures to showcase his fantastic artwork and make it available
+to Foundry Virtual Tabletop users as part of our D&D5e system implementation which features token artwork by Stryxin
+for all the creatures which have currently been completed - eventually covering the entire Monsters SRD compendium.
+
+These included tokens are just a subset of the amazing work available in this community so please be sure to support
+Forgotten Adventures on Patreon for even more content. Visit https://www.patreon.com/forgottenadventures/ for more
+information!
+
+
 Dungeon Fog
 ===========
 
 .. image:: /_static/images/dungeon-fog.png
     :align: left
+    :target: https://www.dungeonfog.com/
 
 Dungeon Fog is an online map maker & authoring tool for RPG game masters. With the extensive DUNGEONFOG Editor you
 can draw your RPG tabletop maps with just a few clicks – no more patching up map tiles! Create multi-level dungeons,
