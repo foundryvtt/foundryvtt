@@ -1,4 +1,3 @@
-
 Localization Support for Language Translations
 **********************************************
 
@@ -71,9 +70,13 @@ module would have contents like the following:
 	  "version": 0.1,
 	  "author": "Your Name / Email / Discord",
 	  "scripts": ["translate.js"],
-	  "languages": {
-	  	"elv"": "elvish.json"
-	  }
+	  "languages": [
+	    {
+	        "lang": "elv",
+	        "name": "Elvish",
+	        "path": "elvish.json"
+	    }
+	  ]
 	}
 
 Be sure to substitute a unique module name and match the same language key which is also used to declare the language in the 
