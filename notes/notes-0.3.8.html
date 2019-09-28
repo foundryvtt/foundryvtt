@@ -1,0 +1,53 @@
+<h2>Beta 0.3.8 Update Notes</h2>
+
+<p>Overview</p>
+
+<p>Thank you all for appreciating my work, providing thoughtful feedback, and encouraging me to do even more. As always, please keep an eye on the development progress board here for visibility into what features are in progress and coming up next!</p>
+
+<p><a href="https://gitlab.com/foundrynet/foundryvtt/boards" target="_blank" title="FVTT Story Board">https://gitlab.com/foundrynet/foundryvtt/boards</a></p>
+<hr/>
+
+<h3>New Features</h3>
+<ul>
+	<li>The Scene Navigation menu has received some styling improvements and may now be collapsed or expanded using a small toggle button on the left side.</li>
+	<li>Added internationalization string translations for the Navigation Menu and its context options.</li>
+	<li>The preference for whether to toggle the display of Map Notes on the Token Layer is now saved as a client-side setting that will persist across sessions.</li>
+	<li>Allow Map Notes to have additional stylistic customization for icon size, font size, icon tint, and text anchor point.</li>
+	<li>Map Notes may now override the text title which is displayed. The default label is still the title of the associated Journal Entry, but this can be overridden to reveal different information in the tooltip.</li>
+	<li>Improve the saving behavior of Journal Entries which will now automatically save any changes before the entry is closed, it's display mode is swapped, or it is shown to other users.</li>
+	<li>Begin with Playlist entities in the sidebar directory initially in a collapsed state and switch to record which are, instead, expanded.</li>
+	<li>Imposed a rate limit on PlaceableObject rotation operations to restrict rotation to 1 update per 100ms. This rate limit is especially important for mice or other hardware which feature continuous scrolling - where such hardware was previously generating hundreds of database update operations per second.</li>
+	<li>Substantially improved the generality and performance of multi-object update operations within Scenes. This better allows for many objects to be updated simultaneously with less costly database updates and more efficient canvas refresh.</li>
+	<li>Now that Wall objects are controllable (either via individual or chain selection) - Walls can no longer be deleted only by hovering over them while pressing the delete key. This reduces the chance that users will accidentally delete the incorrect wall while navigating the Walls layer.</li>
+	<li>Changed the Settings tab sidebar icon from a question mark to cogs.</li>
+</ul>
+<hr/>
+
+<h3>Core Bug Fixes</h3>
+<ul>
+	<li>Resolved a permission issue which incorrectly allowed players to configure a Map Note via right-click.</li>
+	<li>Attempt (again) to resolve possible non-determinism in combatant sorting order.</li>
+	<li>Fixed a bug with the server-side Entity update process which accidentally discarded additional context options from the request.</li>
+	<li>Fixed a bug with blind roll chat parsing which prevented the <code>/br</code>, <code>/broll</code>, or <code>/blindroll</code> commands from functioning.</li>
+</ul>
+<hr/>
+
+<h3>Core Software, APIs, and Module Development</h3>
+<ul>
+	<li>Added a Hook which allows for modules to insert additional context menu options for Scenes in the top navigation menu using <code>Hooks.on("getSceneNavigationContext", (html, menuOptions) => ());</code>.</li>
+	<li>Added a Hook which allows modules to respond to the Scene Navigation application being expanded or collapsed using <code>Hooks.on("collapseSceneNavigation", collapsed => ());</code>.</li>
+	<li>Removed the linked Journal Entry as a required firled of the Map Note data model, it is still recommended to create notes which reference Journal Entries, but this is not required. There is no UI-based method for doing this, but programmatic Note creation will function without an <code>entryId</code> attribute.</li>
+	<li>Provide an improved <code>ChatMessage.alias</code> getter to centralize the logic for determining the recommended display name for the author of a chat message.</li>
+	<li>Added a PlaceablesLayer.rotateMany method which can be used to control rotation of multiple PlaceableObject instances with a single database operation.</li>
+	<li>Refactor the server-side Entity socket responses to explicitly separate the options Object from the primary response subject. This is a backend change which does not impact users of the standard API methods. These additional options are now passed as an additional argument to create, update, and delete hooks for various entities. For example, <code>Hooks.on("createActor", (actor, options) => {});</code>.</li>
+	<li>The <code>Token.moveMany</code> and <code>Tile.moveMany</code> methods have been <strong>deprecated</strong>, effective immediately, in favor of a generalized <code>PlaceablesLayer.moveMany</code> method with a revised signature. If you were using the previous Token.moveMany method you must migrate immediately to the new approach.</li>
+</ul>
+<hr/>
+
+<h3>D&D5e System Improvements</h3>
+<ul>
+	<li>Removed a superfluous Promise chain from the rollToolCheck function in the Item5e class.</li>
+	<li>Allow inventory items on a character sheet to have a quantity of zero, for cases where the player wishes to track a placeholder item even if none of that item is owned.</li>
+	<li>Fix a bug which caused global save modifiers to be double-counted when saving throws were rolled through the sheet dialog.</li>
+</ul>
+<hr/>
