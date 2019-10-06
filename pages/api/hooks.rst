@@ -26,29 +26,29 @@ For each :class:`Entity` (Actor, Scene, Item, ...) type the following hooks are 
 
 ``preCreate<Entity>(createData, options)``
 
-``create<Entity>(createdData, options)``
+``create<Entity>(createdData, options, userId)``
 
 ``preUpdate<Entity>(updateData, options)``
 
-``update<Entity>(updatedData, options)``
+``update<Entity>(updatedData, options, userId)``
 
 ``preDelete<Entity>(deleteId, options)``
 
-``delete<Entity>(deletedId, options)``
+``delete<Entity>(deletedId, options, userId)``
 
 For each :class:`PlaceableObject` (Token, Wall, OwnedItem, Tile, ...) the following hooks are available.
 
 ``preCreate<Object>(parentId, createData, options)``
 
-``create<Object>(parentId, createdData, options)``
+``create<Object>(parentId, createdData, options, userId)``
 
 ``preUpdate<Object>(parentId, updateData, options)``
 
-``update<Object>(parentId, updatedData, options)``
+``update<Object>(parentId, updatedData, options, userId)``
 
 ``preDelete<Object>(parentId, deleteId, options)``
 
-``delete<Object>(parentId, deletedId, options)``
+``delete<Object>(parentId, deletedId, options, userId)``
 
 
 Applications and Interface

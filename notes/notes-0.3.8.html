@@ -1,6 +1,6 @@
 <h2>Beta 0.3.8 Update Notes</h2>
 
-<p>Overview</p>
+<p>Dear Patreon supporters, I am back from my vacation which was very relaxing - and I've been diving back into an exciting new set of features for Foundry Virtual Tabletop Beta update 0.3.8. The two most significant updates in this version include angle-restriction vision and light emission which allows Tokens and Ambient Light sources to limit their field of effect to some frontal-angle. Additionally improved options for Map Notes allows for users to organize better by customizing icon size, color, and labeling preferences while associating journal entries with various Scenes.</p>
 
 <p>Thank you all for appreciating my work, providing thoughtful feedback, and encouraging me to do even more. As always, please keep an eye on the development progress board here for visibility into what features are in progress and coming up next!</p>
 
@@ -9,6 +9,7 @@
 
 <h3>New Features</h3>
 <ul>
+	<li>Support limited vision and light emission angles for Token and AmbientLight objects. This allows the visibility or light emitted by an object to be restricted to a certain frontal angle relative to the object's direction of facing. The performance impacts of using limited angles are mixed - for light sources, restricting the angle of emission is actually somewhat beneficial for performance as it results in fewer rays being cast and fewer collision tests against walls. For Tokens, there is a benefit due to fewer rays, but also an additional cost because fog of war exploration caching is less efficient. Please experiment with this new feature and share any observations you have about how it's performance compares to what you observe for unrestricted Tokens or light sources.</li>
 	<li>The Scene Navigation menu has received some styling improvements and may now be collapsed or expanded using a small toggle button on the left side.</li>
 	<li>Added internationalization string translations for the Navigation Menu and its context options.</li>
 	<li>The preference for whether to toggle the display of Map Notes on the Token Layer is now saved as a client-side setting that will persist across sessions.</li>
@@ -20,6 +21,13 @@
 	<li>Substantially improved the generality and performance of multi-object update operations within Scenes. This better allows for many objects to be updated simultaneously with less costly database updates and more efficient canvas refresh.</li>
 	<li>Now that Wall objects are controllable (either via individual or chain selection) - Walls can no longer be deleted only by hovering over them while pressing the delete key. This reduces the chance that users will accidentally delete the incorrect wall while navigating the Walls layer.</li>
 	<li>Changed the Settings tab sidebar icon from a question mark to cogs.</li>
+	<li>It is no longer possible to delete a Tile or Drawing which has been locked. You must first unlock the object before it can be deleted.</li>
+	<li>Localization support has been added for many applications including the sidebar and all its tabs, the Setup configuration sheet, Player configuration, Scene Navigation, and more. Thanks to Ayan for helping with this process by sharing a set of localized templates.</li>
+	<li>The <strong>End User License Agreement</strong> has been updated to Beta Version 0.3.8. It now includes a clause which expressly disallows temporarily renting access to the software.</li>
+	<li>Non-GM users are now able to undo changes to their own controlled objects. Previously only game-masters had permission to undo changes. After this change, GM users may undo changes made by any player, while non-GM users may undo their own changes.</li>
+	<li>Multiple object operations supported by the new updateMany and deleteMany events are now tracked as part of layer history, which allows them to be un-done in the case of an accident. Things like deleting all objects from a layer can now be recovered via CTRL+Z.</li>
+	<li>Worlds may now be configured to feature a custom background image which will be used to greet players which connect to the server on the /join screen.</li>
+	<li>Improved the set of default icons which are available for Token status effects tracking to feature icons which are more useful for several very common conditions like prone, blind, deaf, or asleep. Additionally added several new location icons as options for Journal Notes. This icon set will continue to be expanded and improved over time.</li>
 </ul>
 <hr/>
 
@@ -27,27 +35,58 @@
 <ul>
 	<li>Resolved a permission issue which incorrectly allowed players to configure a Map Note via right-click.</li>
 	<li>Attempt (again) to resolve possible non-determinism in combatant sorting order.</li>
+	<li>Solved two bugs for vision and fog of war which could allow a small slit of visibility to be incorrectly allowed between Wall endpoints under two circumstances. One where the angles of ray emission fell subject to floating point precision issues and a second where a Terrain wall endpoint intersected with a non-terrain Wall.</li>
 	<li>Fixed a bug with the server-side Entity update process which accidentally discarded additional context options from the request.</li>
 	<li>Fixed a bug with blind roll chat parsing which prevented the <code>/br</code>, <code>/broll</code>, or <code>/blindroll</code> commands from functioning.</li>
+	<li>Fix a problem with the SceneControls application which caused the underlying data to be mutated during it's render operation.</li>
+	<li>Improved the behavior of deleting multiple objects to ensure that the controlled objects array is cleared for the parent layer.</li>
+	<li>I have attempted a solution for a problem which causes the Fog of War polygon to shift slightly each time the fog render layer is swapped to disk. I am unsure whether the fix I have applied will solve all use cases - but in my own local testing I was able to eliminate the problem. I am hopeful to hear feedback from the community if anyone experiences this issue before or after the update.</li> 
+	<li>Corrected a problem with Chat Bubbles which caused them to not trigger correctly for certain chat message types.</li>
+	<li>Corrected inconsistent form styling for the Combat Tracker config where hints were shown above the option, instead of below.</li>
+	<li>Solved a problem which could prevent the Sight Layer from correctly refreshing when a Token's vision was disabled.</li>
+	<li>Fixed an issue with Ambient Sound easing which caused it's volume to not respect the main volume slider for the sound. The volume slider for AmbientSounds now represents the maximum volume for the sound, as heard when an observer is immediately on top of it's origin.</li>
+	<li>Default chat speaker identification now prioritizes a controlled token over a non-controlled token which represents the player's impersonated actor.</li>
+	<li>Resolved a problem which could cause World-level compendium packs to be written to the world.json file with absolute paths instead of relative ones.</li>
+	<li>Fixed a bug for Firefox which prevented newly created Worlds from properly receiving their server-side response, resulting in a hanging page load.</li>
+	<li>Corrected a problem where elements in the Settings template did not correctly assign a <code>data-dtype</code> attribute.</li>
+	<li>Fixed a problem with the Token HUD which prevented some values of an incremental attribute bar update from having the correct effect due to leading spaces or an incorrect string type conversion.</li>
 </ul>
 <hr/>
 
 <h3>Core Software, APIs, and Module Development</h3>
 <ul>
+	<li>Addressed three security vulnerabilities in the server-side application. Thanks to Azzurite for pointing out several weak points.</li>
+	<li>Added a dedicated <code>updateMany</code> function and socket logic for every PlaceableObjects layer. See the <a href="https://gitlab.com/foundrynet/foundryvtt/issues/1462" title="Visit the GitLab Issue" target="_blank">GitLab issue</a> for more details and example usage.</li>
+	<li>Added a dedicated <code>deleteMany</code> function and socket logic for every PlaceableObjects layer. See the <a href="https://gitlab.com/foundrynet/foundryvtt/issues/1466" title="Visit the GitLab Issue" target="_blank">GitLab issue</a> for more details and example usage.</li>
+	<li>Developed a generalized framework for handling the initialization of audio and video playback following an observed user interaction. This framework is now applied for all audio and video playback requests within the PIXI canvas to ensure that web autoplay standards are followed for modern browsers. This change should hopefully fix problems in previous versions with video map backgrounds or tiles.</li>
+	<li>Implemented an optimization for dynamic vision polygon generation which can realize performance improvements for large maps which have many small wall segments.</li>
 	<li>Added a Hook which allows for modules to insert additional context menu options for Scenes in the top navigation menu using <code>Hooks.on("getSceneNavigationContext", (html, menuOptions) => ());</code>.</li>
 	<li>Added a Hook which allows modules to respond to the Scene Navigation application being expanded or collapsed using <code>Hooks.on("collapseSceneNavigation", collapsed => ());</code>.</li>
+	<li>Added helper methods for <code>setFlag()</code> and <code>getFlag()</code> attached to all PlaceableObject instances with the same signature as those offered by the <code>Entity</code> class.</li>
 	<li>Removed the linked Journal Entry as a required firled of the Map Note data model, it is still recommended to create notes which reference Journal Entries, but this is not required. There is no UI-based method for doing this, but programmatic Note creation will function without an <code>entryId</code> attribute.</li>
 	<li>Provide an improved <code>ChatMessage.alias</code> getter to centralize the logic for determining the recommended display name for the author of a chat message.</li>
 	<li>Added a PlaceablesLayer.rotateMany method which can be used to control rotation of multiple PlaceableObject instances with a single database operation.</li>
 	<li>Refactor the server-side Entity socket responses to explicitly separate the options Object from the primary response subject. This is a backend change which does not impact users of the standard API methods. These additional options are now passed as an additional argument to create, update, and delete hooks for various entities. For example, <code>Hooks.on("createActor", (actor, options) => {});</code>.</li>
 	<li>The <code>Token.moveMany</code> and <code>Tile.moveMany</code> methods have been <strong>deprecated</strong>, effective immediately, in favor of a generalized <code>PlaceablesLayer.moveMany</code> method with a revised signature. If you were using the previous Token.moveMany method you must migrate immediately to the new approach.</li>
+	<li>No longer require the coordiantes of Drawing objects to be integers, as this was causing polygons and freehand to become distorted when resized to a small size.</li>
+	<li>Changed the behavior of the <code>PlaceablesLayer.copyObjects</code> function to store references to the copied objects themselves instead of just their data - this can give downstream APIs access to the full context of the origin objects, including the Scene from which they originate.</li>
+	<li>Added a Hook event to allow developers to respond when multiple PlaceableObjects are pasted onto a canvas layer. See the <a href="https://gitlab.com/foundrynet/foundryvtt/issues/1483" title="Visit the GitLab Issue" target="_blank">GitLab issue</a> for more details.</li>
+	<li>Added several attributes to <code>ui.sidebar</code> to facilitiate module development including <code>activeTab</code> and <code>popouts</code>.</li>
+	<li>An issue with the Chat Log template caused it to be incorrectly injected into another sidebar tab when manually re-rendered. This no longer occurs.</li>
+	<li>Added a <code>filterObject(object, keys)</code> core helper function which reduces an object to a subset of its keys by name, returning the filtered object.</li>
+	<li>The requesting User ID is now included as an optional final argument in CRUD socket event handlers.</li>
+	<li>Redesigned the order in which page requests are handled by the Express server to resolve explicitly named view paths first before serving any unhandled requests as static files.</li>
 </ul>
 <hr/>
 
 <h3>D&D5e System Improvements</h3>
 <ul>
+	<li>Game-ready Actor entries have been added for all CR 1/2 monsters in the SRD Monsters compendium pack.</li>
+	<li>Incorporated wonderful token artwork for six CR 1/4 monsters as part of the SRD Monsters compendium. Many thanks to Stryxin from Forgotten Adventures for his support of this project and permission to include his wonderful tokens.</li>
+	<li>Improve the SRD Spells compendium by adding Tiny Hut, Secret Chest, Freezing Sphere, and Telepathic Bond while removing Telepathy which is not covered under the OGL.</li>
 	<li>Removed a superfluous Promise chain from the rollToolCheck function in the Item5e class.</li>
 	<li>Allow inventory items on a character sheet to have a quantity of zero, for cases where the player wishes to track a placeholder item even if none of that item is owned.</li>
 	<li>Fix a bug which caused global save modifiers to be double-counted when saving throws were rolled through the sheet dialog.</li>
+	<li>Added an optional setting to disable experience tracking for player characters. Thanks to bensku for submitting a merge request with this feature.</li>
 </ul>
 <hr/>
