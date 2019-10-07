@@ -145,14 +145,29 @@ To get started with Foundry VTT, you will need to install ``nodejs`` which is us
     curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -
     sudo apt install -y nodejs
 
-..  note:: **Node.js for Windows**
-    Note that you can run a dedicated server from Windows also, for Windows you should download and install node.js from 
-    https://nodejs.org/en/download/. 
-
 Once Node.js is installed, next download and extract the latest Foundry Virtual Tabletop Linux version from Patreon.::
 
     wget https://s3-us-west-2.amazonaws.com/foundryvtt/releases/<patreon-link-here>.zip -O foundryvtt.zip
     unzip foundryvtt.zip
+
+
+**For MacOS**
+
+Foundry VTT will eventually be supported as a native application on macOS using Electron. In the short term there are
+some technical requirements for building applications to run in the macOS environment which are not yet satisfied by
+the software. This prevents the native Electron app from being an option for Mac users until they are solved, however
+it is still very possible to use Foundry VTT on Mac before that time.
+
+In order to do this, you will need to install NodeJS - which is the JavaScript runtime environment which powers the
+FVTT backend server. To install NodeJS, visit https://nodejs.org/en/download/ and download the macOS installer. Once
+Node is installed on your system, you can run the server using the instructions in the below section via your Mac
+terminal.
+
+**For Windows**
+
+Note that you can run a dedicated server from Windows also, for Windows you should download and install node.js from
+https://nodejs.org/en/download/.
+
 
 Start the Server
 ----------------
