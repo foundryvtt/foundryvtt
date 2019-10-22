@@ -1,0 +1,89 @@
+<h2>Beta 0.3.9 Update Notes</h2>
+
+<p>Hello Patreon Supporters and friends. I'm very excited to share <strong>Foundry VTT Beta 0.3.9</strong> with you. A lot of work has gone into this update, with 74 issues closed, I'm really proud of the additions that 0.3.9 brings to the Foundry VTT environment. Moreover, the whole update was wrapped up in 2 weeks, so I'm very pleased with the timelines as well. There are a number of big features in this update, some of the key highlights include the addition of <strong>Rollable Tables</strong> as a new Entity type, an expansion of the lighting system to allow for <strong>Color Tinting of Ambient Lights</strong>, an comprehensive overhaul of organizational tools to allow for <strong>manual sorting of Folders and Entities</strong>, and a robust array of bugfixes and API improvements.</p>
+
+<p>Thank you all for appreciating my work, providing thoughtful feedback, and encouraging me to do even more. As always, please keep an eye on the development progress board here for visibility into what features are in progress and coming up next!</p>
+
+<p><a href="https://gitlab.com/foundrynet/foundryvtt/boards" target="_blank" title="FVTT Story Board">https://gitlab.com/foundrynet/foundryvtt/boards</a></p>
+<hr/>
+
+<h3>New Features</h3>
+<ul>
+	<li>The initial V1 implementation of <strong>Rollable Tables</strong> has arrived! Rollable Tables allow you to define a set of results in a list format, each result has an associted weight and dice roll range. Rolling or drawing fromthe table randomly selects a result based on the table's formula and each result's range. To create a Rollable Table, see the new tab in the sidebar where the icon looks like an indexed list. There are lots of features of Rollable Tables - to cover them all I'll be releasing a Developer Video Update in the coming days, but some highlights include: customizing the weight placed on each outcome, drawing with or without replacement, associating each result entry with an existing Entity or Compendium pack entry, dynamically linking Rollable Tables in rich text, recursive table evaluation for nested layers of randomization, and more!</li>
+	<li>Added support for the new RollTable entity as a valid Compendium type, so you may create Compendium packs of Rollable Tables to share wonderful tools for creating random loot, encounters, locations, and more with your players and other game-masters.</li>
+	<li>Ambient Light sources may now be provided with an optional tint color. Light source tints are mostly transparent layers with an overlay blend mode which are drawn above the map, tokens, and tiles to cast everything under the lights FOV polygon with a tinted hue. Light source tints can be great for a warm campfire glow or an eerie green flame within a lost crypt. Try them out and let me know how you find them in your game. I will be extending this system to allow for Token emitted light to also be tinted in a future update.</li>
+	<li>The /join screen which every player visits when first logging into the VTT has been redesigned! The new join screen offers a custom background, a World description, current players, and the next scheduled session time which can be customized in the configure world menu.</li>
+	<li>Improved the styling aesthetics of sidebar directories to feature more clean lines and more clear delineation of which entity belongs to which subfolder.</li>
+	<li>Dice rolls which a player does not have permission to see (like blind or whispered rolls) now register a chat message indicating that some dice *were* rolled, but suppressing the result. My thinking is that this change is a positive one for usability and transparency, in addition to more closely resembling the in-person experience, however, I do want to collect feedback on this to understand if any players are negatively impacted by this change for their own games.</li>
+	<li>Added a new copy+paste workflow for the Walls layer which allows for groups of Wall objects to be copy+pasted in their current orientation to a new location in the Scene. This can be particularly helpful if setting up walls for many similarly shaped objects like trees or pillars.</li>
+	<li>Entities and Folders are now able to be manually sorted through an integer sort key. To re-arrange folders or entities simply drag and drop them on each other. The new position of the Entity or Folder will be placed after the sibling that it is dropped on. You can also drag and rearrange the folder structure, changing parent folders to subfolders, moving subfolders to a new parent, and more. These organizational changes have been long awaited and I hope the community enjoys the new freedom this gives you to organize your content exactly how you wish.</li>
+	<li>In addition to manually reordering Entities and Folders within each Sidebar Directory, you may now manually change the order of Scenes in the Scene Navigation menu by drag+drop.</li>
+	<li>In addition to manually reordering Entites and Folders, API methods have been added to support manual reordering for Owned Items within a parent Actor. Support for this feature has been incorporated within the D&D5e sheet, but other game systems may need to adopt this API themselves for existing Actor sheets.</li>
+	<li>When dragging and dropping to import an Entity from a Compendium pack, the created Entity will go directly into the target expanded Sidebar folder instead of always ending up in the root level of the sidebar directory.</li>
+	<li>Removed the anvil watermark image from the World join screen if a custom background image is used.</li>
+	<li>Added localization support for many applications including Player Configuration and the new Roll Table Configuration sheet.</li>
+	<li>Improved upon the initial dimensions for Token artwork for Tokens with an asymmetric grid footprint (i.e. width != height).</li>
+	<li>Improved rendering of all ContextMenu objects to scroll vertically from the origin container if the size of the context menu would cause its content to flow past the lower edge of the window.</li>
+</ul>
+<hr/>
+
+<h3>Core Bug Fixes</h3>
+<ul>
+	<li>Fixed a bug which could sometimes cause a Token health bar not to properly re-render when the underlying attribute data was changed for certain actor edge cases.</li>
+	<li>Corrected a problem with version checking where the <code>isNewerVersion(v1, v0)</code> helper method was not correctly recognizing updates to a major or minor version as indicating a newer semantic version string.</li>
+	<li>Fixed a problem with group Wall editing now that the updateMany method is used which caused trouble once the Walls Layer was refreshed after an update.</li>
+	<li>Resolved a problem with repeated EULA license acknowledgement prompts due to an incorrect relative path for Electron application builds. After this update, you should only be prompted to accept the EULA once (initially) and then again only if the terms are changed.</li>
+	<li>Fixed a bug with light sources not being correctly masked by their FOV polygons. This resulted from an incorrect Linux build which failed to include updates to the PIXI library as intended.</li>
+	<li>Resolved an edge case issue that could cause the Combat Tracker reset all button not to function properly and re-render the tracker for connected clients.</li>
+	<li>Corrected a regression which caused tokens with zero vision distance to instead be treated as if they do not have vision enabled. Now Tokens with zero vision receive only a minimal radius of dim vision to allow the player to see their own token but nothing else.</li>
+	<li>Solved an issue with syntax errors in the Chat Log export workflow.</li>
+	<li>Fixed a problem with the "Delete All" workflow for Folders (and their contained entities) which incorrectly left the contained entities displayed within the Sidebar Directory.</li>
+	<li>Fixed an i18n problem with the Player Config window missing many labels.</li>
+	<li>Prevented an exception which was being raised when clicking on tab icons of a collapsed Sidebar.</li>
+	<li>The Scene Navigation bar was incorrectly blocking mouse pointer events when collapsed. This no longer occurs.</li>
+	<li>Added some additional onUpdate steps which must occur if the current User's permission level changes during a game session.</li>
+	<li>Correct a translation gap where some strings for the Combat Tracker were not localized correctly.</li>
+	<li>Replaced incorrect usage of the ruler icon for multiple sections of the Scene configuration sheet.</li>
+	<li>Fixed an issue which caused limited light angle tokens to not work as expected if their visible angle was greater than 180 degrees.</li>
+	<li>Applied a better _onUpdate behavior for tokens which will conceal any active Token HUD if the Token is moved to some new position by a different user.</li>
+	<li>Capture any errors which may occur during chat log rendering to avoid having a single defective chat message break rendering for the remainder of the log.</li>
+	<li>Capture any errors which may occur during the rendering of a Sidebar Tab to avoid having any single defective tab break rendering for the remainder of the Sidebar.</li>
+	<li>Capture any errors which may occur during the execution of a user-registered Hook function to prevent potentially erroneous module code from breaking the main FVTT execution.</li>
+	<li>Corrected a problem which, when launching the application with a specific <code>--world</code> flag - you would not have an opportunity to accept the EULA if a license agreement is needed. Now, if the EULA needs to be signed, the <code>--world</code> flag will not function and you must start the application normally.</li>
+	<li>Resolved another way that World-level compendium packs could get created incorrectly with an absolute path instead of a relative one. I realize this issue keeps popping up, so I appreciate your patience with the several failed attempts to fix this problem. I am hopeful that this round of correction will knock it out for good, but if not I will keep working to solve it.</li>
+</ul>
+<hr/>
+
+<h3>Core Software, APIs, and Module Development</h3>
+<ul>
+	<li>I have comprehensively (I think) standardized the signature of SocketInterface trigger and triggerMany operations to adopt the same signature in all cases. See https://gitlab.com/foundrynet/foundryvtt/issues/1544 for an example. There were many small changes as part of this improvement including an improved SocketInterface.trigger API, better logging for pre-Hook prevention, and server-side refactoring to a more standardized handling workflow.</li>
+	<li>The global configuration variables which was previously in the constants file have been refactored to all exist as children of the <code>CONST</code> global object. For temporary backwards-compatibility global references to these variables have been preserved, but this support will be removed before launch. If you were previously using a global configuration parameter (note, I am not talking about the <code>CONFIG</code> object) you should migrate to reference it through the <code>CONST</code> namespace instead.</li>
+	<li>Introduce a new <code>updateManyOwnedItem</code> helper method for the Actor class to simultaneously update many Items which belong to a parent Actor entity.</li>
+	<li>Improved the behavior of the `diffObject` helper. Previously if one object in a comparison was empty while the other was not, it would report that the new object was not different from the previous. For example <code>diffObject({foo: {bar: 1}}, {foo: {}}); // {}</code>. Now this comparison will report that the new object is empty.</li>
+	<li>Improved the behavior of the `flattenObject` helper. Previously if the expanded object contains a key which, itself, contains an empty object, the inner empty object would be lost in the flattening process. Now contained objects which are empty are preserved as the final keys of a flattened object. For example <code>flattenObject({foo: {bar: {}}}) // {"foo.bar": {}}</code></li>
+	<li>Replaced usages of <code>Number.prototype.between(min, max)</code> with a new static helper <code>Number.between(num, min, max)</code> which avoids unecessary conversion of primitive <code>number</code> type data and improves performance both in terms of execution time and memory utilization. This small improvement can have significant benefits for lighting and vision rendering time. Thanks to tposney for sharing an insight which was helpful in identifying the need for this change.</li>
+	<li>The <code>source</code> attribute of the <code>Collection</code> class has been changed to be private, effective immediately. Module developers should avoid referencing this data and should instead always reference the constructed entities array.</li>
+	<li>Retired the specialized <code>activateScene</code> socket operation for triggering Scene activation. After investments in the overall hooks system, there is enough data granularity to identify that a Scene has been activated through the traditional <code>updateScene</code> socket, so all usages of the old activation approach have been replaced with a straightforward Scene update call which sets the active state directly.</li>
+	<li>Incorporate specialized Electron handling for SSL certificates to allow the certificate to be valid for localhost addresses.</li>
+	<li>Added a debugging setting which displays logging information to the console every time a Hook function is called. This makes it easier to discover what hooks (and what are their arguments) are applied when conducting workflows in the VTT. To enable this level of debugging, set <code>CONFIG.debug.hooks = true;</code>.</li>
+	<li>The <code>Compendium.importEntity</code> method now accepts an optional argument for <code>updateData</code> which allows for conveniently updating the entity simultaneously with the import operation. This can be helpful if you want to programmatically import an entity from a compendium pack, but modify the imported entity relative to it's stock variant.</li>
+	<li>Added a <code>Folder.entities</code> getter for convenience to vend an Array of all Entity instances which belong to that parent Folder.</li>
+	<li>Added some additional fields for package metadata to the conventional NPM package.json file.</li>
+	<li>Applied a stronger server-side permission check for Entity updates to validate that the requesting User has ownership permission over the specific document in question.</li>
+	<li>The underlying data structure for the buttons in the SceneControls app has been refactored from an Object (prior) to an Array (new). This has several advantages, including allowing for the order and composition of buttons to be manipulated by a new Hook which has been added. By hooking to <code>getSceneControlButtons</code> module authors may itroduce new buttons to the controls menu or modify the behavior of existing buttons. Please see https://gitlab.com/foundrynet/foundryvtt/issues/1528 for discussion and examples.</li>
+	<li>Improved the protection against cases where folders exceed the maximum allowed level of depth. Previously this would cause the entire Sidebar Tab to fail rendering. Now folders which exist at an invalid depth level are simply rendered at the root level of the sidebar directory.</li>
+	<li>Re-wrote and greatly improved the ChatMessage.getSpeaker() helper to construct the <code>speaker</code> data object from a given Token, Actor, or User entity.</li>
+	<li>Provided a new <code>canvasPan</code> Hook event to respond to changes to the canvas location or scale. This hook will fire whenever the canvas is panned (which can result in a lot of calls). Be careful if you use this hook to make sure your hooked function is as efficient as possible. See https://gitlab.com/foundrynet/foundryvtt/issues/1500 for more details.</li>
+	<li>Each registered Hook function is now assigned a numeric ID which can now be used as a token for unregistering (turning off) the Hook instead of the hooked function reference. This makes it much easier to un-register a Hook while still using anonymous functions. See https://gitlab.com/foundrynet/foundryvtt/issues/1490 for an example.</li>
+	<li>Instaces of the <code>ImagePopout</code> class may not optionally refer back to an Entity instance which requested them to be shown. If such an entity reference exists, it is available under <code>options.entity</code> of the ImagePopout instance.</li>
+	<li>Added a simple CLI script which can quickly initialize a new module, creating some boilerplate structure for module developers to quickly build upon. See https://gitlab.com/foundrynet/foundryvtt/issues/1374 for example usage.</li>
+</ul>
+<hr/>
+
+<h3>D&D5e System Improvements</h3>
+<ul>
+	<li>Owned Items may now be manually reordered through drag+drop within the D&D5e character and NPC sheets.</li>
+	<li>Renamed the "Feats" tab on character sheets to "Features" to more appropriately reflect it's intended use case as the location for both Feats as well as class, racial, or background Features.</li>
+	<li>A number of bug fixes and minor improvements for the D&D5e system to keep up with core VTT changes.</li>
+</ul>
+<hr/>
