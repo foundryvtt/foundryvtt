@@ -184,6 +184,23 @@ process script: ``node resources/app/main.js``.
 Once the server is running, both you and your players can connect to the server using the public IP address of your 
 web host, for example ``http://x.x.x.x:30000``.
 
+Application Configuration Options
+=================================
+
+You can configure some aspects of the application by editing the ``options.json`` file in the ``app`` directory. The
+following options can be provided.
+
+port
+    A port number which defines the default port used by the application unless one is explicitly provided using the
+    ``--port`` flag.
+fullscreen
+    A boolean flag for whether to run the Electron application in fullscreen mode.
+sslKey
+    A relative path that points towards a SSL key file which is used jointly with the ``sslCert`` option to enable
+    SSL and https connections. If both options are provided, the server will start using HTTPS automatically.
+sslCert
+    A relative path that points towards a SSL certificate file which is used jointly with the ``sslKey`` option to
+    enable SSL and https connections. If both options are provided, the server will start using HTTPS automatically.
 
 Where Do I Put My Content?
 ==========================
