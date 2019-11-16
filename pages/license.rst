@@ -4,4 +4,4 @@ End User License Agreement
 **************************
 
 .. raw:: html
-    :file: ../../license.html
+    :file: ../../app/license.html

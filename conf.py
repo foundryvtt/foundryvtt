@@ -45,7 +45,7 @@ extensions = [
 ]
 
 # Configure JavaScript documentation
-js_source_path = '../public/scripts/'
+js_source_path = '../app/public/scripts/'
 primary_domain = 'js'
 
 # Add any paths that contain templates here, relative to this directory.

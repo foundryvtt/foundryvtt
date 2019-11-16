@@ -168,64 +168,113 @@ terminal.
 Note that you can run a dedicated server from Windows also, for Windows you should download and install node.js from
 https://nodejs.org/en/download/.
 
+Running the Application
+=======================
 
-Start the Server
-----------------
+Once you have extracted the Foundry VTT software you can start the software by running the Electron application or by
+calling the ``main.js`` directly using Node.js. If you start the application from the command line (or command prompt
+in Windows), you can pass additional command-line arguments which are detailed below.
 
-Once you have extracted the Foundry VTT software and installed Node.js you can start the server by calling the main 
-process script: ``node resources/app/main.js``.
-
-**Additional Command-Line Options**
+Command-Line Options
+--------------------
     
 --port      [Optional] You may specify a specific port on which to run the application. The default is 30000.
 --world     [Optional] You may specify the name of a specific World directory which should be automatically 
             loaded when the server is started.
+--dataPath  [Optional] You may specify an explicit path to the user data directory which should be used as the source
+            for packages and other content.
 
-Once the server is running, both you and your players can connect to the server using the public IP address of your 
-web host, for example ``http://x.x.x.x:30000``.
+Node.js Example
+    ``node main.js --port=30000 --world=myworld --dataPath=/local/data/foundryvtt``
+
+Electron (Windows) Example
+    ``FoundryVTT.exe --port=30000 --world=myworld --dataPath=D:\FoundryVTT``
+
+Electron (Linux) Example
+    ``foundryvtt --port=30000 --world=myworld --dataPath=/local/data/foundryvtt``
+
+Once the server is running, your players can connect to the server using the public IP address or DNS name of your web
+host. You can also connect to your own running session from a web browser using localhost.
 
 Application Configuration Options
-=================================
+---------------------------------
 
-You can configure some aspects of the application by editing the ``options.json`` file in the ``app`` directory. The
-following options can be provided.
+You can configure some aspects of the application by editing the ``options.json`` file in the Config directory inside
+your application data folder.
 
 port
     A port number which defines the default port used by the application unless one is explicitly provided using the
     ``--port`` flag.
 fullscreen
     A boolean flag for whether to run the Electron application in fullscreen mode.
+dataPath
+    You may specify an explicit path to the user data directory which should be used as the source for packages and
+    other content. This option is only used of the command line flag with the same name is not also passed.
+hostname
+    A custom hostname to use in place of the host machine's public IP address when displaying the address of the game
+    session. This allows for reverse proxies or DNS servers to modify the public address.
+routePrefix
+    A string path which is appended to the base hostname to serve Foundry VTT content from a specific namespace. For
+    example setting this to ``demo`` will result in data being served from ``http://x.x.x.x:30000/demo/``.
 sslKey
-    A relative path that points towards a SSL key file which is used jointly with the ``sslCert`` option to enable
-    SSL and https connections. If both options are provided, the server will start using HTTPS automatically.
+    An absolute or relative path that points towards a SSL key file which is used jointly with the ``sslCert`` option
+    to enable SSL and https connections. If both options are provided, the server will start using HTTPS automatically.
 sslCert
-    A relative path that points towards a SSL certificate file which is used jointly with the ``sslKey`` option to
-    enable SSL and https connections. If both options are provided, the server will start using HTTPS automatically.
+    An absolute or relative path that points towards a SSL certificate file which is used jointly with the ``sslKey``
+    option to enable SSL and https connections. If both options are provided, the server will start using HTTPS
+    automatically.
+awsConfig
+    An absolute or relative path which points to an optional AWS configuration file in JSON format containing
+    ``accessKeyId``, ``secretAccessKey``, ``region``, and ``bucketName`` properties. This file is used to configure
+    integrated AWS connectivity for S3 assets and backup.
 
-Where Do I Put My Content?
-==========================
+Where Do I Put My Data?
+=======================
 
-Once your server is up and running the first step is to create a new World. Once you have a world created, you will
-want to start making static content like maps, tokens, audio files, and more available to be used in your world.
+In order to comply with operating system expectations (most notably on Windows and MacOS), it is important not to store
+actively updated user data inside the application directory itself. Therefore Foundry Virtual Tabletop relies upon the
+concept of a **user data path** which defines the location that user data is saved. There are four ways that the user
+data location can be set.
 
-The base application data is located in the ``<foundryvtt>/resources/app`` directory. Static content which is able to
-be served to other players who connect to your game is located in the ``public`` folder within this directory. Within
-the public folder you will find subfolders for ``worlds``, and ``modules`` where you will place most of your user
-created content.
+1. **Command Line Flag**. See the Command Line Options above.
+2. **Environment Variable**. Set ``FOUNDRY_VTT_DATA_PATH``.
+3. **Config Data Override**. See the Application Configuration Options section above.
+4. **Default OS Application Data**. See below for details.
 
-Specifically, the data for your world is stored in the directory ``<foundryvtt>/resources/app/public/worlds/<your-world>``.
-Feel free to use any directory structure you want within your world and module folders for organizing your content,
-but please avoid renaming or deleting pre-existing folders as that may break certain assumptions of the application.
+These options are evaluated in the above order, so if multiple options are set, the first valid option will be used.
+The default application data location for each operating system is the following:
 
-When referencing file locations within the VTT - all paths are relative to the ``public`` folder which is your content
-root. For example; suppose you create the following file::
+Windows
+    ``%localappdata%/FoundryVTT``
+MacOS
+    ``~/Library/Application Support/FoundryVTT``
+Linux
+    ``~/.local/share/FoundryVTT``
 
-	<foundryvtt>/resources/app/public/worlds/my-world/maps/dungeons/deadly-dungeon-01.jpg
+These default locations may not be ideal for many users, so it is recommended to use one of the above alternative
+methods to point Foundry VTT to a different data location as suits your preferences. The user data folder contains
+the following basic directory and file structure.
 
-When using that map as the source for a new Scene - you should reference the file location as::
+Config/options.json
+    These are application launch options which you can configure
+Data/systems
+    This directory contains the game systems which you have installed
+Data/modules
+    This directory contains the add-on modules which you have installed
+Data/worlds
+    This directory contains the game worlds which you have available
+
+When referencing data from within the virtual tabletop application, any content stored inside the Data directory is
+publicly available to be served directly. This is where you should put your content that you intend to use inside the
+application. You are free to create any folder or directory structure that you want inside this data directory. For
+example, if you have the following file in your file system::
+
+	<User Data Path>/Data/worlds/my-world/maps/dungeons/deadly-dungeon-01.jpg
+
+When using that map image inside Foundry VTT, you can reference it as a web-accessible URL using the path relative to
+the Data folder::
 
 	worlds/my-world/maps/dungeons/deadly-dungeon-01.jpg
-
 
 ..  warning:: **Regarding File Naming Conventions:**
     Since Foundry VTT works as a web server, you should be sure to use directory and file names which conform to web
