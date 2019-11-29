@@ -1,0 +1,82 @@
+<h2>Beta 0.4.1 Update Notes</h2>
+
+<p>Greetings esteemed supporters! I'm thrilled to be back with yet another Foundry Virtual Tabletop Beta release with <strong>Version 0.4.1</strong>. You are perhaps wondering why this release comes so soon after the previous 0.4.0 update. I am pursuing a new update strategy between now and release which I hope will provide a smoother experience for testers in both the Council and Beta supporter tiers. Effective immediately, even numbered release (for example 0.4.0) focus on large changes and more meaningful feature additions. These even numbered releases will be made available to the Council tier only for a period of 5-7 days, at which point an odd-numbered release (for example 0.4.1) will release for both Council and Beta including a number of fixes, adjustments, and improvements related to the prior release's additions. As such, this 0.4.1 update is available immediately for all tester tiers as it resolves and improves upon a number of the limitations and weaknesses of last Friday's 0.4.0 release.</p>
+
+<p>The focus of this update is bug fixes, tweaks, adjustments, and stability improvements to the 0.4.0 release from last week. There are a number of bug fixes, as well as some feature changes in response to user feedback. There is also a new D&D5E system update (version 0.71) which adds some cool new features as well as fixes and changes from last week's version.</p>
+
+<p>Thank you all for appreciating my work, providing thoughtful feedback, and encouraging me to do even more. As always, please keep an eye on the development progress board here for visibility into what features are in progress and coming up next!</p>
+
+<p><a href="https://gitlab.com/foundrynet/foundryvtt/boards" target="_blank" title="FVTT Story Board">https://gitlab.com/foundrynet/foundryvtt/boards</a></p>
+<hr/>
+
+<h3>New Features</h3>
+<ul>
+	<li>The most significant failure of the initial 0.4.0 release was the lack of a configurable setting for where user data, which is now stored outside the application installation location, is persisted. This was a misstep on my part as I failed to anticipate the many cases in which lack of configurability for this location is a critical concern. Thank you all for your honest criticism of this limitation. I'm pleased to say this is far more flexible in 0.4.1. There are three ways that you may customize the user data location:
+	<ol>
+		<li>A command line flag <code>--dataPath={path}</code> when the application is started.</li>
+		<li>An environment variable <code>FOUNDRY_VTT_DATA_PATH</code>.</li>
+		<li>An <code>options.json</code> configuration override in the default OS location for user data using the <code>dataPath</code> key which redirects to an alternate location.</li>
+	</ol>
+	Documentation for these three usage modes is available in the GitLab issue https://gitlab.com/foundrynet/foundryvtt/issues/1672 and on the updated documentation page here: http://foundryvtt.com/pages/hosting.html#running-the-application
+	</li>
+	<li>Users are prevented from installing packages (systems and modules) which require a minimum core software version greater than the VTT version they are currently running. They will be notified upon attempting to install such a package that they must first update their core software.</li>
+	<li>The package installation process now validates the type of package the user is attempting to install. Previously this could result in a user incorrectly attempting to install a system as a module, or vice versa. Incorrect usages will trigger a notification which informs the user of their error.</li>
+</ul>
+<hr/>
+
+<h3>Core Bug Fixes</h3>
+<ul>
+	<li>Corrected a logical flaw which could result in multiple Gamemaster users being created for a world each time the server was started, resulting from the software (incorrectly) believing that the world had no active GM tier user.</li>
+	<li>Resolve an incorrect async usage which could result in the Electron window trying to load the application before the Express server had begun listening on the target port.</li>
+	<li>Ensure that SSL certificate and key paths are resolved relative to the Config subdirectory within the user data location. Absolute paths to other locations may also be provided.</li>
+	<li>Resolved a bug which would cause all the door controls on a Scene to be temporarily visible when resizing the window (for example when pressing the ALT key on Firefox).</li>
+	<li>Corrected a problem with the Combat Tracker which prevented tracked resources from being updated in real time when the values of those resources changed on the combatant's Actor (or Token).</li>
+	<li>Fixed a problem with automatic playback enablement for ambient audio sources when a user interaction is first observed. Now ambient audio will begin playing automatically once an interaction occurs.</li>
+	<li>Remove uses of <code>Object.fromEntries()</code> which is not well supported by all modern browsers.</li>
+	<li>Fixed several JSDoc syntax errors throughout the code which prevented documentation files from building properly.</li>
+	<li>Correctly display the numeric value of the Ambient Light Source opacity slider when it is adjusted in the configuration sheet.</li>
+	<li>Fixed an issue which could cause the initial permissions check for the user data directory to fail if the parent of the requested data directory does not exist. This check now occurs as an earlier explicit validation to ensure the user data location can be reached.</li>
+	<li>Direct updates to an Actor entity items array failed to rebuild the <code>actor.items</code> array of Item instances. This is now handled in the onUpdate logic of an explicit array of items is directly provided to the parent Actor update method.</li>
+</ul>
+<hr/>
+
+<h3>Core Software, APIs, and Module Development</h3>
+<ul>
+	<li>Added flexibility to the <code>Application.setPosition</code> function to allow for callers to explicitly request height as "auto".</li>
+	<li>Add an <code>invertObject</code> helper method which can swap the keys and values of an object. This does not incorporate safeguards to guarantee that the initial  object is 2-dimensional or that it's values are unique. The user of the function bears the responsibility to provide the correct type of input.</li>
+</ul>
+<hr/>
+
+<h3>D&D5e System Improvements (D&D5e release v0.71)</h3>
+<p><strong>Note now that the D&D5E system is no longer automatically bundled with the core VTT software, you must manually update the D&D5E system from the setup panel as you do with other modules and systems.</strong></p>
+<ul>
+	<li>Introduce a dialog displayed when casting a prepared spell which consumes a spell slot that prompts the user to select the spell level at which they wish to cast the spell. The available choices are all levels greater than or equal to the normal level of the spell for which the character has at least one maximum spell slot. You are only able to select a level at which to cast where you have one or more spell slots remaining to spend. When the chosen spell level is confirmed, the spell slots counter for the chosen spell level will be automatically deducted. A checkbox allows you to bypass this requirement and cast the spell without actually consuming the spell slot. When casting a spell from the character sheet, SHIFT+Click will bypass the level selection dialog and skip directly to casting the spell at it's minimum allowable level. Please note that damage scaling from upcasting spells is not yet automated as part of this enhancement - this is a phase one which implements the spell level selection and automated consumption of spell slots. Applying damage scaling formula automatically for upcast spells will be included in the next 5e update.</li>
+	<li>The Saving Throw button displayed in chat item cards enables all players (both the original user of the item as well as other players) to quickly make saving throws as necessary. A saving throw of the appropriate type will rolled for your currently controlled Token. SHIFT+Click on the Saving Throw button will bypass the dialog for choosing advantage/disadvantage or applying additional modifiers.</li>
+	<li>Improved automatic migration functions for pre-0.4.x worlds in several ways.
+	<ul>
+		<li>Added more explicit migration support for Scenes and Scene-type world compendium packs to handle Tokens in those scenes which have actorData overrides applied that also need to be migrated.</li>
+		<li>Fixed a temporary problem immediately after migration where some data in the currently viewed Scene would still appear incorrect, even though the underlying data had correctly migrated.</li>
+		<li>Fixed an issue with armor type migration which should now properly persist the armor type of Equipment items if they were labeled in a way that matches the config enum.</li>
+		<li>Improve handling of deprecation migration for unused fields to ensure those fields were not explicitly updated by some prior migration.</li>
+		<li>Improve the logic for weapon item migrations to avoid exiting early if weapon property flags were not set, which resulted in bypassing other migrations which still should have occured.</li>
+		<li>Fixed migration issues for Tokens in Scenes which point to an Actor ID which does not exist.</li>
+	</ul>
+	</li>
+	<li>Restored the correct healing formulae for healing potions in the Items SRD compendium pack.</li>
+	<li>Improve the automatic sizing of item sheet dimensions. The size of the Descriptions tab will remain the same, but the Details tab will be more adaptively sized up to a maximum allowable height, beyond which scrolling is required.</li>
+	<li>Compress the sizing and dimensions of the character and NPC sheets slightly to better accomodate small viewport devices (specifically 768px height). The new character sheet clocks in at 732px height down from 780px previously.</li>
+	<li>Fix several character sheet bugs introduced with the 0.4.0 update including:
+	<ul>
+		<li>Inventory item weights only showed the weight for a single item, rather than the weight of the full stack in cases where quantity > 1.</li>
+		<li>Removed starting/default values for character race and alignment, these fields will now simply begin as blank.</li>
+		<li>Removed the incorrect +2 initiative modifier which newly created Actors were automatically starting with.</li>
+		<li>Removed the "rollable" tag from the Health attribute on Player Character sheets which incorrectly indicated that it could be clicked upon.</li>
+		<li>Fixed the ability to expand and display in chat player class levels from the Features tab.</li>
+		<li>Fixed the labels for skill and ability check dialogs which previously were pulling undefined strings.</li>
+		<li>Corrected the behavior of the currency converter button which now works as intended.</li>
+		<li>Display zero charges when an item with a maximum number of charges has none remaining as was intended. Previously empty items were incorrectly not showing charges at all.</li>
+	</ul>
+	</li>
+	<li>You may now copy text from an item card displayed to chat by the 5e system. Previously this text was not selectable.</li>
+</ul>
+<hr/>
