@@ -12,7 +12,7 @@ How To Enable S3 Support
 
 Add an entry in the ``Config/options.json`` config file which exists in your user data location to include key "awsConfig" which provides a relative or absolute file path pointing to another JSON file contraining the following:
 
-.. code-block::
+.. code-block:: none
 
 	{
 	  "accessKeyId": "YOUR_ACCESS_KEY_ID",
@@ -27,7 +27,7 @@ How To Restrict Bucket Permissions
 
 You may not wish to allow your AWS account to access all S3 buckets from within Foundry VTT. To avoid this, you should create a specific IAM user whose access credentials are used by Foundry Virtual Tabletop. You can assign am IAM policy to this specific user which only permits access to certain buckets within your overall account. An example IAM policy which allows access to only the bucket named ``vtt-assets`` is shown below:
 
-.. code-block::
+.. code-block:: none
 
 	{
 	    "Version": "2012-10-17",
