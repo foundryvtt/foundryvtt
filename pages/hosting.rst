@@ -225,8 +225,8 @@ sslCert
     automatically.
 awsConfig
     An absolute or relative path which points to an optional AWS configuration file in JSON format containing
-    ``accessKeyId``, ``secretAccessKey``, ``region``, and ``bucketName`` properties. This file is used to configure
-    integrated AWS connectivity for S3 assets and backup.
+    ``accessKeyId``, ``secretAccessKey``, and ``region`` properties. This file is used to configure integrated AWS
+    connectivity for S3 assets and backup.
 
 Where Do I Put My Data?
 =======================
@@ -249,7 +249,7 @@ Windows
 MacOS
     ``~/Library/Application Support/FoundryVTT``
 Linux
-    ``~/.local/share/FoundryVTT``
+    ``/home/$USER/.local/share/FoundryVTT``, ``/home/$USER/FoundryVTT``, or ``/local/FoundryVTT`` in order of availability.
 
 These default locations may not be ideal for many users, so it is recommended to use one of the above alternative
 methods to point Foundry VTT to a different data location as suits your preferences. The user data folder contains
