@@ -25,6 +25,7 @@ roleplaying games in a beautiful and intuitive web-based application.
     pages/glossary
     pages/entities
     pages/dice
+    pages/features/av
     pages/api
     pages/systems
     pages/modules

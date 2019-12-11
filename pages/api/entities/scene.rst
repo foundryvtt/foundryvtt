@@ -17,6 +17,23 @@ Additionally, each scene has rich notes associated with it which are customizabl
 class. Similarly, this class can be overridden or extended by modules by altering the ``Config.Scene.notesClass``
 global configuration.
 
+..  contents:: Scenes API Components
+    :depth: 1
+    :local:
+    :backlinks: top
+
+----
+
+The Scene Class
+===============
+
+..  autoclass:: foundry.Scene
+    :members:
+
+    .. autofunction:: Entity.create
+    .. autofunction:: Entity#update
+    .. autofunction:: Entity#delete
+
 ----
 
 The Scenes Collection
@@ -33,20 +50,16 @@ The Scenes Collection
 
 ----
 
-The Scene Class
-===============
+Scene Configuration Sheet
+=========================
 
-..  autoclass:: foundry.Scene
+..  autoclass:: SceneSheet
     :members:
-
-    .. autofunction:: Entity.create
-    .. autofunction:: Entity#update
-    .. autofunction:: Entity#delete
 
 ----
 
-The Scene Sheet
-===============
+Scene Notes
+===========
 
-..  autoclass:: SceneSheet
+..  autoclass:: SceneNotes
     :members:

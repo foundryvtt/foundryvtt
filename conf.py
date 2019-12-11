@@ -24,10 +24,10 @@ copyright = '2019, Foundry Gaming LLC'
 author = 'Andrew Clayton'
 
 # The short X.Y version
-version = '0.3.7'
+version = '0.4.2'
 
 # The full version, including alpha/beta/rc tags
-release =  'Beta 0.3.7'
+release =  'Beta 0.4.2'
 
 
 # -- General configuration ---------------------------------------------------

@@ -12,7 +12,24 @@ When viewing or interacting with an actor inside the tabletop framework, the act
 the :class:`ActorSheet` class (by default). Game systems which want to fine-tune how the actor data is rendered may
 override this to a subclass included in their own definition.
 
-----
+..  contents:: Actors API Components
+    :depth: 1
+    :local:
+    :backlinks: top
+
+------
+
+The Actor Class
+===============
+
+..  autoclass:: foundry.Actor
+    :members:
+
+    .. autofunction:: Entity.create
+    .. autofunction:: Entity#update
+    .. autofunction:: Entity#delete
+
+------
 
 The Actors Collection
 =====================
@@ -26,23 +43,10 @@ The Actors Collection
     .. autofunction:: Collection#index
     .. autofunction:: Collection#render
 
-----
-
-The Actor Class
-===============
-
-..  autoclass:: foundry.Actor
-    :members:
-
-    .. autofunction:: Entity.create
-    .. autofunction:: Entity#update
-    .. autofunction:: Entity#delete
-
-----
+------
 
 The Actor Sheet
 ===============
 
 ..  autoclass:: ActorSheet
     :members:
-

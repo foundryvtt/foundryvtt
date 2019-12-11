@@ -24,6 +24,23 @@ When viewing or interacting with an item's data, the item is rendered and edited
 which can be extended or overridden by systems or modules. To override the default implementation, a mod should 
 define the ``CONFIG.Item.sheetClass`` global configuration value.
 
+..  contents:: Items API Components
+    :depth: 1
+    :local:
+    :backlinks: top
+
+----
+
+The Item Class
+==============
+
+..  autoclass:: foundry.Item
+    :members:
+
+    .. autofunction:: Entity.create
+    .. autofunction:: Entity#update
+    .. autofunction:: Entity#delete
+
 ----
 
 The Items Collection
@@ -37,18 +54,6 @@ The Items Collection
     .. autofunction:: Collection#get
     .. autofunction:: Collection#index
     .. autofunction:: Collection#render
-
-----
-
-The Item Class
-==============
-
-..  autoclass:: foundry.Item
-    :members:
-
-    .. autofunction:: Entity.create
-    .. autofunction:: Entity#update
-    .. autofunction:: Entity#delete
 
 ----
 
