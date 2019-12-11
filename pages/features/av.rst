@@ -26,10 +26,11 @@ For security reasons, browsers (such as Chrome or Firefox) will not let a websit
 How can I create a self-signed certificate?
 -------------------------------------------
 
-Creating your own SSL certificate is easier to achieve so we'll start with that. While it is easier, it does not guarantee security because it does not efficiently encrypt the data transiting over the internet and a hacker, a three-letter government agency or your ISP (Internet Service Provider) could potentially monitor your communications. It is however still more secure than not having an SSL certificate and simply using `http://`
+Creating your own SSL certificate is easier to achieve so we'll start with that. While it is easier, it does not guarantee security because it does not efficiently protect the data transiting over the internet and a hacker, a three-letter government agency or your ISP (Internet Service Provider) could potentially monitor your communications. It is however still more secure than not having an SSL certificate and simply using `http://`
 
 When using a self-signed certificate, your browser will warn you about entering an unsecured site when you visit it for the first time. You will need to click on the 'Advanced' button and then 'Proceed'. Here are some links which explain methods of creating a self-signed certificates for different platforms:
 
+* **Online Tool** : https://www.selfsignedcertificate.com/ 
 * **Windows**: https://medium.com/the-new-control-plane/generating-self-signed-certificates-on-windows-7812a600c2d8
 * **Linux**: https://linuxize.com/post/creating-a-self-signed-ssl-certificate/
 * **MacOS**: https://support.apple.com/guide/keychain-access/create-self-signed-certificates-kyca8916/mac
@@ -37,7 +38,7 @@ When using a self-signed certificate, your browser will warn you about entering 
 How can I create a trusted certificate?
 ---------------------------------------
 
-The ideal method for enabling SSL is to create a valid certificate using a trusted Certificate Authority. This process is more complicated, and it requires having a registered domain name which points to your server IP address. If you have bought a domain name or use a web hosting service, you might have the ability to create a valid certificate from your service provider directly. Otherwise, simply follow the instructions provided by the `Let's Encrypt <https://letsencrypt.org/>` project which provides free verified SSL certificates.
+The ideal method for enabling SSL is to create a valid certificate using a trusted Certificate Authority. This process is more complicated, and it requires having a registered domain name which points to your server IP address. If you have bought a domain name or use a web hosting service, you might have the ability to create a valid certificate from your service provider directly. Otherwise, simply follow the instructions provided by the `Let's Encrypt <https://letsencrypt.org/>`_ project which provides free verified SSL certificates.
 
 ----------
 
@@ -45,10 +46,6 @@ A/V Connectivity Guide
 ======================
 
 To configure Foundry VTT to use the certificate you have created, you need to copy the certificate and the private key to your FVTT's Config directory, and then edit the options.json file and specify the filename of the certificate and the key file under the `sslCert` and `sslKey` fields.
-
-.. figure:: /_static/images/webrtc-mesh-network.jpg
-
-    An example visualization of how the mesh network structure works with peer-to-peer calls.
 
 From within the Foundry app, the **AV Configuration** panel is accessible from the Settings sidebar within your active World. This allows you to customize the A/V broadcast mode (including enabling or disabling it), configure a custom signaling or relay server, and designate your preferred webcam and microphone hardware.
 
@@ -59,6 +56,10 @@ You can customize the signaling and relay servers used for A/V functionality wit
 
 .. note:: When you make an audio or video call using Foundry VTT, every player connects to every other player using peer-to-peer connections.
 
+.. figure:: /_static/images/webrtc-mesh-network.jpg
+
+    An example visualization of how the mesh network structure works with peer-to-peer calls.
+
 Unfortunately, due to various factors, two participants in the call may be unable to connect to each other. This can occur due to firewalls or other routing settings which do not work well together. In such (rare) situations, a player may not be able to interface with the call. This can be solved through use of a Relay Server which acts as a middle-point to which both players connect and exchange their audio and video streams. The Foundry VTT server automatically starts a relay server which can be used for your calls - but the built in relay server does require a few things in order to work properly:
 
 - Its own port to listen to connections on
@@ -67,7 +68,9 @@ Unfortunately, due to various factors, two participants in the call may be unabl
 
 If you are self hosting Foundry VTT and you have not done any port forwarding, then the relay server may not work correctly for you. If you are using a server such as AWS or DigitalOcean or any other VPS service, then as long as the proper ports are allowed access to the server, you shouldn't have any issues.
 
-### Foundry's Relay Server
+Foundry's Relay Server
+-------------------------------
+
 You can use the relay server included with the Foundry VTT server. In the options.json file of the FVTT's Config directory, you can customize its behavior with the following fields (default values are given here if those keys are not specified) : 
 
 .. code-block:: none
@@ -83,7 +86,7 @@ If you do not customize those options, then you should setup port forwarding in 
 Using a Custom Relay Server
 ---------------------------
 
-You may run a custom relay server using an external application such as **Coturn**, which is a more advanced relay server which supports things such as relaying over UDP and TCP, using SSL for encrypting relayed data, use of a database for authentication, and many more options, as well as being optimized for heavy traffic production-ready systems. If you use such a custom relay and would like to tell Foundry VTT to use it by default for all players, or you would like to disable the use of the FVTT provided relay server entirely, you can do so by providing an array of configurations in the `turnConfigs` field in the options.json file.
+You may run a custom relay server using an external application such as `coturn <https://github.com/coturn/coturn>`_, which is a more advanced relay server which supports things such as relaying over UDP and TCP, using SSL for encrypting relayed data, use of a database for authentication, and many more options, as well as being optimized for heavy traffic production-ready systems. If you use such a custom relay and would like to tell Foundry VTT to use it by default for all players, or you would like to disable the use of the FVTT provided relay server entirely, you can do so by providing an array of configurations in the ``turnConfigs`` field in the options.json file.
 
 .. code-block:: none
 
@@ -103,17 +106,17 @@ Glossary of A/V Related Terminology
 ===================================
 
 NAT
-	**Network Address Translation** (routers)
+	**Network Address Translation** (Routers create a NAT from the local network to the outside)
 STUN 
-	**Simple Traversal of UDP through NAT** (udp hole-punching through NATs)
+	**Simple Traversal of UDP through NAT** (A tool for UDP hole-punching through NATs)
 TURN 
-	**Traversal Using Relays around NAT** (a relay for data)
+	**Traversal Using Relays around NAT** (A relay for data)
 ICE
-	**Interactive Connectivity Establishment** (a methodology for using STUN (and TURN) to ensure a connection between 2 peers)
+	**Interactive Connectivity Establishment** (A methodology for using STUN (and TURN) to ensure a connection between 2 peers)
 SDP
-	**Session Description Protocol** (just text to describe a media stream, think 'json format but for describing media, like "there's audio, here are the codecs we support, here are our list of ICE candidates, etc... ")
+	**Session Description Protocol** (A protocol for describing media, like "we want to share audio, here are the codecs we support, here are our list of ICE candidates (IP addresses), etc... ")
 RTP
-	**Real Time Protocol** (protocol used to packetize the audio and video encoded streams over UDP packets)
+	**Real Time Protocol** (Protocol used to packetize the audio and video encoded streams over UDP packets)
 RTC
-	**Real Time Communications** (just a broad name that encapsulates all of these technologies (and more) to make them work together so we can have real time communications)
+	**Real Time Communications** (A broad name that encapsulates all of these technologies (and more) to make them work together so we can have real time communications)
 
