@@ -3,11 +3,26 @@
 The User Entity
 ***************
 
-Each connected client corresponds to a :class:`User` instance. Control of Actors and other permissions are configured
-at the User level, so having different users allows you to give players access to different content. Each user is
-assigned a permission level which controls what capabilities they will have within the Virtual Tabletop.
+Each connected client corresponds to an instance of the :class:`User` Entity. The collection of all such Entities is stored in the :class:`Users` Collection. Refer to the :ref:`users` page for documentation regarding the User concept and its usage within Foundry VTT.
 
-----
+..  contents:: Users API Components
+    :depth: 1
+    :local:
+    :backlinks: top
+
+------
+
+The User Instance
+=================
+
+..  autoclass:: User
+    :members:
+
+    .. autofunction:: Entity.create
+    .. autofunction:: Entity#update
+    .. autofunction:: Entity#delete
+
+------
 
 The Users Collection
 ====================
@@ -19,14 +34,10 @@ The Users Collection
     .. autofunction:: Collection#remove
     .. autofunction:: Collection#get
 
-----
+------
 
-The User Instance
-=================
+The Player Config Application
+=============================
 
-..  autoclass:: User
-    :members:
-
-    .. autofunction:: Entity.create
-    .. autofunction:: Entity#update
-    .. autofunction:: Entity#delete
+.. autoclass:: PlayerConfig
+	:members:

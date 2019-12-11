@@ -5,12 +5,13 @@ The term Entities is used to describe the individual records of data which compr
 and more which are featured within the World. This chapter introduces you to the different Entity types which are
 used within Foundry Virtual Tabletop and the API layers which allow you to modify them.
 
-
 ..  toctree::
     :caption: Entity Types
     :name: entities
     :maxdepth: 1
 
+    entities/user
     entities/scene
     entities/actor
+    entities/item
     entities/compendium
