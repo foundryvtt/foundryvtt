@@ -75,13 +75,13 @@ You can use the relay server included with the Foundry VTT server. In the option
 
 .. code-block:: none
 
-	"turnListeningPort": 33478,
-	"turnListeningIps": ["0.0.0.0"],
-	"turnRelayIps": [],
-	"turnMinPort": 49152,
-	"turnMaxPort": 65535
+    "turnListeningPort": 33478,
+    "turnListeningIps": ["0.0.0.0"],
+    "turnRelayIps": [],
+    "turnMinPort": 49152,
+    "turnMaxPort": 65535
 
-If you do not customize those options, then you should setup port forwarding in your router to make sure port 33478 and the port range 49152-65535 are forwarded to your machine properly.
+.. warning:: If your host machine is behind a NAT you must configure port forwarding in your router to make sure UDP port 33478 and the UDP port range 49152-65535 are forwarded to your machine properly.
 
 Using a Custom Relay Server
 ---------------------------
@@ -90,13 +90,13 @@ You may run a custom relay server using an external application such as `coturn 
 
 .. code-block:: none
 
-	"turnConfigs": [{
-	      "url": "turn:example.com:3478",
-	      "urls": ["turn:example.com:3478", "turns:example.com:5349"],
-	      "username": "my username",
-	      "credential": "my password"
-	    }
-	  ]
+    "turnConfigs": [{
+          "url": "turn:example.com:3478",
+          "urls": ["turn:example.com:3478", "turns:example.com:5349"],
+          "username": "my username",
+          "credential": "my password"
+        }
+      ]
 
 To disable Foundry's relay server, simply provide an empty list of turn configurations.
 
@@ -106,17 +106,17 @@ Glossary of A/V Related Terminology
 ===================================
 
 NAT
-	**Network Address Translation** (Routers create a NAT from the local network to the outside)
+    **Network Address Translation** (Routers create a NAT from the local network to the outside)
 STUN 
-	**Simple Traversal of UDP through NAT** (A tool for UDP hole-punching through NATs)
+    **Simple Traversal of UDP through NAT** (A tool for UDP hole-punching through NATs)
 TURN 
-	**Traversal Using Relays around NAT** (A relay for data)
+    **Traversal Using Relays around NAT** (A relay for data)
 ICE
-	**Interactive Connectivity Establishment** (A methodology for using STUN (and TURN) to ensure a connection between 2 peers)
+    **Interactive Connectivity Establishment** (A methodology for using STUN (and TURN) to ensure a connection between 2 peers)
 SDP
-	**Session Description Protocol** (A protocol for describing media, like "we want to share audio, here are the codecs we support, here are our list of ICE candidates (IP addresses), etc... ")
+    **Session Description Protocol** (A protocol for describing media, like "we want to share audio, here are the codecs we support, here are our list of ICE candidates (IP addresses), etc... ")
 RTP
-	**Real Time Protocol** (Protocol used to packetize the audio and video encoded streams over UDP packets)
+    **Real Time Protocol** (Protocol used to packetize the audio and video encoded streams over UDP packets)
 RTC
-	**Real Time Communications** (A broad name that encapsulates all of these technologies (and more) to make them work together so we can have real time communications)
+    **Real Time Communications** (A broad name that encapsulates all of these technologies (and more) to make them work together so we can have real time communications)
 
