@@ -15,13 +15,7 @@ The Audio Collection
 
 ..  autoclass:: Playlists
     :members:
-
-    .. autofunction:: Collection#insert
-    .. autofunction:: Collection#remove
-    .. autofunction:: Collection#get
-    .. autofunction:: Collection#index
-    .. autofunction:: Collection#render
-
+    
 ----
 
 The Playlist Entity
@@ -29,10 +23,6 @@ The Playlist Entity
 
 ..  autoclass:: foundry.Playlist
     :members:
-
-    .. autofunction:: Entity.create
-    .. autofunction:: Entity#update
-    .. autofunction:: Entity#delete
 
 ----
 

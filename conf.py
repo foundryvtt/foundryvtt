@@ -45,8 +45,10 @@ extensions = [
 ]
 
 # Configure JavaScript documentation
-js_source_path = '../app/public/scripts/'
+js_source_path = '../app/public/scripts/foundry.js'
 primary_domain = 'js'
+root_for_relative_js_paths = '..'
+jsdoc_config_path = "./jsdoc.json"
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -86,7 +88,7 @@ def setup(app):
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_rtd_theme'
+# html_theme = 'sphinx_rtd_theme'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the

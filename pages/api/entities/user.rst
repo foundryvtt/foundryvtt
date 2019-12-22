@@ -18,10 +18,6 @@ The User Instance
 ..  autoclass:: User
     :members:
 
-    .. autofunction:: Entity.create
-    .. autofunction:: Entity#update
-    .. autofunction:: Entity#delete
-
 ------
 
 The Users Collection
@@ -29,10 +25,6 @@ The Users Collection
 
 ..  autoclass:: Users
     :members:
-
-    .. autofunction:: Collection#insert
-    .. autofunction:: Collection#remove
-    .. autofunction:: Collection#get
 
 ------
 

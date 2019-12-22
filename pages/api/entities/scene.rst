@@ -30,10 +30,6 @@ The Scene Class
 ..  autoclass:: foundry.Scene
     :members:
 
-    .. autofunction:: Entity.create
-    .. autofunction:: Entity#update
-    .. autofunction:: Entity#delete
-
 ----
 
 The Scenes Collection
@@ -41,12 +37,6 @@ The Scenes Collection
 
 ..  autoclass:: Scenes
     :members:
-
-    .. autofunction:: Collection#insert
-    .. autofunction:: Collection#remove
-    .. autofunction:: Collection#get
-    .. autofunction:: Collection#index
-    .. autofunction:: Collection#render
 
 ----
 

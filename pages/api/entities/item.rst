@@ -37,10 +37,6 @@ The Item Class
 ..  autoclass:: foundry.Item
     :members:
 
-    .. autofunction:: Entity.create
-    .. autofunction:: Entity#update
-    .. autofunction:: Entity#delete
-
 ----
 
 The Items Collection
@@ -48,12 +44,6 @@ The Items Collection
 
 ..  autoclass:: Items
     :members:
-
-    .. autofunction:: Collection#insert
-    .. autofunction:: Collection#remove
-    .. autofunction:: Collection#get
-    .. autofunction:: Collection#index
-    .. autofunction:: Collection#render
 
 ----
 

@@ -25,10 +25,6 @@ The Actor Class
 ..  autoclass:: foundry.Actor
     :members:
 
-    .. autofunction:: Entity.create
-    .. autofunction:: Entity#update
-    .. autofunction:: Entity#delete
-
 ------
 
 The Actors Collection
@@ -36,12 +32,6 @@ The Actors Collection
 
 ..  autoclass:: Actors
     :members:
-
-    .. autofunction:: Collection#insert
-    .. autofunction:: Collection#remove
-    .. autofunction:: Collection#get
-    .. autofunction:: Collection#index
-    .. autofunction:: Collection#render
 
 ------
 

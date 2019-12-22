@@ -11,6 +11,13 @@ In order to simplify this workflow, the :class:`FormApplication` class provides 
 the base :class:`Application` and adds some additional methods and workflows which are specifically ideal for working
 with forms and saving new data.
 
+----------
+
 .. autoclass:: FormApplication
     :members:
 
+
+----------
+
+.. autoclass:: BaseEntitySheet
+	:members:
