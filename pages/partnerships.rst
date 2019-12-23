@@ -47,3 +47,18 @@ data directly from Dungeon Fog and importing into Foundry VTT. Learn more on the
 To celebrate our partnership, you can use the discount code **FOUNDRY** when subscribing to the Dungeon Fog
 service for a 10% discount on the price of subscription! Visit https://www.dungeonfog.com/foundry to take
 advantage of this offer!
+
+
+DunGen.app
+==========
+
+.. image:: /_static/images/dungen.png
+    :align: left
+    :target: https://dungen.app/
+
+DunGen is a Dungeon Generator that creates high resolution maps ready to import into Foundry VTT. It offers many room
+variations with several themes to choose from, and uses a custom algorithm to try and generate a logical dungeon.
+DunGen is still in development and updated often with new rooms, themes and features.
+
+In addition to the generated map images themselves, you can also
+generate a full scene file including pre-built walls to take full advantage of Foundry's dynamic lighting. You can see this integration in action in `this short video <https://youtu.be/2RlPpLOFkhc>`_.
