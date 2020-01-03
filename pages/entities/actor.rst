@@ -25,7 +25,7 @@ Actor configuration is handled through the Actor Sheet which is opened by left c
 sidebar directory or by double-clicking on a token within a Scene. The Actor Sheet itself is usually a system-specific 
 implementation, so the details of what can be configured at an Actor level will vary by game system.
 
-.. figure:: /_static/images/actor-config.jpg
+.. figure:: /_static/images/actor-sheet-5e.jpg
     
     The Actor Sheet which is specific to the basic D&D5e game system implementation
 
@@ -177,10 +177,3 @@ Bar 2 Attribute
 Bar 2 Data (Current / Max)
     Set the values of the secondary resource bar that apply to this particular token. If the Token's data is 
     linked to it's parent Actor, that Actor's values will also be changed.
-
-
-The Actor Entity API
-====================
-
-For module developers interested in working with Scenes, API documentation for scenes and associated classes is 
-available in the :ref:`actorAPI` page.

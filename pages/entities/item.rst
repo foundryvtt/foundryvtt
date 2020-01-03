@@ -66,11 +66,3 @@ Observer
 Owner
     The User has full control over the Item, can see it in the sidebar, can open it's Item Sheet, and can make changes
     to the Item's data. Note that only Game Master users can edit Item permissions.
-
------
-
-The Item Entity API
-===================
-
-For module developers interested in working with Items, API documentation for this Entity type is described on the 
-:ref:`itemAPI` page.

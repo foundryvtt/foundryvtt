@@ -20,16 +20,18 @@ browse the Community Wiki Page here: https://foundry-vtt-community.github.io/wik
 System Installation Process
 ---------------------------
 
-To install a new game System for Foundry Virtual Tabletop, follow these steps:
+Game systems in Foundry Virtual Tabletop are stored within your user data folder under ``Data/systems``. Each system
+folder must be named to be identical with the ``name`` attribute in the system manifest. The easiest way to install a
+new Game System is by using the automatic installation workflow on the setup page.
 
-1.  Download the .zip archive of the System from the provided location.
-2.  Extract the zip archive into the ``/resources/app/public/systems`` folder. The folder name for each
-    installed System must match exactly with it's canonical name, and take care that an extra layer of folder nesting
-    was not inadvertently added by the extraction process. For example, if installing the System for Dungeons & Dragons
-    5th Edition (dnd5e), you would end up with a file path that looks like
-    ``/resources/app/public/systems/dnd5e/system.json``.
-3.  Restart Foundry Virtual Tabletop.
-4.  Confirm that the installed System is now available for selection when creating a new World.
+1.  Start Foundry VTT and navigate to the Setup page.
+2.  On the Systems tab, click **Install System** at the bottom of the window.
+3.  Paste in the URL of the system manifest that you are seeking to install.
+
+Alternatively, if you need to manually install a game system from a zip archive or by cloning the repository - simply
+clone or extract the system into your ``Data/systems`` directory. Ensure the directory name of the extracted system
+matches the name in the system manifest. If you installed a system manually, you will need to restart Foundry VTT in
+order for the system to appear.
 
 Changing the System of an Existing World
 ----------------------------------------
@@ -65,16 +67,18 @@ Wiki page https://foundry-vtt-community.github.io/wiki/Community-Modules/.
 Module Installation Process
 ---------------------------
 
-To manually install modules, follow these steps.
+Modules in Foundry Virtual Tabletop are stored within your user data folder under ``Data/modules``. Each module
+folder must be named to be identical with the ``name`` attribute in the system manifest. The easiest way to install a
+new Module is by using the automatic installation workflow on the setup page.
 
-1.  Download the .zip archive of the Module from the provided location.
-2.  Extract the zip archive into the ``/resources/app/public/modules`` folder. The folder name for each
-    installed System must match exactly with it's canonical name, and take care that an extra layer of folder nesting
-    was not inadvertently added by the extraction process. For example, if installing the SVG Loader (svg-loader)
-    module, the resulting file path should be ``/resources/app/public/modules/svg-loader/module.json``.
-3.  Restart Foundry Virtual Tabletop.
-4.  Confirm that the installed Module is now available for selection in the Module Management panel of your World.
+1.  Start Foundry VTT and navigate to the Setup page.
+2.  On the Modules tab, click **Install Module** at the bottom of the window.
+3.  Paste in the URL of the module manifest that you are seeking to install.
 
+Alternatively, if you need to manually install a module from a zip archive or by cloning the repository - simply
+clone or extract the module into your ``Data/modules`` directory. Ensure the directory name of the extracted module
+matches the name in the module manifest. If you installed a module manually, you will need to restart Foundry VTT in
+order for the module to appear.
 
 Module Management
 -----------------

@@ -27,11 +27,11 @@ roleplaying games in a beautiful and intuitive web-based application.
     pages/dice
     pages/features/av
     pages/features/aws
-    pages/api
     pages/systems
     pages/modules
     pages/partnerships
     notes/notes
+    Developer API <http://foundryvtt.com/api>
 
 
 About Foundry Virtual Tabletop

@@ -57,8 +57,3 @@ Each User has a specific **role** which configures their basic permission set of
 **Assistant**
     A special User who has many of the same in-game controls as a Game Master User, but does not have the ability 
     to perform administrative actions like changing User roles or modifying World-level settings.
-
-The Users API
-=============
-
-For module developers interested in working with Users, API documentation for scenes and associated classes is available in the :ref:`userAPI` page.

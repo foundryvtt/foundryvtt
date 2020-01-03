@@ -93,12 +93,3 @@ Show in Navigation
     If this setting is enabled, the scene will appear in the Navigation bar at the top of the screen. This navigation
     menu is best used for scenes you plan to actively use during the course of a game session for convenient access.
     You can also add or remove scenes from the navigation menu by right clicking on the Scene in the sidebar directory.
-
-
-
-
-The Scene Entity API
-====================
-
-For module developers interested in working with Scenes, API documentation for scenes and associated classes is
-available in the :ref:`sceneAPI` page.
