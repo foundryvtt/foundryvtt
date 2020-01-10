@@ -1,8 +1,9 @@
 <h2>Beta 0.4.4 Update Notes</h2>
 
-<p>Greetings ...</p>
+<p>Hey there everyone, I'm thrilled to present <strong>Foundry Virtual Tabletop - Beta 0.4.4</strong> - the biggest Foundry VTT update <em>ever</em> released. An absolute mountain of work has gone into this update and it delivers an impressive list of really meaty features including the first version of the <strong>Macro System</strong>, expanded <strong>Scene options</strong> like default position and audio playlist, the ability to <strong>pull to Scene</strong>, and an enormous number of architectural and API improvements.</p>
 
-<p>The focus of this update is ...</p>
+<h3>Please Note</h3>
+<p>Due to the substantial core changes to various aspects of the API - this update is somewhat more disruptive than normal. Modules and Systems have been automatically disabled until they can are updated for compatibility with 0.4.4. Furthermore - I do expect there to be some latent bugs related to the Macro system and the overhauled embedded entity management which could cause some friction. Please <strong>do not</strong> update to 0.4.4 immediately if you are a bit risk averse, however please do update if you are willing to help test these changes and ensure they are working properly.</p>
 
 <p>Thank you all for appreciating my work, providing thoughtful feedback, and encouraging me to do even more. As always, please keep an eye on the development progress board here for visibility into what features are in progress and coming up next!</p>
 
@@ -11,34 +12,103 @@
 
 <h3>New Features</h3>
 <ul>
-	<li><strong>Macro System</strong>. Added the first version of the Macro system to Foundry VTT. Macros allow for users to quickly activate chat or script based commands. Please note, this is just V1 of the Macro system which will continue to receive investment in future updates, so expect more Macro features in the future and be please be patient with limitations of the initial implementation. All players have permission to use chat-based macros, but players must be given special permission to use script based macros in addition to having the TRUSTED permission level. See http://foundryvtt.com/api/Macro.html for API details.</li>
-	<li><strong>Macro Hotbar</strong>. Added a Hotbar UI element at the bottom of the screen which contains Macros as interactive buttons. The hotbar supports 5 pages of global macros which can be dragged and dropped to organize as you wish. Left clicking a Macro button triggers its effect. Right clicking the button displays a context menu of Macro options. The number keys 1 through 0 activate numbered hotbar slots and pressing the delete key while hovering over a Macro will remove it from the bar. See http://foundryvtt.com/api/Hotbar.html for API details.</li>
-	<li></li>
-
+	<li><strong>Macro System</strong>. Added the first version of the Macro system to Foundry VTT. Macros allow for users to quickly activate chat or script based commands. Please note, this is just V1 of the Macro system which will continue to receive investment in future updates, so expect more Macro features in the future and be please be patient with limitations of the initial implementation. All players have permission to use chat-based macros, but players must be given special permission to use script based macros in addition to having the TRUSTED permission level. </li>
+	<li><strong>Macro Hotbar</strong>. Added a Hotbar UI element at the bottom of the screen which contains Macros as interactive buttons. The hotbar supports 5 pages of global macros which can be dragged and dropped to organize as you wish. Left clicking a Macro button triggers its effect. Right clicking the button displays a context menu of Macro options. The number keys 1 through 0 activate numbered hotbar slots and pressing the delete key while hovering over a Macro will remove it from the bar.</li>
+	<li>The Electron application will no longer start automatically in fullscreen mode, but rather as a maximized window. This can be configured in the options.json configuration file.</li>
+	<li>Overall aesthetic styling for Application windows has been refreshed with a more subtle parchment texture and color scheme.</li>
+	<li>Scenes can now be configured to have a "Secret Name" which is shown to players in the navigation bar instead of the actual Scene name. This can help in cases where the Scene name could constitute a spoiler or is too lengthy.</li>
+	<li>Added a new feature which allows a Gamemaster to pull a User to their currently viewed Scene. This option is available in the User context menu. Right click on a specific User and click "Pull to Scene" to cause that user to transition their canvas view to your currently viewed Scene.</li>
+	<li>Scenes can now be assigned a Default View position which customizes the initial camera position when first viewing the Scene. Note that players who own a Token in the Scene will always start with the view centered on their Token location regardless of the default view position. To easily set the default view, open the Scene configuration sheet and zoom the canvas to your ideal position, and click the helper button on the sheet to capture the current camera position.</li>
+	<li>Added support for a default Audio Playlist for each Scene. The Scene Playlist will automatically begin playing when the Scene is activated while the Playlist for the previously active Scene will stop (unless they are the same).</li>
+	<li>Token images can now be mirrored horizontally as an additional checkbox option in the Token Configuration sheet.</li>
+	<li>Added support to set the value for an attribute bar in the Token HUD to a negative number by explicitly prefixing the assigned value with an equal sign, for example <code>=-10</code> would set the bar value to negative 10.</li>
+	<li>Improved rendering performance for Drawing objects to make refresh operations after the initial graphic creation more efficient.</li>
+	<li>Improve the fallback font used for Signika to allow a sans-serif font face that can better handle international character codes.</li>
+	<li>Overhaul the functionality of the Combat Tracker to perform multi-update operations instead of serial database operations which greatly improve efficiency in cases where many Tokens are added, removed, or rolled simultaneously.</li>
+	<li>Improve the automatic scroll position of the Combat Tracker when the turn order changes to keep the current combatant centered in the tracker view.</li>
+	<li>Improve the permission handling for Measured Templates by adding a user field to the template schema and cross referencing the current user against the template creator to determine whether a user is able to make a change.</li>
+	<li>Improve the permission handling for Drawing objects by cross-referencing the requesting user against the drawing author to better determine whether update or deletion operations can be allowed.</li>
+	<li>Refactor the Folder entity to change the way that deletion workflow occurs, improving the reliability of cascading deletion or re-mapping contained entities or subfolders to a new parent.</li>
+	<li>Improved server-side permission checking for Chat Message updates to allow users to make edits to their own created messages.</li>
+	<li>The animation speed for Roll Table draws has been improved to perform better for very large tables with many entries. The total animation speed is capped at 2 seconds where previously rolling could take several seconds for very large tables.</li>
+	<li>The visual display of the Alternate Token Image selection box for Tokens with a wildcard image is now more readable by trimming the common directory path and only showing the alternate filenames.</li>
+	<li>Improved Entity sorting in the sidebar to automatically process any unsaved changes on an open sheet before moving the entity or assigning a new sort order.</li>
+	<li>Automatically switch to the relevant Sidebar Tab when importing an Entity from a compendium pack.</li>
+	<li>Provide a new configurable world-level option to choose between flat-topped and rounded cone template types as different cone template rules may be preferred by different groups or by different game systems.</li>
 </ul>
 <hr/>
 
 <h3>Core Bug Fixes</h3>
 <ul>
 	<li>Clicking the "Return to Setup" button on the Update Notes ui will now close the window as intended. I apologize to everyone who loved this bug and had hoped I would keep it forever.</li>
+	<li>Fixed a serious bug where multi-token update operations were incorrectly applied in the active Scene, even if that scene was not the correct parent Entity requested in the operation.</li>
+	<li>An issue which could cause a Folder to become self-referenced as its own parent was not correctly fixed in the last update allowing this issue to resurface. The server-side validator which prevents this has been re-written to (hopefully) solve this issue permanently.</li>
 	<li>Avoid adding "undo" canvas operations to the history array which sometimes resulted in infinite undo recursion.</li>
 	<li>Fixed an issue with the delete button on the Combat Tracker which caused it to remain disabled even if the confirmation dialog was declined.</li>
-
+	<li>Corrected a problem with the Token HUD which prevented the bar control from being displayed in cases where the bar value was zero.</li>
+	<li>Using the <code>mergeObject</code> utility function to unset an inner object property in cases where the parent object does not exist resulted in inserting an erroneous key into the original object. See https://gitlab.com/foundrynet/foundryvtt/issues/1907 for details.</li>
+	<li>Fixed tooltip wording on the Join Game screen.</li>
+	<li>The configured route prefix operation for the Express server was not working as expected due to a number of relative links which were incorrect in the presence of a route prefix. These links have been updated to always include the prefix (if one is set) and this server configuration option should now work as expected.</li>
+	<li>A typo in the server-side socket registration prevented system-level dedicated socket channels from working properly. After the change, assigning <code>"socket": true</code> in your system manifest will correctly enable you to use the <code>"system.{systemName}"</code> messaging socket.</li>
+	<li>Fixed a problem with initiative calculation for the Combat Tracker which was not correctly using the synthetic Token Actor and instead using the base Actor for Tokens which were unlinked.</li>
+	<li>Correct a problem with Compendium directory scroll position not being preserved after a re-render operation.</li>
+	<li>Resolved a problem for Journal Entries where the image for an entry could not be changed in cases where the existing image assignment pointed to an image file that did not exist or was unavailable.</li>
+	<li>Solved a Journal Entry bug which could prevent entries which had Limited permissions assigned from opening for a Gamemaster user.</li>
+	<li>Fixed a bug with Roll Tables which caused a table formula which matched no available results to cause the table to become un-rollable.</li>
+	<li>Roll Table entities viewed from a Compendium pack will now correctly have the Import button in their sheet header. Additionally, the header Import button had issues for other entity types which has also been fixed.</li>
+	<li>Several buttons on a Roll Table sheet were hoverable for users who do not have ownership permission over the table, creating the false impression that operations were possible. Specifically the balance, lock, and delete entry icons are no longer shown as interactable to non-owners.</li>
+	<li>Non-Gamemaster owners of a Roll Table were unable to create new result entries within the table. This has been corrected and Users can now be given permission rights to create table results if they have ownership of the parent table.</li>
+	<li>Users who had observer (but not owner) rights to a Roll Table were not able to roll the table. This has been changed so Users can be given permission to roll a table but not to edit it.</li>
+	<li>Fixed two problems which occurred when changing the primary result type of a Roll Table result.</li>
+	<li>Improved a visual bug in the error message when entering the incorrect access key on the join page.</li>
+	<li>Improved the copy+paste workflow for Placeable Objects to maintain the visibility state when pasting. For example, hidden Tokens which are copied will be pasted as hidden.</li>
+	<li>Fixed an edge case bug where importing Scene data from JSON while actively controlling a Token or other placeable caused an exception, causing the import to fail.</li>
+	<li>Fixed a bug which prevented it from being possible to remove a tiling texture from a Measured Template or Drawing without needing to refresh the application for the change to become visible.</li>
+	<li>Corrected a problem where Measured Templates could become unselectable if saving an invalid texture path.</li>
+	<li>Fixed a problem which prevented Journal Entries from being dragged into text fields to become dynamic entity links.</li>
+	<li>Corrected an issue for A/V server configuration in cases where the connecting user does not have any access key assigned.</li>
 </ul>
 <hr/>
 
 <h3>Core Software, APIs, and Module Development</h3>
 <ul>
-	<li>I created an overview issue that provides some high-level explanation of the larger API changes in this update. If you are a module or system developer, please see the following issue: https://gitlab.com/foundrynet/foundryvtt/issues/1919</li>
-	<li>Further standardize and simplify Socket Interface workflows to use the same preHook and postHook signatures for all CRUD events. See http://foundryvtt.com/api/Hooks.html for details.</li>
+	<li>The required core compatibility version for modules and systems has been set to <code>0.4.4</code> due to the large number of breaking changes included in this update. All modules and systems must review the changes and update their package manifest files to support <code>minimumCoreVersion</code> of 0.4.4. I created an overview issue that provides some high-level explanation of the larger API changes in this update. If you are a module or system developer, please see the following issue: https://gitlab.com/foundrynet/foundryvtt/issues/1919</li>
+	<li>Added a number of new API concepts related to the new Macro entity. See http://foundryvtt.com/api/Macro.html and http://foundryvtt.com/api/Hotbar.html for API details.</li>
+	<li>Further standardize and simplify Socket Interface workflows to use the same preHook and postHook signatures for all CRUD events. See http://foundryvtt.com/api/SocketInterface.html for details.</li>
+	<li>Add universal support for multi-target database operations for all Entity and Embedded Entity types. See https://gitlab.com/foundrynet/foundryvtt/issues/1820 and http://foundryvtt.com/api/Entity.html for more details.</li>
+	<li>This update introduces a major refactor to the structure of Embedded Entities which are now indexed by a unique string `<code>_id</code>` instead of a numeric <code>id</code>. Furthermore, embedded entity management has been comprehensively redesigned to standardize with a set of methods on the Entity class. See http://foundryvtt.com/api/Entity.html for details.</li>
+	<li>Comprehensively refactor the server side Document, Entity, EmbeddedEntity abstractions in the database document model to standardize and simplify the code structure.</li>
+	<li>The <code>Collection.index()</code> method has been removed as it was not used by any core application.</li>
+	<li>Added support for an optional <code>strict</code> parameter in the <code>Collection.get</code> operation which will raise an exception if the requested Entity ID does not exist.</li>
+	<li>Implement a new <code>filterObject</code> method which allows for socket update operations to broadcast back only the subset of valid keys and values which were successfully applied during the update.</li>
+	<li>A mapping of all synthetic Token Actors is now easily available under <code>game.actors.tokens</code> which provides a synthetic <code>Actor</code> instance for every Token id.</li>
 	<li>Added helper methods to the User entity to assist with macro management. See the following issue for details: https://gitlab.com/foundrynet/foundryvtt/issues/1935</li>
+	<li>Added a hook allowing systems and modules to customize Hotbar drop behavior. See https://gitlab.com/foundrynet/foundryvtt/issues/1941</li>
 	<li>Simplified the distinction between <code>draw()</code> and <code>refresh()</code> operations for all Placeable Object subclasses. Draw operations are more comprehensive, completely re-constructing the canvas object while refresh operations are more lightweight, updating it's display in-place.</li>
 	<li>Redesigned the <code>filterObject()</code> utility method to work using 2 objects. See https://gitlab.com/foundrynet/foundryvtt/issues/1918 for details.</li>
+	<li>Improved the <code>Dialog.confirm()</code> wrapper to return a Promise which resolves once the prompted user makes a choice. See https://gitlab.com/foundrynet/foundryvtt/issues/1915 for details.</li>
+	<li>Rename <code>CONFIG.tokenTextStyle</code> to <code>CONFIG.canvasTextStyle</code> to better reflect the more widespread usage of this text styling configuration among multiple types of placeable objects.</li>
+	<li>Factor out some CRUD helper methods for synthetic Token Actor operations into a helper class to help simplify the Actor entity code.</li>
+	<li>Refactor <code>Playlist.howls</code> to more generically be named <code>Playlist.audio</code> as a collection of audio helper objects.</li>
+	<li>Redesign the functionality of flushing the chat log to utilize the new deleteMany database operation.</li>
+	<li>Restore a server-side validation check on the User entity which requires user names to be unique within the World.</li>
+	<li>The Collection.directory static attribute has been changed to an instance attribute.</li>
+	<li>The object of IP addresses and invitation links for the game has been renamed both on the server side as well as client side from <code>ips</code> to <code>addresses</code>.</li>
+	<li>Application developers are now able to customize the appearance and behavior of TinyMCE editors by overriding the <code>_createEditor</code> method to customize the options passed to TinyMCE initialization.</li>
+	<li>Improved <code>user.targets</code> as a specialized Set subclass which handles dispatching a Hook event whenever Token targets are changed. See https://gitlab.com/foundrynet/foundryvtt/issues/1940 for details.</li>
 </ul>
 <hr/>
 
 <h3>Documentation Improvements</h3>
 <ul>
-	<li></li>
+	<li>The Foundry VTT developer API documentation has been redesigned to use a new JSDoc approach. The new documentation is available here (http://foundryvtt.com/api/) and contains far more coverage and improved clarity around how concepts are used and relate to each other.</li>
+	<li>Corrected some out-of-date instructions on the Module and System Installation page: http://foundryvtt.com/pages/modules.html</li>
+	<li>Added a section on minimum hardware requirements to the Frequently Asked Questions page: http://foundryvtt.com/pages/faq.html</li>
+</ul>
+<hr/>
+
+<h3>Known Issues</h3>
+<ul>
+	<li>A visual artifact exists when first placing a new token that may result in duplicated sprite images for the Token until the canvas is re-rendered.</li>
 </ul>
 <hr/>

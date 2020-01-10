@@ -70,6 +70,8 @@ patterns, the following hardware would be recommended:
 
 * An integrated GPU to enable hardware acceleration.
 
+* 8GB of RAM
+
 * A monitor no smaller than 1366x786. At this minimum resolution many aspects of the UI will feel cramped.
 
 * Download/upload network speed of 5MB/s or faster.
@@ -81,6 +83,8 @@ patterns, the following hardware would be recommended:
 * A monitor with 1920x1080 or higher resolution.
 
 * A mouse. You *can* use the software with a touchpad but the current software is designed for mouse and keyboard.
+
+.. note:: Hardware requirements are the same for both players and for the Gamemaster.
 
 -------
 
