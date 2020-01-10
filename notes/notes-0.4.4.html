@@ -1,0 +1,44 @@
+<h2>Beta 0.4.4 Update Notes</h2>
+
+<p>Greetings ...</p>
+
+<p>The focus of this update is ...</p>
+
+<p>Thank you all for appreciating my work, providing thoughtful feedback, and encouraging me to do even more. As always, please keep an eye on the development progress board here for visibility into what features are in progress and coming up next!</p>
+
+<p><a href="https://gitlab.com/foundrynet/foundryvtt/boards" target="_blank" title="FVTT Issue Tracker">https://gitlab.com/foundrynet/foundryvtt/boards</a></p>
+<hr/>
+
+<h3>New Features</h3>
+<ul>
+	<li><strong>Macro System</strong>. Added the first version of the Macro system to Foundry VTT. Macros allow for users to quickly activate chat or script based commands. Please note, this is just V1 of the Macro system which will continue to receive investment in future updates, so expect more Macro features in the future and be please be patient with limitations of the initial implementation. All players have permission to use chat-based macros, but players must be given special permission to use script based macros in addition to having the TRUSTED permission level. See http://foundryvtt.com/api/Macro.html for API details.</li>
+	<li><strong>Macro Hotbar</strong>. Added a Hotbar UI element at the bottom of the screen which contains Macros as interactive buttons. The hotbar supports 5 pages of global macros which can be dragged and dropped to organize as you wish. Left clicking a Macro button triggers its effect. Right clicking the button displays a context menu of Macro options. The number keys 1 through 0 activate numbered hotbar slots and pressing the delete key while hovering over a Macro will remove it from the bar. See http://foundryvtt.com/api/Hotbar.html for API details.</li>
+	<li></li>
+
+</ul>
+<hr/>
+
+<h3>Core Bug Fixes</h3>
+<ul>
+	<li>Clicking the "Return to Setup" button on the Update Notes ui will now close the window as intended. I apologize to everyone who loved this bug and had hoped I would keep it forever.</li>
+	<li>Avoid adding "undo" canvas operations to the history array which sometimes resulted in infinite undo recursion.</li>
+	<li>Fixed an issue with the delete button on the Combat Tracker which caused it to remain disabled even if the confirmation dialog was declined.</li>
+
+</ul>
+<hr/>
+
+<h3>Core Software, APIs, and Module Development</h3>
+<ul>
+	<li>I created an overview issue that provides some high-level explanation of the larger API changes in this update. If you are a module or system developer, please see the following issue: https://gitlab.com/foundrynet/foundryvtt/issues/1919</li>
+	<li>Further standardize and simplify Socket Interface workflows to use the same preHook and postHook signatures for all CRUD events. See http://foundryvtt.com/api/Hooks.html for details.</li>
+	<li>Added helper methods to the User entity to assist with macro management. See the following issue for details: https://gitlab.com/foundrynet/foundryvtt/issues/1935</li>
+	<li>Simplified the distinction between <code>draw()</code> and <code>refresh()</code> operations for all Placeable Object subclasses. Draw operations are more comprehensive, completely re-constructing the canvas object while refresh operations are more lightweight, updating it's display in-place.</li>
+	<li>Redesigned the <code>filterObject()</code> utility method to work using 2 objects. See https://gitlab.com/foundrynet/foundryvtt/issues/1918 for details.</li>
+</ul>
+<hr/>
+
+<h3>Documentation Improvements</h3>
+<ul>
+	<li></li>
+</ul>
+<hr/>
