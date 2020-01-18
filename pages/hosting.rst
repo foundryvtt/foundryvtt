@@ -145,11 +145,20 @@ To get started with Foundry VTT, you will need to install ``nodejs`` which is us
     curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -
     sudo apt install -y nodejs
 
-Once Node.js is installed, next download and extract the latest Foundry Virtual Tabletop Linux version from Patreon.::
+Once Node.js is installed, next download and extract the latest Foundry Virtual Tabletop Linux version from Patreon.
+The following commands will create an application directory and a sibling user data directory::
 
+    # Create application and user data directories
+    mkdir foundryvtt
+    mkdir foundrydata
+
+    # Install the software
+    cd foundryvtt
     wget https://s3-us-west-2.amazonaws.com/foundryvtt/releases/<patreon-link-here>.zip -O foundryvtt.zip
     unzip foundryvtt.zip
 
+    # Start running the server
+    node resources/app/main.js --dataPath=~/foundrydata
 
 **For MacOS**
 
