@@ -71,3 +71,27 @@ Roll a set of dice and compare the total against some target, keeping the differ
 * ``ms>={y}``     Same as above.
 * ``ms<{y}``      Subtract the rolled total from `y` and return the difference.
 * ``ms<={y}``     Same as above.
+
+
+Parenthetical Expressions
+=========================
+
+A parenthetical expression allows you to evaluate some inner component of a roll formula before evaluating the outer
+portion. This allows for options where the number, faces, or modifiers of a dice roll are themselves dynamic in some
+way. Parenthetical expressions are defined by enclosing the inner expression in parentheses. Some example uses of
+parenthetical expressions include:
+
+* ``(@abilities.dex.mod)d6``        Roll a variable number of dice based on some data attribute
+* ``(2d4)d8``                       Roll a variable number of dice based on another roll
+* ``3d12cs>=(@attributes.power)``   Count rolls as successes if they exceed some target attribute
+
+Dice Pools
+==========
+
+A dice pool allows you to evaluate a set of dice roll expressions and combine or choose certain results from the pool
+as the final total. This allows you to keep, combine, or count results across multiple rolled formulae. Dice pools are
+defined using comma separated roll terms within brackets. Some example uses of dice pools include:
+
+* ``{3d8, 4d6}kh``                  Keep the better result of two different roll formulas
+* ``{4d6, 3d8, 2d10, 1d12}cs>5``    Count the number of dice formula which exceed some target threshold
+* ``{1d20, 10}kh``                  Keep the best result between a 1d20 and 10

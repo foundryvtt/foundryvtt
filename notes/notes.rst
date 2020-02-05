@@ -40,3 +40,4 @@ This page contains an archive of published update notes dating back to late stag
     notes-0.4.3
     notes-0.4.4
     notes-0.4.5
+    notes-0.4.6
