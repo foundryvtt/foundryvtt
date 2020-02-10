@@ -1,0 +1,38 @@
+<h2>Beta 0.4.7 Update Notes</h2>
+
+<p>Greetings friends, adventurers, and supporters. I am excited to share the Foundry Virtual Tabletop <strong>Beta 0.4.7 Update</strong> which is a stable update version released for all Patreon supporter tiers.</p>
+
+<p>This update extends the 0.4.6 update to add improvements for Dice rolling with support for new nested expressions and dice pools, improvements to Token interaction, UI optimizations, and API improvements. This update improves upon these major features with a number of bug fixes and performance improvements. Please visit the following URL to review the update notes from the prior 0.4.6 update: <a href="http://foundryvtt.com/notes/notes-0.4.6.html" title="Update 0.4.6 Notes" target="_blank">http://foundryvtt.com/notes/notes-0.4.6.html</a>.</p>
+
+<p>Thank you all for appreciating my work, providing thoughtful feedback, and encouraging me to do even more. As always, please keep an eye on the <a href="https://gitlab.com/foundrynet/foundryvtt/boards" title="Issue Tracker" target="_blank">Foundry VTT Issue Tracker</a> for visibility into development progress and which features are coming up next!</p>
+<hr/>
+
+<h3>New Features</h3>
+<ul>
+	<li>The End User License Agreement (EULA) has been updated with some language changes. The alterations include clarification around the terms of use about where the software may be installed, what steps must be taken if the license is refused, clarification around ownership of personal data, a change to the policy about what data is collected (none, except when the software is updated), and some other minor adjustments. As a result of the EULA changes you must review and accept the updated agreement after installing this update.</li>
+</ul>
+<hr/>
+
+<h3>Core Bug Fixes</h3>
+<ul>
+	<li>Corrected issues with sorting Entities and Folders in the sidebar which resulted from changes in the application rendering callback logic.</li>
+	<li>Fixed issues with dice rolls and parenthetical expressions which prevented some Math operations like floor, ceil, or round from being parsed correctly.</li>
+	<li>The new Dice Pool construct was incorrectly keeping only the highest result from the pool when constructed using the fromFormula() factory method. Now Dice Pools will sum any surviving results in the pool after dropping or modifying individual rolls.</li>
+	<li>Fixed three issues related to a custom configured route prefix: the socket.io connection path was not served with respect to the prefix, the uploading of files to the server-side file storage used the incorrect POST destination, and image files selected through the FilePicker incorrectly left the route prefix path in their saved paths.</li>
+	<li>Handled an edge case with the changes to the KeyboardManager where the enter key on the numpad was treated as a different keystroke than a regular Enter keypress.</li>
+	<li>Fix an incorrect typing of the Application.rendered getter which was returning an integer instead of a boolean. This fix corrected a few downstream issues including Journal Entry sheets which did not render images properly.</li>
+	<li>Correct two errors in the CONFIG object which caused the Macros Directory to be undefined and for the FolderConfig sheet to be incorrectly assigned.</li>
+	<li>When a World has no active scenes, creating a first scene will automatically activate it - but other connected players were not automatically pulled to that new scene as you would expect.</li>
+</ul>
+<hr/>
+
+<h3>Core Software, APIs, and Module Development</h3>
+<ul>
+	<li>Added a hook for all Application subclasses which fires when that application is closed. See the following GitLab issue for example usage: https://gitlab.com/foundrynet/foundryvtt/issues/2100</li>
+	<li>Added the <code>Roll.cleanFormula(formula)</code> method for standardizing the string format of a dice roll formula, removing redundant spacing or arithmetic operators.</li>
+	<li>Allow combatants which do not have a Token reference to remain under GM ownership.</li>
+	<li>Improve the flexibility of the Entity.hasPerm() method to work for entities which do not contain an explicit permissions object (like Folders).</li>
+	<li>Specifying a gridDistance in a game system manifest is no longer strictly required, but simply optional.</li>
+	<li>Correct uses of the PIXI Graphics beginTextureFill method to adhere to the new recommended object-based signature.</li>
+</ul>
+<hr/>

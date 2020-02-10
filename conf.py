@@ -20,14 +20,14 @@
 # -- Project information -----------------------------------------------------
 
 project = 'Foundry Virtual Tabletop'
-copyright = '2019, Foundry Gaming LLC'
+copyright = '2020, Foundry Gaming LLC'
 author = 'Andrew Clayton'
 
 # The short X.Y version
-version = '0.4.5'
+version = '0.4.7'
 
 # The full version, including alpha/beta/rc tags
-release =  'Beta 0.4.5'
+release = 'Beta 0.4.7'
 
 
 # -- General configuration ---------------------------------------------------
