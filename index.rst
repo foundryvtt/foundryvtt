@@ -129,7 +129,7 @@ As you are visiting the demo, please be aware of several key factors and ground 
 
 .. note:: The current Foundry VTT demo password is ``foundry``. This password may rotate if needed to prevent abuse.
 
-Those disclaimers aside, you can find the demo here: http://foundryvtt.com:30000
+Those disclaimers aside, you can find the demo here: http://foundryvtt.com/demo
 
 
 -----
