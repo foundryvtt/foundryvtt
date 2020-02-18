@@ -158,7 +158,7 @@ The following commands will create an application directory and a sibling user d
     unzip foundryvtt.zip
 
     # Start running the server
-    node resources/app/main.js --dataPath=~/foundrydata
+    node resources/app/main.js --dataPath=../foundrydata
 
 **For MacOS**
 
