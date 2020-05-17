@@ -1,0 +1,67 @@
+<h2>Beta 0.5.1 Update Notes</h2>
+
+<p>Hey there Patreon supporters and Foundry VTT community! I'm happy to share release notes for <strong>Foundry Virtual Tabletop - Beta 0.5.1</strong>, which is a odd-numbered ("stable") update which combines all of the new features added in the 0.5.0 release with a number of bug fixes and adjustments to make this release available for all Beta supporters.</p>
+
+<p>The 0.5.0 update included a ton of great new features with a mix of backend and frontend improvements. Be sure to visit <a href="https://foundryvtt.com/releases/0.5.0" title="Beta 0.5.0 Release Notes" target="_blank">https://foundryvtt.com/releases/0.5.0</a> to read the full release notes for that update. This update fixes a number of bugs which should make this update version relatively stable for most users.</p>
+
+<p>Thank you all for your vocal support for my work, your thoughtful feedback, and for the positive word-of-mouth you share within the RPG community. It's extremely valuable and much appreciated. As always, please keep an eye on the development progress board here for visibility into what features are in progress and coming up next!</p>
+
+<p><a href="https://gitlab.com/foundrynet/foundryvtt/boards" target="_blank" title="FVTT Issue Tracker">https://gitlab.com/foundrynet/foundryvtt/boards</a></p>
+<hr/>
+
+<h3>New Features</h3>
+<ul>
+	<li><strong>Important note for self-hosted installations:</strong> new dependencies added in version 0.5.0 require that Foundry Virtual Tabletop be run using Node.js version 12.x or later. If trying to run the Foundry VTT software with an older version of Node.js an error will be thrown and the application will fail to start.</li>
+	<li>Dynamically adapt the amount of vision blur as you zoom the canvas in or out. Previously, the amount of vision blur would look good at high levels of zoom but look bad when zoomed out very far. Vision lines should now be more crisp when zoomed out.</li>
+	<li>Improved the visual preview of the area-of-effect for ambient light sources to better indicate the color tint of the light source.</li>
+	<li>Improved the adaptive scaling for Token nameplate font size to better avoid edge cases where the font size for Tokens with very specific names could end up substantially enlarged.</li>
+	<li>Change the area of effect calculation for Cone type Measured Templates when "Flat Bottomed" cones are used. Instead of treating the cone distance as the length (as in the case of curved cones), the cone area will treat the distance as the height of the cone which should better match player intuition about what area should be affected.</li>
+	<li>Removed the "Return to Game" button from the administrator access key prompt as this option was meaningless for the situation in which admin access is required.</li>
+	<li>Changed the masking rectangle for the Lighting Layer from just the background image dimensions to the dimensions of the entire game Canvas.</li>
+</ul>
+<hr/>
+
+<h3>Bug Fixes</h3>
+<ul>
+	<li>Fixed an issue with the startup workflow which could result in failure of the default <code>options.json</code> to be created which was a fatal error blocking application startup.</li>
+	<li>Editing the administrative configuration options for the software multiple times after setting an Admin Access Key could cause that key to be incorrectly replaced with it's hashed value. This could result in users getting locked out of the application unless they manually removed the admin key from their options configuration. This is fixed.</li>
+	<li>Fixed the behavior of limited-angle vision and light source polygon computation where previously certain angles and directions of facing could produce artifacts or incorrect polygons for vision. The experience with limited vision angles should now be more faithful to expectation.</li>
+	<li>Improve the encoding of URI strings to protect against and allow for a wider range of special characters which <strong>ideally should not</strong>, but sometimes may appear in file or directory names.</li>
+	<li>Hardened edge case handling for server-side User activation and deactivation workflows to avoid throwing an error in some cases where a User was not able to be properly deactivated.</li>
+	<li>Fixed a bug with changes to Token hidden state which failed to force a new visibility test after the state change was completed. This could result in hidden tokens being visible to players or other similar issues.</li>
+	<li>Fixed a problem with negative radius light sources which, after the lighting improvements in 0.5.0, were not properly negating the light level within their affected area.</li>
+	<li>Fix an issue with the drawing configuration form, and the workflow to reset that configuration back to default values. Invalid default configuration values caused errors to be thrown and also resulted in drawings not being previewed in real-time while drawing.</li>
+	<li>An assumption in the Sight Layer was too rigid, expecting a Token that had vision settings to reference a valid Actor. This has been relaxed so Tokens which do not reference an Actor can still function from a vision perspective.</li>
+	<li>Fixed a bug with object visibility where it was not re-computed as required when a controlled Token was released.</li>
+	<li>Protect against special characters in compendium filter searches by properly escaping them prior to creating a regexp pattern.</li>
+	<li>Canvas initialization would fail for worlds that did not have any Scene yet - in particular affecting brand new players first experiencing the software. This is fixed and the canvas will properly initialize with the gray denim background.</li>
+	<li>Fixed a problem when an administrator access key is required to access the Setup menu, but the EULA also needs to be agreed where it was not possible to accept the license agreement without first interacting with the admin access prompt.</li>
+	<li>Corrected a problem where returning to the /join screen from within an active World did not properly de-register that World and User from the client's saved session object.</li>
+	<li>The "Log Out" and "Return to Setup" buttons in the settings sidebar menu were not functioning properly due to an incorrect usage of the route prefix option (if any).</li>
+	<li>Attempting to agree to the EULA without checking the "I agree" checkbox would result in the confirmation button remaining disabled, preventing signing of the agreement.</li>
+	<li>Fixed the styling and positioning of the elevation arrow in the Token HUD.</li>
+	<li>Setting the value <code>"upnp": false</code> in the options.json configuration file did not properly prevent UPnP from being used by the application. This configuration value will now be respected.</li>
+</ul>
+<hr/>
+
+<h3>Framework and API Changes</h3>
+<ul>
+	<li>Added an additional <code>pan {boolean}</code> option to the <code>Token.control(options)</code> method which will automatically pan the canvas to the controlled Token if set to true.</li>
+	<li>Added configuration variables for <code>CONFIG.Canvas.darknessColor</code> and <code>CONFIG.Canvas.normalLightColor</code> which allow for configuring the default color hues used for darkness and normal (uncolored) light sources.</li>
+	<li>Switch from relying upon <code>KeyboardEvent.code</code> which designates the key location on the keyboard to <code>KeyboardEvent.key</code> which designates the actual character used. Hopefully this will provide greater compatibility with foreign language or customized keyboard configurations.</li>
+	<li>Select global variables have been explicitly added to the <code>window</code> scope to (hopefully) ensure that they may be used within ES modules in Safari where variables are required to be explicitly imported or drawn from the window global. This issue still impacts access to utility functions which are defined within the global namespace - that situation will need to be solved in a subsequent update.</li>
+	<li>Improve the rendering behavior for Application instances which set <code>height: "auto"</code> in their options to more efficiently rescale their vertical position and height when a re-render occurs.</li>
+</ul>
+<hr/>
+
+<h3>Documentation Improvements</h3>
+<ul>
+	<li>Improvements to the hosting instructions page to clarify the requirements related to the Node.js version that can be used: https://foundryvtt.com/article/hosting/</li>
+	<li>Added a new documentation page named "Introduction to Module Development" which explains the file structure and manifest schema for modules: https://foundryvtt.com/article/module-development/</li>
+</ul>
+<hr/>
+
+<h3>Known Issues</h3>
+<ul>
+	<li>None at this time.</li>
+</ul>

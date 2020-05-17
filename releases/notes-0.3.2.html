@@ -1,0 +1,75 @@
+<h2>Beta 0.3.2 Update Notes</h2>
+
+<p>Greetings friends, I am very excited to post the next Foundry Virtual Tabletop beta update, this time it's version <code>0.3.2</code> which adds a ton of amazing new features for both the core platform and for Dungeons & Dragons 5th Edition. This update includes improvements to Token Configuration, built-in Module Updates, better organization tools like Folder Colors and new Compendium types, as well as a litany of bug fixes and minor performance improvements. Additionally - this update features the first installment of a very exciting partnership and collaboration which I am thrilled to announce.</p>
+
+<p>Foundry Virtual Tabletop is teaming up with <strong>Stryxin from Forgotten Adventures</strong> and <strong>Penelope (Vyrnali)</strong> to add high-quality compendium support for the SRD Monsters from the D&D universe. Stryxin is a fantastic artist who creates maps, tokens, assets, brushes, tiles and more. He is undertaking a grand project to draw and release (eventually) a token for every D&D5e compendium creature and - best of all - he has agreed to share those wonderful tokens with the Foundry VTT community free of charge. Penelope is a talented writer who is active in the World Anvil community who has graciously volunteered to author unique and flavorful bestiary entries for all monsters to give their biographies a special Foundry VTT touch which gives the Monsters compendium that extra ability to inspire you and your players. This FVTT update includes fully implemented game-ready tokens for all the CR0 monsters (29 of them)! Each entry has a customized biography, a beautiful drawn token, and fully configured stat blocks and abilities which are ready for use in-game. We will be continuing to collaborate to add tokens for higher CR enemies with each future update!</p>
+
+<p>I'm really thrilled by the continued progress on this project and the inspiring modules being created by the community. Thank you all for appreciating my work, providing thoughtful feedback, and encouraging me to do even more. As always, please keep an eye on the development progress board here for visibility into what features are in
+progress and coming up next!</p>
+
+<p><a href="https://gitlab.com/foundrynet/foundryvtt/boards" target="_blank" title="FVTT Story Board">https://gitlab.com/foundrynet/foundryvtt/boards</a></p>
+<hr/>
+
+<h3>New Features</h3>
+<ul>
+	<li>Added support for <strong>Random Wildcard Tokens</strong> which allows an Actor to be configured to support multiple token artworks and allows placed Tokens of that Actor type to randomly select from available token images when first placing a new Token instance of the Actor.</li>
+	<li>Players with the "Trusted" permission level may now <strong>configure their own Tokens</strong> in addition to editing their Actor sheet. This can speed up set up and gameplay management activities for DMs who have trustworthy players.</li>
+	<li>Added support for configurable <strong>Folder Colors</strong>. When editing a folder (via the right-click context menu) you may now select an optional color for the folder to help with organization. To remove a set color and return to the default appearance simply delete the color string from the form.</li>
+	<li>Added a new integrated <strong>Module Update</strong> feature - this allows you to update installed modules to their latest version from directly within Foundry VTT. To update modules, visit the module management interface in the Settings Sidebar menu. The module update system is new and fairly limited at this time - but more improvements will be coming to make it even easier to load and maintain community-contributed content in the platform.</li>
+	<li>The Token HUD which was first added in 0.3.0 has experienced continued improvements. The <strong>Token Status Effects</strong> menu has been moved out of the Canvas and into the HUD layer, featuring improved clarity and user experience.</li>
+	<li>This update features a <strong>Token Configuration Sheet redesign</strong> which separates the Token config sheet into a smaller panel with multiple tabs. The Token Config sheet was getting very long and requiring vertical scrolling to work with. The new sheet separates Token Configuration into five thematic sections: Character, Image, Position, Vision, and Resources.</li>
+	<li>Grid measurement distances of less than 1 unit are now allowed by the system which will help for maps where a single grid space is intended to represent a portion of a unit (like 0.25 miles).</li>
+	<li>The limitation on Folder nesting depth has been relaxed for Journal Entry entities. <strong>Journal Folders</strong> may now nest up to 3 layers deep, and Journal Entries themselves are no longer required to be within a folder (they can just be in the base sidebar).</li>
+	<li>Added support for new types of Compendium Packs, you can now created <strong>Audio Playlist Compendia</strong> and <strong>Journal Entry Compendia</strong> in addition to packs for Actors, Items, and Scenes.</li>
+	<li>Improved the behavior of <strong>Ambient Audio Easing</strong> to now have a brief fade between volume levels when moving tokens. This avoids dramatic step-changes in volume and should make the auditory experience noticeably more pleasant. Furthermore, some logic improvements in related code has resolved a bug which could occur when multiple overlapping audio sources of the same type had different volume and easing preferences assigned.</li>
+	<li>Modified the behavior of token visibility changes and their interaction with the combat tracker. Now changes to Token visibility will not also alter Combatant visibility on the tracker and the two settings are managed separately.</li>
+	<li>Added a context option to Toggle Scene Navigation to scenes in the navigation bar context allowing them to be more efficiently removed from the top Navigation.</li>
+	<li>Marking a combatant as <strong>Defeated</strong> in the Combat Tracker will now automatically apply a defeated icon as the Token overlay icon if the Token does not already have an overlay icon assigned. Which icon is used can be configued using <code>CONFIG.Token.defeatedIcon</code>.</li>
+	<li>The <strong>Canvas Pan Tool</strong> has been deleted in favor of consolidating navigation workflows for canvas panning and token selection. I believe this makes a simpler and more consistent user experience, but I realize that some users who were accustomed to using the specific pan tool may not immediately love the change. The new UX is that right-click drag always will pan the camera for all tools and left click workflows are used for selection, movement, measurement, placement, and sizing.</li>
+	<li>Added an explicit <strong>Has Vision Checkbox</strong> to the Token data model. Previously, whether or not a token had vision was inferred based on whether they had a non-zero value entered for dim or bright sight settings. This makes the workflow more explicit and allows for some simplifications when determining which tokens need to be tested for dynamic vision during gameplay. The "Has Vision" checkbox is located on the Vision tab of the Token Configuration sheet.</li>
+	<li>Added a new convenience button to the sheet header for entities which are viewed directly from a Compendium Pack which allows for you to import the entity whose sheet you are currently viewing.</li>
+	<li>Added a built-in workflow to support <strong>deleting a World Compendium Pack</strong>. Previously, world-level compendia which were created would need to be manually deleted and removed from the world.json file. There is now an automated in-app workflow to accomplish this - just be careful and read the warning message as any compendium content will be permanently removed.</li>
+</ul>
+<hr/>
+
+<h3>Core Bug Fixes</h3>
+<ul>
+	<li>Fixed a bug which caused movements to a wall endpoint while editing on the Walls Layer to temporarily display all door control icons.</li>
+	<li>Identified an issue where the rich HTML content of TinyMCE editor fields was being included in every entity update instead of only when that content was modified by a user. Eliminating this issue has made entity update operations (for entities which have rich text fields) more efficient!</li>
+	<li>Fixed a bad logical design for Token Deletion workflow which caused Combatants that represented that Token to be deleted after the Token request was processed, resulting in multiple overlapping and redundant DB calls.</li>
+	<li>Aborting the placement of a Map Note by cancelling the creation dialog will no longer leave the preview pin visible on the Scene.</li>
+	<li>Restored the highlighting of Scenes in the Navigation Bar to denote which scenes are publicly visible and which are GM Only.</li>
+	<li>Added a <code>sort</code> attribute to the Folder data model in anticipation of upcoming changes which will allow folder sort order to be manually redefined.</li>
+	<li>Fixed a bug with World Compendium creation which caused the incorrect file path to be printed in the world.json file, rendering the new compendium pack inoperable.</li>
+	<li>Fixed a logic issue in the PIXI asset loader which allowed some event listeners to remain registered, potentially piling up over time.</li>
+	<li>Resolved a situation in which releasing Token control could fail to hide an active Token HUD.</li>
+	<li>Players should now experience an immediate change in the visibility of the local area if their own controlled token is hidden from play or revealed.</li>
+	<li>Dragging minimized applications was incorrectly constrained by the size of the maximized application, preventing minimized apps from being dragged to the edges of the screen. This is now possible, if a minimized app is maximized into an out-of-bounds position, it's location is corrected to the closed valid location.</li>
+	<li>Fixed another bug with Audio Playlists which could prevent playing tracks from beginning during live gameplay, instead requiring a browser refresh to begin playback.</li>
+</ul>
+<hr/>
+
+<h3>Core Software, APIs, and Module Development</h3>
+<ul>
+	<li>Added <code>FormApplication</code> support for a standard color-choice selector which will populate a defined text input field with a chosen color string. Use this pattern throughout FVTT where colors are chosen to allow users a way to provide a color string directly or remove an existing color choice.</li>
+	<li>Modules and Systems may now provide HTML directly in their <code>description</code> field of their module.json or world.json manifest files.</li>
+	<li>Added internationalization support with English translations for many additional Applications in FVTT: the Main Menu, the Settings Menu, and the Token Configuration Sheet.</li>
+	<li>Renamed the main menu option from "Switch Player" to "Log Out" to be more clear about what will happen when that button is pressed.</li>
+	<li>Altered the way that server-side database compaction is performed. Previously compaction occured for each table on a 10 minute interval regardless of what activity has occured on the server. To economize a bit more on compaction operations, the compaction process has been changed to occur once a certain threshold number of write operations have happened on a per-table basis. This results in fewer compactions and slightly improved performance.</li>
+	<li>The <code>FormApplication</code> class can now support two new options - <code>submitOnClose</code> which will automatically submit the form if the window is closed and <code>submitOnUnfocus</code> which will automatically submit the form when an input element is changed and focus is shifted out of that element.</li>
+	<li>Refactored the <code>ContextMenu</code> class to now accept an Array of menu items instead of an Object. The context menu will now automatically try to localize the names of menu items, if possible. The old-style Object of menu items is still supported, but a deprecation warning is shown and support will be removed in a future version (probably 0.4.0).</li>
+	<li>Improved the behavior of the <code>getFiles</code> socket request to support returning a list of files and directories based on a glob-style wildcard path.</li>
+</ul>
+<hr/>
+
+<h3>D&D5e System Improvements</h3>
+<ul>
+	<li>Added fully configured Tokens for all CR0 monsters to the Monsters (SRD) Compendium.</li>
+	<li>Added support to the Feat item type to track a limited number of uses per time period (short rest, long rest, day, etc...). The number of uses available is displayed next to the item name in the character sheet for convenient access and easier tracking of multiple resource types.</li>
+	<li>Built a new <strong>Special Traits</strong> menu which is accessible on the Traits tab of the character sheet. The special traits tab allows for the configuration of specific features that mechanically alter the behavior of core 5e systems. Some feats are immediately supported and others will be added during future updates.</li>
+	<li>Added support for the <strong>Powerful Build</strong> feat which will now correctly increase creature size for the purpose of computing encumbrance.</li>
+	<li>Added support for the <strong>Savage Attacks</strong> feat which adds an extra weapon die when rolling critical damage.</li>
+	<li>Added support for initiative-altering feats like Advantage to Initiative, Half-Proficiency Bonus, and the Alert Feat.</li>
+	<li>Fixed a bug which prevented rolling of the NPC hit point formula.</li>
+</ul>
+<hr/>

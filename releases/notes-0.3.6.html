@@ -1,0 +1,95 @@
+<h2>Beta 0.3.6 Update Notes</h2>
+
+<p>Greetings friends. I'm proud to share a new Foundry Virtual Tabletop beta update. This update has some major and substantial updates to core systems and software - focusing on improving the stability and consistency of key systems. The biggest improvement in this update is the new redesigned Configuration and Setup experience which gives a centralized management panel for Systems, Modules, Worlds, and core VTT software updates. The experience for installing and updating new community content has never been easier. In addition to this major new feature, there are a ton of quality of life improvements and bug fixes designed to smooth out some of the rough edges introduced in previous updates. I am proud of this set of changes and know it will serve me well as I continue development of new tools and functions looking ahead towards 0.3.7. Thank you all for your continued encouragement and sharing of this project - your help in spreading the word and supporting my work means so much to me.</p>
+
+<p>Thank you all for appreciating my work, providing thoughtful feedback, and encouraging me to do even more. As always, please keep an eye on the development progress board here for visibility into what features are in progress and coming up next!</p>
+
+<p><a href="https://gitlab.com/foundrynet/foundryvtt/boards" target="_blank" title="FVTT Story Board">https://gitlab.com/foundrynet/foundryvtt/boards</a></p>
+<hr/>
+
+<h3>New Features</h3>
+<ul>
+	<li>Implemented a major new feature which redesigns the <strong>Configuration and Setup</strong> page of Foundry VTT. This new page is far more powerful and functionality rich. From this centralized landing page you can update the core software, install and update Game Systems, install and update Modules, and create and manage Worlds. Systems and Modules can be installed directly with one-click by providing a link to their manifest (module.json or system.json) file. Installed Systems and Modules can be easily and automatically checked for updates and updated if a new version is available. I am very excited for this change as I believe it will make the process of installing and managing community created content much easier in Foundry VTT, further empowering the awesome module and system developers who are hard at work in the community.</li>
+	<li>Redesigned the Game Settings menu to support separate tabs for Core, System, and Module settings while sorting the displayed modules alphabetically for improved organization.</li>
+	<li>Due to the introduction of the new Configuration and Setup page which handles Module installation and updates, the ability to update Modules while inside an active World has been removed. This is a good change, as updating modules "in flight" caused some problems and complexitities which were not always well handled. You still configure which Modules are active within a World using the same Manage Modules application as before.</li>
+	<li>The display of Tokens on Hexagonal Grids has been improved so the bounding box for the token mirrors the hex dimension, instead of being too wide or too tall for the shorter side of the hex.</li>
+	<li>Files and Folders displayed in the File Picker will now be sorted alphabetically in a case-insensitive way. Previously lowercase names were sorted after uppercase ones (per Unix convention).</li>
+	<li>Formatting of the exported text chat log file has been improved to add more detail about dice rolls, showing both the initial formula, and the rolled result (including all rolled dice).</li>
+	<li>Incorporated localization support for the Scene Configuration sheet. Thanks to Ayan for contributing an updated HTML template and translation string keys.</li>
+	<li>Improved the sorting logic for Combatants, adding an additional sorting layer after initiative score and name for the Token ID to ensure that the resulting sort order is always deterministic.</li>
+	<li>You may now include some additional flavor text along with any dice roll submitted in the chat window by separating the roll portion of the command with a <code>#</code> character. For example <code>/roll 4d6kh # Rolling for ability scores!</code>.</li>
+	<li>Added additional buttons to the Settings sidebar as an alternative way to return to key setup menu screens. There are new buttons for "Return to Setup", "Configure Players", and "Log Out".</li>
+	<li>Added a new button on the Settings tab of the sidebar to render the Community Wiki documentation in a pop-out iframe. Many thanks to errational, CyberPathogen, and the many other wonderful curators and contributors of the community wiki for creating this helpful resource.</li>
+	<li>The ability to export-to-JSON and import-from-JSON has been added for more Entity types - including Items, Journal Entries, and Scenes. Previously only Actors had this capability.</li>
+	<li>Added localization support for context-menu options on Sidebar Directory containers.</li>
+	<li>Added a new Journal Entry context menu option to Duplicate an existing entry, as was possible for other Entity types.</li>
+	<li>Improve the hit area definition of newly added Drawings from the 0.3.5 update so they are easier to select and manipulate once drawn.</li>
+	<li>Made a change which allows chat commands to span multiple lines without being incorrectly truncated.</li>
+	<li>Users who have "Limited" permission to a Journal Entry will now be able to see Map Notes placed for that entry, but will not be able to inspect the details of the note. This can allow GMs an alternative option for label significant locations without revealing details about those locations to players or needing to keep those details in a separate entry.</li>
+	<li>A User's chosen color is now shown as a border around all out of character chat messages sent by that User.</li>
+	<li>The syntax for sending whispered messages in chat has been made more flexible to support <code>/w</code> and <code>/whisper</code> prefixes in addition to the previous @User syntax.</li>
+	<li>Web URLs posted in chat messages will be automatically converted to a clickable hyperlink.</li>
+</ul>
+<hr/>
+
+<h3>Core Bug Fixes</h3>
+<ul>
+	<li>Fixed an issue with attempting to add an Owned Item directly to an Item type compendium.</li>
+	<li>Changing the Actor that a Token references would not fully take effect until a hard refresh, as double-clicking the Token would continue to open the old Actor's sheet.</li>
+	<li>Fixed a problem with IP address identification which sometimes resulted in the local and internet IPs not being properly displayed.</li>
+	<li>Solved a problem for newly created Actors which prevented the <code>img</code> attribute from being initially present in their prototype Token data model.</li>
+	<li>Hardened a loophole with EULA acceptance which previously allowed you to simply close the window to dismiss the agreement without later prompting.</li>
+	<li>Applied a fix for the PIXI v5 update which caused a vertex buffer overflow when rendering large Graphics objects (like big Hex grids). This caused hexagonal grids to no longer render after some number of polygons.</li>
+	<li>Fixed a problem that occured when deleting a World-level compendium pack which had not yet connected to its database.</li>
+	<li>Removed visibility of the "Delete All" button on the Measured Templates layer for players who could not use that button as they lack GM permission.</li>
+	<li>Made a change to lock tiles while they are in the middle of a drag workflow. Previously the Tile could be rotated via mousewheel while mid-drag causing server desynchronization problems.</li>
+	<li>Applied an additional check to prevent Compendium pack paths from being written to world files as absolute paths instead of relative to the World directory as intented.</li>
+	<li>Fixed an issue since the PIXI v5 migration which prevented Scene background color from being properly applied.</li>
+	<li>Corrected the rendering of large hex grids in 0.3.5 which produced an incorrect offset with artifact lines.</li>
+	<li>Improve the vertical spacing of TinyMCE editors since the v4.x update in 0.3.5 to make better use of the bounding container.</li>
+	<li>Fixed an order-of-operations problem with the <code>unregisterSheet</code> method which caused it to incorrectly clear a previously registered sheet for all Entity types, even if a specific type of entity to no longer use the sheet for was specified.</li>
+	<li>Improved the logic of the version comparison function used to detect module and system update availability to work for more types of versioning schema.</li>
+	<li>Fixed a bug in the "Simple Worldbuilding" system which prevented Owned Items from being properly editable.</li>
+	<li>An unintentional "feature" in 0.3.5 caused mousing over a Polygon point during a drawing creation workflow to undo that point. This, while sometimes nice, was an unintentional workflow that could sometimes produce frustrating results and has been removed.</li>
+	<li>Fixed a bug whereby an Owned Item could be dropped on the Actor who owns it, thereby duplicating the item data in that Actor.</li>
+	<li>Drawing objects can no longer have no line, no fill, and no text - causing them to become effectively invisible. Drawings must have at least one of these values set.</li>
+	<li>Remove the "Delete All" button from Players on the Drawing layer since they do not have GM permission to delete the drawings of others. This was a bug fix for now, but I may bring this back in the future where the button would only delete drawings belonging to the user.</li>
+	<li>Corrected accidental residual references to <code>CONFIG.Token</code> which has been removed in favor of other global configurations.</li>
+	<li>Improved the approach towards regex matching for chat message whispers and dynamic entity links to better support international characters in Firefox where unicode regex escapes are not supported.</li>
+</ul>
+<hr/>
+
+<h3>Core Software, APIs, and Module Development</h3>
+<ul>
+	<li>The server-side implementations of "Pakcages": System, Module, and World have all been jointly refactored to extend the same abstract base Package interface and share much more common code and implementation. This has improved quality and consistency of how these packages are managed and described within the VTT software.</li>
+	<li>Broadly refactored and improved code quality for the Chat Log sidebar and the messages that are rendered within it. This was some of the oldest FVTT code, as chat was one of the first features I implemented. It was well overdue for a fresh coat of paint.</li>
+	<li>Refactored the sidebar directory templates and CSS rules to adopt a flexbox layout which should be more friendly for mod developers who want to add additional content into the sidebar.</li>
+	<li>The <code>ChatMessage</code> Entity now has a required <code>type</code> field added to its data model to more explicitly differentiate different types of chat communication. The valid types of chat messages are enumerated in <code>CHAT_MESSAGE_TYPES</code>.</li>
+	<li>Some changes to keystroke handling have been implemented. Several keys were previously only captured on keyup, which are now captured on keydown with a repetition filter added. This provides a more responsive experience when interacting with these controls.</li>
+	<li>Performed some code cleanup in the Combat class to remove some deprecated properties and bring greater consistency to the structure for current and previous round tracking.</li>
+	<li>Improved the informativeness of the error message thrown if the <code>--world</code> startup flag references a World which does not exist.</li>
+	<li>An informative fatal error is now triggered if there are multiple packages (systems, modules, worlds) which have the same "name" attribute in their manifest files.</li>
+	<li>A new structure is supported (and enforced) for defining module-based translation files. Under this new approach, languages are defined as an Array of Objects, and JavaScript code is no longer required to manipulate the CONFIG object as this is handled automatically. See <a href="https://gitlab.com/foundrynet/foundryvtt/issues/1342" target="_blank" title="The GitLab Issue">this issue on GitLab</a> for more details.</li>
+	<li>English language translations are now always used as a fallback option for any localization strings which do not have an available translation in the designated preferred locale.</li>
+	<li>Because of the new management strategy for module-provided translation files, these translations are now accessible on the main configuration and setup pages of the Application where modules were previously not able to contribute content.</li>
+	<li>Improved server-side zip file extraction to support an option to de-dupe the folder structure during the extraction process if nested directories are present.</li>
+	<li>Added a <code>confirmDialog()</code> helper function to streamline the process of rendering standard yes/no prompts using less code.</li>
+	<li>Revisit support for <code>options.height = "auto"</code> to be specified in an Application render options - auto height applications will be automatically resized (vertically) when they ar re-rendered to accomodate changes to the internal content.</li>
+	<li>Improve server-side Socket management to automatically learn the Entity class names for which to open socket listeners instead of hard-coding them.</li>
+	<li>Added a very simple <code>Number.isNumeric()</code> helper method to test whether a string represents a numeric value.</li>
+	<li>Enforce a safe Proxy environment for evaluating math expressions in dice rolls. Thanks KaKaRoTo for pointing out this cool approach towards evaluating code using a limited and controlled scope.</li>
+</ul>
+<hr/>
+
+<h3>D&D5e System Improvements</h3>
+<ul>
+	<li>Stat blocks and actions for CR 1/4 monster compendium entries have been added. Token artwork and biographies for these creatures are still pending, but I want to push ahead on making sure the SRD Monsters compendium has usable creature definitions for running encounters. Expect further progress in this area on an ongoing basis.</li>
+	<li>Right clicking a skill proficiency icon will cycle backwards in addition to left click cycling forwards. Thanks Giddy for the suggestion.</li>
+	<li>Added support for a custom weapon attack critical threshold configured as an additional special Actor trait. Thanks TimPosney for the suggestion.</li>
+	<li>Updated the character sheet to display the effective Initiative modifier (after additional bonuses) instead of just the base modifier. Thanks to RedReign for the suggestion.</li>
+	<li>Added equipped, attuned, and rarity fields to every item type in the 5e system data model.</li>
+	<li>Minor tweaks to the content displayed in the footer of spell cards.</li>
+	<li>Fixed a bug with the "apply damage" chat dropdown which was incorrectly setting current HP to undefined instead of applying the relative damage difference correctly.</li>
+	<li>Ensured that all Spells in the 5e Spells compendium have the "prepared" attribute present in their data model (with a default value of false).</li>
+</ul>
+<hr/>

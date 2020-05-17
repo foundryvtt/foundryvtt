@@ -1,0 +1,64 @@
+
+<h2>Beta 0.2.5 Update Notes</h2>
+
+<p>Greetings friends and supporters! I'm really excited to share another Foundry Virtual Tabletop beta release - <code>0.2.5</code> - which includes several key improvements as well as a number of general improvements to existing ones. The key theme of this update involves <strong>Grid Improvements</strong> including support for <strong>Gridless</strong> and <strong>Hexagonal Grid</strong> types. In addition to these new grid configurations, this update also includes a number of minor features and bug fixes. This update is available immediately for Council tier supporters and will be made available on Tuesday, April 2 for beta tier supporters!</p>
+
+<p>I'm really excited about the continued progress for this software and motivated by the support and encouragement of the community. Thank you all for appreciating my work, providing thoughtful feedback, and encouraging me to do even more. As always, please keep an eye on the development progress board here for visibility into what features are in progress and coming up next!</p>
+
+<p><a href="https://gitlab.com/foundrynet/foundryvtt/boards" target="_blank" title="FVTT Story Board">https://gitlab.com/foundrynet/foundryvtt/boards</a></p>
+<hr/>
+
+<h3>New Features</h3>
+<ul>
+	<li>Redesign the basic Grid implementation in Foundry VTT to be more flexible and extensible to support new grid types described below.</li>
+	<li>Added support in the Scene Configuration menu to select a Grid Type for each scene.</li>
+	<li>One of the new allowed grid types is <strong>Gridless</strong> which does not render any grid lines and allows for free form movement and measurement.</li>
+	<li>Added another new grid type of <strong>Hexagonal</strong> with four varities. Even Columns draw flat-topped hexagons with each even numbered column offset. Odd Columns will draw flat-topped hexagons with each odd numbered column offset. Even rows draws pointy-topped hexagons with each even row offset. Odd rows draws pointy-topped hexagons with each odd row offset. Snap to grid, token movement, and ruler measurement are supported for all Hexagonal Grid types. <strong>NOTE:</strong> some features are not yet fully supported for Hexagonal grid types including wall placement snapping and Measured Template highlighting. These will be coming in a future version.</li>
+	<li>In order to provide a more consistent player experience for all types of maps, Foundry VTT now restricts a minimum grid size of 50 pixels. For maps which would otherwise require a pixel grid smaller than this, you will need to increase the dimensions of your map by multiplying the width and height by some scaling factor. I apologize for inconvenience this may cause, but enforcing a minimum grid size will make designing user friendly UI elements that are rendered on the game canvas easier and more aesthetically appealing.</li>
+	<li>Pop-out windows can now be minimized and maximized by double-clicking their header. Thanks to community member Morill for prototyping this functionality and inspiring me to add it as a core feature.</li>
+	<li>You can now export JSON data for Actors that you own. This can allow GMs to back up significant characters or players to transfer their favorite character between different game sessions. To export Actor data, right click on the Actor in the sidebar directory. Exported data is saved to the client's local filesystem.</li>
+	<li>You can now import JSON data to update an existing Actor. To import JSON data right click on the Actor in the sidebar directory. Choose the file from your local filesystem which contains the data to import.</li>
+	<li>When placing a Token, the canvas controls will automatically switch to the Token Layer.</li>
+	<li>When placing a Token using Drag+Drop, holding the ALT key will cause the Token to be placed in the "hidden" state. This can, for example, allow you to bring new Actors into an active scene without immediately alerting players.</li>
+	<li>Improved the audio balance of some UI audio cues to avoid them being too loud (like the combat drums).</li>
+	<li>Replaced the entire Scene thumbnail creation workflow with a new system that should be faster and more reliable. Additionally, thumbnail images are now supported for Scenes which assign a video background texture.</li>
+</ul>
+<hr/>
+
+<h3>Core Bug Fixes</h3>
+<ul>
+	<li>Corrected an issue where token visibility was suppressed on Scenes where Token Vision was not required.</li>
+	<li>Raise an exception which prevents the user from being able to start multiple FVTT processes on node.js which are running on the same port.</li>
+	<li>Update the window overflow rules which had prevented Scene configuration sheet from scrolling vertically on smaller resolution monitors.</li>
+	<li>Fixed an issue which prevented global bright light from penetrating through walls and dispelling fog of war.</li>
+	<li>Resolved an issue which allowed players to move tokens using drag+drop while the game was otherwise paused.</li>
+	<li>Improved the UI display of context menu items to ensure that highlighting that indicates the context-referenced item is removed when the menu is no longer in use.</li>
+	<li>Corrected a problem where newly placed ambient lights would not immediately update fog of war for connected clients.</li>
+	<li>Prevented an error which incorrectly corrupted the Scene position of an existing Token when it was assigned to an Actor.</li>
+	<li>Closed a loop-hole which was inefficiently rendering newly posted chat messages twice while only displaying one of the two results.</li>
+	<li>Fixed a problem with keep/drop dice syntax that was not returning the correct result in the initial <code>0.2.4</code> update.</li>
+	<li>Corrected a rendering issue with the Journal Entry which caused the save button at the bottom to not be usable.</li>
+	<li>Switched the location of the "I Agree" checkbox in the EULA dialog to render better on Safari.</li>
+</ul>
+<hr/>
+
+<h3>Core Software, APIs, and Module Development</h3>
+<ul>
+	<li>Added a new flags system for all Entity types which can save additional flexible key/value data. See the following ticket for API and example usage: https://gitlab.com/foundrynet/foundryvtt/issues/581</li>
+	<li>Added a specialized <code>renderChatMessage</code> hook which can be used to customize the display of individual chat messages as their HTML is rendered. See the following for example usage: https://gitlab.com/foundrynet/foundryvtt/issues/577</li>
+	<li>Added a new method for the Compendium, <code>Compendium.getContent()</code> which loads the full content of a compendium in one shot. This includes more overhead compared to <code>Compendium.getIndex()</code> but is useful for modules that want full access to all details.</li>
+	<li>Reworked the storage location of the sessions database. Each World now has it's own <code>sessions.db</code> instead of a shared session storage for the entire Foundry VTT application.</li>
+</ul>
+<hr/>
+
+<h3>D&D5e System Improvements</h3>
+<ul>
+	<li>Integrated support for temporary hit points and temporary maximum hit points as part of the Token resource bar. Temporary HP are now reflected in the visual representation of the health bar.</li>
+	<li>When applying damage to a character which has temporary hit points, these are consumed first before applying damage to regular health.</li>
+	<li>Incorporated a new feature for character spellbook display toggling which can control whether to show all spells or only prepared spells. Also added a button in the item controls to quickly toggle whether a spell is prepared or not. Thanks very much to community member Felix for prototyping this feature as a module and submitting his changes to the core 5e system.</li>
+	<li>Fix a problem with critical success or failure highlighting under the new dice roll tooltips system.</li>
+	<li>Correct a missing reference to <code>@mod</code> in spell attack and damage rolls which should now correctly alias the spellcasting ability modifier.</li>
+	<li>Corrected the behavior of long rest and Hit Dice restoration for level 1 characters who can now gain at least 1 HD when long resting.</li>
+	<li>Fixed an issue with Consumable items which were destroyed when emptied of their charges even if the "Destroy on Empty" checkbox was not enabled.</li>
+</ul>
+<hr/>

@@ -1,0 +1,64 @@
+<h2>Beta 0.4.3 Update Notes</h2>
+
+<p>Greetings esteemed supporters. I'm very excited to share <strong>Foundry Virtual Tabletop - Beta 0.4.3</strong> which is an incremental release which makes the 0.4.2 major release available to all Patreon supporters while adding a number of improved features and bug fixes to the software.</p>
+
+<p>The major focus area for <strong>Beta 0.4.2</strong> was Audio/Video chat integration, AWS S3 integration, the Token targeting system, and improvements to Journal entries. The <strong>Beta 0.4.3</strong> update iterates and improves upon those changes by correcting several bugs and further polishing those features. If you have not yet familiarized yourself with them, I strongly encourage you to read the <a href="https://www.patreon.com/posts/32265287" title="Beta 0.4.2 Release Notes" target="_blank">Beta 0.4.2 Release Notes</a>.</p>
+
+<p>The most exciting addition in 0.4.3 is the availability of a <strong>standalone MacOS application</strong> which is an exciting milestone that allows MacOS users to have the same native Electron experience that Foundry VTT game-masters on Windows and Linux can enjoy.</p>
+
+<p>Together, updates 0.4.2 and 0.4.3 comprise a really comprehensive update which touches and improves upon a lot of systems, I sincerely hope you all enjoy it. Thank you all for appreciating my work, providing thoughtful feedback, and encouraging me to do even more. As always, please keep an eye on the development progress board here for visibility into what features are in progress and coming up next!</p>
+
+<p><a href="https://gitlab.com/foundrynet/foundryvtt/boards" target="_blank" title="FVTT Story Board">https://gitlab.com/foundrynet/foundryvtt/boards</a></p>
+<hr/>
+
+<h3>New Features</h3>
+<ul>
+	<li>The software now has a working native application build for MacOS! This is a big milestone which has been long overdue. I am really excited for the Mac users out there to have the option of using the software directly through Electron in addition to the ability to run a Node.js server. See the update page for download links for the native Mac application. Please note that the app is not code signed (at this time), so you will need to authorize that you are willing to trust the software in order for MacOS to allow you to use it.</li>
+	<li>The Electron application will now launch in fullscreen mode. Added support for a keyboard shortcut to toggle Fullscreen mode for the Electron app: <code>F11</code> for Windows and Linux, and <code>Ctrl+Cmd+F</code> on MacOS.</li>
+	<li>If requesting an Entity or Compendium entry by name or ID as a Roll Table result, the name field will now be automatically cleared if the requested target does not exist.</li>
+	<li>The included version of Font Awesome has been upgraded to version 5.12.0 including many new and updated icon characters.</li>
+	<li>Improved the flexibility of the new Token Targeting tool in the Controls palette. The tool now allows for clicking directly on tokens to target them individually in addition to rectangular selection for multiple Tokens. Shift+click while using the Token Targeting tool will remove a Token from the targeted set.</li>
+</ul>
+<hr/>
+
+<h3>Core Bug Fixes</h3>
+<ul>
+	<li>Fixed an issue which prevented Map Notes and Tiles from being dragable.</li>
+	<li>Fixed an error resulting from a missing permission assignment for newly created Users related to the deprecation of the permission property in the User data model.</li>
+	<li>Improved the permission control for users with LIMITED permission to a Journal Entry to ensure that they can only see the image for the entry and not it's text content.</li>
+	<li>Fixed a problem in the A/V module which displayed control buttons to force disable/enable the video and audio channels of a fellow GM user, despite that action not being supported by the software.</li>
+	<li>Fixed a UX problem with A/V involving cycling the camera sizes of other broadcasters in the call while your own camera was disabled - producing inconsistent video sizes once your feed was re-enabled.</li>
+	<li>Corrected an issue with the Setup screen, where the available file storage backends were not provided to the client - resulting in the File Picker ui not being usable for things like selecting a World background image.</li>
+	<li>Fixed an issue with dynamic entity links drag+drop in rich text editors which was not properly working for certain Entity types (Scene, Journal Entry, and Roll Table).</li>
+	<li>Resolved an edge case failure mode with Roll Tables where, if the only unlocked results lay outside of the possible range allowed by the dice formula - resulting in an infinite loop attempting to retrieve a valid result.</li>
+	<li>Fixed a problem with Roll Table results where, if two Entities of the same type have the same name, they could not be differentiated even using their IDs as references.</li>
+	<li>Corrected a UX issue with Roll Tables where unsaved changes in other results could be lost when changing the Result Type dropdown selector.</li>
+	<li>Fixed a networking problem in the EasyRTC library by explicitly bundling a patched version of that code with Foundry VTT until an upstream merge request is completed which would allow returning to the standard Node.js library.</li>
+	<li>Resolved an error in the Token HUD which caused the target token button to throw some console errors related to toggling the CSS class of the HUD display.</li>
+	<li>Added some missing localization strings for the Target Selection tool and Roll Table features.</li>
+	<li>Fixed an issue with scrollbars while editing long-form text in the rich text TinyMCE editor.</li>
+	<li>Corrected a rendering issue for hexagonal token borders for a subset of hex grid orientations.</li>
+</ul>
+<hr/>
+
+<h3>Core Software, APIs, and Module Development</h3>
+<ul>
+	<li>[POTENTIALLY BREAKING] The <code>Item.id</code> getter will now return the <code>data.id</code> property of an Owned Item if the item instance is owned by an Actor, and the formal entity <code>data._id</code> otherwise.</li>
+	<li>Modified the cadence with which UPnP requests a renewed lease on the port mapping. Previously this occured every 30 minutes, but this occasionally resulted in expired leases, so the timer has been reduced to 5 minutes while the FVTT app is running.</li>
+	<li>Added an explicit <code>Actor.prepareData()</code> call during <code>_createOwnedItem</code> and <code>_deleteOwnedItem</code> handler workflows to ensure that Actor data which depends on the items that Actor owns is re-calculated correctly.</li>
+	<li>Implemented a CI/CD build and deployment pipeline to automate the build and release process for Foundry VTT. Many thanks to Toon324 from Discord for his assistance and advice with this process.</li>
+	<li>Added new helper methods of <code>Dice.minimum(formula)</code> and <code>Dice.maximum(formula)</code> which help to understand the minimum and maximum results which can possibly occur for a certain dice formula.</li>
+</ul>
+<hr/>
+
+<h3>Documentation Improvements</h3>
+<ul>
+	<li>Updates to the overview of implemented and planned features: http://foundryvtt.com/pages/features.html</li>
+</ul>
+<hr/>
+
+<h3>Known Issues</h3>
+<ul>
+	<li>None at this time.</li>
+</ul>
+<hr/>
