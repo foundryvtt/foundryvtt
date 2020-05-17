@@ -1,0 +1,51 @@
+<p>An important topic for self-hosting Foundry Virtual Tabletop within a local network is the requirement for port forwarding. This article describes a brief overview of port forwarding, why it is necessary, and the steps you need to take in order to enable correct forwarding.&nbsp;</p>
+
+<h2>What is Port Forwarding?</h2>
+<p>Let's use an analogy to explain port forwarding. Think of your home network like an apartment building where many people live where every resident has their own apartment number. In our case, the building is your home network and the residents are the devices connected to your network like your PC, your phone, your smart TV, or your printer.</p>
+<p>Suppose someone wants to mail a letter to a resident of the building - they would address that letter to the building street address and the apartment number within the building - but what if they don't know the right apartment number?&nbsp;</p>
+<p>This is the situation which occurs with web traffic. External requests know the public IP address of your local network (think of this as the "street address" of the building), but they don't know your local IP address within that network (think of this as your "apartment number" within the building).</p>
+<p>What port forwarding does is it helps to correctly route incoming traffic which arrives on a certain port to the correct internal IP address on the network which is expecting to recieve it. You are "forwarding" your traffic the same way you might forward physical mail. For the Foundry Virtual Tabletop use case, when traffic arrives at your external IP address on port <code>30000</code> (or an alternative port you choose to use), the port forwarding rule will automatically direct that traffic to your local PC which is running the Foundry application.</p>
+
+<h2>When is Port Forwarding Not Required?</h2>
+<p>Under some circumstances, port forwarding may not be required:</p>
+<ul>
+	<li>If you have an <a title="About IPv6" href="https://en.wikipedia.org/wiki/IPv6" target="_blank" rel="nofollow noopener">IPv6 address</a> you <em>probably</em> do not need to port forward. IPv6 is an expanded protocol which is able to refer to specific device IPs.</li>
+	<li>If you are using a router which supports <a title="About UPnP" href="https://en.wikipedia.org/wiki/Universal_Plug_and_Play" target="_blank" rel="nofollow noopener">Universal Plug and Play (UPnP)</a> and has that feature enabled you <em>probably</em> do not need to port forward.</li>
+</ul>
+
+<h2>How do I Port Forward?</h2>
+<p>The exact steps necessary in order to port forward vary depending on you router and the interface it provides, but at a high level process is the same in all cases. Some screenshots are provided for assistance with Windows use cases, although the process uses similar concepts for MacOS or Linux.</p>
+<figure><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/asset/windows-ipconfig-command-2020-03-20.png" alt="Windows IP Config Command" width="892" height="241" />
+	<figcaption>An example of using the Windows ipconfig command to discover your local IP address.</figcaption>
+</figure>
+<ol>
+	<li>Access your network router configuration panel. Usually you do this by visiting your router's IP address in a web browser. You can learn your router's IP address by looking at the&nbsp;<strong>Default Gateway</strong> field of the <code>ipconfig</code> command on Windows. For most router models this address is <code>192.168.0.1</code>.</li>
+	<li>Discover your computer's local IP address by referring to the&nbsp;<strong>IPv4 Address</strong> field of the ipconfig command.</li>
+	<li>Access the&nbsp;<strong>Port Forwarding</strong> section of your router configuration panel. The router interface will depend on the model, but some instructions for specific router models are available on the portforward website: <a href="https://portforward.com/router.htm" target="_blank" rel="nofollow noopener">https://portforward.com/router.htm</a></li>
+	<li>Forward traffic on TCP for the port you are using for Foundry Virtual Tabletop (<code>30000</code> by default) to your local IPv4 address. The image below illustrates an example using the management interface of my router (yours will look different).</li>
+	<li>Once you have applied the port forwarding rule, restart the Foundry Virtual Tabletop software and verify that it is working properly by having a friend connect to your game or by using the <a title="Port Check Tool" href="https://canyouseeme.org/" target="_blank" rel="nofollow noopener">Open Port Check Tool</a>. Note that even if the port forwarding rule is applied correctly the port will not show as open unless Foundry VTT is actively running.</li>
+</ol>
+<figure><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/asset/port-forwarding-example-2020-03-20.png" alt="Port Forwarding Example" width="576" height="652" />
+	<figcaption>An example of port forwarding for a specific router model. My local IP address is 192.168.1.100.</figcaption>
+</figure>
+
+<h2>Frequently Asked Questions</h2>
+<blockquote class="question">
+	<p>What if my internet IP address changes?</p>
+</blockquote>
+<p>If your public IP address changes, you don't need to make any change to your port forwarding rule. The forwarding rule only needs to change if your local IP address changes.</p>
+<blockquote class="question">
+	<p>What if my local IP address changes?</p>
+</blockquote>
+<p>Whenever your device reconnects to your local network there is a possibility that your local IP address will change. If this happens your existing port forwarding rule will now be directing traffic to the wrong place and you will need to update the rule accordingly. The best way to avoid this issue is to configure a DHCP Reservation which always assigns your computer the same local IP address. There are two ways to accomplish this:</p>
+<p>1. Most routers support a DHCP Reservation utility which can be configured to always assign your device the same IP address.</p>
+<p>2. Alternatively, you can configure your Windows adapter to request a specific IP address when it connects to the network. Review the following knowledge base article to learn how to request a manual DHCP assignment:&nbsp;<a href="https://support.microsoft.com/en-us/help/15089/windows-change-tcp-ip-settings" target="_blank" rel="nofollow noopener">https://support.microsoft.com/en-us/help/15089/windows-change-tcp-ip-settings</a></p>
+<blockquote class="question">
+	<p>It just doesn't work, HELP!</p>
+</blockquote>
+<p>Even if you followed these instructions carefully there are situations in which this approach will not work for you. Common examples include university or community networks with a "router behind a router" configuration where you do not have control over the outer layer of routing. In such cases there are a few fallback options which you can explore:</p>
+<ol>
+	<li>Using a Virtual Private Network (VPN) which mimics a local area network that all participants connect to externally. Using a VPN will rely on all your players installing and using the same VPN software, so it imposes some additional setup overhead. Popular VPN options include <a title="ZeroTier VPN" href="https://www.zerotier.com/" target="_blank" rel="nofollow noopener">ZeroTier</a> or <a title="Hamachi VPN" href="https://www.vpn.net/" target="_blank" rel="nofollow noopener">Hamachi</a>. There are some downsides of a VPN including more setup steps for your players as well as possibly slower network transfer speeds so it is not recommended unless conventional port forwarding is impossible.</li>
+	<li>Hosting a dedicated server using a cloud host. Instead of self-hosting the application on your own PC, you can host Foundry Virtual Tabletop in the cloud where your server is available for all players (including yourself) to connect using a web browser. See the <a title="Hosting Configuration Documentation" href="../hosting" target="_blank" rel="nofollow noopener">Hosting and Configuration</a> page for instructions. There are numerous advantages of running a dedicated server for Foundry VTT - but a disadvantage of this approach is that it will impose some additional cost and may be too complex to set up for non-technical users.</li>
+	<li>Utilize one of the premium hosting providers which specialize in Foundry Virtual Tabletop. See our <a title="Foundry Virtual Tabletop Partnerships" href="../partnerships" target="_blank" rel="nofollow noopener">Partnerships Page</a> for a list of hosting service providers who will handle the setup and management of a dedicated Foundry Virtual Tabletop server on your behalf.</li>
+</ol>

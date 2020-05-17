@@ -1,0 +1,59 @@
+<p>Foundry Virtual Tabletop features integrated support for AWS S3 file storage which lets you use an AWS account and S3 buckets as a built-in browseable and uploadable storage location for media assets that are used within Foundry VTT. To enable this functionality, you must include an entry in your <code>options.json</code> config file which points towards another JSON file that contains your AWS credentials. If such a file is correctly specified and the AWS user has permission to access S3 buckets, those buckets will be available for use in the File Browser for players who are allowed to use it.</p>
+<hr />
+
+<h2>How To Enable S3 Support</h2>
+<p>Add an entry in the <code>Config/options.json</code> config file which exists in your user data location to include key "awsConfig" which provides a relative or absolute file path pointing to another JSON file contraining the following:</p>
+<pre><code class="language-json">{
+  "accessKeyId": "YOUR_ACCESS_KEY_ID",
+  "secretAccessKey": "YOUR_SECRET_ACCESS_KEY",
+  "region": "YOUR_PREFERRED_REGION"
+}
+</code></pre>
+<p>Note that the AWS config file may also include other parameters which are passed to the S3 constructor as described by the <a title="JavaScript SDK documentation" href="https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#constructor-property" target="_blank" rel="nofollow noopener">JavaScript SDK documentation</a> including options to support a custom <code>endpoint</code> for working with other S3-compatible services.</p>
+<hr />
+
+<h2>How To Restrict Bucket Permissions</h2>
+<p>You may not wish to allow your AWS account to access all S3 buckets from within Foundry VTT. To avoid this, you should create a specific IAM user whose access credentials are used by Foundry Virtual Tabletop. You can assign am IAM policy to this specific user which only permits access to certain buckets within your overall account. An example IAM policy which allows access to only the bucket named <code>vtt-assets</code> is shown below:</p>
+<pre><code class="language-json">{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "s3:ListAllMyBuckets",
+            "Resource": "*"
+        }, 
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:PutObject",
+                "s3:PutObjectAcl"
+            ],
+            "Resource": [
+                "arn:aws:s3:::vtt-assets",
+                "arn:aws:s3:::vtt-assets/*"
+            ]
+        }
+    ]
+}
+</code></pre>
+<p>This policy allows the AWS user to list all of the available buckets (but not to see their contents unless specifically allowed) - this permission is important so the Foundry VTT software can discover which buckets may be used. It also allows permission to list the contents of a specific bucket or buckets, in this case the vtt-assets bucket. Lastly - it allows permission to read and write objects from that same vtt-assets bucket. This policy can be modified to allow access to a different set of buckets depending on your use case and needs.</p>
+<p>For more information, see the following AWS support page: <a href="https://aws.amazon.com/premiumsupport/knowledge-center/s3-console-access-certain-bucket/" target="_blank" rel="nofollow noopener">https://aws.amazon.com/premiumsupport/knowledge-center/s3-console-access-certain-bucket/</a></p>
+<hr />
+
+<h2>Enabling Cross-Origin Resource Sharing (CORS)</h2>
+<p>In order to use assets out of your S3 bucket from the virtual tabletop - you may need to set a CORS policy. To do this, navigate to the <strong>Permissions</strong> tab on the S3 bucket management panel. Under the <strong>CORS configuration</strong> section apply the following policy:</p>
+<pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/"&gt;
+&lt;CORSRule&gt;
+    &lt;AllowedOrigin&gt;*&lt;/AllowedOrigin&gt;
+    &lt;AllowedMethod&gt;GET&lt;/AllowedMethod&gt;
+    &lt;AllowedMethod&gt;POST&lt;/AllowedMethod&gt;
+    &lt;AllowedMethod&gt;HEAD&lt;/AllowedMethod&gt;
+    &lt;MaxAgeSeconds&gt;3000&lt;/MaxAgeSeconds&gt;
+    &lt;AllowedHeader&gt;*&lt;/AllowedHeader&gt;
+&lt;/CORSRule&gt;
+&lt;/CORSConfiguration&gt;
+</code></pre>
+<p>For more information, see the following AWS support page: <a href="https://docs.aws.amazon.com/AmazonS3/latest/user-guide/add-cors-configuration.html" target="_blank" rel="nofollow noopener">https://docs.aws.amazon.com/AmazonS3/latest/user-guide/add-cors-configuration.html</a>.</p>

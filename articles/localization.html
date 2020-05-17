@@ -1,0 +1,45 @@
+<p>A common task when developing modules or game systems is providing the ability for your work to be translated into different languages for different users. Localization tools are a mechanism for defining strings in your interfaces and content which can be translated using the dictionary of translations available for a chosen language. It is not the expectation of the developer to provide translations for all languages, but providing the opportunity for localization is a nice addition for any system or module.</p>
+<hr />
+
+<h2>Including Translations with a System or Module</h2>
+<p>System, Module, and World manifest files can include an array of <code>languages</code> which provide translation files as part of that package. An example entry in the languages array is the following.</p> <pre><code class="language-json">"languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+]
+</code></pre>
+<p>The elements of a language entry are defined as follows:</p>
+<dl> <dt>lang</dt>
+	<dd>
+		<p>A language code in lower-case letters, for example "en" for English. See&nbsp;<a href="https://en.wikipedia.org/wiki/List_of_ISO_639-2_codes" target="_blank" rel="nofollow noopener">https://en.wikipedia.org/wiki/List_of_ISO_639-2_codes</a></p>
+	</dd> <dt>name</dt>
+	<dd>
+		<p>The formal and readable name for the language, for example "English".</p>
+	</dd> <dt>path</dt>
+	<dd>
+		<p>A path relative to the root directory of the manifest where localization strings are provided in JSON format.</p>
+	</dd>
+</dl>
+<hr />
+
+<h2>Translation File Structure</h2>
+<p>Each translation file is a JSON object where the keys represent string identifiers which should be translated and the values represent the translation in the language of the file. It is recommended to namespace the translation strings defined by your module or system to help ensure that all localization strings remain unique across all modules and systems. For example, a basic English localization file included in the D&amp;D5E system might look like this:</p> <pre><code class="language-json">{
+  "DND5E.Title": "Dungeons and Dragons 5th Edition",
+  "DND5E.Abilities": "Ability Scores",
+  "DND5E.Skills": "Skills",
+  "DND5E.Inventory": "Inventory"
+}</code></pre>
+<p>When the Foundry Virtual Tabletop application is loaded, all translations provided by the core software, the game system, and all active modules are merged together to create a consolidated translation dictionary. Translations provided by the core software are loaded first, then merged with system-level translations, and lastly the translations from any active modules. As a consequence - modules may override the translation strings assigned by the core software or by the game system. When the software encounters a string which has been identified as a localization target - it will look up the correct translated value to use from the localization dictionary.</p>
+<hr />
+
+<h2>Translating Content</h2>
+<p>You can request content to be translated in JavaScript or in a Handlebars HTML template. Which approach you use depends on what is easier for your use case, but there is little to no performance difference between the two options.</p>
+
+<h3>JavaScript</h3>
+<p>In JavaScript you can use the <code>game.i18n.localize(key)</code> method to obtain the translated string for a given <code>key</code>. See the <a title="Localization Helpers" href="../../../../../api/Localization.html" target="_blank" rel="nofollow noopener">Localization Helpers</a> API documentation page for more details. Example usage of this approach is the following:</p> <pre><code class="language-javascript">const systemTitle = game.i18n.localize("DND5E.Title");</code></pre>
+
+<h3>Handlebars</h3>
+<p>Alternatively, you can translate strings directly within your Handlebars HTML template by using the <code>localize</code> helper tag. Internally this tag simply calls the JavaScript function described above. Example usage of the HTML tag is the following:</p> <pre><code class="language-html">&lt;h1&gt;{{localize 'DND5E.Title'}}&lt;/h1&gt;</code></pre>
+<p>You can reference localization string targets using either single or double quotes, but we recommend using single quotes so that you can remain consistent in using translations inside other HTML attributes, for example:</p> <pre><code class="language-html">&lt;img src="dnd5e/icons/header.png" title="{{localize 'DND5E.Title'}}"/&gt;</code></pre>
