@@ -1,0 +1,69 @@
+<p>Foundry Virtual Tabletop allows for local ambient sound effects which are activated when a player-controlled Token is moved into it's area of effect. This can be useful for environmental features like a waterfall or a crackling campfire which your players will be able to hear when their Tokens are nearby.</p>
+
+<figure>
+	<video width="100%" controls>
+		<source src="https://foundryvtt.s3-us-west-2.amazonaws.com/website-media-dev/videos/ambient-sound-creation.webm" type="video/webm">
+	</video>
+	<figcaption>Create an Ambient Sound using a left-mouse drag workflow on the Sounds Layer.</figcaption>
+</figure>
+
+<p>Ambient Sounds are created by navigating to the Sounds layer of the active Scene by clicking on the musical notes icon in the Scene control palette. While on the Sounds layer, you can create a new Sound by using a left-click and drag workflow to expand the area of effect (you can change it later). Once you are done dragging the Sound Configuration form will appear. You must select a sound file to play in order to complete the creation. The Sound Configuration shown in the following figure and it's configuration options are explained below:</p>
+
+<figure>
+    <img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/ambient-sound-configuration-2020-05-18.png" alt="Ambient Sound Configuration" />
+	<figcaption>Double click the Ambient Sound to open the Configuration Form.</figcaption>
+</figure>
+
+<dl>
+    <dt>Sound Type</dt>
+	<dd>
+		<p>Configure the type of sound emitted by this source. Ambient Sounds can either be <strong>local</strong> which are blocked by any Walls which inhibit perception or <strong>global</strong> which are always audible within their area regardless of the presence of Walls.</p>
+	</dd>
+    <dt>Audio Source</dt>
+	<dd>
+        <p>You must choose a path to a valid sound file which plays when Tokens are within the area of effect. Ambient Sounds always repeat on loop, so it is recommended to use a format like webm, wav, or ogg which allows for seamless looping, but other audio file formats are also supported.</p>
+	</dd>
+    <dt>X-Position</dt>
+	<dd>
+		<p>The x-coordinate for the center of the Ambient Sound area of effect.</p>
+	</dd>
+    <dt>Y-Position</dt>
+	<dd>
+		<p>The y-coordinate for the center of the Ambient Sound area of effect.</p>
+	</dd>
+    <dt>Sound Radius</dt>
+	<dd>
+		<p>The radius of the area of effect for the Ambient Sound, expressed in distance units. For example, if your Scene is configured where each square represents 5ft.</p>
+	</dd>
+    <dt>Volume Easing</dt>
+	<dd>
+		<p>This option specifies that the volume of the Ambient Sound should automatically reduce as Tokens are further from it's origin (but still within the area) and increase in volume when Tokens are closer to the origin of the sound. If this option is disabled, the volume level of the Ambient Sound will be the same everywhere within the affected area.</p>
+	</dd>
+    <dt>Maximum Volume</dt>
+	<dd>
+		<p>This slider configures the maximum volume level of the Ambient Sound at it's point of origin (if easing is applied) or throughout the area (if no easing).</p>
+	</dd>
+</dl>
+<hr/>
+
+<h3>Modifying Placed Sounds</h3>
+
+<p>After an Ambient Sound has been created, you can edit it later by double clicking on its control icon that is visible when on the Sounds Layer. To move the position of an existing Ambient Sound you can click and drag it's icon to move it. You may also use <code>CTRL+C</code> and <code>CTRL+V</code> commands to copy and paste sounds.</p>
+
+<p>Players can control the volume level of playing Ambient Sounds using the global Ambient slider in the Playlists tab of the Sidebar.</p>
+
+<p>Note that Ambient Sounds always loop if a Token is within their area of effect. If you are interested in one-time audio effects which play at a certain time that will be handled by the Event Trigger system, a post-release feature that is not yet added.</p>
+<hr/>
+
+<h3>API References</h3>
+<p>To interact with Ambient Sound objects programmatically, you will primarily use the following API concepts:
+<ul>
+	<li>The <a href="/api/AmbientSound.html" title="The AmbientSound Object" target="_blank">AmbientSound</a> Object</li>
+	<li>The <a href="/api/SoundsLayer.html" title="The SoundsLayer Object" target="_blank">SoundsLayer</a> Canvas Layer</li>
+	<li>The <a href="/api/AmbientSoundConfig.html" title="The AmbientSoundConfig Application" target="_blank">AmbientSoundConfig</a> Application</li>
+</ul>
+</p>
+<hr/>
+
+<h3>Attributions</h3>
+<p class="note">"Fossil Caves" map by <a href="https://www.patreon.com/fablekit" title="FableKit on Patreon" target="_blank">FableKit on Patreon</a>.</p>
