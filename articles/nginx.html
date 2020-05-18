@@ -9,12 +9,12 @@
 
 <p class="note warning">This guide assumes a basic level of familiarity with the Linux operating system and how to interface with it. If you are brand new to Linux we recommend starting with a beginner's tutorial to the Linux command line before proceeding.</p>
 
-<h4>Ubuntu</h4>
+<h4>Ubuntu or Debian</h4>
 <pre><code class="language-bash">sudo apt-get update
 sudo apt-get install nginx
 </code></pre>
 
-<h4>Red Hat</h4>
+<h4>Red Hat or CentOS</h4>
 <pre><code class="language-bash">sudo yum update -y
 sudo yum install nginx
 </code></pre>
@@ -81,6 +81,16 @@ http {
 </code></pre>
 <hr/>
 
+<p>Once you have configured Nginx, there are some <a href="./hosting" title="Foundry VTT Options Configuration" target="_blank">configurations for Foundry Virtual Tabletop</a> you will also want to apply. Set the following options in your Foundry VTT <code>{userData}/Config/options.json</code> file which will instruct Foundry that the server is running with a proxy server in front of it on port 80.</p>
+
+<pre><code class="language-json">"hostname": "your.hostname.com",
+"routePrefix": null,
+"sslCert": null,
+"sslKey": null,
+"port": 30000,
+"proxyPort": 80
+</code></pre>
+
 <h3>Step 3 - Start, Stop, and Restart Nginx</h3>
 <p>You can use the <code>service</code> utility to easily manage your Nginx server.</p>
 
@@ -99,7 +109,7 @@ sudo service nginx restart
 <hr/>
 
 <h3>Step 4 - Add SSL Certificates (Optional)</h3>
-<p>For more advanced usage you can add SSL Certificates for added security. Start by creating SSL Certificates (not covered by this guide). Once your certificates are created, your Nginx configuration file will be updated to use port 443 and the SSL certificates you have created.</p>
+<p>For more advanced usage you can add SSL Certificates for added security. Start by creating SSL Certificates, we recommend <a href="https://certbot.eff.org/instructions" title="Certbot SSL Certificates Instructions" target="_blank">using Certbot</a>. Once your certificates are created, your Nginx configuration file will be updated to use port 443 and the SSL certificates you have created.</p>
 
 <p class="note warning">Make sure to update the references to <code>your.hostname</code> in the configuration.</p>
 
@@ -155,4 +165,13 @@ http {
 }
 </code></pre>
 
-<p>Once you have edited the Nginx configuration to include your SSL certificates, be sure to do a configuration test before restarting your server.</p>
+<p>Once you have edited the Nginx configuration to include your SSL certificates, be sure to do a configuration test before restarting your server. Lastly, there are some additional configuration options for Foundry Virtual Tabletop you will also want to apply. Set the following options in your Foundry VTT <code>{userData}/Config/options.json</code> file which will instruct Foundry that the server is running with a proxy server in front of it on port 443.</p>
+
+<pre><code class="language-json">"hostname": "your.hostname.com",
+"routePrefix": null,
+"sslCert": null,
+"sslKey": null,
+"port": 30000,
+"proxyPort": 443,
+"proxySSL": true
+</code></pre>
