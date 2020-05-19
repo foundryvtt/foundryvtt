@@ -37,11 +37,6 @@ sudo yum -y install httpd
 &lt;VirtualHost *:80&gt;
     ServerName              your.hostname.com
 
-    # Log Configuration
-    ErrorLog                "/var/log/httpd/your.hostname.com.error_log"
-    CustomLog               "/var/log/httpd/your.hostname.com.access_log" common
-    LogLevel                error
-
     # Proxy Server Configuration
     ProxyPreserveHost       On
     ProxyPass "/socket.io/" "ws://localhost:30000/socket.io/"
@@ -89,11 +84,6 @@ sudo systemctl restart httpd
 
 &lt;VirtualHost *:443&gt;
     ServerName              your.hostname.com
-
-    # Log Configuration
-    ErrorLog                "/var/log/httpd/your.hostname.com.error_log"
-    CustomLog               "/var/log/httpd/your.hostname.com.access_log" common
-    LogLevel                error
 
     # SSL Configuration
     SSLCertificateKeyFile   "/etc/letsencrypt/live/your.hostname.com/privkey.pem"

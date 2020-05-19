@@ -1,0 +1,64 @@
+<p>Foundry Virtual Tabletop uses the concept of items, for objects that have their own statistics and information and can then be associated with or used by actors. This page provides an overview on Items, the Items Directory, and their functionality.</p>
+<hr/>
+
+<h2>The Items Directory</h2>
+
+<figure class="right">
+    <img title="The Items Sidebar" src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/items-directory-2020-05-19.png" />
+    <figcaption>The Gamemaster's view of the Items Directory sidebar.<br>Notice the buttons at the bottom of the sidebar <br>for creating new items and folders.</figcaption>
+</figure>
+
+<p>Items in Foundry can be viewed, created, and managed in the Items Directory sidebar. Like the Scenes, Actors, and Journal Entries directories, this directory can contain folders to organize your world's items. Only a Gamemaster or Assistant-level user can change or move folders, but any players with at least Limited permissions on an item can see the item and the folder(s) containing it in the Items Directory.</p>
+
+<p>Like folders in other directories, the "quill" icon on an item folder will create a new item in that folder, and the "plus folder" icon will create a new subfolder.</p>
+
+<figure class="right">
+    <img title="The Items Sidebar Context Menu" src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/items-sidebar-context-menu-2020-05-19.png" />
+    <figcaption>The Gamemaster's context menu for an item<br> and is accessed by right-clicking the item.</figcaption>
+</figure>
+
+<h3>Item Context Menu Options</h3>
+<dl>
+    <dt>View Item Artwork</dt>
+    <dd>Views the item's artwork in new window.</dd>
+
+    <dt>Clear Folder</dt>
+    <dd>Removes the item from all folders, placing it at the top level of the Items directory.</dd>
+
+    <dt>Delete</dt>
+    <dd>Deletes the item, after accepting a confirmation prompt.</dd>
+
+    <dt>Duplicate</dt>
+    <dd>Creates a copy of the item in the directory.</dd>
+
+    <dt>Configure Permission</dt>
+    <dd>Configure the permission levels of the item, allowing players of your choice to view or modify the item in the directory.</dd>
+
+    <dt>Export Data</dt>
+    <dd>Exports the item's data as a JSON file on your computer.</dd>
+
+    <dt>Import Data</dt>
+    <dd>Imports data into the item from a JSON file on your computer.</dd>
+</dl>
+<p>Gamemasters, Assistants, and other players with permissions to view items can do so by double-clicking on an item in the Items Directory. This opens the item sheet, whose features depend on the sheet itself or the system being used.</p>
+
+<h3>Owned Items</h3>
+<p>When an Item is added to an Actor, it becomes an "Embedded Entity" which is called an Owned Item. These Owned Items appear in the Actor sheet and, depending on the system, can be used by the actor. Dragging an item from the directory onto an actor's sheet will create a copy of the item as an "Owned Item". This owned item is separate from the original item - changes in the original item will not affect the owned item, and vice versa. Additionally, this owned item is not accessed from the Items Directory - it can only be viewed through the actor's sheet.</p>
+
+<h3>Importing Items</h3>
+<p>When, the Items Directory will initially be empty. Though items can be created fairly quickly from scratch, it may be desirable to import items from elsewhere.</p>
+<h4>Importing from Compendium</h4>
+<p>An item can be imported from a compendium by either dragging the item from the compendium into the Items Directory, or by right-clicking the item in the compendium and selecting "Import".</p>
+<h4>Importing from JSON</h4>
+<p>If the system and modules your world uses provide no compendiums, you can still import items directly from a JSON file. This JSON file is created by right-clicking an item in the Directory and selecting "Import Data" to import the JSON data into that item. This will overwrite the item.</p>
+<hr/>
+
+<h3>API References</h3>
+<p>To interact with Item entities programmatically, you will primarily use the following API concepts:
+<ul>
+	<li>The <a href="/api/Item.html" title="The Item Entity" target="_blank">Item</a> Entity</li>
+	<li>The <a href="/api/Items.html" title="The Items Collection" target="_blank">Items</a> Collection</li>
+	<li>The <a href="/api/ItemSheet.html" title="The Item Sheet Application" target="_blank">ItemSheet</a> Application</li>
+</ul>
+</p>
+<hr/>

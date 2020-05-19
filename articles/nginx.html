@@ -46,9 +46,17 @@ events {
 http {
     include         mime.types;
     default_type    application/octet-stream;
+    sendfile on;
+
+    # Configure Logging
     error_log       /tmp/nginx.error.log warn;
     access_log      /tmp/nginx.access.log combined;
-    sendfile on;
+
+    # Allow File Uploads
+    client_max_body_size    300M;
+    keepalive_timeout       5;
+
+    # Define Server
     server {
 
         # Enter your fully qualified domain name or leave blank
@@ -56,10 +64,6 @@ http {
 
         # Listen on port 80 without SSL certificates
         listen                  80;
-
-        # Allow File Uploads
-        client_max_body_size    300M;
-        keepalive_timeout       5;
 
         # Proxy Requests to Foundry VTT
         location / {
@@ -129,9 +133,17 @@ events {
 http {
     include         mime.types;
     default_type    application/octet-stream;
+    sendfile on;
+
+    # Configure Logging
     error_log       /tmp/nginx.error.log warn;
     access_log      /tmp/nginx.access.log combined;
-    sendfile on;
+
+    # Allow File Uploads
+    client_max_body_size    300M;
+    keepalive_timeout       5;
+
+    # Define Server
     server {
 
         # Enter your fully qualified domain name or leave blank
@@ -141,10 +153,6 @@ http {
         listen                  443;
         ssl_certificate         "/etc/letsencrypt/live/your.hostname/fullchain.pem";
         ssl_certificate_key     "/etc/letsencrypt/live/your.hostname/privkey.pem";
-
-        # Allow File Uploads
-        client_max_body_size    300M;
-        keepalive_timeout       5;
 
         # Proxy Requests to Foundry VTT
         location / {
