@@ -1,0 +1,105 @@
+<p>Foundry Virtual Tabletop has two primary ways to set configuration options, <i>command line flags</i> and <i>directives in options.json</i>.  In most cases, options set via command line flag will override the corresponding directives in options.json, however, the number of flags available is comparatively limited.</p>
+
+<h2>Command Line Flags</h2>
+
+<p>Foundry has four command-line flags that can be passed when the application is run at the command line.  These work with both the packaged Electron executable as well when starting Foundry via Node.js.</p>
+
+<dl>
+	<dt><code>--port</code></dt>
+	<dd>This specifies the port Foundry will listen on for incoming connections.  If not specified, Foundry will use the port defined in options.json, or <code>30000</code>.</dd>
+	<dt><code>--world</code></dt>
+	<dd>This allows for a specific world to be opened immediately as Foundry launches.  Note that this option will not work if some setup steps are not completed, such as EULA acceptance.</dd>
+	<dt><code>--dataPath</code></dt>
+	<dd>This lets you specify the user data directory that Foundry will load up to source systems, modules, and world data.</dd>
+	<dt><code>--noupnp</code></dt>
+	<dd>This disables universal plug and play.  If this flag is set, port forwarding will need to be set up, or the server Foundry is running on will need to have a public IP in order for Foundry to be externally accessible by your players.</dd>
+</dl>
+
+<p>Example usage of the command line syntax to launch the application for various environments are:</p>
+
+<h4>Node.js</h4> <pre><code class="language-bash">node main.js --port=30000 --world=myworld --dataPath=/local/data/foundryvtt</code></pre>
+
+<h4>Electron (Windows)</h4> <pre><code class="language-bash">FoundryVTT.exe --port=30000 --world=myworld --dataPath=D:\FoundryVTT</code></pre>
+
+<h4>Electron (Linux)</h4> <pre><code class="language-bash">foundryvtt --port=30000 --world=myworld --dataPath=/local/data/foundryvtt</code></pre>
+
+<h2>Configuration Options</h2>
+
+<p>Foundry's behavior can also be customized via editing the options.json file stored in the Config directory located in the user data directory.  The directives take one of three data types:</p>
+
+<dl>
+	<dt>String</dt>
+	<dd>Alphanumeric characters enclosed in double-quotes.  Example: <code>"examplestring"</code></dd>
+	<dt>Integer</dt>
+	<dd>Numbers without decimal points or other punctuation.  Example: <code>12345</code>
+	<dt>Boolean</dt>
+	<dd>The values <code>true</code> or <code>false</code>, all lower-case, without punctuation.  <code>true</code> enables a given option, <false> disables it.
+</dl>
+
+<p>All options can also be set to <code>null</code>, which disables that option.  Do not set a value to null unless you're certain it can be disabled.</p>
+
+<p><strong>Note: JSON is syntax-sensitive, and a malformed options.json file may cause Foundry to not start.</strong>  It is strongly advised that you back up options.json before editing it manually.</p>
+
+<dl>
+	<dt>port</dt>
+	<dd>Integer -- defines the default port used by the application unless one is explicitly provided using the &nbsp; &nbsp; --port flag.</dd>
+	<dt>fullscreen</dt>
+	<dd>Boolean -- determines whether to run the Electron application in fullscreen mode.</dd>
+	<dt>dataPath</dt>
+	<dd>String -- you may specify an explicit path to the user data directory which should be used as the source for packages and other content. This option is only used of the command line flag with the same name is not also passed.</dd>
+	<dt>hostname</dt>
+	<dd>String -- a custom hostname to use in place of the host machine's public IP address when displaying the address of the game session. This allows for reverse proxies or DNS servers to modify the public address.</dd>
+	<dt>routePrefix</dt>
+	<dd>String -- a path which is appended to the base hostname to serve Foundry VTT content from a specific namespace. For example setting this to <code>demo</code> will result in data being served from <code>http://x.x.x.x:30000/demo/</code>.</dd>
+	<dt>sslKey</dt>
+	<dd>String -- an absolute or relative path that points towards a SSL key file which is used jointly with the <code>sslCert</code> option to enable SSL and https connections. If both options are provided, the server will start using HTTPS automatically.</dd>
+	<dt>sslCert</dt>
+	<dd>String -- an absolute or relative path that points towards a SSL certificate file which is used jointly with the <code>sslKey</code> option to enable SSL and https connections. If both options are provided, the server will start using HTTPS automatically.</dd>
+	<dt>awsConfig</dt>
+	<dd>String -- an absolute or relative path which points to an optional AWS configuration file in JSON format containing accessKeyId, secretAccessKey, and region properties. This file is used to configure integrated AWS connectivity for S3 assets and backup.</dd>
+	<dt>upnp</dt>
+	<dd>Boolean -- allow Universal Plug and Play to automatically request port forwarding for the Foundry VTT port to your local network address. Default is true.</dd>
+	<dt>proxySSL</dt>
+	<dd>Boolean --  indicates whether the software is running behind a reverse proxy that uses SSL. This allows invitation links and A/V functionality to work as if the Foundry Server had SSL configured directly.</dd>
+	<dt>proxyPort</dt>
+	<dd>Boolean -- informs Foundry that the software is running behind a reverse proxy on some other port. This allows the invitation links created to the game to include the correct external port.</dd>
+</dl>
+
+<h2>Where Do I Put My Data?</h2>
+<p>In order to comply with operating system expectations (most notably on Windows and MacOS), it is important not to store actively updated user data inside the application directory itself. Therefore Foundry Virtual Tabletop relies upon the concept of a <strong>user data path</strong> which defines the location that user data is saved. There are four ways that the user data location can be set.</p>
+<ol>
+	<li><strong>Command Line Flag</strong>. See the Command Line Options above.</li>
+	<li><strong>Environment Variable</strong>. Set <code>FOUNDRY_VTT_DATA_PATH</code>.</li>
+	<li><strong>Config Data Override</strong>. See the Application Configuration Options section above.</li>
+	<li><strong>Default OS Application Data</strong>. See below for details.</li>
+</ol>
+<p>These options are evaluated in the above order, so if multiple options are set, the first valid option will be used. The default application data location for each operating system is the following:</p>
+<p><strong>Windows</strong></p> <pre><code class="language-bash">%localappdata%/FoundryVTT</code></pre>
+<p>Note that when configuring a custom path in Windows you need to either use forward slashes, for example <code>D:/path/to/appdata</code> or escaped backwards slashes, <code>D:\\path\\to\\appdata</code>.</p>
+<p><strong>MacOS</strong></p> <pre><code class="language-bash">~/Library/Application Support/FoundryVTT</code></pre>
+<p><strong>Linux (in order of availability)</strong></p> <pre><code class="language-bash">/home/$USER/.local/share/FoundryVTT
+/home/$USER/FoundryVTT
+/local/FoundryVTT
+</code></pre>
+<p>These default locations may not be ideal for many users, so it is recommended to use one of the above alternative methods to point Foundry VTT to a different data location as suits your preferences. The user data folder contains the following basic directory and file structure.</p>
+<ul class="file-structure">
+	<li><code>Config/</code> - The configuration directory
+		<ul class="file-structure">
+			<li><code>options.json</code> - Application configuration options</li>
+		</ul>
+	</li>
+	<li><code>Data/</code> - User data directory
+		<ul class="file-structure">
+			<li><code>systems/</code> - Installed game systems</li>
+			<li><code>modules/</code> - Installed add-on modules</li>
+			<li><code>worlds/</code> - Installed game worlds</li>
+		</ul>
+	</li>
+	<li><code>Logs/</code> - Server log files</li>
+</ul>
+<p>When referencing data from within the virtual tabletop application, any content stored inside the Data directory is publicly available to be served directly. This is where you should put your content that you intend to use inside the application. You are free to create any folder or directory structure that you want inside this data directory. For example, if you have the following file in your file system</p> <pre><code class="language-plaintext">&lt;User Data Path&gt;/Data/worlds/my-world/maps/dungeons/deadly-dungeon-01.jpg</code></pre>
+<p>When using that map image inside Foundry VTT, you can reference it as a web-accessible URL using the path relative to the Data folder</p> <pre><code class="language-plaintext">worlds/my-world/maps/dungeons/deadly-dungeon-01.jpg</code></pre>
+
+<h3>Regarding File Naming Conventions</h3>
+<p>Since Foundry VTT works as a web server, you should be sure to use directory and file names which conform to web file and URL encoding conventions. You should generally avoid using spaces or special characters as these are likely to cause issues when serving your content to other players. See &nbsp;the <a href="https://developers.google.com/maps/documentation/urls/url-encoding" target="_blank" rel="nofollow noopener">Google URL Guidelines</a> for more detail.</p>
+
