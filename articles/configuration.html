@@ -1,6 +1,6 @@
 <p>Foundry Virtual Tabletop has two primary ways to set configuration options, <i>command line flags</i> and <i>directives in options.json</i>.  In most cases, options set via command line flag will override the corresponding directives in options.json, however, the number of flags available is comparatively limited.</p>
 
-<h2>Command Line Flags</h2>
+<h2 id="command-line">Command Line Flags</h2>
 
 <p>Foundry has four command-line flags that can be passed when the application is run at the command line.  These work with both the packaged Electron executable as well when starting Foundry via Node.js.</p>
 
@@ -17,13 +17,17 @@
 
 <p>Example usage of the command line syntax to launch the application for various environments are:</p>
 
-<h4>Node.js</h4> <pre><code class="language-bash">node main.js --port=30000 --world=myworld --dataPath=/local/data/foundryvtt</code></pre>
+<h4>Node.js</h4>
+<pre><code class="language-bash">node main.js --port=30000 --world=myworld --dataPath=/local/data/foundryvtt</code></pre>
 
-<h4>Electron (Windows)</h4> <pre><code class="language-bash">FoundryVTT.exe --port=30000 --world=myworld --dataPath=D:\FoundryVTT</code></pre>
+<h4>Electron (Windows)</h4>
+<pre><code class="language-bash">FoundryVTT.exe --port=30000 --world=myworld --dataPath=D:\FoundryVTT</code></pre>
 
-<h4>Electron (Linux)</h4> <pre><code class="language-bash">foundryvtt --port=30000 --world=myworld --dataPath=/local/data/foundryvtt</code></pre>
+<h4>Electron (Linux)</h4>
+<pre><code class="language-bash">foundryvtt --port=30000 --world=myworld --dataPath=/local/data/foundryvtt</code></pre>
+<hr/>
 
-<h2>Configuration Options</h2>
+<h2 id="application-configuration">Configuration Options</h2>
 
 <p>Foundry's behavior can also be customized via editing the options.json file stored in the Config directory located in the user data directory.  The directives take one of three data types:</p>
 
@@ -33,7 +37,7 @@
 	<dt>Integer</dt>
 	<dd>Numbers without decimal points or other punctuation.  Example: <code>12345</code>
 	<dt>Boolean</dt>
-	<dd>The values <code>true</code> or <code>false</code>, all lower-case, without punctuation.  <code>true</code> enables a given option, <false> disables it.
+	<dd>The values <code>true</code> or <code>false</code>, all lower-case, without punctuation. <code>true</code> enables a given option, <code>false</code> disables it.
 </dl>
 
 <p>All options can also be set to <code>null</code>, which disables that option.  Do not set a value to null unless you're certain it can be disabled.</p>
@@ -64,8 +68,9 @@
 	<dt>proxyPort</dt>
 	<dd>Boolean -- informs Foundry that the software is running behind a reverse proxy on some other port. This allows the invitation links created to the game to include the correct external port.</dd>
 </dl>
+<hr/>
 
-<h2>Where Do I Put My Data?</h2>
+<h2 id="where-user-data">Where Is My Data Stored?</h2>
 <p>In order to comply with operating system expectations (most notably on Windows and MacOS), it is important not to store actively updated user data inside the application directory itself. Therefore Foundry Virtual Tabletop relies upon the concept of a <strong>user data path</strong> which defines the location that user data is saved. There are four ways that the user data location can be set.</p>
 <ol>
 	<li><strong>Command Line Flag</strong>. See the Command Line Options above.</li>
@@ -75,13 +80,19 @@
 </ol>
 <p>These options are evaluated in the above order, so if multiple options are set, the first valid option will be used. The default application data location for each operating system is the following:</p>
 <p><strong>Windows</strong></p> <pre><code class="language-bash">%localappdata%/FoundryVTT</code></pre>
+
 <p>Note that when configuring a custom path in Windows you need to either use forward slashes, for example <code>D:/path/to/appdata</code> or escaped backwards slashes, <code>D:\\path\\to\\appdata</code>.</p>
+
 <p><strong>MacOS</strong></p> <pre><code class="language-bash">~/Library/Application Support/FoundryVTT</code></pre>
-<p><strong>Linux (in order of availability)</strong></p> <pre><code class="language-bash">/home/$USER/.local/share/FoundryVTT
+<p><strong>Linux (in order of availability)</strong></p>
+
+<pre><code class="language-bash">/home/$USER/.local/share/FoundryVTT
 /home/$USER/FoundryVTT
 /local/FoundryVTT
 </code></pre>
+
 <p>These default locations may not be ideal for many users, so it is recommended to use one of the above alternative methods to point Foundry VTT to a different data location as suits your preferences. The user data folder contains the following basic directory and file structure.</p>
+
 <ul class="file-structure">
 	<li><code>Config/</code> - The configuration directory
 		<ul class="file-structure">
@@ -97,9 +108,13 @@
 	</li>
 	<li><code>Logs/</code> - Server log files</li>
 </ul>
-<p>When referencing data from within the virtual tabletop application, any content stored inside the Data directory is publicly available to be served directly. This is where you should put your content that you intend to use inside the application. You are free to create any folder or directory structure that you want inside this data directory. For example, if you have the following file in your file system</p> <pre><code class="language-plaintext">&lt;User Data Path&gt;/Data/worlds/my-world/maps/dungeons/deadly-dungeon-01.jpg</code></pre>
-<p>When using that map image inside Foundry VTT, you can reference it as a web-accessible URL using the path relative to the Data folder</p> <pre><code class="language-plaintext">worlds/my-world/maps/dungeons/deadly-dungeon-01.jpg</code></pre>
+<p>When referencing data from within the virtual tabletop application, any content stored inside the Data directory is publicly available to be served directly. This is where you should put your content that you intend to use inside the application. You are free to create any folder or directory structure that you want inside this data directory. For example, if you have the following file in your file system</p>
 
-<h3>Regarding File Naming Conventions</h3>
+<pre><code class="language-plaintext">&lt;User Data Path&gt;/Data/worlds/my-world/maps/dungeons/deadly-dungeon-01.jpg</code></pre>
+
+<p>When using that map image inside Foundry VTT, you can reference it as a web-accessible URL using the path relative to the Data folder</p>
+
+<pre><code class="language-plaintext">worlds/my-world/maps/dungeons/deadly-dungeon-01.jpg</code></pre>
+
+<h4>Regarding File Naming Conventions</h4>
 <p>Since Foundry VTT works as a web server, you should be sure to use directory and file names which conform to web file and URL encoding conventions. You should generally avoid using spaces or special characters as these are likely to cause issues when serving your content to other players. See &nbsp;the <a href="https://developers.google.com/maps/documentation/urls/url-encoding" target="_blank" rel="nofollow noopener">Google URL Guidelines</a> for more detail.</p>
-
