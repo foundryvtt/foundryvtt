@@ -1,0 +1,125 @@
+<p>This is a quick tutorial that will cover how to setup a virtual server that uses Caddy to proxy
+    HTTPS for Foundry.</p>
+
+<p class="note info">Please note that using a proxy server like Caddy, while advantageous for
+    dedicated web hosts, is absolutely not required in order to use Foundry Virtual Tabletop.</p>
+
+<hr/>
+
+<h3>Step 1 &mdash; Create your Virtual Host</h3>
+
+<p>While setting up a virtual server to host Foundry is outside the scope of this tutorial,
+    a few helpful pointers will be included. There are quite a few inexpensive hosting providers
+    available such as
+    <a href="https://www.linode.com/?r=31112a7b4a25b16d80c6267ffec4d7cf50695218" target="_blank">Linode</a>.
+    Other popular options include
+    <a href="https://aws.amazon.com/lightsail/" target="_blank">Amazon LightSail</a>,
+    <a href="https://www.digitalocean.com" target="_blank">Digital Ocean</a>, or even
+    <a href="https://www.vultr.com" target="_blank">Vultr</a>.
+   </p>
+
+<p class="note info">Foundry doesn't require many resources on the server side as most of the
+    processing happens within the client's browser, so the typical $5/month plan should be plenty.</p>
+
+<p>If you went with Linode, here is a
+    <a href="https://www.linode.com/docs/getting-started/" target="_blank">tutorial</a>
+    you can follow to get your instance created and setup.</p>
+
+<hr/>
+
+<h3>Step 2 &mdash; Install Caddy</h3>
+
+<p><a href="https://caddyserver.com">Caddy</a>
+    is a web server, similar to Nginx or Apache. However it focuses more on being able to
+    easily setup an HTTPS Proxy. Recently version 2 of Caddy was released and so you will likely
+    want to use that version. You can find instructions for installing it on the more popular
+    distributions below. If you're using a something different, please follow the Caddy
+    <a href="https://caddyserver.com/docs/download" target="_blank">install guide</a>.</p>
+
+<p class="note info">Please note that using a proxy server like Caddy, while advantageous for
+    dedicated web hosts, is absolutely not required in order to use Foundry Virtual Tabletop.</p>
+
+<p class="note warning">This guide assumes a basic level of familiarity with the Linux operating
+    system and how to interface with it. If you are brand new to Linux we recommend starting with
+    a beginner's tutorial to the Linux command line before proceeding.</p>
+
+<h4>Ubuntu or Debian</h4>
+<pre><code class="language-bash">$ echo "deb [trusted=yes] https://apt.fury.io/caddy/ /" \
+    | sudo tee -a /etc/apt/sources.list.d/caddy-fury.list
+$ sudo apt update
+$ sudo apt install caddy</code></pre>
+
+<h4>Fedora, Red Hat or CentOS 8</h4>
+<pre><code class="language-bash">$ dnf install 'dnf-command(copr)'
+$ dnf copr enable @caddy/caddy
+$ dnf install caddy
+</code></pre>
+
+<h4>Red Hat or CentOS 7</h4>
+<pre><code class="language-bash">$ yum install yum-plugin-copr
+$ yum copr enable @caddy/caddy
+$ yum install caddy
+</code></pre>
+
+<hr/>
+
+<h3>Step 3 &mdash; Configure Caddy</h3>
+
+<p>Caddy will come with a default configuration that will set it up as a simple web server.
+    You'll need to update that configuration to use it as a reverse proxy.</p>
+
+<p class="note warning">Make sure to update the references to <code>your.hostname.com</code> in the
+    configuration. Without a proper hostname, Caddy will fail to automatically install an SSL
+    certificate from Let's Encrypt. If you don't have your own domain, you can use the
+    dynamic hostname assigned by your hosting provider.</p>
+
+<pre><code class="language-bash"># This replaces the existing content in /etc/caddy/Caddyfile
+
+# A CONFIG SECTION FOR YOUR HOSTNAME
+your.hostname.com {
+    # PROXY ALL REQUEST TO PORT 30000
+    reverse_proxy localhost:30000
+}
+
+# Refer to the Caddy docs for more information:
+# https://caddyserver.com/docs/caddyfile
+</code></pre>
+
+<hr/>
+
+<p>Once you have configured Caddy, there are some
+    <a href="./hosting" title="Foundry VTT Options Configuration" target="_blank">configurations</a>
+    for Foundry Virtual Tabletop you will also want to apply. Set the following options in your
+    Foundry VTT<code>{userData}/Config/options.json</code> file which will instruct Foundry that
+    the server is running with a proxy server in front of it on port 443.</p>
+
+<pre><code class="language-json">"hostname": "your.hostname.com",
+"routePrefix": null,
+"sslCert": null,
+"sslKey": null,
+"port": 30000,
+"proxyPort": 443,
+"proxySSL": true
+</code></pre>
+
+<h3>Step 4 &mdash; Caddy Administration</h3>
+<p>You can use the <code>service</code> utility to easily manage your Caddy server.</p>
+
+<pre><code class="language-bash">
+# Check Status
+sudo service caddy status
+
+# Start Caddy
+sudo service caddy start
+
+# Stop Caddy
+sudo service caddy stop
+
+# Restart Caddy
+sudo service caddy restart
+</code></pre>
+
+<hr/>
+
+<p>With any luck, you should now be all set and have an SSL reverse proxy redirecting traffic to
+    Foundry VTT, Enjoy!</p>
