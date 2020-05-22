@@ -1,0 +1,73 @@
+<p>Foundry Virtual Tabletop has a powerful engine for Lighting and Fog of War which interacts with placed @Article[walls] and Ambient Light sources to define the visibility and exploration progress of a Scene in a way that allows players to explore an environment through their character's perspective, seeing only what their Token would see in a certain position.</p>
+
+<figure>
+    @Image[50]
+    <figcaption>Ambient Light sources add visibility to areas of your Scene as well as allowing for beautiful shading effects.</figcaption>
+</figure>
+
+<h3>Creating and Editing Light Sources</h3>
+
+<p>To work with Ambient Light sources, activate the Lighting Layer using the Canvas controls palette (the icon looks like a lightbulb). When enabled you can viewing, create, and modify Ambient Light sources. Ambient Light sources can be easily created on any scene by selecting the Create Light tool from the control palette and using a drag-and-drop workflow to paint the light location.</p>
+
+<p>Lights that are created will be blocked by any type of Wall which blocks perception (such as Walls, Terrain Walls, and Ethereal Walls.) The outer edges of the Ambient Light source will shape to conform to any vision restrictions, updating for the GM in real time so they can see where the light will be drawn. A centre ring approximates where the default division between Bright and Dim light will be for that light source.</p>
+
+<p>After a light has been placed, it can be moved at any time by accessing the Lighting Layer to show light sources and then clicking and dragging the light to a new location. An Ambient Light source may be edited via the Light Source Configuration Menu, which can be opened at any time by double clicking on the Light Source you wish to edit. This menu provides the following options:</p>
+
+<dl>
+    <dt>Light Type</dt>
+    <dd>This setting controls whether the Light Source is Local or Global. Local Lights adhere to vision restrictions and are blocked by walls, while Global Lights provide vision of a location whether a token has line-of-sight to see it or not.</dd>
+
+    <dt>X-Position (Pixels)</dt>
+    <dd>The current x-coordinate of the Light Source in a Scene. It can be changed to reposition the light.</dd>
+
+    <dt>Y-Position (Pixels)</dt>
+    <dd>The current y-coordinate of the Light Source in a Scene. It can be changed to reposition the light.</dd>
+
+    <dt>Dim Radius (Grid Units)</dt>
+    <dd>A radius of dim light emitted by this Light Source.</dd>
+
+    <dt>Bright Radius (Grid Units)</dt>
+    <dd>A radius of bright light emitted by this Light Source.</dd>
+
+    <dt>Emission Angle (Degrees)</dt>
+    <dd>An angle of Light between zero and 360 degrees (the default) which represents the allowed radius of light for this Light Source.</dd>
+
+    <dt>Rotation (Degrees)</dt>
+    <dd>The current direction the light is facing in degrees. Rotation of zero (the default) corresponds to a southward facing.</dd>
+
+    <dt>Light Color</dt>
+    <dd>Set the color of light that the Light Source in Hex (#000000).</dd>
+
+    <dt>Light Opacity</dt>
+    <dd>Set the level of transparency that the Light Source emits.</dd>
+
+    <dt>Darkness Threshold</dt>
+    <dd>When the Scene's Darkness Level transitions from 0(bright) to 1(dark), the value of this setting determines when the light will be switched on.</dd>
+</dl>
+<hr/>
+
+<h3>Additional Lighting Tools</h3>
+
+<p>The Lighting Layer controls also provides access to some tools which change the overall view of the Scene, as well as controls for the Fog of War for that scene.</p>
+
+<h4>Transition to Daylight</h4>
+<p>If your scene presently has a Darkness Level configured, pressing this button will smoothly slide the Darkness Level toward 0 (Bright) transitioning the scene to daylight. This effect is synchronized for all connected Users.</p>
+
+<h4>Transition to Darkness</h4>
+<p>If your scene presently has a Darkness Level configured, pressing this button will smoothly slide the Darkness Level toward 0 (Bright) transitioning the scene to daylight. This effect is synchronized for all connected Users.</p>
+
+<h4>Reset Fog of War</h4>
+<p>This button resets the recorded Fog of War exploration for that scene for all players regardless of their level of connection.</p>
+
+<h4>Clear Lights</h4>
+<p>This button deletes all lights presently placed on the canvas for this Scene.</p>
+<hr/>
+
+<h3>API References</h3>
+<p>To interact with AmbientLights programmatically, consider using the following API concepts:</p>
+<ul>
+    <li>The @API[AmbientLight,The AmbientLight Object] Object</li>
+	<li>The @API[LightingLayer,The LightingLayer Canvas Layer] Canvas Layer</li>
+	<li>The @API[LightConfig,The LightConfig Application] Application</li>
+</ul>
+<hr>
