@@ -1,5 +1,9 @@
-<p>The <strong>Token</strong> is a placeable object which visually represents an <a title="Actor" href="../actors" target="_blank" rel="nofollow noopener">Actor</a> on the game canvas. The Token displays the Actor's position, appearance, rotation, vision configuration, status effects, and more. Each Token is specific to the <a title="Scene" href="../scenes" target="_blank" rel="nofollow noopener">Scene</a> in which it exists.</p>
-<p>An important concept to understand when working with Tokens is the difference between a <strong>Prototype Token</strong> and a placed <strong>Token</strong>.</p>
+<p>The <strong>Token</strong> is a placeable object which visually represents @Article[actors] on the game Canvas. The Token displays the Actor's position, appearance, rotation, vision configuration, status effects, and more. Each Token is specific to @Article[scenes] in which it exists.</p>
+<hr/>
+
+<h2>Token Configuration Modes</h2>
+
+<p class="note info">An important concept to understand when working with Tokens is the difference between a <strong>Prototype Token</strong> and a placed <strong>Token</strong>.</p>
 
 <h3>Prototype Token Configuration</h3>
 <p>A Prototype Token is the configuration of a Token for a particular Actor before that Token has been placed onto the game canvas. The prototype defines the default setup that a newly created Token starts with. To configure the Prototype Token for an Actor, open the Actor Sheet and click the <strong>Prototype Token</strong> button in the top bar.</p>
@@ -10,9 +14,12 @@
 
 <h2>Token Configuration Options</h2>
 <p>The Token Configuration sheet features the following options which are shown in the above image and explained in the table below.</p>
-<figure><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/actor-token-configuration-2020-02-13.png" alt="Token Configuration Character Tab" />
+
+<figure>
+	@Image[4]
 	<figcaption>Token Configuration - Character Tab</figcaption>
 </figure>
+
 <dl>
     <dt>Token Name</dt>
 	<dd>
@@ -43,9 +50,12 @@
 		<p>For non-player characters, setting a Token disposition allows for the colored border shown around a Token to be drawn in a different color which can differentiate enemies from allies during combat encounters.</p>
 	</dd>
 </dl>
-<figure><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/actor-token-configuration-2020-02-13.png" alt="Token Configuration Image Tab" />
+
+<figure>
+	@Image[46]
 	<figcaption>Token Configuration - Image Tab</figcaption>
 </figure>
+
 <dl> <dt>Token Image Path</dt>
 	<dd>
 		<p>The file path to the artwork that is used for the Token. This file must either be served locally from within the <code class="docutils literal notranslate"><span class="pre">public</span></code> directory or from some publicly accessible web location.</p>
@@ -71,9 +81,12 @@
 		<p>If this option is checked, the token artwork is flipped horizontally to "mirror" the Token's appearance.</p>
 	</dd>
 </dl>
-<figure><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/actor-token-configuration-2020-02-13.png" alt="Token Configuration Position Tab" />
+
+<figure>
+	@Image[47]
 	<figcaption>Token Configuration - Position Tab</figcaption>
 </figure>
+
 <dl> <dt>X-Coordinate</dt>
 	<dd>
 		<p>The current x-coordinate of the Token in a Scene. This is displayed for reference only but cannot be configured.</p>
@@ -95,9 +108,12 @@
 		<p>If this setting is enabled the token cannot be rotated. This setting is typically ideal for portrait style tokens where the artwork orientation is more ideally fixed.</p>
 	</dd>
 </dl>
-<figure><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/actor-token-configuration-2020-02-13.png" alt="Token Configuration Vision Tab" />
+
+<figure>
+	@Image[48]
 	<figcaption>Token Configuration - Vision Tab</figcaption>
 </figure>
+
 <dl>
     <dt>Has Vision</dt>
 	<dd>
@@ -128,9 +144,12 @@
 		<p>An angle of light emission between zero and 360 degrees (the default) which represents the field of light that is emitted by this Token. The computed angle of emission aligns to the direction of facing controlled by the rotation attribute.</p>
 	</dd>
 </dl>
-<figure><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/actor-token-configuration-2020-02-13.png" alt="Token Configuration Vision Tab" />
+
+<figure>
+	@Image[49]
 	<figcaption>Token Configuration - Resources Tab</figcaption>
 </figure>
+
 <dl> <dt>Display Bars</dt>
 	<dd>
 		<p>Configure the level of visibility for the token&rsquo;s resource bars. The following options are supported:</p>
@@ -182,11 +201,6 @@
 </ul>
 <hr />
 
-
-<h2>The Token HUD</h2>
-<p>TODO</p>
-<hr/>
-
 <h2>Frequently Asked Questions</h2>
 
 <blockquote class="question" id="shared-token-vision">How can I allow players to have shared vision across multiple Tokens?</blockquote>
@@ -200,3 +214,14 @@
 	<li>Press ESCAPE.</li>
 	<li>[Optionally] Use the "deselection" module which will release control of your token when you left-click anywhere else in the Scene.</li>
 </ul>
+<hr/>
+
+<h3>API References</h3>
+<p>To interact with Tokens programmatically, consider using the following API concepts:</p>
+<ul>
+    <li>The @API[Token,The Token Object] Object</li>
+	<li>The @API[TokensLayer,The TokensLayer Canvas Layer] Canvas Layer</li>
+	<li>The @API[TokenConfig,The TokenConfig Application] Application</li>
+	<li>The @API[TokenHUD,The TokenHUD Interface] Interface</li>
+</ul>
+<hr/>
