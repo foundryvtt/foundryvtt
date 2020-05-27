@@ -1,6 +1,3 @@
-<h2>Overview</h2>
-<p>PLACEHOLDER</p>
-
 <h2>Compendium Pack JSON Definition</h2>
 <p>To define a valid Compendium pack in a JSON manifest file include the following object structure inside the <code>packs</code> array.</p>
 <pre><code class="language-json">"packs": [
@@ -50,7 +47,7 @@
 const pack = game.packs.find(p =&gt; p.collection === `${moduleName}.${packName}`);
 
 // Load an external JSON data file which contains data for import
-const response = await fetch("path/to/data.json");
+const response = await fetch("worlds/myworld/data/import.json");
 const content = await response.json();
 
 // Create temporary Actor entities which impose structure on the imported data

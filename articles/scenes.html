@@ -42,6 +42,17 @@
 </dl>
 
 <h3>Grid Settings</h3>
+<p>This configuration section is used to modify the grid type and alignment which is displayed as an overlay atop the Scene. Even if you are using a map that has a pre-drawn grid it is important to configure this section because the Foundry grid dictates the positions where Tokens are placed, how distance is measured, or how Measured Templates identify target spaces. Configuration of the Grid in Foundry uses three key concepts:</p>
+<ol>
+	<li>The width (in pixels) of the image.</li>
+	<li>The height (in pixels) of the image.</li>
+	<li>The grid size (in pixels); the number of pixels which represent a single grid space.</li>
+</ol>
+
+<p>For example, suppose you have a map with a pre-drawn square grid which has 22 grid spaces in width and 18 grid spaces in height. The original map image is 3080px by 2520px. By knowing the dimensions of the image and by counting the number of grid spaces displayed on the map we can learn that the intended grid size for this map is 140px per square.</p>
+
+<p class="note info">Foundry Virtual Tabletop enforces a minimum grid size of 50px. If your map uses a grid size lower than 50px you can still use it by increasing the background size. The easiest solution is to multiply all 3 of the width, height, and grid size by two to double every dimension.</p>
+
 <dl>
 	<dt>Grid Type</dt>
 	<dd>
@@ -91,7 +102,7 @@
 	</dd>
 </dl>
 
-<p class="note info">If your background image has a visible grid already baked into the image, and if that grid does not align perfectly with the top-left corner of the image, you may need to use the Shift Horizontal and Vertical settings below to offset the image.</p>
+<p class="note info">If your background image has a visible grid already incorporated into the image and you are having trouble aligning the Foundry grid with the pre-existing one, be sure to use the <strong>Grid Alignment Tool</strong> by clicking the angled-ruler icon to the right of the Grid Type dropdown which has a specialized tool and workflow to assist with this process.</p>
 
 <h3>Lighting and Vision</h3>
 <dl>

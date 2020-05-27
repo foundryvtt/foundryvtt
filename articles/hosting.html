@@ -103,14 +103,18 @@ sudo yum install -y nodejs
 curl -sL https://deb.nodesource.com/setup_12.x | sudo bash -
 sudo apt install -y nodejs
 </code></pre>
-<p>Once Node.js is installed, next download and extract the latest Foundry Virtual Tabletop Linux version from Patreon. The following commands will create an application directory and a sibling user data directory:</p> <pre><code class="language bash"># Create application and user data directories
+<p>Once Node.js is installed, next download and extract the latest Foundry Virtual Tabletop Linux version from Patreon. The following commands will create an application directory and a sibling user data directory.</p>
+
+<p class="info note">To install the software using <code>wget</code> you will need to acquire a temporary download token from your user profile page on the Foundry website. On the <strong>Purchased Licenses</strong> page, click the link icon to the right of the standard download link to obtain a temporary download url for the software.</p>
+
+<pre><code class="language bash"># Create application and user data directories
 cd $HOME
 mkdir foundryvtt
 mkdir foundrydata
 
 # Install the software
 cd foundryvtt
-wget &lt;foundry-website-download-url&gt; -O foundryvtt.zip
+wget -O foundryvtt.zip "&lt;foundry-website-download-url&gt;"
 unzip foundryvtt.zip
 
 # Start running the server
