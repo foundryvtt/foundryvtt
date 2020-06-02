@@ -1,0 +1,80 @@
+<p>Rollable Tables allow you to draw from a predefined list of outcomes which, in addition to allowing text entries, can link to @Article[actors], @Article[items], @Article[journal], @Article[playlists], @Article[scenes], or even other Rollable Tables. In addition, Rollable tables have full access to @Article[compendium] and the entities they contain.</p>
+<hr />
+
+<h2>The Rollable Table Interface</h2>
+<p>New Rollable Tables can be created from the Rollable Tables directory sidebar. Like the Scenes, Actors,  Items, and Journal Entires Directories, this directory can contain folders to organize your world's Rollable Tables. Only a Gamemaster or Assistant-level user can change or move folders, but any players with at least Limited permissions for a Rollable Table can see it and the folder containing it. </p>
+
+<figure>
+	@Image[63]
+	<figcaption>The Roll Table configuration sheet can contain many entries from which one or more can be randomly drawn when the table is rolled!</figcaption>
+</figure>
+
+<p> Creating a new Rollable Table is as simple as clicking the "Create Table" button located at the bottom of the sidebar menu.</p>
+
+<dl>
+	<dt>Name</dt>
+	<dd>
+		<p>The name of your Rollable Table.</p>
+	</dd>
+	<dt>Table Description</dt>
+	<dd>
+		<p>A descriptive entry if you wish to provide a reminder of the purpose of the table.</p>
+	</dd>
+	<dt>Roll Table Formula</dt>
+	<dd>
+		<p>The formula used when pressing the "roll" button on the table, this can simply be "1d#" where # is the number of entries in the table, but it also accepts more advanced formulae. </p>
+	</dd>
+	<dt>Draw with Replacement</dt>
+	<dd>
+		<p>This option is best used for tables representing physical objects that, once claimed, cannot be claimed again. A simple example would be a chest containing only a few items. Once those items are removed, the chest no longer contains them.</p>
+	</dd>
+	<dt>Display Results to Chat</dt>
+	<dd>
+		<p>This option determines whether or not players are able to see the numeric results of the roll on the table. With the results. Regardless of the state of this option, drawing from a Rollable Table will always generate a chat card for the result.</p>
+	</dd>
+</dl>
+<hr />
+
+<h2>Table Results</h2>
+<p>Adding results to the Rollable Table begins with pressing the <strong>+</strong> button. Every result has a number of options that can be configured to provide a highly customizable experience.</p>
+
+<figure>
+	@Image[64]
+	<figcaption>Each result in the table can be of a different type or have different odds of occurring. Results which have already been drawn are locked unless replacement is allowed.</figcaption>
+</figure>
+
+<dl>
+	<dt>Result Type</dt>
+	<dd>
+		<p>This dropdown selection input allows you to choose either <strong>Text</strong>, <strong>Entity</strong> or <strong>Compendium</strong>. Text allows you to enter plain text or HTML scripted entries which will be output to Chat when they are entered. Entities can be any named entity from </p>
+	</dd>
+	<dt>Result Details</dt>
+	<dd>
+		<p>Each type of Result carries with it some specific options.  Text allows you to enter plain text or HTML scripted entries which will be output to Chat when they are entered; Text entries can also utilize Foundry's Entity Links(@Entity[ID]) for advanced functionality. Entities require you to choose which type of entity the Rollable Table refers to, with a second box allowing you to type the exact name of the entity to be found. Compendium function effectively the same as Entity, but you select the compendium from which to find the entity's name.  </p>
+	</dd>
+	<dt>Weight</dt>
+	<dd>
+		<p>Weight determines how many times a particular result is entered into the table. By default, every result has a weight of 1. After you have assigned your weights, pressing the scales icon at the far right of the results header will generate the appropriate Roll Formula for your results.  </p>
+	</dd>
+	<dt>Range</dt>
+	<dd>
+		<p>When a roll is made on the Rollable table, if the number falls anywhere within the range of a result that result is drawn. In a case where two or more results have an overlapping range, all results are considered drawn. </p>
+	</dd>
+</dl>
+<hr />
+
+<h2>Nesting Tables</h2>
+<p>By default, Foundry supports rolling on secondary tables inside a Rollable table. To accomplish this, assign a result to the Entity - RollTable type and enter the name of the table. </p>
+
+<p>If you wish to have the first table indicate that it is rolling on a sub-table, assign a text result before the secondary Rollable Table result to make a declaration, such as "A small chest containing:". Then provide both of these results the same Range.</p>
+<hr/>
+
+<h3>API References</h3>
+<p>To interact with Rollable Tables programmatically, consider using the following API concepts:</p>
+<ul>
+    <li>The @API[RollTable,The RollTable Entity] Entity</li>
+	<li>The @API[RollTables,The RollTable Collection] Collection</li>
+	<li>The @API[RollTableDirectory,The RollTable Sidebar Directory] Sidebar Directory</li>
+	<li>The @API[RollTableConfig,The RollTable Application] Application</li>
+</ul>
+<hr>
