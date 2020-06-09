@@ -1,0 +1,55 @@
+<p>Foundry Virtual Tabletop supports various ways to convey player dialogue and actions, both in and out of character, through messages in the chat log. This page provides an overview on these chat messages and their functionality.</p>
+
+<h2>The Chat Log</h2>
+<p>All chat messages can be accessed through the Chat Log sidebar in-game. At the bottom of this sidebar, users can use the text field to enter messages that are viewable by others. Pressing Enter will send a written message, while pressing Shift + Enter will add a new line to the message. Pressing Up arrow will bring up the last message or command entered.</p>
+
+<h4>Saving</h4>
+<p>Gamemasters can save the chat log to a file through the Export Chat Log button above the text field (marked with a floppy disk icon). This exports all available chat messages into a .txt file.</p>
+
+<h4>Deleting</h4>
+<p>Gamemasters can clear the chat log through the "Clear Chat Log" button above the text field (marked with a trash can icon). This deletes all messages in the chat log. A gamemaster can similarly delete individual messages, with the trash can found on the top right corner of each message.</p>
+
+<h4>Roll Modes</h4>
+<p>The roll modes dropdown configures the type of dice roll that will be dispatched by automated rolls created by game systems, modules, or macros. Note that the selected roll mode provides guidance for automated rolls, but using the <code>/roll</code> command <em>always</em> results in a public roll. See dice rolling details for more information.</p>
+<hr />
+
+<h2>Chat Commands</h2>
+<p>While entering a message, users are able to prefix their message with a command. Some commands related to sending chat messages are listed below:</p>
+
+<h4>In Character</h4>
+<p>Syntax: <code>/ic {message}</code></p>
+<p>Causes the message to be spoken by an associated character. With a character's token selected (or with a speaker identified through the Player Configuration window), players will automatically speak in character, removing the need to enter this command for every message.</p>
+
+<h4>Out of Character</h4>
+<p>Syntax: <code>/ooc {message}</code></p>
+<p>Causes the message to be spoken out of character (OOC). OOC messages will be outlined by the player's color to make them more easily recognizable. A player without an identified speaker or a selected token will automatically speak out of character.</p>
+
+<h4>Emotes</h4>
+<p>Syntax: <code>/emote {message}</code></p>
+<p>Causes the message to be an emote performed by the selected character. Emotes are in-character actions conveyed through text by the player, and therefore require the player to select a token (or link a character through the Player Configuration window). Entering "/emote waves his hand." while controlling a character named Simon will send the message, "Simon waves his hand."</p>
+
+<h4>Whispered Messages</h4>
+<p>Syntax: <code>/whisper {target} {message} or /w {target} {message}</code></p>
+<p>Whispers a message to the target. If the user sending the message does not have the "Private Messages" permission, Gamemasters will be able to see the content of the message even if they were not a recipient. If the whisper's target is a character, the whisper will be sent to whoever controls the token. In addition to using the <code>/w</code> whisper syntax you can also send whispered messages using <code>@{name} {message}</code> if that is more convenient to you.</p>
+<p>Note that you can message multiple users at once by enclosing their names as a comma separated list within brackets. For example <code>/w [Andrew, Tim, Julia] what do you think?</code> or <code>@[James, Alicia] should we attack, or sneak past?</code>. Lastly, the names <code>gm</code> and <code>players</code> will send a whispered message to all Game Master users or all non-GM users respectively.</p>
+
+<h4>Dice Rolls</h4>
+<p>Syntax: <code>/roll</code>, <code>/gmroll</code>, <code>/blindroll</code>, <code>/selfroll</code></p>
+<p>Rolls dice as a chat message. In the chat log, rolls can be clicked to expand their tooltip, showing the value of each individual roll. It can be clicked again to collapse the display. Refer to the <a title="Rolling Dice" href="../dice" target="_blank" rel="nofollow noopener">Rolling Dice</a> article for further details on how to roll dice in Foundry VTT. Once a roll is placed, you can expand the rolls to see detailed results by clicking on the rolled total.</p>
+<hr />
+
+<h2>Chat Bubbles</h2>
+<p>When an in-character or emote chat message is sent from the perspective of a placed Token, it will display a chat bubble above that Token's head illustrating the dialog visually on the game canvas.</p>
+<figure>
+    <img title="An example of chat bubbles" src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/chat-bubbles-example-2020-03-28.jpg" />
+	<figcaption>An example chat bubble displayed for an in-character message. The camera pans to focus on the speaker.</figcaption>
+</figure>
+<p>While chat bubbles can be a great immersion aid for many parties, they may not be a desirable feature for all game masters. There are two settings which can configure the behavior of chat bubbles:</p>
+<ul>
+	<li>Enable Chat Bubbles - if you wish chat bubbles may be disabled entirely.</li>
+	<li>Pan to Token Speaker - configure whether the camera should pan to focus on the dialog speaker or not.</li>
+</ul>
+<hr />
+
+<h2>Chat Message API</h2>
+<p>For module and system developers who want to develop using messages and the chat log, there is a Javascript API available to create, use, or modify chat messages or the chat log as a whole. See the <a title="Chat Message API Documentation" href="../../../../../api/ChatMessage.html" target="_blank" rel="nofollow noopener">Chat Message</a> and <a title="Chat Log API Documentation" href="../../../../../api/ChatLog.html" target="_blank" rel="nofollow noopener">Chat Log</a> API documentation for details.</p>

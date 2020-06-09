@@ -1,0 +1,55 @@
+<h2>Foundry Virtual Tabletop - Beta 0.5.5 Update Notes</h2>
+
+<img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/beta-055-release-banner-2020-04-17.png" title="Beta 0.5.5 Release Notes"/>
+
+<p>Hi everyone, I'm extremely excited to celebrate a major milestone for Foundry Virtual Tabletop with <strong>Beta 0.5.5</strong> and the launch of software license purchasing on the official website. This is an odd-numbered "stable" release for all Patreon supporters and for all users who pre-purchase a license from the website. There are relatively few changes in this update, the most significant of which is the addition of the new <strong>license verification process</strong> which applies to non-Patreon customers and will (eventually) apply to everyone.</p>
+
+<p>Along with this release pre-purchasing is now available on the website! You'll be hearing more details about that in a companion post coming shortly. If you haven't yet gotten a chance, please check out the <a href="https://www.youtube.com/watch?v=9RlXQCi9TQI" title="Release Announcement Video" target="_blank">Release Announcement Video</a> which was posted recently.</p>
+
+<p>For those of you who did not update to version 0.5.4, this update includes a ton of major new features from that update version. Be sure to see the <a href="https://foundryvtt.com/releases/0.5.4" target="_blank">Beta 0.5.4 Update Notes</a> for all the details on those changes.</p>
+<hr/>
+
+<h3>New Features</h3>
+<ul>
+	<li>Implemented a new workflow for software license key application and activation as a first step in the VTT user experience. When launching Foundry for the first time (or if you do not have a license applied) you will be prompted to enter a software license key. For users who have temporary access to the Foundry Beta through Patreon, you should use the access key provided through Patreon. For users who have purchased a software license from the website, use the license key which is available on the Purchased Licenses subsection of your user profile.</li>
+	<li>Improve the tag designation for packages which do not state a compatible core version which is equal or greater than the core VTT version to be displayed as "Compatibility Risk" rather than "Requires Update".</li>
+	<li>Provide a human-readable error message when the user tries to download a file and save it to a location where they do not have write permissions.</li>
+	<li>In response to user feedback, redefined keyboard control for canvas zooming to use either NumpadPlus/NumpadMinus or PageUp/PageDown with no modifier key required.</li>
+</ul>
+<hr/>
+
+<h3>Bug Fixes</h3>
+<ul>
+	<li>Fixed an issue with World-level settings with the String datatype where the string was not appropriately serialized and unserialized when stored to the server, resulting in JSON parsing errors after a reload.</li>
+	<li>Downloaded files could occasionally produce an "End of Central Directory Signature" error if the file was immediately unzipped after download but before the downloaded file was properly closed.</li>
+	<li>Pre-existing Modules and Systems were failing to detect available updates due to incorrect server side logic which checked for updates to the package.</li>
+	<li>Fixed an issue which could cause the Module Management form to not be properly saved due to incorrect JSON formatting of the saved setting value.</li>
+	<li>Image decoding in the new TextureLoader was not working properly for Images which were very large. The asynchronous loading process for loaded image textures has been changed to work better for such image files.</li>
+	<li>Fixed an issue which caused the new sight rendering computation to fail for tokens which had a limited angle of vision or light source emission.</li>
+	<li>Scene entity deletions were not properly cascading server-side to also delete related entities like Combat Encounters, Fog Exploration, or saved thumbnail images.</li>
+	<li>Socket handshakes were incorrectly rejected by Electron when using SSL certificates because they came from the WebSocket wss:// protocol instead of https://.</li>
+	<li>Beginning an Item Compendium drag operation should be allowed so that players can populate their own character sheets. It is currently requiring the ITEM_CREATE permission which should not be needed.</li>
+	<li>An excessive line-height created a bad appearance for RollTable results whose text wrapped onto multiple displayed lines.</li>
+	<li>Modules were not properly showing Localization tags if they included a languages entry in their module manifest.</li>
+	<li>Sharing a popout image with other players fails on the receiving clients if a companion Entity object is not defined. This should not be the case and has been corrected.</li>
+</ul>
+<hr/>
+
+<h3>Framework and API Changes</h3>
+<ul>
+	<li>Improve the way that search filtering is performed in the FilePicker, Package Installation, and Compendium applications to reduce the risk of duplicate filtering or searching effort.</li>
+	<li>Improve the ability to cancel the movement animation of a Token with a <code>Token.stopAnimation</code> function so that it can be properly terminated when the Token is deleted or when the Tokens layer is deconstructed.</li>
+</ul>
+<hr/>
+
+<h3>Documentation Improvements</h3>
+<ul>
+	<li>Added a new Installation Guide: https://foundryvtt.com/article/installation/</li>
+	<li>Added a Knowledge Base page on Macro Commands: https://foundryvtt.com/article/macros/</li>
+</ul>
+<hr/>
+
+<h3>Known Issues</h3>
+<ul>
+	<li>If there are enough Scenes displayed in the Navigation Bar that it wraps to a 2nd (or more) line, those subsequent rows of Scenes will overlap the position of the loading bar which displays load progress.</li>
+</ul>

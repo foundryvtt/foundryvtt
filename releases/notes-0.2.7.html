@@ -1,0 +1,32 @@
+<h2>Beta 0.2.7 Update Notes</h2>
+
+<p>Greetings friends and supporters! I'm sharing another Foundry Virtual Tabletop Beta update a bit ahead of schedule. This new version, <code>0.2.7</code>, is being released now to address a number of bugs which emerged in the previous version that were not caught. Rather than waiting a normal update cycle (10-14 days) to post an update that fixes these bugs I wanted to address as many as possible and post this update right away.</p>
+
+<p>With this update completed, I'll work on accomplishing a more meaningful feature update with <code>0.2.8</code> which I will try to release by the end of April. Thanks to all the testers who highlighted some of the problems in the previous update version. Furthermore, since this update is heavily focused on resolving problematic bugs, this update will not have an early-release period for Council-tier Patrons but rather is immediately available for all Patrons.</p>
+
+<p><a href="https://gitlab.com/foundrynet/foundryvtt/boards" target="_blank" title="FVTT Story Board">https://gitlab.com/foundrynet/foundryvtt/boards</a></p>
+<hr/>
+
+<h3>Core Bug Fixes</h3>
+<ul>
+	<li>Corrected a server-side error which prevented Scene update operations from being correctly acknowledged back to the requesting client.</li>
+	<li>Resolved a problem which prevented players from being able to delete Items from their own inventory.</li>
+	<li>Specified that the folder attribute be a required field for JournalEntry entities which prevents an entry from being incorrectly orphaned if dragged out of it's Journal chapter.</li>
+	<li>Fixed an error for various placeable objects like MeasuredTemplates, Tiles, and Light sources which caused a circular JSON error when rendering their configuration sheets.</li>
+	<li>Improved an issue with the EULA signature process, which was previously repeatedly prompting the user after signing until the server was restarted.</li>
+	<li>Resolved a console error which resulted when ruler measurement did not pass a valid destination object.</li>
+	<li>Corrected a permissions failure which prevented players with the TRUSTED level from deleting MeasurementTemplates which they had placed in a Scene.</li>
+	<li>Fixed an issue with drag and drop operations to change an Entity folder, which was correctly saving in the server but not propagating back to the client.</li>
+	<li>Corrected the context menu applied to combatants in the updated Combat Tracker to ensure that the "Remove Combatant" context option works as expected.</li>
+	<li>Fixed an issue with the new Combat Tracker reset button which could cause the turn of the combat round to overflow out of bounds once initiatives were re-rolled.</li>
+	<li>Improved the behavior of the new resizable window function such that Applications with an "auto" width or height will properly re-render its dimensions dynamically. This resolved a problem with the FilePicker UI in particular that prevented it from being easily used.</li>
+</ul>
+<hr/>
+
+<h3>Core Software, APIs, and Module Development</h3>
+<ul>
+	<li>World configuration JSON files may now specify styles and scripts using glob-style patterns, as is supported for systems and modules.</li>
+	<li>Added the <code>pauseGame</code> hook which will fire whenever the paused state changes.</li>
+	<li>Improved the Application.setPosition method to separate the update logic for positioning and dimension data as needed.</li>
+</ul>
+<hr/>

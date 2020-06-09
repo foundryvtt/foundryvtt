@@ -1,0 +1,62 @@
+<h2 id="json">Compendium Pack JSON Definition</h2>
+<p>To define a valid Compendium pack in a JSON manifest file include the following object structure inside the <code>packs</code> array.</p>
+<pre><code class="language-json">"packs": [
+    {
+      "name": "pack-name",
+      "label": "Pack Title",
+      "system": "system-name",
+      "path": "./packs/pack-name.db",
+      "entity": "Item"
+    },
+]</code></pre>
+<p>The elements of this data structure are defined as follows:</p>
+<dl>
+    <dt>name</dt>
+	<dd>
+		<p>The compendium pack name - this should be a unique lower-case string with no special characters.</p>
+	</dd>
+    <dt>label</dt>
+	<dd>
+		<p>The compendium pack label - this should be a human readable string label which is displayed in the Compendium sidebar in-game.</p>
+	</dd>
+    <dt>system</dt>
+	<dd>
+		<p>Since you are creating compendium content specifically for your system, be sure to reference that the content inside each compendium pack requires the system by providing the system name that you chose.</p>
+	</dd>
+    <dt>module</dt>
+	<dd>
+		<p>The module attribute of each compendium pack designates which content module provided the pack, since this pack is coming from the system itself we can once again provide the system name.</p>
+	</dd>
+    <dt>path</dt>
+	<dd>
+		<p>The path for each compendium pack should designate a database file with the <code>.db</code> extension. As a best practice, I recommend placing these database files within the <code>packs</code> subdirectory. You do not need to create these files yourself. If a system includes a compendium pack, the database file for that pack will be created automatically when the system is loaded, if it does not already exist.</p>
+	</dd>
+    <dt>entity</dt>
+	<dd>
+		<p>Each compendium pack must designate a specific Entity type that it contains. Compendiums can contain any type of Entity, including: @Article[actors], @Article[items], @Article[journal], @Article[playlists], @Article[roll-tables] or @Article[scenes].</p>
+		
+	</dd>
+    <dt>system</dt>
+	<dd>
+		<p>Each compendium pack may optionally specify a string or Array of strings which identifies the game system or systems for which its included content is appropriate.</p>
+	</dd>
+</dl>
+
+<h2 id="bulk">Bulk Importing of Compendium Content</h2>
+<p>A relatively common desire for module or system developers is to bulk import external content to create a compendium pack. There are several ways to do this, but the recommended approach is to use the API to handle creation of your compendium entries from structured data. The following code block provides an example of importing Actor data from an external JSON file and using that data to populate a compendium pack.</p>
+<pre><code class="language-javascript">// Reference a Compendium pack by it's callection ID
+const pack = game.packs.find(p =&gt; p.collection === `${moduleName}.${packName}`);
+
+// Load an external JSON data file which contains data for import
+const response = await fetch("worlds/myworld/data/import.json");
+const content = await response.json();
+
+// Create temporary Actor entities which impose structure on the imported data
+const actors = Actor.createMany(content, {temporary: true});
+
+// Save each temporary Actor into the Compendium pack
+for ( let a of actors ) {
+  await pack.importEntity(a);
+  console.log(`Imported Actor ${a.name} into Compendium pack ${pack.collection}`);
+}
+</code></pre>

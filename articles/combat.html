@@ -1,0 +1,50 @@
+<p>Most game systems make use of situations that rely on characters taking turns, such as time-sensitive combat scenes in roleplaying games. Foundry Virtual Tabletop supports managing turn-based combat scenarios through its Combat Tracker sidebar. This article uses the word "initiative" in a general sense to represent the concept of a numeric ranking of turn order.</p>
+
+<p>The Combat Tracker is accessed from the second icon in the sidebar, marked as a fist. Here, encounters and their listed combatants can be viewed and managed. Like all sidebars, the Combat Tracker can be popped out into its own draggable, resizable window by right-clicking its icon at the top of the sidebar.</p>
+
+<figure>
+	<video width="100%" controls>
+		<source src="https://foundryvtt.s3-us-west-2.amazonaws.com/website-media-dev/videos/combat-tracker.webm" type="video/webm">
+	</video>
+	<figcaption>An example of adding multiple Tokens to a new Combat Encounter, rolling Initiative, and advancing the turn order.</figcaption>
+</figure>
+
+<h3>Combat Encounters, Step by Step</h3>
+<p>As the Gamemaster, can follow these steps to quickly create and manage an encounter in FVTT.</p>
+<ol>
+	<li>Navigate to the scene where the encounter takes place.</li>
+	<li>Select all tokens that are to be included in the encounter, through dragging a rectangle over the combatants or selecting each token with Shift + Left click. With all combatants selected, Right click one of the tokens, and click "Toggle Combat State" (the swords and shield icon) to add the selected tokens to an encounter. Additionally, players can add their own characters to the encounter by clicking this button on their tokens.</li>
+	<li>Roll initiative for all combatants at once using the Roll All button, or roll for just NPCs using the Roll NPCs button, allowing your players to roll initiative for their own characters.</li>
+	<li>With initiative rolled for all combatants, click the Begin Combat button at the bottom of the Combat Tracker to start the encounter.</li>
+	<li>Carry out character's turns. Players can end their own characters' turns, but NPCs must have their turn ended by a user with the Gamemaster or Assistant role. This can be done by clicking the "Next Turn" button at the bottom of the Combat Tracker.</li>
+	<li>When combat has concluded, end the encounter by clicking the "End Combat" button at the bottom of the Combat Tracker. This will delete the encounter and toggle the combat state of all combatants.</li>
+</ol>
+
+<figure>
+	<img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/combat-tracker-buttons-2020-05-18.jpg" alt="The Combat Tracker Controls"/>
+	<figcaption>The Combat Tracker has a number of controls to set up and navigate the turn order.</figcaption>
+</figure>
+
+<hr/>
+<h2>Encounters</h2>
+<p>A fight scene, race, or any particular set of people taking turns performing actions in-game can be considered an "Encounter." An encounter is tied to a specific Scene, which is the one currently being viewed when it is created. Players will only see the encounter in the Combat Tracker if they are currently viewing that scene. When first creating a world in Foundry, there will be no encounters created. An encounter can be easily created with the Create Encounter button found at the top left of the Combat Tracker.</p>
+<p>Additionally, more than one encounter can be tracked. Even an individual scene can have multiple encounters being tracked at once. Individual encounters can be added, deleted, or activated with the buttons at the top of the Combat Tracker sidebar, allowing the Gamemaster to manage multiple fights or encounters happening at once on the same scene, with their own separate turn orders. Foundry's API refers to individual encounters as a "Combat" entity.</p>
+
+<h2>Combatants</h2>
+<p>Encounters are made up by their participants. These participants, known in Foundry as "Combatants", are the actors that take turns with each other in the encounter. You can add a combatant to an encounter by right-clicking a token and clicking the "Toggle Combat State" button, marked by two swords and a shield. If an encounter doesn't exist on the scene, an encounter will be created for the combatant. At this point, a player who controls the combatant can roll for initiative by clicking the Roll Initiative die icon by the combatant in the Combat Tracker.</p>
+<p>When an encounter is first created and filled with combatants, players are able to roll their own characters' initiative if desired, using the Roll Initiative button. Additionally, combatants can have their initiative roll modified at any point during combat by right-clicking the combatant in the tracker and selecting Modify. Similarly, combatants can have their initiative rerolled entirely, or the combatant can be removed from the encounter through this same right-click menu.</p>
+<hr/>
+
+
+<h3>API References</h3>
+<p>To interact with Items programmatically, consider using the following API concepts:</p>
+<ul>
+    <li>The @API[Combat,The Combat Entity] Entity</li>
+	<li>The @API[CombatEncounters,The CombatEncounters Collection] Collection</li>
+	<li>The @API[CombatTracker,The CombatTracker App] Sidebar Tab</li>
+</ul>
+<hr/>
+
+
+<h3>Attributions</h3>
+<p class="note">"Haunted Library" map and Tokens by <a href="https://www.patreon.com/forgottenadventures" title="ForgottenAdventures on Patreon" target="_blank">ForgottenAdventures on Patreon</a>.</p>

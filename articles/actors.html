@@ -1,0 +1,170 @@
+<p>One of the most fundamental entities within Foundry Virtual Tabletop is the Actor. Actors are the protagonists, allies, monsters, antagonists, and persons within the World that you create. The game System being used has control to define the exact types of actors which are relevant for it&rsquo;s gameplay, but for most tabletop roleplaying systems these actors will represent the characters which the player Users impersonate and the foes they encounter.</p>
+<hr />
+
+<h2>Actor Creation and Configuration</h2>
+<p>To create a new Actor, visit the Actors Directory in the sidebar by clicking on the icon that looks like a group of people. At the bottom of this directory tab you can create a new Actor, or first create a Folder that you can use to organize many actors.</p>
+<p>Actor configuration is handled through the Actor Sheet which is opened by left clicking on an Actor entry in the sidebar directory or by double-clicking on a token within a Scene. The Actor Sheet itself is usually a system-specific implementation, so the details of what can be configured at an Actor level will vary by game system.</p>
+<figure><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/example-actor-sheet-2020-02-13.png" alt="Example Actor Sheet" />
+	<figcaption>An example Actor Sheet, taken from the implementation of the D&amp;D 5th Edition game system.</figcaption>
+</figure>
+<hr />
+
+<h2>Actor Permission Levels</h2>
+<p>Each Actor can have permissions configured at an individual User level. Actor permissions control which User or Users may see or edit that Actor, or impersonate it&rsquo;s Token. To modify the permissions configured for an Actor, right-click on the Actor entry in the sidebar and select the Permissions option.</p>
+<p>A single permission level may be assigned to all users at once, or individually user-by-user. A permission given to a specific User will override the level of permission given to all Users.</p>
+<dl>
+	<dt>None</dt>
+	<dd>
+		<p>The User is not able to see the Actor in the sidebar, open its&rsquo; sheet, or control its&rsquo; Token. This is the default permission level.</p>
+	</dd>
+	<dt>Limited</dt>
+	<dd>
+		<p>The User is able to see the Actor entry in the sidebar, and observe limited (but not full) details regarding that Actor. Users with limited permission cannot control the Actor&rsquo;s token.</p>
+	</dd>
+	<dt>Observer</dt>
+	<dd>
+		<p>The User is able to see the Actor&rsquo;s entry in the sidebar directory and open it&rsquo;s character sheet. The User is also able to see through the Token&rsquo;s perspective on the active Scene, but not control that Token.</p>
+	</dd>
+	<dt>Owner</dt>
+	<dd>
+		<p>The User has full control over the actor and can open and edit their Actor sheet as well as control and see from the perspective of their Token.</p>
+	</dd>
+</dl>
+<hr />
+
+<h2>Default Actor Token</h2>
+<p>The Token Configuration sheet controls and customizes how an Actor is represented within a Scene. Each Actor has a default token configuration which defines a template for that token when it is placed. Once a token is actually placed, it is an independent copy which can be configured differently from the Actor&rsquo;s prototype.</p>
+<p>To modify the default token configuration for an Actor, you may either:</p>
+<ol>
+	<li>Click the <strong> Configure Token </strong> button in the header of an Actor sheet.</li>
+	<li>Edit the configuration for an existing Token and, while having that configured token selected, click <strong> Assign Token </strong> in the header of the Actor sheet.</li>
+</ol>
+<p>To modify a Token which has already been placed within the Scene, double right-click the token to access the Token Configuration menu.</p>
+
+<h3>Token Configuration Options</h3>
+<figure><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/actor-token-configuration-2020-02-13.png" alt="Actor Token Configuration" />
+	<figcaption>Configuration for the prototype token is accessed through the Actor sheet itself.</figcaption>
+</figure>
+<hr />
+<p>The Token Configuration sheet features the following options which are shown in the above image and explained in the table below.</p>
+<dl>
+	<dt>Nameplate</dt>
+	<dd>
+		<p>Configure the name which is shown for the token, this can potentially be different from the name of the actual Actor.</p>
+	</dd>
+	<dt>Show Nameplate</dt>
+	<dd>
+		<p>Configure the level of visibility for the token&rsquo;s nameplate. The following options are supported:</p>
+		<ul>
+			<li>None - The nameplate will not be shown</li>
+			<li>Control - Displayed when the Token is currently controlled</li>
+			<li>Owner Hover - Displayed when the token is hovered over by a User who owns the token&rsquo;s Actor</li>
+			<li>Hover - Displayed when the token is hovered over by any User</li>
+			<li>Owner - Always displayed to any User who owns the token&rsquo;s Actor</li>
+			<li>Always - Always displayed to every User</li>
+		</ul>
+	</dd>
+	<dt>Actor Template</dt>
+	<dd>
+		<p>Specify which Actor that is present within the World defines the Actor data which describes the Token.</p>
+	</dd>
+	<dt>Link Data</dt>
+	<dd>
+		<p>When enabled, changes to the resource pools either on the base Actor or on the Token itself will reflect in the other location. As a general rule of thumb, Tokens should be linked if their Actor is a unique character, such that there would only be one instance of that Actor within any particular Scene. Alternatively, Tokens should not be linked when the Actor entry represents a generic creature or type of character. When data is not linked, each Token will have independent resources pools and turn order tracking.</p>
+	</dd>
+	<dt>Disposition</dt>
+	<dd>
+		<p>For non-player characters, setting a Token disposition allows for the colored border shown around a Token to be drawn in a different color which can differentiate enemies from allies during combat encounters.</p>
+	</dd>
+	<dt>Image Path</dt>
+	<dd>
+		<p>The file path to the artwork that is used for the Token. This file must either be served locally from within the <code class="docutils literal notranslate">
+    <span class="pre">
+     public
+    </span>
+   </code> directory or from some publicly accessible web location.</p>
+	</dd>
+	<dt>Width</dt>
+	<dd>
+		<p>The number of grid units in the horizontal dimension that this token occupies. A token which uses a single grid square would have a width of 1.</p>
+	</dd>
+	<dt>Height</dt>
+	<dd>
+		<p>The number of grid units in the vertical dimension that this token occupies. A token which uses a single grid square would have a height of 1.</p>
+	</dd>
+	<dt>Scale</dt>
+	<dd>
+		<p>A scaling ratio for the size of the Token&rsquo;s artwork. The token base is unaffected by this value, but the visual size of the artwork will change with scale. Numbers greater than 1 result in larger token artwork while numbers less than 1 result in smaller token artwork.</p>
+	</dd>
+	<dt>Lock Rotation</dt>
+	<dd>
+		<p>If this setting is enabled the token cannot be rotated. This setting is typically ideal for portrait style tokens where the artwork orientation is more ideally fixed.</p>
+	</dd>
+	<dt>Dim Vision</dt>
+	<dd>
+		<p>For scenes which require Token Vision, this setting specifies the visible radius with which the Token can see as if in dim light conditions.</p>
+	</dd>
+	<dt>Bright Vision</dt>
+	<dd>
+		<p>For scenes which require Token Vision, this setting specifies the visible radius with which the Token can see as if in bright light conditions. Please note that both this setting and the Dim Vision setting are radii with respect to the token location as the origin, so typically the Bright Vision radius is a smaller number than the Dim Vision setting.</p>
+	</dd>
+	<dt>Emit Dim Light</dt>
+	<dd>
+		<p>For scenes which require Token Vision, this setting specifies a distance of dim light emitted by this token that is visible by all other tokens.</p>
+	</dd>
+	<dt>Emit Bright Light</dt>
+	<dd>
+		<p>For scenes which require Token Vision, this setting specifies a distance of bright light emitted by this token that is visible by all other tokens. As with the above settings, these distances are radii with respect to the token center, so typically Emit Bright Light is a smaller number than the Emit Dim Light setting.</p>
+	</dd>
+	<dt>Display Bars</dt>
+	<dd>
+		<p>Configure the level of visibility for the token&rsquo;s resource bars. The following options are supported:</p>
+		<ul>
+			<li>
+				<p>None - Resource bars will not be shown</p>
+			</li>
+			<li>
+				<p>Control - Displayed when the Token is currently controlled</p>
+			</li>
+			<li>
+				<p>Owner Hover - Displayed when the token is hovered over by a User who owns the token&rsquo;s Actor</p>
+			</li>
+			<li>
+				<p>Hover - Displayed when the token is hovered over by any User</p>
+			</li>
+			<li>
+				<p>Owner - Always displayed to any User who owns the token&rsquo;s Actor</p>
+			</li>
+			<li>
+				<p>Always - Always displayed to every User</p>
+			</li>
+		</ul>
+	</dd>
+	<dt>Bar 1 Attribute</dt>
+	<dd>
+		<p>Select the attribute from the Actor&rsquo;s available data fields which should be displayed using the Token&rsquo;s primary resource bar.</p>
+	</dd>
+	<dt>Bar 1 Data (Current / Max)</dt>
+	<dd>
+		<p>Set the values of the primary resource bar that apply to this particular token. If the Token&rsquo;s data is linked to it&rsquo;s parent Actor, that Actor&rsquo;s values will also be changed.</p>
+	</dd>
+	<dt>Bar 2 Attribute</dt>
+	<dd>
+		<p>Select the attribute from the Actor&rsquo;s available data fields which should be displayed using the Token&rsquo;s secondary resource bar.</p>
+	</dd>
+	<dt>Bar 2 Data (Current / Max)</dt>
+	<dd>
+		<p>Set the values of the secondary resource bar that apply to this particular token. If the Token&rsquo;s data is linked to it&rsquo;s parent Actor, that Actor&rsquo;s values will also be changed.</p>
+	</dd>
+</dl>
+<hr />
+
+
+<h3>API References</h3>
+<p>To interact with Actors programmatically, consider using the following API concepts:</p>
+<ul>
+    <li>The @API[Actor,The Actor Entity] Entity</li>
+	<li>The @API[Actors,The Actors Collection] Collection</li>
+	<li>The @API[ActorSheet,The Actor Sheet] Sheet</li>
+</ul>
+<hr/>

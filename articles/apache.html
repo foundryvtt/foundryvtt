@@ -1,0 +1,110 @@
+<p><a href="https://httpd.apache.org/" title="Apache Web Server" title="_blank">Apache</a> is a popular web server which you may consider using as a proxy server in front of Foundry Virtual Tabletop. There are a number of advantages to using a proxy server like Apache like using a subdomain, using an external port that is different than your Foundry VTT port, stronger access controls, and faster serving of static files. This article provides a basic overview of using Apache with Foundry Virtual Tabletop. There are <em>many advanced options</em> which are not covered here.</p>
+
+<p class="note info">Please note that using a proxy server like Apache, while advantageous for dedicated web hosts, is absolutely not required in order to use Foundry Virtual Tabletop.</p>
+<hr/>
+
+<h3>Step 1 - Install Apache</h3>
+
+<p>Start by installing Apache for your Linux distribution. Some common examples are provided below, but consult the <a href="http://httpd.apache.org/docs/2.4/install.html" title="Apache documentation" target="_blank">Apache documentation</a> for your Linux flavor.</p>
+
+<p class="note warning">This guide assumes a basic level of familiarity with the Linux operating system and how to interface with it. If you are brand new to Linux we recommend starting with a beginner's tutorial to the Linux command line before proceeding.</p>
+
+<h4>Ubuntu or Debian</h4>
+<pre><code class="language-bash">sudo apt install apache2
+</code></pre>
+
+<h4>Red Hat or CentOS</h4>
+<pre><code class="language-bash">sudo yum update -y
+sudo yum -y install httpd
+</code></pre>
+
+<h4>Amazon Linux 2</h4>
+<pre><code class="language-bash">sudo yum update -y
+sudo yum -y install httpd
+</code></pre>
+<hr/>
+
+<h3>Step 2 - Configure Apache</h3>
+<p>Apache requires a configuration file which defines how the server functions. A functional starting point to begin testing Apache is the following configuration which does not use SSL certificates (we can enable those later). For the purposes of this example we assume that Foundry Virtual Tabletop is running from <code>/home/ec2-user/foundryvtt</code>, but your application installation path may be different, you should adjust the configuration file accordingly.</p>
+
+<p class="note warning">Make sure to update the references to <code>your.hostname</code> in the configuration.</p>
+
+<pre><code class="language-bash"># Apache .conf for reverse proxy of Foundry Virtual Tabletop.
+# Requires mod_proxy mod_proxy_http mod_proxy_wstunnel for WebSocket support.
+# For Ubuntu and Debian this goes in /etc/apache2/apache2.conf
+# For Amazon Linux, CentOS, and RHEL this goes in /etc/httpd/conf/httpd.conf
+
+&lt;VirtualHost *:80&gt;
+    ServerName              your.hostname.com
+
+    # Proxy Server Configuration
+    ProxyPreserveHost       On
+    ProxyPass "/socket.io/" "ws://localhost:30000/socket.io/"
+    ProxyPass /             http://localhost:30000/
+    ProxyPassReverse /      http://localhost:30000/
+&lt;/VirtualHost&gt;
+</code></pre>
+
+
+<p>Once you have configured Apache, there are some configurations for Foundry Virtual Tabletop in the @Article[hosting] article you will also want to apply. Set the following options in your Foundry VTT <code>{userData}/Config/options.json</code> file which will instruct Foundry that the server is running with a proxy server in front of it on port 80.</p>
+
+<pre><code class="language-json">"hostname": "your.hostname.com",
+"routePrefix": null,
+"sslCert": null,
+"sslKey": null,
+"port": 30000,
+"proxyPort": 80
+</code></pre>
+<hr/>
+
+<h3>Step 3 - Start, Stop, and Restart Apache</h3>
+<p>You can use the <code>systemctl</code> utility to easily manage your Apache server.</p>
+
+<pre><code class="language-bash"># For Ubuntu and Debian
+sudo systemctl start apache2
+sudo systemctl stop apache2
+sudo systemctl restart apache2
+
+# For Amazon Linux, RHEL, or CentOS
+sudo systemctl start httpd
+sudo systemctl stop httpd
+sudo systemctl restart httpd
+</code></pre>
+<hr/>
+
+<h3>Step 4 - Add SSL Certificates (Optional)</h3>
+<p>For more advanced usage you can add SSL Certificates for added security. Start by creating SSL Certificates, we recommend <a href="https://certbot.eff.org/instructions" title="Certbot SSL Certificates Instructions" target="_blank">using Certbot</a>. Once your certificates are created, your Apache configuration file will be updated to use port 443 and the SSL certificates you have created.</p>
+
+<p class="note warning">Make sure to update the references to <code>your.hostname</code> in the configuration.</p>
+
+<pre><code class="language-bash"># Apache .conf for reverse proxy of Foundry Virtual Tabletop.
+# Requires mod_proxy mod_proxy_http mod_proxy_wstunnel for WebSocket support.
+# For Ubuntu and Debian this goes in /etc/apache2/apache2.conf
+# For Amazon Linux, Centos, and RedHat this goes in /etc/httpd/conf/httpd.conf
+
+&lt;VirtualHost *:443&gt;
+    ServerName              your.hostname.com
+
+    # SSL Configuration
+    SSLCertificateKeyFile   "/etc/letsencrypt/live/your.hostname.com/privkey.pem"
+    SSLCertificateFile      "/etc/letsencrypt/live/your.hostname.com/fullchain.pem"
+    Include                 /etc/letsencrypt/options-ssl-apache.conf
+
+    # Proxy Server Configuration
+    ProxyPreserveHost       On
+    ProxyPass "/socket.io/" "ws://localhost:30000/socket.io/"
+    ProxyPass /             http://localhost:30000/
+    ProxyPassReverse /      http://localhost:30000/
+&lt;/VirtualHost&gt;
+</code></pre>
+
+<p>Once you have edited the Apache configuration to include your SSL certificates, be sure to do a configuration test before restarting your server. Lastly, there are some additional configuration options for Foundry Virtual Tabletop you will also want to apply. Set the following options in your Foundry VTT <code>{userData}/Config/options.json</code> file which will instruct Foundry that the server is running with a proxy server in front of it on port 443.</p>
+
+<pre><code class="language-json">"hostname": "your.hostname.com",
+"routePrefix": null,
+"sslCert": null,
+"sslKey": null,
+"port": 30000,
+"proxyPort": 443,
+"proxySSL": true
+</code></pre>

@@ -1,0 +1,34 @@
+<h2>Beta 0.3.7 Update Notes</h2>
+
+<p>Hi everyone. This update is a bit less conventional in that it is a small bugfix focused update to address some small errors which were introduced in the 0.3.6 update. I will be taking a much needed vacation for the next two weeks. During that time I will be working (a little bit) on some new VTT features, but I didn't want to wait to make these bug fixes available since they can correct a couple of small problems </p>
+
+<p>Thank you all for appreciating my work, providing thoughtful feedback, and encouraging me to do even more. As always, please keep an eye on the development progress board here for visibility into what features are in progress and coming up next!</p>
+
+<p><a href="https://gitlab.com/foundrynet/foundryvtt/boards" target="_blank" title="FVTT Story Board">https://gitlab.com/foundrynet/foundryvtt/boards</a></p>
+<hr/>
+
+<h3>Core Bug Fixes</h3>
+<ul>
+	<li>Corrected a regression where the default chat message type was no longer in character in cases where a Token was selected.</li>
+	<li>Resolved a problem which prevented the Chat Log from being exportable when a dice roll was present in the chat history.</li>
+	<li>Fixed an issue which failed to apply the correct in-character or emote chat stylings to chat bubbles and messages after the 0.3.6 changes.</li>
+	<li>Corrected a limitation which prevented a GM user from dragging a Map Note in cases where the default note permission level was set to LIMITED.</li>
+	<li>Solved a problem which prevented Entities from being imported from JSON, instead simply displaying the export prompt.</li>
+	<li>Improved the process of World editing through the configuration sheet on the setup menu, correctly populating the current World path and fixing issues with MCE editor saving.</li>
+	<li>Corrected some mis-translated strings in the Scene Config application.</li>
+	<li>Fix an issue which impacts compendium migration for Entity types which do not define a data model in their system template.</li>
+</ul>
+<hr/>
+
+<h3>Core Software, APIs, and Module Development</h3>
+<ul>
+	<li>Moved the "Worlds" tab to be in the first (left-most) position of the setup view.</li>
+	<li>Define a default ChatMessage <code>type</code> as "OTHER" to correct breakages to existing ChatMessage.create calls, however it is strongly recommended for system and module developers to pass an explicit type from the <code>CHAT_MESSAGE_TYPES</code> object at the point of message creation.</li>
+</ul>
+<hr/>
+
+<h3>D&D5e System Improvements</h3>
+<ul>
+	<li>Corrected a problem with the Damage dialog prompt for rolling Critical damage which raised a roll error.</li>
+</ul>
+<hr/>

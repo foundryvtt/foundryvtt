@@ -1,0 +1,59 @@
+<p>Foundry VTT uses walls to create various virtual boundaries in-game. Together with fog of war and lighting, a Gamemaster can create immersive scenes and allow their players to explore an environment through their characters' eyes, seeing only what their tokens can see.</p>
+<p>This article uses "walls" to refer to any boundary that prevents vision or movement through it. Walls themselves are typically not visible to players, but impose restrictions on a token's movement, line-of-sight, and sound depending on how each wall is configured. With the Wall Controls toolbar, you can view the Walls layer while viewing a scene.</p>
+<hr />
+
+<h2>Creating and Editing Walls</h2>
+<p>Walls can be easily created on any Scene. First choose your selected wall type on the Wall Controls toolbar. Then, left click (or hold) at a point where you want the wall to start. Left click again (or release) at a second point to create a wall segment between the two points. Connected wall segments can easily be created by holding Ctrl while placing a wall, which creates a new wall from your cursor to the last-placed wall segment. You can cancel the placement of a wall segment by right-clicking before you place the second point of the wall.</p>
+<p>A wall can be selected by left-clicking on one of its points. Holding the Alt key when selecting a wall point will select all walls directly or indirectly connected to that point. This allows you to delete or modify entire structures at once.</p>
+<p>Double-clicking a wall point will allow you to configure various properties of the wall, described later in the article.</p>
+<hr />
+
+<h2>Wall Types</h2>
+<p>The Wall Controls toolbar, when enabled, allows the viewing, modification, and creation of walls. Activating this toolbar also provides quick buttons for a number of common wall types.</p>
+
+<h4>Normal Walls</h4>
+<p>The default wall type restricts vision, movement, and sound. These walls are colored white on the Walls layer.</p>
+
+<h4>Terrain Walls</h4>
+<p>These walls prevent token movement, but allow limited vision; a token with vision can see past one terrain wall segment, but not two. These walls are ideal for roofed buildings or terrain features that that can be seen, but obscure objects behind them. Terrain walls are colored green.</p>
+<figure><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/terrain-walls-gif-2020-04-21.gif" />
+	<figcaption>Terrain Walls in action. Notice how the entire boulder remains visible, but blocks vision for everything directly behind it.</figcaption>
+</figure>
+
+<h4>Invisible Walls</h4>
+<p>These walls block token movement, but neither vision nor sound. Walls of this type are ideal for windows, or any transparent, but solid obstacle. They are colored cyan on the Walls layer.</p>
+
+<h4>Ethereal Walls</h4>
+<p>These walls function opposite to Invisible walls; they block vision and sounds, but tokens can move freely through them. These walls may be useful for dark veils, curtains, or fake walls. They are colored light magenta on the Walls layer.</p>
+
+<h4>Doors</h4>
+<p>Doors are wall segments that can be interacted with to open or close. Doors made with the "Draw Doors" button on the Wall Controls toolbar restrict movement, vision, and sound until opened. A Gamemaster can additionally lock doors by right-clicking them, which will play a "locked" sound when a user attempts to open it. A locked door can be unlocked by a Gamemaster right-clicking the door's icon again. User roles can be configured to allow the opening or closing of unlocked doors via the Permission Configuration window. Doors are colored purple on the walls layer.</p>
+
+<h4>Secret Doors</h4>
+<p>These function similarly to doors, but the door icon is not visible to most users. A Gamemaster can open secret doors for players. These doors are colored dark magenta on the Walls layer.</p>
+<hr />
+
+<h2>Configuring Walls</h2>
+<p>Wall segments can be further configured after they have been placed. Simply double-click on one of the points of a wall to edit the connected wall segment. Both points of the wall will enlarge to indicate which wall segment will be selected.</p>
+<figure><img title="Wall Configuration window" src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/wall-configuration-sheet-2020-04-21.png" />
+	<figcaption>The Wall Configuration window.</figcaption>
+</figure>
+
+<h4>Movement Restrictions</h4>
+<p>None: Tokens can move freely through the wall segment. Normal: Tokens cannot move past the wall segment.</p>
+
+<h4>Perception Restriction</h4>
+<p>None: Tokens can see and hear through the wall segment. Normal: Tokens cannot see or hear sounds past the wall segment. Limited: Tokens can see and hear sounds past one wall segment, but not past any "Limited" or "Normal" wall segments behind it.</p>
+
+<h4>Wall Direction</h4>
+<p>Both: Movement and Perception restrictions apply when the wall is viewed from either side. Left: Restrictions apply only when the wall is viewed from the left side. Right: Restrictions apply only when the wall is viewed from the right side.</p>
+
+<h4>Is Door?</h4>
+<p>None: The wall segment is not a door and cannot be opened/closed. Door: The segment is a door and, if unlocked, can be opened/closed by any user with the Open and Close Doors permission. Secret: The segment is a door, but has no icon to Players and Trusted Players. Secret doors appear as a normal wall until it is opened by a Gamemaster.</p>
+
+<h4>Door State</h4>
+<p>Closed: Any Movement or Perception restrictions apply. Open: Tokens can move and look freely through the wall. Locked: Any Movement or Perception restrictions apply. Additionally, only Gamemasters can open the door.</p>
+<hr />
+
+<h2>Walls API</h2>
+<p>For module and system developers who want to develop using walls and the walls layer, there is a Javascript API available to create, use, or modify walls and the Walls Layer. See the <a title="Wall API Documentation" href="../../../../../api/Wall.html" target="_blank" rel="nofollow noopener">Wall</a> and <a title="Walls Layer API Documentation" href="../../../../../api/WallsLayer.html" target="_blank" rel="nofollow noopener">Walls Layer</a> API documentation for details.</p>

@@ -1,0 +1,185 @@
+<p><a href="https://www.nginx.com/" title="Nginx Web Server" title="_blank">Nginx</a> is a popular web server which you may consider using as a proxy server in front of Foundry Virtual Tabletop. There are a number of advantages to using a proxy server like Nginx like using a subdomain, using an external port that is different than your Foundry VTT port, stronger access controls, and faster serving of static files. This article provides a basic overview of using Nginx with Foundry Virtual Tabletop. There are <em>many advanced options</em> which are not covered here.</p>
+
+<p class="note info">Please note that using a proxy server like Nginx, while advantageous for dedicated web hosts, is absolutely not required in order to use Foundry Virtual Tabletop.</p>
+<hr/>
+
+<h3>Step 1 - Install Nginx</h3>
+
+<p>Start by installing Nginx for your Linux distribution. Some common examples are provided below, but consult the <a href="https://www.nginx.com/resources/wiki/start/topics/tutorials/install/" title="Nginx documentation" target="_blank">Nginx documentation</a> for your Linux flavor.</p>
+
+<p class="note warning">This guide assumes a basic level of familiarity with the Linux operating system and how to interface with it. If you are brand new to Linux we recommend starting with a beginner's tutorial to the Linux command line before proceeding.</p>
+
+<h4>Ubuntu or Debian</h4>
+<pre><code class="language-bash">sudo apt-get update
+sudo apt-get install nginx
+</code></pre>
+
+<h4>Red Hat or CentOS</h4>
+<pre><code class="language-bash">sudo yum update -y
+sudo yum install nginx
+</code></pre>
+
+<h4>Amazon Linux 2</h4>
+<pre><code class="language-bash">sudo yum update -y
+sudo amazon-linux-extras install nginx1 -y
+</code></pre>
+<hr/>
+
+<h3>Step 2 - Configure Nginx</h3>
+<p>Nginx requires a configuration file which defines how the server functions. A functional starting point to begin testing Nginx is the following configuration which does not use SSL certificates (we can enable those later). For the purposes of this example we assume that Foundry Virtual Tabletop is running from <code>/home/ec2-user/foundryvtt</code>, but your application installation path may be different, you should adjust the configuration file accordingly.</p>
+
+<p class="note warning">Make sure to update the references to <code>your.hostname</code> in the configuration.</p>
+
+<pre><code class="language-bash"># This goes in /etc/nginx/nginx.conf
+
+# CONFIGURE NGINX PROCESS
+user ec2-user ec2-user;
+pid /var/run/nginx.pid;
+
+# EVENTS
+events {
+    worker_connections 1024;
+    accept_mutex off;
+}
+
+# HTTP SERVER
+http {
+    include         mime.types;
+    default_type    application/octet-stream;
+    sendfile on;
+
+    # Configure Logging
+    error_log       /tmp/nginx.error.log warn;
+    access_log      /tmp/nginx.access.log combined;
+
+    # Allow File Uploads
+    client_max_body_size    300M;
+    keepalive_timeout       5;
+
+    # Define Server
+    server {
+
+        # Enter your fully qualified domain name or leave blank
+        server_name             your.hostname.com;
+
+        # Listen on port 80 without SSL certificates
+        listen                  80;
+
+        # Proxy Requests to Foundry VTT
+        location / {
+
+            # Set proxy headers
+            proxy_set_header Host $host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+
+            # These are important to support WebSockets
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "Upgrade";
+
+            # Make sure to set your Foundry VTT port number
+            proxy_pass http://localhost:30000;
+        }
+    }
+}
+</code></pre>
+<hr/>
+
+<p>Once you have configured Nginx, there are some configurations for Foundry Virtual Tabletop in the @Article[hosting] article you will also want to apply. Set the following options in your Foundry VTT <code>{userData}/Config/options.json</code> file which will instruct Foundry that the server is running with a proxy server in front of it on port 80.</p>
+
+<pre><code class="language-json">"hostname": "your.hostname.com",
+"routePrefix": null,
+"sslCert": null,
+"sslKey": null,
+"port": 30000,
+"proxyPort": 80
+</code></pre>
+
+<h3>Step 3 - Start, Stop, and Restart Nginx</h3>
+<p>You can use the <code>service</code> utility to easily manage your Nginx server.</p>
+
+<pre><code class="language-bash"># Test your configuration file
+sudo service nginx conftest
+
+# Start Nginx
+sudo service nginx start
+
+# Stop Nginx
+sudo service nginx stop
+
+# Restart Nginx
+sudo service nginx restart
+</code></pre>
+<hr/>
+
+<h3>Step 4 - Add SSL Certificates (Optional)</h3>
+<p>For more advanced usage you can add SSL Certificates for added security. Start by creating SSL Certificates, we recommend <a href="https://certbot.eff.org/instructions" title="Certbot SSL Certificates Instructions" target="_blank">using Certbot</a>. Once your certificates are created, your Nginx configuration file will be updated to use port 443 and the SSL certificates you have created.</p>
+
+<p class="note warning">Make sure to update the references to <code>your.hostname</code> in the configuration.</p>
+
+<pre><code class="language-bash"># This goes in /etc/nginx/nginx.conf
+
+# CONFIGURE NGINX PROCESS
+user ec2-user ec2-user;
+pid /var/run/nginx.pid;
+
+# EVENTS
+events {
+    worker_connections 1024;
+    accept_mutex off;
+}
+
+# HTTP SERVER
+http {
+    include         mime.types;
+    default_type    application/octet-stream;
+    sendfile on;
+
+    # Configure Logging
+    error_log       /tmp/nginx.error.log warn;
+    access_log      /tmp/nginx.access.log combined;
+
+    # Allow File Uploads
+    client_max_body_size    300M;
+    keepalive_timeout       5;
+
+    # Define Server
+    server {
+
+        # Enter your fully qualified domain name or leave blank
+        server_name             your.hostname.com;
+
+        # Listen on port 443 using SSL certificates
+        listen                  443 ssl;
+        ssl_certificate         "/etc/letsencrypt/live/your.hostname/fullchain.pem";
+        ssl_certificate_key     "/etc/letsencrypt/live/your.hostname/privkey.pem";
+
+        # Proxy Requests to Foundry VTT
+        location / {
+
+            # Set proxy headers
+            proxy_set_header Host $host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+
+            # These are important to support WebSockets
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "Upgrade";
+
+            # Make sure to set your Foundry VTT port number
+            proxy_pass http://localhost:30000;
+        }
+    }
+}
+</code></pre>
+
+<p>Once you have edited the Nginx configuration to include your SSL certificates, be sure to do a configuration test before restarting your server. Lastly, there are some additional configuration options for Foundry Virtual Tabletop you will also want to apply. Set the following options in your Foundry VTT <code>{userData}/Config/options.json</code> file which will instruct Foundry that the server is running with a proxy server in front of it on port 443.</p>
+
+<pre><code class="language-json">"hostname": "your.hostname.com",
+"routePrefix": null,
+"sslCert": null,
+"sslKey": null,
+"port": 30000,
+"proxyPort": 443,
+"proxySSL": true
+</code></pre>

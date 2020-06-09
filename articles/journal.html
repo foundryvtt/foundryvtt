@@ -1,0 +1,98 @@
+<p>Journal Entries provide a method for GMs to present and maintain hand-outs for their players. Entries are edited using a rich text editor (with HTML support gated behind a convenient 'source' button in the editor). Journal entries can be displayed to all players at the touch of a button, and conveniently "pinned" to the grid in any scene to allow for quick access to that entry.</p>
+<hr/>
+
+<h2>The Journal Entries Directory</h2>
+<p>Journal entries are created and managed from the Journal Entries sidebar. Like the Scenes, Actors, and Items Directories, this directory can contain folders to organize your world's Journal Entries. Only a Gamemaster or Assistant-level user can change or move folders, but any players with at least Limited permissions for a Journal Entry can see it and the folder containing it.</p>
+
+<p>As with all other entity directories, the "quill" icon on a Journal Entry folder will create a new journal entry inside that folder, and the "plus folder" icon will create a new subfolder.</p>
+
+<figure class="right" style="width: 400px">
+    @Image[42]
+    <figcaption>An example Journal Entry in Text mode.</figcaption>
+</figure>
+
+<h3>Journal Context Menu Options</h3>
+
+<dl>
+    <dt>Clear Folder</dt>
+    <dd>Removes the Journal Entry from all folders, placing it at the top level of the Journal Entries directory.</dd>
+    <dt>Delete</dt>
+    <dd>Deletes the Journal Entry, after accepting a confirmation prompt.</dd>
+    <dt>Duplicate</dt>
+    <dd>Creates a copy of the Journal Entry in the directory.</dd>
+    <dt>Configure Permission</dt>
+    <dd>Configure the permission levels of the Journal Entry, allowing players of your choice to view or modify the Journal Entry in the directory.</dd>
+    <dt>Export Data</dt>
+    <dd>Exports the Journal Entry's data as a JSON file on your computer.</dd>
+    <dt>Import Data</dt>
+    <dd>Imports data into the Journal Entry from a JSON file on your computer.</dd>
+</dl>
+
+<h3>Text View and Image View</h3>
+
+<p>Journal Entries may have both a Text View and an Image View, which can be switched between by clicking the "Text" or "Image" buttons on the top menu of the Journal Entry.</p>
+
+<p>Image view allows the GM or Owner to select an image using the Filepicker, and places the selected image in a shadow box, to allow a clean display of the image to players.</p>
+
+<p>Text View provides a rich text editor using TinyMCE to allow for editing a text field that will be shown to your players. The GM or Owner can make numerous changes to the way the text is formatted using the menus at the head of the editor while in editing mode.</p>
+
+<p>Foundry adds a custom formatting called Secret to text entries which will only be visible to the GM or Owner of the Journal Entry. You can create a Secret by selecting "Custom" and then "Secret" from the Paragraph formatting menu. If text is selected when you choose 'secret' it will change the selected text to Secret.</p>
+
+<p>In addition to the formatting option available through TinyMCE, using the "Source Code" option from the formatting menu will allow you to edit the HTML of the journal entry directly, opening access to HTML tags and a vast array of custom styling.</p>
+
+<h3>Dynamic Entity Links</h3>
+<p>Though not exclusive to Journal Entries, Foundry supports linking to other types of Entities from within its rich text editor system. Actors, Items, Journal Entries, and Rollable Tables may be linked to dynamically by dragging and dropping an entity from the sidebar into an open editor.</p>
+
+<p>The syntax to create a dynamic link is as follows:</p>
+
+<pre><code>&commat;EntityType[Entity Name]
+&commat;EntityType[Entity ID]{Custom Text}
+</code></pre>
+
+<p>For example:</p>
+<pre><code>&commat;Actor[Locke]
+&commat;Actor[Pt1jPTgVWdJ6QYIA]{Locke}
+</code></pre>
+
+<p>This allows a GM to quickly link numerous journal entries to one another and, if the user viewing the Journal Entry has permission to view the linked entity, clicking on the link will open the linked entity in another sub-window of Foundry.</p>
+
+<h3>Journal Permission Levels</h3>
+<p>As with all other Entities, Journal Entries have levels of Permissions that when assigned allow them to view and edit those entries at differing levels. The levels of permission are:</p>
+
+<dl>
+    <dt>None (default for non-creator)</dt>
+    <dd>The user has no permission to view or edit a Journal Entry by default.</dd>
+
+    <dt>Limited</dt>
+    <dd>The user may see the map pin for this Journal Entry but will not see it in the sidebar, and may not open the actual journal by clicking on the pin.</dd>
+
+    <dt>Observer</dt>
+    <dd>The user may see the map pin for this Journal Entry as well as the Journal Entry in the sidebar, and may open the actual journal by clicking on the pin or its entry in the sidebar. In addition, the user may toggle between Image view and Text view for that journal entry.</dd>
+
+    <dt>Owner (default for creator)</dt>
+    <dd>The user may see the map pin and sidebar entry for this journal, and when the window is open may edit and change any features of that Journal Entry.</dd>
+</dl>
+<hr/>
+
+<h3>Showing Journal Entries to Players</h3>
+<p>Journal entries may be shown to all players regardless of their permission to access the journal, simply click "Show Players" from the heading menu for any Journal Entry.</p>
+<hr/>
+
+<h3>Creating Map Notes from Journal Entries</h3>
+<p>A Journal Entry can be 'pinned' to any scene, generating a Map Note that connects to that Journal Entry simply by dragging the entry from the sidebar to the location you would like to place a Map Note. For more information, see @Article[map-notes].</p>
+<hr/>
+
+<h3> Scene Notes</h3>
+<p>Scenes may be configured to provide easy access to a Journal Entry containing notes for that scene for the GM's convenient reference. To do so, from the scene configuration menu choose the Journal Entry you wish to associate with your scene from the Journal Notes dropdown menu.</p>
+
+<p>These notes can be accessed quickly by right clicking the Scene Name in the Navigation Menu and choosing "Scene Notes."</p>
+<hr/>
+
+<h3>API References</h3>
+<p>To interact with Journal Entry entities programmatically, you will primarily use the following API concepts:
+<ul>
+	<li>The @API[JournalEntry,The Journal Entry Entity] Entity</li>
+	<li>The @API[Journal,The Journal Collection] Collection</li>
+	<li>The @API[JournalSheet,The JournalSheet Application] Application</li>
+</ul>
+<hr/>

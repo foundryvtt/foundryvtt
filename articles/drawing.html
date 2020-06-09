@@ -1,0 +1,85 @@
+<p>Drawing tools can be used to allow the GM and users to annotate the map with freehand or shaped drawings. The appearance of drawings can be pre-configured using defaults, or individual drawn shapes may have their appearance changed after they have been placed.</p>
+<hr/>
+
+<h2>Drawing Tool Permissions</h2>
+
+<p>By default, players do not have permission to use Drawing tools, while Trusted players and Assistant GMs have access to the drawing tools enabled by default. If you wish to allow or revoke permissions to the drawing tools, you can do so from the "Use Drawing Tools" section of the Permission Configuration in the @Article[settings] menu.</p>
+
+<h3>Drawing Types</h3>
+
+<dl>
+    <dt>Rectangle Drawing Tool</dt>
+    <dd>Used for drawing rectangular and square four-sided shapes.</dd>
+
+    <dt>Ellipse Drawing Tool</dt>
+    <dd>Used for drawing enclosed circular shapes.</dd>
+
+    <dt>Polygon Drawing Tool</dt>
+    <dd>Used for drawing polygonal geometric shapes from straight lines. Right-click removes the last point drawn, double-click to finish drawing.</dd>
+
+    <dt>Freehand Drawing Tool</dt>
+    <dd>Used for drawing freehand, as though with a stylus, can be used to create complex rounded shapes. Will continue to draw as long as the left mouse button is pressed.</dd>
+
+    <dt>Text Drawing Tool</dt>
+    <dd>Used for placing text directly onto the map in order to offer labels or place messages directly on the canvas.</dd>
+</dl>
+
+<h3>Configuring Drawings</h3>
+
+<figure>
+    @Image[45]
+    <figcaption>Drawing Tools are just the thing when you need to leave some artistic graffiti on your Game-Master's lovingly prepared Scene!</figcaption>
+</figure>
+
+<p>Drawings may be configured by using the "Configure Drawing" tool. This sets the defaults your drawings will adhere to when placed. In addition, individual drawings can be modified after their placement and any of the below settings changed via the configuration menu. To access the configuration menu for a particular drawing, simply doubleclick it.</p>
+
+<dl>
+    <dt>Line Width</dt>
+    <dd>Set the thickness in pixels (px) of the lines drawn by the Square, Ellipse, Polygon or Freehand tools.</dd>
+
+    <dt>Stroke Color</dt>
+    <dd>Set the color in Hex (#000000) used to color shapes drawn with the drawing tools.</dd>
+
+    <dt>Line Opacity</dt>
+    <dd>Set the transparency of shapes drawn with the drawing tools.</dd>
+
+    <dt>Smoothing Factor</dt>
+    <dd>Foundry will attempt to smooth rough edges of shapes to reduce the number of vertices in freehand drawings. Use this setting to adjust how aggressive the smoothing filter is.</dd>
+
+    <dt>Fill Type</dt>
+    <dd>Shapes can be filled as necessary, "None" will not fill a shape, "Solid" will fill your shape with a chosen color, and Pattern will fill a shape with a chosen texture file.</dd>
+
+    <dt>Fill Color</dt>
+    <dd>Set the color in Hex (#000000) used to fill the inside of shapes drawn with the drawing tools.</dd>
+
+    <dt>Fill Opacity</dt>
+    <dd>Set the transparency of the color and texture used to fill the inside of shapes drawn with the drawing tools.</dd>
+
+    <dt>Fill Texture</dt>
+    <dd>Set the texture to use for filling the inside of a shape. This should ideally be a repeating, tiling png with transparency.</dd>
+
+    <dt>Text Label</dt>
+    <dd>Applies a text which will expand to fit and fill the inside of the shape drawn, please note that if the content of the text label is longer (in height) than the shape itself, it will expand beyond the shape’s boundaries.</dd>
+
+    <dt>Font Family</dt>
+    <dd>Choose from available fonts in Foundry to style your text.</dd>
+
+    <dt>Font Size</dt>
+    <dd>Choose the font size in pixels (px) for text labels and the text tool.</dd>
+
+    <dt>Text Color</dt>
+    <dd>Choose the color to be applied to text in labels and text tool drawings.</dd>
+
+    <dt>Text Opacity</dt>
+    <dd>Set the transparency of text both for text labels and text tool drawings.</dd>
+</dl>
+<hr/>
+
+<h3>API References</h3>
+<p>To interact with Drawings programmatically, consider using the following API concepts:</p>
+<ul>
+    <li>The @API[Drawing,The Drawing Object] Object</li>
+	<li>The @API[DrawingsLayer,The DrawingsLayer Canvas Layer] Canvas Layer</li>
+	<li>The @API[DrawingConfig,The DrawingConfig Application] Application</li>
+</ul>
+<hr>

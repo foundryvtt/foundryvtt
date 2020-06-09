@@ -1,0 +1,72 @@
+<h2>Beta 0.3.4 Update Notes</h2>
+
+<p>Hello tabletop friends! Foundry Virtual Tabletop update <code>0.3.4</code> is here with a fresh round of feature enhancements, bug fixes, and underlying software and API improvements. This update is pretty substantial and addresses a large number of bugs while adding functionality to better empower modders and system developers. Highlight new features in 0.3.4 include <strong>Sidebar Search</strong>, chat support for <strong>Entity Links</strong>, and the addition of the commercially licensed <strong>GSAP Library</strong> for animation.</p>
+
+<p>Thank you all for appreciating my work, providing thoughtful feedback, and encouraging me to do even more. As always, please keep an eye on the development progress board here for visibility into what features are in progress and coming up next!</p>
+
+<p><a href="https://gitlab.com/foundrynet/foundryvtt/boards" target="_blank" title="FVTT Story Board">https://gitlab.com/foundrynet/foundryvtt/boards</a></p>
+<hr/>
+
+<h3>New Features</h3>
+<ul>
+	<li>Sidebar directories for Actors, Items, Scenes, and Journal Entries now have a filter and search bar at the top of the sidebar which allows you to quickly find entities by name. The filtering logic is case insensitive, and deleting a filter will restore the sidebar to displaying the full set of results.</li>
+	<li>Dynamic entity links can now work in chat messages. This allows you to "mention" certain Actors, Items, Journal Entries, or Scenes in chat. For example "Hi @Actor[Bob]".</li>
+	<li>The context menu for Journal Entries in the sidebar now features a new option to <strong>Jump to Pin</strong> which is available if that Journal Entry is pinned to the currently viewed scene. Using this option will pan the Scene view to highlight the location of the map Note. Many thanks to <strong>Moerill</strong> from Discord for inspiring this feature.</li>
+	<li>The fog of war opacity settings have been adjusted for GM users to preserve some limited visibility of the map while still differentiating areas which represent unexplored fog of war. Many thanks to <strong>trdischat</strong> on Discord for his helpful module which motivated this change.</li>
+	<li>Foundry Virtual Tabletop now includes a paid commercial use license for the Greensock (GSAP) animation libraries (https://greensock.com/) within the core platform as well as any downstream systems or modules! GSAP modules can be added by any module or system by requesting the inclusion of these scripts in a module or system manifest file.</li>
+	<li>Newly created Users will each receive a randomly selected color to differentiate them. Colors can still be manually changed at any time, but this will help to differentiate users by default.</li>
+	<li>Provide a GM-only context menu option to permanently delete a Folder AND all of it's contained subfolders or entities. Please be cautious in using this option, as the operation is not recoverable, but the power is in your hands.</li>
+	<li>Hovering over a Token which is an active Combatant in the tracked Combat Encounter will now highlight the combatant. This helps to easily answer questions like "when is it this Goblin's turn?".</li>
+	<li>Game systems may now designate an attribute from their Actor data model which is used as the default tracked resource bar for Tokens.</li>
+</ul>
+<hr/>
+
+<h3>Core Bug Fixes</h3>
+<ul>
+	<li>Solved a long-standing problem which prevented the use of large (15MB+) audio files in Foundry VTT. Improvements in the upstream Howler library have now allowed me to move to HTML5 audio streaming which supports such large files in a more more performant way. This change also reduces the initial load time between when an audio request is made and when playback begins. Thanks to <strong>KaKaRoTo</strong> from Discord for identifying that this change was now possible.</li>
+	<li>Correct a bug with module-provided localization/translation files where the system was looking for module translation files in the incorrect data path.</li>
+	<li>Addressed a bug which caused Tile object deletion to not deactivate the Tile HUD if it was displayed for the deleted Tile.</li>
+	<li>Closed a loophole which prevented the Combat Tracker from rendering if some Combatants represented Tokens which have no valid Actor.</li>
+	<li>Holding the ALT key was incorrectly highlighting the borders of placed Tile objects when the Tiles Layer was not active. This has been corrected.</li>
+	<li>Fixed problems occuring when Tile objects were resized by very small amounts or collapsed upon their origin point.</li>
+	<li>Disabled the resizing handle for Tile objects which were set to the locked state.</li>
+	<li>Avoid needlessly opening a new tab for links which directly refereence a <code>javascript:void(0)</code> call.</li>
+	<li>Fixed a problem related to updating the Permission settings for Actors which do not have any active tokens placed which represent them.</li>
+	<li>An edge case for Scene data resulted in a Scene which was flagged as Active, but not shown in Navigation. This logic has been hardened to guarantee that Scenes are inactive when removed from the navigation bar.</li>
+	<li>A flaw in the layer deactivation logic caused highlighting for selected Wall objects to remain visible when the Walls Layer was deactivated - this no longer occurs.</li>
+	<li>Fixed an issue with Wall endpoint editing which could result in the Wall being continuously selected and de-selected without triggering the Wall Configuration sheet.</li>
+	<li>Resolved an issue with MP4 video assets in Scene backgrounds, Tiles, or Tokens which was incorrectly blocking the file extension from being used.</li>
+	<li>Avoid displaying an Actor context menu option to showcase Token artwork if the Actor's prototype token does not have any image file defined.</li>
+	<li>Restored hover tooltip strings for parent Tool categories in the Scene Controls interface element.</li>
+	<li>Changing the file path of an Ambient Sound object placed in a Scene now will immediately alter the audio effect being played, which previously required a hard refresh to take effect.</li>
+	<li>Fixed an issue with the newly added Compendium Update API methods which failed to adequately validate user permissions when making changes.</li>
+	<li>Solved a race condition in the Combat Tracker which could result in infinite recursion when multiple changes for the same combatant occured simultaneously.</li>
+	<li>Corrected a bug which blocked changes to an Actor's prototype token from being properly saved to the database.</li>
+	<li>Fixed a bug in the World Selection interface that could, in some cases, lead to the World's text description to be lost.</li>
+	<li>Strengthened the validation around the serialized Roll object contained in Chat Messages to avoid situations in which the Chat sidebar could not be rendered.</li>
+	<li>Improved the behavior Application header buttons which prevent them from also doubling as drag handles.</li>
+</ul>
+<hr/>
+
+<h3>Core Software, APIs, and Module Development</h3>
+<ul>
+	<li>Standardized the way that static files (styles, scripts) are loaded for Systems and Modules.</li>
+	<li>Modules and systems may request that common scripts, like those offered by the new Greensock libraries, be included. Scripts requested in a system or module manifest will look first for matching files relative to the module root while falling back to the contents of the <code>public/scripts</code> folder. See the <a href="https://gitlab.com/foundrynet/foundryvtt/issues/1208" title="GitLab Issue" target="_blank">issue in GitLab</a> for more details.</li>
+	<li>The <code>combat._previous</code> Array which reported the prior round, turn, and tokenId of the combat encounter has been converted to an Object <code>combat.previous</code> with named keys. The <code>_previous</code> attribute can still be used, but will be deprecated in a future version.</li>
+	<li>Added server-side data validations for Token width and height attributes, requiring them to be positive numbers.</li>
+	<li>Implemented several public methods for common Application manipulations including minimization, maximization, sidebar tab switching, and sidebar collapse toggling. See the <a href="https://gitlab.com/foundrynet/foundryvtt/issues/1193" title="GitLab Issue" target="_blank">issue in GitLab</a> for more details.</li>
+	<li>Additional Hook events have been added for when a PlaceableObject enters or exists a hovered or controlled state. Please see the <a href="https://gitlab.com/foundrynet/foundryvtt/issues/1181" title="GitLab Issue" target="_blank">issue in GitLab</a> for more details and usage examples.</li>
+	<li>Improved upon the security of dice Roll result evaluation to avoid execution of functional code.</li>
+	<li>Refactored the way that EntityCollection and SidebarDirectory tabs are rendered in order to standardize and reuse more code between Applications.</li>
+	<li>Standardized the the URI encoding conventions used in the FilePicker and the server side Files object.</li>
+	<li>Modules and Game Systems may now deisgnate in their manifest files that they depend on a minimum core VTT version in order to function properly. Please see the <a href="https://gitlab.com/foundrynet/foundryvtt/issues/1097" title="GitLab Issue" target="_blank">issue in GitLab</a> for more details.</li>
+</ul>
+<hr/>
+
+<h3>D&D5e System Improvements</h3>
+<ul>
+	<li>The D&D5e system specified some rules for <code>&lt;span&gt;</code> elements which forced them to be displayed as block elements. These rules have been relaxed so that span elements remain naturally inline.</li>
+	<li>Added support for automatic recovery of feat uses per Long Rest or Short Rest. Thanks very much to <strong>Felix</strong> from Discord for submitting this improvement to the 5e codebase.</li>
+	<li>Added support for a global saving throw bonus, for example from a Ring of Protection or from a Paladin Aura. Thanks very much to <strong>tposney</strong> for submitting this improvement.</li>
+</ul>
+<hr/>
