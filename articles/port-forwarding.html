@@ -1,12 +1,12 @@
 <p>An important topic for self-hosting Foundry Virtual Tabletop within a local network is the requirement for port forwarding. This article describes a brief overview of port forwarding, why it is necessary, and the steps you need to take in order to enable correct forwarding.&nbsp;</p>
 
-<h2>What is Port Forwarding?</h2>
+<h2 id="what">What is Port Forwarding?</h2>
 <p>Let's use an analogy to explain port forwarding. Think of your home network like an apartment building where many people live where every resident has their own apartment number. In our case, the building is your home network and the residents are the devices connected to your network like your PC, your phone, your smart TV, or your printer.</p>
 <p>Suppose someone wants to mail a letter to a resident of the building - they would address that letter to the building street address and the apartment number within the building - but what if they don't know the right apartment number?&nbsp;</p>
 <p>This is the situation which occurs with web traffic. External requests know the public IP address of your local network (think of this as the "street address" of the building), but they don't know your local IP address within that network (think of this as your "apartment number" within the building).</p>
 <p>What port forwarding does is it helps to correctly route incoming traffic which arrives on a certain port to the correct internal IP address on the network which is expecting to recieve it. You are "forwarding" your traffic the same way you might forward physical mail. For the Foundry Virtual Tabletop use case, when traffic arrives at your external IP address on port <code>30000</code> (or an alternative port you choose to use), the port forwarding rule will automatically direct that traffic to your local PC which is running the Foundry application.</p>
 
-<h4>When is Port Forwarding Not Required?</h4>
+<h4 id="when">When is Port Forwarding Not Required?</h4>
 <p>Under some circumstances, port forwarding may not be required:</p>
 <ul>
 	<li>If you have an <a title="About IPv6" href="https://en.wikipedia.org/wiki/IPv6" target="_blank" rel="nofollow noopener">IPv6 address</a> you <em>probably</em> do not need to port forward. IPv6 is an expanded protocol which is able to refer to specific device IPs.</li>
@@ -14,7 +14,7 @@
 </ul>
 <hr/>
 
-<h2>How do I Port Forward?</h2>
+<h2 id="how">How do I Port Forward?</h2>
 <p>The exact steps necessary in order to port forward vary depending on you router and the interface it provides, but at a high level process is the same in all cases. Some screenshots are provided for assistance with Windows use cases, although the process uses similar concepts for MacOS or Linux.</p>
 <figure><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/asset/windows-ipconfig-command-2020-03-20.png" alt="Windows IP Config Command" width="892" height="241" />
 	<figcaption>An example of using the Windows ipconfig command to discover your local IP address.</figcaption>
@@ -31,7 +31,7 @@
 </figure>
 <hr/>
 
-<h2>Frequently Asked Questions</h2>
+<h2 id="faq">Frequently Asked Questions</h2>
 <blockquote class="question">
 	<p>What if my internet IP address changes?</p>
 </blockquote>

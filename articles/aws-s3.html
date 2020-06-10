@@ -14,7 +14,7 @@
 <p>Take care how you name your S3 Bucket, don't use "." (dot) in the naming as it will break the HTTPS certificate, more info is provided here: <a title="AWS S3 VirtualHosting" href="http://docs.aws.amazon.com/AmazonS3/latest/dev/VirtualHosting.html" target="_blank" rel="nofollow noopener">AWS S3 VirtualHosting</a>.</p>
 <hr />
 
-<h2>How To Restrict Bucket Permissions</h2>
+<h2 id="permissions">How To Restrict Bucket Permissions</h2>
 <p>You may not wish to allow your AWS account to access all S3 buckets from within Foundry VTT. To avoid this, you should create a specific IAM user whose access credentials are used by Foundry Virtual Tabletop. You can assign am IAM policy to this specific user which only permits access to certain buckets within your overall account. An example IAM policy which allows access to only the bucket named <code>vtt-assets</code> is shown below:</p>
 <pre><code class="language-json">{
     "Version": "2012-10-17",
@@ -45,11 +45,11 @@
 <p>For more information, see the following AWS support page: <a href="https://aws.amazon.com/premiumsupport/knowledge-center/s3-console-access-certain-bucket/" target="_blank" rel="nofollow noopener">https://aws.amazon.com/premiumsupport/knowledge-center/s3-console-access-certain-bucket/</a></p>
 <hr />
 
-<h2>Enabling User Access</h2>
+<h2 id="access">Enabling User Access</h2>
 <p>The permission controls on your AWS bucket are used to restrict the ability to upload content only. To use uploaded content in a game session, all players must have access to read the files in your bucket. You can either accomplish this by making your entire bucket public access, specifically assigning a public-read ACL to each uploaded key (the Foundry uploader does this automatically), or by specifically authorizing individual IP addresses of your players for the bucket.
 </p>
 
-<h3>Enabling Cross-Origin Resource Sharing (CORS)</h3>
+<h3 id="cors">Enabling Cross-Origin Resource Sharing (CORS)</h3>
 <p>In order to use assets out of your S3 bucket from the virtual tabletop - you may need to set a CORS policy. To do this, navigate to the <strong>Permissions</strong> tab on the S3 bucket management panel. Under the <strong>CORS configuration</strong> section apply the following policy:</p>
 <pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/"&gt;
