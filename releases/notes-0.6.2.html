@@ -1,0 +1,77 @@
+<h2>Foundry Virtual Tabletop - Version 0.6.2 Update Notes</h2>
+
+<figure>
+<img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/version-062-update-notes-2020-06-06.jpg" title="Foundry VTT Version 0.6.2 Release Notes"/>
+<figcaption>Welcome to Foundry Virtual Tabletop Update 0.6.2</figcaption>
+</figure>
+
+<h4>Overview of Changes</h4>
+<p>This is Foundry Virtual Tabletop Release version 0.6.2, a stable update on the <strong>Release</strong> channel which is available to all Foundry Virtual Tabletop license holders. The Release channel contains updates which should be stable and ready for widespread consumption by all Foundry users.</p>
+
+<p>This update focuses on bug fixes and user experience adjustments that improve the release 0.6.0 version. The bulk of the changes included in this version are from the <a href="https://foundryvtt.com/releases/0.6.1" title="Beta 0.6.1 Update" target="_blank">Beta 0.6.1 Update</a> but there are some additional adjustments, features, and fixes which are included in 0.6.2. If you have not yet read the release notes for Beta 0.6.1 I recommend starting there.</p>
+
+<p>Since the scope of changes for this update was relatively small, there is not a Twitch developer stream associated with update 0.6.2, but stay tuned for more live-stream content coming up as I begin working on the 0.7.x generation of updates!</p>
+<hr/>
+
+<h4>About this Update</h4>
+<p>This is a Release channel update which should be stable for all users. It is recommended for all users to update to this version unless it is immediately prior to a game session (update afterwards). Even though this update is on the release channel - remember Foundry Virtual Tabletop is self-hosted, so please take care to periodically back up any critical user data like your Worlds to protect against the unfortunate event that anything goes wrong.</p>
+<hr/>
+
+<h4>How to Update</h4>
+<p>To apply this update, return Foundry Virtual Tabletop to the <strong>Configuration and Setup</strong> page and access the <strong>Update Software</strong> tab and choose the "Release (Stable)" channel in the dropdown menu. It is recommended for most users to stay on the Release channel for all updates unless you have a specific desire to get Alpha or Beta changes in the future.</p>
+
+<p>After clicking <strong>Check for Update</strong> confirm that you are presented with the 0.6.2 update notes and click the Download button to begin the update process. Allow some time for this process to conclude, when it is finished your server will automatically restart (if Electron) or shut down (if Node.js).</p>
+
+<p class="note info">Since the EULA was updated in version 0.6.1 you may be prompted to re-accept the Foundry Virtual Tabletop license agreement after the update is installed.</p>
+<hr/>
+
+<h4>Reporting Issues and Providing Feedback</h4>
+<p>If you encounter issues or have feedback to share, please use one of the following three reporting channels, ordered by preference:</p>
+<ol>
+	<li><strong>Discord Server:</strong> My preferred method to collect feedback is through our Discord server where I have created a dedicated channel for update 0.6.2 feedback. If you are able to join our Discord community it's the best way to engage with me directly for feedback.</li>
+	<li><strong>GitLab Tracker:</strong> You are welcome to create issue reports directly in the GitLab tracker here, but please take caution to ensure your problem has not already been reported by checking other open (and closed) issues in the upcoming milestone before creating a new report.</li>
+	<li><strong>Bug Report Form:</strong> There is an official bug report form on the official website. Please go to the following address and select "Bug Report" as your category. <a href="https://foundryvtt.com/contact-us/" rel="nofollow">https://foundryvtt.com/contact-us/</a></li>
+</ol>
+
+<p>Please stay up to date on progress by following the project roadmap on GitLab: <a href="https://gitlab.com/foundrynet/foundryvtt/boards" rel="nofollow" target="_blank" title="FVTT Issue Tracker">https://gitlab.com/foundrynet/foundryvtt/boards</a>.</p>
+<hr/>
+
+<h3>New Features</h3>
+<ul>
+	<li>Increased the point sampling density slightly to avoid occasional situations where measured movement on a hex grid would skip highlighting a grid space.</li>
+	<li>Allowed for Tokens with dimensions less than 1 to snap at a more fine precision relative to the grid.</li>
+	<li>Improved the way permissions errors were handled with regard to the temporary _update directory. In some cases, users were still receiving the "EPERM" error message. They will now receive a more informative error message which suggests to the user that they should use administrator rights to update.</li>
+</ul>
+<hr/>
+
+<h3>Bug Fixes</h3>
+<ul>
+	<li>Ruler measurement for Tokens with size less than 1 was not work properly depending on the origin position of the Token in its grid space.</li>
+	<li>Measured movement on gridless Scenes would result in Tokens following an offset path instead of the expected ruled line.</li>
+	<li>Rapid mouse movements immediately following a Ruler measurement could incorrectly trigger downstream layer-level mouse-move workflows, resulting in unexpected behavior with walls, lighting, and field of vision.</li>
+	<li>Adjusted Permissions for Templates to allow users who can create templates to configure them as well.</li>
+	<li>Links to entities in Compendium Packs would fail to correctly resolve if they were called by Name instead of ID.</li>
+	<li>Adding Scenes to Compendium Packs failed to generate thumbnails for them.</li>
+	<li>Cone Templates failed to correctly test the placement angle resulting in the template not being placed.</li>
+	<li>Revealing a hidden message (non-Roll) was not properly adding the newly visible message into the chat log of players who did not previously see it.</li>
+	<li>Zero-Length Wall Segments failed to auto-delete on hex-grids.</li>
+	<li>Scenes contained an incorrect tooltip for weather effects.</li>
+</ul>
+<hr/>
+
+<h3>Framework and API Changes</h3>
+<ul>
+	<li>Improved the efficiency of creating Door controls, they no longer use a redundant loop through the Walls children. This should provide a minor improvement in the performance of door control icon rendering.</li>
+</ul>
+<hr/>
+
+<h3>Documentation Improvements</h3>
+<ul>
+	<li>API documentation updated to be consistent with the 0.6.2 software.</li>
+</ul>
+<hr/>
+
+<h3>Known Issues</h3>
+<ul>
+	<li>None at this time.</li>
+</ul>
