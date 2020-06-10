@@ -1,4 +1,4 @@
-<h2>Compendium Pack JSON Definition</h2>
+<h2 id="json">Compendium Pack JSON Definition</h2>
 <p>To define a valid Compendium pack in a JSON manifest file include the following object structure inside the <code>packs</code> array.</p>
 <pre><code class="language-json">"packs": [
     {
@@ -33,7 +33,8 @@
 	</dd>
     <dt>entity</dt>
 	<dd>
-		<p>Each compendium pack must designate a specific Entity type that it contains. Valid entities include <code>Actor</code>, <code>Item</code>, or <code>Scene</code>.</p>
+		<p>Each compendium pack must designate a specific Entity type that it contains. Compendiums can contain any type of Entity, including: @Article[actors], @Article[items], @Article[journal], @Article[playlists], @Article[roll-tables] or @Article[scenes].</p>
+		
 	</dd>
     <dt>system</dt>
 	<dd>
@@ -41,7 +42,7 @@
 	</dd>
 </dl>
 
-<h2>Bulk Importing of Compendium Content</h2>
+<h2 id="bulk">Bulk Importing of Compendium Content</h2>
 <p>A relatively common desire for module or system developers is to bulk import external content to create a compendium pack. There are several ways to do this, but the recommended approach is to use the API to handle creation of your compendium entries from structured data. The following code block provides an example of importing Actor data from an external JSON file and using that data to populate a compendium pack.</p>
 <pre><code class="language-javascript">// Reference a Compendium pack by it's callection ID
 const pack = game.packs.find(p =&gt; p.collection === `${moduleName}.${packName}`);

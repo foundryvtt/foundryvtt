@@ -8,7 +8,7 @@
 <p>Each module could include one or more of these types of modifications, and users can mix-and-match multiple modules (provided they are compatible) to achieve a high degree of customization for their Foundry VTT experience. This page goes into detail about how module development works for developers who are interested in creating their own module content.</p>
 <hr />
 
-<h2>Before you Begin</h2>
+<h2 id="foreword">Before you Begin</h2>
 <p>Foundry Virtual Tabletop is a web application, and module development in FVTT uses web technologies. Specifically, modules rely upon four primary technologies which each serve an important role: HTML, CSS, JavaScript, and JSON. If you are new to web development - Foundry Virtual Tabletop can provide an excellent opportunity to learn these skills while creating something fun and useful for your roleplaying game table. There are an abundance of resources and training courses for learning this technology, the following links provide a simple place to start.</p>
 <dl> <dt>HTML</dt>
 	<dd>Used to define the structure and content of web pages and interface elements. Visit <a title="Structuring the web with HTML" href="https://developer.mozilla.org/en-US/docs/Learn/HTML" target="_blank" rel="nofollow noopener">Structuring the web with HTML</a> to begin learning more about HTML.</dd> <dt>CSS</dt>
@@ -25,7 +25,7 @@
 <p>Building a module in Foundry Virtual Tabletop will require use of some or all of these techniques. You do not need to be an expert - but understanding the basics will be critical. While you undertake this journey be sure to remain patient and focus on making progress one step at a time. Building your first module will almost certainly take longer than you think, but as you learn your pace of progress should speed up considerably.</p>
 <hr />
 
-<h2>Module File Structure</h2>
+<h2 id="structure">Module File Structure</h2>
 <p>A <strong>Module</strong> is defined as a uniquely-named subfolder folder within <code>{userData}/Data/modules</code> which contains a <strong>manifest</strong> file in JSON format named <code>module.json</code> which defines the module and describes what features it contains. For the purpose of this example, let's create a module named <code>dice-tray</code>. The first step of your module development should be to define the manifest file and ensure that your module is recognized as valid by the Foundry VTT software.</p>
 <p>The bare minimum in order for a module to be recognized by Foundry VTT is a file structure that looks like this:</p> <pre><code class="language-plaintext">{userData}/Data/modules/
   dice-tray/
@@ -64,7 +64,7 @@
 <p>Remember, apart from the <code>module.json</code> file, you are free to organize your module however you like. These are simply recommendations.</p>
 <hr />
 
-<h2>The Module Manifest</h2>
+<h2 id="manifest">The Module Manifest</h2>
 <p>Each module must inclide a <code>module.json</code> file which defines the module and specifies what content it includes. This file is required and must be included at the root level of your module folder. The <code>"name"</code> attribute in the manifest file must match exactly with the name of the module folder. The manifest file is a JSON document containing an object of keys and values. A very minimal example of a valid <code>module.json</code> file is the following:</p> <pre><code class="language-json">{
   "name": "dice-tray",
   "title": "Dice Tray - An Example FVTT Module",
@@ -77,7 +77,7 @@
 <p class="note info"><strong>Hint:</strong> JSON files have very specific syntax requirements. Your JSON manifest file must be valid in order for your module to be recognized and loaded. Use the <a title="JSON Lint" href="https://jsonlint.com/" target="_blank" rel="nofollow noopener">JSON Lint</a> tool to validate that your JSON file is correct if you encounter any issues.</p>
 <p>The manifest file can include many attributes, some of which are required while others are optional.</p>
 
-<h3>Required Manifest Attributes</h3>
+<h3 id="requirements">Required Manifest Attributes</h3>
 <dl> <dt>name</dt>
 	<dd>
 		<p>Choose a unique module identifier. This must be an all lower-case string with no special characters and should use hyphens (not underscores) to separate multiple terms. This name must match exactly with the name of your module directory.</p>
@@ -99,7 +99,7 @@
 	</dd>
 </dl>
 
-<h3>Optional Manifest Attributes</h3>
+<h3 id="options">Optional Manifest Attributes</h3>
 <dl> <dt>compatibleCoreVersion</dt>
 	<dd>
 		<p>Specify the latest Foundry Virtual Tabletop version with which this module's features are confirmed to function properly. This field provides a way to signal to module users that a module is safe to use with a certain core version. While it is possible to set this field to any value, including future VTT version numbers which do not exist yet, please use this field responsibly and only denote compatibility with core versions which have been tested and confirmed. If a user is using a core FVTT version which is more recent than the specified compatible core version, the module can be installed and used but will display a warning that it may not function properly.</p>
@@ -171,7 +171,7 @@
 </dl>
 <hr />
 
-<h2>Including JavaScript</h2>
+<h2 id="includes">Including JavaScript</h2>
 <p>For many modules which want to expand or modify core software functionality is to include a JavaScript file (or module) which can introduce programmatic behavior into the Foundry VTT environment. An ideal second step once you have populated your module manifest with the required fields is to create a "Hello World" script which is loaded when your module is active. Experiment with adding a script file to the <code>"scripts"</code> attribute of the manifest. Suppose we create the JavaScript file in our example module <code>dice-tray/scripts/roller.js</code>. We would modify the <code>module.json</code> file as follows and the contents of our created JavaScript file will be automatically loaded and parsed by the browser when a game is loaded.</p> <pre><code class="language-json">"scripts": [
   "scripts/roller.js"
 ]
@@ -189,7 +189,7 @@ Hooks.on("ready", function() {
 </code></pre>
 <hr />
 
-<h2>Further Reading</h2>
+<h2 id="more">Further Reading</h2>
 <p>As you delve further into the world of module development - the following topics may prove useful for a variety of tasks you wish to perform.</p>
 <p class="note warning">The below "topics" are a skeleton structure for now - but will link to real documentation pages in the future.</p>
 <ul>

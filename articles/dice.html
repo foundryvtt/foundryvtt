@@ -1,7 +1,7 @@
 <p>At the core of most tabletop games is the requirement to roll dice. This page details the concepts and syntax used to execute dice rolls with Foundry VTT's specific roll formula syntax.</p>
 <hr />
 
-<h2>Roll Modes and Chat Commands</h2>
+<h2 id="commands">Roll Modes and Chat Commands</h2>
 <p>There are four different roll modes in Foundry Virtual Tabletop. Each roll mode implies a different level of visibility for the resulting roll. Every dice roll becomes a message in the chat log but the visibility of that message and the details of the roll vary for each mode. For every roll mode, all players will be able to see that a roll was performed - just as players at a physical tabletop can hear the audible sound of rolled dice - but depending on the roll mode they may not see the results. The available modes are:</p>
 <dl>
 	<dt>Normal Roll</dt>
@@ -23,7 +23,7 @@
 </dl>
 <hr />
 
-<h2>Roll Formula Syntax</h2>
+<h2 id="formula">Roll Formula Syntax</h2>
 <p>Each dice term in a rolled share the same basic structure which chooses to roll a certain <strong>number</strong> of dice, each with a number of <strong>faces</strong>, and then apply optional <strong>modifiers</strong> to the rolled set.</p>
 <pre><code class="language-plaintext">/roll {number}d{faces}{modifiers}</code></pre>
 <p>Each rolled formula can contain multiple terms combined using arithmetic operations, and formulae can also include numeric terms. For example, the following formula will roll two 20-sided dice keeping the highest of the two, a separate 4-sided die, and add 4 to the total result.</p>
@@ -32,10 +32,10 @@
 <pre><code class="language-plaintext">/roll 1d6 + @abilities.str.mod</code></pre>
 <hr />
 
-<h2>Available Roll Modifiers</h2>
+<h2 id="modifiers">Available Roll Modifiers</h2>
 <p>Each dice term can have "modifiers" applied to it. Each modifier is a set of additional characters which defines a type of operation to apply to the roll that it modifies. Modifiers are applied in order from left to right, so a roll with multiple modifiers will perform those in a predictable order where subsequent modifiers operate on the previously modified result. This section defines the roll modifiers which are currently supported:</p>
 
-<h3>Keep or Drop Results</h3>
+<h3 id="keep">Keep or Drop Results</h3>
 <p>A desired number of high or low rolls may be kept or dropped using the following roll modifiers.</p>
 <ul>
 	<li>
@@ -52,7 +52,7 @@
 	</li>
 </ul>
 
-<h3>Re-roll Certain Results</h3>
+<h3 id="reroll">Re-roll Certain Results</h3>
 <p>Specific results may be re-rolled by specifying a re-roll target or range.</p>
 <ul>
 	<li>
@@ -72,7 +72,7 @@
 	</li>
 </ul>
 
-<h3>Explode Certain Results</h3>
+<h3 id="explode">Explode Certain Results</h3>
 <p>"Exploding" dice are supported where further dice of the same type are rolled until no more results of a certain value have been rolled.</p>
 <ul>
 	<li>
@@ -92,7 +92,7 @@
 	</li>
 </ul>
 
-<h3>Count Successes</h3>
+<h3 id="successes">Count Successes</h3>
 <p>You can roll a set of dice and count the number of times a certain result or range of results was achieved.</p>
 <ul>
 	<li>
@@ -112,7 +112,7 @@
 	</li>
 </ul>
 
-<h3>Margin of Success</h3>
+<h3 id="margin">Margin of Success</h3>
 <p>Roll a set of dice and compare the total against some target, keeping the difference as the result.</p>
 <ul>
 	<li>
@@ -133,7 +133,7 @@
 </ul>
 <hr />
 
-<h2>Parenthetical Expressions</h2>
+<h2 id="parantheticals">Parenthetical Expressions</h2>
 <p>A parenthetical expression allows you to evaluate some inner component of a roll formula before evaluating the outer portion. This allows for options where the number, faces, or modifiers of a dice roll are themselves dynamic in some way. Parenthetical expressions are defined by enclosing the inner expression in parentheses. Using parenthetical expressions can allow you to roll a variable number of dice based on a data attribute or an inner dice roll, for example:</p>
 <pre><code class="language-plaintext">/roll (@abilities.dex.mod)d6
 /roll (2d4)d8
@@ -144,7 +144,7 @@
 </code></pre>
 <hr />
 
-<h2>Dice Pools</h2>
+<h2 id="pools">Dice Pools</h2>
 <p>A dice pool allows you to evaluate a set of dice roll expressions and combine or choose certain results from the pool as the final total. This allows you to keep, combine, or count results across multiple rolled formulae. Dice pools are defined using comma separated roll terms within brackets. Dice pools can be used to choose the better result between two or more alternative rolled formulae, for example:</p>
 <pre><code class="language-plaintext">/roll {4d6 + 4, 3d8 + 3, 2d10 + 2}kh
 /roll {1d20, 10}kh
@@ -152,5 +152,5 @@
 <p>Dice pools can also be used to count the number of inner results which exceeded some threshold, for example:</p> <pre><code class="language-plaintext">/roll {6d6, 5d8, 4d10, 3d12}cs&gt;15</code></pre>
 <hr />
 
-<h2>The Dice API</h2>
+<h2 id="api">API References</h2>
 <p>For module and system developers who want to go deeper with dice mechanics - there is a robust JavaScript API which can do even more with dice rolls. See the <a title="The Roll Class" href="/api/Roll.html" target="_blank" rel="nofollow noopener">Roll Class</a> API documentation for details.</p>

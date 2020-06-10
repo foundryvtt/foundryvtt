@@ -2,7 +2,7 @@
 <p>As an example of a fairly feature-complete game system implementation - please feel free to examine the D&amp;D5e system which has open source code: <a href="https://gitlab.com/foundrynet/dnd5e" target="_blank" rel="nofollow noopener">https://gitlab.com/foundrynet/dnd5e</a></p>
 <hr />
 
-<h2>Before you Begin</h2>
+<h2 id="foreword">Before you Begin</h2>
 <p>Game system development in Foundry Virtual Tabletop is both rewarding and challenging. If you are considering this process, we encourage you to consider the following advice:</p>
 <ul>
 	<li>Building a game system in FVTT requires a few skills: at least some basic knowledge of JavaScript, HTML, and CSS are required. You do not need to be an expert web developer, but understanding the basics of these languages is critical.</li>
@@ -12,7 +12,7 @@
 </ul>
 <hr />
 
-<h2>The System Manifest</h2>
+<h2 id="manifest">The System Manifest</h2>
 <p>Each game system must include a <code>system.json</code> file which provides the system specification. This file is required and must be included at the root level of your system folder. The system folder itself must match the <code>"name"</code> attribute designated within the specification file. For example, if we create a game system with the name <code>mysystem</code>, then we would create the file <code>{userData}/Data/systems/mysystem/system.json</code>.</p> <pre><code class="language-json">{
   "name": "mysystem",
   "title": "Minimal World Building",
@@ -191,7 +191,7 @@
 </dl>
 <hr />
 
-<h2>System File Structure</h2>
+<h2 id="structure">System File Structure</h2>
 <p>The file structure of a system folder requires a parent directory whose name identically matches the name attribute in the manifest. Within that directory, the <code>system.json</code> and <code>template.json</code> files are required and must live at the root level. The naming conventions for other files and folders able to be freely configured, but we recommend a standard structure with subdirectories for <code>scripts</code>, <code>styles</code>, and <code>packs</code> if applicable.</p> <pre><code class="language-plaintext">{userData}/Data/systems/mysystem/
     system.json
     template.json
@@ -209,7 +209,7 @@
 <p>To share the system with other players, simply zip the <code>mysystem</code> directory and distribute it using whatever mechanism is most convenient. Players can download the system and extract it within their own systems folder - making the system available for them to use in Foundry Virtual Tabletop!</p>
 <hr />
 
-<h2>The Data Template</h2>
+<h2 id="data">The Data Template</h2>
 <p>In addition to the System Specification file described above, each game system must include a Data Template file named <code>template.json</code> at the root-level of the system folder which defines the data model used by Actors and Items under this game system. For example, if we create a game system with the name <code>mysystem</code>, then we would create the file <code>{userData}/Data/systems/mysystem/template.json</code>.</p> <pre><code class="language-json">{
 "Actor": {
   "types": ["hero", "pawn", "villain"],
@@ -272,10 +272,10 @@
 <p>In the example, the Actor entity has 3 sub-types: <code>["hero", "pawn", "villain"]</code>. All 3 types include the common set of <code>"resources"</code>, while heroes and villains also include a <code>"background"</code>.</p>
 <p>Elements in the data model may have any of the primitive types of <code>string</code>, <code>number</code>, or <code>boolean</code>. Additionally elements of the data model may also represent <code>Object</code> or <code>Array</code> structures. There is no requirement or limitation on the depth or structure of the template - however we encourage logical grouping of similarly themed attributes within named objects as this tends to help with organization and maintainability.</p>
 
-<h3>Resource Attributes</h3>
+<h3 id="resources">Resource Attributes</h3>
 <p>Specific attributes will be recognized by the game system as a "resource" if (and only if) they contain keys which define a <code>value</code> and a <code>max</code>. In the above example, health, power, and goodness would be detected as eligible resources for hero type characters.</p>
 
-<h3>How the Data Model is Applied</h3>
+<h3 id="model">How the Data Model is Applied</h3>
 <p>When a new Entity is created in a game using this system, it will automatically have it's own internal data populated to conform to the schema defined in the system template. For example, when using this system, if I were to execute the following code:</p> <pre><code class="language-javascript">Item.create({name: "Test Weapon", type: "weapon"}).then(item =&gt; {
   console.log(item.data);
 })
@@ -296,6 +296,6 @@
 }
 </code></pre>
 
-<h3>Data Model Migrations</h3>
+<h3 id="migration">Data Model Migrations</h3>
 <p>Often, during the course of system development, changes to the template data structure are needed. In such cases, if you increment the <code>version</code> number in your system manifest file any existing Actors or Items will be automatically migrated to the latest template data specification when a World that uses the system is next loaded. During this migration process - any newly added data attributes will be added to existing entities, however old attributes which are no longer required by the template are not removed in case that data needs to be migrated.</p>
 <p>To apply additional migration rules, the recommended approach is to provide client side logic which detects whether a migration and uses the client side API to facilitate additional changes.</p>
