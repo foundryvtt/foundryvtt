@@ -1,0 +1,77 @@
+<p>Foundry Virtual Tabletop has a wide array of options for asset creators. This article seeks to provide useful information for musicians, artists, and other content creators who wish to create image or sound assets for use in Foundry, be it Token art, maps, environments, icons, sound effects, music, or any other media content.</p>
+<hr>
+<h2>Media Asset Creation</h2>
+<p>When creating media files for use in Foundry, file compression and file quality are generally the two important aspects that must be balanced. Considering your options is especially important when taking into account that each player connected to a Foundry server will need to be sent the file for each type of media over their connection. With more players, or less bandwidth, smaller media formats and other methods of compression may be necessary.</p>
+<h3 id="guidelines">General Asset Guidelines</h3>
+<p>When designing for use in Foundry, ensure the name of your file properly reflects its intended use. It is good practice to differentiate between various versions of a file by name, so those using the assets can quickly identify which one they intend to use.</p>
+<p>Since Foundry VTT works as a web server, you should be sure to use directory and file names which conform to web file and URL encoding conventions. You should generally avoid using spaces or special characters as these are likely to cause issues when serving your content. See the <a href="https://developers.google.com/maps/documentation/urls/url-encoding" rel="nofollow" target="_blank">Google URL Guidelines</a> for more detail.</p>
+<h3 id="image">Image Assets</h3>
+<p>Generating image assets for Foundry carries with it some best practices which can help to optimize your content for distribution. The recommendations change slightly whether you're creating Tokens, Tiles, or Maps for Scenes. </p>
+<p>Foundry supports the following formats for image files: .jpg, .jpeg, .png, .svg, .webp</p>
+ 
+<h4 id="image-formats">Image Design Best Practices</h4>
+<p> When approaching image design for Foundry it's usually best to keep in mind some general best practices for images to be served on a website. </p>
+
+<p><strong>Does the image need transparency?</strong></p>
+<p>DPI, PPI, and Pixels</p>
+<p>Foundry does reference the DPI or PPI of an image, but uses the pixel size of the image and the number of pixels per grid space when rendering maps.</p>
+<p><strong>How compatible does the image need to be?</strong></p>
+<p> A relatively newer file format, the WebP has slightly better than 75% compatibility across browsers, with the biggest standouts being Safari and IOS. If you aren't concerned about compatibility, rendering your work into a webp will almost universally provide you a smaller file size with a higher-quality.</p>
+<p> In terms of quality and file sizes, .webp almost universally beats jpg and png in terms of quality to size ratio. Wherever possible, if you can render your files in .webp format you will be able to pack a higher quality into the image for the same file size.</p>
+<p><strong>Does the image need transparency?</strong></p>
+<p>If you are designing a background map, there's a very good chance that you don't require transparency for your image, in which case rendering in jpg will provide a significant gain in filesize. 
+<p>For distribution to users, rendering exported JPG files at or slightly above 80% quality is usually sufficient.</p>
+<p>If you require transparency, however, your choices are limited to webp, png, and svg.</p>
+
+
+<h4 id="tokens">Tokens </h4>
+<p>When designing Token assets for use in foundry it is best to take into account overall file size and quality. Tokens should be provided in a format that supports transparency. </p>
+
+<p>Foundry VTT uses a firm assumption that token artwork is facing "south" in it's natural orientation. If you have Tokens which are not southward-facing in the original images it is advisable to either: </p>
+<ol>
+    <li> Edit the token images to have the tokens face south </li>
+    <li> Use the mirror vertical checkbox in the token configuration to flip a northward facing token to be southward facing</li>
+</ol>
+<h4 id="maps">Maps </h4>
+Foundry is extremely friendly to map creators wishing to package their content for distribution. The following are the only guidelines that should be adhered to:
+
+<p><strong>Avoid Shipping Maps with a Grid</strong></p>
+Wherever possible, it would be advisable to not include a grid pre-rendered on your map images. This allows easier access to Foundry's grid system. Instead, package your map as gridless and include a simple instruction of the recommended grid size for it, such as (100px). </p>
+<p>If you must include a grid with your map, please start the grid at the top left corner, use a grid size greater than 50px per square, and one which extends fully to the edges of the image. Please advise your users of the exact grid size used, in pixels per square.<p>
+
+<h4 id="svg">About SVG</h4>
+<p> Almost universally, SVG format provides benefits for web based rendering; the files are tiny, they support transparency, they can be more easily animated, and they can be scaled to any size without loss of quality. However, in most cases SVG files will not be able to provide for the level of visual complexity as a bitmap image.</p>
+<p>Use SVGs if you are making tiles, tokens, or icons for use in foundry that would benefit from transparency and scaling, but do not require extremely complex colour depth and detail.</p>
+<p>For Foundry to use SVG files they must be given an explicit width and height to be used on the canvas.</p>
+
+<h3 id="video">Video and Animation Assets</h3>
+<p>Foundry supports three key filetypes when it comes to video assets for use. For transparent video assets, such as animated tiles or tokens, .webm is and should be the standard due to file size and quality. For animated backgrounds and maps, .mp4 and .m4v are supported.</p>
+<h4 id="video-quality">Video Quality</h4>
+<p>Decisions on video quality are a little more controversial than sizing for images. Foundry does not restrict the file size a Scene can use, but it is important to keep in mind that a scene must be distributed to all connected players and, potentially, the GM as well.<p>
+    <p> As a guideline, Foundry recommends trying to keep video map file sizes in the vicinity of 25mb or less, to allow for adequate distribution.</p>
+    <p> Video files should ideally be rendered at approximately 30fps or less. If your video includes audio, you can reduce impact on filesize by shipping the audio as a separate file to be triggered by Foundry's audio framework.</p>
+    <p> Lastly, you should strongly consider rendering map files as webm, using non-transparent for map scenes and transparent for tokens. The filesize differences between mp4, m4v, and webm provide a significant gain without quality reduction.</p>
+    <p><strong>Codec and Bitrate</strong></p>
+    <p> Foundry recommends codecs and bitrates optimized for online streaming. Variable Bit Rate (VBR) files rendered in h264 are usually the most performant while keeping quality high. If you are going to render the video in constrained or constant bitrate instead, consider a dual pass from a codec like libx264 at 2-5Mb/s. Quality percentage should be kept at 60-80% to reduce visual artefacting.</p>
+
+<h3 id="sound">Sound Assets</h3>
+<p>Particularly for streaming audio, file bitrate will generally be the most important factor in determining the smoothness and quality of an audio file played in Foundry. </p>
+<p>A high bitrate provides higher-quality samples, but will be a bigger file that may not stream as quickly as the file is intended to play, and a low bitrate sample will be easier to stream over an internet connection, but may sound noticeably compressed, or have an overall lower quality. <b>Overall, 128kbps provides the most optimal tradeoff between higher audio quality and smaller file sizes.</b> Using higher bitrate samples will not provide a noticeable change in quality to most players.</p>
+<p>This section does not cover the various codecs used in the creation/compression of sound files - however, they too are an important factor when it comes to exporting audio. Some codecs are better at exporting particular sounds, voices, or even genres of music. Your choice of format and codec may also be limited by which tools or digital audio workstation (DAW) you are using.</p>
+<h4 id="audio-formats">Audio Formats</h4>
+<p>Choice of audio format is also an important consideration. Foundry currently supports OGG, MP3, FLAC, WAV, and WEBM file formats for audio playback. Reverb, cymbals, other drum samples, and certain pads or crisp-sounding instruments often suffer the most from audio compression, so results may vary from sample to sample. The supported audio formats for Foundry are listed below, with the general advantages and disadvantages of using each.</p>
+<p class="note info">It's important to note that converting a file from one "lossy" format (such as MP3 or OGG) to another will simply compress an already-compressed sound file and reduce sound quality. Additionally, converting a lossy file to an uncompressed WAV format will not revert the loss in audio quality! It is best to have a lossless source file (such as a WAV or FLAC track) which is then converted <i>once</i> to your desired format.</p>
+<dl>
+    <dt>OGG</dt>
+    <dd>Arguably the best format for audio for the purpose of streaming online. An average OGG file will have similar filesize to a 128kbps MP3 file, but with clearer quality. Additionally, OGG comes with the added bonus of being able to loop cleanly in audio players that support the perfect looping of audio. Many tools and DAWs can natively export to this format as well, making it easy to create OGG files. However, Safari does not natively support OGG files.</dd>
+    <dt>MP3</dt>
+    <dd>A fairly "standard" format. Provides a fairly solid tradeoff between audio quality and filesize, but is not as efficient with its compression as OGG and will not loop cleanly. Just about any device capable of playing sound files will be able to play MP3s. MP3 encoders such as LAME sometimes have a higher risk of developing artifacts or quantization errors in converted files, but is overall a safe choice.</dd>
+    <dt>FLAC</dt>
+    <dd>A lossless audio format, with manageable file sizes. FLAC files loop cleanly, and do not experience the quality drop normally seen in compression. However, FLAC files tend to have a larger bitrate than standard mp3 files. FLACs can still be useful, particularly for samples that more easily suffer a drop in quality when compressed, or on connections where bandwidth is not an issue (such as servers hosted over LAN).</dd>
+    <dt>WEBM</dt>
+    <dd>Solid, but lossy audio format designed for use on the web. WEBM codecs like Vorbis feature lossy compression like MP3, but the files tend to be smaller and have less of a loss in quality. Some browsers, like Safari, do not natively support WEBM, however, and encoding to a pure audio WEBM file is not available in most DAWs.</dd>
+    <dt>WAV</dt>
+    <dd>WAV files are largely a poor choice for streaming online - uncompressed WAV files play the sound in its intended, perfectly-crisp quality, but can be an order of magnitude larger in size than compressed formats. This drawback alone almost always outweighs the nigh-unnoticeable difference in playback quality for most listeners.</dd>
+</dl>
+<h4>Converting Audio</h4>
+<p>Audio programs (such as Audacity) are available freely online that allow for exporting audio in various formats, under various codecs. The aforementioned program Audacity supports exporting to WAV, and OGG, with free plugins online to add support for exporting to MP3, FLAC, and other file formats.</p>
