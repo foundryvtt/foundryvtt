@@ -43,6 +43,10 @@ sudo yum -y install httpd
     ProxyPass /             http://localhost:30000/
     ProxyPassReverse /      http://localhost:30000/
 &lt;/VirtualHost&gt;
+# Increase the maximum upload limit Apache will allow
+&lt;Location&gt;
+LimitRequestBody 104857600 # 100MB upload
+&lt;/Location&gt;
 </code></pre>
 
 

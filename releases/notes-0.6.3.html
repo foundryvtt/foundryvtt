@@ -1,0 +1,89 @@
+<h2>Foundry Virtual Tabletop - Version 0.6.2 Update Notes</h2>
+
+<figure>
+<img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/version-062-update-notes-2020-06-06.jpg" title="Foundry VTT Version 0.6.2 Release Notes"/>
+<figcaption>Welcome to Foundry Virtual Tabletop Update 0.6.2</figcaption>
+</figure>
+
+<h4>Overview of Changes</h4>
+<p>This is Foundry Virtual Tabletop Release version 0.6.2, a stable update on the <strong>Release</strong> channel which is available to all Foundry Virtual Tabletop license holders. The Release channel contains updates which should be stable and ready for widespread consumption by all Foundry users.</p>
+
+<p>This update focuses on bug fixes and user experience adjustments that improve the release 0.6.0 version. The bulk of the changes included in this version are from the <a href="https://foundryvtt.com/releases/0.6.1" title="Beta 0.6.1 Update" target="_blank">Beta 0.6.1 Update</a> but there are some additional adjustments, features, and fixes which are included in 0.6.2. If you have not yet read the release notes for Beta 0.6.1 I recommend starting there.</p>
+
+<p>Since the scope of changes for this update was relatively small, there is not a Twitch developer stream associated with update 0.6.2, but stay tuned for more live-stream content coming up as I begin working on the 0.7.x generation of updates!</p>
+<hr/>
+
+<h4>About this Update</h4>
+<p>This is a Release channel update which should be stable for all users. It is recommended for all users to update to this version unless it is immediately prior to a game session (update afterwards). Even though this update is on the release channel - remember Foundry Virtual Tabletop is self-hosted, so please take care to periodically back up any critical user data like your Worlds to protect against the unfortunate event that anything goes wrong.</p>
+<hr/>
+
+<h4>How to Update</h4>
+<p>To apply this update, return Foundry Virtual Tabletop to the <strong>Configuration and Setup</strong> page and access the <strong>Update Software</strong> tab and choose the "Release (Stable)" channel in the dropdown menu. It is recommended for most users to stay on the Release channel for all updates unless you have a specific desire to get Alpha or Beta changes in the future.</p>
+
+<p>After clicking <strong>Check for Update</strong> confirm that you are presented with the 0.6.2 update notes and click the Download button to begin the update process. Allow some time for this process to conclude, when it is finished your server will automatically restart (if Electron) or shut down (if Node.js).</p>
+
+<p class="note info">Since the EULA was updated in version 0.6.1 you may be prompted to re-accept the Foundry Virtual Tabletop license agreement after the update is installed.</p>
+<hr/>
+
+<h4>Reporting Issues and Providing Feedback</h4>
+<p>If you encounter issues or have feedback to share, please use one of the following three reporting channels, ordered by preference:</p>
+<ol>
+	<li><strong>Discord Server:</strong> My preferred method to collect feedback is through our Discord server where I have created a dedicated channel for update 0.6.2 feedback. If you are able to join our Discord community it's the best way to engage with me directly for feedback.</li>
+	<li><strong>GitLab Tracker:</strong> You are welcome to create issue reports directly in the GitLab tracker here, but please take caution to ensure your problem has not already been reported by checking other open (and closed) issues in the upcoming milestone before creating a new report.</li>
+	<li><strong>Bug Report Form:</strong> There is an official bug report form on the official website. Please go to the following address and select "Bug Report" as your category. <a href="https://foundryvtt.com/contact-us/" rel="nofollow">https://foundryvtt.com/contact-us/</a></li>
+</ol>
+
+<p>Please stay up to date on progress by following the project roadmap on GitLab: <a href="https://gitlab.com/foundrynet/foundryvtt/boards" rel="nofollow" target="_blank" title="FVTT Issue Tracker">https://gitlab.com/foundrynet/foundryvtt/boards</a>.</p>
+<hr/>
+
+<h3>New Features</h3>
+<ul>
+	<li>Keyboard shortcuts have been improved to allow them to work for either uppercase or lowercase characters.</li>
+    <li>Cycling Tokens using the Tab key now centers the view on the center of the Token.</li>
+    <li>The Signika font included in Foundry has received an update to allow for an extended character set to provide compatibility with more languages.</li>
+    <li>The Modesto Condensed font families are now licensed for distribution in Foundry and have been included with the core Foundry VTT application.</li>
+</ul>
+<hr/>
+
+<h3>Bug Fixes</h3>
+<ul>
+    <li>Text Fields were sometimes replaced with "New Text" after reloading a scene from the Configure Player menu.</li>
+    <li>Corrected an issue where resetting Fog of War would sometimes require the GM to reset a second time.</li>
+    <li>It is no longer possible to drag Tokens to inaccessible areas outside the gridded canvas.</li>
+    <li>The Assign Token button will no longer produce an error if used when no token is selected.</li>
+    <li>Token names longer than 15 characters no longer double in font size when entered without spaces.</li>
+    <li>It is no longer possible to create Compendiums with a blank name using the GUI.</li>
+    <li>Corrected an issue where Module installation would sometimes stall at 100% when installing larger modules.</li>
+    <li>The icon for the "Create Scene" button was not displayed on sub-folders of the scene sidebar tab due to some erroneous CSS.</li>
+    <li>Improved consistency for Settings save/reset button positions in configuration menus.</li>
+    <li>The Filepicker in the Edit World menu once again provides the option to upload files for the world background image.</li>
+    <li>TinyMCE was updated to version 5.3.2 in order to address an edge case where the editor would fail to load correctly when accessing Foundry using an IPv6 address.</li>
+    <li>Addressed a type error that would occur when placing a token on a scene after placing a tile.</li>
+    <li>Corrected a typography issue on the Journal Entries application window.</li>
+    <li>Corrected a low impact console error that would sometimes occur when launching worlds.</li>
+</ul>
+<hr/>
+
+<h3>Framework and API Changes</h3>
+<ul>
+    <li>Corrected an issue where an exception during rendering would cause the render state to not progress.</li>
+    <li>The error message which denoted that a chat message failed to render itself contained a syntax error.</li>
+    <li>The AudioHelper static play method failed to return a Howl instance to allow for further sound manipulations.</li>
+    <li>API Documentation, AudioHelper.play() example was incorrect and has been fixed.</li>
+    <li>Improved handling of erroneous license key entry.</li>
+    <li>The POST action for getPackages triggered from the Setup menu had its content-type set to text/html in response</li>
+    <li>Added Server side validation was added to prevent creating duplicate Compendium packs in the same world.</li>
+    
+</ul>
+<hr/>
+
+<h3>Documentation Improvements</h3>
+<ul>
+	<li>API documentation updated to be consistent with the 0.6.3 software.</li>
+</ul>
+<hr/>
+
+<h3>Known Issues</h3>
+<ul>
+	<li>None at this time.</li>
+</ul>
