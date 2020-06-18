@@ -1,0 +1,95 @@
+<h2>Foundry Virtual Tabletop - Version 0.6.3 Update Notes</h2>
+
+<figure>
+<img src="" title="Foundry VTT Version 0.6.3 Release Notes"/>
+<figcaption>Welcome to Foundry Virtual Tabletop Update 0.6.3</figcaption>
+</figure>
+
+<h4>Overview of Changes</h4>
+<p>This is Foundry Virtual Tabletop Release version 0.6.3, an update on the <strong>Beta</strong> channel which is available to all Foundry Virtual Tabletop license holders. he Beta channel contains updates which are close to ready for release, but may still have some minor remaining issues present. If no meaningful issues are encountered in the next several days these changes will be available on the Release channel.
+
+<p>This update focuses on bug fixes and user experience adjustments that improve the release 0.6.0 version. The bulk of the changes included in this version are from the <a href="https://foundryvtt.com/releases/0.6.2" title="Stable 0.6.2 Update" target="_blank">Stable 0.6.2 Update</a> but there are some minor adjustments, features, and fixes which have been deemed unlikely to introduce any issues or breaking changes.</p>
+
+<p>Since the scope of changes for this update was relatively small, there is not a Twitch developer stream associated with update 0.6.3, but stay tuned for more live-stream content coming up as I move forward with 0.7.x updates!</p>
+<hr/>
+
+<h4>About this Update</h4>
+<p>This is a Release channel update which should be stable for all users. It is recommended for all users to update to this version unless it is immediately prior to a game session (update afterwards). Even though this update is on the release channel - remember Foundry Virtual Tabletop is self-hosted, so please take care to periodically back up any critical user data like your Worlds to protect against the unfortunate event that anything goes wrong.</p>
+<hr/>
+
+<h4>How to Update</h4>
+<p>To apply this update, return Foundry Virtual Tabletop to the <strong>Configuration and Setup</strong> page and access the <strong>Update Software</strong> tab and choose the "Release (Stable)" channel in the dropdown menu. It is recommended for most users to stay on the Release channel for all updates unless you have a specific desire to get Alpha or Beta changes in the future.</p>
+
+<p>After clicking <strong>Check for Update</strong> confirm that you are presented with the 0.6.3 update notes and click the Download button to begin the update process. Allow some time for this process to conclude, when it is finished your server will automatically restart (if Electron) or shut down (if Node.js).</p>
+
+<p class="note info">Since the EULA was updated in version 0.6.1 you may be prompted to re-accept the Foundry Virtual Tabletop license agreement after the update is installed.</p>
+<hr/>
+
+<h4>Reporting Issues and Providing Feedback</h4>
+<p>If you encounter issues or have feedback to share, please use one of the following three reporting channels, ordered by preference:</p>
+<ol>
+	<li><strong>Discord Server:</strong> My preferred method to collect feedback is through our Discord server where I have created a dedicated channel for update 0.6.2 feedback. If you are able to join our Discord community it's the best way to engage with me directly for feedback.</li>
+	<li><strong>GitLab Tracker:</strong> You are welcome to create issue reports directly in the GitLab tracker here, but please take caution to ensure your problem has not already been reported by checking other open (and closed) issues in the upcoming milestone before creating a new report.</li>
+	<li><strong>Bug Report Form:</strong> There is an official bug report form on the official website. Please go to the following address and select "Bug Report" as your category. <a href="https://foundryvtt.com/contact-us/" rel="nofollow">https://foundryvtt.com/contact-us/</a></li>
+</ol>
+
+<p>Please stay up to date on progress by following the project roadmap on GitLab: <a href="https://gitlab.com/foundrynet/foundryvtt/boards" rel="nofollow" target="_blank" title="FVTT Issue Tracker">https://gitlab.com/foundrynet/foundryvtt/boards</a>.</p>
+<hr/>
+
+<h3>New Features</h3>
+<ul>
+	<li>Keyboard shortcuts have been improved to allow them to work for either uppercase or lowercase characters.</li>
+    <li>Cycling Tokens using the Tab key now centers the view on the center of the Token.</li>
+    <li>The Signika font included in Foundry has received an update to allow for an extended character set to provide compatibility with more languages.</li>
+    <li>The Modesto Condensed font families are now licensed for distribution in Foundry and have been included with the core Foundry VTT application.</li>
+</ul>
+<hr/>
+
+<h3>Bug Fixes</h3>
+<ul>
+    <li>Text Fields were sometimes replaced with "New Text" after reloading a scene from the Configure Player menu.</li>
+    <li>Under some circumstances where Fog of War had pending updates at the moment it was reset, the fog reset operation would not be initially successful, requiring a second reset in order to take effect. This has been resolved.</li>
+    <li>It is no longer possible to drag Tokens to inaccessible areas outside the gridded canvas.</li>
+    <li>The Assign Token button will no longer produce an error if used when no token is selected.</li>
+    <li>Token names longer than 15 characters no longer double in font size when entered without spaces.</li>
+    <li>It is no longer possible to create Compendiums with a blank name using the GUI.</li>
+    <li>Corrected an issue where Module installation would sometimes stall at 100% when installing larger modules.</li>
+    <li>The icon for the "Create Scene" button was not displayed on sub-folders of the scene sidebar tab due to some erroneous CSS.</li>
+    <li>Fixed an issue with bulk deleting many text drawings at once. This workflow previously resulted in the delete operations firing sequentially instead of as a multi-delete operation. </li>
+    <li>Improved consistency for Settings save/reset button positions in configuration menus.</li>
+    <li>The Filepicker in the Edit World menu once again provides the option to upload files for the world background image.</li>
+    <li>TinyMCE was updated to version 5.3.2 in order to address an edge case where the editor would fail to load correctly when accessing Foundry using an IPv6 address.</li>
+    <li>Solved a race condition that occurred as a result of the canvas switching to the Token layer when a Token was dropped. It now activates the token layer prior to creation. </li>
+    <li>Fixed a typography issue on the Journal Entries application window.</li>
+    <li>Corrected a low impact console error that would sometimes occur when launching worlds.</li>
+    <li>The keyboard delete handler no longer activates on both keydown and keyup events, now only activating on keydown instead</li>
+    
+</ul>
+<hr/>
+
+<h3>Framework and API Changes</h3>
+<ul>
+    <li>Corrected an issue where an exception during rendering would cause the render state to not progress.</li>
+    <li>The error message which denoted that a chat message failed to render itself contained a syntax error.</li>
+    <li>The AudioHelper static play method failed to return a Howl instance to allow for further sound manipulations.</li>
+    <li>API Documentation, AudioHelper.play() example was incorrect and has been fixed.</li>
+    <li>Improved handling of erroneous license key entry.</li>
+    <li>The POST action for getPackages triggered from the Setup menu had its content-type set to text/html in response</li>
+    <li>Added Server side validation was added to prevent creating duplicate Compendium packs in the same world.</li>
+    
+</ul>
+<hr/>
+
+<h3>Documentation Improvements</h3>
+<ul>
+	<li>API documentation updated to be consistent with the 0.6.3 software.</li>
+</ul>
+<hr/>
+
+<h3>Known Issues</h3>
+<p>A number of more complex or potentially breaking bug fixes were shifted to the 0.7.x Milestone in order to provide adequate testing before they are packaged for release. For more information please review the milestones below:</p>
+
+<ul>
+    <li><a href="https://gitlab.com/foundrynet/foundryvtt/-/issues?scope=all&utf8=%E2%9C%93&state=opened&milestone_title=Alpha%200.7.0&label_name[]=Bug" rel="nofollow" target="_blank" title="0.7.0 Known Issues">Known Issues to be addressed in 0.7.0</a></li>
+    <li><a href="https://gitlab.com/foundrynet/foundryvtt/-/issues?scope=all&utf8=%E2%9C%93&state=opened&milestone_title=Release%200.7.x%20Pooling&label_name[]=Bug" rel="nofollow" target="_blank" title="0.7.x Known Issues">Known Issues to be addressed in 0.7.x</a></li>
+</ul>
