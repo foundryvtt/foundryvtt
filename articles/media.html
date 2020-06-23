@@ -1,76 +1,85 @@
 <p>Foundry Virtual Tabletop has a wide array of options for asset creators. This article seeks to provide useful information for musicians, artists, and other content creators who wish to create image or sound assets for use in Foundry, be it Token art, maps, environments, icons, sound effects, music, or any other media content.</p>
 <hr>
+
 <h2>Media Asset Creation</h2>
 <p>When creating media files for use in Foundry, file compression and file quality are generally the two important aspects that must be balanced. Considering your options is especially important when taking into account that each player connected to a Foundry server will need to be sent the file for each type of media over their connection. With more players, or less bandwidth, smaller media formats and other methods of compression may be necessary.</p>
 <h3 id="guidelines">General Asset Guidelines</h3>
 <p>When designing for use in Foundry, ensure the name of your file properly reflects its intended use. It is good practice to differentiate between various versions of a file by name, so those using the assets can quickly identify which one they intend to use.</p>
 <p>Since Foundry VTT works as a web server, you should be sure to use directory and file names which conform to web file and URL encoding conventions. You should generally avoid using spaces or special characters as these are likely to cause issues when serving your content. See the <a href="https://developers.google.com/maps/documentation/urls/url-encoding" rel="nofollow" target="_blank">Google URL Guidelines</a> for more detail.</p>
-<h2 id="image">Image Assets</h2>
+<hr>
+
+<h2 id="images">Image Assets</h2>
 <p>Generating image assets for Foundry carries with it some best practices which can help to optimize your content for distribution. The recommendations change slightly whether you're creating Tokens, Tiles, or Maps for Scenes. </p>
-<p>Foundry supports the following formats for image files: .jpg, .jpeg, .png, .svg, .webp</p>
+<p>Foundry supports the following formats for image files: <code>.jpg, .jpeg, .png, .svg, .webp</code>.</p>
  
 <h3 id="image-formats">Image Design Best Practices</h3>
 <p> When approaching image design for Foundry it's usually best to keep in mind some general best practices for images to be served on a website. </p>
 
-<p><strong>DPI, PPI, and Pixels</strong></p>
-<p>Foundry does not reference the DPI or PPI of an image, but uses the pixel size of the image and the number of pixels per grid space when rendering maps.</p>
-<p><strong>How compatible does the image need to be?</strong></p>
-<p> A relatively newer file format, the WebP has slightly better than 75% compatibility across browsers, with the biggest standouts being Safari and IOS. If you aren't concerned about compatibility, rendering your work into a webp will almost universally provide you a smaller file size with a higher-quality.</p>
-<p> WebP provides uses a more complex algorithm for compression which requires more work for the client CPU. Generally this trade-off is worth it, to reduce network transit in favor of more utilization of the client PC. The same holds true for audio codecs like OGG.</p>
-<p> In terms of quality and file sizes, .webp almost universally beats jpg and png in terms of quality to size ratio. Wherever possible, if you can render your files in .webp format you will be able to pack a higher quality into the image for the same file size.</p>
-<p><strong>Does the image need transparency?</strong></p>
-<p>If you are designing a background map, there's a very good chance that you don't require transparency for your image, in which case rendering in jpg will provide a significant gain in filesize. 
-<p>For distribution to users, rendering exported JPG files at or slightly above 80% quality is usually sufficient.</p>
-<p>If you require transparency, however, your choices are limited to webp, png, and svg.</p>
+<p class="note info">Take note of a common misconception that <strong>DPI</strong> or <strong>PPI</strong> of an image defines its quality for VTT use. While this is true for print media, Foundry VTT does not reference the DPI or PPI of an image, but uses the <strong>pixel size of the image</strong> and the <strong>number of pixels per grid space</strong>. Pixels-per-square <em>is</em> synonymous with PPI (only) in cases where the map is printed at 1 inch per grid space.</p>
 
+<h4>How compatible does the image need to be?</h4>
+<p>The current best-in-class image file format for Foundry VTT usage is WebP which achieves the best quality-to-size ratio of any image format with lower file-sizes than JPEG but comparable quality while also supporting transparency like PNG.</p>
+
+<p>While WebP produces the best results, it does have less compatibility as Safari and IOS users will not be able to use WebP images. Note that Safari is not officially supported for Foundry VTT, so if designing specifically for Foundry, WebP is a great choice.</p>
+
+<p> WebP provides uses a more complex algorithm for compression which requires more work for the client CPU. Generally this trade-off is worth it, to reduce network transit in favor of more utilization of the client PC. The same holds true for audio codecs like OGG.</p>
+
+<h4>Does the image need transparency?</h4>
+<p>If you are designing a background map, there's a very good chance that you don't require transparency for your image, in which case rendering in jpg will provide a significant gain in filesize. For distribution to users, rendering exported JPG files at or slightly above 80% quality is usually sufficient. If you require transparency, however, your choices are limited to webp, png, and svg.</p>
+
+<h4>SVG for Simple or Geometric Images</h4>
+<p>For images which do not require a lot of visual complexity, SVG (Scalable Vector Graphics) can also be used which will feature tiny file-sizes, support for transparency, can be easily animated, and can be scaled to any size without noticeable loss of quality.</p>
+
+<p>Consider using SVGs if you are making tiles, tokens, or icons for use in foundry that would benefit from transparency and scaling, but do not require extremely complex colour depth and detail.</p>
+
+<p class="note info">In order to use a SVG image on a WebGL canvas, the SVG document must be given an explicit default width and height in its markup, for example: </p>
+
+<pre><code>&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512"&gt;</code></pre>
+<hr/>
 
 <h2 id="tokens">Tokens </h2>
 <p>When designing Token assets for use in foundry it is best to take into account overall file size and quality. Tokens should be provided in a format that supports transparency. </p>
 
-<p>The resolution of Tokens created for use in Foundry is between 300px and 420px square for a medium or large sized creature. 400x400(px) has become somewhat of an industry standard for token creation. When zooming in on a token, it is desirable to get a higher resolution detail than you obtain with the battlemap itself. Foundry allows zoom up to 3x, so a token which has a resolution of 3 times the grid size of the battlemap will still demonstrate visible quality.</p>
+<p>The resolution of Tokens created for use in Foundry is between 300px and 420px square for a medium or large sized creature. 400x400(px) has become somewhat of an industry standard for token creation. When zooming in on a token, it is desirable to get a higher resolution detail than you obtain with the battle-map itself. Foundry allows zoom up to 3x, so a token which has a resolution of 3 times the grid size of the battle-map will still demonstrate visible quality.</p>
 
-<p><strong>Naming Conventions</strong></p>
+<h4>Token File Naming Conventions</h4>
 <p>If providing multiple varieties of the same base token, file naming conventions should allow all tokens to begin with the same file prefix.</p>
-<p>For example guard-red.png, guard-blue.png, guard-green.png instead of red-guard.png, blue-guard.png, green-guard.png so that Foundry wildcard token paths can easily use guard-*.png<p>
 
-<p> Something to <strong>specifically avoid</strong> is creating tokens which are facing diagonally, for example South-East or South-West as this will look unintuitive when those tokens are combined with rotation in Foundry VTT.</p>
+<p>For example, use the names <code>guard-red.png, guard-blue.png, guard-green.png</code> instead of <code>red-guard.png, blue-guard.png, green-guard.png</code> so that Foundry wildcard token paths can easily use <code>guard-*.png</code><p>
 
-<p>Foundry VTT uses a firm assumption that token artwork is facing "south" in it's natural orientation. If you have Tokens which are not southward-facing in the original images it is advisable to either: </p>
-<ol>
-    <li> Edit the token images to have the tokens face south </li>
-    <li> Use the mirror vertical checkbox in the token configuration to flip a northward facing token to be southward facing</li>
-</ol>
-<h4 id="maps">Maps </h4>
-Foundry is extremely friendly to map creators wishing to package their content for distribution. The following are the only guidelines that should be adhered to:
+<h4>Token Orientation</h4>
+<p>Foundry VTT uses a firm assumption that token artwork is facing "south" in it's natural orientation. If you have Tokens which are not southward-facing in the original images it is recommended to rotate the token images to have the tokens face south. Alternatively your users can utilize the <strong>mirror vertical</strong> checkbox in the token configuration to flip a northward facing token to be southward facing.</p>
 
-<p><strong>Avoid Shipping Maps with a Grid</strong></p>
-Wherever possible, it would be advisable to not include a grid pre-rendered on your map images. This allows easier access to Foundry's grid system. Instead, package your map as gridless and include a simple instruction of the recommended grid size for it, such as (100px). </p>
-<p>If you must include a grid with your map, it should be created in accordance with these guiding principles:</p>
+<p>Avoid creating tokens which are facing diagonally, as there is no way in the Foundry application to correct for this initial orientation. For example, tokens which are drawn to face South-East or South-West as this will look unintuitive when those tokens are combined with rotation in Foundry VTT.</p>
+<hr/>
+
+<h2 id="maps">Maps</h2>
+<p>Foundry is extremely friendly to map creators wishing to package their content for distribution. The following are important guidelines to consider when creating maps for use in Foundry VTT.</p>
+
+<p>1. Carefully align the grid for your map.</p>
 <ul>
     <li>Foundry assumes the grid starts from the top-left corner of the image.</li>
     <li>The grid should be fully flush with the edges of the image itself with no excess padding.</li>
     <li>The map should depict a whole number of grid spaces with no partial squares.</li>
 </ul>
 
-<h4 id="svg">About SVG</h4>
-<p> Almost universally, SVG format provides benefits for web based rendering; the files are tiny, they support transparency, they can be more easily animated, and they can be scaled to any size without loss of quality. However, in most cases SVG files will not be able to provide for the level of visual complexity as a bitmap image.</p>
-<p>Use SVGs if you are making tiles, tokens, or icons for use in foundry that would benefit from transparency and scaling, but do not require extremely complex colour depth and detail.</p>
-<p>For Foundry to use SVG files they must be given an explicit width and height to be used on the canvas.</p>
-<code>&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" <strong>width="512"</strong> <strong>height="512"</strong>&gt;
-</code>
-@Image[70]
+<p>2. Exclude the visible grid from your final map image. While it is important that your map image be <em>aligned with a grid</em>, it is also preferable to not include that pre-rendered grid in the image itself. This allows users to better customize the map within Foundry by appling a different grid type, using it for gridless play, changing the grid color, or making other adjustments which the VTT can provide.</p>
+<hr/>
 
-<h2 id="video">Video and Animation Assets</h3>
-<p>Foundry supports three key filetypes when it comes to video assets for use. For transparent video assets, such as animated tiles or tokens, .webm is and should be the standard due to file size and quality. For animated backgrounds and maps, .mp4 and .m4v are supported.</p>
+<h2 id="video">Video and Animation Assets</h2>
+<p>Foundry VTT supports three key filetypes when it comes to video assets for use. For transparent video assets, such as animated tiles or tokens, .webm is and should be the standard due to file size and quality. For animated backgrounds and maps, .mp4 and .m4v are supported.</p>
+
 <h4 id="video-quality">Video Quality</h4>
 <p>Decisions on video quality are a little more controversial than sizing for images. Foundry does not restrict the file size a Scene can use, but it is important to keep in mind that a scene must be distributed to all connected players and, potentially, the GM as well.<p>
-    <p> As a guideline, Foundry loosely recommends trying to keep video map file sizes in the vicinity of 50mb or less, to allow for adequate distribution. However, larger filesizes can be mitigated by users of Foundry through use of integrated support for S3, use of the preload feature, or if host and clients all have sufficient data transfer rates.</p>
-    <p> Video files should ideally be rendered at approximately 30fps or less. If your video includes audio, you can reduce impact on filesize by shipping the audio as a separate file to be triggered by Foundry's audio framework.</p>
-    <p> Lastly, you should strongly consider rendering map files as webm, using non-transparent for map scenes and transparent for tokens. The filesize differences between mp4, m4v, and webm provide a significant gain without quality reduction.</p>
-    <p><strong>Codec and Bitrate</strong></p>
-    <p> Foundry recommends codecs and bitrates optimized for online streaming. Variable Bit Rate (VBR) files rendered in h264 are usually the most performant while keeping quality high. If you are going to render the video in constrained or constant bitrate instead, consider a dual pass from a codec like libx264 at 2-5Mb/s. Quality percentage should be kept at 60-80% to reduce visual artefacting.</p>
+<p> As a guideline, Foundry loosely recommends trying to keep video map file sizes in the vicinity of 50mb or less, to allow for adequate distribution. However, larger filesizes can be mitigated by users of Foundry through use of integrated support for S3, use of the preload feature, or if host and clients all have sufficient data transfer rates.</p>
+<p> Video files should ideally be rendered at approximately 30fps or less. If your video includes audio, you can reduce impact on filesize by shipping the audio as a separate file to be triggered by Foundry's audio framework.</p>
+<p> Lastly, you should strongly consider rendering map files as webm, using non-transparent for map scenes and transparent for tokens. The filesize differences between mp4, m4v, and webm provide a significant gain without quality reduction.</p>
 
-<h3 id="sound">Sound Assets</h3>
+<h4>Video Codec and Bitrate</h4>
+<p> Foundry recommends codecs and bitrates optimized for online streaming. Variable Bit Rate (VBR) files rendered in h264 are usually the most performant while keeping quality high. If you are going to render the video in constrained or constant bitrate instead, consider a dual pass from a codec like libx264 at 2-5Mb/s. Quality percentage should be kept at 60-80% to reduce visual artefacting.</p>
+<hr/>
+
+<h2 id="sound">Sound Assets</h2>
 <p>Particularly for streaming audio, file bitrate will generally be the most important factor in determining the smoothness and quality of an audio file played in Foundry. </p>
 <p>A high bitrate provides higher-quality samples, but will be a bigger file that may not stream as quickly as the file is intended to play, and a low bitrate sample will be easier to stream over an internet connection, but may sound noticeably compressed, or have an overall lower quality. <strong>Overall, 128kbps is the minimum audio quality recommended for use in Foundry, with 192kbps being the suggested maximum.</strong> 128kbps provides the most optimal tradeoff between audio quality and smaller file sizes. Using higher bitrate samples than 192kbps will not provide a noticeable change in quality to most players.</p>
 <p>This section does not cover the various codecs used in the creation/compression of sound files - however, they too are an important factor when it comes to exporting audio. Some codecs are better at exporting particular sounds, voices, or even genres of music. Your choice of format and codec may also be limited by which tools or digital audio workstation (DAW) you are using.</p>

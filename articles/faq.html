@@ -53,6 +53,26 @@
 </ul>
 <p class="note">Hardware requirements are the same for both players and for the Gamemaster.</p>
 
+
+<blockquote class="question">Does Foundry VTT rely on an external service or an active internet connection?</blockquote>
+
+<p>Foundry VTT does not normally require an active internet connection or rely upon an external service. There are two situations in which an internet connection and a call to an external service are required.</p>
+
+<ul>
+	<li>When your license key is entered and signed, the key is validated against the main Foundry server which signs the license and allows you to proceed.</li>
+	<li>When you request software updates, a request is dispatched to the main web server to learn if a website is available and obtain the permission to download it.</li>
+</ul>
+
+<p>Additionally, there are a few situations in which Foundry VTT will use an external service to provide some additional functionality</p>
+
+<ul>
+	<li>When you search for Modules/Systems in the browser, those results are returned from the main web server. If it were unavailable the Module browser would be empty. You can still install modules/systems directly by providing their manifest link.</li>
+	<li>An external IP address identification service to learn the public-facing IP address of the server hosting the game. This is needed in order to generate the invitation links. If this service is unavailable Foundry would still work, but the invitation links would not be generated properly.</li>
+</ul>
+
+<p>Overall, the software is designed to not have a reliance on external servers. There are some features of the software, as described above, which use calls to external services. Aside from the initial license activation, nothing would block you from moving forward if the main Foundry web server was offline.</p>
+
+
 <blockquote class="question">Can I use this software to run in-person games with one view for the Gamemaster and another shared view for players?</blockquote>
 <p>Yes, Foundry Virtual Tabletop works great for this use case. Running the application or the Node.js server allows you to host the game from the Gamemaster perspective, and you can simply use a web browser to connect to your own game to broadcast a player view for your table.</p>
 
