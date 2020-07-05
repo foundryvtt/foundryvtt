@@ -1,0 +1,81 @@
+<h2>Foundry Virtual Tabletop - Version 0.6.5 Update Notes</h2>
+
+<figure>
+    <img src="" title="Foundry VTT Version 0.6.5 Release Notes"/>
+    <figcaption>Welcome to Foundry Virtual Tabletop Update 0.6.5</figcaption>
+</figure>
+
+<h4>Overview of Changes</h4>
+<p>This is Foundry Virtual Tabletop Release version 0.6.5, an update on the <strong>Beta</strong> channel which is available to all Foundry Virtual Tabletop license holders. The Beta channel contains updates which are close to ready for release, but may still have some minor remaining issues present. If no meaningful issues are encountered in the next several days these changes will be available on the Release channel.</p>
+
+<p>This update incorporates a number of bug fixes and improvements in response to feedback collected during the 0.6.4 update cycle. More major changes are on their way in the upcoming 0.7.x series which should have it's first (alpha channel) release soon. Since the scope of changes for this update was relatively small, there is not a Twitch developer stream associated with update 0.6.5, but stay tuned for more live-stream content coming up as I move forward with 0.7.x updates!</p>
+
+<p>This is a Beta channel update which should be stable for all users, but <em>may</em> impose some module conflicts or compatibility issues. It is only recommended for users to update to this version if they are comfortable with accepting some minor risks. Users are discouraged from updating to this version if it is immediately before a game session. Please take care to periodically back up your critical user data in case you experience any issues.</p>
+<hr/>
+
+<h4>How to Update</h4>
+<p>To apply this update, return Foundry Virtual Tabletop to the <strong>Configuration and Setup</strong> page and access the <strong>Update Software</strong> tab and choose the "Release (Stable)" channel in the dropdown menu. It is recommended for most users to stay on the Release channel for all updates unless you have a specific desire to get Alpha or Beta changes in the future.</p>
+
+<p>After clicking <strong>Check for Update</strong> confirm that you are presented with the 0.6.5 update notes and click the Download button to begin the update process. Allow some time for this process to conclude, when it is finished your server will automatically restart (if Electron) or shut down (if Node.js).</p>
+<hr/>
+
+<h4>Reporting Issues and Providing Feedback</h4>
+<p>If you encounter issues or have feedback to share, please use one of the following three reporting channels, ordered by preference:</p>
+<ol>
+	<li><strong>Discord Server:</strong> My preferred method to collect feedback is through our Discord server where I have created a dedicated channel for update 0.6.5 feedback. If you are able to join our Discord community it's the best way to engage with me directly for feedback.</li>
+	<li><strong>GitLab Tracker:</strong> You are welcome to create issue reports directly in the GitLab tracker here, but please take caution to ensure your problem has not already been reported by checking other open (and closed) issues in the upcoming milestone before creating a new report.</li>
+	<li><strong>Bug Report Form:</strong> There is an official bug report form on the official website. Please use the <a href="https://foundryvtt.com/contact-us/" target="_blank" rel="nofollow">Contact Us</a> form and select "Bug Report" as your category.</li>
+</ol>
+
+<p>Please stay up to date on progress by following the <a href="https://gitlab.com/foundrynet/foundryvtt/-/issues" rel="nofollow" target="_blank" title="FVTT Issue Tracker">project roadmap on Gitlab</a>.</p>
+<hr/>
+
+<h3>New Features</h3>
+<ul>
+    <li>When setting a Scene background image, Foundry will now only replace the width and height with the native image dimensions if those fields are manually cleared from the form. Otherwise it will keep the previous Scene dimensions in-place.</li>
+    <li>There is a new permission setting which can selectively enable or disable the display of ruler measurements to other connected players based on their role.</li>
+    <li>When more than one Application window is open, such as Actor sheets, clicking anywhere within the window now brings it to the front.</li>
+    <li>If the game is paused it will now display a warning when a player tries to move their Token.</li>
+    <li>Provided support for the '/me' command as alternative to /emote.</li>
+    <li>Added a "Show Password" Checkbox Toggle on the Player Configuration menu.</li>
+</ul>
+<hr/>
+
+<h3>Bug Fixes</h3>
+<ul>
+    <li>Fixed a number of bugs related to Wall creation when using the CTRL key to chain to a previous wall.</li>
+    <li>Addressed an issue where hyperlinks in TinyMCE editors would show up with incorrect formatting or fail to properly link.</li>
+    <li>The content type will no longer be set incorrectly for images uploaded to S3.</li>
+    <li>Fixed an issue with the grid configuration tool where scenes with a grid size larger than 200px were incorrectly constrained.</li>
+    <li>Form Data processing failed to correctly extract editable image paths in cases where a Route Prefix was configured in the server options.</li>
+    <li>TinyMCE stylesheet not working as expected when a routePrefix was applied in the server configuration.</li>
+    <li>Setting a Prototype Token to have a wildcard with a non-existent directory no longer prevents the Token configuration menu from opening.</li>
+    <li>Removed a vestigial rounding method in Flat-topped cones that was resulting in some unexpected behavior with a 45° angles.</li>
+    <li>The Filepicker no longer allows the Tab key to highlight fields in the background window.</li>
+    <li>Improved the error handling when a dice roll formula does not produce a numeric outcome.</li>
+    <li>Rolling a number of dice less than one no longer throws an error but correctly resolves to 0.</li>
+</ul>
+<hr/>
+
+<h3>Framework and API Changes</h3>
+<ul>
+    <li>Made the _onEditImage event listener and handler more generic, to allow for more edit targets to trigger the _onEditImage function.</li>
+    <li>Instead of trying to process an invalid chat slash command, Foundry will now display an error message.</li>
+    <li>Actor.registeredSheets no longer returns references for Items, but Actors as intended.</li>
+    <li>The fonts API is now being used to ensure all fonts have properly loaded before attempting to render the canvas.</li>
+</ul>
+<hr/>
+
+<h3>Documentation Improvements</h3>
+<ul>
+    <li>API documentation updated to be consistent with the 0.6.5 software.</li>
+</ul>
+<hr/>
+
+<h3>Known Issues</h3>
+<p>A number of more complex or potentially breaking bug fixes were shifted to the 0.7.x Milestone in order to provide adequate testing before they are packaged for release. For more information please review the milestones below:</p>
+
+<ul>
+    <li><a href="https://gitlab.com/foundrynet/foundryvtt/-/issues?scope=all&utf8=%E2%9C%93&state=opened&milestone_title=Alpha%200.7.0&label_name[]=Bug" rel="nofollow" target="_blank" title="0.7.0 Known Issues">Known Issues to be addressed in 0.7.0</a></li>
+    <li><a href="https://gitlab.com/foundrynet/foundryvtt/-/issues?scope=all&utf8=%E2%9C%93&state=opened&milestone_title=Release%200.7.x%20Pooling&label_name[]=Bug" rel="nofollow" target="_blank" title="0.7.x Known Issues">Known Issues to be addressed in 0.7.x</a></li>
+</ul>
