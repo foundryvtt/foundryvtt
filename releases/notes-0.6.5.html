@@ -1,20 +1,22 @@
 <h2>Foundry Virtual Tabletop - Version 0.6.5 Update Notes</h2>
 
 <figure>
-    <img src="" title="Foundry VTT Version 0.6.5 Release Notes"/>
+    <img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/update-065-banner-2020-07-05.jpg" title="Foundry VTT Version 0.6.5 Release Notes"/>
     <figcaption>Welcome to Foundry Virtual Tabletop Update 0.6.5</figcaption>
 </figure>
 
 <h4>Overview of Changes</h4>
-<p>This is Foundry Virtual Tabletop Release version 0.6.5, an update on the <strong>Beta</strong> channel which is available to all Foundry Virtual Tabletop license holders. The Beta channel contains updates which are close to ready for release, but may still have some minor remaining issues present. If no meaningful issues are encountered in the next several days these changes will be available on the Release channel.</p>
+<p>This is Foundry Virtual Tabletop Release version 0.6.5, an update on the <strong>Beta</strong> channel which is available to all Foundry Virtual Tabletop license holders. The Beta channel contains updates which are close to ready for release, but may still have some minor remaining issues present.</p>
 
-<p>This update incorporates a number of bug fixes and improvements in response to feedback collected during the 0.6.4 update cycle. More major changes are on their way in the upcoming 0.7.x series which should have it's first (alpha channel) release soon. Since the scope of changes for this update was relatively small, there is not a Twitch developer stream associated with update 0.6.5, but stay tuned for more live-stream content coming up as I move forward with 0.7.x updates!</p>
+<p class="note info">In the spirit of caution, this update is initially released on the Beta channel - but if no meaningful issues are encountered in the next several days this update changes will be promoted to the Release channel and recommended for all users.</p>
 
 <p>This is a Beta channel update which should be stable for all users, but <em>may</em> impose some module conflicts or compatibility issues. It is only recommended for users to update to this version if they are comfortable with accepting some minor risks. Users are discouraged from updating to this version if it is immediately before a game session. Please take care to periodically back up your critical user data in case you experience any issues.</p>
+
+<p>This update incorporates a number of bug fixes and improvements in response to feedback collected during the 0.6.4 update cycle. More major changes are on their way in the upcoming 0.7.x series which should have it's first alpha release soon.</p>
 <hr/>
 
 <h4>How to Update</h4>
-<p>To apply this update, return Foundry Virtual Tabletop to the <strong>Configuration and Setup</strong> page and access the <strong>Update Software</strong> tab and choose the "Release (Stable)" channel in the dropdown menu. It is recommended for most users to stay on the Release channel for all updates unless you have a specific desire to get Alpha or Beta changes in the future.</p>
+<p>If you wish to apply this update, return Foundry Virtual Tabletop to the <strong>Configuration and Setup</strong> page and access the <strong>Update Software</strong> tab and choose the "Beta" channel in the dropdown menu. Please note, it is recommended for most users to stay on the Release channel and wait for updates there rather than using Alpha or Beta updates.</p>
 
 <p>After clicking <strong>Check for Update</strong> confirm that you are presented with the 0.6.5 update notes and click the Download button to begin the update process. Allow some time for this process to conclude, when it is finished your server will automatically restart (if Electron) or shut down (if Node.js).</p>
 <hr/>
@@ -32,37 +34,41 @@
 
 <h3>New Features</h3>
 <ul>
-    <li>When setting a Scene background image, Foundry will now only replace the width and height with the native image dimensions if those fields are manually cleared from the form. Otherwise it will keep the previous Scene dimensions in-place.</li>
-    <li>There is a new permission setting which can selectively enable or disable the display of ruler measurements to other connected players based on their role.</li>
-    <li>When more than one Application window is open, such as Actor sheets, clicking anywhere within the window now brings it to the front.</li>
-    <li>If the game is paused it will now display a warning when a player tries to move their Token.</li>
-    <li>Provided support for the '/me' command as alternative to /emote.</li>
-    <li>Added a "Show Password" Checkbox Toggle on the Player Configuration menu.</li>
+    <li>When setting or changing a Scene background image, Foundry will now only automatically replace the width and height with the native image dimensions if those fields are manually cleared from the form. Otherwise it will keep the previous Scene dimensions in-place.</li>
+    <li>A new user permission setting has been added for "Show Rulers", which allows control to selectively enable or disable the display of ruler measurements to other connected players based on their User role.</li>
+    <li>When more than one Application window is open, such as Actor sheets, clicking anywhere within the window now brings it to the front. Previously a window would only float to the top if the click occurred in the application header bar.</li>
+    <li>If the game is paused, users will now be presented with a warning message when attempting a disallowed action like moving a Token or attempting to open a Door.</li>
+    <li>Provided support for <code>/me</code> as an alternative command syntax to <code>/emote</code> or <code>/em</code>.</li>
+    <li>Added a "Show" checkbox toggle next to the Access Key for each User in the Player Configuration menu which allows a GM user to double-check the currently set access key value without needing to change it.</li>
+    <li>Using the FilePicker to upload new media content to S3 will now correctly set the Content-Type as metadata attached to the uploaded file.</li>
+    <li>Changed the strictness of validation within the Dice rolling syntax to allow for the possibility of rolling zero of a certain denomination of die (for example <code>/r 0d6</code>). This can help with appropriately scaling certain abilities with a mathematical formula where sometimes bonus dice are not rolled.</li>
 </ul>
 <hr/>
 
 <h3>Bug Fixes</h3>
 <ul>
-    <li>Fixed a number of bugs related to Wall creation when using the CTRL key to chain to a previous wall.</li>
-    <li>Addressed an issue where hyperlinks in TinyMCE editors would show up with incorrect formatting or fail to properly link.</li>
-    <li>The content type will no longer be set incorrectly for images uploaded to S3.</li>
-    <li>Fixed an issue with the grid configuration tool where scenes with a grid size larger than 200px were incorrectly constrained.</li>
+    <li>Fixed an issue with Wall creation and chaining (holding CTRL) which was incorrectly interpreting the prior chained endpoint for the wall.</li>
+    <li>Addressed an issue where hyperlinks in TinyMCE editors would show up with incorrect formatting or fail to properly link. Please note - there is still a known issue here where, if the hyperlink occurs at the very beginning of a new paragraph in a Journal Entry, the link will not be properly replaced. More nuanced logic for how this replacement occurs has already been implemented and will be deployed as part of 0.7.0.</li>
+    <li>Fixed an issue with the grid configuration tool where scenes with a grid size larger than 200px were incorrectly constrained, causing the grid alignment of the Scene to become broken when the configuration tool was activated.</li>
     <li>Form Data processing failed to correctly extract editable image paths in cases where a Route Prefix was configured in the server options.</li>
     <li>TinyMCE stylesheet not working as expected when a routePrefix was applied in the server configuration.</li>
-    <li>Setting a Prototype Token to have a wildcard with a non-existent directory no longer prevents the Token configuration menu from opening.</li>
-    <li>Removed a vestigial rounding method in Flat-topped cones that was resulting in some unexpected behavior with a 45° angles.</li>
-    <li>The Filepicker no longer allows the Tab key to highlight fields in the background window.</li>
-    <li>Improved the error handling when a dice roll formula does not produce a numeric outcome.</li>
-    <li>Rolling a number of dice less than one no longer throws an error but correctly resolves to 0.</li>
+    <li>Setting a Prototype Token to have a wildcard with a non-existent directory no longer prevents the Token configuration menu from opening. Tokens with invalid wildcard image paths can still be placed on the canvas, but their appearance will default to the "mystery man".</li>
+    <li>Removed an incorrect rounding call within the <code>toRadians</code> helper method which introduced some small inaccuracy when converting from degrees to radians.</li>
+    <li>The FilePicker now automatically focuses on the address bar when its tab is changed so that using the Tab key to cycle among focusable form inputs no longer targets fields in inactive tabs.</li>
+    <li>Provide some explicit error handling when a dice Roll does not produce a numeric outcome to indicate that the input data or formula produced an invalid result.</li>
+    <li>Decode HTML entities in Roll Table results so that any special characters like inequality operators contained inside inline-rolls are displayed properly and respected in the resulting dice roll formulae.</li>
+    <li>Deleting a controlled Token which has vision settings but is not linked to a valid Actor causes the Sight Layer to not automatically update.</li>
 </ul>
 <hr/>
 
 <h3>Framework and API Changes</h3>
 <ul>
-    <li>Made the _onEditImage event listener and handler more generic, to allow for more edit targets to trigger the _onEditImage function.</li>
+    <li>Updated the <code>_onEditImage</code> event listener and handler for the ActorSheet and ItemSheet classes. These are now more generic, to allow for more or different edit targets to be supported by the same handler logic.</li>
     <li>Instead of trying to process an invalid chat slash command, Foundry will now display an error message.</li>
-    <li>Actor.registeredSheets no longer returns references for Items, but Actors as intended.</li>
-    <li>The fonts API is now being used to ensure all fonts have properly loaded before attempting to render the canvas.</li>
+    <li><code>Actor.registeredSheets</code> no longer returns references for Items, but Actors as intended.</li>
+    <li>Added a <code>Token#observer</code> attribute which provides a boolean flag for whether the current game User has at least "Observer" permission to the Token.</li>
+    <li>Added a <code>TextEditor.decodeHTML(html)</code> helper method to efficiently translate an encoded HTML string back into unicode.</li>
+    <li>Utilize web fonts API to ensure that all fonts are properly loaded (with a 3 second timeout) before trying to render the game canvas.</li>
 </ul>
 <hr/>
 
