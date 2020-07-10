@@ -3,15 +3,19 @@
 <hr />
 
 <h2 id="create">Creating and Editing Walls</h2>
-<p>Walls can be easily created on any Scene. First choose your selected wall type on the Wall Controls toolbar. Then, left click and drag from a point where you want the wall to start to begin laying a wall. Left click again at a second point to create a wall segment between the two points. Connected wall segments can easily be created by holding Ctrl while placing a wall, which creates a new wall from your cursor to the last-placed wall segment. You can cancel the placement of a wall segment by right-clicking before you place the second point of the wall.</p>
+<p>Walls can be easily created on any Scene. First choose your selected wall type on the Wall Controls toolbar. Then, left click and drag from a point where you want the wall to start to begin laying a wall. Left click again at a second point to create a wall segment between the two points. Connected wall segments can easily be created by holding Ctrl (command, if you are using MacOS) while placing a wall, which creates a new wall from your cursor to the last-placed wall segment. You can cancel the placement of a wall segment by right-clicking before you place the second point of the wall.</p>
 <p>A wall can be selected by left-clicking on one of its points. Holding the Alt key when selecting a wall point will select all walls directly or indirectly connected to that point. This allows you to delete or modify entire structures at once.</p>
 <p>Double-clicking a wall point will allow you to configure various properties of the wall, described later in the article.</p>
 <hr />
 
+<h2 id="snapping">Snapping</h2>
+<p>The wall tool will attempt to snap to an invisible subgrid on the canvas in order to assist users in linking wall segments together without a gap wherever possible. The precision of this grid is partially adaptive, changing on the size of the grid in use. Maps that have a grid of 50px will have 1/4 precision (and 5 snap points), while grids set to 100px will have 1/8 precision (9 snap points); grids set to 200px would have 1/16 precision (17 snap points).</p> 
+</p>In addition, enabling the "Force Grid Snapping" toggle will force the wall segment to snap to the nearest outside point of a grid square.</p>
+
 <h2 id="types">Wall Types</h2>
 <p>The Wall Controls toolbar, when enabled, allows the viewing, modification, and creation of walls. Activating this toolbar also provides quick buttons for a number of common wall types.</p>
-
-<h4>Normal Walls</h4>
+<p class="note info"> Note: setting a Darkness Level or having an Ambient Light that has a color tint can affect the appearance of the colored wall types resulting in them not matching the description here.</p>
+<h4>Normal Walls</h4> 
 <p>The default wall type restricts vision, movement, and sound. These walls are colored white on the Walls layer.</p>
 
 <h4>Terrain Walls</h4>
@@ -27,10 +31,10 @@
 <p>These walls function opposite to Invisible walls; they block vision and sounds, but tokens can move freely through them. These walls may be useful for dark veils, curtains, or fake walls. They are colored light magenta on the Walls layer.</p>
 
 <h4>Doors</h4>
-<p>Doors are wall segments that can be interacted with to open or close. Doors made with the "Draw Doors" button on the Wall Controls toolbar restrict movement, vision, and sound until opened. A Gamemaster can additionally lock doors by right-clicking them, which will play a "locked" sound when a user attempts to open it. A locked door can be unlocked by a Gamemaster right-clicking the door's icon again. User roles can be configured to allow the opening or closing of unlocked doors via the Permission Configuration window. Doors are colored purple on the walls layer.</p>
+<p>Doors are wall segments that can be interacted with to open or close. Doors made with the "Draw Doors" button on the Wall Controls toolbar restrict movement, vision, and sound until opened. A Gamemaster can additionally lock doors by right-clicking them, which will play a "locked" sound when a user attempts to open it. A locked door can be unlocked by a Gamemaster right-clicking the door's icon again. User roles can be configured to allow the opening or closing of unlocked doors via the Permission Configuration window. Doors are colored purple on the walls layer, but if opened will change to a light green. If locked, the door color will change to red on the wall layer.</p>
 
 <h4>Secret Doors</h4>
-<p>These function similarly to doors, but the door icon is not visible to most users. A Gamemaster can open secret doors for players. These doors are colored dark magenta on the Walls layer.</p>
+<p>These function similarly to doors, but the door icon is not visible to most users. A Gamemaster can open secret doors for players. These doors are colored dark magenta on the Walls layer. If locked, the door color will change to red on the wall layer.</p>
 <hr />
 
 <h2 id="configuration">Configuring Walls</h2>
