@@ -1,0 +1,137 @@
+<h2>Foundry Virtual Tabletop - Version 0.7.0 Update Notes</h2>
+
+<img src="" title="Foundry VTT Version 0.7.0 Release Notes"/>
+
+<p>After several updates focused on maintaining the stable 0.6.x series, I am excited to say I can finally share the first step in the feature-rich 0.7.x series!</p>
+	
+<p class="note warning"><strong>WARNING: Alpha channel releases are very likely to include potentially breaking bugs and will be disruptive to play. Do not install this update unless you are using it in a specific test environment. This update should not be installed for "live" production games.</strong></p>
+	
+<p>This release is version 0.7.0, the first Foundry VTT version of the 0.7.x series in the "alpha" channel which is available to all Foundry Virtual Tabletop license holders. License holders are asked not to install this version unless they intend to test it. 0.7.0 should be considered unstable, and is not intended for general play.</p>
+
+<p>I am very happy to be able to share these features with you all, and I am looking forward to this update moving toward stable Release.</p>
+<hr/>
+<p class="note warning"><strong>Please back up your critical user data before installing this update.</strong></p>
+
+<h4>Overview of Changes</h4>
+<p>This alpha update includes a large number of new features and API changes to greatly extend the dice system and adds increased support and functionality to extend other parts of Foundry VTT, including Compendium Packs, Journals, and Rollable Tables.  </p>
+
+<p>Please be sure to join me on Twitch this Saturday (July 18, 2020) for a stream showcasing the features included in this update, and some of the upcoming features you can expect in the 0.7.x series of patches, as well as another live giveaway of a Foundry VTT License. For more information and to receive notifications on when streams like this one go live, please stay tuned to the <a href="https://www.twitch.tv/foundryvtt" target="_blank" title="Foundry VTT on Twitch">Foundry VTT Twitch channel</a>.</p>
+<hr/>
+
+<h4>About this Update</h4>
+<p class="note warning"><strong>Please read the following important reminder about this update.</strong></p>
+
+<p>This is an alpha update and should be considered unstable for all users. It is not recommended for all users to update to this version <em>unless</em> they intend to test the potentially unstable features contained within this update. As always, please take care to periodically back up your critical user data in case you experience any issues.</p>
+<hr/>
+
+<h4>How to Update</h4>
+<p>To apply this update, return Foundry Virtual Tabletop to the <strong>Configuration and Setup</strong> page and access the <strong>Update Software</strong> tab and choose the "Alpha (Unstable)" channel in the dropdown menu. It is recommended for most users to stay on the Release channel for all updates unless you have a specific desire to get Alpha or Beta changes in the future.</p>
+
+<p>After clicking <strong>Check for Update</strong> confirm that you are presented with the 0.7.0 update notes and click the Download button to begin the update process. Allow some time for this process to conclude, when it is finished your server will automatically restart (if Electron) or shut down (if Node.js).</p>
+<hr/>
+
+<h4>Reporting Issues and Providing Feedback</h4>
+<p>If you encounter issues or have feedback to share, please use one of the following three reporting channels, ordered by preference:</p>
+<ol>
+	<li><strong>Discord Server:</strong> My preferred method to collect feedback is through our Discord server where I have created dedicated channels for Alpha 0.7.0 feedback. If you are able to join our Discord community it's the best way to engage with me directly for feedback.</li>
+	<li><strong>GitLab Tracker:</strong> You are welcome to create issue reports directly in the GitLab tracker here, but please take caution to ensure your problem has not already been reported by checking other open (and closed) issues in the upcoming milestone before creating a new report.</li>
+	<li><strong>Bug Report Form:</strong> There is an official bug report form on the official website. Please go to the following address and select "Bug Report" as your category. https://foundryvtt.com/contact-us/</li>
+</ol>
+
+<p>Please stay up to date on progress by following the project roadmap on GitLab: <a href="https://gitlab.com/foundrynet/foundryvtt/boards" target="_blank" title="FVTT Issue Tracker">https://gitlab.com/foundrynet/foundryvtt/boards</a>.</p>
+<hr/>
+
+<h3>New Features</h3>
+<ul>
+	<li>Added the ability to register custom dice roll modifiers and handling functions to support a broader range of game systems.</li>
+	<li>Added a new "coin" (c) option which allows a fair coin flip to be incorporated into roll formulae.</li>
+	<li>Added a new "explode once" (xo) dice roll modifier which will produce exploding dice, but only for the initially rolled set, not recursively for additional rolls.</li>
+	<li>Added a dice roll modifier that will deduct failures to subtract from a success die.</li>
+	<li>Expanded the dice roll syntax for Reroll and Explode modifiers to support setting maximum number of explosions or rerolls which can be allowed to occur.</li>
+	<li>Improved the visual indicator for dice results which generated an exploding roll.</li>
+	<li>Different parts of a Roll formula can now be assigned some flavor text so that individual blocks can be labeled differently.</li>
+	<li>Added a more informative error message for instances where a dice roll formula is invalid because an element was not found.</li>
+	<li>The Roll command will now automatically close any open parentheses or dice pool curly braces which were left open-ended in Roll formulae.</li>
+	<li>Improved server performance by setting the Express environment to Production.</li>
+	<li>Improved the efficiency of Setup initialization to reduce the amount of file system reads.</li>
+	<li>Enabled MIPMAP down-scaling for non power-2 textures (requiring WebGL2.0) to improve overall appearance of Tile Sprites.</li>
+	<li>Provided a new "Import All" context menu option for Compendium Packs.</li>
+	<li>Journal and Compendium entries open to image view instead of text view.</li>
+	<li>Added the option to configure the amount of canvas padding around the outside of the map background.</li>
+	<li>Added a context menu option to set a Scene from the sidebar as the active view without activating it.</li>
+	<li>Foundry will now display a warning to the user if a change to Scene dimensions poses a risk of distorting the position of placeable objects.</li>
+	<li>Moved the Templates Layer to the front when it is active so it is easier to delete measured templates which are underneath Tokens.</li>
+	<li>Added the ability to drag and drop Entities on Rollable Tables to populate an entry with that Entity.</li>
+	<li>Improved the Package Installation app so it now renders immediately and will load packages as the list is acquired.</li>
+	<li>Add a visual style prompt when tabbing to focus on an HTML button similar to the effect displayed on hover.</li>
+	<li>The default button in dialogs will now be highlighted to make it more visible.</li>
+	<li>Updated Electron to version 9.1.0 including Chromium 83, JavaScript V8 8.3, and Node.js 12.14.</li>
+	<li>Updated core packages, including PIXI, Howler.js, and TinyMCE.</li>
+</ul>
+<hr/>
+
+<h3>Bug Fixes</h3>
+<ul>
+<li>In some cases, database maintenance tasks would be performed while a a significant amount of write activity was occurring, resulting in permission issues. DB maintenance tasks now use a new approach to try and avoid this.</li>
+<li>Addressed some S3 errors resulting from Chrome caching with the wrong CORS headers, this fix may result in increased invalid requests in the case of actual bad URLs.</li>
+<li>Wall chaining should no longer experience the creation of tiny walls as a result of the mouse moving during a click.</li>
+<li>Syntax errors in JSON files should no longer cause Foundry to stall upon launch.</li>
+<li>Solved a number of cases where use of nested parenthetical rolling formulae would return unexpected results or throw errors.</li>
+<li>Addressed an issue where variable number of Die faces as a parenthetical expression would fail.</li>
+<li>Dice modifiers are now properly case insensitive.</li>
+<li>Resolved some security concerns related to game.socket.</li>
+<li>It is no longer possible to move tokens outside the the canvas area in cases where there are no drawn Wall objects in the Scene.</li>
+<li>Resolved cases where syntax errors were thrown when non-GM users attempted to access ChatMessage.permission.</li>
+<li>Combat.rollInitiative is not gated behind token ownership.</li>
+<li>Corrected an issue where setting a Token's represented actor to none disabled Token Configuration.</li>
+<li>Resolved an error with the actor check for orphaned Tokens which prevented opening Token Configuration.</li>
+<li>The author of a Macro now correctly updates when that Macro is imported from a Compendium Pack.</li>
+<li>Addressed an issue that would cause the Package Installer to not be up to date by resetting the the package cache when launching/shutting down a world.</li>
+<li>The "Select File" button will no longer appear when the FilePicker is used as a Tile Browser.</li>
+</ul>
+<hr/>
+
+<h3>Framework and API Changes</h3>
+<ul>
+	<li>Redefined Die modifiers as a CONFIG setting, which uses regex patterns and handler functions - modules or systems may now define custom modifiers for their own die rolls.</li>
+	<li>Die types are now a Configuration object which maps character symbols for the die type to the defined class which handles it.</li>
+	<li>The Roll.alter method now supports more use cases, increasing its flexibility and removing a lot of limitations.</li>
+	<li>Dice rolls may now outsourced to external dice rolling services through the Config.Dice.randomUniform synchronous function.</li>
+	<li>The Die, Roll, and DicePool classes all received a refactor and now share a common interface for what a component of a Rolled expression requires.</li>
+	<li>Die or Roll can now track more granular metadata associated with each rolled result.</li>
+	<li>Added support for a built-in method to re-create a Die instance from a pre-defined array of results.</li>
+	<li>Changed the workflow used to evaluate inner Die and DicePools, it now allows for a roll to be simulated using a set of modified inner results.</li>
+	<li>Improved upon the Roll minimize and maximize helper methods to better assess the potential results which can occur from a formula.</li>
+	<li>Added a hook to support dropping data onto an Item or Actor sheet which allows system and module developers to override the default behaviour and perform functions.</li>
+	<li>ActorSheet._onDrop for items has factored out the OwnedItem creation to allow systems and modules to more easily override that behavior.</li>
+	<li>Deprecated the Actor.importItemFromCollection method in favor of other handlers for drag and drop logic.</li>
+	<li>Added a Hook event to handle data dropped onto the canvas, allowing systems and modules to provide custom behaviors for drag and drop workflow.</li>
+	<li>The FolderConfig form application will now preserve the initial Folder data if the target object does not already exist.</li>
+	<li>The default Cone angle and Ray width can now be defined as a CONFIG setting, allowing modules and systems to more easily customize them.</li>
+	<li>The Array.findSplice helper now allows for replacement of the found element.</li>
+	<li>Redesign and refactor how rich text replacements are done, simplifying the required regex rules and matching logic for replacement of links.</li>
+	<li>Provided a method for the Dialog constructor which resolves to the key of the chosen button and rejects if the window is closed without choosing.</li>
+	<li>Added Support for an onRender callback for the Dialog class which can allow a caller to set event listeners or do other manipulations like assigning focus to an input field.</li>
+	<li>The validateForm helper has been moved from the server-side commons, and is now a static method of the FormApplication class.</li>
+	<li>The Image color string validator has been deployed for all database schema that define and store colors.</li>
+	<li>Provided a method to export the contents of a Folder into a Compendium pack, optionally replacing existing entries by name.</li>
+	<li>Added an API option to prevent RollTable from rolling recursively when a table is drawn as result, allowing for cases where a Rollable Table is a result.</li>
+	<li>Added a Handlebars helper for the game.i18n.format function which accepts an object of substitution values.</li>
+	<li>Provided an option in awsConfig to explicitly list bucket names which can be used, instead of needing to discover them through the API.</li>
+	<li>Authentication failures will now be logged so that external services can lock accounts or ban IP addresses for too many failed attempts.</li>
+	<li>Migrated several Entities in server database models to be more strongly typed in the interest of Typescript adoption.</li>
+	<li>Signika Negative - a variety of Signika which may be better suited for certain color schemes - is now bundled with the Foundry VTT software. It is not enabled by default, but can be defined as a valid font face in module or system CSS files.</li>
+	<li>Added JSDoc documentation to Math environment helper methods .</li>
+</ul>
+<hr/>
+
+<h3>Documentation Improvements</h3>
+<ul>
+<li>API documentation updated to incorporate a number of community-suggested changes and to be consistent with the 0.7.0 software. </li>
+</ul>
+<hr/>
+
+<h3>Known Issues</h3>
+<ul>
+	<li>None at this time.</li>
+</ul>
