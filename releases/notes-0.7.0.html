@@ -62,7 +62,7 @@
 	<li>Journal and Compendium entries open to image view instead of text view.</li>
 	<li>Added the option to configure the amount of canvas padding around the outside of the map background.</li>
 	<li>Added a context menu option to set a Scene from the sidebar as the active view without activating it.</li>
-	<li>Foundry VTT will now display a warning to a user if they attempt to toggle the combat state for an actor before a Combat exists.</li>
+	<li>Foundry VTT will now display a warning to a user if they attempt to toggle the combat state for an Actor before a Combat exists.</li>
 	<li>Foundry VTT will now display a warning to the user if a change to Scene dimensions poses a risk of distorting the position of placeable objects.</li>
 	<li>Moved the Templates Layer to the front when it is active so it is easier to delete measured templates which are underneath Tokens.</li>
 	<li>Added the ability to drag and drop Entities on Rollable Tables to populate an entry with that Entity.</li>
@@ -85,13 +85,15 @@
 	<li>Addressed an issue where variable number of Die faces as a parenthetical expression would fail.</li>
 	<li>Dice modifiers are now properly case insensitive.</li>
 	<li>Resolved some security concerns related to game.socket.</li>
-	<li>It is no longer possible to move tokens outside the the canvas area in cases where there are no drawn Wall objects in the Scene.</li>
+	<li>It is no longer possible to move Tokens outside the the canvas area in cases where there are no drawn Wall objects in the Scene.</li>
 	<li>Resolved cases where syntax errors were thrown when non-GM users attempted to access ChatMessage.permission.</li>
-	<li>Combat.rollInitiative is not gated behind token ownership.</li>
-	<li>Corrected an issue where setting a Token's represented actor to none disabled Token Configuration.</li>
-	<li>Resolved an error with the actor check for orphaned Tokens which prevented opening Token Configuration.</li>
+	<li>Combat.rollInitiative is not gated behind Token ownership.</li>
+	<li>Corrected an issue where setting a Token's represented Actor to none disabled Token Configuration.</li>
+	<li>Resolved an error with the Actor check for orphaned Tokens which prevented opening Token Configuration.</li>
+	<li>Disallowed actorData overrides from Tokens using the assign token button. Permanent changes to Actor data now requires either a linked token or changing the base Actor itself.</li>
 	<li>Fixed an issue where deleting a Token that was emitting light would not correctly remove the light emission from the canvas for players.</li>
-	<li>Corrected an issue that would cause nested Tabs on the actor sheet to disappear completely when the parent tab changed.</li>
+	<li>Token vision for players will now immediately update when a wall is placed.</li>
+	<li>Corrected an issue that would cause nested Tabs on the Actor sheet to disappear completely when the parent tab changed.</li>
 	<li>The author of a Macro now correctly updates when that Macro is imported from a Compendium Pack.</li>
 	<li>Addressed an issue that would cause the Package Installer to not be up to date by resetting the the package cache when launching/shutting down a world.</li>
 	<li>The "Select File" button will no longer appear when the FilePicker is used as a Tile Browser.</li>
@@ -100,25 +102,25 @@
 
 <h3>Framework and API Changes</h3>
 <ul>
-	<li>(BREAKING) The validateForm helper has been moved from the server-side commons, and is now a static method of the FormApplication class.</li>
-	<li>(BREAKING) Deprecated the Actor.importItemFromCollection method in favor of other handlers for drag and drop logic.</li>
-	<li>(BREAKING) Deprecated and removed the the (V1) Tabs class and refactored the TabsV2 namespace to be named "Tabs" once again (with a backwards compatibility reference).</li>
-	<li>Redefined Die modifiers as a CONFIG setting, which uses regex patterns and handler functions - modules or systems may now define custom modifiers for their own die rolls.</li>
-	<li>Die types are now a Configuration object which maps character symbols for the die type to the defined class which handles it.</li>
-	<li>The Roll.alter method now supports more use cases, increasing its flexibility and removing a lot of limitations.</li>
+	<li>[BREAKING] The validateForm helper has been moved from the server-side commons, and is now a static method of the FormApplication class.</li>
+	<li>[BREAKING] Deprecated the Actor.importItemFromCollection method in favor of other handlers for drag and drop logic.</li>
+	<li>[BREAKING] Deprecated and removed the the (V1) Tabs class and refactored the TabsV2 namespace to be named "Tabs" once again (with a backwards compatibility reference).</li>
+	<li>[BREAKING] Redefined Die modifiers as a CONFIG setting, which uses regex patterns and handler functions - modules or systems may now define custom modifiers for their own die rolls.</li>
+	<li>[BREAKING] Die types are now a Configuration object which maps character symbols for the die type to the defined class which handles it.</li>
+	<li>[BREAKING] The Roll.alter method now supports more use cases, increasing its flexibility and removing a lot of limitations.</li>
+	<li>[BREAKING] The Die, Roll, and DicePool classes all received a refactor and now share a common interface for what a component of a Rolled expression requires.</li>
+	<li>[BREAKING] Die or Roll can now track more granular metadata associated with each rolled result.</li>
+	<li>[BREAKING] Changed the workflow used to evaluate inner Die and DicePools, it now allows for a roll to be simulated using a set of modified inner results.</li>
+	<li>[BREAKING] ActorSheet._onDrop for items has factored out the OwnedItem creation to allow systems and modules to more easily override that behavior.</li>
 	<li>Dice rolls may now outsourced to external dice rolling services through the Config.Dice.randomUniform synchronous function.</li>
-	<li>The Die, Roll, and DicePool classes all received a refactor and now share a common interface for what a component of a Rolled expression requires.</li>
-	<li>Die or Roll can now track more granular metadata associated with each rolled result.</li>
 	<li>Added support for a built-in method to re-create a Die instance from a pre-defined array of results.</li>
-	<li>Changed the workflow used to evaluate inner Die and DicePools, it now allows for a roll to be simulated using a set of modified inner results.</li>
 	<li>Improved upon the Roll minimize and maximize helper methods to better assess the potential results which can occur from a formula.</li>
 	<li>Added a hook to support dropping data onto an Item or Actor sheet which allows system and module developers to override the default behaviour and perform functions.</li>
-	<li>ActorSheet._onDrop for items has factored out the OwnedItem creation to allow systems and modules to more easily override that behavior.</li>
 	<li>Added a Hook event to handle data dropped onto the canvas, allowing systems and modules to provide custom behaviors for drag and drop workflow.</li>
 	<li>The FolderConfig form application will now preserve the initial Folder data if the target object does not already exist.</li>
 	<li>The default Cone angle and Ray width can now be defined as a CONFIG setting, allowing modules and systems to more easily customize them.</li>
 	<li>The Array.findSplice helper now allows for replacement of the found element.</li>
-	<li>Redesign and refactor how rich text replacements are done, simplifying the required regex rules and matching logic for replacement of links.</li>
+	<li>Redesigned and refactor how rich text replacements are done, simplifying the required regex rules and matching logic for replacement of links.</li>
 	<li>Provided a method for the Dialog constructor which resolves to the key of the chosen button and rejects if the window is closed without choosing.</li>
 	<li>Added Support for an onRender callback for the Dialog class which can allow a caller to set event listeners or do other manipulations like assigning focus to an input field.</li>
 	<li>The Image color string validator has been deployed for all database schema that define and store colors.</li>
