@@ -52,6 +52,7 @@
 	<li>Different parts of a Roll formula can now be assigned some flavor text so that individual blocks can be labeled differently.</li>
 	<li>Added a more informative error message for instances where a dice roll formula is invalid because an element was not found.</li>
 	<li>The Roll command will now automatically close any open parentheses or dice pool curly braces which were left open-ended in Roll formulae.</li>
+	<li>Chat messages generated for rolls that contain parentheses will no longer mask the results of each rolled die, instead displaying them as a collapsible portion of the chat message.</li>
 	<li>Improved server performance by setting the Express environment to Production.</li>
 	<li>Improved the efficiency of Setup initialization to reduce the amount of file system reads.</li>
 	<li>Enabled MIPMAP down-scaling for non power-2 textures (requiring WebGL2.0) to improve overall appearance of Tile Sprites.</li>
@@ -59,7 +60,8 @@
 	<li>Journal and Compendium entries open to image view instead of text view.</li>
 	<li>Added the option to configure the amount of canvas padding around the outside of the map background.</li>
 	<li>Added a context menu option to set a Scene from the sidebar as the active view without activating it.</li>
-	<li>Foundry will now display a warning to the user if a change to Scene dimensions poses a risk of distorting the position of placeable objects.</li>
+	<li>Foundry VTT will now display a warning to a user if they attempt to toggle the combat state for an actor before a Combat exists.</li>
+	<li>Foundry VTT will now display a warning to the user if a change to Scene dimensions poses a risk of distorting the position of placeable objects.</li>
 	<li>Moved the Templates Layer to the front when it is active so it is easier to delete measured templates which are underneath Tokens.</li>
 	<li>Added the ability to drag and drop Entities on Rollable Tables to populate an entry with that Entity.</li>
 	<li>Improved the Package Installation app so it now renders immediately and will load packages as the list is acquired.</li>
@@ -71,28 +73,34 @@
 <hr/>
 
 <h3>Bug Fixes</h3>
-<ul>
-<li>In some cases, database maintenance tasks would be performed while a a significant amount of write activity was occurring, resulting in permission issues. DB maintenance tasks now use a new approach to try and avoid this.</li>
-<li>Addressed some S3 errors resulting from Chrome caching with the wrong CORS headers, this fix may result in increased invalid requests in the case of actual bad URLs.</li>
-<li>Wall chaining should no longer experience the creation of tiny walls as a result of the mouse moving during a click.</li>
-<li>Syntax errors in JSON files should no longer cause Foundry to stall upon launch.</li>
-<li>Solved a number of cases where use of nested parenthetical rolling formulae would return unexpected results or throw errors.</li>
-<li>Addressed an issue where variable number of Die faces as a parenthetical expression would fail.</li>
-<li>Dice modifiers are now properly case insensitive.</li>
-<li>Resolved some security concerns related to game.socket.</li>
-<li>It is no longer possible to move tokens outside the the canvas area in cases where there are no drawn Wall objects in the Scene.</li>
-<li>Resolved cases where syntax errors were thrown when non-GM users attempted to access ChatMessage.permission.</li>
-<li>Combat.rollInitiative is not gated behind token ownership.</li>
-<li>Corrected an issue where setting a Token's represented actor to none disabled Token Configuration.</li>
-<li>Resolved an error with the actor check for orphaned Tokens which prevented opening Token Configuration.</li>
-<li>The author of a Macro now correctly updates when that Macro is imported from a Compendium Pack.</li>
-<li>Addressed an issue that would cause the Package Installer to not be up to date by resetting the the package cache when launching/shutting down a world.</li>
-<li>The "Select File" button will no longer appear when the FilePicker is used as a Tile Browser.</li>
+	<ul>
+	<li>In some cases, database maintenance tasks would be performed while a a significant amount of write activity was occurring, resulting in permission issues. DB maintenance tasks now use a new approach to try and avoid this.</li>
+	<li>Corrected an issue where World Compendium Packs with the same name in different Worlds would incorrectly cross-share their content</li>
+	<li>Addressed some S3 errors resulting from Chrome caching with the wrong CORS headers, this fix may result in increased invalid requests in the case of actual bad URLs.</li>
+	<li>Wall chaining should no longer experience the creation of tiny walls as a result of the mouse moving during a click.</li>
+	<li>Syntax errors in JSON files should no longer cause Foundry to stall upon launch.</li>
+	<li>Solved a number of cases where use of nested parenthetical rolling formulae would return unexpected results or throw errors.</li>
+	<li>Addressed an issue where variable number of Die faces as a parenthetical expression would fail.</li>
+	<li>Dice modifiers are now properly case insensitive.</li>
+	<li>Resolved some security concerns related to game.socket.</li>
+	<li>It is no longer possible to move tokens outside the the canvas area in cases where there are no drawn Wall objects in the Scene.</li>
+	<li>Resolved cases where syntax errors were thrown when non-GM users attempted to access ChatMessage.permission.</li>
+	<li>Combat.rollInitiative is not gated behind token ownership.</li>
+	<li>Corrected an issue where setting a Token's represented actor to none disabled Token Configuration.</li>
+	<li>Resolved an error with the actor check for orphaned Tokens which prevented opening Token Configuration.</li>
+	<li>Fixed an issue where deleting a Token that was emitting light would not correctly remove the light emission from the canvas for players.</li>
+	<li>Corrected an issue that would cause nested Tabs on the actor sheet to disappear completely when the parent tab changed.</li>
+	<li>The author of a Macro now correctly updates when that Macro is imported from a Compendium Pack.</li>
+	<li>Addressed an issue that would cause the Package Installer to not be up to date by resetting the the package cache when launching/shutting down a world.</li>
+	<li>The "Select File" button will no longer appear when the FilePicker is used as a Tile Browser.</li>
 </ul>
 <hr/>
 
 <h3>Framework and API Changes</h3>
 <ul>
+	<li>(BREAKING) The validateForm helper has been moved from the server-side commons, and is now a static method of the FormApplication class.</li>
+	<li>(BREAKING) Deprecated the Actor.importItemFromCollection method in favor of other handlers for drag and drop logic.</li>
+	<li>(BREAKING) Deprecated and removed the the (V1) Tabs class and refactored the TabsV2 namespace to be named "Tabs" once again (with a backwards compatibility reference).</li>
 	<li>Redefined Die modifiers as a CONFIG setting, which uses regex patterns and handler functions - modules or systems may now define custom modifiers for their own die rolls.</li>
 	<li>Die types are now a Configuration object which maps character symbols for the die type to the defined class which handles it.</li>
 	<li>The Roll.alter method now supports more use cases, increasing its flexibility and removing a lot of limitations.</li>
@@ -104,7 +112,6 @@
 	<li>Improved upon the Roll minimize and maximize helper methods to better assess the potential results which can occur from a formula.</li>
 	<li>Added a hook to support dropping data onto an Item or Actor sheet which allows system and module developers to override the default behaviour and perform functions.</li>
 	<li>ActorSheet._onDrop for items has factored out the OwnedItem creation to allow systems and modules to more easily override that behavior.</li>
-	<li>Deprecated the Actor.importItemFromCollection method in favor of other handlers for drag and drop logic.</li>
 	<li>Added a Hook event to handle data dropped onto the canvas, allowing systems and modules to provide custom behaviors for drag and drop workflow.</li>
 	<li>The FolderConfig form application will now preserve the initial Folder data if the target object does not already exist.</li>
 	<li>The default Cone angle and Ray width can now be defined as a CONFIG setting, allowing modules and systems to more easily customize them.</li>
@@ -112,7 +119,6 @@
 	<li>Redesign and refactor how rich text replacements are done, simplifying the required regex rules and matching logic for replacement of links.</li>
 	<li>Provided a method for the Dialog constructor which resolves to the key of the chosen button and rejects if the window is closed without choosing.</li>
 	<li>Added Support for an onRender callback for the Dialog class which can allow a caller to set event listeners or do other manipulations like assigning focus to an input field.</li>
-	<li>The validateForm helper has been moved from the server-side commons, and is now a static method of the FormApplication class.</li>
 	<li>The Image color string validator has been deployed for all database schema that define and store colors.</li>
 	<li>Provided a method to export the contents of a Folder into a Compendium pack, optionally replacing existing entries by name.</li>
 	<li>Added an API option to prevent RollTable from rolling recursively when a table is drawn as result, allowing for cases where a Rollable Table is a result.</li>
@@ -121,7 +127,9 @@
 	<li>Authentication failures will now be logged so that external services can lock accounts or ban IP addresses for too many failed attempts.</li>
 	<li>Migrated several Entities in server database models to be more strongly typed in the interest of Typescript adoption.</li>
 	<li>Signika Negative - a variety of Signika which may be better suited for certain color schemes - is now bundled with the Foundry VTT software. It is not enabled by default, but can be defined as a valid font face in module or system CSS files.</li>
-	<li>Added JSDoc documentation to Math environment helper methods .</li>
+	<li>Added JSDoc documentation to Math environment helper methods.</li>
+	<li>PlaceableObject.control({releaseOthers: true}) now correctly release others objects from control if the PlaceableObject was already controlled.</li>
+	<li>.drawMany() now correctly adheres to an assigned rollMode, rather than ignoring the rollMode argument or the currently set rollMode.</li>
 </ul>
 <hr/>
 
