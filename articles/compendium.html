@@ -1,3 +1,80 @@
+<p>Compendium Packs are used to store Entities of all types in a way that reduces the impact on the game while still keeping the information accessible.</p>
+
+<h2 id="intro">Introduction</h2>
+<p>Compendium Packs exist to reduce the strain on worlds that have been running for a long period of time, or which may have accrued a large number of entities that, while not active, should not be deleted. Compendium Packs should be used to help you keep your world organized and reduce clutter.</p>
+
+<p>Each Compendium can only contain one type of Entity such as @Article[actors], @Article[items], @Article[journal], @Article[macros], @Article[playlists], @Article[roll-tables] or @Article[scenes]. Data contained in compendium packs are not loaded until needed, reducing the amount of data that a particular user must load when first joining a game.</p>
+
+<h2 id="create">Creating and Using Compendium Packs</h2>
+	<p>A Compendium can be easily created in any World. First, navigate to the Compendiums Sidebar Tab, and then click the "Create Compendium" button. Enter the name of the Compendium (for example "Player Characters") and choose the correct type of Entity from the Entity Type dropdown. After your Compendium has been created, clicking upon the Compendium name in the Sidebar will open a new window that will allow you to drag and drop from a Sidebar Tab into the Compendium.	</p>
+	<p>Compendium Packs are automatically sorted alphabetically.</p>
+
+	<dl>
+		<dt>Do I need a Compendium?</dt>
+		<dd>Storing unused Entities in a Compendium <strong>greatly</strong> reduces the time it takes to load your world. Even though each Actor, Item, or other entity may be small, as their numbers start to rise into the hundreds the amount of data that gets transferred to each of your players when they join can cause your world to slow down over time. It is a best to practice good organization.</dd>
+	</dl>
+
+<h2 id="export">Exporting Packs</h2>
+	<p>Though it is presently one of the more technical export processes due to the need to manually edit JSON files, Compendium Packs can be exported for use in other worlds, or for distribution as a custom content module. This allows you to share your Actors, Items, Scenes, and more with your friends or the wider Foundry VTT community.</p>
+
+	<h3 id="best-practices">Best Practices for Exporting Compendium Modules</h3>
+	<p>It is important to observe certain practices if you are intending to distribute your Compendium as a module. Module packs do not automatically store image or sound files when dropped into the Compendium window. Building a compendium for export requires a little more planning than building a compendium for storage. </p>
+	<dl>
+		<dt>Asset Files</dt>
+		<dd>You <strong>must</strong> ensure that any images such as Scene backgrounds, Actor portraits or Token pictures, Item icons, or Journal images point to the location of that file in your module folder. Failure to do so will result in the module not being able to find the file when it is imported to another user's Foundry VTT installation. This also applies to Sound Files. </dd>
+		<dt>File Sizes</dt>
+		<dd>Give consideration to file types and sizes. As a general rule, asset files should be the lowest possible file sizes they can be. Favour WebP or JPG for image files, WebM for animations, and OGG for audio.</dd>
+		<dt>File Structure</dt>
+		<dd>Files intended to be exported with your compendium module should adhere to web-hosting standards. That means they should not contain any spaces or special characters in their filenames (including folders). Ideally, filenames should be standardized for distribution, capitalized the same way, and stored in an organized and easy to reference fashion to make your own job of setting them up easier.</dd>
+	</dl>
+
+	<h3 id="module">Creating Your Compendium Module</h3>
+	<p> This section of the article provides a <em>very rudimentary</em> step-by-step process for creating a Compendium Module for export.</p>
+	<ul>
+		<dt><strong>Step 1 - Preparation</strong></dt>
+		<li>Using your Operating System's File Browser, access your UserData folder, then the Modules folder. (./Data/modules)</li>
+		<li>Create a new folder with your module name. This should be all lower case and contain no spaces or underscores. Use a dash/hyphen instead.(-)</li>
+		<li>In your new module folder, create a new folder to receive the art or audio files you intend to package for your modules.</li>
+		<li>Copy the art or audio files into your module folder.</li>
+		<li>Create a "packs" folder in your module folder, leave it empty for now.</li>
+		<dt>Step 2 - Building the Compendium</dt>
+		<li>Create your Compendium (in Foundry VTT)</li>
+		<li>Make sure every entity you are going to place in your compendium has any attached images or sound files pulled from the module folder, for example, if this is a scene, ensure the scene background points to modules/yourmodulename/map-assets/my-map.jpg</li>
+		<li>Drag and drop each entity you want to add to your compendium into the Compendium.</li>
+		<li>Step 3 - Copying your Compendium packs to the module</li>
+		<li>Using your Operating System's File Browser, access your UserData folder, then the Worlds folder. (./Data/worlds/)</li>
+		<li>Locate and open the folder for the World that you created the Compendium in.</li>
+		<li>Open the packs folder.(./Data/worlds/yourworldnamehere/packs/)</li>
+		<li>This folder will contain a file with a .db extension. If you named your compendium "my actors" it will be my-actors.db. Copy this file.</li>
+		<li>Paste your compendium's "db" file from this folder to the folder we created in Step 1 for your module, into the "packs" subfolder of your module.</li>
+		<li>Step 4 - Telling Foundry VTT Where to Look</li>
+		<li>Using a text editor create an empty module.json file and save it in your module folder (.Data/modules/yourmodulename/)</li>
+		<li>In your (currently empty) module.json file, paste the contents of the below example. For more details on what this should contain, see the Module Manifest section of @Article[module-development] as well as the section immediately following this one.</li>
+	</ul>
+	<p>module.json Example</p>
+		<pre><code class="language-javascript">
+		{
+			"name": "mymodulename",
+			"title": "My Module Name",
+			"description": "A module containing a compendium pack",
+			"author": "My Name",
+			"version": "1.0.0",
+			"minimumCoreVersion": "0.6.0",
+			"compatibleCoreVersion":"0.7.0"
+			"packs": [
+    					{
+      					"name": "myscenedatabasename",
+      					"label": "The Human-Readable Name for My Compendium",
+      					"path": "packs/my-scenes-right-here.db",
+      					"entity": "Scene",
+      					"module": "MyModuleName"
+						}
+					]
+		  }
+		</code></pre>
+
+
+
 <h2 id="json">Compendium Pack JSON Definition</h2>
 <p>To define a valid Compendium pack in a JSON manifest file include the following object structure inside the <code>packs</code> array.</p>
 <pre><code class="language-json">"packs": [
