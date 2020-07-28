@@ -28,58 +28,38 @@ sudo amazon-linux-extras install nginx1 -y
 <h3 id="configure">Step 2 - Configure Nginx</h3>
 <p>Nginx requires a configuration file which defines how the server functions. A functional starting point to begin testing Nginx is the following configuration which does not use SSL certificates (we can enable those later). For the purposes of this example we assume that Foundry Virtual Tabletop is running from <code>/home/ec2-user/foundryvtt</code>, but your application installation path may be different, you should adjust the configuration file accordingly.</p>
 
-<p class="note warning">Make sure to update the references to <code>your.hostname</code> in the configuration.</p>
+<p class="note warning">Make sure to update the references to <code>your.hostname.com</code> in the configuration.</p>
 
-<pre><code class="language-bash"># This goes in /etc/nginx/nginx.conf
+<pre><code class="language-bash"># This goes in a file within /etc/nginx/sites-available/. By convention,
+# the filename would be either "your.domain.com" or "foundryvtt", but it
+# really does not matter as long as it's unique and descriptive for you.
 
-# CONFIGURE NGINX PROCESS
-user ec2-user ec2-user;
-pid /var/run/nginx.pid;
+# Define Server
+server {
 
-# EVENTS
-events {
-    worker_connections 1024;
-    accept_mutex off;
-}
+    # Enter your fully qualified domain name or leave blank
+    server_name             your.hostname.com;
 
-# HTTP SERVER
-http {
-    include         mime.types;
-    default_type    application/octet-stream;
-    sendfile on;
+    # Listen on port 80 without SSL certificates
+    listen                  80;
 
-    # Configure Logging
-    error_log       /tmp/nginx.error.log warn;
-    access_log      /tmp/nginx.access.log combined;
+    # Sets the Max Upload size to 300 MB
+    client_max_body_size 300M;
 
-    # Allow File Uploads
-    client_max_body_size    300M;
-    keepalive_timeout       5;
+    # Proxy Requests to Foundry VTT
+    location / {
 
-    # Define Server
-    server {
+        # Set proxy headers
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
 
-        # Enter your fully qualified domain name or leave blank
-        server_name             your.hostname.com;
+        # These are important to support WebSockets
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
 
-        # Listen on port 80 without SSL certificates
-        listen                  80;
-
-        # Proxy Requests to Foundry VTT
-        location / {
-
-            # Set proxy headers
-            proxy_set_header Host $host;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
-
-            # These are important to support WebSockets
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection "Upgrade";
-
-            # Make sure to set your Foundry VTT port number
-            proxy_pass http://localhost:30000;
-        }
+        # Make sure to set your Foundry VTT port number
+        proxy_pass http://localhost:30000;
     }
 }
 </code></pre>
@@ -98,7 +78,10 @@ http {
 <h3 id="control">Step 3 - Start, Stop, and Restart Nginx</h3>
 <p>You can use the <code>service</code> utility to easily manage your Nginx server.</p>
 
-<pre><code class="language-bash"># Test your configuration file
+<pre><code class="language-bash"># Enable new site
+sudo ln -s /etc/nginx/sites-available/your.hostname.com /etc/nginx/sites-enabled/
+
+# Test your configuration file
 sudo service nginx conftest
 
 # Start Nginx
@@ -115,61 +98,54 @@ sudo service nginx restart
 <h3 id="ssl">Step 4 - Add SSL Certificates (Optional)</h3>
 <p>For more advanced usage you can add SSL Certificates for added security. Start by creating SSL Certificates, we recommend <a href="https://certbot.eff.org/instructions" title="Certbot SSL Certificates Instructions" target="_blank">using Certbot</a>. Once your certificates are created, your Nginx configuration file will be updated to use port 443 and the SSL certificates you have created.</p>
 
-<p class="note warning">Make sure to update the references to <code>your.hostname</code> in the configuration.</p>
+<p class="note warning">Make sure to update the references to <code>your.hostname.com</code> in the configuration.</p>
 
-<pre><code class="language-bash"># This goes in /etc/nginx/nginx.conf
+<pre><code class="language-bash"># This goes in a file within /etc/nginx/sites-available/. By convention,
+# the filename would be either "your.domain.com" or "foundryvtt", but it
+# really does not matter as long as it's unique and descriptive for you.
 
-# CONFIGURE NGINX PROCESS
-user ec2-user ec2-user;
-pid /var/run/nginx.pid;
+# Define Server
+server {
 
-# EVENTS
-events {
-    worker_connections 1024;
-    accept_mutex off;
+    # Enter your fully qualified domain name or leave blank
+    server_name             your.hostname.com;
+
+    # Listen on port 443 using SSL certificates
+    listen                  443 ssl;
+    ssl_certificate         "/etc/letsencrypt/live/your.hostname.com/fullchain.pem";
+    ssl_certificate_key     "/etc/letsencrypt/live/your.hostname.com/privkey.pem";
+
+    # Sets the Max Upload size to 300 MB
+    client_max_body_size 300M;
+
+    # Proxy Requests to Foundry VTT
+    location / {
+
+        # Set proxy headers
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        # These are important to support WebSockets
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+
+        # Make sure to set your Foundry VTT port number
+        proxy_pass http://localhost:30000;
+    }
 }
 
-# HTTP SERVER
-http {
-    include         mime.types;
-    default_type    application/octet-stream;
-    sendfile on;
-
-    # Configure Logging
-    error_log       /tmp/nginx.error.log warn;
-    access_log      /tmp/nginx.access.log combined;
-
-    # Allow File Uploads
-    client_max_body_size    300M;
-    keepalive_timeout       5;
-
-    # Define Server
-    server {
-
-        # Enter your fully qualified domain name or leave blank
-        server_name             your.hostname.com;
-
-        # Listen on port 443 using SSL certificates
-        listen                  443 ssl;
-        ssl_certificate         "/etc/letsencrypt/live/your.hostname/fullchain.pem";
-        ssl_certificate_key     "/etc/letsencrypt/live/your.hostname/privkey.pem";
-
-        # Proxy Requests to Foundry VTT
-        location / {
-
-            # Set proxy headers
-            proxy_set_header Host $host;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
-
-            # These are important to support WebSockets
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection "Upgrade";
-
-            # Make sure to set your Foundry VTT port number
-            proxy_pass http://localhost:30000;
-        }
+# Optional, but recommend. Redirects all HTTP requests to HTTPS for you
+server {
+    if ($host = your.hostname.com) {
+        return 301 https://$host$request_uri;
     }
+
+    listen 80;
+	listen [::]:80;
+
+    server_name your.hostname.com;
+    return 404;
 }
 </code></pre>
 
