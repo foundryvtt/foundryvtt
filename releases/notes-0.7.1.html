@@ -1,0 +1,187 @@
+<h2>Foundry Virtual Tabletop - Version 0.7.1 Update Notes</h2>
+
+<figure>
+	<img src="" title="Foundry VTT Version 0.7.1 Release Notes"/>
+	<figcaption>Welcome to the Foundry Virtual Tabletop update notes for Alpha version 0.7.1.</figcaption>
+</figure>
+
+<p>This is the second update in the feature-rich 0.7.x sequence of updates in the "alpha" (<strong>unstable</strong>) channel which is available to all Foundry Virtual Tabletop owners.</p>
+	
+<p class="note warning"><strong>WARNING:</strong> Alpha channel releases are <strong>VERY LIKELY</strong> to introduce breaking bugs that will be disruptive to play. Do not install this update unless you are using for the specific purposes of testing. The intention of Alpha builds are to allow for previewing new features and to help developers to begin updating modules which are impacted by the changes. If you choose to update to this version for a live game you do so entirely at your own risk of having a bad experience.</p>
+
+<p class="note warning"><strong>Please back up your critical user data before installing this update.</strong></p>
+
+<p>I am very happy to be able to share these features with you all, and I am looking forward to continuing work on this series of updates as it moves towards a stable release.</p>
+<hr/>
+
+<h4>Overview of Changes</h4>
+<p>Attention for this update brings a large number of changes focused in key areas of lighting performance and fog of war enhancements, a new light source animation feature, and introduces the first implementation of API support for active effects. There are a number of major focus areas for the 0.7.x series of updates: Dice rolling, Audio and Playlists, Compendium improvements, Lighting system efficiency, Phase 1 development of Active Effects, and more. As the first update in this series, 0.7.1 focuses on a subset of these areas with an intensive focus on Dice Rolling and the Dice API and Compendium functionality improvements. The next several updates in the 0.7.x series will all be on the Alpha channel and will focus heavily on Audio and Video chat as well as the underlying Audio and Playlists features. </p>
+
+<p>Releasing this update to the Alpha (Unstable) channel provides an opportunity for community developers to test their modules and systems for use in the 0.7.x series of patches and incorporate fixes for any breaking code changes. Users who wish to be particularly helpful can also help to test for and locate bugs in the new features and systems. After sufficient testing, fixes will be implemented for bugs that have been found and if the update is stable enough it will advance to the Beta channel as 0.7.1, incorporating the bug fixes found in 0.7.1.</p>
+
+
+<hr/>
+
+<h4>How to Update</h4>
+<p>To apply this update, return Foundry Virtual Tabletop to the <strong>Configuration and Setup</strong> page and access the <strong>Update Software</strong> tab and choose the "Alpha (Unstable)" channel in the dropdown menu. It is recommended for most users to stay on the Release channel for all updates unless you have a specific desire to get Alpha or Beta changes in the future.</p>
+
+<p>This is an alpha update and should be considered unstable for all users. It is not recommended for all users to update to this version <em>unless</em> they intend to test the potentially unstable features contained within this update. As always, please take care to periodically back up your critical user data in case you experience any issues.</p>
+
+<p>After clicking <strong>Check for Update</strong> confirm that you are presented with the 0.7.1 update notes and click the Download button to begin the update process. Allow some time for this process to conclude, when it is finished your server will automatically restart (if Electron) or shut down (if Node.js).</p>
+<hr/>
+
+<h4>Reporting Issues and Providing Feedback</h4>
+<p>If you encounter issues or have feedback to share, please use one of the following three reporting channels, ordered by preference:</p>
+<ol>
+	<li><strong>Discord Server:</strong> My preferred method to collect feedback is through our Discord server where I have created dedicated channels for Alpha 0.7.1 feedback. If you are able to join our Discord community it's the best way to engage with me directly for feedback.</li>
+	<li><strong>GitLab Tracker:</strong> You are welcome to create issue reports directly in the GitLab tracker here, but please take caution to ensure your problem has not already been reported by checking other open (and closed) issues in the upcoming milestone before creating a new report.</li>
+	<li><strong>Bug Report Form:</strong> There is an official bug report form on the official website. Please go to the following address and select "Bug Report" as your category. https://foundryvtt.com/contact-us/</li>
+</ol>
+
+<p>Please stay up to date on progress by following the project roadmap on GitLab: <a href="https://gitlab.com/foundrynet/foundryvtt/boards" target="_blank" title="FVTT Issue Tracker">https://gitlab.com/foundrynet/foundryvtt/boards</a>.</p>
+<hr/>
+
+<h3>New Features</h3>
+<ul>
+<p><strong>Vision Detection</strong></p>
+<li>New vision detection system which removes a significant amount of overhead used in calculating sight for tokens. This system is based on a quadtree design, breaking the visible area down into smaller quadrants that can be tested independently, netting a significant overall performance improvement. Maps with more complex wall structures will have a more noticable performance gain. While small and medium maps will only notice a mild performance increase (1-2x faster), large maps will experience a significant increase in performance for rendered sight (at least 10x more performative.) </li>
+<li>Implemented Quadtree-based vision computation and collision detection algorithm.</li>
+<li>Partitioned walls into quadrants to optimize which rays are tested for intersection during LOS polygon generation.</li>
+<li>Vision and Fog of War should now be revealed for intermediate positions along a Token's animated movement path.</li>
+<li>Optimize ray wall collision detection for large canvas and wall counts.</li>
+<li>When a door is opened, vision is now tested for whether the bounding box of the wall intersects the circular radius of each light source before recomputing LOS/FOV for that source.</li>
+<li>Replaced the internal functionality of the WallsLayer#checkCollision function to implement an improved quadtree-based ray collision algorithm.</li>
+<li>When a Token begins its movement in a visible area, the token movement animation will now be displayed even if its destination is outside of the FOV.</li>
+<li>When a player controls a Token that does not have vision itself, their vision will now be unified with other observed tokens. This will work better for summons or familiars where the user does not benefit from the Token's perspective.</li>
+<p><strong>Lighting</strong></p>
+<li>New Light Source Animations system. Inspired in no small part by the excellent Dancing Lights module from BlitzKraig. This adds lighting animation features to ambient and token-emitted lights and includes some default animations which cause them to flicker, pulse, or shift in color. This feature is extensible, allowing developers to add their own animations and alter other properties of light sources.</li>
+<li>Implemented light source animations as a core feature for both AmbientLight and Token-emitted light polygons.</li>
+<li>Defined "torch" as a built-in light source animation type which flickers and shifts the light source periodically.</li>
+<li>Defined a "pulse" type light source animation which oscillates in intensity.</li>
+<li>Defined a "chroma" type light source transformation which oscillates between adjacent colors of the light source tint.</li>
+<li>It is now possible to configure a Scene to have Global Illumination during the daytime while requiring Token restricted vision once the darkness threshold is met.</li>
+<li>Right-clicking an Ambient Light icon now toggles the visibility of the light, allowing individual lights to be individually turned on or off quickly.</li>
+<li>Light sources now show a visible dim aura in addition to visible brightness when placed on globally lit maps.</li>
+<li>Toggling Token visibility now also toggles the visibility of any light source that it emits.</li>
+<li>The Light Source configuration menu now displays a preview of changes to the light source before the form is submitted.</li>
+<p><strong>UI and Other</strong></p>
+<li>[BREAKING] Scene settings now require require integers for grid size and horizontal/vertical shifting, preventing use of decimal place grid values. If Scene grids previously had been set to decimal values, it will be necessary to scale the map size up until the grid size becomes an integer.</li>
+<li>Further improvements have been made to the NeDB maintenance and compaction functions which should avoid cases where constant DB writing was leading to DB maintenance never occuring.</li>
+<li>Added client-level configuration settings for Vision Animation and Light Animation which allow disabling of these features for better performance on lower-end machines.</li>
+<li>Updated the Token and Light source configuration menus to support configuring light source animations.</li>
+<li>The Combat Tracker now automatically displays initiative rolls as integers if all initiatives are integer, and but will show all rolls with the configured decimal places otherwise.</li>
+<li>Combatants who do not link to a valid token may now remain visible on the combat tracker instead of being culled during the setupTurns procedure, providing some better support for temporary combatants.</li>
+<li>The tool menu UI will now remember last used tool when changing tool categories.</li>
+<li>The Token Configuration window now considers "Update Token" the default action for keyboard accessibility and improved workflow.</li>
+<li>Removed support for CTRL+WASD for canvas panning which is still supported with CTRL+ARROWS or CTRL+NUMPAD. This enables use of CTRL+A and avoids issues with CTRL+W closing the browser tab.</li>
+<li>Added support for the Ctrl+A (CMD+A for MacOS) hotkey for select-all placeable objects within the current active layer.</li>
+<li>The mouse-wheel rotation method used on other canvas objects has been extended to apply to Ambient Light sources.</li>
+<li>Added a default css style for number inputs.</li>
+<li>The dialog prompt which appears when creating a new entity will now be displayed by default, even if there is only one type of entity allowed by the game system.</li>
+</ul>
+<hr/>
+<h3>Localization Changes</h3>
+<p>To help better support the awesome volunteers in our localization community, update notes will now include a clearly defined Localization section which will clearly list changes being made in i18n support and localization.</p>
+<ul>
+<li>The entity type in entity create dialog has now been localized, allowing for the choices from the selection box to be more human-readable.</li>
+<li>Added further localization support for the Macro Configuration sheet.</li>
+<li>Added further localization support for the File Browser Window.</li>
+<li>Added further localization support to the Ambient Light Source configuration sheet.</li>
+<li>Added further localization support to Ambient Sound Management UI.</li>
+<li>The defined Application title in application windows is now localized by default, unless overridden by a child class.</li>
+<li>Modules which have been disabled will no longer have their language files loaded.</li>
+</ul>
+<hr/>
+<h3>Bug Fixes</h3>
+<ul>
+<li>Addressed S3 CORS issues caused by evolving changes in AWS S3 and Chrome CORS handling practices, and the use of <code>?cors=</code> in URL query strings in particular.</li>
+<li>Corrected an issue where web sockets would close prematurely before connection is established, resulting from connection timeout on the websocket ocurring before data transfer had finished.</li>
+<li>Resolved an out of memory error which would occur in cases of tokens moving to previously explored locations, resulting in pending fog exploration polygons being generated but not correctly handled by garbage collection.</li>
+<li>Improve responsiveness of right-click canvas pan workflow to avoid accidentally triggering no-op double right-click handlers, to resolve an issue where right-click would fail to trigger canvas panning as expected.</li>
+<li>Addressed numerous edge case issues in the 0.7.0 dice formula system where roll syntax did not produce expected results. Using arithmetic-only parenthetical expressions in dice formulae should now resolve correctly.</li>
+<li>Corrected an issue where creating a ChatMessage from a Roll including a DicePool would not not correctly re-constitute the individual Die instances of the re-constructed Roll instance.</li>
+<li>Resolved an issue with previous chat messages failing to render properly if they contained roll data from 0.6.x.</li>
+<li>Fate Dice should now be correctly displayed, following correction of an error in formatting for a DiceTerm.</li>
+<li>Restricted the availability to reveal a roll to users who have visibility of that roll's contents.</li>
+<li>Provided a workaround for an upstream PixiJS issue that resulted in a small visible line at the edges of the canvas which was not correctly covered by fog of war at more distant zoom levels.</li>
+<li>Fixed an issue where Token line of sight occlusion would not function properly when the Token itself had minimal (zero) vision due to a shortened ray culling distance.</li>
+<li>Ambient Lights with a darkness threshold set will no longer incorrectly reveal Fog of War when the scene does not have a darkness threshold.</li>
+<li>Corrected an issue where colored lights beneath the explored fog of war region but outside of current line-of-sight would still be visible.</li>
+<li>Solved a race condition which would result in a newly created Token emitting light not immediately displaying the light to players</li>
+<li>Small tokens are no longer able to see through walls when placed in the closest half-grid to the wall.</li>
+<li>Changing emit light settings on a token to 0 now properly updates for players without a reload.</li>
+<li>Line of Sight now reliably updates for tokens that are only moved a short distance.</li>
+<li>Moving a group of walls no longer snap each endpoint individually, to prevent cases where moving a section of walls caused them to unexpectedly change shape.</li>
+<li>Resolved an issue where dragging a wall endpoint interaction failed to correctly function, preventing walls from being repositioned.</li>
+<li>Resolved an issue where dragging an embedded entity link from within a parent draggable (like an owned item) would drag the parent data and not the entity link data as expected.</li>
+<li>Evaluating multiple dynamic entity links within the same Text node no longer failes as a result of the node's length being altered.</li>
+<li>Corrected an issue where multiple inline dice expressions in a single Text node would break the HTML enrichment algorithm.</li>
+<li>Solved cases where evaluating embedded entity links within HTML which contains links to a deleted item would throw an error.</li>
+<li>Previously existing links to compendium entries called by _id once again function as expected.</li>
+<li>Resolved an issue where the Context Menu on the Scenes sidebar would not properly expand if modules added too many entries to it.</li>
+<li>FilePicker filtering now only examines file and directory names within the current path, rather than matching previous portions of the path.</li>
+<li>Corrected a Filepicker error in the Tile browser window which would occur when selecting a file instead of dragging it to the canvas.</li>
+<li>Application windows no longer lose access some in their header menus (including the close option) if they are resized.</li>
+<li>Using the mouse scroll wheel over a range input field now no longer scrolls parent container.</li>
+<li>Scenes sidebar context menu will now correctly  render if the Canvas is inactive.</li>
+<li>The Freehand Drawing tool smoothing factor is no longer incorrectly limited.</li>
+<li>Importing a scene from JSON now correctly accounts for custom height and width settings.</li>
+<li>The maximum framerate is now capped at 60fps even for monitors which support a higher uncapped fps.</li>
+<li>Solved an issue where the Create Token permission allowed players to create tokens for an actor they had 'observer' permission for</li>
+<li>Assistant accounts can now see folders marked as private.</li>
+<li>Installation progress no longer logs a large amount of entries</li>
+<li>Setup and Configuration no longer allows entry of an empty string in the port field which would result in launch failures</li>
+<li>Corrected some rare cases which would result in Worlds not starting in a paused state.</li>
+<li>Corrected the way network interfaces were detected to prevent loopback addresses being chosen as a local invitation link</li>
+<li>Improved the detection and severity of warnings related to a user choosing an invalid data path.</li>
+<li>Deleting a Token which has an active Combatant now also correctly deletes that Combatant.</li>
+<li>Addressed an edge case that would allow Tokens to able to clip through vertical walls that perfectly bisects their space by keyboard moving into the space and then mouse dragging to the other side of the wall.</li>
+<li>The playback timer for tokens with a video texture will now correctly reset to zero instead of continuing from a prior cached playback time.</li>
+<li>Corrected an issue which prevented dragging a group of tokens from functioning correctly</li>
+</ul>
+<hr/>
+
+<h3>Framework and API Changes</h3>
+<ul>
+<p><strong>Active Effects</strong></p>
+<li>New Active Effects system API introduced, providing a framework for systems and modules to allow creating effects which, once added to Actors, modify the actor data to apply bonuses and penalties which may be dependent on factors like duration (time, turns, rounds), or whether the Actor is in combat. Due to the variety of systems and that each system has different rules regarding the application of modifiers, Active effects will need to be implemented by system and module developers to be used effectively, as a system-agnostic GUI for effects is outside the scope of the active effects system at this time.</li>
+<li>[BREAKING] Improved the handling of Actor data preparation to standardize the way base data is prepared, derived data computation, and created a structure to better support the way item and active effects are applied.</li>
+<li>[BREAKING] Implemented Database architecture and schema for the ActiveEffect embedded entity type which can be added to Actor entities.</li>
+<li>Implemented V1 of the ActiveEffect system, which adds support for an EmbeddedEntity in the Actor model which can modify the actor data to create, update, and delete ActiveEffect objects.</li>
+<li>Enhanced Entities to allow for tracking the original source data, which can be (optionally) differentiated from the derived data of the Entity.</li>
+<li>In the case of unlinked Tokens, provided support for Active effects to be applied to their synthetic Actor override in addition to base Actors.</li>
+<p><strong>Rolling and Dice</strong></p>
+<li>Refactored Roll.replaceFormulaData as a static method, this allows for API usages of formula syntax data replacement.</li>
+<li>Provided a means to configure the default Roll class which is used to create and evaluate dice rolls at a system-wide level.</li>
+<li>Improved code structure for Mersenne Twister by removing unnecessary globals.</li>
+<li>Added MersenneTwister.normal(mu, sigma) which allows for drawing random variables from a normal distribution with mean mu and standard deviation sigma.</li>
+<li>Extended the option to disable recursive rolls to drawMany() </li>
+<p><strong>Lighting</strong></p>
+<li>Each SightLayerSource now maintains references to the PlaceableObject which generates it, and to the rendered container on the SightLayer which renders its FOV.</li>
+<li>Refactor and Improve the SightLayerSource object to contain helper methods for animation and rendering.</li>
+<li>Retain a reference on each Token and AmbientLight instance to the lightSource instance of SightLayerSource which represent them.</li>
+<li>Extend the AmbientLight and Token data models to persist basic information about the light source animation that they use (if any)</li>
+<li>Improve the server-side AbsrtactBaseDocument pattern to support the concept of potentially untyped (any-typed) fields.</li>
+<p><strong>Other API changes</strong></p>
+<li>The Drawing _onUpdate callback no longer performs an asynchronous full re-draw operation which was is not resolved before parent-class _onUpdate behaviors (such as hooked functions) were called.</li>
+<li>Expanded the data model of Combatants in a CombatEncounter to be assigned a name and image attribute which may differ from and override the name of their referenced token or actor.</li>
+<li>Refactored the server-side download remote file utility to remove reliance on the request module which is now deprecated.</li>
+<li>Added the getParentClasses(cls) helper method which returns the inheritence chain for a given ES6 class.</li>
+<li>Provides support for Calling Application render and closing hooks for all parent classes in the inheritence chain through getParentClasses(cls).</li>
+<li>Verified that the database model recursively calls the inner validation function of nested documents in each document schema.</li>
+<li>Trusted user IDs are now passed as a parameter on socket events.</li>
+<li>Updated core packages such as Electron, PixiJS, and TinyMCE to latest stable versions.</li>
+</ul>
+<hr/>
+
+<h3>Documentation Improvements</h3>
+<ul>
+	<li>The 0.7.1 update includes many significant documentation improvements for the API documentation including more accurate typing information for a large number of parameters and more complete documentation for certain classes which were lacking.</li>
+	<li>Please note - this improved documentation is <strong>NOT YET</strong> available on the Foundry website as the current API documentation refers to the latest release build. I will try to consider ways to make alpha channel API documentation available as well but I have not yet developed a solution for this.</li>
+</ul>
+<hr/>
+
+<h3>Known Issues</h3>
+<ul>
+	<li>There are no specific known issues at this time - but this is an alpha build - so it is known that there are issues (potentially serious ones). Proceed with caution.</li>
+</ul>
