@@ -133,7 +133,44 @@
 				<p>Each compendium pack must designate a specific Entity type that it contains. Valid entities include <code>Actor</code>, <code>Item</code>, or <code>Scene</code>.</p>
 			</dd>
 		</dl>
-	</dd>
+  </dd>
+  <dt>dependencies</dt>
+	<dd>
+    <p>Systems can require other systems, modules, or worlds be installed to allow their use. If a module has been installed with dependencies, but its dependencies are missing, it cannot be enabled. Dependencies are defined as an array of objects containing the following data:</p>
+    <dl>
+      <dt>name</dt>
+			<dd>
+				<p>Dependency entries require the name attribute. If only a name is provided, additional details about the module will be discovered from the Foundry VTT website listing.</p>
+      </dd>
+      <dt>type</dt>
+			<dd>
+				<p>The type attribute instructs FVTT that the dependency may be on a different type of module. By default dependencies are assumed to be module, so if you want to depend on a system or world you should be explicit.</p>
+			</dd>
+	        <dt>manifest</dt>
+			<dd>
+				<p>The manifest attribute provides an explicit manifest url to be used for downloading the dependency. If a manifest is not provided, the dependency package must exist in the Foundry website directory.</p>
+      </dd>
+    </dl>
+
+    <p>Example structure here:</p> <pre><code class="language-json">
+	"dependencies": [
+	{
+	  "name": "dice-so-nice",
+	  "manifest": "https://gitlab.com/riccisi/foundryvtt-dice-so-nice/raw/2.0.3/module/module.json",
+	},
+	{
+	  "name": "dnd5e",
+	  "type": "system"
+	},
+	{
+	  "name": "kobold-cauldron",
+	  "type": "world"
+	},
+	{
+	  "name": "betternpcsheet5e"
+	}
+  ]
+</code></pre> </dd> 
 	<dt>languages</dt>
 	<dd>
 		<p>The game system may designate an array of languages specifications that it supports by default. Each element in the languages array is an object which defines the language tag, label, and path to its localization file. The elements of a language object are the following:</p>
@@ -299,3 +336,4 @@
 <h3 id="migration">Data Model Migrations</h3>
 <p>Often, during the course of system development, changes to the template data structure are needed. In such cases, if you increment the <code>version</code> number in your system manifest file any existing Actors or Items will be automatically migrated to the latest template data specification when a World that uses the system is next loaded. During this migration process - any newly added data attributes will be added to existing entities, however old attributes which are no longer required by the template are not removed in case that data needs to be migrated.</p>
 <p>To apply additional migration rules, the recommended approach is to provide client side logic which detects whether a migration and uses the client side API to facilitate additional changes.</p>
+<hr/>
