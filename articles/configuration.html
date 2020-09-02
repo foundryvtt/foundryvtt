@@ -6,7 +6,7 @@
 
 <dl>
 	<dt><code>--port</code></dt>
-	<dd>This specifies the port Foundry will listen on for incoming connections.  If not specified, Foundry will use the port defined in options.json, or <code>30000</code>.</dd>
+	<dd>This specifies the port Foundry will listen on for incoming connections.  If not specified, Foundry will use the port defined in options.json, or <code>30000</code>. This is the port you should use for @Article[port-forwarding].</dd>
 	<dt><code>--world</code></dt>
 	<dd>This allows for a specific world to be opened immediately as Foundry launches.  Note that this option will not work if some setup steps are not completed, such as EULA acceptance.</dd>
 	<dt><code>--dataPath</code></dt>
@@ -28,7 +28,7 @@
 <hr/>
 
 <h2 id="application-configuration">Configuration Options</h2>
-
+<p class="info note">It is strongly recommended that all users set an Administrator Access Key in order to protect their setup screen from unwanted access.</p>
 <p>Foundry's behavior can also be customized via editing the options.json file stored in the Config directory located in the user data directory.  The directives take one of three data types:</p>
 
 <dl>
@@ -60,7 +60,7 @@
 	<dt>sslCert</dt>
 	<dd>String -- an absolute or relative path that points towards a SSL certificate file which is used jointly with the <code>sslKey</code> option to enable SSL and https connections. If both options are provided, the server will start using HTTPS automatically.</dd>
 	<dt>awsConfig</dt>
-	<dd>String -- an absolute or relative path which points to an optional AWS configuration file in JSON format containing accessKeyId, secretAccessKey, and region properties. This file is used to configure integrated AWS connectivity for S3 assets and backup.</dd>
+	<dd>String -- an absolute or relative path which points to an optional AWS configuration file in JSON format containing accessKeyId, secretAccessKey, and region properties. This file is used to configure integrated AWS connectivity for S3 assets and backup. For more information, see @Article[aws-s3]</dd>
 	<dt>upnp</dt>
 	<dd>Boolean -- allow Universal Plug and Play to automatically request port forwarding for the Foundry VTT port to your local network address. Default is true.</dd>
 	<dt>proxySSL</dt>
