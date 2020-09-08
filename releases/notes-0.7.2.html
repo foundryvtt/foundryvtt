@@ -1,0 +1,207 @@
+<h2>Foundry Virtual Tabletop - Version 0.7.2 Update Notes</h2>
+<figure>
+	<img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/alpha-072-banner-2020-09-08.jpg" title="Foundry VTT Version 0.7.2 Release Notes"/>
+	<figcaption>Welcome to the Foundry Virtual Tabletop update notes for Alpha version 0.7.2.</figcaption>
+</figure>
+
+<p>This is the third update in the feature-rich 0.7.x sequence of updates in the "alpha" (<strong>unstable</strong>) channel which is available to all Foundry Virtual Tabletop owners.</p>
+	
+<p class="note warning"><strong>WARNING:</strong> Alpha channel releases are <strong>VERY LIKELY</strong> to introduce breaking bugs that will be disruptive to play. Do not install this update unless you are using for the specific purposes of testing. The intention of Alpha builds are to allow for previewing new features and to help developers to begin updating modules which are impacted by the changes. If you choose to update to this version for a live game you do so entirely at your own risk of having a bad experience.</p>
+<hr/>
+
+<h3>Overview of Changes</h3>
+<p>This update focuses on several major themes - foremost of which is continued work on the <strong>Active Effects</strong> system which expands the capabilities of the system to include Items which allow effects to be defined and transferred to the Actors who own them. Other key themes of this update include improvements to chat message syntax, a new <strong>game clock</strong> API, better rendering for canvas text, and a large swath of miscellaneous improvements and bug fixes.</p>
+<hr/>
+
+<h3>How to Update</h3>
+<p>If you wish to apply this update, return Foundry Virtual Tabletop to the <strong>Configuration and Setup</strong> page and access the <strong>Update Software</strong> tab and choose the "Alpha" channel in the dropdown menu. Please note, it is recommended for most users to stay on the Release channel and wait for updates there rather than using Alpha or Beta updates.</p>
+
+<p class="note warning"><strong>Be sure to back up your critical user data before installing this update.</strong></p>
+
+<p>After clicking <strong>Check for Update</strong> confirm that you are presented with the 0.6.6 update notes and click the Download button to begin the update process. Allow some time for this process to conclude, when it is finished your server will automatically restart (if Electron) or shut down (if Node.js).</p>
+<hr/>
+
+<h3>New Features</h3>
+
+<h4>Scenes and Canvas</h4>
+<ul>
+	<li>Improved the sight polygon computation algorithm to perform an exact computation when there are a low number of Wall endpoints (configurable, default 500) in the Scene. The computation algorithm will only use approximate culling-based computation method for higher count Scenes.</li>
+	<li>Further refined the vision computation algorithm to prioritize exact Ray matches (at Wall endpoints) over approximate offset matches. This maximizes the number of exact collisions which can occur.</li>
+	<li>When creating a Scene which does not use a background image, a thumbnail texture will now be rendered based on the tiles layer if any tiles are present in the Scene.</li>
+	<li>The measurement ruler no longer requires a minimum drag distance in order to activate the display of the ruler.</li>
+	<li>Improved the visual quality of canvas text rendering, forcing a higher resolution for rendered text than is provided by the default PIXI implementation.</li>
+	<li>Enlarged the text labels used by the Ruler measurement to be more easily visible when zoomed out of a Scene.</li>
+	<li>It is now possible to configure a default text label as part of the default drawing configuration, this will apply a default text label when creating new text type drawings.</li>
+</ul>
+
+<h4>Chat Messages</h4>
+<ul>
+	<li>[BREAKING] Deprecated support for <code>@[name] {message}</code> for whispers since it collides and causes confusion with dynamic entity links. Now only <code>/w [name] {message}</code> is the supported slash command syntax for chat message whispers.</li>
+	<li>[BREAKING] Improve the styling of the sidebar chat controls to improve the CSS layout and avoid z-index conflicts.</li>
+	<li>Redesign a new tooltip which is displayed when clicking on an inline roll that allows you to inspect the results of the roll.</li>
+	<li>Added some new convenient slash commands: <code>/gm</code> to message all GM users, <code>/players</code> to message all players, and <code>/reply</code> to whisper the last user or group of users who privately messaged you.</li>
+	<li>Added the ability to pop-out a chat message to a separate window that allows you to conveniently track chat cards or ongoing effects which may require later rolls. Right click a message to pop it out to a separate window.</li>
+	<li>Added an option for players to hide chat messages, messages hidden in this way will be converted into a private message that only the user and GM can see.</li>
+</ul>
+
+<h4>Other Features</h4>
+<ul>
+	<li>Upgraded Electron to 10.1.x featuring Chromium 85.</li>
+	<li>Added a Combatant configuration sheet which allows for changing the displayed name, image, and initiative value of a Combatant. Combatants are configured by right-clicking on their entry in the Combat Tracker.</li>
+	<li>Reorganized the Combat control buttons in the sidebar tab to more logically group controls.</li>
+	<li>Left-clicking an entity in a compendium pack where the sheet for that entity was already rendered and minimized will now maximize the existing sheet.</li>
+	<li>Users with limited permission on Rollable Tables will now be able to still roll from the table, but will not be able to view the full contents of the table.</li>
+	<li>Users listed on the login page will now be sorted alphabetically within their role, with game-masters and assistant game-masters listed first, followed by players.</li>
+	<li>Packages are now sorted alphabetically by title in the main Setup and Configuration menu.</li>
+	<li>Trying to access an entity sheet that the user does not have permission to view will generate a warning banner which explains that the user does not have access to view.</li>
+	<li>Added an [x] indicator to the right side of notification banners to show users that they can be dismissed.</li>
+	<li>Improved the logic for determining whether a context menu should expand upwards or downwards to avoid cases where menus would overflow outside of bounds of the container.</li>
+	<li>The content of the awsConfig file will now be validated in addition to simple existence of the JSON file to test that the provided configuration values will succeed in establishing a connection.</li>
+	<li>Added support for providing a subset of configuration options in the awsConfig JSON file which can still be used even if not all elements of the object are provided.</li>
+	<li>Added an "uptime" key to the <code>/api/status</code> endpoint that reports for how long the server has been running the currently active World.</li>
+</ul>
+<hr/>
+
+<h3>Localization Changes</h3>
+<ul>
+	<li>Add missing localization support to the Ambient Light Source configuration sheet.</li>
+	<li>Add missing localization support for Compendium creation and deletion dialog prompts.</li>
+</ul>
+<hr/>
+
+<h3>Bug Fixes</h3>
+<ul>
+	<li>The CORS retrying mechanism no longer prevents scene loading when it encounters an invalid URL.</li>
+	<li>Invisible walls now correctly block token movement again.</li>
+	<li>Implemented the new <code>FormDataExtended</code> class which subclasses the standard FormData API and extends it to provide Foundry-specific functionality and methods.</li>
+	<li>The <code>formData</code> object processed by the FormApplication class once again is vended in "flat" format using the one-dimensional input names which are provided in the form.</li>
+	<li>Canvas panning should no longer be incorrectly prevented by the _dragRight workflow.</li>
+	<li>The initial view position of a Scene can once again be properly assigned, which previously failed due to the nested structure of the returned form data.</li>
+	<li>Wall snapping on gridless mode will no longer interpret every individual pixel a snap point and instead will now snap at a micro-grid where the density is defined by the grid size field of the Scene configuration.</li>
+	<li>Corrected an issue where the A/V user interface incorrectly displayed as muted when the microphone is actually enabled.</li>
+	<li>Mute and Unmute tooltips on AV Chat windows should now display correctly when they are muted or unmuted.</li>
+	<li>Canvas initialization is not properly establishing the initial view conditions for objects on layers which are inactive, but visible like tiles/templates/drawings.</li>
+	<li>Corrected an issue where moving a large volume of walls would cause a spike in CPU usage and a period of unresponsiveness.</li>
+	<li>Corrected an issue where providing an explicit Scene thumbnail to the <code>scene.update</code> API would fail to set the provided thumbnail image and instead re-generate it.</li>
+	<li>Corrected an issue where saving or updating a Scene would rescale the scene based on the dimensions of the background image, resulting in incorrectly repositioning of all objects in the scene.</li>
+	<li>In some cases, mousemove and hover events were occurring when a scene was loading, Mouse movement events are now contained within the active PIXI canvas to resolve this.</li>
+	<li>The <code>ChatMessage#can('delete')</code> permission check is now correctly based on the original Message author.</li>
+	<li>Draws from a Rollable Table using <code>RollTable#drawMany()</code> no longer fails if "display roll to chat method" is unchecked.</li>
+	<li>The <code>ChatMessage.getSpeaker()</code> method now correctly recognizes that a provided Actor may be a synthetic Token override and correctly deduce the Token speaker from that Actor instance.</li>
+	<li>Players can no longer use the API to render an Actor Sheet for an Actor they do not have any permission to view.</li>
+	<li>Dragging an Actor from a Compendium to the scene Canvas once again imports the actor's data to the world.</li>
+	<li>Corrected some issues with the way the internal _changed object is was being written to the database on entity update operations.</li>
+	<li>Linking to an entity in chat with a space character included in the label should now correctly link.</li>
+	<li>Assigning a Token as the new prototype for an Actor will no longer incorrectly retain flags that were previously set on the prior prototype.</li>
+	<li>Left-clicking an entity in a compendium pack was unaware that an existing sheet for that entity may already be rendered, resulting in it being possible to repeatedly open copies of the same entity.</li>
+	<li>Corrected an issue where inputting the inverse number of a current HP value would fail to calculate correctly.</li>
+	<li>Item Sheets are not properly uniquely identified, making it possible to open multiple sheets of the same item.</li>
+	<li>The Import All Content option for a compendium pack will no longer fail for Macros or Playlists.</li>
+	<li>Asynchronously adding combatants via API is now handled correctly.</li>
+	<li>Fixed a regression that caused rolling zero of a certain dice denomination to incorrectly revert to rolling one of that die denomination.</li>
+	<li>Corrected some issues which would allow maximize and minimize in Roll formula containing illegal characters to unpredictably succeed.</li>
+	<li>Setting light source opacity to zero defaults back to 0.6 incorrectly.</li>
+	<li>Small map sizes no longer cause fog of war and lighting issues when panning.</li>
+	<li>Light Sources now correctly refresh their display if their animation type or properties are changed.</li>
+	<li>The "Modify Configuration Settings" now correctly allows users to enable/disable modules.</li>
+	<li>Corrected an issue where renaming a player from the configure players menu to an existing player name would fail without error.</li>
+	<li>Players are now able to swap between Image and Text views when viewing compendium Journal Entries.</li>
+	<li>It is no longer possible to remove gamemaster permissions from an account if it would result in the world having no gamemaster account.</li>
+	<li>The Navigation and Macro bars previously had an extended frame which, though transparent, was blocking canvas clicks. This has been corrected.</li>
+	<li>Fixed an issue with where using the Modesto Condensed font in drawing objects can result in the font not being properly loaded on a full refresh.</li>
+	<li>Macros can once again be dragged to the macro bar from compendiums in player-level accounts.</li>
+	<li>Corrected an issue where errors would prevent Application windows from being closed.</li>
+	<li>Fixed an issue with the protected package installation workflow where the download URL failed to get the verified package name from the retrieved manifest.</li>
+	<li>Addressed some edge cases where ui.setup.reload would return undefined.</li>
+	<li>Added a more interpretable error message for situations where a user would attempt to install a package from a local file.</li>
+</ul>
+<hr/>
+
+<h3>Framework and API Changes</h3>
+
+<h4>Active Effects</h4>
+<ul>
+	<li>Implemented part 2 of the ActiveEffects Phase 1 system with an EmbeddedEntity in the Item model which can be applied to Actors either by owner, or by target.</li>
+	<li>[BREAKING] Added new ActiveEffect application mode options for UPGRADE and DOWNGRADE, and re-organized the default ordering of ActiveEffect modes.</li>
+	<li>[BREAKING] Renamed the "data" field in the ActiveEffect data model to "changes" to be more specific about the nature of effect data.</li>
+	<li>[BREAKING] Refactored the ActiveEffect model to target changes at the Actor level, rather then in the system data object specifically. This allows for Active effects to temporarily change base actor attributes like token attributes, image, or flags.</li>
+	<li>[BREAKING] Moved the methods which are responsible for applying an ActiveEffect to a given Actor into the ActiveEffect class instead of the Actor class.</li>
+	<li>When an active effect is applied with mode ADD to a field which does not have any current value, it will impute the current value as zero and add from there.</li>
+	<li>Improved the way that entityClass overrides are handled in each EntityCollection to ensure that overridden instances of the base entity types are applied consistently throughout.</li>
+	<li>When adding an Item to an Actor, the UUID of the source item will now be included in the data so that the origin of the item data can be tracked and updated.</li>
+	<li>Configured ActiveEffects on OwnedItems to Automatically delete ActiveEffects from an Actor when the OwnedItem that provided them is deleted.</li>
+	<li>Added a "disabled" property to each ActiveEffect which allows it to be toggled off and on without being removed from the Actor that owns it.</li>
+	<li>The class definition used for ActiveEffect instances can now be configured under CONFIG.ActiveEffect.entityClass.</li>
+	<li>ActiveEffect embedded entities which exist on an Item can be either transferred to an Actor when that Item becomes an Owned Item, or can remain as part of the Owned Item data model.</li>
+	<li>Added convenience APIs for updating or deleting an ActiveEffect from the embedded entity instance directly.</li>
+</ul>
+
+<h4>Game Clock</h4>
+<ul>
+	<li>Implemented new server-side management for official timers for server and world time.</li>
+	<li>Implemented a new client-side framework for updating the official game time, and taking follow-up actions when the game time is changed.</li>
+	<li>The game clock time will automatically increment during combat encounters based on the number of turns which have transpired.</li>
+	<li>Added the <code>updateWorldTime</code> hook to allow systems and modules to respond when the official World time is changed.</li>
+</ul>
+
+<h4>Audio / Video Chat Integration</h4>
+<ul>
+	<li>[BREAKING] Refactored the WebRTC family of classes to be general AV (AVMaster, AVClient, etc...) classes which do not strictly require all interfaces to use the WebRTC protocol.</li>
+	<li>[BREAKING] Ensure that the available voice broadcasting modes for WebRTC are displayed dynamically based on the enum defined on WebRTCSettings.VOICE_MODES so that different clients (like Jitsi) can add or remove certain modes</li>
+	<li>[BREAKING] Increased the frequency of voice activation checks for a users own volume level when using the voice activation broadcast mode.</li>
+	<li>Converted the signaling and relay server password fields in the A/V Configuration form to use password-type inputs.</li>
+</ul>
+
+<h4>Entities</h4>
+<ul>
+	<li>[BREAKING] Provided a new general-purpose Entity#hasPlayerOwner attribute to test whether any non-gamemaster user has ownership permission to the Entity instance. Deprecated the Actor#isPC attribute in favor of this more general approach.</li>
+	<li>[BREAKING] Refactored the User Management screen to implement more standardized client/server handling workflows rather than using a specialized POST request.</li>
+	<li>[BREAKING] Concluded deprecation of loading Application options by class name from the CONFIG object.</li>
+	<li>Removed the requirement for an EmbeddedDocument to define an explicit parent Document type in its metadata.</li>
+	<li>Standardized the return data type for the <code>ActorTokenHelpers#createEmbeddedEntity()</code> and <code>Entity#createEmbeddedEntity()</code> methods.</li>
+	<li>Added support for a new <code>recursive</code> option in the <code>mergeObject</code> helper method which allows for inner objects to be merged recursively (by default) or directly replaced with the provided new value (if false).</li>
+	<li>Added support for passing the recursive {boolean} flag to Entity and Embedded Entity update operations to specify that certain objects being updated should not be merged recursively.</li>
+	<li>Added an optional key to the BaseEntitySheet which allows subclasses to define the permission level from ENTITY_PERMISSIONS that would allow a player to view the app.</li>
+	<li>Database preSave and postSave operations can now access the Options object that was provided as part of the CRUD workflow.</li>
+	<li>Simplified the OwnedItem database schema to inherit and simplify the schema from the base Item entity.</li>
+	<li>Added system name (id) as a class to the BODY element.</li>
+	<li>Whitespace  will now Automatically be trimmed from form fields which are set as <code>data-dtype="String"</code>.</li>
+	<li>The source Item UUID will be recorded whenever an Item is added to an Actor sheet using a drag-and-drop workflow. This will allow API usages to be aware of the origin for each Owned Item in the data.</li>
+</ul>
+
+<h4>Other API Changes</h4>
+<ul>
+	<li>[BREAKING] When a Dialog application instance is submitted, pass the entire application HTML to the callback function, not just the inner dialog content. Also move the options object of the Dialog.confirm helper method as a named key in the primary options of the constructor instead of as a second parameter.</li>
+	<li>[BREAKING] Move the options object of the Dialog.confirm helper method as a named key in the primary options of the constructor instead of as a second parameter.</li>
+	<li>Add a new option to the Dialog class which allows for jQuery to be disabled for callback functions. Setting options.jQuery as true maintains the current default behavior, but this will become false by default in the future.</li>
+	<li>The get permission getter for Chat Messages now incorporates message authorship as defining the permission level of the message Entity.</li>
+	<li>Added the ability to preserve the same Combat turn when calling <code>Combat#rollInitiative</code> to allow for a use case where it's necessary to reset the initiative order at the start of a new round.</li>
+	<li>Removed the requirement that a Combatant must reference a valid Token ID.</li>
+	<li>Calling the <code>PlaceableLayer#pasteObjects</code> method now returns an Array with the created objects data including the ID of the newly created entities.</li>
+	<li>Add support for a snap option in the <code>PlaceablesLayer#pasteObjects</code> method which is true by default but can be overridden via the API or by holding the SHIFT key when pasting data.</li>
+	<li>Created a new <code>TextFilter</code> UI helper class for all cases where a text input field is used to filter the set of results which are displayed within an application view.</li>
+	<li>Improved the usability of radio button inputs and multi-select fields in Form Applications.</li>
+</ul>
+<hr/>
+
+<h3>Documentation Improvements</h3>
+<ul>
+	<li>The 0.7.2 update includes many significant documentation improvements for the API documentation including more accurate typing information for a large number of parameters and more complete documentation for certain classes which were lacking.</li>
+	<li>Please note - this improved documentation is <strong>NOT YET</strong> available on the Foundry website as the current API documentation refers to the latest release build. I will try to consider ways to make alpha channel API documentation available as well but I have not yet developed a solution for this.</li>
+</ul>
+<hr/>
+
+<h3>Known Issues</h3>
+<ul>
+	<li>There are no specific known issues at this time - but this is an alpha build - so it is known that there are issues (potentially serious ones). Proceed with caution.</li>
+</ul>
+<hr/>
+
+<h3>Reporting Issues and Providing Feedback</h3>
+<p>If you encounter issues or have feedback to share, please use one of the following three reporting channels, ordered by preference:</p>
+<ol>
+	<li><strong>Discord Server:</strong> My preferred method to collect feedback is through our Discord server where I have created a dedicated channel for update 0.7.2 feedback. If you are able to join our Discord community it's the best way to engage with me directly for feedback.</li>
+	<li><strong>GitLab Tracker:</strong> You are welcome to create issue reports directly in the GitLab tracker here, but please take caution to ensure your problem has not already been reported by checking other open (and closed) issues in the upcoming milestone before creating a new report.</li>
+	<li><strong>Bug Report Form:</strong> There is an official bug report form on the official website. Please use the <a href="https://foundryvtt.com/contact-us/" target="_blank" rel="nofollow">Contact Us</a> form and select "Bug Report" as your category.</li>
+</ol>
+<p>Please stay up to date on progress by following the <a href="https://gitlab.com/foundrynet/foundryvtt/-/issues" rel="nofollow" target="_blank" title="Foundry Virtual Tabletop Issue Tracker">project roadmap on Gitlab</a>.</p>
