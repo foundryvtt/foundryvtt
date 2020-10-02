@@ -1,7 +1,7 @@
 <p>Foundry Virtual Tabletop has a powerful engine for Lighting and Fog of War which interacts with placed @Article[walls] and Ambient Light sources to define the visibility and exploration progress of a Scene in a way that allows players to explore an environment through their character's perspective, seeing only what their Token would see in a certain position.</p>
 
 <figure>
-    @Image[50]
+    @Image[94]
     <figcaption>Ambient Light sources add visibility to areas of your Scene as well as allowing for beautiful shading effects.</figcaption>
 </figure>
 
@@ -15,7 +15,7 @@
 
 <dl>
     <dt>Light Type</dt>
-    <dd>This setting controls whether the Light Source is Local or Global. Local Lights adhere to vision restrictions and are blocked by walls, while Global Lights provide vision of a location whether a token has line-of-sight to see it or not.</dd>
+    <dd>This setting controls whether the Light Source is Local, Global or Universal. Local Lights adhere to vision restrictions and are blocked by walls, Global Lights provide vision of a location without adhering to vision restrictions (but are still blocked by walls), and Universal Lights are always visible regardless of vision or walls.</dd>
 
     <dt>X-Position (Pixels)</dt>
     <dd>The current x-coordinate of the Light Source in a Scene. It can be changed to reposition the light.</dd>
@@ -32,20 +32,41 @@
     <dt>Emission Angle (Degrees)</dt>
     <dd>An angle of Light between zero and 360 degrees (the default) which represents the allowed radius of light for this Light Source.</dd>
 
-    <dt>Rotation (Degrees)</dt>
-    <dd>The current direction the light is facing in degrees. Rotation of zero (the default) corresponds to a southward facing.</dd>
+    <dt>Light Rotation Angle (Degrees)</dt>
+    <dd>The current direction the light is facing in degrees. Rotation of zero (the default) corresponds to a southward facing. This can also be adjusted by holding shift(or ctrl/cmd) and using scrollwheel while hovering over a directional light source.</dd>
+	
+	<dt>Darkness Threshold</dt>
+    <dd>When the Scene's Darkness Level transitions from 0(bright) to 1(dark), the value of this setting determines when the light will be switched on.</dd>
 
     <dt>Light Color</dt>
     <dd>Set the color of light that the Light Source in Hex (#000000).</dd>
 
-    <dt>Light Opacity</dt>
-    <dd>Set the level of transparency that the Light Source emits.</dd>
+    <dt>Color Intensity</dt>
+    <dd>Adjusts how vivid the color of the light is from 0(faded) to 1(vibrant).</dd>
+	
+	<dt>Animation Type</dt>
+    <dd>Animate this ambient light in one of three styles: torch, pulse, or chroma.</dd>
+	
+	<dt>Animation Speed</dt>
+    <dd>The speed of the animation effect, from 0(slow) to 1(fast).</dd>
+	
+	<dt>Animation Intensity</dt>
+    <dd>The intensity of the animation effect, from 0(subtle) to 1(intense).</dd>
+	
 
-    <dt>Darkness Threshold</dt>
-    <dd>When the Scene's Darkness Level transitions from 0(bright) to 1(dark), the value of this setting determines when the light will be switched on.</dd>
 </dl>
 <hr/>
+<h3 id="animations">Animations</h3>
 
+<p><strong>Torch</strong></p>
+<p>The Torch animation effect provides a semi-randomized flickering quality to the light source, intended to simulate light provided by fire. It works best when used to represent torches, candles, and campfires.</p>
+
+<p><strong>Pulse</strong></p>
+<p>The Pulse animation effect can be used to provide flares of lighting, intended to simulate light from electrical disturbances, neon signs, warning lights, or magical effects.  </p>
+
+<p><strong>Chroma</strong></p>
+<p>The Chroma animation effect offers a way to provide a lightsource which shifts between colors. When set, it will choose colors along the same hue if set to a low intensity, or across all spectrums if set to a high intensity. Chroma is intended for situations with color-shifting lights, such as night clubs, neon signs, or magical portals.</p>
+<hr/>
 <h3 id="tools">Additional Lighting Tools</h3>
 
 <p>The Lighting Layer controls also provides access to some tools which change the overall view of the Scene, as well as controls for the Fog of War for that scene.</p>
@@ -55,7 +76,7 @@
 
 <h4>Transition to Darkness</h4>
 <p>Similar to the Transition to Daylight button, this will smoothly slide the Darkness Level toward 1 (Dark) transitioning the scene to night. This effect is synchronized for all connected Users.</p>
-<p class="note info"> Note: setting a Darkness Level has no effect on Global Lighting.</p>
+<p class="note info"> Note: If a global illumination threshhold has been set on the scene, global illumination will be toggled off when that darkness level has been reached. </p>
 
 <h4 id="fog">Reset Fog of War</h4>
 <p>This button resets the recorded Fog of War exploration for that scene for all players regardless of their level of connection.</p>
