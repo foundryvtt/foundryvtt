@@ -1,0 +1,155 @@
+<h2>Foundry Virtual Tabletop - Version 0.7.3 Update Notes</h2>
+<figure>
+	<img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/beta-073-release-banner-2020-09-30.jpg" title="Foundry VTT Version 0.7.3 Release Notes"/>
+	<figcaption>Welcome to the Foundry Virtual Tabletop update notes for Beta version 0.7.3.</figcaption>
+</figure>
+
+<h3>Overview of Changes</h3>
+<p>Welcome to the first <strong>beta channel</strong> update in the Foundry Virtual Tabletop 0.7.x series! This update focuses on continued improvement to the <strong>lighting and fog systems</strong>, the incorporation of a massive library of <strong>icon artwork</strong> available to all users, and a substantial number of user experience improvements, bug fixes and API enhancements.</p>
+
+<p class="note warning"><strong>WARNING:</strong> Beta channel releases have the potential to introduce breaking bugs that may be disruptive to play. These features are close to ready for a stable release - but likely to still include some bugs and incompatibilities which may frustrate you.</p>
+
+<p>As a beta channel update, trying out the 0.7.3 version is a good choice for module and system developers who want to prepare their systems and modules for the upcoming stable release version of 0.7.5. It's also a good choice for game-masters who don't rely on a large number of modules who want to try these latest features in their games and can be tolerant of a few issues during play.</p>
+<hr/>
+
+<h3>How to Update</h3>
+<p>If you wish to apply this update, return Foundry Virtual Tabletop to the <strong>Configuration and Setup</strong> page and access the <strong>Update Software</strong> tab and choose the "Beta" channel in the dropdown menu. Please note, it is recommended for most users to stay on the Release channel and wait for updates there rather than using Alpha or Beta updates.</p>
+
+<p class="note warning"><strong>Be sure to back up your critical user data before installing this update.</strong></p>
+<hr/>
+
+<h3>New Features</h3>
+
+<h4>Lighting and Fog of War</h4>
+<ul>
+	<li>Redesigned the structure and rendering workflow for Darkness and Light in order to combine these concepts into a single rendered container inside the Lighting Layer with the core concepts of <strong>illumination</strong> and <strong>coloration</strong>.</li>
+	<li>Implement nuanced interpolation between the natural darkness level of the scene and the levels of visibility that additional dim light provides. This allows for light sources to be a bit more dim at high levels of darkness to avoid excessive contrast.</li>
+<li>The masking boundaries for illumination, coloration, and vision containers are now constrained to the bounds of the background image itself (or the defined scene canvas space) rather than the entire usable canvas area (including the padding). This has a few benefits: firstly it reduces the GPU load for rendering shaders and blends in the padded margin, secondly it allows for a more seamless visual background where the map fades directly into the darkened background instead of having a visible rectangle of additional darkness in the padding. The potential downside of this is that some users may have been using that padding area as playable game space, rather than as a "buffer zone". I will be hoping to collect feedback on this as part of the testing process.</li>
+	<li>[BREAKING] Fog exploration is now only saved within the background image dimensions. Previously exploration in the padded area was also saved causing cases where the WebGL max texture size was exceeded even though the background image was below the maximum size. As a consequence (aka collateral damage) of this change, I am afraid that the 0.7.3 update includes a forced migration which deletes existing saved Fog of War states which - due to the sizing changes - are no longer compatible with the version 0.7 software. I apologize to you and your players for this sacrifice being necessary in order to make this improvement.</li>
+    <li>Rebuilt the light source animation methods to use the new illumination and coloration shaders instead of modifying graphics objects. This new approach to light source animation alters the uniform parameters of the shader each frame rather than animating the geometry of a graphics object. As a result it improves on both performance and aesthetics!</li>
+	<li>Removed the previously imposed artificial framerate cap on light source animations to allow for smooth light animations which are now synchronized with the target framerate.</li>
+	<li>Fog of war exploration progress is now saved more frequently in a way that saves fog updates once a sequence of active updates has completed. For lower-end machines, this may result in a noticeable stutter when the fog progress saves and is synchronized with the server. I will be looking to collect feedback on this to see if it causes problems for users and will try and adjust further in 0.7.4.</li>
+	<li>Redesigned the coloration container of the Lighting Layer to use a custom WebGL fragment shader which allows for elegantly screened and blended light sources with a gradual falloff.</li>
+	<li>Changed the level of darkness created by a 'negative' bright light to be slightly off-black to allow for (very) faint visibility beneath it.</li>
+	<li>The canvas background color now automatically dims in response to changes in the darkness level for the scene itself.</li>
+	<li>Fog of war data is now stored in a way that avoids cases where the fog exploration texture can become larger than the maximum allowed texture size, this should provide a performance improvement and reduce errors for lower-end GPUs.</li>
+	<li>Standardized the definition of Light Source types and added a new "Universal" type which allows for light to be displayed unconstrained by walls and always visible. This can be used to permanently illuminate a portion of the map regardless of other sight parameters.</li>
+	<li>There is now a world-level setting option to animate the vision of a token during a drag operations, instead of concealing vision until after a movement is committed to. This setting defaults to false in order to prevent meta-gaming, and must be intentionally enabled by a gamemaster if they want to use this feature. Using this setting will also negatively impact application performance for lower-end machines.</li>
+	<li>When using live Token drag preview lighting, the movement of the token is constrained by checking collision on every frame to only allow the user to drag the token to locations which are valid movement destinations.</li>
+	<li>Added the ability to preview position changes to an Ambient Light source in real time during the left-mouse drag workflow.</li>
+	<li>Improved the display of the preview for ambient light area of effects to make it more clear what the impacted area of the light source will be.</li>
+</ul>
+
+<h4>UX and UI Improvements</h4>
+<ul>
+	<li>Added over 3500 icons for commodities, containers, environment, equipment, sundries, tools, and weapon assets as standardized 256px webp files.</li>
+	<li>Updated the Foundry VTT logo and background artwork with to bring it in line with the new branding.</li>
+	<li>Navigation Name has had its descriptive help text adjusted to make its purpose more clear, and its entry field now supports applying HTML tags to the title will appear in the nav bar.</li>
+	<li>Scene Navigation labels now have a maximum width, truncating the name with an ellipsis if it is too long.</li>
+	<li>The Combat Tracker will now display overlay effects as a status effect in addition to the regular array of effects.</li>
+	<li>Setting the configured "defeated" condition icon on a token will automatically mark that token as defeated in the combat tracker</li>
+	<li>Redesigned the structure of the sidebar directory tabs to shift action buttons to the top of the directory.</li>
+	<li>Improved the workflow for creating new entities and folders in the sidebar tab by displaying the creation dialog relative to the button that produced it rather than the center of the screen.</li>
+	<li>All settings in the Configure Settings menu are now sorted alphabetically by their localized names (within section by module).</li>
+	<li>Improved the visual styling of horizontal scrollbars (if they are required) to be more thin similar to the vertical bars.</li>
+	<li>Absorbed the functionality of the Deselection module as a configuration setting which is off by default.</li>
+	<li>The Player Management view now has a permissions button that allows Gamemasters to configure what each role can do.</li>
+	<li>The "show access key" checkbox in the player configuration application will now only show in cases where the user has an access key set.</li>
+	<li>ALT+Digit keys will now cycle the page of the hotbar instead of activating a hotbar key. For example, ALT+2 will change to hotbar page 2.</li>
+	<li>For compatibility purposes, shift-scroll and ctrl(cmd)-scroll will only be captured when an object that can be rotated is controlled or hovered.</li>
+	<li>Using the arrow keys in the chat entry text area now only cycles through previous messages if there is no text in the chat entry field.</li>
+	<li>When using the up and down arrow to recall previously sent chat messages, pressing down until all previous messages have been exhausted will return the chat input field to an empty string.</li>
+	<li>Refined the css styling for checkboxes to address the Chromium 83 changes.</li>
+</ul>
+
+<h4>Other New Features</h4>
+<ul>
+	<li>Gamemasters may now choose the font used by Map Note tooltip labels.</li>
+	<li>Note labels may now have their font color chosen, and will automatically choose a contrasting stroke color depending on the lightness value of the label color to keep the text visible regardless of background color.</li>
+	<li>Added support for <code>&lt;s&gt;</code> strikethrough so it may be used in chat messages.</li>
+    <li>When the game world is shut down, a notification message is now displayed for all connected players then they are returned to the setup screen.</li>
+	<li>Newly created Journal Entries now open with the TinyMCE editor already active in editing mode.</li>
+	<li>The FilePicker now identifies if a S3 key is the browsing target, allowing the S3 file path to be opened directly when editing a file location from S3.</li>
+	<li>Added support for RollTable entities to have a primary image icon associated with the table overall which is displayed in the Tables sidebar and in any RollTable type compendium packs which are created.</li>
+	<li>Improved default table styling rules for rich text editors to include alternating colored rows and better spacing.</li>
+	<li>The WebRTC server now delays its start until the world is active or the WebRTC setting is enabled.</li>
+	<li>Measured Templates used in gridless mode will now highlight the template shape instead of having no highlight at all.</li>
+</ul>
+<hr/>
+
+<h3>Localization Changes</h3>
+<ul>
+	<li>Added localization support for the Edit Playlist and Edit Sound configuration sheets.</li>
+	<li>Added localization support for the Drawing Configuration sheet.</li>
+</ul>
+<hr/>
+
+<h3>Bug Fixes</h3>
+<ul>
+	<li>Changed the default audio playback mode from HTML5 audio back to the Web Audio API. Both modes have advantages. The web audio API is built for fine-grained control of potentially many concurrently playing sounds. The HTML5 audio has the advantage of being streamed to better support large files, but it is limited in the number of concurrent connections it can support. A problem with HTML5 audio was exhausting the pool of connections that can be used when playing many large files - causing the ability to play audio (at all) to break. Reverting back to the Web Audio API fixes this issue - but does mean that audio files need to be fully loaded <em>before</em> they will begin playing. To counter-balance this, I have added a new option where individual files can be marked as "Large File Streaming" in their sound configuration. For very large (generally 15MB+) files, I recommend using this option, but for all other smaller files it is best to leave this disabled. I'll be taking a longer look at this to try and figure out a more elegant solution as part of the audio updates in 0.8.x.</li>
+	<li>Corrected an issue which could cause ambient sounds to surge in volume when first encountered due to volume easing.</li>
+	<li>Starting and stopping a sound from an audio playlist repeatedly no longer causes the same file to play multiple times or layer over itself. This could result in sounds that would continue playing even though their sounds in the playlist control panel had been stopped, with no way to end them except to refresh the browser.</li>
+	<li>Corrected an issue where rapid selection and deselection of a token could cause ambient audio effects to get stuck in a paused state.</li>
+	<li>Video chat frame popout and pin controls now work as expected once more.</li>
+	<li>Previously if an A/V input device wasn't available A/V would silently fail to start, it now displays an error message.</li>
+	<li>Corrected an issue where Dice term-specific flavor text would fail if it included spaces.</li>
+	<li>Entering "/r d#" no longer results in NaNDf but instead is correctly interpreted as implying just a single die of the requested denomination.</li>
+	<li>Avoided a race condition which could cause FormApplications to reopen when a related entity was updated.</li>
+	<li>Setting default text drawing configuration to an empty value will no longer prevent text drawings from being created.</li>
+	<li>Journal entries will no longer lose unsaved content if a new sidebar folder is created.</li>
+	<li>Journal window titles now consistently display only for users who have at least Limited permission to view the Journal. </li>
+	<li>Solved a condition where hovering over an Ambient Light Source while editing its settings would cause the preview to revert.</li>
+	<li>Resolved an issue where DrawMany() would throw errors if the drawn result was a table.</li>
+	<li>Newly created RollTable text entries no longer incorrectly start with their text description as "undefined".</li>
+	<li>Thumbnail generation for maps with Tiles no longer introduces an incorrect offset if the the amount of canvas padding has changed.</li>
+	<li>Fixed an issue with rich text editors which would result in the enriched HTML being saved rather than the original raw text.</li>
+	<li>Corrected an issue which would allow wide content with certain CSS properties to force the edit button for TinyMCE off-screen in certain cases.</li>
+	<li>Updates to an actor or token that a player does not own no longer trigger unexpected permission errors.</li>
+	<li>Updating a resource bar attribute for a Token which is no longer linked to an Actor no longer throws an error.</li>
+	<li>Addressed an issue where the Combat Tracker rendering would alter Combat entity data.</li>
+    <li>Corrected some additional ctrl/cmd issues for macOS, including ruler movement</li>
+	<li>Shift + Mouse Wheel failed to accurately function with some non-Apple mice on macOS.</li>
+	<li>Corrected some font issues with the monospace font-family for macOS</li>
+	<li>Fixed a bug where the Scene Navigation collapse and expand hooks were called outside of the Promise which handled their animation, resulting in cases where the navigation was not finished collapsing or expanding by the time the hook was called.</li>
+</ul>
+<hr/>
+
+<h3>Framework and API Changes</h3>
+
+<h4>Active Effects</h4>
+<ul>
+	<li>[BREAKING] When an Item that bears active effects is added to an Actor, keep the original copy of the transferred effect data on the owned item in addition to creating an ActiveEffect embedded entity on the Actor.</li>
+	<li>Integrate Active Effects with Token and Combat Tracker status effect icons to display the effect icon for temporary effects. Active Effects which are temporary (have a finite duration specified in turns or rounds) and have an icon image specified will automatically be displayed as token status effects.</li>
+	<li>Provide a convenience method, <code>OwnedItem#transferredEffects</code> for an Owned Item to reference any Active Effects on the owning Actor which were transferred from that Item.</li>
+	<li>Expand the data model for the ActiveEffect to allow it to specify a certain tint color that modifies the display of it's icon.</li>
+	<li>Fix issues with the addition and automatic transfer of ActiveEffects via Owned Items for synthetic Token actors.</li>
+</ul>
+
+<h4>Other API Changes</h4>
+<ul>
+	<li>[BREAKING] Simplified the storage format of worldTime to be expressed in seconds rather than milliseconds. After testing and feedback, storing the world time in milliseconds was deemed as excessive and unnecessary, so storing as seconds will represent a simpler option.</li>
+	<li>Implemented a new <code>{{selectOptions choices selected localize}}</code> handlebars helper which combines the functionality of {{#select}} and {{#each}} blocks into a single convenient template tag which supports both regular and multi-select fields.</li>
+	<li>Implemented a Radio button handlebars helper, <code>{{radioBoxes name choices checked localize}}</code> which provides functionality for adding radio button inputs.</li>
+	<li>Refactored the sidebar directories for each Entity type to use the <code>Entity.createDialog</code> helper method to display a dialog prompt for creating a new Entity instance.</li>
+	<li>Removed outdated wall endpoint culling logic from the sight layer that is no longer used as part of the vision computation algorithm.</li>
+	<li>Refactored and standardized the way that thumbnails are generated within the new ImageHelper class using the <code>ImageHelper.createThumbnail</code> method which can accept either a source URL or a canvas object.</li>
+	<li>Added <code>--adminKey</code> as a new application startup flag to assign an initial admin access key if one is not already set. For example <code>--adminKey=foundry</code> will set the initial administrator access key to "foundry" if one has not been otherwise set.</li>
+	<li>Provided a <code>get{Application}HeaderButtons</code> hook which allows for modules to extend or modify the set of buttons present when a new windowed application is rendered. Like the <code>renderApplication</code> and <code>closeApplication</code> hooks, this will be called for every application class in the inheritance chain, so adding buttons in <code>getActorSheetHeaderButtons</code> will end up inserting those buttons for all subclasses of ActorSheet.</li>
+	<li>Added a new boolean flag <code>core.initiativeRoll</code> to each ChatMessage that was created by the <code>Combat#rollInitiative</code> method which can allow modules and systems to know which chat messages represent initiative rolls.</li>
+	<li>Added the <code>TextEditor.truncateText</code> helper method which can truncate a fragment of text to a maximum number of characters.</li>
+	<li>Migrated the <code>getName()</code> helper method from EntityCollection to the base Collection type so that collections of all types (like active effects or owned items) can also use this helper method.</li>
+	<li>Refactored the usage of CombatEncounters.settings to become a dynamic property instead of a cached attribute.</li>
+	<li>The <code>Token#toggleCombat()</code> method has been adjusted to no longer require that the referenced token be actively controlled in order to function properly.</li>
+	<li>Provided a <code>Roll.validate</code> helper method which can be used to validate a Roll formula to test that the formula input is usable.</li>
+	<li>[BREAKING] Deleted the unused/deprecated icons/mystery-man.png icon in favor of the used icons/svg/mystery-man.svg icon.</li>
+	<li>Included a 'no-referrer' header in fetch requests made when installing modules to avoid sending domain name information to module providers.</li>
+	<li>Minor dependency package updates.</li>
+</ul>
+<hr/>
+
+<h3>Documentation Improvements</h3>
+<ul>
+	<li>Updated JSDoc to denote that certain classes are abstract interfaces rather than ones that should be constructed directly.</li>
+	<li>Refactored the set of registered handlebars template helpers to be defined as static methods within the HandlebarsHelpers class namespace for organization and documentation.</li>
+</ul>
+<hr/>
