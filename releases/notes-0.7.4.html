@@ -1,0 +1,197 @@
+<h2>Foundry Virtual Tabletop - Version 0.7.4 Update Notes</h2>
+<figure>
+	<img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/update-074-banner-2020-10-14.jpg" title="Foundry VTT Version 0.7.4 Release Notes"/>
+	<figcaption>Welcome to the Foundry Virtual Tabletop update notes for Beta version 0.7.4.</figcaption>
+</figure>
+
+<h3>Overview of Changes</h3>
+<p>This update focuses on continued and ongoing improvements to the Lighting and Fog systems with 9 amazing new lighting animation effects, further integration of Active Effects system with editable sheets and Token status effects, and brings more than a dozen changes focused on improving the user experience and UI of Foundry VTT over all. 0.7.4 is intended to be the last beta update in the 0.7.x series, with 0.7.5 stable intended to release in a little over a week on or around October 21st.</p>
+
+<p class="note warning"><strong>Important Note:</strong> Beta channel releases have the potential to introduce breaking bugs that may be disruptive to play. These features are close to ready for a stable release - but likely to still include some bugs and incompatibilities which may frustrate you.</p>
+
+<p>As a beta channel update, trying out the 0.7.4 version is a good choice for module and system developers who want to prepare their systems and modules for the upcoming stable release version of 0.7.5. It's also a good choice for game-masters who don't rely on a large number of modules who want to try these latest features in their games and can be tolerant of a few issues during play.</p>
+<hr/>
+
+<h3>How to Update</h3>
+<p>If you wish to apply this update, return Foundry Virtual Tabletop to the <strong>Configuration and Setup</strong> page and access the <strong>Update Software</strong> tab and choose the "Beta" channel in the dropdown menu. Please note, it is recommended for most users to stay on the Release channel and wait for updates there rather than using Alpha or Beta updates.</p>
+
+<p class="note warning"><strong>Be sure to back up your critical user data before installing this update.</strong></p>
+<hr/>
+
+<h3>New Features</h3>
+
+<h4>Lighting and Fog of War</h4>
+<ul>
+    <li>Added nine new light source animation options which provide wonderful and unique animations for both ambient light and token-based light sources including: torch, pulse, chroma, pulsing wave, swirling fog, sunburst, light dome, mysterious emanation, hexa dome, ghostly light, roiling mass (darkness), and black hole (darkness).</li>
+    <li>Improved the chroma animation to use a new shader algorithm which more seamlessly rotates the hue of the light color around the origin color.</li>
+    <li>Adjusted the level of "magical darkness" created by setting negative value light sources to be a little bit brighter compared to "magical blackness".</li>
+    <li>Brightened the default darkness color, to correct for an issue where darkness became too dark after the lighting refactor in 0.7.3 caused by layering of Token vision and fog of war.</li>
+    <li>Improved the way darkness levels interact with token vision to allow for less severe change in brightness between token vision and GM vision.</li>
+    <li>Global illumination now provides dim light, instead of bright light. On scenes with low darkness, this is effectively the same result while on scenes with a darkness level, this produces a more expected effect for what level of visiblity should exist.</li>
+    <li>Refined the blend mode for the filter on the Coloration container to use an additive blend mode without pre-multiplication instead of a standard additive blend. This will make light sources more sensitive to the opacity level without getting washed out as easily.</li>
+    <li>Line-of-sight masking now uses a shared Graphics instance across both Sight and Lighting layers and also provides a mask which will conceal lights that are outside of LOS.</li>
+    <li>Restored the feature which decreases the level of blur for vision and lighting layers as the zoom level decreases.</li>
+    <li>When using the Token Drag Vision setting, collisions with walls will no longer be tested for GM users.</li>
+    <li>Improved the mechanics of fog of war persistence to save the progress of pending fog exploration more reliably and to track fog exploration during a Token movement animation.</li>
+</ul>
+
+<h4>UX and UI Improvements</h4>
+<ul>
+    <li>The update notes modal dialog now features an Install Update button in its footer, changing the workflow so that users do not need to close the update window to see the option to update.</li>
+    <li>Added an option to the login view which allows administrator users to shut down the active game world and return to setup without first logging in as a gamemaster user.</li>
+    <li>Window header interactions now have a small delay to in order to prevent situations where opening an application window would cause it to immediately close.</li>
+    <li>The World Config sheet now has an option to reset all user passwords for the World, as a user-friendly way to restore access if someone has become locked out.</li>
+    <li>Improved the HTML structure CSS rules for the /join view to enhance the symmetry of styling for that page.</li>
+    <li>Improved the rendering of number-type input fields on Firefox by suppressing the "spinner" which adjusts the numeric value.</li>
+    <li>Token position fields on the Token Config sheet can now be edited by GM users, and token rotation can now be edited by anyone who can access the configuration sheet.</li>
+    <li>Consolidated the layout of the Scene configuration sheet to be slightly more compact.</li>
+</ul>
+
+<h4>Folders and Organization</h4>
+<ul>
+    <li>Folders and their contents can now be sorted alphabetically or manually.</li>
+    <li>Implemented context menu options for Folders which allow for the contents of a folder to be conveniently turned into a Rollable Table.</li>
+    <li>Provided a folder-level context option to allow assigning permissions to all immediate children within the Folder.</li>
+    <li>Added some visual styling to demonstrate which folder is the target of a drop when dragging sidebar items.</li>
+    <li>Improved S3 Subdomain/Path URL Variant switching for File Browser.</li>
+    <li>Improved the Folder Edit workflow to render the FolderConfig sheet immediately next to the folder being edited for a better UX.</li>
+    <li>Provided a new UI option to allow importing all content from a Folder into a specificed and appropriately typed Compendium pack (if any exist).</li>
+</ul>
+
+<h4>Other New Features</h4>
+<ul>
+    <li>Dampened the volume slider power curve slightly for a more pronounced difference at low end and less pronounced difference at high ends of the slider.</li>
+    <li>Prevented the application from configuring a port below 1024 that is not 80 or 443.</li>
+    <li>Disabled mouse forward and backwards navigation buttons while in the VTT.</li>
+    <li>The Scene Controls palette is now always visible, but is disabled when no scene is active on the canvas.</li>
+    <li>When a left click occurs anywhere within the application, inline roll tooltips will now automatically collapse.</li>
+    <li>Placing Text Drawings now allows immediate entry of text rather than requiring selection or opening the edit dialogue.</li>
+    <li>Improved the messaging when a user tries to update a module which has a newer version available, for cases where that newer version cannot be installed because the current core software version is too low.</li>
+    <li>Game systems may now define a default world background image in their manifest which is used in cases where a World does not set a custom background.</li>
+    <li>Added a configurable client-side setting to disable mipmapping and anti-aliasing of textures for users who prefer the pixelated reduction compared to the blurred one.</li>
+</ul>
+<hr/>
+
+<h3>Localization Changes</h3>
+<ul>
+    <li>[BREAKING] Concluded the deprecation of the old string-based languages in favor of object-structured languages.</li>
+    <li>It is now possible to set a default language for the software in the Configuration menu. This default language will be used for all new players who have not specifically set a different client language. The default language (and module that provides it) will enable localization strings to be added to the /setup, /players, and (eventually, but not quite yet) /join screens.</li>
+    <li>Designate a single module which can be used to provide Setup and Login localization. The localization strings from this module will be loaded and used outside of the context of an active game world where modules are otherwise disabled.</li>
+    <li>Added localization support for the names of entity permission levels.</li>
+    <li>Added localization support for Token visibility levels and dispositions.</li>
+    <li>Allow for localization of Actor and Item types that are defined by the system by declaring the <code>CONFIG.Actor.typeLabels</code> and <code>CONFIG.Item.typeLabels</code> objects and providing translation strings.</li>
+    <li>Allow for registered Actor and Item sheets to provide a human readable (and localized) name which is displayed in the menu rather than just the class name by providing the <code>label</code> key when calling the <code>registerSheet()</code> method.</li>
+</ul>
+<hr/>
+
+<h3>Bug Fixes</h3>
+<h4>Lighting and Fog of War</h4>
+<ul>
+    <li>In some cases, changing the settings on a animated lighting effect would carry those changes over when a new animation effect was selected. Added a mechanism to reset the uniforms of the animation filter to their default values to prevent this from happening.</li>
+    <li>Ambient Light sources which set a certain darkness activation threshold were not properly activating/deactivating in response to darkness changes in the Scene.</li>
+    <li>Corrected an issue where pressing tab to cycle tokens when you only have one controllable token would cause vision to consider the token de-selected.</li>
+    <li>Put some protections in place to prevent situation which would cause the canvas to fail to render if a Chroma lighting animation effect did not have a set color.</li>
+    <li>Changed the default Darkness Level setting for scenes where Token Vision was disabled. The previous approach caused a slight off-white background which was only useful for scenes where a map was in use. </li>
+    <li>Corrected a layering issue which would cause icons for lights in the "buffer zone" to become invisible.</li>
+    <li>Addressed an issue where Fog exploration coordinates were not correctly being coerced to integers, resulting in problems with saving the fog data to the server.</li>
+    <li>Corrected alignment of Fog of war exploration for in cases where the background image is shifted vertically or horizontally.</li>
+    <li>Resolved a number of framerate and performance issues with new lighting system when encountering lights with a large radius or global illumination which creates a large visible geometry to render.</li>
+    <li>The Global Illumination, Darkness Threshold, and Darkness Level settings were not correctly being handled in a variety of ways, resulting in their settings not being obeyed and their triggers not activating as expected. Overall improvements to the behavior of these settings have addressed these issues.</li>
+    <li>The Chroma lighting type no longer fails for some colorations, and the animation now activates correctly.</li>
+    <li>Changing a Token light source animation was not correctly applying, instead waiting until after the Token is released or controlled. It now updates immediately.</li>
+</ul>
+
+<h4>Chat and Dice</h4>
+<ul>
+    <li>Corrected a situation with rolling 1d1 exploding die which would fail to properly trigger the maximum recursion safeguard.</li>
+    <li>Counting success and failure was now properly colors succeeding or failing die once more.</li>
+    <li>Dice syntax now correctly attempts to evaluate only closed dice pools rather than (unexpected) open-ended ones.</li>
+    <li>Solved an issue with invalid evaluation of variable number of dice when the variable Dice Term was inside a parenthetical.</li>
+    <li>When generating the canonical formula for a DicePool instance, any inner Roll formulas will now be wrapped in parentheses if they contain an inner DicePool to allow for the correct order of evaluation to occur.</li>
+    <li>Inline dice rolls do not currently support term-specific flavor text because the brackets of that flavor text interferes with the closing brackets of the inline roll itself.</li>
+    <li>Corrected an issue where Math functions after an operator could produce incorrect results.</li>
+    <li>Previous chat messages accessed by up-arrow can now be sent immediately, as expected.</li>
+    <li>The ChatMessage.getSpeaker() helper no longer fails to correctly prepare a complete and valid speaker object when a Scene is not currently viewed on the game canvas.</li>
+    <li>Modules which included scripts via esmodules are no longer incorrectly omitted from the /stream view which prevented the chat log from rendering correctly.</li>
+</ul>
+
+<h4>UX and UI</h4>
+<ul>
+    <li>Improved the behavior of the contrast methods for text selection with a darker background offset by white text.</li>
+    <li>Corrected some issues with the new sidebar header styling to address unnecessary empty space when there are no available action buttons rendered.</li>
+    <li>To solve an issue where Firefox inputs for the next scheduled session did not work correctly, the input for scheduled session has now been split into two separate inputs for date and time.</li>
+    <li>The button label when checking for a module or system update was did not clearly show actual success of system update under some circumstances. The new messaging for module updating addresses this issue.</li>
+    <li>Modules are now sorted alphabetically within the modules tab of the settings menu. Reverted the change to the sorting method for setting names as module authors may intentionally register these in a particular order.</li>
+    <li>Corrected an issue which prevented the token HUD from correctly opening on another token if the HUD was already open.</li>
+</ul>
+
+<h4>Other Bug Fixes</h4>
+<ul>
+    <li>Solved an issue where Text Drawings failed to update as expected as a result of improper storage of their data, resulting in data being lost.</li>
+    <li>Right-clicking to cancel a drawing tools polygon segment that was in progress no longer causes the interface to fail to display the pending drawing correctly.</li>
+    <li>New styles for sidebar headers are now correctly applied to compendium directories to prevent the search bar wrapping incorrectly.</li>
+    <li>Corrected an issue with Global Volume Sliders no longer adjusting volume of sound or playlists.</li>
+    <li>Addressed some issues with initialization conditions for AV client audio and video feeds, which were incorrectly based off the permission to share, rather than the current sharing state.</li>
+    <li>In Entity creation situations where only a single type was available to the system would throw an error rather than correctly rendering the entity creation dialog, this is no longer the case.</li>
+    <li>Fixed a bug where combat tracker rendering gets broken by an orphaned token which no longer has a corresponding actor due to the new logic for rendering active effect icons.</li>
+    <li>Corrected an issue which would cause /login to get stuck on the loading spinner rather than allowing a login attempt to be made.</li>
+    <li>Improved S3 Error handling to allow processing of error messages on failed uploads.</li>
+    <li>Dragging and dropping a folder in the Actors sidebar once again correctly re-sorts the folder.</li>
+    <li>In some instances the Canvas resizing to match the browser window dimensions failed to render, leaving the map distorted with the wrong aspect ratio. In an attempt to address this issue the function which resizes the canvas has been moved later in the method which handles it.</li>
+    <li>Entity links no longer incorrectly reset to their HTML counterparts when a Journal Entry is edited from a compendium with an active search query.</li>
+    <li>Corrected an issue where JSON files containing paths to invalid urls (specifically language) would prevent Worlds from loading.</li>
+    <li>Pending canvas operations to animate pan would sometimes cause an iterator error when encountering an object as the passed argument, this has been corrected.</li>
+    <li>Corrected keyboard-based token rotation for all Hexagonal Grid Types</li>
+    <li>Adjusted the way the handler for Alt+tab works to prevent situations where the state of the Alt key would become locked.</li>
+    <li>Corrected an issue where the Package listing cache negatively impact load time in some cases.</li>
+    <li>The <code>--noupdate</code> startup flag was not working properly in 0.7.3 and has had its functionality restored.</li>
+</ul>
+<hr/>
+
+<h3>Framework and API Changes</h3>
+<h4>Lighting and Fog</h4>
+<ul>
+    <li>Added the capability for add-on modules and game-systems to configure the default fog of war colors via the <code>CONFIG.Canvas</code> object.</li>
+    <li>Assigned a priority level to light sources and darkness sources which can allow for fine-tuned customization of the z-index order in which illumination is rendered. This priority is configured as the <code>core.priority</code> flag on the Ambient Light object. The default priority for light sources is 0, and the default priority for darkness sources is 10. To configure a light source that "beats" darkness sources, you could set its priority to 11.</li>
+    <li>Add a new <code>sightRefresh</code> hook which fires each time line-of-sight polygons are updated.</li>
+    <li>Allow for modules and systems to easily implement custom light source animations by implementing the <code>AbstractBaseShader</code> class which provides a standard definition for the shaders used for point sources. See the example animations and how they are defined by inspecting the <code>CONST.Canvas.lightAnimations</code> object.</li>
+</ul> 
+
+<h4>Active Effects</h4> 
+<ul>
+    <li>[BREAKING] Since <code>worldTime</code> has been refactored to be based on seconds, rather than milliseconds, the duration object of an ActiveEffect has been refactored to track <code>duration.seconds</code> rather than <code>duration.ms</code>.</li>
+    <li>Synchronize the display of active effect icons in the Token HUD when an Active Effect is added or removed from the Token that is currently bound to the HUD UI.</li>
+    <li>Introduce the <code>ActiveEffectConfig</code> sheet in the core software as a subclass of FormApplication which provides an interface for creating or configuring an ActiveEffect that belongs to an Actor or Item entity. Example usage: https://gitlab.com/foundrynet/foundryvtt/-/issues/3759</li>
+    <li>Expand the definition schema for <code>CONFIG.statusEffects</code> to allow each status effect to define an ActiveEffect template which is applied when that status effect is toggled.</li>
+    <li>Allow for the TokenHUD status effects menu to be linked to active effect templates which are automatically applied or removed when an effect icon is toggled.</li>
+    <li>Active Effects which have the disabled property set to true no longer appear in the <code>temporaryEffects</code> array for the Actor which owns them.</li>
+</ul>
+
+<h4>Other API Changes</h4>
+<ul>
+    <li>[BREAKING] Update bundled Greensock libraries to version 3.5.1. This changes the file names of the provided libraries, so module developers who were using Greensock must update their manifest files to point to the new library versions.</li>
+    <li>The Handlebars <code>{{select}}</code> helper previously only worked in cases where double-quotes were used for option value tags, the helper now also works in cases that single quotes are used instead.</li>
+    <li>Improve handling of setting an undefined value for a particular registered setting. Getting a value of undefined will fall back to the default value, while setting a value to undefined will restore it to the default.</li>
+    <li><code>Roll.cleanFormula</code> failed to coerce terms to string in the event that they were not internal rolls or formula objects - this bug with the dice rolling API has been fixed.</li>
+    <li>The <code>validateForm</code> function was previously deprecated, but now has the incorrect return type for backwards compatibility.</li>
+    <li>Allow passing an explicit named <code>tool</code> to set as active within the <code>SceneControls#initialize</code> method.</li>
+    <li>Re-build the array of Scene Control buttons every time the controls are initialized, to allow for modules to add different control buttons for different Scenes.</li>
+    <li>Improve the API for polygon computation in the HexagonalGrid class.</li>
+    <li>Deprecate the <code>Token#toggleOverlay</code> method in favor of making the overlay an option of the toggleEffect method as follows: <code>Token#toggleEffect(effect, {overlay: true})</code>.</li>
+    <li>Add an <code>Entity#link</code> property which returns the canonical dynamic entity link string for an entity instance.</li>
+    <li>Improve the <code>TokenConfig</code> sheet to use better number-type input fields to avoid extra unnecessary metadata.</li>
+    <li>Allow deferred inline rolls which occur within a sheet to obtain the correct <code>rollData</code> from the Actor or Item sheet which contains them.</li>
+</ul>
+<hr/>
+
+<h3>Documentation Improvements</h3>
+<ul>
+    <li>Worked to improve the <code>@return {type}</code> docstring for many methods to better match JSDoc expectation for returned Promises.</li>
+</ul>
+<hr/>
+
+<h3>Known Issues</h3>
+<ul>
+    <li>There may be an error message displayed about an invalid GET request the first time a new map is updated. The error seems to be harmless as maps load regardless - but an additional logical check is required here for next update.</li>
+</ul>
+<hr/>
