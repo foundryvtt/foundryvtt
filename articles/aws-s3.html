@@ -50,17 +50,15 @@
 </p>
 
 <h3 id="cors">Enabling Cross-Origin Resource Sharing (CORS)</h3>
-<p>In order to use assets out of your S3 bucket from the virtual tabletop - you may need to set a CORS policy. To do this, navigate to the <strong>Permissions</strong> tab on the S3 bucket management panel. Under the <strong>CORS configuration</strong> section apply the following policy:</p>
-<pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/"&gt;
-&lt;CORSRule&gt;
-    &lt;AllowedOrigin&gt;*&lt;/AllowedOrigin&gt;
-    &lt;AllowedMethod&gt;GET&lt;/AllowedMethod&gt;
-    &lt;AllowedMethod&gt;POST&lt;/AllowedMethod&gt;
-    &lt;AllowedMethod&gt;HEAD&lt;/AllowedMethod&gt;
-    &lt;MaxAgeSeconds&gt;3000&lt;/MaxAgeSeconds&gt;
-    &lt;AllowedHeader&gt;*&lt;/AllowedHeader&gt;
-&lt;/CORSRule&gt;
-&lt;/CORSConfiguration&gt;
+<p>In order to use assets out of your S3 bucket from the virtual tabletop - you may need to set a CORS policy. To do this, navigate to the <strong>Permissions</strong> tab on the S3 bucket management panel. Under the <strong>Cross-origin resource sharing (CORS)</strong> section apply the following policy:</p>
+<pre><code class="language-json">[
+    {
+        "AllowedOrigins": ["*"],
+        "AllowedHeaders": ["*"],
+        "AllowedMethods": ["GET", "POST", "HEAD"],
+        "ExposeHeaders": [],
+        "MaxAgeSeconds": 3000
+    }
+]
 </code></pre>
 <p>For more information, see the following AWS support page: <a href="https://docs.aws.amazon.com/AmazonS3/latest/user-guide/add-cors-configuration.html" target="_blank" rel="nofollow noopener">https://docs.aws.amazon.com/AmazonS3/latest/user-guide/add-cors-configuration.html</a>.</p>
