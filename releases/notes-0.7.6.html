@@ -1,0 +1,156 @@
+<h2>Foundry Virtual Tabletop - Version 0.7.6 Update Notes</h2>
+<figure>
+	<img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/update-076-banner-2020-11-07.jpg" title="Foundry VTT Version 0.7.6 Release Notes"/>
+	<figcaption>Welcome to the Foundry Virtual Tabletop update notes for Release version 0.7.6.</figcaption>
+</figure>
+
+<p>I am pleased to release <strong>Foundry Virtual Tabletop version 0.7.6</strong>, a stable release in the 0.7.x series of updates. The 0.7.6 update focuses on continued polishing of this major version with bug fixes, usability enhancements, and some minor quality of life features.</p>
+
+<p class="note warning"><strong>WARNING:</strong> Version 0.7.6 is labeled as a stable release, but there is always the possibility of unexpected bugs or module compatibility issues. We do not recommend updating immediately prior to a game session unless you are confident in your own ability to troubleshoot any issues that arise.</p>
+
+<p>Secondly - if you are updating to the 0.7.x series for the first time (in other words, if you skipped 0.7.5), I recommend that you first carefully read the notes for that update before installing 0.7.6. You can read the full update notes for each individual release in the 0.7.x series using the following links:</p>
+
+<ul>
+    <li>https://foundryvtt.com/releases/0.7.0</li>
+    <li>https://foundryvtt.com/releases/0.7.1</li>
+    <li>https://foundryvtt.com/releases/0.7.2</li>
+    <li>https://foundryvtt.com/releases/0.7.3</li>
+    <li>https://foundryvtt.com/releases/0.7.4</li>
+    <li>https://foundryvtt.com/releases/0.7.5</li>
+</ul>
+<hr/>
+
+<h3>New Features</h3>
+
+<h4>Scenes and Canvas Features</h4>
+<ul>
+    <li>The Color Intensity slider for Ambient Light and Token emitted light sources now uses an exponential scale which improves the user experience by providing for more fine-grained calibration of lighting intensity level towards the lower-end of the intensity range. The appearance of your light sources will not change as a result of this change - but the value of that intensity on the slider will. For example, what was previously an "intensity 0.2" may now appear as an "intensity 0.45".</li>
+    <li>The Scene Dimensions label in scene configuration now has a very clear indication of which input is width and which is height.</li>
+    <li>The name of a Scene being preloaded is now only visible to players if the player can see the name in the navigation menu.</li>
+    <li>Added new CanvasLayer options to allow configuration of default zIndex and sorting-to-top behavior when active. This allows for interactive layers like the Walls Layer or Templates Layer to be re-sorted to be displayed above other layers when they are active.</li>
+</ul>
+
+<h4>Actors, Tokens, and Active Effects</h4>
+<ul>
+    <li>Added support to allow ActiveEffects to be dragged and dropped from one Actor Sheet to another Actor Sheet. This feature is not enabled automatically, but will be enabled for any modules or systems which implement support for Active Effect tracking on their character sheet by including a <code>data-effect-id</code> attribute in an effect item entry.</li>
+    <li>Active Effects are now automatically assigned a startRound and startTurn when a combat encounter is active at the time they are assigned.</li>
+    <li>The status effects selection palette in the Token HUD will now remain expanded or collapsed if the HUD itself is re-rendered.<li>
+	<li>A Folder of Items may now be dropped onto an ActorSheet to bulk-create Owned Items.</li>
+	<li>Dragging actors from the sidebar which are visible to players no longer requires a player to have owner permission to initiate the drag, instead checking if the player has the appropriate permissions to initiate a drop. This corrects an issue where in some Game Systems which supported polymorph, a player would need owner permissions over an actor to use it as a polymorph form.</li>
+    <li>The server-side Token data model now automatically falls back to sight and light emission angles of 360 if an otherwise invalid value is present.</li>
+</ul>
+
+<h4>Localization</h4>
+<ul>
+	<li>Added some missing localization strings for Journal Entries and Map Notes.</li>
+</ul>
+
+<h4>Other New Features</h4>
+<ul>
+	<li>While a world is in the intermediate state between 'loading' and 'ready', the server will now attempt to delay responding to user connections.</li>
+    <li>Running with the <code>--noupdate</code> command line flag enabled now prevents checking whether there is a software update available.</li>
+	<li>"Disable Modules" and "Reset User Access Keys" are no longer visible on the create world dialog.</li>
+	<li>If a World is launched that has no User with a Gamemaster role, one will be more reliably automatically created.</li>
+	<li>The Module Management UI now sorts modules alphabetically by localized title.</li>
+	<li>Improved some error messages related to module manifests that point to invalid manifest.json files</li>
+    <li>To prevent situations where accidental copy, paste, or undo operations might occur when holding down the key combinations, the function now only fires once per keypress rather than continuing to fire as the key is held down.</li>
+    <li>Image popouts shown to players no longer include the entity name as the title attribute of the image container, to prevent accidental knowledge being passed to players.</li>
+</ul>
+<hr/>
+
+<h3>Bug Fixes</h3>
+<h4>Lighting and Vision</h4>
+<ul>
+    <li>Token vision changes now trigger a re-computation of visibility for other tokens and door controls as expected.</li>
+    <li>Corrected a performance issue related to deleting many tokens which provide light sources.</li>
+    <li>Deleting Tokens which have a light source now correctly updates the lighting layer for that light source.</li>
+    <li>Erasing the value of Dim Light Radius or Bright Light Radius of a token no longer negatively impacts raycasting performance</li>
+    <li>Corrected an issue which caused some MacOS installs to display a white rectangle instead of the proper lighting coloration container if Soft Shadows was disabled.</li>
+    <li>Global Illumination for a token once again properly extends token vision to the entire canvas if unimpeded.</li>
+    <li>Deselecting a token as a player no longer incorrectly provides global illumination.</li>
+    <li>Light sources now correctly update if a wall which blocked them is deleted.</li>
+    <li>Corrected cases where re-initialization of a light source would cause animation values to incorrectly reset.</li>
+    <li>Corrected an issue where the blur filter on the canvas would result in the edges of the background being visible.</li>
+    <li>To address issues with recalculation of token vision, changes to the global illumination setting (for example during a darkness transition) now trigger an immediate recalculation of the token vision polygons.</li>
+    <li>If Animate Token Vision is disabled, dragging a token that has a colored light source emission no longer carries a vision mask with it</li>
+</ul>
+
+<h4>Active Effects and API</h4>
+<ul>
+    <li>The Token HUD will now automatically re-render when an Active Effect causes a change to the Token that currently is currently bound to the active HUD.</li>
+    <li>ActiveEffect.duration no longer contains a reference to a 100 turn round which was used during development and should now have correct duration calculations.</li>
+    <li>Implemented an improvement for situations in which sheets would become stuck in a "Closing" _state, preventing them from being reopened until after a refresh. This change may not completely eradicate the issue, as some rare race conditions may still exist, but it will help to identify any remaining causes.</li>
+    <li>Exporting a folder to a compendium now calls the Entity#toCompendium() method to clear excess data that wouldn't previously have been included in exporting content to a compendium.</li>
+    <li>TextEditor.previewHTML should now correctly return a valid truncated HTML string once again.</li>
+    <li>Using the Actor#update method on a synthetic Token actor should now correctly recognise the diff parameter.</li>
+</ul>
+<hr/>
+
+<h4>UX and UI Issues</h4>
+<ul>
+    <li>Trying to create a folder in the File Browser will now correctly allow creation of a folder if the parent folder contained spaces, instead of throwing an error.</li>
+    <li>Fixed an invalid warning notification related to the exporting folders to compendiums.</li>
+    <li>Symbolic links which point to files now correctly appear as files rather than directories.</li>
+    <li>The "Return to Setup" button on the join screen now correctly uses the route prefix instead of failing when clicked if a route prefix has been set.</li>
+    <li>It is should no longer be possible to set invalid Drawing Defaults and prevent the use of drawing tools as a result.</li>
+    <li>The Grid Configuration UI no longer prevents Ruler measurement from functioning correctly.</li>
+    <li>Corrected an issue where non-integer grid offsets would prevent making changes to the scene configuration form.</li>
+    <li>Dragging a Macro by the number tooltip no longer displays an incorrect drag preview</li>
+    <li>Dragging a Macro to its own slot no longer incorrectly erases the macro</li>
+    <li>WebM Tokens once again render a token image when added to the combat tracker.</li>
+    <li>Marking a token as dead correctly marks the token as defeated but does not skip its turn as expected</li>
+    <li>The new Entity creation dialog no longer incorrectly shows folder names to the player if they do not have permission to see content within those folders.</li>
+</ul>
+
+<h4>Other Bug Fixes</h4>
+<ul>
+    <li>Addressed some cases where Scene auto-activation was not correctly occurring if no scene was active, and improved the auto-deactivation of canvas control tools if the active scene is deleted.</li>
+    <li>Ambient Audio sources once again trigger start/stop and easing functions during token drag movements.</li>
+    <li>Dice formulas which end with an arithmetic operator (such as "4d6 + ") should now be correctly evaluated by the Dice system.</li>
+    <li>Corrected an issue related to overwriting _onSubmit which would cause loss of data on sheets in rare cases.</li>
+    <li>The package installer now automatically trims leading or trailing whitespace from provided manifest URL strings.</li>
+    <li>Migrating a world to a new software major version no longer inadvertently enables modules that are compatible but were not previously enabled.</li>
+    <li>Corrected an unexpected behaviour for Rollable Tables to allow for a use case where the formula of the table is a number rather than a formula.</li>
+    <li>Corrected issues related to the nextSession timestamp which would prevent worlds from correctly loading.</li>
+    <li>Previously the server would fail to launch if the license.json file was invalid. Startup will now recover from encountering an invalid license file - but will treat it as an invalid license which requires the license to be re-signed.</li>
+    <li>User Management should now correctly use the routePrefix if one has been defined.</li>
+    <li>Corrected for a case where Measured Templates would not be correctly rendered when switching scenes after a refresh.</li>
+</ul>
+<hr/>
+
+<h3>Framework and API Changes</h3>
+<h4>Breaking Changes</h4>
+<ul>
+    <li>[BREAKING] Updated the bundled Greensock libraries to version 3.5.1. This changes the file names of the provided libraries, so module developers who were using Greensock must update their manifest files to point to the new library versions. The preferred import path for this is now <code>scripts/greensock/dist/gsap.min</code>.</li>
+</ul>
+
+<h4>New and Changed API Methods</h4>
+<ul>
+    <li>There is now a new <code>FEATURES</code> global const which defines a centralized location to set temporary feature flags. These feature flags define whether a certain named feature is active or inactive and which iteration or version number they are on. Helpful for migration and adoption of new major versions. For example: https://gitlab.com/foundrynet/foundryvtt/-/issues/3959#note_441254976</li>
+    <li>Added a new builtin <code>invertObject(original)</code> helper method which swaps the keys and values of an object.</li>
+    <li>There is a new builtin <code>getRoute(path)</code> helper function to return the properly prefixed and formatted URL path for various Foundry VTT urls.</li>
+    <li>The <code>getTemplate</code> function now correctly rejects the Promise and provides an error message if the template path is incorrect.</li>
+    <li>Added the new <code>EntityCollection#updateAll</code> and <code>PlaceablesLayer#updateAll</code> helper methods.</li>
+    <li>Added a <code>Date#isValid</code> helper method to test whether a <code>Date</code> instance represents a valid datetime.</li>
+    <li>Created a new method <code>Entity#getUsers</code> which returns all users who have a certain permission level to the Entity.</li>
+    <li>The <code>CanvasLayer#activate</code> and <code>CanvasLayer#deactivate</code> methods will now return a reference to themselves for more convenient method chaining.</li>
+</ul>
+
+<h4>Improved Software Behaviors</h4>
+<ul>
+    <li>Calling the canvas.sight.refresh() will now allow for using a tint to apply the configured fog color through <code>CONFIG.Canvas.unexploredColor</code> and <code>CONFIG.Canvas.exploredColor</code> configuration values.</li>
+    <li>The <code>ActiveEffect.isTemporary</code> property no longer incorrectly returns false for durations &lt; 1 round.</li>
+    <li>Pass a reference to the tested object in to the <code>SightLayer#testVisibility</code> method.</li>
+    <li>Expanded upon the <code>CONFIG.TinyMCE</code> options object to allow it to affect all options as part of the <code>TextEditor.create()</code> workflow.</li>
+    <li>Simplified the logic for <code>Application#setPosition()</code> to bound the new width and height within the client window frame.</li>
+    <li>Form data validation is now wrapped in a try/catch and will fall back to their non data-dtyped value if an invalid dtype is set.</li>
+    <li>Added the game system ID and the system version of the world to the /api/status endpoint.</li>
+    <li>World shutdown now uses a manual redirect.</li>
+</ul>
+<hr/>
+
+<h3>Documentation Improvements</h3>
+<ul>
+    <li>Updated the website API documentation to now feature the details of the 0.7.6 API.</li>
+    <li>Corrected a documentation issue in Static getResultLabel</li>
+</ul>
