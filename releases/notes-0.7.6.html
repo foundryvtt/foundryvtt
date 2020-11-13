@@ -34,7 +34,7 @@
 <ul>
     <li>Added support to allow ActiveEffects to be dragged and dropped from one Actor Sheet to another Actor Sheet. This feature is not enabled automatically, but will be enabled for any modules or systems which implement support for Active Effect tracking on their character sheet by including a <code>data-effect-id</code> attribute in an effect item entry.</li>
     <li>Active Effects are now automatically assigned a startRound and startTurn when a combat encounter is active at the time they are assigned.</li>
-    <li>The status effects selection palette in the Token HUD will now remain expanded or collapsed if the HUD itself is re-rendered.<li>
+    <li>The status effects selection palette in the Token HUD will now remain expanded or collapsed if the HUD itself is re-rendered.</li>
 	<li>A Folder of Items may now be dropped onto an ActorSheet to bulk-create Owned Items.</li>
 	<li>Dragging actors from the sidebar which are visible to players no longer requires a player to have owner permission to initiate the drag, instead checking if the player has the appropriate permissions to initiate a drop. This corrects an issue where in some Game Systems which supported polymorph, a player would need owner permissions over an actor to use it as a polymorph form.</li>
     <li>The server-side Token data model now automatically falls back to sight and light emission angles of 360 if an otherwise invalid value is present.</li>
@@ -84,7 +84,6 @@
     <li>TextEditor.previewHTML should now correctly return a valid truncated HTML string once again.</li>
     <li>Using the Actor#update method on a synthetic Token actor should now correctly recognise the diff parameter.</li>
 </ul>
-<hr/>
 
 <h4>UX and UI Issues</h4>
 <ul>
@@ -97,8 +96,8 @@
     <li>Corrected an issue where non-integer grid offsets would prevent making changes to the scene configuration form.</li>
     <li>Dragging a Macro by the number tooltip no longer displays an incorrect drag preview</li>
     <li>Dragging a Macro to its own slot no longer incorrectly erases the macro</li>
-    <li>WebM Tokens once again render a token image when added to the combat tracker.</li>
-    <li>Marking a token as dead correctly marks the token as defeated but does not skip its turn as expected</li>
+    <li>Animated WebM Tokens once again render a static thumbnail image when added to the combat tracker.</li>
+    <li>Marking a token as dead was correctly marking the token as defeated but failed to skip that combatant's turn as expected. This has been resolved.</li>
     <li>The new Entity creation dialog no longer incorrectly shows folder names to the player if they do not have permission to see content within those folders.</li>
 </ul>
 
@@ -134,6 +133,7 @@
     <li>Added a <code>Date#isValid</code> helper method to test whether a <code>Date</code> instance represents a valid datetime.</li>
     <li>Created a new method <code>Entity#getUsers</code> which returns all users who have a certain permission level to the Entity.</li>
     <li>The <code>CanvasLayer#activate</code> and <code>CanvasLayer#deactivate</code> methods will now return a reference to themselves for more convenient method chaining.</li>
+    <li>Added a new <code>Actor#rollInitiative</code> method which allows for initiative rolls to be triggered from the starting point of an Actor. Tokens for that Actor which are present in the current Scene can be automatically added to the combat tracker and initiative for combatants of that actor can be rolled.</li>
 </ul>
 
 <h4>Improved Software Behaviors</h4>

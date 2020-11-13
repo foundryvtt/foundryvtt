@@ -1,0 +1,87 @@
+<h2>Foundry Virtual Tabletop - Version 0.7.7 Update Notes</h2>
+<figure>
+	<img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/release-076-banner-2020-11-13.jpg" title="Foundry VTT Version 0.7.7 Release Notes"/>
+	<figcaption>Welcome to the Foundry Virtual Tabletop update notes for Release version 0.7.7.</figcaption>
+</figure>
+
+<p>I am pleased to release <strong>Foundry Virtual Tabletop version 0.7.7</strong>, a stable release in the 0.7.x series of updates. The 0.7.7 update focuses on resolving and fixing remaining bugs related to the core themes of the 0.7.x update sequence: Dice rolls, dynamic lighting, active effects, and other miscellaneous issues which cropped up since the previous 0.7.6 release.</p>
+
+<p class="note warning"><strong>WARNING:</strong> Version 0.7.7 is labeled as a stable release, but there is always the possibility of unexpected bugs or module compatibility issues. We do not recommend updating immediately prior to a game session unless you are confident in your own ability to troubleshoot any issues that arise.</p>
+
+<p>If you are updating to the 0.7.x series for the first time, I you may wish to first read the notes for all the changes included in this update series update before installing 0.7.7. You can read the full update notes for each individual release in the 0.7.x series here:</p>
+<ul>
+    <li>https://foundryvtt.com/releases/0.7.0</li>
+    <li>https://foundryvtt.com/releases/0.7.1</li>
+    <li>https://foundryvtt.com/releases/0.7.2</li>
+    <li>https://foundryvtt.com/releases/0.7.3</li>
+    <li>https://foundryvtt.com/releases/0.7.4</li>
+    <li>https://foundryvtt.com/releases/0.7.5</li>
+    <li>https://foundryvtt.com/releases/0.7.6</li>
+</ul>
+<hr/>
+
+<h3>Bug Fixes</h3>
+<h4>Lighting and Vision</h4>
+<ul>
+    <li>Ensured that the appearance of lights - both illumination and coloration - are correctly updated as their settings are changed.</li>
+    <li>Fog of War now correctly updates when rotating a token with an angled light source.</li>
+    <li>Token vision now updates as expected when the 'has vision' check box is toggled.</li>
+    <li>Corrected an issue where setting a light source Color Intensity to a value over 0.1 would cause the light to not render correctly if a light source animation was active.</li>
+</ul>
+<h4>Chat and Dice</h4>
+<ul>
+    <li>The dice roll sound effect will once again correctly play for the current player.</li>
+    <li>Adding a numeric term to the result of a Dice Pool no longer incorrectly causes rolls to fail with an error.</li>
+    <li>Corrected an issue where indicators for negative integers were incorrectly stripped from result of certain types of dice rolls.</li>
+    <li>Adjusted some parsing rules for DiceTerms to allow for some cases where using 0-sided die would cause evaluation of the Roll to fail with an error.</li>
+    <li>For the purposes of dice rolling, null values are now treated as 0 to account for cases where a previously a "null" result would cause parsing failures.</li>
+    <li>The keep and drop modifiers now correctly ignore results that have already been dropped by some previously evaluated modifier (like a re-roll).</li>
+</ul>
+<h4>Combat Tracker</h4>
+<ul>
+    <li>Fixed an issue where tracked resources in the combat tracker would not update until the end of a turn.</li>
+    <li>Hidden combatant initiative rolls now default to GM Rolls if a specific roll mode is not already selected.</li>
+    <li>Corrected an issue which would result in unnecessary fallback logic when initializing combat.</li>
+    <li>Combat#current now correctly populates after a fresh reload without requiring the combat to update first.</li>
+</ul>
+<h4>User Interface and User Experience</h4>
+<ul>
+    <li>Left-clicking a window application will no longer increment the z-index if it's already at the maximum z-index.</li>
+    <li>In some cases dragging an application window would cause it to resize as well, this is no longer the case.</li>
+    <li>Minimized application windows may once again be dragged to positions their non-minimimzed dimension boundaries wouldn't allow.</li>
+    <li>Editing a WorldConfig no longer incorrectly allows other game systems to remain in the (disabled) select menu.</li>
+    <li>Corrected an issue where the Next Session date picker would advance based on UTC instead of localized date.</li>
+</ul>
+<h4>Other Fixes</h4>
+<ul>
+    <li>The FilePicker will now correctly ignore files which begin with a "." as these are hidden by convention.</li>
+    <li>TokenConfig sheet will now properly prevent editing of Token width and height to the nearest tenth.</li>
+    <li>To correct for some issues with hotkeys such as alt+digit for different keyboard layouts, digit keys are now checked by digit number code rather than relying on the number key itself.</li>
+    <li>Active Effects without assigned icons no longer try to render their icons on tokens.</li>
+</ul>
+<hr/>
+
+<h3>API and Documentation Improvements</h3>
+<h4>API Improvements</h4>
+<ul>
+    <li>Add built-in helper methods for <code>Date.prototype.toDateInputString()</code> and <code>Date.prototype.toTimeInputString()</code> which transform a Date object into the correct string format for date and time type input fields.</li>
+    <li>Improved the handling of Active Effects of the "Add" type. It now combines the changed value with the data type of the original value. Also added support for Array insertion.</li>
+    <li>Added a few new <code>FEATURES</code> version flags for additional feature themes which were not yet tracked with a version number in that object.</li>
+    <li>Updated urls for links to the Community Wiki for both the website and electron app.</li>
+    <li>Some classes were incorrectly using the JSDoc <code>@type{Entity}</code> annotation instead of <code>@implements{Entity}</code>, this has been corrected.</li>
+    <li>Updated the website API documentation to now feature the details of the 0.7.7 API.</li>
+</ul>
+
+<h4>API Bug Fixes</h4>
+<ul>
+    <li>Previously calling Quadtree#clear would fail when called due to a syntax error, this syntax error has been corrected.</li>
+    <li>Removed an unnecessary "new" class constructor from cases where a PIXI factory method was used instead of a standard class constructor.</li>
+    <li>Removed an old reference to an invalid drawing fill type of "contour" which was not ever used.</li>
+    <li>The Ruler#_getMovementToken function previously contained a minor syntax error, this has been resolved.</li>
+    <li>Returning "false" from a preCreateOwnedItem callback now correctly prevents the downstream application of active effects which might have been added by the owned item (which was prevented).</li>
+    <li>Removed a redundant invertObject helper definition.</li>
+    <li>The Application#close method signatures are now correctly async and pass the options object as expected.</li>
+    <li>Players will now be kicked from a game if their user is deleted by a GM.</li>
+    <li>Corrected syntax for PIXI.RenderTexture.create to remove a deprecated usage as well as a non-impactful typographical error related to scale.</li>
+</ul>
+<hr/>
