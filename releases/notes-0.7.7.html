@@ -33,7 +33,7 @@
     <li>The dice roll sound effect will once again correctly play for the current player.</li>
     <li>Adding a numeric term to the result of a Dice Pool no longer incorrectly causes rolls to fail with an error.</li>
     <li>Corrected an issue where indicators for negative integers were incorrectly stripped from result of certain types of dice rolls.</li>
-    <li>Adjusted some parsing rules for DiceTerms to allow for some cases where using 0-sided die would cause evaluation of the Roll to fail with an error.</li>
+    <li>Fixed a problem with evaluating a minimized Roll result in cases where an included Die has zero faces (i.e. 4d0) which was incorrectly minimizing as 4, rather than as 0.</li>
     <li>For the purposes of dice rolling, null values are now treated as 0 to account for cases where a previously a "null" result would cause parsing failures.</li>
     <li>The keep and drop modifiers now correctly ignore results that have already been dropped by some previously evaluated modifier (like a re-roll).</li>
 </ul>
