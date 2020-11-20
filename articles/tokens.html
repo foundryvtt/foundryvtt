@@ -9,7 +9,7 @@
 <p>A Prototype Token is the configuration of a Token for a particular Actor before that Token has been placed onto the game canvas. The prototype defines the default setup that a newly created Token starts with. To configure the Prototype Token for an Actor, open the Actor Sheet and click the <strong>Prototype Token</strong> button in the top bar.</p>
 
 <h3 id="placed">Placed Token Configuration</h3>
-<p>Once a Token is placed, it becomes it's own independent copy of the prototype. For example - a Prototype Token for a player character could be configured to have a certain vision distance - but when that Token is placed into a Scene that has different lighting conditions, the placed copy of the Token could be changed to increase or decrease visibility. To configure a placed Token, right click on the Token to display the Token HUD and click the gear icon to open that Token's configuration sheet.</p>
+<p>Once a Token is placed, it becomes its own independent copy of the prototype. For example - a Prototype Token for a player character could be configured to have a certain vision distance - but when that Token is placed into a Scene that has different lighting conditions, the placed copy of the Token could be changed to increase or decrease visibility for that scene. To configure a placed Token, right click on the Token to display the Token HUD and click the gear icon to open that Token's configuration sheet, or double right-click the token.</p>
 <hr />
 
 <h2 id="options">Token Configuration Options</h2>
@@ -23,31 +23,31 @@
 <dl>
     <dt>Token Name</dt>
 	<dd>
-		<p>Configure the name which is shown for the token, this can potentially be different from the name of the actual Actor.</p>
+		<p>This determines the name which is shown for the token. When a new actor is created this defaults to whatever name that actor was given, but it can be changed to be different from the name.</p>
 	</dd>
     <dt>Display Name</dt>
 	<dd>
 		<p>Configure the level of visibility for the token&rsquo;s nameplate. The following options are supported:</p>
 		<ul>
-			<li>None - The nameplate will not be shown</li>
-			<li>Control - Displayed when the Token is currently controlled</li>
-			<li>Owner Hover - Displayed when the token is hovered over by a User who owns the token&rsquo;s Actor</li>
-			<li>Hover - Displayed when the token is hovered over by any User</li>
-			<li>Owner - Always displayed to any User who owns the token&rsquo;s Actor</li>
-			<li>Always - Always displayed to every User</li>
+			<li>Never Displayed - The nameplate is not displayed at all.</li>
+			<li>When Controlled - The nameplate is displayed when the Token is currently controlled</li>
+			<li>Hovered by Owner - The nameplate is displayed when the token is hovered over by a User who owns the token&rsquo;s Actor</li>
+			<li>Hovered by Anyone - The nameplate is displayed when the token is hovered over by any User</li>
+			<li>Always for Owner - The nameplate is displayed at all times to any User who owns the token&rsquo;s Actor</li>
+			<li>Always for Everyone - The nameplate is displayed at all times to every User</li>
 		</ul>
 	</dd>
     <dt>Represented Actor</dt>
 	<dd>
-		<p>Specify which Actor that is present within the World defines the Actor data which describes the Token.</p>
+		<p>Specify which Actor in the world defines the Actor data which used by the Token.</p>
 	</dd>
     <dt>Link Actor Data</dt>
 	<dd>
-		<p>When enabled, changes to the resource pools either on the base Actor or on the Token itself will reflect in the other location. As a general rule of thumb, Tokens should be linked if their Actor is a unique character, such that there would only be one instance of that Actor within any particular Scene. Alternatively, Tokens should not be linked when the Actor entry represents a generic creature or type of character. When data is not linked, each Token will have independent resources pools and turn order tracking.</p>
+		<p>When enabled, changes to the resource pools either on the base Actor or on the Token itself will reflect in the other location. These changes apply to tokens in all scenes, and as such it is best to only link tokens if their Actor is a unique character with only one instance of that Actor within any particular Scene. Alternatively, Tokens should not be linked when the Actor entry represents a generic creature or type of character. When data is not linked, each Token will have independent resources pools and turn order tracking.</p>
 	</dd>
     <dt>Token Disposition</dt>
 	<dd>
-		<p>For non-player characters, setting a Token disposition allows for the colored border shown around a Token to be drawn in a different color which can differentiate enemies from allies during combat encounters.</p>
+		<p>For non-player characters, setting a Token disposition allows for the colored border shown around a Token to be drawn in a different color which can differentiate enemies from allies during combat encounters. Neutral tokens have yellow borders, friendly tokens have teal borders, and hostile tokens have red borders.</p>
 	</dd>
 </dl>
 
@@ -62,7 +62,13 @@
 	</dd>
     <dt>Randomize Wildcard Images</dt>
 	<dd>
-		<p>If checked, the provided Token Image Path is treated as a wildcard pattern that is matched against multiple existing files. When a wildcard Token is configured, each time that Token is placed an image is randomly chosen from the matching set.</p>
+		<p>If checked, the provided Token Image Path is treated as a wildcard pattern that is matched against multiple existing files. When a wildcard Token is configured, each time that Token is placed an image is randomly chosen from the matching set. Note that this can only be configured on prototype tokens. Once a token is placed in a scene the image used is set, it must then be changed manually by editing the in-scene token.</p> 
+
+		<p>For a more detailed explanation of this feature, see the dedicated section later in this article. </p>
+	</dd>
+	    <dt>Alternate Actor Tokens</dt>
+	<dd>
+		<p>If Randomize Wildcard Images is checked on a prototype token, this dropdown list appears when the token is placed into a scene. It provides a list of all available images which matched the wildcard you entered, and allows you to quickly select a specific image you want to use for that actor.</p>
 	</dd>
     <dt>Width</dt>
 	<dd>
@@ -74,7 +80,7 @@
 	</dd>
     <dt>Scale</dt>
 	<dd>
-		<p>A scaling ratio for the size of the Token&rsquo;s artwork. The token base is unaffected by this value, but the visual size of the artwork will change with scale. Numbers greater than 1 result in larger token artwork while numbers less than 1 result in smaller token artwork.</p>
+		<p>A scaling ratio for the size of the Token&rsquo;s artwork. The token base size in grid units is unaffected by this value, but the visual size of the artwork is relative to that size and will change with scale. Numbers greater than 1 result in larger token artwork while numbers less than 1 result in smaller token artwork.</p>
 	</dd>
     <dt>Mirror Horizontally</dt>
 	<dd>
@@ -96,19 +102,19 @@
 
 <dl> <dt>X-Coordinate</dt>
 	<dd>
-		<p>The current x-coordinate of the Token in a Scene. This is displayed for reference only but cannot be configured.</p>
+		<p>The current x-coordinate of the Token in a Scene. Directly editing this field on a token placed in a scene will change the token's position, but has no effect on prototype tokens, as these fields are automatically set when the token is placed into a scene </p>
 	</dd>
     <dt>Y-Coordinate</dt>
 	<dd>
-		<p>The current y-coordinate of the Token in a Scene. This is displayed for reference only but cannot be configured.</p>
+		<p>The current y-coordinate of the Token in a Scene. Directly editing this field on a token placed in a scene will change the token's position, but has no effect on prototype tokens, as these fields are automatically set when the token is placed into a scene.</p>
 	</dd>
     <dt>Elevation</dt>
 	<dd>
-		<p>The Token's current elevation in grid units which is displayed visually above the Token. This is used to indicate whether certain Tokens are flying or burrowing at an altitude that differs from what is standard for the Scene.</p>
+		<p>The Token's current elevation in grid units which is displayed visually above the Token. This is used to indicate whether certain Tokens are flying or burrowing at an altitude that differs from what is standard for the Scene. Editing this on a prototype token has no effect, as the token starts at 0 elevation when placed into a scene.</p>
 	</dd>
     <dt>Rotation</dt>
 	<dd>
-		<p>The Token's current direction of facing in degrees. Rotation of zero (the default) corresponds to a southward facing as this is the most commonly used convention for Token artwork.</p>
+		<p>The Token's current direction of facing in degrees. Rotation of zero (the default) corresponds to a southward facing as this is the most commonly used convention for Token artwork. Editing this field on a prototype token determines the default rotation in degrees when it's placed into a scene. Tokens in a scene can also be rotated by holding down Shift and usind the W-A-S-D keys, the arrow keys, or the mousewheel. You can also hold down Control when using the mousewheel to get smaller icrements of rotation to more finely control a token's orientation.</p>
 	</dd>
     <dt>Lock Rotation</dt>
 	<dd>
@@ -154,9 +160,22 @@
 	<dd>
 		<p>Set the color of light that the Token emits in Hex (#000000).</p>
 	</dd>
-	<dt>Light Opacity</dt>
-    <dd>Set the level of transparency that the Token emits.</dd>
-
+	<dt>Color Intensity</dt>
+    <dd>
+		<p>Adjusts how vivid the color of the light is from 0(faded) to 1(vibrant).</p>
+		</dd>
+	<dt>Animation Type</dt>
+    <dd>
+		<p>Select the style of animation shader to be applied to the light.</p>
+		</dd>
+	<dt>Animation Speed</dt>
+    <dd>
+		<p>The speed of the animation effect, from 0(slow) to 1(fast).</p>
+		</dd>
+	<dt>Animation Intensity</dt>
+    <dd>
+		<p>The intensity of the animation effect, from 0(subtle) to 1(intense).</p>
+		</dd>
 </dl>
 
 <figure>
@@ -169,22 +188,22 @@
 		<p>Configure the level of visibility for the token&rsquo;s resource bars. The following options are supported:</p>
 		<ul>
 			<li>
-				<p>None - Resource bars will not be shown</p>
+				<p>Never Displayed - Resource bars will not be shown</p>
 			</li>
 			<li>
-				<p>Control - Displayed when the Token is currently controlled</p>
+				<p>When Controlled - Resource bars are displayed when the Token is currently controlled.</p>
 			</li>
 			<li>
-				<p>Owner Hover - Displayed when the token is hovered over by a User who owns the token&rsquo;s Actor</p>
+				<p>Hovered by Owner - Resource bars are displayed to any User that owns the token's Actor when they hover their cursor over the token.</p>
 			</li>
 			<li>
-				<p>Hover - Displayed when the token is hovered over by any User</p>
+				<p>Hovered by Anyone - Resource bars are displayed to any User that overs their cursor over the token.</p>
 			</li>
 			<li>
-				<p>Owner - Always displayed to any User who owns the token&rsquo;s Actor</p>
+				<p>Always for Owner - Resource bars are displayed at all times, and visible to the Actor's owner.</p>
 			</li>
 			<li>
-				<p>Always - Always displayed to every User</p>
+				<p>Always for Everyone - Resource bars are displayed at all times, and visible to all Users.</p>
 			</li>
 		</ul>
 	</dd>
@@ -238,7 +257,7 @@
 	<li>Select an empty rectangle on the map.</li>
 	<li>Shift+click the token to remove it from the controlled set.</li>
 	<li>Press ESCAPE.</li>
-	<li>[Optionally] Use the "deselection" module which will release control of your token when you left-click anywhere else in the Scene.</li>
+	<li>Left-click anywhere on the canvas. (if you have enabled "Left-click to Release Objects" from the Settings Menu) </li>
 </ul>
 <hr/>
 

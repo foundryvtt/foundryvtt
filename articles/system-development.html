@@ -134,44 +134,43 @@
 			</dd>
 		</dl>
   </dd>
-	<dt>dependencies</dt>
+  <dt>dependencies</dt>
 	<dd>
-		<p>Systems can require other modules, systems, or worlds be installed to allow their use. If a module has been installed with dependencies, but its dependencies are missing, it cannot be enabled. Dependencies are defined as an array of objects containing the following data:</p>
-	<dl>
-		<dt>name</dt>
-		<dd>
-			<p>Dependency entries require the name attribute. If only a name is provided, additional details about the module will be discovered from the Foundry VTT website listing.</p>
-		</dd>
-	  <dt>type</dt>
-		<dd>
-			<p>The type attribute instructs Foundry that the dependency may be on a different type of module. By default dependencies are assumed to be module, so if you want to depend on a system or world you should be explicit.</p>
-		</dd>
-		<dt>manifest</dt>
-		<dd>
-			<p>The manifest attribute provides an explicit manifest url to be used for downloading the dependency. If a manifest is not provided, the dependency package must exist in the Foundry website directory.</p>
-		</dd>
-	</dl>
-	<p>Example structure here:</p>
-<pre><code class="language-json">
-"dependencies": [
+    <p>Systems can require other systems, modules, or worlds be installed to allow their use. If a module has been installed with dependencies, but its dependencies are missing, it cannot be enabled. Dependencies are defined as an array of objects containing the following data:</p>
+    <dl>
+      <dt>name</dt>
+			<dd>
+				<p>Dependency entries require the name attribute. If only a name is provided, additional details about the module will be discovered from the Foundry VTT website listing.</p>
+      </dd>
+      <dt>type</dt>
+			<dd>
+				<p>The type attribute instructs FVTT that the dependency may be on a different type of module. By default dependencies are assumed to be module, so if you want to depend on a system or world you should be explicit.</p>
+			</dd>
+	        <dt>manifest</dt>
+			<dd>
+				<p>The manifest attribute provides an explicit manifest url to be used for downloading the dependency. If a manifest is not provided, the dependency package must exist in the Foundry website directory.</p>
+      </dd>
+    </dl>
+
+    <p>Example structure here:</p> <pre><code class="language-json">
+	"dependencies": [
 	{
-	  "name": "system1",
+	  "name": "dice-so-nice",
+	  "manifest": "https://gitlab.com/riccisi/foundryvtt-dice-so-nice/raw/2.0.3/module/module.json",
+	},
+	{
+	  "name": "dnd5e",
 	  "type": "system"
 	},
 	{
-	  "name": "world1",
+	  "name": "kobold-cauldron",
 	  "type": "world"
 	},
 	{
-	  "name": "module1",
-	  "manifest": "https://web/location/module1/manifest.json",
-	},
-	{
-	  "name": "module2"
+	  "name": "betternpcsheet5e"
 	}
-]
-</code></pre>
-	</dd>
+  ]
+</code></pre> </dd> 
 	<dt>languages</dt>
 	<dd>
 		<p>The game system may designate an array of languages specifications that it supports by default. Each element in the languages array is an object which defines the language tag, label, and path to its localization file. The elements of a language object are the following:</p>
