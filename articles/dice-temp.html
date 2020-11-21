@@ -1,0 +1,348 @@
+<p>At the core of most tabletop games is the requirement to roll dice. Foundry VTT features an advanced framework for rolling dice, with support for a high level of customization and extensibility through the Dice API.</p>
+<p>Regardless of Game System, any user can roll dice using simple <strong>chat commands</strong> entered into the chat entry field. Foundry Virtual Tabletop provides additional modifiers to the command structure which provide some extended functions, allowing for modifications like re-rolling certain results, keeping the highest (or lowest) results, and many more.</p>
+
+<div id="top" class="toc">
+    <h3>Table of Contents</h3>
+    <ol class="toc-ol">
+        <li><a href="#roll">Simple Dice Commands</a></li>
+        <li><a href="#describing">Describing Rolls</a></li>
+        <li><a href="#inline">Inline Rolls</a></li>
+        <li><a href="#math">Using Math</a></li>
+        <li><a href="#modifiers">Roll Modifiers</a></li>
+        <li>
+            <ol id="modifiers-sublist">
+                <li><a href="#modifiers">Re-roll and Explode</a></li>
+                <li><a href="#keeping">Keeping Results</a></li>
+                <li><a href="#keeping">Dropping Results</a></li>
+                <li><a href="#keeping">Successes and Failures</a></li>
+            </ol>
+        </li>
+        <li><a href="#special">Special Dice</a></li>
+        <li><a href="#advanced">Advanced Dice Rolling</a></li>
+        <li><a href="#parenthesis">Parenthesis</a></li>
+        <li><a href="#pools">Dice Pools</a></li>
+        <li><a href="#data-use">Data Paths</a></li>
+        <li><a href="#js">Javascript Math</a></li>
+    </ol>
+</div>
+<hr/>
+
+<figure class="right">
+    <img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/roll-modes-2020-10-21.jpg" alt="Roll Modes"/>
+</figure>
+<h3 id="modes">Roll Mode and Types of Rolls</h3>
+<p>Before learning to roll dice, it is important to be familiar with the concept of "roll modes" which affect the visibility and presentation of dice rolls.</p>
+<p>Every dice roll becomes a message in the chat log, but the visibility of that message and the details of the roll can be controlled by the user. At the bottom of the chat log there is a drop down list of roll types, these determine who can see the roll made by your <code>/roll</code> command.</p>
+<dl>
+    <dt>Public Roll</dt>
+</dl>
+<dl>
+    <dd>
+        <p>This is the default type of roll in Foundry, and is visible to all players.</p>
+    </dd>
+    <dt>GM Roll</dt>
+    <dd>
+        <p>
+            Rolls of this type are only visible to the player that rolled and any Game Master users. To perform a GM roll, use <code>/gmroll</code> or <code>/gmr</code> as the command prefix. A GM or the user who made the roll may choose to
+            reveal this roll.
+        </p>
+    </dd>
+    <dt>Blind Roll</dt>
+    <dd>
+        <p>
+            A private dice roll only visible to Game Master users. The rolling player will not see the result of their own roll. This is similar to using a dice tower or other device at a physical tabletop where the roller may not get to
+            see the outcome. To perform a blind roll, use <code>/blindroll</code>, <code>/broll</code>, or <code>/br</code> as the command prefix. Only the GM may choose to reveal this roll.
+        </p>
+    </dd>
+    <dt>Self Roll</dt>
+    <dd>
+        <p>
+            A private dice roll which is only visible to the user who rolled it. To perform a self roll, use <code>/selfroll</code> or <code>/sr</code> as the command prefix. Whether a GM or Player uses a self roll, only the user who made
+            the roll can choose to reveal it.
+        </p>
+    </dd>
+</dl>
+<p>A roll that is made in private (such as a Private GM Roll, Blind GM Roll, or Self Roll) may be revealed to the other users by right-clicking and choosing <strong>Reveal to Everyone</strong>.</p>
+<hr />
+
+<h3 id="roll">Simple Roll Commands<a class="back-top" href="#top">back to top</a></h3>
+<p>
+    A dice roll can be made by entering the <code>/roll</code> (or <code>/r</code>) <strong>chat command</strong> followed by some simple syntax to identify the number of dice, and which type of die you wish to roll. This roll command uses
+    whichever <strong>Default Roll Mode</strong> is currently set by the user.
+</p>
+<p class="note info">All of the example rolls on this page may be pasted directly into Foundry VTT exactly as they are, including commented text which will label the roll explaining what it does.</p>
+<pre><code class="language-plaintext">/r {number of dice}d{faces}</code></pre>
+<pre><code class="language-plaintext">/r 5d20 # Rolls five twenty-sided dice, generating random numbers from 1 to 20, and outputting the sum of all rolls.</code></pre>
+
+<figure class="right"><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/described-rolls-2020-10-21.jpg" alt="Described Rolls"/></figure>
+<h4>Expanding Rolls</h4>
+<p>Once a roll has been made and appears in the chat log, users can click on that message to expand the results, showing the individual dice rolls that determined its outcome. Clicking the chat message a second time collapses the results again.</p>
+
+<h4 id="describing">Describing Rolls</h4>
+<p>Users can add a text description to a roll by adding a # and desired text at the end of the /roll chat command. The text appears under the name of the user that made the roll.</p>
+<pre><code class="language-plaintext">/r {roll command} # {desired text}</code></pre>
+<p>Example: roll a 20-sided die, adding 2 to the result. Includ some text to describe the roll.</p>
+<pre><code class="language-plaintext">/r 1d20 + 2 # This is my roll!</code></pre>
+
+<h4>Describing Dice</h4>
+<p>In addition to whole rolls, individual rolls inside multiple roll commands can be commented to specify what the roll is for. This is most useful in games where one or more types of die combine to deliver a total amount of damage.</p>
+<pre><code class="language-plaintext">/roll {roll}[desired text for roll]</code></pre>
+<p>Roll two six-sided dice with the tag of &ldquo;slashing damage&rdquo; followed by one eight-sided die with the tag of &ldquo;fire damage.&rdquo;</p>
+<pre><code class="language-plaintext">/roll 2d6[slashing damage]+1d8[fire damage]</code></pre>
+<hr/>
+
+<h3 id="inline">Inline Rolls<a class="back-top" href="#top">back to top</a></h3>
+<p>If a chat message contains a roll formula, Foundry VTT will automatically run the formula for the roll and place the result or command in the message with special style formatting. Anything that a regular roll command can do, an Inline Roll can do. There are two types of inline roll:</p>
+
+<h4>Immediate Inline Rolls</h4>
+<p>These rolls are processed and the result of the roll is placed in the chat message. This is useful for including simple rolls inside of descriptive actions.</p>
+<pre><code class="language-plaintext">The boulders drop onto the player character, dealing [[2d12]] bludgeoning damage.</code></pre>
+
+<h4>Deferred Inline Rolls</h4>
+<p>Deferred rolls provide a way to embed a button in your chat message which, when clicked by any user, makes a new roll containing that formula.</p>
+<pre><code class="language-plaintext">Can everyone roll a [[/roll 1d10]] for me?</code></pre>
+<hr />
+
+<h2 id="math">Using Simple Math with Rolls<a class="back-top" href="#top">back to top</a></h2>
+<p>Most dice rolls result in a number that is the sum of any dice rolled, and simple math modifiers can be used to increase or decrease this result after rolls are made.</p>
+<ul>
+    <li><code>+</code> adds the number that follows it to the sum of the roll.</li>
+    <li><code>-</code> subtracts the number that follows it from the sum of the roll.</li>
+    <li><code>*</code> multiplies the sum of the roll by the number given.</li>
+    <li><code>/</code> divides the sum of the roll by the number given.</li>
+</ul>
+<pre><code class="language-plaintext"> /roll {number}d{faces}{math}{number}d{faces}</code></pre>
+<p>Roll one ten-sided die and add to it the result of rolling a single four-sided die.</p>
+<pre><code class="language-plaintext">/roll 1d10 + 1d4 + 4</code></pre>
+<p>Roll one twenty-sided die, divide the number by 2, then add 10 to the result.</p>
+<pre><code class="language-plaintext">/roll 1d20 / 2 + 10 </code></pre>
+<p>Roll a one hundred-sided die, that number by 2, then divide it the result of rolling a four-sided die.</p>
+<pre><code class="language-plaintext">/roll 1d100 * 2 / 1d4</code></pre>
+<p>Roll one twenty-sided die, and divide it by 3.</p>
+<pre><code class="language-plaintext">/roll 1d20 / 3</code></pre>
+
+<h4>Adding Additional Dice</h4>
+<p>
+    Using simple math, users can also add additional dice of different sizes to a roll. The above simple math expressions to determine how they are meant to interact. Math expressions can also be used to combine rolls of different dice
+    types and add them together.
+</p>
+<pre><code class="language-plaintext"> /roll {number}d{faces}{math}{number}d{faces}</code></pre>
+<p>Roll one ten-sided die and add to it the result of rolling a single four-sided die.</p>
+<pre><code class="language-plaintext">/roll 1d10 + 1d4 + 4</code></pre>
+<p>Roll one twenty-sided die, divide the number by 2, then add 10 to the result.</p>
+<pre><code class="language-plaintext">/roll 1d20 / 2 + 10</code></pre>
+<p>Roll a one hundred-sided die, that number by 2, then divide it the result of rolling a four-sided die.</p>
+<pre><code class="language-plaintext">/roll 1d100 * 2 / 1d4</code></pre>
+<p><em>DnD 3.5e, Pathfinder - Critical Hit Multiplier:</em> roll one eight-sided die, add 4 to the result, then multiply it by 2.</p>
+<pre><code class="language-plaintext">/r 1d8+4 * 2</code></pre>
+<hr/>
+
+<h2 id="modifiers">Roll Modifiers<a class="back-top" href="#top">back to top</a></h2>
+<p>In addition to basic arithmetic and adding text comments to rolls, there are a variety of short-hand modifiers which can be used to change the way a dice roll is processed. These modifiers are conditional, and only trigger in certain (defined) circumstances.</p>
+
+<h3 id="reroll">Re-rolls and Exploding Dice</h3>
+<dl>
+    <dt>r : Reroll</dt>
+    <dd>Rerolls the die based on the set condition, keeping the outcome regardless of whether it is better. Reroll (r) will only reroll the die once, for continual rerolling see &ldquo;x : explode&rdquo;</dd>
+    <dt>x : Explode</dt>
+    <dd>Rerolls a die continually based on the set condition, so that each occurrence of the number rolls again, continually adding to the total result.</dd>
+    <dt>xo : Explode Once</dt>
+    <dd>Rerolls a die once based on the set condition, used primarily by games which use a &ldquo;dice pool&rdquo;, adding to the total result.</dd>
+</dl>
+<h4>Examples</h4>
+<p>Roll one ten-sided die, and re-roll it if the result is a 1.</p>
+<pre><code class="language-plaintext">/roll 1d10r1</code></pre>
+<p>Roll one twenty-sided die, and if the result is less than 10, re-roll it.</p>
+<pre><code class="language-plaintext">/r 1d20r&lt;10</code></pre>
+<p>Roll five ten-sided dice, and if any of the individual results are a 10, roll another ten-sided die add the result to the total.</p>
+<pre><code class="language-plaintext">/r 5d10x10</code></pre>
+<p>Roll one twenty-sided die, rolling additional dice if the result is less than 10, until one of the dice is ten or better, which is the only result it will keep.</p>
+<pre><code class="language-plaintext">/r 1d20x&lt;10kh</code></pre>
+<p>Roll six ten-sided dice, and roll one additional die for each 10 rolled, but do not re-roll 10s on the additional die, adding them to the total.</p>
+<pre><code class="language-plaintext">/r 6d10xo10</code></pre>
+<p><em>Chronicles of Darkness - Rote Rolls</em>; roll five ten-sided dice, re-rolling any dice that fall under 8, and re-rolling any dice that score a 10, before counting the total successes in the roll.</p>
+<pre><code class="language-plaintext">/r 5d10xo&lt;8x10cs&gt;=8</code></pre>
+
+<h3 id="keeping">Keeping or Dropping Results<a class="back-top" href="#top">back to top</a></h3>
+<dl>
+    <dt>kh, k : Keep Highest</dt>
+    <dd>Whether you use 'kh' or the shorter 'k', this modifier causes the dice roller to keep a number of dice you specify, selecting the highest of the roll results available. Without a specified number it will keep the single highest number. If the number of dice rolled is less than the number of dice being kept, then it will keep all the rolls made.</dd>
+    <dt>kl : keep lowest</dt>
+    <dd>This modifier causes the dice roller to keep a number of dice you specify, selecting the lowest of the roll results available. Without a specified number it will keep the single lowest number. If the number of dice rolled is less than the number of dice being kept, then it will keep all the rolls made.</dd>
+    <dt>dl, d : drop lowest</dt>
+    <dd>This modifier causes the dice roller to drop a number of dice you specify, selecting the lowest of the roll results available. If a number of dice to drop is not specified, then it will drop the lowest number rolled. If the number of dice is less than the dice being dropped, then it will keep all the rolls made.</dd>
+    <dt>dh : drop highest</dt>
+    <dd>This modifier causes the dice roller to drop a number of dice you specify, selecting the highest of the roll results available. If a number of dice to drop is not specified, then it will drop the highest number rolled. If the number of dice is less than the dice being kept, then it will keep all the rolls made.</dd>
+</dl>
+<h4>Examples</h4>
+<p>Roll three ten-sided dice, keeping the highest of the three.</p>
+<pre><code class="language-plaintext">/r 3d10k</code></pre>
+<p>Roll four six-sided dice, keeping the three highest rolls available.</p>
+<pre><code class="language-plaintext">/r 4d6k3</code></pre>
+<p><em>DND 5e - Advantage</em>: Roll two twenty sided dice, and use the higher of the two for the final result which has 2 added to it.</p>
+<pre><code class="language-plaintext">/roll 2d20kh + 2</code></pre>
+<p>Roll three ten-sided dice, keeping the lowest of the three.</p>
+<pre><code class="language-plaintext">/r 3d10kl</code></pre>
+<p>Roll four six-sided dice, keeping the three lowest rolls available.</p>
+<pre><code class="language-plaintext">/r 4d6kl3</code></pre>
+<p><em>DND 5e -Disadvantage</em>: Roll two twenty sided dice, and use the lower of the two for the final result which has 5 added to it.</p>
+<pre><code class="language-plaintext">/roll 2d20kl + 5</code></pre>
+<p>Roll three six-sided dice, dropping the lowest number rolled of the three.</p>
+<pre><code class="language-plaintext">/r 3d6d</code></pre>
+<p>Roll four ten-sided dice, dropping the two lowest numbers rolled.</p>
+<pre><code class="language-plaintext">/r 4d10d2</code></pre>
+<p>Roll three six-sided dice, dropping the highest number rolled of the three.</p>
+<pre><code class="language-plaintext">/r 3d6dh</code></pre>
+<p>Roll four ten-sided dice, dropping the two highest numbers rolled.</p>
+<pre><code class="language-plaintext">/r 4d10dh2</code></pre>
+
+<h3 id="success">Successes and Failures<a class="back-top" href="#top">back to top</a></h3>
+<figure class="right">
+    <img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/count-successes-2020-10-21.jpg" alt="Count Successes"/>
+</figure>
+<dl>
+    <dt>cs : Count Successes</dt>
+    <dd>This modifier causes each die that rolls a specified result to be counted as a success which is tallied when the roll concludes. Without a specified number to succeed, all dice rolled are considered successes. This modifier can have the requirements for success specified through several comparison symbols, as follows:</dd>
+    <dt>cs={y}</dt><dd>Count the number of dice which resulted exactly in y.</dd>
+    <dt>cs&gt;{y}</dt><dd>Count the number of dice which rolled greater than y.</dd>
+    <dt>cs&gt;={y}</dt><dd>Count the number of dice which rolled greater than or equal to y.</dd>
+    <dt>cs&lt;{y}</dt><dd>Count the number of dice which rolled less than y.</dd>
+    <dt>cs&lt;={y}</dt><dd>Count the number of dice which rolled less than or equal to y.</dd>
+    <dt>cf : Count Failures</dt>
+    <dd>The syntax of this modifier works identically to count success, but counts the number of dice that failed to meet the specified criteria.</dd>
+    <dt>df : Deduct Failures</dt>
+    <dd>This modifier is used to specify the criteria for a die result to be a failure, then deducts the number of failures from the dice result, counting each failure as -1. The criteria for failure are specified identically to count success. It is intended primarily for use with Count Success, but also functions on its own.</dd>
+    <dt>sf : Subtract Failures</dt>
+    <dd>This modifier sets a failure criteria, and any die that meets that criteria has its roll subtracted from the final result. The criteria for failure are specified identically to count success.</dd>
+    <dt>ms : Margin of Success</dt>
+    <dd>This modifier subtracts a target value set by the user from the result of the dice rolled, and returns difference as the final total. If the amount rolled is less than the target it outputs a negative number, and a positive number if there is a remainder after subtraction.</dd>
+</dl>
+
+<h4>Examples</h4>
+<p>Roll ten twenty-sided dice, and count a success for each die which rolls a 20.</p>
+<pre><code class="language-plaintext">/r 10d20cs20</code></pre>
+<p>Roll ten twenty-sided dice and count a success for each die which rolls above a 10.</p>
+<pre><code class="language-plaintext">/r 10d20cs&gt;10</code></pre>
+<p>Roll six ten-sided dice and count a success for each die which rolls a 6 or higher.</p>
+<pre><code class="language-plaintext">/r 6d10cs&gt;=6</code></pre>
+<p>Roll a single one-hundred sided die and count a success if the result is 20 or lower.</p>
+<pre><code class="language-plaintext">/r 1d100cs&lt;=20</code></pre>
+<p><em>World of Darkness - Dice vs Difficulty</em>: roll five ten-sided dice, counting any roll of a 6 or higher as a success, while deducting a success for any roll that is a 1.</p>
+<pre><code class="language-plaintext">/r 5d10cs&gt;=6df=1</code></pre>
+<p><em>Chronicles of Darkness - Dice vs Difficulty</em>: Roll five ten-sided dice, counting a success for every die that rolls 8 or higher, and rolling an additional die any time a result of 10 is rolled.</p>
+<pre><code class="language-plaintext">/r 5d10cs&gt;=8x=10</code></pre>
+<p><em>Chronicles of Darkness - 9 again and 8 again using exploding dice</em>: roll five dice, counting a success for every die that rolls 8 or higher, and rolling an additional d10 any time a 9 or 10 is rolled.</p>
+<pre><code class="language-plaintext">/r 5d10cs&gt;=8x&gt;=9</code></pre>
+<p>Roll ten dice, counting a success for every die that rolls 8 or higher, and rolling an additional d10 any time an 8 or higher is rolled.</p>
+<pre><code class="language-plaintext">/r 10d10cs&gt;=8x&gt;=8</code></pre>
+<p>Rolls ten twenty-sided dice, and counts a failure for each die which rolls a 20.</p>
+<pre><code class="language-plaintext">/r 10d20cf20</code></pre>
+<p>Roll ten twenty-sided dice and count a failure for each die which rolls over a 10.</p>
+<pre><code class="language-plaintext">/r 10d20cf&gt;10</code></pre>
+<p>Roll six ten-sided dice and count a failure for each die which rolls a 6 or higher.</p>
+<pre><code class="language-plaintext">/r 6d10cf&gt;=6</code></pre>
+<p>Roll a single one-hundred sided die and count a failure if the result is 20 or lower.</p>
+<pre><code class="language-plaintext">/r 1d100cf&lt;=20</code></pre>
+<p>Roll four six-sided dice, treating any roll of exactly 6 as a success, and removing 1 from the final result for each die that rolls a 1.</p>
+<pre><code class="language-plaintext">/r 4d6cs6df1</code></pre>
+<p>Roll ten ten-sided dice, treating any roll of 6 or better as a success, and removing 1 from the final result for each die which rolls a 1.</p>
+<pre><code class="language-plaintext">/r 10d10cs&gt;5df1</code></pre>
+<p><em>Chronicles of Darkness - Chance Rolls</em>: roll a single ten-sided die, counting a 10 as a success and a 1 as a failure.</p>
+<pre><code class="language-plaintext">/r 1d10cs=10df=1</code></pre>
+<p>Roll three six-sided dice, and subtract the value of any dice that roll lower than three.</p>
+<pre><code class="language-plaintext">/r 3d6sf&lt;3</code></pre>
+<p>Roll three six-sided dice and subtract 10 from the final result.</p>
+<pre><code class="language-plaintext">/r 3d6ms10</code></pre>
+<hr/>
+
+<h2 id="special">Special Dice</h2>
+<figure class="right"><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/special-dice-2020-10-21.jpg" alt="Special Dice" /></figure>
+<p>Foundry Virtual Tabletop also natively supports two special types of dice: Coins, and Fate Dice.</p>
+
+<h4>Coins<a class="back-top" href="#top">back to top</a></h4>
+<p>Coins are two-sided dice with two results: heads, or tails. They can be rolled as any other die, but are not affected by mathematical expressions, though they can still be combined with other dice types. Coins also allow the roller to call (c) a specific result in advance, which will treat rolling coins similarly to &ldquo;count success&rdquo;. By default, Coins tally the number of heads as successes in the results.</p>
+<pre><code class="language-plaintext">/roll 4dc # Flip four coins.</code></pre>
+<pre><code class="language-plaintext">/roll 3dcc1 # Flip three coins and tally the number of coins that result in Heads</code></pre>
+<pre><code class="language-plaintext">/roll 3dcc0 # Flip a number of coins and tally the number of coins that result in Tails</code></pre>
+
+<h4>Fate Dice</h4>
+<p>Fate dice are six-sided dice that can roll a plus, minus, or blank face. They are used in the fudge and fate systems, and are rolled like any other dice in foundry, but are not affected by mathematical expressions, as their faces have no numerical values and are considered a zero.</p>
+<pre><code class="language-plaintext">/r 4df # Roll 4 fate dice, generating a random number of plus, minus, or blank results.</code></pre>
+<hr/>
+
+<h2>Parenthetical Expressions and Dice Pools<a class="back-top" href="#top">back to top</a></h2>
+<p>When a roll command includes Parenthesis ( ) and curly braces { }, Foundry VTT interprets these as instructions to handle the roll in particular ways. These expressions are evaluated first before other elements of hte roll formula.</p>
+
+<h3 id="parenthesis">Parentheses</h3>
+<p>The contents of a parenthetical expression are always evaluated before the outer portion.This allows for options where the number, faces, or modifiers of a dice roll are themselves dynamic in some way. Using parenthetical expressions can allow you to roll a variable number of dice based on a data attribute or an inner dice roll. Parenthetical expressions can also be used in conjunction with roll modifiers to allow checking a roll against a particular value. For example to count the number of successes relative to some target attribute or opposed dice roll.</p>
+<h4>Examples</h4>
+<p>Roll a single die with a number of sides randomly determined by a d20 roll.</p>
+<pre><code class="language-plaintext">/roll 1d(1d20)</code></pre>
+<p>Roll between two and eight d8.</p>
+<pre><code class="language-plaintext">/roll (2d4)d8</code></pre>
+<p>Roll a number of dice equal to the results of one roll of a 20-sided die multiplied by two, with a number of sides between 1 and 10.</p>
+<pre><code class="language-plaintext">/roll (1d20*2)d(1d10)</code></pre>
+<p>Count the number of success based on the selected token&rsquo;s &lsquo;power&rsquo; attribute.</p>
+<pre><code class="language-plaintext">/roll 3d12cs&lt;=(@attributes.power)</code></pre>
+<p>Get the margin of success based on an opposed roll of 4d6.</p>
+<pre><code class="language-plaintext">/roll 3d12ms&gt;(4d6)</code></pre>
+
+<h3 id="pools">Dice Pools<a class="back-top" href="#top">back to top</a></h3>
+<p>Dice Pools allow you to evaluate a set of dice rolls and combine or choose certain results from the pool as the final total. This allows you to keep, combine, or count results across multiple rolled formulae. Dice pools are defined using comma separated roll terms within brackets.</p>
+<h4>Examples</h4>
+<p>Roll 4d6, 3d8, and 2d10, keep only the highest result.</p>
+<pre><code class="language-plaintext">/roll {4d6, 3d8, 2d10}kh</code></pre>
+<p>Roll one twenty sided die and the result can only be 10 or higher.</p>
+<pre><code class="language-plaintext">/roll {1d20, 10}kh # </code></pre>
+<p><em>DND 5e - Reliable Talent</em>: compare a die roll against a fixed number (10), selecting the higher of the two for the result. This can be accomplished with an enclosed die roll using the keep highest modifier. Roll one twenty-sided die, and use the higher of its result or the number 10, and add 5 to it.</p>
+<pre><code class="language-plaintext">/r {1d20,10}kh + 5</code></pre>
+<p><em>DND5e - Character Creation</em>: roll a pool of ability scores when creating your character.</p>
+<pre><code class="language-plaintext">/roll {4d6kh3, 4d6kh3, 4d6kh3, 4d6kh3, 4d6kh3, 4d6kh3} # Character Ability Scores</code></pre>
+<p>Roll 6d6, 5d8, 4d10, 3d12 and count how many resolve to greater than 15.</p>
+<pre><code class="language-plaintext">/roll {6d6, 5d8, 4d10, 3d12}cs>15</code></pre>
+<p><em>SWADE - Wild Die</em>: roll one eight-sided die and one six-sided die, both of which will roll additional dice of the same size if they roll their maximum value. Use the highest result of rolls.</p>
+<pre><code class="language-plaintext">/roll {1d8x, 1d6x}kh</code></pre>
+<hr/>
+
+<h2 id="data">Data Paths as Variables<a class="back-top" href="#top">back to top</a></h2>
+<p>Foundry VTT stores important values in the data for each Entity, regardless of its type. These data paths can be called within rolls in order to provide complex functionality and references to a selected character&rsquo;s statistics and
+    modifiers.</p>
+
+<h4>Understanding The Structure of Roll Data</h4>
+<p>Each game system has its own particular Data Paths which it defines. There are two ways to resolve what these data paths are which can be used via the Developer Tools console. The first method explores the evaluated roll-data object for a specific Actor.</p>
+<pre><code class="language-javascript">const actor = game.actors.getName("My Character Name");
+console.log(actor.getRollData());
+</code></pre>
+<p>The second method explores the defined game system data template for a certain Actor type.</p>
+<pre><code class="language-javascript">game.system.model.Actor.&lt;type of actor&gt;</code></pre>
+<p>If used correctly, either of these commands will output a clickable list of the object data stored on every character which can be conveniently referenced with rolls using <code>@the.path.to.data</code>.</p>
+
+<h4>Using Data Paths as Variables</h4>
+<p>Once you know the structure of an actor, you can use them as part of any roll formula. When a roll formula resolves a data path variable, it automatically gets the data from the <strong>currently controlled token first</strong>, and if no token is controlled, gathers the data from whichever Actor has been chosen in the &ldquo;Select Character&rdquo; section of player configuration.</p>
+<p>Data path variables can take the place of any number in any part of a roll formula.</p>
+<p>For example in this screenshot from the dnd5e system, by rolling <code>/roll 1d20 + @abilities.cha.mod</code> you would perform a check of your selected token&rsquo;s Charisma modifier.</p>
+<hr/>
+
+<h2 id="js">Including Math Functions<a class="back-top" href="#top">back to top</a></h2>
+<p>One of the benefits of Foundry VTT&rsquo;s robust API is that it exposes all of its dice rolling functions to the benefits of the JavaScript Math methods. For more about these methods, see here:
+    <a title="Math Expressions" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math" target="_blank" rel="nofollow noopener">Math Expressions</a>. This allows users to leverage complex mathematical functions in their dice rolls.</p>
+<h4>Examples</h4>
+<p>Return the largest integer less than or equal to the result of a roll of 1d12 divided by 3.</p>
+<pre><code class="language-plaintext">/r floor(1d12/3)</code></pre>
+<p>Return the largest integer greater than or equal to the result of a roll of 1d12 divided by 3.</p>
+<pre><code class="language-plaintext">/r ceil(1d12/3)</code></pre>
+<p>Return the value of a roll of 1d12 divided by 3, rounded to the nearest integer in either direction.</p>
+<pre><code class="language-plaintext">/r round(1d12/3)</code></pre>
+<p>Return the absolute value of a roll where the result could be either positive or negative.</p>
+<pre><code class="language-plaintext">/r abs(5d6 - 20)</code></pre>
+
+<h2 id="api">API References<a class="back-top" href="#top">back to top</a></h2>
+<p>For module and system developers who want to go deeper with dice mechanics - there is a robust JavaScript API which can do even more with dice rolls. See the @API[Roll,The Roll Class] API documentation for details.</p>
+<hr/>
+
+<h2 id="advanced">Frequently Asked Questions<a class="back-top" href="#top">back to top</a></h2>
+<h4>How does Foundry Virtual Tabletop handle randomization?</h4>
+<p>Foundry utilizes a Mersenne Twister pseudorandom number generator for all of its dice rolls. It was originally developed in 1997 by Makoto Matsumoto and Takuji Nishimura to rectify most of the flaws found in older PRNGs.</p>
+<p>It is fast, reliably random over long periods of usage, and easily implemented, which has led to its widespread use in numerous programming languages. In fact, this pseudorandom number generator is the most widely used general-purpose PRNG in existence, and widely viewed as the most reliable for use in dice and other gaming impelementations.</p>
+<p>The Mersenne Twister utilizes a seed number that the internal mathematics use to determine the set of random numbers generated. In Foundry VTT, this seed is set at the time each user connects, giving them a unique set of rolls for the rest of that session.</p>
+<hr/>
