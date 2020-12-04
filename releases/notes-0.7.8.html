@@ -1,0 +1,69 @@
+<h2>Foundry Virtual Tabletop - Version 0.7.8 Update Notes</h2>
+<figure>
+	<img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/update-078-banner-2020-12-04.jpg" title="Foundry VTT Version 0.7.8 Release Notes" alt="Release Notes for the Foundry Virtual Tabletop 0.7.8 update version"/>
+	<figcaption>Welcome to the Foundry Virtual Tabletop update notes for Release version 0.7.8.</figcaption>
+</figure>
+
+<p>I am pleased to release <strong>Foundry Virtual Tabletop version 0.7.8</strong>, a stable release in the 0.7.x series of updates. The 0.7.8 update focuses on resolving and fixing remaining bugs related to the core themes of the 0.7.x update sequence: Dynamic lighting, canvas and scene rendering, some UI and UX fixes, Dice rolling, and other miscellaneous issues which cropped up since the previous 0.7.7 release.</p>
+
+<p class="note warning"><strong>WARNING:</strong> Version 0.7.8 is labeled as a stable release, but there is always the possibility of unexpected bugs or module compatibility issues. We do not recommend updating immediately prior to a game session unless you are confident in your own ability to troubleshoot any issues that arise.</p>
+
+<h3>New Features</h3>
+<ul>
+    <li>Add a configurable setting to use a higher pixel density resolution for rendering the canvas and filter textures. This is now placed behind a client-side configuration setting because, while some users may have high PPI displays, they may not have sufficient GPU resources to use it.</li>
+    <li>As a result of the above change, usage of high-density pixel resolution displays now defaults to <strong>off (disabled)</strong>. If you are using a high PPI display and wish to render your game canvas at increased resolution you must enable this new setting in your client settings menu.</li>
+    <li>Double-clicking a Token on the Canvas when its sheet is already open, but possibly minimized or behind other applications, now brings that existing sheet to the top of the z-index stack and maximizes it.</li>
+    <li>Expanded the set of allowed media MIME types to include <code>text/plain</code> and <code>text/markdown</code> which are now allowed as uploaded media types.</li>
+    <li>Broadened the scope of css selectors to better support Font Awesome icons and glyphs.</li>
+</ul>
+
+<h3>Bug Fixes</h3>
+<h4>Canvas and Scenes</h4>
+<ul>
+    <li>Foundry will once again notify you when the WebGL Canvas fails to render due to missing hardware acceleration.</li>
+    <li>Previously, Scene#create incorrectly expected the canvas object to be defined when it instead could be null. This is no longer the case.</li>
+    <li>Corrected scene thumbnail generator on incorrect assumptions that the game canvas will be active and available for use during thumbnail creation.</li>
+    <li>Fixed an issue with tile objects that prevented keeping a minimal portion of the tile within the allowed interactive canvas bounds.</li>
+    <li>Corrected an issue where decimal initiative scores were being displayed even if integer scores were the preferred display method.</li>
+</ul>
+<h4>UI and UX</h4>
+<ul>
+    <li>Ensured that changing a user's role will now update properly in the Players application view for other logged in users.</li>
+    <li>Fixed an issue where Window sizing issues occurred after dragging a minimized window, preventing that window from resizing properly when maximized again.</li>
+    <li>Made it so that the notification dot on the Settings sidebar indicating a core software update is visible only to GM users.</li>
+    <li>Adjusted the behavior of FormApplication instances that would cause a form submission with errors to close instead of letting the user continue editing it.</li>
+    <li>SHIFT/CTRL + Wheel rotation no longer rotates objects which are hovered but not actively controlled.</li>
+</ul>
+<h4>Lighting and Vision</h4>
+<ul>
+    <li>Fixed an issue where movement by a light-emitting token perceived by a Token with vision wouldn't update explored fog of war.</li>
+    <li>Changed how the maximum required vision radius is computed in the Sight Layer computation in order to more adequately cover the full scene dimensions.</li>
+    <li>Fog of war now properly updates on drag-moves past open doors, and if a door is opened or closed near a token that can see through it.</li>
+</ul>
+<h4>Other Fixes</h4>
+<ul>
+    <li>Improved the computation of ActiveEffect duration to better account for the progression of turns and rounds within a Combat encounter.</li>
+    <li>Having a symbolic directory link to a non-existent or unavailable location should no longer break filesystem browse requests.</li>
+    <li>Corrected an API error where the incorrect filtering method was used in CombatEncounter#_OnDeleteToken. It now correctly uses a logical comparison instead of an assignment.</li>
+    <li>The Keyboard Manager should now correctly protect against cases where the game canvas is never initialized (set to null), preventing unnecessary errors from accumulating as a result of keys being pressed when no scene is active.</li>
+    <li>Restored support for parenthetical dice rolls defining the variable number of dice to be rolled, for example: (1d6)d6.</li>
+    <li>Corrected instances where changes for Token HUD input fields when the ENTER key is pressed would not be processed, such as a negative number that is equal to the current value.</li>
+    <li>Resolve an issue where tokens with invalid URLs containing symbols could cause validation failures that prevent scenes from loading.</li></ul>
+<hr/>
+
+<h3>API and Documentation Improvements</h3>
+<h4>API Improvements</h4>
+<ul>
+    <li>Added a new hook, <code>modifyTokenAttribute</code> which can be called whenever the value of one of a Token's tracked resource bars is changed so that game systems can take follow-up actions or override the handling of the change. Example usage can be found here: https://gitlab.com/foundrynet/foundryvtt/-/issues/4194</li>
+    <li>The <code>DiceTerm#alter</code> method can now accept non-integer values for the multiplication factor, allowing for division that removes a certain number of dice from the roll formula.</li>
+    <li>Roll formulae now allow for substituted values that resolve to <code>null</code> to be retained within a dice roll formula until the final expression is evaluated in Roll#total, at which point null will be imputed as zero.</li>
+</ul>
+
+<h4>API Bug Fixes</h4>
+<ul>
+    <li>The <code>PointSource._initializeShaders</code> method has be redefined to no longer accept an argument that does not get used.</li>
+    <li>The <code>Actor#getActiveTokens</code> method no longer throws an error if there is no active scene, but instead will return an empty array as expected.</li>
+    <li>The <code>ChatMessage#_getSpeakerFromToken</code> method no longer fails for Tokens that have no associated Actor entity and will instead correctly return null.</li>
+    <li>Reversed the order of operations in <code>Token#setTarget</code> to prevent the creation of invalid one-directional links between a user and a target.</li>
+</ul>
+<hr/>
