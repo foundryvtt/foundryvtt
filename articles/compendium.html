@@ -7,6 +7,8 @@
 
 <h2 id="create">Creating and Using Compendium Packs</h2>
 	<p>A Compendium can be easily created in any World. First, navigate to the Compendiums Sidebar Tab, and then click the "Create Compendium" button. Enter the name of the Compendium (for example "Player Characters") and choose the correct type of Entity from the Entity Type dropdown. After your Compendium has been created, clicking upon the Compendium name in the Sidebar will open a new window that will allow you to drag and drop from a Sidebar Tab into the Compendium.	</p>
+	<p>You can also export whole folders to compendiums by right clicking the folder and clicking the "Export to Compendium" option. This then gives you the ability to choose the destination pack (the compendium you want to export the folder's entities to), and if you want to overwrite existing entries with the same names. If the "Merge by name?" option is toggled off, then new copies of similar entities will be added. This is useful for storing multiple versions of the same entity in a compendium.</p>
+	<p>You can only export folders to compendium packs which are unlocked. To lock and unlock a compendium, go to the Compendium Packs tab, right click a compendium, and choose the "Toggle Edit Lock" option. This will lock or unlock the chosen compendium.</p>
 	<p>Compendium Packs are automatically sorted alphabetically.</p>
 
 	<dl>
@@ -120,7 +122,7 @@
 
 <h2 id="bulk">Bulk Importing of Compendium Content</h2>
 <p>A relatively common desire for module or system developers is to bulk import external content to create a compendium pack. There are several ways to do this, but the recommended approach is to use the API to handle creation of your compendium entries from structured data. The following code block provides an example of importing Actor data from an external JSON file and using that data to populate a compendium pack.</p>
-<pre><code class="language-javascript">// Reference a Compendium pack by it's callection ID
+<pre><code class="language-javascript">// Reference a Compendium pack by it's collection ID
 const pack = game.packs.find(p =&gt; p.collection === `${moduleName}.${packName}`);
 
 // Load an external JSON data file which contains data for import
