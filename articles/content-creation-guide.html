@@ -1,0 +1,227 @@
+<p>Foundry VTT maintains a standard for content packs that it endorses. This document contains guidelines to help content creators work toward that quality standard to make sure that all content endorsed by Foundry VTT is released as the best version of itself. It also contains techniques and best practices to leverage FVTT's rendering engine, maximize performance, ensure compatibility and minimize errors for users.</p>
+<p>Though the primary purpose of this guide is to reduce the amount of critical feedback for content creatures wishint to distribute their works via Foundry VTT, it will also be useful to anyone interested in producing highly compatible, bug-free content for Foundry VTT.</p>
+<p>By adhering to this style guide, creators of scene-based content during the creation process can save themselves a lot of editing work and reduce the amount of time needed to review their work from the FVTT team. In short: if you're doing things our way, we don't have to tell you why your way doesn't meet the standards</p>
+<h4>Module Dependency</h4>
+<p>Creating content for Foundry VTT distribution should not be done with modules enabled UNLESS those modules are going to be dependencies for your content. This keeps the data structures of your content clean and ensures that the users installing it will have an identical experience to what you intend.</p>
+<hr />
+<h3>File Structure</h3>
+<p>Foundry VTT is a web server (httpd), and like any web server has file naming conventions it must adhere to in order to serve content to users in a non-disruptive way.</p>
+<p>The file structure of your module or world should be standardized before any other work is done, as changing filenames and folder names after configuration in FVTT has been completed will require either careful editing of .db files or worse, manual setting of each individual file path for tokens, scenes, etc.</p>
+<h4>Allowed Characters</h4>
+<p>File and folder names can include a wide variety of characters, but should be kept to the alphanumeric range with only two exceptions. In place of whitespace characters (such as 'space'), underscore _ or dash - should be used. Avoid including any other special characters, as some browsers and the FVTT code base itself may take issue with them.</p>
+<p>Capitalization is also important, because while Windows does not care if a file is called "This File.jpg" or "this file.jpg", every other OS, and the FVTT web server, reads these as two completely different file names.</p>
+<p><strong>Acceptable file path:</strong> <code>/modules/myawesomecontent/maps/fortress_of_doom/exterior-and-level-1.jpg</code></p>
+<p><strong>Unacceptable:</strong> <code>/modules/my awesome content/Fortress of Doom/exterior &amp; level 1 (gridless).jpg</code></p>
+<p><strong>Acceptable Filename Characters:</strong> <code>a-z, A-Z, 0-9, . - _</code></p>
+<p><strong>Unacceptable Filename Characters:</strong> <code> (spacebar or whitespace characters), ~ * ' ( ) ; : @ &amp; = + $ , / ? % # [ ]</code></p>
+<h4>Unnecessary metadata</h4>
+<p>It is common for content creators to include metadata in their file names in order to make the images they're distributing to users easier to identify when there are variations. An example of this would be "<strong>Fortress-Dungeon(30x25-3000x2500-gridless).jpg</strong>". This information should not be required for users of FVTT using a content pack, as the settings for that map are configured in the Scene Configuration window and does not require them to look directly at file names.</p>
+<p>It is recommended that this metadata be removed from filenames to prevent complications in file selection. If proper naming systems are used, however, this is not strictly necessary.</p>
+<hr />
+<h3>Compendium Configuration and the Manifest JSON</h3>
+<p>Getting a module or world started correctly is very important to make the process of packaging the compendiums for distribution as easy as possible. When making a world folder for distribution there is very little needed to do, as the distribution process only requires adding a few lines to the world.json file to allow for download once it has been hosted.</p>
+<p>For modules, however, some pre-configuration in the early stage can save some headaches when exporting later:</p>
+<h4>Always Work in the Modules Folder</h4>
+<p>If you intend to distribute your content as a Module, it is important to store your files in the modules/yourmodulename/ folder and its subfolders following the naming conventions above. Doing so helps to ensure that when the module is zipped for release it includes all the files it uses. This will save a lot of headache in the long run and prevent situations where the files you're using are not stored in relation to the module that will be distributed.</p>
+<h4>Set Up Your Module Early</h4>
+<p>Before you configure your scenes with walls and lights, take the time to create compendiums to hold your scenes.</p>
+<ul>
+<li>On the compendium sidebar tab in your development world, create however many compendiums your module will require.</li>
+<li>Close Foundry VTT and move the "packs" folder from your world to your module folder.</li>
+<li>Create a file called module.json in your module folder as established above. This module file should contain all the information from the <a title="Introduction to Module Development" href="../../../../../article/module-development/" target="_blank" rel="nofollow noopener">Introduction to Module Development</a> article, but we must take the time to define the Packs section.</li>
+<li>The Module.json file should look something like this:</li>
+</ul>
+<pre><code class="language-json">{
+    "name": "my-awesome-content-pack",
+    "title": "Awesome Battle Maps by Me",
+    "description": "This module contains 300 beautifully rendered, hand-drawn battlemaps designed for use in a virtual tabletop environment. All scenes have been pre-configured with walls and lighting and are game-ready to save you GM prep time.",
+    "version": "1.0.0",
+    "minimumCoreVersion": "0.7.5",
+    "compatibleCoreVersion": "0.8.0",
+    "author": "My Name",
+    "packs": [{
+        "name": "maps",
+        "label": "Awesome Battlemap Pack",
+        "path": "/packs/maps.db",
+        "entity": "Scene"
+    }],
+    "url": "https://www.patreon.com/my-awesome-patreon/",
+    "manifest": "https://path.tomywebsite.com/asubfolder/my-awesome-content-pack/module.json",
+    "download": "https://path.tomywebsite.com/asubfolder/my-awesome-content-pack/my-awesome-content-pack.zip" 
+}
+</code></pre>
+<ul>
+<li>Be sure that the packs field matches the actual file paths and names of your .db files. These will store the data for your module.</li>
+<li>If you have configured the module.json properly, when next you launch Foundry VTT your addon will appear in the Add-on Modules tab and in the "Manage Modules" configuration menu of your world.</li>
+<li>On the Configuration tab in your world, access "Manage Modules" and enable your module.</li>
+<li>Confirm that your compendium folders are present and that they do not say "world" on them.</li>
+</ul>
+<p>You are now fully prepared to get all your content working in Foundry VTT.</p>
+<hr />
+<h3>Scene Configuration</h3>
+<p>Several facets of the scene configuration can and should be standardized. As a rule, there should be no reason to use the Grid Configuration tool to make adjustments to the grid.</p>
+<h4>Overall Guidelines:</h4>
+<p>Tile-based scenes should be created with Padding Percentage set to 0, and should have a width and height large enough to incorporate all tiles that the scene would have. This prevents any mishaps with laying tiles outside the rendered lighting area.</p>
+<p>Choosing an appealing background color for the scene is important. A jarring, all-white background on a map image that otherwise uses dark colors can negatively impact user experience. Choose your color of background in a way that really showcases your image. Darker background colors are preferred to lighter ones, unless some specific aspect of the scene requires a light background color. When in doubt, #000000 is a good fallback.</p>
+<p>While FVTT defaults the scene background color to a neutral grey, setting the background color to <code>#000500</code> can provide a very nice 'shadow box' emphasis on the background.</p>
+<p>Grid Color should either be left at the default <code>#000000</code>, or inverted to <code>#FFFFFF</code> depending if the scene background is very dark.</p>
+<p>Grid Opacity defaults to <code>.2</code>, and does not necessarily need to be changed, but can be adjusted to provide the optimal visibility of the grid based on whichever aesthetic you choose. If you modify the default solely for the purposes of making the grid more visible while walling or placing lights, remember to return it to the default <code>.2</code> before you consider the map finished.</p>
+<h4>Resolution and Uniformity</h4>
+<p>Foundry VTT does not reference or use the DPI or PPI of an image. Instead, it takes the quality of an image from the resolution and the number of pixels per grid space. The DPI/PPI of an image is only relevant to FVTT in cases where the map would be printed at 1 inch per grid space.</p>
+<p>Images created for use as Foundry VTT scene backgrounds should be generated with a standardized grid in mind, for example, a scene background that is 4000x3000 and intended for use on a 100px square grid should contain 40 columns of grid squares and 30 rows of grid squares.</p>
+<p>A pitfall for map creators is the 'non-uniform' grid. The number of squares in your grid should always be a multiple of the map's aspect ratio. If your aspect ratio is 16:9, it should have a width in grid squares that is a multiple of 16, and a height that is a multiple of 9- thus 32x18 would work, or 64x32. <strong>A 30x20 map for a 16:9 aspect ratio, however, will not work.</strong></p>
+<p>Most modern map editing programs come prepared with grid layouts that take the headache out of this.</p>
+<p>When drawing your walls in your map art, it is important to align the walls and doorways to the grid to make lighting and navigation as seamless as possible. There are two factors involved: the scale your art is drawn in, and the scale of the grid in your scene. These must be compatible, otherwise aligning the scene grid to the map art and laying accurate walls becomes difficult or impossible.</p>
+<figure><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/good-grid-use-2020-12-16.jpg" alt="Good Grid Use" height="282" />
+<figcaption>Left: A map with art drawn at 140x140 grid scale, in a scene with 140px grid scale. <br />Right: A map with art drawn at 140x140 grid scale, but in a scene with a 70px grid scale.</figcaption>
+</figure>
+<figure><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/bad-grid-use-2020-12-16.png" alt="Bad Grid Use" height="282" />
+<figcaption>Left: A map with art drawn at 140x140 grid scale, but in a scene with a 100px grid scale. <br />Right: The same map, after attempts to align the walls to the grid, which is impossible.</figcaption>
+</figure>
+<hr />
+<h3>Grids</h3>
+<p>Scenes created for use in FVTT must have a minimum grid size of 50px. Grids must be an integer, decimal based grids will not work. Ideally, these grids should be at least 100px to allow for the best snapping of grids when placing objects.</p>
+<p>Foundry uses a sub-grid system for placement of walls and lights which provides snap-points for those objects. As the precision of the sub-grid improves based on the size of the grid square, it benefits strongly from larger pixel grids. The subgrid scales in the following ways:</p>
+<h4>Grid Precision</h4>
+<p><strong>128px or higher:</strong> Snap points every 16th (0.0625) of a square.</p>
+<p><strong>64px or higher:</strong> Snap points every 8th (0.125) of a square.</p>
+<p><strong>50px or higher: </strong>Snap points every 4th (0.25) of a square.</p>
+<hr />
+<h4>Vision and Global Illumination</h4>
+<p>Foundry VTT automatically enables Token Vision and Fog of War exploration for newly created scenes, but defaults Global Illumination to off.</p>
+<p>Global Illumination should be used in scenarios where the lighting of the scene is so strong that it allows all persons in that scene to see as far as they are physically able. Global illumination should be enabled for outdoor scenes which do not have indoor portions, and should be disabled for indoor scenes. In scenes that are mixed, Global illumination should not be used, and instead a large ambient light source should be provided in the outdoor portions.</p>
+<p>Darkness level should be set to 0 for most maps, though for caverns and dungeons, and other places with very low lighting if your map is quite bright adding a darkness level at .3 or .6 can provide a great ambient feel and emphasize light sources for players without obscuring the art. As a rule, if a map was made dark to represent night already, no Darkness Level should be set.</p>
+<p>(Optional) Global Illumination Threshold: If your scene is intended to have both indoor and outdoor portions or is expected to transition into night while the players are on it, setting a global illumination threshold will disable global illumination when the Darkness Level of a scene is reached. This is particularly useful if players are walking from outside into a cavern- GMs may press the Transition to Darkness button to cause the scene to grow dark and this function will disable global illumination in passing.</p>
+<h4>Distances</h4>
+<p>A common question we see is "How much distance should a grid unit/square cover?" The short answer is: the type of map and the game system being used often determines this. For example, DnD5e defaults to 1 square being 5 feet for battle maps, and miles for regional maps. When considering distances, it is a good idea to account for the relative sizes of a medium-sized token (1 grid square) to make sure that top-down tokens are scaled appropriately to the surrounding environment. If you need an aspect-ratio to consider, doors and furniture should be sized appropriately to a medium token.</p>
+<p>FVTT supports setting a grid square to be whatever distance or measurement you feel to be appropriate, however- keep in mind that in most cases tokens for the map will take up one whole grid square by default. If that grid is set to 10 feet, 3 meters, or 1km, it can break immersion for players whose characters can suddenly attack an enemy well-outside their normal arm's reach.</p>
+<p>For scenes containing art representative of much larger spaces, like a town or regional map, it is best to use miles or kilometers if measuring distance, or possible days and hours, if measuring travel time instead. These maps may also benefit from being set as gridless scenes, allowing for more fluid movement between locations.</p>
+<hr />
+<h3>Walls</h3>
+<p>The placement of walls and restriction of visibility is a matter that many people have strong opinions on, and wherever possible the Foundry VTT team wants to be sure that we're respecting the intent of a creator when we're providing feedback and recommendations for standardization. However, there are some best practices that can be passed on that will both streamline your efforts at walling and provide some tricks that will leverage Foundry VTT's vision system to emphasize visual aspects of your maps.</p>
+<h4>General Rules</h4>
+<p>A good shortcut for handling a large map for walling is to wall everything as a normal wall, rapidly, while holding the ctrl key down. This allows you to place a lot of walls in rapid sequence which can be selected and edited later.</p>
+<p>Avoid placing walls while holding the shift key unless absolutely necessary, as it prevents snapping to the scene sub-grid and is the most common cause of light leaking through walls.</p>
+<p>Walls should, wherever possible, join at a node and not overlap in the middle of a line itself. This means that if the scene has to be resized the walls will maintain their position relative to the scene and not become unlinked from one another.</p>
+<p>Choosing the correct wall type is important for providing the right visual and movement effect. Terrain walls are great for objects you want players to be able to see, but which should block vision past them (such as a statue, boulder, pillar, or the exterior of a building). Directional walls are useful in cases where players should be able to see down from a ledge, but others below that ledge should not be able to see above. Invisible walls should be used for windows, unless the window needs to be immediately traversible, in which case a Secret Door with visibility restrictions set to 'none' is useful. In situations where the view into an area is blocked, but movement is not (such as a hanging curtain, or an illusionary wall), Ethereal walls should be used.</p>
+<h4>Long Segments</h4>
+<p>As a rule, it is better to provide long walling segments instead of multiple smaller walls, and in general to use walls as efficiently as possible in your map. Foundry's vision and lighting systems, while very powerful, can be overwhelmed to the point that performance is negatively impacted, and higher chances of encountering vision bugs arise when having to process large numbers of short wall segments.</p>
+<h4>Vision Blocking</h4>
+<p>It is a common impulse when first beginning to use walls in FVTT to try and use walls to block vision on every tree, every post, every box or rock. Not everything facet of a map needs to be walled. Placement of walls should be done with a player-focused view. The GM will always be able to see the whole map, but players are limited to seeing only what the walls allow them. Too many walls, while they may offer a more 'realistic' experience, will negatively impact the way players experience the map. When beginning to set your map up with walls, ask yourself these questions:</p>
+<p><code>Is it of tactical importance that this object block player vision?</code></p>
+<p><code>Should it only prevent movement?</code></p>
+<p><code>Does it really need to prevent sight or movement at all?</code></p>
+<p><code>Does it serve the map's aesthetic to have a wall here, or is it better without?</code></p>
+<p>You can save a lot of time, performance, and placement of walls if you just trust that a GM or their players will know that they can't park their token in the middle of a pillar.</p>
+<p><strong>As an example:</strong> a vision blocking tree in a forest map, while it may seem logical to you, will cause players to see every portion of the map obscured by the tree trunks as a long, dark shadow. Visually this is unappealing, and sometimes makes navigating the scenes more difficult than intended.</p>
+<h4>Spacing</h4>
+<p>Remember that tokens need to be able to move through places you are walling. Narrow passages should be walled in a way that still allows a token to move through if they are intended to be passable.</p>
+<p>In general, a passage should always be as wide as a single square if you want players to be able to freely move through them. A good way to test your map's navigation is to place a token into the scene, and use arrow keys to move around. Alternatively, log in as a player to test the map from their perspective, since GMs can drag any token through walls, but players can't.</p>
+<p>A common trick for creating passable areas that appear narrow or blocked is to wall the movable section as normal, but place ethereal walls to faithfully block vision if the passage is narrow.</p>
+<h4>Precision</h4>
+<p>As mentioned in the 'grid' section above, Walls gain better precision from larger grid sizes. Attention to detail and aligning walls can be a challenge, here are some guidelines to follow which will help make it easier:</p>
+<p>When walling interiors of buildings, Foundry VTT walls should be placed approximately in the 'center' of a graphical wall. If the graphical wall is not thick enough to allow for that, favour should be given to providing as much visibility of the art as possible.</p>
+<p>Do not attempt to faithfully wall every small notch on the edges of a natural surface such as a cavern wall. Most of the time, this will only detract from the art, negatively impact performance, and likely not improve the appearance of the scene in a way that players will notice. Generally, a long segment that roughly matches the angle of the wall's shape is sufficient to provide visual blocking without obscuring the map art.</p>
+<figure><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/walling-good-and-bad-2020-12-16.png" alt="Walling - Good and Bad" height="282" />
+<figcaption>Left: Walls are inset from the art, allow for navigation, and are generally minimal. <br />Right: Walls overlap the art, stop navigation, and their segments are small, and numerous.</figcaption>
+</figure>
+<p>FVTT favours ensuring that walls stay connected wherever possible, and one of its protections can sometimes leave 'microwalls' behind. These small segments of wall occur if the mouse moves while you are clicking to place the endpoint of a wall segment, and are most commonly caused by trying to place wall points too quickly while using ctrl+click to chain them. Microwalls should be deleted and the wall segments they previously joined should be dragged to join properly.</p>
+<figure><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/bad-walling-microwalls-2020-12-16.jpg" alt="Bad Walling (microwalls)" height="282" />
+<figcaption>An example of microwalls.</figcaption>
+</figure>
+<hr />
+<h3>Lighting</h3>
+<p>Lighting can completely change the way players view a map and elevate the already great artwork being provided to a new level. Foundry VTTs light source options can be leveraged in clever and subtle ways in order to provide extra emphasis that can't be achieved with just an image file.</p>
+<h4>General Rules</h4>
+<p>Unless it is necessary to account for specific system-related light mechanics for your content, lighting should favour the visual appearance of lighting in a map over trying to adhere to strict mechanical rules on how far light spreads based on a game system. Users are less likely to check a light source to see if the torch matches what their game says it should cast for light than they are to notice that a light source just 'looks wrong'. Aesthetics are more important than mechanics.</p>
+<p>Light sources should always be given a color. Foundry's default color for light sources is the same color used to render vision, and as such, tokens which are granted dim or bright sight may miss when a light source of the same color is present.</p>
+<p>There are some suggested colors below that can provide some rich overtones, but they are only guidelines, always tweak the light color and intensity to achieve the best visual look for your scenes.</p>
+<h4>Color Palette</h4>
+<p>We commonly see questions about what color should be used for lights of certain types. There is no hard set rule on this. The way a light source looks depends heavily on the colors used in making the map, and as in real life, the color of a light source can look different when shining on a red background as opposed to a green one. Below are some very rough guideline example colours that can be used in common cases, but you should always tweak the color and color intensity in order to achieve the best appearance.</p>
+<h4>(These values all assume a default 0.7 color intensity, adjust as required for your scene.)</h4>
+<ul>
+<li>Candles, Torches - <code>#a2642a</code></li>
+<li>Fire (orange)- <code>#7f4a14</code></li>
+<li>Fire (yellow)- <code>#a2642a</code></li>
+<li>Daylight (warm) - <code>#b79471</code></li>
+<li>Daylight (cold) - <code>#94a6bc</code></li>
+<li>Full Moonlight (warm) - <code>#ab9c8c</code></li>
+<li>Full Moonlight (cold) - <code>#647080</code></li>
+<li>Magical Fire / Neon Red - <code>#800000</code></li>
+<li>Magical Fire (Blue) / Neon Blue - <code>#000080</code></li>
+<li>Magical Fire (Green) / Neon Green - <code>#008000</code></li>
+<li>Magical Fire (Purple) / Black Light (Purple) - <code>#540080</code></li>
+<li>Reflective Gold - <code>#f0be35</code></li>
+<li>Reflective Water - <code>#6dcab4</code></li>
+<li>Magma - <code>#c27a29</code></li>
+</ul>
+<h4>Placement</h4>
+<p>Lights always look best if they have a logical, visible origins, such as torch sconces, braziers, pools of lava, giant piles of littering gold, or magical entities hovering ominously above a stone dais.</p>
+<p>Though players might be hard-pressed to identify disembodied lights as the reason a scene feels strange, people have an inherent ability to notice when lights are coming from nowhere, and unless that's intended, try to avoid it when lighting scenes.</p>
+<p>For light sources that are made up of individual lights (such as collections of candles, or a candelabra) it is best to create a single light to represent the total light produced, instead of lighting every single candle. In some cases where there are multiple light sources of varied colours in close proximity, consider using a single Chroma-animated light source instead of individually placed lights.</p>
+<figure><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/lighting-example-2020-12-16.jpg" alt="Lighting Example" height="282" />
+<figcaption>Left: A three-candle candelabra represented by a single light entity.<br />Right: A two-candle candelabra represented by two overlapping lights.</figcaption>
+</figure>
+<h3>Animations</h3>
+<p>Foundry VTT's lighting animations can be used in a number of clever ways to make your maps come to life. The following are some quick tricks that you can use to make your maps really shine.</p>
+<p><video class="right" style="clear: right; float: right;" controls="controls" width="25%">
+		<source src="https://foundryvtt.s3-us-west-2.amazonaws.com/website-media-dev/videos/glittering-gold.mp4" type="video/mp4" />
+	</video></p>
+<h4>Glittering gold (Sunburst)</h4>
+<ul>
+<li>Bright Light: 0</li>
+<li>Color: #f0be35</li>
+<li>Light Animation Type: Sunburst</li>
+<li>Animation Speed: 1</li>
+<li>Animation Intensity: 2</li>
+</ul>
+<hr />
+<p><video class="right" style="clear: right; float: right;" controls="controls" width="25%">
+		<source src="https://foundryvtt.s3-us-west-2.amazonaws.com/website-media-dev/videos/waterfall.mp4" type="video/mp4" />
+	</video></p>
+<h4>Mist from active waterfalls (Swirling Fog)</h4>
+<ul>
+<li>Bright Light: 0</li>
+<li>Color: #878787</li>
+<li>Color Intensity: .45</li>
+<li>Light Animation Type: Swirling Fog</li>
+<li>Animation Speed: 5</li>
+<li>Animation Intensity: 5</li>
+</ul>
+<hr />
+<p><video class="right" style="clear: right; float: right;" controls="controls" width="25%">
+		<source src="https://foundryvtt.s3-us-west-2.amazonaws.com/website-media-dev/videos/shimmering-water.mp4" type="video/mp4" />
+	</video></p>
+<h4>Shimmering water (Ghostly Light)</h4>
+<ul>
+<li>Bright Light: 0</li>
+<li>Color: #878787</li>
+<li>Light Animation Type: Ghostly Light</li>
+<li>Animation Speed: 2</li>
+<li>Animation Intensity: 7</li>
+</ul>
+<p>&nbsp;</p>
+<hr />
+<p><video class="right" style="clear: right; float: right;" controls="controls" width="25%">
+		<source src="https://foundryvtt.s3-us-west-2.amazonaws.com/website-media-dev/videos/clouds.mp4" type="video/mp4" />
+	</video></p>
+<h4>Drifting Clouds (Swirling Fog)</h4>
+<ul>
+<li>Bright Light: 0</li>
+<li>Color: #878787</li>
+<li>Light Animation Type: Swirling Fog</li>
+<li>Animation Speed: 2</li>
+<li>Animation Intensity: 5</li>
+</ul>
+<hr />
+<p><video class="right" style="clear: right; float: right;" controls="controls" width="25%">
+		<source src="https://foundryvtt.s3-us-west-2.amazonaws.com/website-media-dev/videos/churning-magma.mp4" type="video/mp4" />
+	</video></p>
+<h4>Churning Magma</h4>
+<ul>
+<li>Bright Light: 0</li>
+<li>Color: #c27a29</li>
+<li>Light Animation Type: Ghostly Light</li>
+<li>Animation Speed: 2</li>
+<li>Animation Intensity: 7</li>
+</ul>
