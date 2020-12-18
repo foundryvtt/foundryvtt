@@ -4,7 +4,7 @@
 <p>Get started by downloading the application version which is suitable for your operating system environment. Foundry Virtual Tabletop has two flavors, a full application or a Node.js package. The application is recommended for most users: it combines the Foundry game server as well as a client view to interact with that server. The Node.js version is ideal for people who want to run a dedicated server and keep the Foundry software running at all times.</p>
 <p>To download Foundry Virtual Tabletop you must be a software license owner, if you have purchased a license the links to download the latest stable release of the software are available on your user profile by clicking on the<strong> Purchased Licenses</strong> button.</p>
 <p>When downloading the link using a command line utility such as <code>wget</code> it's important to wrap the link in double-quotes. This ensures that the link is read correctly by the command. For example: </p>
-<blockquote>~/:$ wget -O foundryvtt.zip "https://foundryvtt.s3.amazonaws.com/releases/0.6.6/foundryvtt-0.6.6.zip?AWSAccessKeyId=AKIAISZIIE42YLQZKLEQ&Signature=kr1Vxg5xh%2FDLZnJrCA8omEQ7u%2F0%3D&Expires=1600116968"</blockquote>
+<blockquote>~/:$ wget -O foundryvtt.zip "https://your-download-link-from-foundry-vtt.com-here/"</blockquote>
 
 <p class="info note">Please be aware that the download links provided via the purchased licenses page expire every 5 minutes.</p>
 
@@ -15,15 +15,24 @@
 <h4 id="windows"><strong>For Windows</strong></h4>
 <p>If you are using the&nbsp;<strong>Windows</strong> version of Foundry VTT there is an installation process necessary once you have downloaded the installer. To install the software, run the setup executable file that you downloaded. You are likely to see a warning message from Microsoft Defender SmartScreen. This happens because Foundry Virtual Tabletop does yet go through a formal code signing process and is therefore listed as an "unrecognized app".</p>
 <p class="info note">To allow Foundry Virtual Tabletop to pass the Defender SmartScreen, click <strong>More Info</strong> and then click <strong>Run anyways</strong> Alternatively, if you have stronger security settings applied, you may need to right click the file, click Properties, and mark the checkbox <strong>Unblock</strong> in the Security section.</p>
-<p>Once you have approved this step, choose an installation location of your choice to install the software. Once installation is complete, there will be an executable file named&nbsp;<strong>FoundryVTT.exe</strong> within your chosen installation location which runs the software and a created shortcut icon on your Desktop.</p>
-
-<h4 id="mac">For MacOS</h4>
-<p>There is not a specific installation process required for MacOS, the provided&nbsp;<strong>.dmg</strong> file will register Foundry Virtual Tabletop as an app which you can run from your system tray.&nbsp;</p>
-<p class="note warning">You may need to allow Foundry to be run as an unrecognized application, I will work to update this guide with a more precise description of that process if necessary.</p>
+<p>>Once you have approved this step, choose an installation location of your choice to install the software. Once installation is complete, there will be an executable file named&nbsp;<strong>FoundryVTT.exe</strong> within your chosen installation location which runs the software and a created shortcut icon on your Desktop.</p>
+https://support.apple.com/en-ca/HT202491
+<h4 id="mac">For macOS</h4>
+<p>If you are using the <strong>macOS</strong> version of Foundry VTT there are some steps which are required to allow you to use the provided&nbsp;<strong>.dmg</strong> file. As the macOS copy of Foundry VTT is not code-signed through Apple's developer process, you may see a notification when you try to activate the <strong>.dmg</strong> advising you that the application "can't be opened because it was not downloaded from the app store" or "because the developer cannot be verified." In either case the result is the same and macOS will not allow you to complete installation.</p>
+<p>The path to resolving this issue varies depending on which version of macOS you may be using, but the following steps should allow you to install FVTT in most cases:</p>
+<ol>
+	<li>From the System Preferences menu, access Security & Privacy.</li>
+	<li>On the General Tab, you will see "Foundry Virtual Tabletop was blocked from use because it is not from an identified developer."</li>
+	<li>Click "Open Anyway".</li>
+	<li>A prompt will appear saying "macOS cannot verify the developer of Foundry Virtual Tabletop, are you sure you want to open it?"</li>
+	<li>Click "Open".</li>
+	<li>Foundry VTT will successfully install and can now be opened in the future simply by double-clicking it.</li>
+</ol>
 
 <h4 id="linux">For Linux</h4>
 <p>For Linux users, Foundry Virtual Tabletop is currently distributed as a simple&nbsp;<strong>.zip</strong> archive. All you need to do to "install" it is extract the zip file in a location of your choosing. Feel free to choose whatever installation location is best for you, a simple option would be to use a folder named foundryvtt in your user home directory.</p> <pre><code>unzip foundryvtt.zip -d $HOME/foundryvtt</code></pre>
 <p>Once you have extracted the archive, you can run the application using the executable file named&nbsp;<strong>foundryvtt</strong> within that location.</p>
+<p>After successfully unpacking the FVTT zip file, you can launch FVTT at any time by using terminal to navigate to the folder where you extracted the zip and entering <pre><code>./foundryvtt</code></pre>. Alternatively, on some Linux distributions (Deb/Ubuntu) you can rename the <pre><code>foundryvtt</code></pre> file to add a .sh extension. This will allow you to quickly launch it by double-clicking. At this time there is no Linux .desktop file available for FVTT.</p>
 
 <h4 id="node">For Node.js</h4>
 <p>You may, alternatively, wish to install and run Foundry Virtual Tabletop as a dedicated server using Node.js. This requires some slightly more technical setup, and rather than covering it in this guide you should instead read the <a title="Hosting Configuration" href="../hosting" target="_blank" rel="nofollow noopener">Hosting Configuration</a> guide for more details.</p>
