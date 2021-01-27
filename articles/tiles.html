@@ -1,83 +1,69 @@
-<figure class="right">
-    @Image[39]
-	<figcaption>Tile Controls</figcaption>
+<h2>Overview</h2>
+<p>Foundry Virtual Tabletop includes support for placing Tiles, which are individual pieces of artwork displayed above the background image of the scene to add decorations, props, or custom features to be interacted with or to change the aesthetics of the scene.&nbsp;</p>
+<p>This article will familiarize you with the two methods of placing tiles into scenes, and how to manipulate and configure them once placed.</p>
+<h2 class="border">Tile Controls</h2>
+<p>The tile layer tools have the following options available:</p>
+<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/tiles-control-palette-2021-01-21.jpg">@Image[39]</a>
+<figcaption>Tile Controls</figcaption>
 </figure>
-<p>Foundry Virtual Tabletop includes support for placing Tiles, which are individual pieces of artwork which are displayed above the background image of the scene which can add decorations, props, or custom features. Tiles are displayed below Tokens.</p>
-
-<p>A future Foundry Virtual Tabletop version will add support for "overlay tiles" which will support a layer of Tiles that Tokens can pass beneath.</p>
-
-<p>To place or create Tiles, activate the Tiles Layer from the controls palette on the left hand side of the screen. There are two ways to place tiles.</p>
-
-<ol>
-    <li>Creating a custom tile. To do this use the second tool which looks like a cube and you can left-click drag a box which will form the basic shape for the tile. Once you release your left-mouse button you will be prompted to provide the configuration details for the Tile.</li>
-    <li>Using the File Browser, by clicking the folder icon in the tool palette you will be shown a File Picker where you can drag and drop image assets onto the Scene to create Tiles.</li>
-</ol>
-<hr/>
-
-<h3 id="configuration">The Tile Configuration Sheet</h3>
-<p>Once a Tile is created, you can configure all the details of the Tile by double-clicking on the Tile. The configuration options are described below:</p>
-
-<figure>
-    @Image[40]
-	<figcaption>The Tile configuration sheet is accessed by double-clicking on a Tile and can customize the display and position of the Tile.</figcaption>
-</figure>
-
 <dl>
-    <dt>Tile Sprite</dt>
-    <dd>The image or video file path of the displayed tile. Note that Tiles can be either static images or videos. If using Video tiles, the <code>.webm</code> format is recommended to support transparency (if needed).</dd>
-
-    <dt>X-Position</dt>
-    <dd>The x-coordinate location of the top-left corner of the Tile.</dd>
-
-    <dt>Y-Position</dt>
-    <dd>The y-coordinate location of the top-left corner of the Tile.</dd>
-
-    <dt>Width</dt>
-    <dd>The horizontal width of the desired Tile display.</dd>
-
-    <dt>Height</dt>
-    <dd>The vertical height of the desired Tile display.</dd>
-
-    <dt>Rotation</dt>
-    <dd>The rotation of the Tile, in degrees. You can directly edit this field, or quickly rotate a tile placed in a scene by holding down Shift or Control and using the W-A-S-D keys, the arrow keys, or the mousewheel. When used with the mousewheel, Control offers smaller increments of rotation than the Shift key, allowing for finer adjustments.</dd>
+<dt>Select Tiles</dt>
+<dd>This tool allows you to select tiles to directly manipulate them. While a tile is selected you can hold down the shift or control keys and use your mouse wheel to rotate it. You can also click and drag it around the scene.</dd>
+<dt>Place Tile</dt>
+<dd>This tool allows you to draw out a rectangle then opens a dialog to let you select the specific artwork you want to place inside the confines of the rectangle.</dd>
+<dt>Tile Browser</dt>
+<dd>This tool opens a file browser for your instance of Foundry VTT which shows you all of the available images that foundry can use as map tiles. You can click and drag any image found in this browser to the current scene, placing it into the map. The tiles default to their full resolution, but can be resized after being placed.</dd>
 </dl>
-
-<p>Once any changes to the Tile have been made, click the "Update Tile" button to confirm your changes.</p>
-
-<p>In addition to configuring the Tile using the sheet, you can also re-position or rotate the Tile using your mouse. Left-click and drag to move the tile, or use CTRL+MouseWheel or SHIFT+MouseWheel to rotate the Tile. This can be a convenient way to configure the Tile location, but using exact coordinates in the Config Sheet is more precise.</p>
-
-<hr/>
-
-<h3 id="hud">The Tile HUD</h3>
+<h3>Placing Tiles</h3>
+<figure class="right"><a title="See Larger Image" href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/tile-sprites-placing-tiles-2021-01-21.webp" target="_blank" rel="nofollow noopener">@Image[139]</a>
+<figcaption>A demonstration of the two ways you can place tiles with the tile tools. (Click to enlarge)</figcaption>
+</figure>
+<p>To place or create Tiles, activate the Tiles Layer from the controls palette on the left hand side of the screen, and select one of the tile placement tools. Depending on which tool you select, the process is slightly different:</p>
+<dl>
+<dt>Place a custom tile</dt>
+<dd>To do this use the second tool which looks like a cube and you can left-click drag a box which will form the basic shape for the tile. Once you release your left-mouse button you will be prompted to provide the configuration details for the Tile.</dd>
+<dt>Use the File Browser</dt>
+<dd>by clicking the folder icon in the tool palette you will be shown a File Picker where you can drag and drop image assets onto the Scene to create Tiles.</dd>
+</dl>
+<h2 class="border">The Tile HUD</h2>
 <p>There are additional options for configuring the Tile in the HUD which is accessed on a single right-click.</p>
-
-<figure>
-    @Image[41]
-	<figcaption>The Tile HUD is accessed with a single right-click.</figcaption>
+<figure class="right"><a title="See Larger Image" href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/the-tile-hud-2020-05-21.png" target="_blank" rel="nofollow noopener">@Image[41]</a>
+<figcaption>The Tile HUD is accessed with a single right-click.</figcaption>
 </figure>
-
 <p>The buttons in the Tile HUD are, from top-to-bottom:</p>
-
 <dl>
-    <dt>Toggle Visibility</dt>
-    <dd>Toggle the visibility state of the Tile, turning it from hidden to visible (or vice-versa).</dd>
-
-    <dt>Toggle Locked State</dt>
-    <dd>Toggle the locked state of the Tile. While locked, the Tile cannot be moved and is non-interactive.</dd>
-
-    <dt>Bring to Front</dt>
-    <dd>Bring the Tile to the front of the rendered Layer, displaying it above other nearby Tiles.</dd>
-
-    <dt>Send to Back</dt>
-    <dd>Send the Tile to the back of the Tiles Layer, displaying it below other nearby Tiles.</dd>
+<dt>Toggle Visibility</dt>
+<dd>Toggle the visibility state of the Tile, turning it from hidden to visible (or vice-versa).</dd>
+<dt>Toggle Locked State</dt>
+<dd>Toggle the locked state of the Tile. While locked, the Tile cannot be moved and is non-interactive.</dd>
+<dt>Bring to Front</dt>
+<dd>Bring the Tile to the front of the rendered Layer, displaying it above other nearby Tiles.</dd>
+<dt>Send to Back</dt>
+<dd>Send the Tile to the back of the Tiles Layer, displaying it below other nearby Tiles.</dd>
 </dl>
-<hr/>
-
-<h3 id="api">API References</h3>
+<h2 class="border">The Tile Configuration Sheet</h2>
+<p>Once a Tile is created, you can configure all the details of the Tile by double-clicking on the Tile. Once any changes to the Tile have been made, click the "Update Tile" button to confirm your changes. The tile configuration options are described below:</p>
+<figure class="right"><a title="See Larger Image" href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/tile-configuration-2020-05-21.png" target="_blank" rel="nofollow noopener">@Image[40]</a>
+<figcaption>The Tile configuration sheet is accessed by double-clicking on a Tile and can customize the display and position of the Tile.</figcaption>
+</figure>
+<dl>
+<dt>Tile Sprite</dt>
+<dd>The image or video file path of the displayed tile. Note that Tiles can be either static images or videos. If using Video tiles, the <code>.webm</code> format is recommended to support transparency (if needed).</dd>
+<dt>X-Position</dt>
+<dd>The x-coordinate location of the top-left corner of the Tile.</dd>
+<dt>Y-Position</dt>
+<dd>The y-coordinate location of the top-left corner of the Tile.</dd>
+<dt>Width</dt>
+<dd>The horizontal width of the desired Tile display.</dd>
+<dt>Height</dt>
+<dd>The vertical height of the desired Tile display.</dd>
+<dt>Rotation</dt>
+<dd>The rotation of the Tile, in degrees. You can directly edit this field, or quickly rotate a tile placed in a scene by holding down Shift or Control and using the W-A-S-D keys, the arrow keys, or the mousewheel. When used with the mousewheel, Control offers smaller increments of rotation than the Shift key, allowing for finer adjustments.</dd>
+</dl>
+<h2 class="border">API References</h2>
 <p>To interact with Tiles programmatically, consider using the following API concepts:</p>
 <ul>
-    <li>The @API[Tile,The Tile Object] Object</li>
-	<li>The @API[TilesLayer,The TilesLayer Canvas Layer] Canvas Layer</li>
-	<li>The @API[TileConfig,The TileConfig Application] Application</li>
+<li>The <a title="The Tile Object" href="../../../../api/Tile.html" target="_blank" rel="nofollow noopener">Tile</a> Object</li>
+<li>The <a title="The TilesLayer Canvas Layer" href="../../../../api/TilesLayer.html" target="_blank" rel="nofollow noopener">TilesLayer</a> Canvas Layer</li>
+<li>The <a title="The TileConfig Application" href="../../../../api/TileConfig.html" target="_blank" rel="nofollow noopener">TileConfig</a> Application</li>
 </ul>
-<hr>

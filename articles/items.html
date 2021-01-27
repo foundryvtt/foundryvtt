@@ -1,64 +1,49 @@
-<p>Foundry Virtual Tabletop uses the concept of items, for objects that have their own statistics and information and can then be associated with or used by actors. This page provides an overview on Items, the Items Directory, and their functionality.</p>
-<hr/>
-
-<h2 id="directory">The Items Directory</h2>
-
-<figure class="right">
-    <img title="The Items Sidebar" src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/items-directory-2020-05-19.png" />
-    <figcaption>The Gamemaster's view of the Items Directory sidebar.<br>Notice the buttons at the bottom of the sidebar <br>for creating new items and folders.</figcaption>
+<h2>Overview</h2>
+<p>Foundry Virtual Tabletop uses the concept of items, for objects that have their own statistics and information and can then be associated with or used by actors. When an Item is added to an Actor, it becomes an "Embedded Entity" which is called an Owned Item. These Owned Items appear in the Actor sheet and, depending on the system, can be used by the actor.&nbsp;</p>
+<p>This page provides an overview on Items, their function, the Items Directory, how to give items to actors, and how to import items from compendiums or json files.</p>
+<h2 class="border">The Items Directory</h2>
+<figure class="right"><a title="See Larger Image" href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/items-directory-2021-01-22.jpg" target="_blank" rel="nofollow noopener">@Image[32]</a>
+<figcaption>The Gamemaster's view of the Items Directory sidebar.<br />Notice the buttons at the bottom of the sidebar <br />for creating new items and folders.</figcaption>
 </figure>
-
-<p>Items in Foundry can be viewed, created, and managed in the Items Directory sidebar. Like the Scenes, Actors, and Journal Entries directories, this directory can contain folders to organize your world's items. Only a Gamemaster or Assistant-level user can change or move folders, but any players with at least Limited permissions on an item can see the item and the folder(s) containing it in the Items Directory.</p>
-
-<p>Like folders in other directories, the "quill" icon on an item folder will create a new item in that folder, and the "plus folder" icon will create a new subfolder.</p>
-
-<figure class="right">
-    <img title="The Items Sidebar Context Menu" src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/items-sidebar-context-menu-2020-05-19.png" />
-    <figcaption>The Gamemaster's context menu for an item<br> and is accessed by right-clicking the item.</figcaption>
-</figure>
-
-<h3 id="context">Item Context Menu Options</h3>
-<dl>
-    <dt>View Item Artwork</dt>
-    <dd>Views the item's artwork in new window.</dd>
-
-    <dt>Clear Folder</dt>
-    <dd>Removes the item from all folders, placing it at the top level of the Items directory.</dd>
-
-    <dt>Delete</dt>
-    <dd>Deletes the item, after accepting a confirmation prompt.</dd>
-
-    <dt>Duplicate</dt>
-    <dd>Creates a copy of the item in the directory.</dd>
-
-    <dt>Configure Permission</dt>
-    <dd>Configure the permission levels of the item, allowing players of your choice to view or modify the item in the directory.</dd>
-
-    <dt>Export Data</dt>
-    <dd>Exports the item's data as a JSON file on your computer.</dd>
-
-    <dt>Import Data</dt>
-    <dd>Imports data into the item from a JSON file on your computer.</dd>
-</dl>
-<p>Gamemasters, Assistants, and other players with permissions to view items can do so by double-clicking on an item in the Items Directory. This opens the item sheet, whose features depend on the sheet itself or the system being used.</p>
-
-<h3 id="owned">Owned Items</h3>
-<p>When an Item is added to an Actor, it becomes an "Embedded Entity" which is called an Owned Item. These Owned Items appear in the Actor sheet and, depending on the system, can be used by the actor. Dragging an item from the directory onto an actor's sheet will create a copy of the item as an "Owned Item". This owned item is separate from the original item - changes in the original item will not affect the owned item, and vice versa. Additionally, this owned item is not accessed from the Items Directory - it can only be viewed through the actor's sheet.</p>
-
+<p>Items in Foundry can be viewed, created, and managed in the Items Directory sidebar. Like the Scenes, Actors, and Journal Entries directories, this directory can contain folders to organize your world's items. Like folders in other directories, the "quill" icon on an item folder will create a new item in that folder, and the "plus folder" icon will create a new subfolder.</p>
+<p>Only a Gamemaster or Assistant-level user can change or move folders, but any players with at least Limited permissions on an item can see the item and the folder(s) containing it in the Items Directory. Additionally,&nbsp;Gamemasters, Assistants, and other players with permissions to view items can do so by double-clicking on an item in the Items Directory. This opens the item sheet, and displays the features of the item. The specifics of this sheet depends on the system being used.</p>
+<h3 id="owned">Creating New Items</h3>
+<p>To create a new item, click the "Create Item" button in the Item Directory sidebar. This will create a dialog box prompting you to name your item. Depending on the system you are using, it may also give you the option to determine the type of item it is, such as a weapon, armor, or consumable. Once you have name your item and selected its type (if necessary), click Create New Item.</p>
+<p>This will add your item to the directory sidebar, and open the item's sheet for you to edit and fill out. Again, depending on the system you are using, you may be able to define quite a lot about the item here, adding anything from art to descriptions, to abilities, attribute changes, special powers, resources, and the like. Once you are done editing your item, you can close this dialog.</p>
+<p>To edit an item after you've created it, you only need to navigate to the Items Directory and click on the item you want to edit, this will reopen the item sheet for editing.&nbsp;</p>
+<h3 id="owned">Adding Items to Actors</h3>
+<p>To give an item to an actor, open the actor's character sheet, then drag an item from the Items Directory to the character sheet. Depending on the system being used and the character sheet design, it may add the item to the actor's inventory, feature set, or otherwise appropriate section.</p>
+<p>When an item is dragged from the directory onto an actor's sheet creates a copy of the item as an "Owned Item." This owned item is separate from the original item, and changes in the original item will not affect the owned item, and vice versa. Owned items are not accessed from the Items Directory, instead they can only be viewed and changed through the actor's sheet.</p>
 <h3 id="importing">Importing Items</h3>
 <p>When a new World is first created, the Items Directory will initially be empty. Though items can be created fairly quickly from scratch, it may be desirable to import items from pre-configured sources.</p>
 <h4 id="compendium">Importing from Compendium</h4>
 <p>An item can be imported from a compendium by either dragging the item from the compendium into the Items Directory, or by right-clicking the item in the compendium and selecting "Import".</p>
 <h4 id="json">Importing from JSON</h4>
 <p>If the system and modules your world uses provide no compendiums, you can still import items directly from a JSON file. This JSON file is created by right-clicking an item in the Directory and selecting "Import Data" to import the JSON data into that item. This will overwrite the item.</p>
-<hr/>
-
-<h3 id="api">API References</h3>
-<p>To interact with Item entities programmatically, you will primarily use the following API concepts:
+<h2 class="border">Item Context Menu Options</h2>
+<figure class="right"><a title="See Larger Image" href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/items-sidebar-context-menu-2020-05-19.png" target="_blank" rel="nofollow noopener">@Image[33]</a>
+<figcaption>The Gamemaster's context menu for an item<br />and is accessed by right-clicking the item.</figcaption>
+</figure>
+<dl>
+<dt>View Item Artwork</dt>
+<dd>Views the item's artwork in new window.</dd>
+<dt>Clear Folder</dt>
+<dd>Removes the item from all folders, placing it at the top level of the Items directory.</dd>
+<dt>Delete</dt>
+<dd>Deletes the item, after accepting a confirmation prompt.</dd>
+<dt>Duplicate</dt>
+<dd>Creates a copy of the item in the directory.</dd>
+<dt>Configure Permission</dt>
+<dd>Configure the permission levels of the item, allowing players of your choice to view or modify the item in the directory.</dd>
+<dt>Export Data</dt>
+<dd>Exports the item's data as a JSON file on your computer.</dd>
+<dt>Import Data</dt>
+<dd>Imports data into the item from a JSON file on your computer.</dd>
+</dl>
+<h2 class="border">API References</h2>
+<p>To interact with Item entities programmatically, you will primarily use the following API concepts:</p>
 <ul>
-	<li>The <a href="/api/Item.html" title="The Item Entity" target="_blank">Item</a> Entity</li>
-	<li>The <a href="/api/Items.html" title="The Items Collection" target="_blank">Items</a> Collection</li>
-	<li>The <a href="/api/ItemSheet.html" title="The Item Sheet Application" target="_blank">ItemSheet</a> Application</li>
+<li>The <a title="The Item Entity" href="../../../../api/Item.html" target="_blank" rel="nofollow noopener">Item</a> Entity</li>
+<li>The <a title="The Items Collection" href="../../../../api/Items.html" target="_blank" rel="nofollow noopener">Items</a> Collection</li>
+<li>The <a title="The Item Sheet Application" href="../../../../api/ItemSheet.html" target="_blank" rel="nofollow noopener">ItemSheet</a> Application</li>
 </ul>
-</p>
-<hr/>

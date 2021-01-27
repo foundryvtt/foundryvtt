@@ -1,57 +1,53 @@
-<p>Tabletop roleplaying games often require note-taking for specific objects in a scene, or landmarks on a map. Foundry Virtual Tabletop supports the use of placing journal entries on the map to serve as map notes. This page details the process of creating and working with Map Notes (a.k.a. Journal Notes) to notate scenes in Foundry Virtual Tabletop.</p>
-<hr>
-
-<h3 id="create">Creating Notes</h3>
-<p>A Map Note is first made by creating its respective <a rel="nofollow" target="_blank" title="Journal Entries" href="../journal/">Journal Entry</a> in the directory. The Journal Entry can be dragged from the sidebar onto the scene to create the Map Note. Finally, a dialog window should appear, allowing you to configure the note before it is placed. A Map Note can be configured again by double right-clicking it. The details of each configuration option are listed below:</p>
-
-<figure>
-    <img alt="The Map Note Configuration Dialog" src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/map-note-config-2020-10-02.webp">
-    <figcaption>An example Map Note and its Map Note Configuration dialog which is opened by double right-clicking on the control icon.</figcaption>
+<h2>Overview</h2>
+<p>Tabletop roleplaying games often require note-taking for specific objects in a scene, or landmarks on a map. Foundry Virtual Tabletop supports the use of placing journal entries on the map to serve as map notes. This article will familiarize you with the process of creating map notes, editing existing map notes, and how permissions for journal entries determine visibility of map notes.</p>
+<h2 class="border">Creating Map Notes</h2>
+<p>To create a map note, take the following steps:</p>
+<ol>
+<li>Create a <a title="Journal Entries" href="../journal/" target="_blank" rel="nofollow noopener">Journal Entry</a> in the Journal Entries sidebar.</li>
+<li>Drag the created journal entry from the sidebar onto the scene to create the Map Note.</li>
+</ol>
+<p>A dialog window should appear, allowing you to configure the note before it is placed.</p>
+<figure class="right"><a title="See Larger Image" href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/map-note-config-2020-10-02.webp" target="_blank" rel="nofollow noopener">@Image[92]</a>
+<figcaption>An example Map Note and its Map Note Configuration dialog.</figcaption>
 </figure>
-
-<dl>
-    <dt>Journal Entry:</dt>
-    <dd>The Journal Entry assigned to the Map Note. Double clicking the Map Note will bring up the Journal Entry.</dd>
-    <dt>Text Label:</dt>
-    <dd>The label the Map Note will display when moused over. If left empty, the label will default to the name of the Journal Entry.</dd>
-    <dt>X/Y-Position:</dt>
-    <dd>The coordinates for the Map Note on the scene. It is worth noting The Map Note can still be dragged and relocated after placing, making these fields more suitable for fine-tuning the placement of pins.</dd>
-    <dt>Entry Icon:</dt>
-    <dd>The display icon for the Map Note.</dd>
-    <dt>Icon Size:</dt>
-    <dd>The size of the Map Note's icon on the Scene. This is equal to the length of one side of the icon, in pixels.</dd>
-    <dt>Icon Tint:</dt>
-    <dd>The tint color of the Entry Icon. Empty by default.</dd>
-	<dt>Font Family:</dt>
-    <dd>The font which will be used to display the text of this note. Signika by default.</dd>
-    <dt>Font Size:</dt>
-    <dd>The font size of the Text Label entered.</dd>
-	<dt>Text Color:</dt>
-    <dd>The color of the Text Label. A text stroke will automatically be added in contrast to the color chosen to ensure visibility.</dd>
-    <dt>Text Anchor Point:</dt>
-    <dd>The placement of the Text Label relative to the Map Note itself.</dd>
-</dl>
-<hr>
-
-<h3 id="view">Viewing Notes</h3>
+<h4 id="view">Viewing Notes</h4>
+<p>Map Notes are not always seen straight away - depending on the user's settings, they may only appear while the Journal Notes button is selected in the scene control toolbar. If you wish to see available map notes on the scene at all times, simply click on the Journal Notes button (bookmark icon) in the scene control toolbar, and click "Toggle Notes Display" (magnifying glass icon). Once enabled, notes will always be visible. This setting is&nbsp;<em>per user</em>&nbsp;- each player is able to turn on and off Map Note visibility.</p>
 <p>The visibility of Map Notes are determined by its corresponding Journal Entry - if a player has "Limited" permissions to the Journal Entry, they will be able to see the position of the Map Note pin and its assigned tooltip. The "Limited" permission prevents a user from opening the text of a journal entry, but image journal entries may still be opened. If a Map Note has no Journal Entry associated with it, the note will be visible to all users currently viewing the scene.</p>
-
-<p class="note info">If you right click on a Journal Entry in the sidebar, you can conveniently "Jump to Pin" to pan the canvas to it's placed Note location.</p>
-
-<p>Map Notes are not always seen straight away - depending on the user's settings, they may only appear while the Journal Notes button is selected in the scene control toolbar. If you wish to see available map notes on the scene at all times, simply click on the Journal Notes button (bookmark icon) in the scene control toolbar, and click "Toggle Notes Display" (magnifying glass icon). Once enabled, notes will always be visible. This setting is <em>per user</em> - each player is able to turn on and off Map Note visibility.</p>
-<hr>
-
-<h3 id="delete">Deleting Notes</h3>
+<p>If you right click on a Journal Entry in the sidebar, you can conveniently "Jump to Pin" to pan the canvas to it's placed Note location.</p>
+<h4 id="delete">Deleting Notes</h4>
 <p>A Map Note can be deleted from a Scene by a Gamemaster by mousing over the note and pressing the Delete key. Alternatively, all Map Notes on the current scene can be deleted by clicking the Map Notes button (bookmark icon) in the scene control toolbar, and clicking "Clear Notes" (trash can icon).</p>
-<p class="note info">Remember that deleting a placeable object like a Map Note will not delete the Journal Entry that it refers to.</p>
-<hr>
-
-<h3 id="api">API References</h3>
-<p>To interact with Map Note objects programmatically, you will primarily use the following API concepts:
+<p>Deleting a placed object like a Map Note will not delete the Journal Entry that it refers to.</p>
+<h2 class="border">Configuring Notes</h2>
+<figure class="right" style="width: 30%;"><a title="See Larger Image" href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/map-notes-config-screen-2021-01-20.jpg" target="_blank" rel="nofollow noopener">@Image[135]</a>
+<figcaption>An example Map Note and its Configuration dialog which is opened by double right-clicking on the control icon.</figcaption>
+</figure>
+<p>A Map Note can be configured again by double right-clicking it. The details of each configuration option are listed below:</p>
+<dl>
+<dt>Journal Entry:</dt>
+<dd>The Journal Entry assigned to the Map Note. Double clicking the Map Note will bring up the Journal Entry.</dd>
+<dt>Text Label:</dt>
+<dd>The label the Map Note will display when moused over. If left empty, the label will default to the name of the Journal Entry.</dd>
+<dt>X/Y-Position:</dt>
+<dd>The coordinates for the Map Note on the scene. It is worth noting The Map Note can still be dragged and relocated after placing, making these fields more suitable for fine-tuning the placement of pins.</dd>
+<dt>Entry Icon:</dt>
+<dd>The display icon for the Map Note.</dd>
+<dt>Icon Size:</dt>
+<dd>The size of the Map Note's icon on the Scene. This is equal to the length of one side of the icon, in pixels.</dd>
+<dt>Icon Tint:</dt>
+<dd>The tint color of the Entry Icon. Empty by default.</dd>
+<dt>Font Family:</dt>
+<dd>The font which will be used to display the text of this note. Signika by default.</dd>
+<dt>Font Size:</dt>
+<dd>The font size of the Text Label entered.</dd>
+<dt>Text Color:</dt>
+<dd>The color of the Text Label. A text stroke will automatically be added in contrast to the color chosen to ensure visibility.</dd>
+<dt>Text Anchor Point:</dt>
+<dd>The placement of the Text Label relative to the Map Note itself.</dd>
+</dl>
+<h2 class="border">API References</h2>
+<p>To interact with Map Note objects programmatically, you will primarily use the following API concepts:</p>
 <ul>
-	<li>The <a href="/api/Note.html" title="The Note Object" target="_blank">Note</a> Object</li>
-	<li>The <a href="/api/NotesLayer.html" title="The Notes Canvas Layer" target="_blank">NotesLayer</a> Canvas Layer</li>
-	<li>The <a href="/api/NoteConfig.html" title="The Note Config Application" target="_blank">NoteConfig</a> Application</li>
+<li>The <a title="The Note Object" href="../../../../api/Note.html" target="_blank" rel="nofollow noopener">Note</a> Object</li>
+<li>The <a title="The Notes Canvas Layer" href="../../../../api/NotesLayer.html" target="_blank" rel="nofollow noopener">NotesLayer</a> Canvas Layer</li>
+<li>The <a title="The Note Config Application" href="../../../../api/NoteConfig.html" target="_blank" rel="nofollow noopener">NoteConfig</a> Application</li>
 </ul>
-</p>
-<hr/>
