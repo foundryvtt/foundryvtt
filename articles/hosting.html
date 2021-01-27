@@ -1,131 +1,64 @@
-<p>In Foundry Virtual Tabletop, a game session has one <strong>host</strong> and several <strong>clients</strong>. In order to enjoy a multi-player gaming experience the clients must be able to connect to the host which is running the tabletop software.</p>
-<hr />
-
-<h2 id="options">Hosting Options and Comparison</h2>
-
-<p>There are three main modes to host a Foundry server: <strong>Self-Hosted</strong>, <strong>Cloud Hosted</strong>, and <strong>Partner Hosted</strong>.  Each has its own pros and cons, which will be outlined in the following section.</p>
-
-<h3 id="self">Self Hosted</h3>
-<p>In a self-hosted configuration, Foundry runs on your own computer or another computer on your local home network, usually using the pre-packaged Electron app.  Players then connect directly to that computer in order to play the game.  The self-hosted mode is most similar to the setup of Fantasy Grounds, Maptool, or Arkenforge.</p>
-
+<h2 id="options">Overview</h2>
+<p>In Foundry Virtual Tabletop, a game session has one <strong>host</strong> and several <strong>clients</strong>. In order to enjoy a multi-player gaming experience the clients must be able to connect to the host which is running the tabletop software. Hosting Foundry VTT can be done by anyone, and because clients can be a Gamemaster or a Player, the host does not necessarily need to be the Gamemaster.</p>
+<p>This article will help you determine which hosting option might be the best fit for you.</p>
+<h2 id="self" class="border">Self-Hosted</h2>
+<p>In a self-hosted configuration, Foundry runs on your own computer or another computer on your local home network, usually using the pre-packaged Electron app. Players then connect directly to that computer in order to play the game. The self-hosted mode is most similar to the setup of Fantasy Grounds, Maptool, or Arkenforge.</p>
 <h4 id="">Pros</h4>
+<blockquote>
 <ul>
-	<li>Uses a computer you already have, so it's cost-effective.</li>
-	<li>Very little setup on the computer hosting it -- once the application is installed or unpacked, you just start up the app.</li>
-	<li>Content lives on your local hard drive, giving you easy access to all of your world data.</li>
+<li>Uses a computer you already have, so it's cost-effective.</li>
+<li>Very little setup on the computer hosting it -- once the application is installed or unpacked, you just start up the app.</li>
+<li>Content lives on your local hard drive, giving you easy access to all of your world data.</li>
 </ul>
-
+</blockquote>
 <h4 id="">Cons</h4>
+<blockquote>
 <ul>
-	<li>Foundry is only available to your players while the app is running -- if you close it to get back some system resources, your world is no longer accessible.</li>
-	<li>If your players aren't on the same local network as you, some setup may be required to ensure connectivity.  This is done via port forwarding or other network configuration.</li>
-	<li>If players are connecting from the internet, they may experience issues based on your internet speed, especially if your world has large amounts of multimedia content.</li>
+<li>Foundry is only available to your players while the app is running -- if you close it to get back some system resources, your world is no longer accessible.</li>
+<li>If your players aren't on the same local network as you, some setup may be required to ensure connectivity. This is done via port forwarding or other network configuration.</li>
+<li>If players are connecting from the internet, they may experience issues based on your internet speed, especially if your world has large amounts of multimedia content.</li>
 </ul>
-
+</blockquote>
 <h4 id="">Summary</h4>
-<p>This is likely the most common setup for Foundry users. If you're budget-conscious and don't mind working with your home network equipment.  The biggest limiting factor is likely going to be your internet connection - if you don't have a lot of bandwidth, or have a restrictive ISP, you may want to explore other options.</p>
-
-<h3 id="cloud">Cloud Hosted</h3>
-<p>In a cloud hosted configuration, Foundry runs on a dedicated server in a datacenter or other colocation facility.  The GM and all players connect via a web browser to a persistant server running the Node.js version of the app.  This hosting mode is closer to Roll20 or Astral Tabletop, but with additional setup required.</p>
-
+<p>This is likely the most common setup for Foundry users. If you're budget-conscious and don't mind working with your home network equipment. The biggest limiting factor is likely going to be your internet connection - if you don't have a lot of bandwidth, or have a restrictive ISP, you may want to explore other options.</p>
+<h2 id="cloud" class="border">Cloud Hosted</h2>
+<p>In a cloud hosted configuration, Foundry runs on a dedicated server in a datacenter or other colocation facility. The GM and all players connect via a web browser to a persistant server running the Node.js version of the app. This hosting mode is closer to Roll20 or Astral Tabletop, but with additional setup required.</p>
 <h4 id="">Pros</h4>
+<blockquote>
 <ul>
-	<li>The world can be always online if you leave the server running -- players can connect between sessions to edit their characters, and it's easier to run ad-hoc meetings between sessions.</li>
-	<li>Requires no local network setup.  If your players can browse out to the internet, they can connect to your server.</li>
-	<li>Takes advantage of hosting providers large backbone connections, possibly eliminating issues due to internet bandwidth.</li>
+<li>The world can be always online if you leave the server running -- players can connect between sessions to edit their characters, and it's easier to run ad-hoc meetings between sessions.</li>
+<li>Requires no local network setup. If your players can browse out to the internet, they can connect to your server.</li>
+<li>Takes advantage of hosting providers large backbone connections, possibly eliminating issues due to internet bandwidth.</li>
 </ul>
-
+</blockquote>
 <h4 id="">Cons</h4>
+<blockquote>
 <ul>
-	<li>Requires a web server configured to serve the Foundry application, which generally involves a fee.</li>
-	<li>Initial setup of the application is more complicated than self hosting.</li>
-	<li>Storage needs to be planned for in advance -- most web hosts have limited storage, or charge fees based on the amount of static assets (maps, tokens, music) stored.</li>
+<li>Requires a web server configured to serve the Foundry application, which generally involves a fee.</li>
+<li>Initial setup of the application is more complicated than self hosting.</li>
+<li>Storage needs to be planned for in advance -- most web hosts have limited storage, or charge fees based on the amount of static assets (maps, tokens, music) stored.</li>
 </ul>
-
+</blockquote>
 <h4 id="">Summary</h4>
-<p>Cloud hosting is more powerful and more flexible than self hosting, but there are charges involved with those advantages.  A certain level of knowledge regarding setting up web-based applications, or a willingness to learn, is required.  Additionally, cloud hosting may require additional work to maximize returns on your expenses.</p>
-
-<h3 id="partner">Partner Hosted</h3>
-<p>Foundry has <a href="https://foundryvtt.com/article/partnerships/">official hosting partners</a> that will run Foundry on dedicated web hosts.  While these are still currently in active development, this is the option closest to Roll20 or Astral from a setup point of view.</p>
-
+<p>Cloud hosting is more powerful and more flexible than self hosting, but there are charges involved with those advantages. A certain level of knowledge regarding setting up web-based applications, or a willingness to learn, is required. Additionally, cloud hosting may require additional work to maximize returns on your expenses.</p>
+<h2 id="partner" class="border">Partner Hosted</h2>
+<p>Foundry has <a href="../../../../../article/partnerships/" target="_blank" rel="nofollow noopener">official hosting partners</a> that will run Foundry on dedicated web hosts. While these are still currently in active development, this is the option closest to Roll20 or Astral from a setup point of view.</p>
 <h4 id="">Pros</h4>
+<blockquote>
 <ul>
-	<li>Like cloud hosting, partner-hosted servers are always online, and generally have faster internet connections than a home connection.</li>
-	<li>Simplified server setup -- the hosting partner does the heavy lifting on getting the server online and keeping it online.</li>
-	<li>Partner hosts generally offer flat rates for dedicated servers -- cloud hosting providers generally offer pay-as-you-go terms on their services.</li>
+<li>Like cloud hosting, partner-hosted servers are always online, and generally have faster internet connections than a home connection.</li>
+<li>Simplified server setup -- the hosting partner does the heavy lifting on getting the server online and keeping it online.</li>
+<li>Partner hosts generally offer flat rates for dedicated servers -- cloud hosting providers generally offer pay-as-you-go terms on their services.</li>
 </ul>
-
+</blockquote>
 <h4 id="">Cons</h4>
+<blockquote>
 <ul>
-	<li>Partner hosts offer more limited flexibility on server setup -- there's limited customization on the underlying server.</li>
-	<li>In exchange for value-added features, partner hosts may charge more for what you get than if you go directly through a cloud hosting provider and set it up yourself.</li>
+<li>Partner hosts offer more limited flexibility on server setup -- there's limited customization on the underlying server.</li>
+<li>In exchange for value-added features, partner hosts may charge more for what you get than if you go directly through a cloud hosting provider and set it up yourself.</li>
 </ul>
-
+</blockquote>
 <h4 id="">Summary</h4>
-<p>If you're looking for most of the advantages that cloud hosting provides, but want setup of the software to be simpler, partner hosting is likely your best bet.  While they don't offer all of the flexibility that self hosting or cloud hosting provides, they eliminate steps between you and getting your game up and running.</p>
-<hr />
-
-<h2 id="self-host">Self-Hosted Configuration</h2>
-<p>In a self-hosted configuration, you will need to ensure that clients can connect to your PC using your IP address. There are multiple ways to achieve this and you can use a combination of approaches for different players. By default, Foundry Virtual Tabletop runs on port <strong>30000</strong>.</p>
-<p class="note info">For all self-hosted configuration models you will need to be sure that your local operating system firewall is not blocking network traffic for the application. For Windows users, you should be prompted to allow (or deny) a firewall exception when the Foundry VTT application is first started. If you have followed other steps to allow connectivity but users are still unable to connect, be sure to check your Firewall rules.</p>
-
-<h3 id="lan">Local Area Network</h3>
-<p>If your players are on the same network as you, they should be able to connect to your computer using your local IP address. To discover your own local IP address: for Windows check your Connection Settings or use ipconfig from the Command Prompt, for Mac look at Network Settings under System Preferences or use ipconfig in your Terminal, for Linux use hostname -i. Local network players should connect to your local</p>
-<p>IP address and port, for example <code>http://x.x.x.x:30000</code>.</p>
-
-<h3 id="forwarding">Port Forwarding</h3>
-<p>If your players are connecting over the internet, they will use your public IP address. Use a site like http://whatismyip.host/ to easily discover your public IP address. In order for this to work, you will need to forward web traffic for your local network to send the Foundry VTT port to your computer's local IP address. This step is required in order for your network to know where to send the connection.</p>
-<p>Port forwarding can be intimidating for some users, but it is the recommended approach as it is more secure than other options. The exact steps to implement port forwarding will depend on your network configuration and hardware. Most frequently, port forwarding is done within your router configuration interface. The website <a href="https://portforward.com/" target="_blank" rel="nofollow noopener">https://portforward.com/</a> has general instructions for the most common router configurations. Once the port is forwarded corretly players can connect to your public IP address in the browser <code>http://x.x.x.x:30000</code>.</p>
-
-<h3 id="vpn">Virtual Private Network</h3>
-<p>If your players are remote but port forwarding is not an option, a third option can be to use a VPN service. Please be aware - if you find yourself in this situation, the dedicated hosting option may be a better choice for you. With a virtual private network, other users will have access to details about your computer as well as any content (like documents or pictures) that you are sharing with your local network. If you do choose to go down this route, however, services like Hamachi (<a href="https://www.vpn.net/" target="_blank" rel="nofollow noopener">https://www.vpn.net/</a>) can create a virtual network - once inside a VPN your players can connect to your session using the above instructions for Local Area Network.</p>
-
-<p>For self-hosted installation simply download the zipped application which is suitable for your operating system and extract the archive into a directory of your choice. The first time starting the application under a self-hosted configuration, you may be prompted by your operating system for permission to allow the application to interact with the external network. Be sure to allow this permission otherwise network traffic may be blocked by your operating system firewall.</p>
-<hr />
-
-<h2 id="dedicated">Dedicated Configuration</h2>
-<p>To configure Foundry Virtual Tabletop for a dedicated server configuration there are a few simple steps to follow. Firstly you will need to create a server instance on which you want to host the Foundry VTT application. Secondly you will need to install Node.js and the Foundry VTT software.</p>
-
-<h3 id="launch">Launch a Server Instance</h3>
-<p>The configuration for a dedicated server will vary somewhat depending on your hosting platform and networking requirements. This section provides a simple configuration example for running the server using an AWS instance (<a href="https://aws.amazon.com/ec2/" target="_blank" rel="nofollow noopener">https://aws.amazon.com/ec2/</a>). Foundry Virtual Tabletop can work even with a t2.micro size instance which is supported by the free tier program which is an easy way to begin trying out the software.</p>
-<p>To get started, launch a t2.micro (or larger) instance using the Linux distribution of your choice. These instructions are for the standard Amazon Linux AMI. Configure the inbound rules for your instance security group using the AWS dashboard to allow inbound traffic using a <strong>Custom TCP Rule</strong> for port <code>30000</code> (or a different port of your choice). Lastly, connect to your new host via SSH. You will need to configure your SSH client to use the security key-pair provided by AWS.</p>
-
-<h3 id="install">Install Software</h3>
-<p>To get started with Foundry VTT, you will need to install <a title="Node.js" href="https://nodejs.org" target="_blank" rel="nofollow noopener">Node.js</a> which is used to host the server.</p>
-<p class="note info">Note that a relatively modern version of Node.js is required in order to support various security features which are required by the application. Please use Node.js version 14.x or newer.</p>
-
-<h4 id="redhat">For Red Hat / Amazon Linux</h4> <pre><code class="language bash">sudo yum install -y openssl-devel
-curl --silent --location https://rpm.nodesource.com/setup_14.x | sudo bash -
-sudo yum install -y nodejs
-</code></pre>
-
-<h4 id="debian">For Debian / Ubuntu</h4> <pre><code class="language bash">sudo apt install -y libssl-dev
-curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
-sudo apt install -y nodejs
-</code></pre>
-<p>Once Node.js is installed, next download and extract the latest Foundry Virtual Tabletop Linux version. The following commands will create an application directory and a sibling user data directory.</p>
-
-<p class="info note">To install the software using <code>wget</code> you will need to acquire a temporary download token from your user profile page on the Foundry website. On the <strong>Purchased Licenses</strong> page, click the link icon to the right of the standard download link to obtain a temporary download url for the software.</p>
-
-<pre><code class="language bash"># Create application and user data directories
-cd $HOME
-mkdir foundryvtt
-mkdir foundrydata
-
-# Install the software
-cd foundryvtt
-wget -O foundryvtt.zip "&lt;foundry-website-download-url&gt;"
-unzip foundryvtt.zip
-
-# Start running the server
-node resources/app/main.js --dataPath=$HOME/foundrydata
-</code></pre>
-
-<h3 id="mac">For MacOS</h3>
-<p>Foundry VTT is also supported as a native application on macOS using Electron, however if you wish to host the software using Node.js directly, this is also an option in the MacOS environment. Simply visit <a href="https://nodejs.org/en/download/" target="_blank" rel="nofollow noopener">https://nodejs.org/en/download/</a> and download the macOS installer. Node is installed on your system, you can run the server using the instructions in the below section via your Mac terminal.</p>
-
-<h3 id="windows">For Windows</h3>
-<p>Note that you can run a dedicated server from Windows also, for Windows you should download and install node.js from <a href="https://nodejs.org/en/download/" target="_blank" rel="nofollow noopener">https://nodejs.org/en/download/</a>.</p>
-<hr />
-
-<p>For next steps, once the Foundry Virtual Tabletop software is installed see @Article[configuration].</p>
+<p>If you're looking for most of the advantages that cloud hosting provides, but want setup of the software to be simpler, partner hosting is likely your best bet. While they don't offer all of the flexibility that self hosting or cloud hosting provides, they eliminate steps between you and getting your game up and running.</p>
+<h2>Next Steps</h2>
+<p>Once you have decided on which method best suits you, the @Article[installation] will take you through everything you need in order to get your copy of Foundry VTT up and running.</p>
