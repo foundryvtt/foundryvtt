@@ -10,7 +10,7 @@
 <li>Administrator access to your operating system</li>
 </ul>
 <h2 id="config" class="border">Configuring SSL</h2>
-<p>The most common reason users want to set up SSL configuration is in order to In order to enable HTTPS support in Foundry VTT, you will need an <strong>SSL certificate</strong>. Certificates are most often generated as <code>.pem</code> files or as <code>.cert</code> and <code>.key</code>&nbsp;files. There are two options for generating SSL certificates:</p>
+<p>The most common reason users want to set up SSL configuration is in order to In order to enable HTTPS support in Foundry VTT, you will need an <strong>SSL certificate</strong>. Certificates are most often generated as <code>.pem</code> files or as <code>.cert</code> and <code>.key</code>files. There are two options for generating SSL certificates:</p>
 <dl>
 <dt>CA Signed Certificates</dt>
 <dd>SSL certificates signed by a Certificate Authority (CA) provide an extra layer of verification and are considered genuine by all browsers, but often require the user to renew them regularly (most often: 90 days). CA Signed Certificates are legitimate and valid, but require you to have a domain name associated with your IP address that can be verified by a number of testing methods. Use of a CA Certificate saves your users a lot of manual configuration for access, but means you have to do the work instead.</dd>
@@ -36,9 +36,9 @@
 <ol>
 <li>Download the latest version of the Certbot installer for Windows at <a href="https://dl.eff.org/certbot-beta-installer-win32.exe" target="_blank" rel="nofollow noopener">https://dl.eff.org/certbot-beta-installer-win32.exe</a></li>
 <li>Search the start menu for "command prompt", then <strong>right-click</strong> it and choose <strong>run as administrator</strong></li>
-<li>In the Administrator Command Prompt, type: <code>certbot certonly --standalone -d YOURDOMAINNAMEHERE</code>&nbsp;(if you are renewing your existing certificates, use&nbsp;<code>certbot renew</code>&nbsp;instead)</li>
+<li>In the Administrator Command Prompt, type: <code>certbot certonly --standalone -d YOURDOMAINNAMEHERE</code>(if you are renewing your existing certificates, use<code>certbot renew</code>instead)</li>
 <li>Wait for verification to complete (if it fails, please ensure you have port-forwarded TCP port 80 and TCP port 443 and opened those ports on your Windows Firewall)</li>
-<li>Once it has completed it will place a set of .pem files in&nbsp;<strong>C:\certbot\live\YOURDOMAINHERE\&nbsp;</strong></li>
+<li>Once it has completed it will place a set of .pem files in<strong>C:\certbot\live\YOURDOMAINHERE\</strong></li>
 <li>Copy the "fullchain.pem" and "privkey.pem" into the <strong>Config</strong> folder located inside your Foundry VTT User Data Folder (default location: <strong>%localappdata%\FoundryVTT\Config</strong>)</li>
 <li>Launch Foundry VTT and from the Setup menu, click the Configuration tab and change the following settings:<br />
 <pre>Port: 443<br />SSL Certificate: fullchain.pem<br />SSL Key: privkey.pem</pre>
@@ -50,12 +50,12 @@
 <h4 id="certbot-mac">Generating a SSL Cert using Certbot (macOS)</h4>
 <blockquote>
 <ol>
-<li>Using <strong>Terminal</strong>, install the Homebrew Package Manager using the command:&nbsp;<code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)</code></li>
-<li>Still using <strong>Terminal, </strong>use Homebrew to install the latest version of Certbot:&nbsp;<code>brew install certbot</code></li>
+<li>Using <strong>Terminal</strong>, install the Homebrew Package Manager using the command:<code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)</code></li>
+<li>Still using <strong>Terminal, </strong>use Homebrew to install the latest version of Certbot:<code>brew install certbot</code></li>
 <li>From <strong>Terminal</strong>, type: <code>certbot certonly --standalone -d YOURDOMAINNAMEHERE</code> (if you are renewing your existing certificates, use <code>certbot renew</code> instead)</li>
 <li>Wait for verification to complete (if it fails, please ensure you have port-forwarded TCP port 80 and TCP port 443 and opened those ports on any firewall you may have enabled)</li>
 <li>Once it has completed it will place a set of .pem files in <strong>/etc/letsencrypt/live/YOURDOMAINHERE/</strong></li>
-<li>Copy the "fullchain.pem" and "privkey.pem" into the&nbsp;<strong>Config</strong>&nbsp;folder located inside your Foundry VTT User Data Folder (default location:&nbsp;<strong>~/FoundryVTT/</strong><strong>Library/Application Support/FoundryVTT/Config/</strong>)</li>
+<li>Copy the "fullchain.pem" and "privkey.pem" into the<strong>Config</strong>folder located inside your Foundry VTT User Data Folder (default location:<strong>~/FoundryVTT/</strong><strong>Library/Application Support/FoundryVTT/Config/</strong>)</li>
 <li>Launch Foundry VTT and from the Setup menu, click the Configuration tab and change the following settings:<br />
 <pre>Port: 443<br />SSL Certificate: fullchain.pem<br />SSL Key: privkey.pem</pre>
 </li>
@@ -66,12 +66,12 @@
 <h4 id="certbot-linux">Generating a SSL Cert using Certbot (Linux)</h4>
 <blockquote>
 <ol>
-<li>Using any terminal emulator or bash shell, Install Certbot using one of the appropriate command for your distribution:<br /><strong>Arch-based</strong>: <code>sudo pacman -S certbot</code><br /><br /><strong>Debian-based</strong>: <code>sudo apt install certbot</code><br /><br /><strong>Fedora</strong>: <code>sudo dnf install certbot&nbsp;</code></li>
+<li>Using any terminal emulator or bash shell, Install Certbot using one of the appropriate command for your distribution:<br /><strong>Arch-based</strong>: <code>sudo pacman -S certbot</code><br /><br /><strong>Debian-based</strong>: <code>sudo apt install certbot</code><br /><br /><strong>Fedora</strong>: <code>sudo dnf install certbot</code></li>
 <li>For additional OS instructions, or installing via Snap, please view: <a href="https://certbot.eff.org/docs/install.html#operating-system-packages" target="_blank" rel="nofollow noopener">https://certbot.eff.org/docs/install.html#operating-system-packages</a></li>
-<li>From&nbsp;<strong>Terminal</strong>, type:&nbsp;<code>certbot certonly --standalone -d YOURDOMAINNAMEHERE</code>&nbsp;(if you are renewing your existing certificates, use&nbsp;<code>certbot renew</code>&nbsp;instead)</li>
+<li>From<strong>Terminal</strong>, type:<code>certbot certonly --standalone -d YOURDOMAINNAMEHERE</code>(if you are renewing your existing certificates, use<code>certbot renew</code>instead)</li>
 <li>Wait for verification to complete (if it fails, please ensure you have port-forwarded TCP port 80 and TCP port 443 and opened those ports on any firewall you may have enabled)</li>
-<li>Once it has completed it will place a set of .pem files in&nbsp;<strong>/etc/letsencrypt/live/YOURDOMAINHERE/</strong></li>
-<li>Copy the "fullchain.pem" and "privkey.pem" into the&nbsp;<strong>Config</strong>&nbsp;folder located inside your Foundry VTT User Data Folder (default location:&nbsp;<strong>~/.local/</strong><strong>share/FoundryVTT/Config/</strong>)&nbsp;</li>
+<li>Once it has completed it will place a set of .pem files in<strong>/etc/letsencrypt/live/YOURDOMAINHERE/</strong></li>
+<li>Copy the "fullchain.pem" and "privkey.pem" into the<strong>Config</strong>folder located inside your Foundry VTT User Data Folder (default location:<strong>~/.local/</strong><strong>share/FoundryVTT/Config/</strong>)</li>
 <li>Launch Foundry VTT and from the Setup menu, click the Configuration tab and change the following settings:<br />
 <pre>Port: 443<br />SSL Certificate: fullchain.pem<br />SSL Key: privkey.pem</pre>
 </li>
@@ -99,15 +99,15 @@
 </ul>
 <p>When creating a self-signed certificate, you can simply list the server name as <code>localhost</code>.</p>
 <h3 id="existing-cert">Using an Existing Certificate</h3>
-<p>To configure Foundry VTT to use the certificate you have created, you need to copy the certificate and the private key to your FVTT's <strong>Config</strong> directory, after which you can enter the file names in the SSL Cert and SSL Key fields on the Foundry VTT Setup menu.&nbsp; This can also be configured by directly editing the options.json file located in the<strong> Config </strong>folder. For example, suppose you have generated a SSL certificate file named <code>localhost.cert</code> and a SSL key file named <code>localhost.key</code> - you would place these files inside your <code>Config</code> folder and reference them within the <code>options.json</code> file as follows:</p>
+<p>To configure Foundry VTT to use the certificate you have created, you need to copy the certificate and the private key to your FVTT's <strong>Config</strong> directory, after which you can enter the file names in the SSL Cert and SSL Key fields on the Foundry VTT Setup menu. This can also be configured by directly editing the options.json file located in the<strong> Config </strong>folder. For example, suppose you have generated a SSL certificate file named <code>localhost.cert</code> and a SSL key file named <code>localhost.key</code> - you would place these files inside your <code>Config</code> folder and reference them within the <code>options.json</code> file as follows:</p>
 <pre><code class="language-json">...
 "sslCert": "localhost.cert",
 "sslKey": "localhost.key",
 ...</code></pre>
 <h2 id="reverse-proxy">Using a Reverse Proxy</h2>
-<p>If you configured your Foundry VTT to operate behind a reverse proxy provided by Apache, Caddy, or Nginx then all you need to do to have FVTT support https is to change one key within the <code>options.json</code>&nbsp;file as follows:</p>
+<p>If you configured your Foundry VTT to operate behind a reverse proxy provided by Apache, Caddy, or Nginx then all you need to do to have FVTT support https is to change one key within the <code>options.json</code>file as follows:</p>
 <pre><code class="language-json">...
 "ProxySSL": true,
 ...
 </code></pre>
-<p>Once this configuration change has been made, Foundry VTT will operate using the SSL provided by your reverse proxy rather than requiring its own configuration and nothing further needs to be changed.&nbsp;</p>
+<p>Once this configuration change has been made, Foundry VTT will operate using the SSL provided by your reverse proxy rather than requiring its own configuration and nothing further needs to be changed.</p>
