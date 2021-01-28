@@ -20,7 +20,7 @@
 <ul>
 <li>A domain name or Dynamic DNS service (if using CA Signed Certificates)</li>
 <li>
-<p>A reasonably fast internet connection. If you are self-hosting, your server should be able to provide a minimum of <strong>1mbps</strong> upload rate for every player you have.&nbsp;</p>
+<p>A reasonably fast internet connection. If you are self-hosting, your server should be able to provide a minimum of <strong>1mbps</strong> upload rate for every player you have.</p>
 </li>
 <li>
 <p>@Article[ssl] to enable HTTPS.</p>
@@ -34,10 +34,10 @@
 <li>Port-forwarding UDP ports 33478, and 49152-65535.</li>
 </ul>
 <h2 class="border">A/V Configuration</h2>
-<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/audio-visual-configuration-2021-01-21.jpg" target="_blank" rel="nofollow noopener"><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/audio-visual-configuration-2021-01-21.jpg" alt="Audio Visual Configuration" /></a>
+<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/audio-visual-configuration-2021-01-21.jpg" target="_blank" rel="nofollow noopener">@Image[136]</a>
 <figcaption>The Audio/Video Configuration application.</figcaption>
 </figure>
-<p>From within the Foundry app, the <strong>AV Configuration</strong> panel is accessible from the <strong>Settings</strong> sidebar within your active World. This allows you to customize the A/V broadcast mode (including enabling or disabling it), configure a custom signalling or relay server, and designate your preferred webcam and microphone hardware. If no microphone or webcam appear in this list, the most likely cause is that the devices are already in use by another program. Refreshing the screen (<strong>ctrl+f5</strong>) after you have released the devices from other programs using them should resolve this.&nbsp;</p>
+<p>From within the Foundry app, the <strong>AV Configuration</strong> panel is accessible from the <strong>Settings</strong> sidebar within your active World. This allows you to customize the A/V broadcast mode (including enabling or disabling it), configure a custom signalling or relay server, and designate your preferred webcam and microphone hardware. If no microphone or webcam appear in this list, the most likely cause is that the devices are already in use by another program. Refreshing the screen (<strong>ctrl+f5</strong>) after you have released the devices from other programs using them should resolve this.</p>
 <dl>
 <dt>Audio/Video Conferencing Mode</dt>
 <dd>Used to select whether you wish to disable A/V, transmit audio only, video only, or use both audio and video conferencing.</dd>
@@ -54,15 +54,15 @@
 </dl>
 <p>For details on the configuration of the<strong> Server</strong> tab of A/V Configuration, please see discussion of relay and signalling servers below.</p>
 <h2 id="built-in" class="border">How A/V Integration Works</h2>
-<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/peer-to-peer-av-2021-01-21.jpg" target="_blank" rel="nofollow noopener"><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/peer-to-peer-av-2021-01-21.jpg" alt="A/V Peer to Peer connections" /></a>
+<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/peer-to-peer-av-2021-01-21.jpg" target="_blank" rel="nofollow noopener">@Image[137]</a>
 <figcaption>Audio/Video connections when peer-to-peer is functioning correctly.</figcaption>
 </figure>
-<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/av-relay-server-2021-01-21.jpg" target="_blank" rel="nofollow noopener"><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/av-relay-server-2021-01-21.jpg" alt="A/V Relay Server connections." /></a>
+<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/av-relay-server-2021-01-21.jpg" target="_blank" rel="nofollow noopener">@Image[138]</a>
 <figcaption>A/V Relying upon the relay server when peer-to-peer connections are unavailable.</figcaption>
 </figure>
-<p>Audio-Video communication through Foundry VTT primarily uses peer-to-peer connections, which requires that all users (not just the server host) need to have UDP ports allowed through software firewalls and routers in order to properly connect.&nbsp;</p>
-<p>The first diagram on the right shows an example of a peer-to-peer conference, all users are connected to one another. Notice how the connections are to one another, but do not actually pass through the Relay server. When one user speaks, they transmit audio and video directly to all other users in the game, and all other users receive that information directly without the user of a relay server. If the connections are not configured correctly, participants in the A/V conference may be unable to connect to each other and audio and video streams between those users will fail to appear.&nbsp;</p>
-<p>The second diagram on the right demonstrates the way the Foundry VTT relay server works. If a user cannot establish a peer-to-peer connection with another user, the Foundry VTT relay server is used to pass information between those users instead. In this case, when the user speaks, they transmit audio and video to the relay server, which then re-transmits the stream to that user instead. This process places far more network overhead on the Foundry VTT server.</p>
+<p>Audio-Video communication through Foundry VTT primarily uses peer-to-peer connections, which requires that all users (not just the server host) need to have UDP ports allowed through software firewalls and routers in order to properly connect.</p>
+<p>The first diagram on the right shows an example of a peer-to-peer conference, all users are connected to one another. Notice how the connections are to one another, but do not actually pass through the Relay server. When one user speaks, they transmit audio and video directly to all other users in the game, and all other users receive that information directly without the user of a relay server. If the connections are not configured correctly, participants in the A/V conference may be unable to connect to each other and audio and video streams between those users will fail to appear.</p>
+<p>The second diagram on the right demonstrates the way the Foundry VTT relay server works. If a user cannot establish a peer-to-peer connection with another user, the Foundry VTT relay server is used to pass information between those users instead. Notice that the GM as well as Player 1 and Player 2 are still connected through peer-to-peer connections, but Player 3 and Player 4 are only connected via the relay server. In this case, when the user speaks, they transmit audio and video to the relay server, which then re-transmits the stream to that user instead. This process places far more network overhead on the Foundry VTT server.</p>
 <p>To allow connections through the FVTT Relay server, the following ports must be opened on any firewall software that is in use and a port forwarding rule must be created to direct these connections to your hosted server:</p>
 <pre>UDP primary port: 33478<br />UDP port range: 49152-65535</pre>
 <p>If you are self hosting Foundry VTT and you have not done any port-forwarding, then the relay server may not work correctly for you. If you are using a server such as AWS or DigitalOcean or any other VPS service, then as long as the proper ports are allowed access to the server, you shouldn't have any issues.</p>
