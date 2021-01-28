@@ -1,82 +1,75 @@
-<p>Foundry Virtual Tabletop includes built-in technology to allow for audio/video (A/V) calls shared between all of the players in your game. This is achieved using a technology called <em>WebRTC</em> which is a standard specification for Real Time Communications. In order to enable A/V functionality in Foundry VTT, you will need to satisfy some specific requirements.</p>
-<p class="note warning"><strong>Important:</strong> In order to use built-in AV you must run Foundry VTT using SSL certificates. This requires some additional setup.</p>
-<hr />
-
-<h2>What You Need</h2>
-<p>The following are requirements in order to use A/V functionality:</p>
+<h2>Overview</h2>
+<p>Foundry Virtual Tabletop includes built-in technology to allow for audio/video (A/V) conferencing between all of the players in your game. <em>WebRTC </em>is an internet standard used by a number of video and audio communications softwares for Real Time Communications, using WebRTC allows Foundry VTT to connect players and GMs without the need for running a second video conferencing suite. There is some significant configuration required in order to use these functions.</p>
+<p>If you are presently hosting your game via one of our Hosting Partners it is likely that the configuration of this feature has already been completed for you, and you simply need to enable it.</p>
+<p class="note warning">Configuring A/V Integration is an advanced feature of Foundry VTT and requires technical configuration.</p>
+<p>This article will introduce you to the concepts of:</p>
+<dl>
+<dt>SSL</dt>
+<dd>Secure Sockets Layer (SSL) Certificates are used to provide encrypted communication between a website and a browser. By using SSL to encrypt communications it can be reasonably assumed the communication between users is secure and private.</dd>
+<dt>Peer-to-Peer Communication</dt>
+<dd>All audio and video connections in Foundry VTT require every user connected to the server to also connect to all other users. If there is a breakdown in connection between a user and its peers, audio and video transmission for that user may be interrupted.</dd>
+<dt>Relay Server</dt>
+<dd>In addition to peer-to-peer connections, all users are connected to a relay server provided by Foundry VTT. This relay server acts as a middle-point, conveying streamed audio and video out to users who may not be able to establish peer-to-peer connections.</dd>
+<dt>Signalling Server</dt>
+<dd>The Signalling server is the portion of the A/V chat framework which ensures connections between users occur.</dd>
+</dl>
+<p>Video conferencing can consume a significant amount of bandwidth. If your upload speed is relatively low, you may wish to consider alternate services for video conferencing while running your games. This can be understandably inconvenient if the purpose of getting Foundry VTT was to contain your video and audio chat and have it display as an overlay- use of third party relay servers can help mitigate some of the network usage, but the best option if you have insufficient upload speed to support video conferencing is to host Foundry VTT through a third party service.</p>
+<p class="note info"><strong>Note</strong>: If you are already using another program for video and audio chat during your games, do not feel obligated to configure A/V for Foundry VTT. If what you're doing presently works for you, there is no reason to switch!</p>
+<h3>Requirements</h3>
+<p>Unfortunately it isn't as easy to set up WebRTC as simply flipping a switch or checking a box. Every server is different and has different settings, which means that configuring WebRTC has a few necessary requirements before you can even begin. This process requires:</p>
 <ul>
-	<li>
-		<p>An internet or local network connection to connect and exchange audio and video between players. The download and upload speed needed in order to enjoy this feature will depend on the number of players in your game (and whether they are sending video).</p>
-	</li>
-	<li>
-		<p>SSL certificates to enable HTTPS which is a security requirement enforced by the browser in order to capture from your camera and microphone devices</p>
-	</li>
-	<li>
-		<p>A signaling server which helps negotiate the connection between players. Foundry VTT does this automatically for you, but you can also use a custom signaling server should you wish.</p>
-	</li>
-	<li>
-		<p>A relay server to facilitate communication in cases where it is not possible to establish a direct peer-to-peer connection. Foundry VTT does this automatically for you, but you can also use a custom relay server should you wish.</p>
-	</li>
+<li>A domain name or Dynamic DNS service (if using CA Signed Certificates)</li>
+<li>
+<p>A reasonably fast internet connection. If you are self-hosting, your server should be able to provide a minimum of <strong>1mbps</strong> upload rate for every player you have.</p>
+</li>
+<li>
+<p>@Article[ssl] to enable HTTPS.</p>
+</li>
+<li>
+<p>A signalling server which helps negotiate the connection between players. Foundry VTT does this automatically for you, but you can also use a custom signalling server should you wish.</p>
+</li>
+<li>
+<p>A relay server to facilitate communication in cases where it is not possible to establish a direct peer-to-peer connection. Foundry VTT does this automatically for you, but you can also use a custom relay server should you wish.</p>
+</li>
+<li>Port-forwarding UDP ports 33478, and 49152-65535.</li>
 </ul>
-
-<h3 id="ssl">Why do I need SSL certificates?</h3>
-<p>For security reasons, browsers (such as Chrome or Firefox) will not let a website capture your camera and microphone unless that connection is secure. In order for the connection to be secure, the website needs to be access using <cite>https://</cite> rather than <cite>http://</cite>. In order to enable HTTPS support in Foundry VTT, you will need an SSL certificate. You have two choices for that, either you create a valid SSL certificate generated by a trusted Certificate Authority for your domain name, or you create the certificate by yourself. Regardless of the choice you make (and the security concerns with the self signed certificate method), the use of HTTPS is simply to allow the browser to capture from your webcam and microphone and in this case isn't really used to ensure a secure connection between you and your players.</p>
-
-<h3 id="self-signed">How can I create a self-signed certificate?</h3>
-<p>Creating your own SSL certificate is easier to achieve so we'll start with that. While it is easier, it does not guarantee security because it does not efficiently protect the data transiting over the internet and a hacker, a three-letter government agency or your ISP (Internet Service Provider) could potentially monitor your communications. It is however still more secure than not having an SSL certificate and simply using <cite>http://</cite></p>
-<p>When using a self-signed certificate, your browser will warn you about entering an unsecured site when you visit it for the first time. You will need to click on the "Advanced" button and then "Proceed". Here are some links which explain methods of creating a self-signed certificates for different platforms:</p>
-<ul>
-	<li>
-		<p><strong>Online Tool</strong> : <a href="https://www.selfsignedcertificate.com/" target="_blank" rel="nofollow noopener">https://www.selfsignedcertificate.com/</a></p>
-	</li>
-	<li>
-		<p><strong>Windows</strong>: <a href="https://medium.com/the-new-control-plane/generating-self-signed-certificates-on-windows-7812a600c2d8" target="_blank" rel="nofollow noopener">https://medium.com/the-new-control-plane/generating-self-signed-certificates-on-windows-7812a600c2d8</a></p>
-	</li>
-	<li>
-		<p><strong>Linux</strong>: <a href="https://linuxize.com/post/creating-a-self-signed-ssl-certificate/" target="_blank" rel="nofollow noopener">https://linuxize.com/post/creating-a-self-signed-ssl-certificate/</a></p>
-	</li>
-	<li>
-		<p><strong>MacOS</strong>: <a href="https://support.apple.com/guide/keychain-access/create-self-signed-certificates-kyca8916/mac" target="_blank" rel="nofollow noopener">https://support.apple.com/guide/keychain-access/create-self-signed-certificates-kyca8916/mac</a></p>
-	</li>
-</ul>
-<p>When creating a self-signed certificate, you can simply list the server name as <code>localhost</code>.</p>
-
-<h3 id="trusted">How can I create a trusted certificate?</h3>
-<p>The ideal method for enabling SSL is to create a valid certificate using a trusted Certificate Authority. This process is more complicated, and it requires having a registered domain name which points to your server IP address. If you have bought a domain name or use a web hosting service, you might have the ability to create a valid certificate from your service provider directly. Otherwise, simply follow the instructions provided by the <a href="https://letsencrypt.org/" target="_blank" rel="nofollow noopener">Let's Encrypt</a> project which provides free verified SSL certificates.</p>
-<hr />
-
-<h2 id="connectivity">A/V Connectivity Guide</h2>
-<p>To configure Foundry VTT to use the certificate you have created, you need to copy the certificate and the private key to your FVTT's Config directory, and then edit the options.json file and specify the filename of the certificate and the key file under the <cite>sslCert</cite> and <cite>sslKey</cite> fields. For example, suppose you have generated a SSL certificate file named <code>localhost.cert</code> and a SSL key file named <code>localhost.key</code> - you would place these files inside your <code>Config</code> folder and reference them within the <code>options.json</code> file as follows:</p>
-<pre><code class="language-json">...
-"sslCert": "localhost.cert",
-"sslKey": "localhost.key",
-...
-</code></pre>
-<p>From within the Foundry app, the <strong>AV Configuration</strong> panel is accessible from the Settings sidebar within your active World. This allows you to customize the A/V broadcast mode (including enabling or disabling it), configure a custom signaling or relay server, and designate your preferred webcam and microphone hardware.</p>
-
-<h3 id="built-in">Using the Built-In Relay Server</h3>
-<p>You can customize the signaling and relay servers used for A/V functionality within the AV Config application accessed through the Settings Sidebar. The Foundry VTT server also acts as a signalling server so there is nothing to do here either. As long as you can connect to FVTT, you are good to go. FVTT also has support for using an external signalling server if you wish and the GameMaster can configure it in the Audio/Video Configuration window under the Server tab. Using a custom server might be preferred if you are having trouble setting up a relaying server, though you can also configure a custom relay server to use directly.</p>
-<p>Note</p>
-<p>When you make an audio or video call using Foundry VTT, every player connects to every other player using peer-to-peer connections.</p>
-<figure><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/asset/webrtc-mesh-network-2020-02-25.jpg" alt="WebRTC Mesh Network" width="568" height="441" />
-	<figcaption>An example visualization of how the mesh network structure works with peer-to-peer calls.</figcaption>
+<h2 class="border">A/V Configuration</h2>
+<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/audio-visual-configuration-2021-01-21.jpg" target="_blank" rel="nofollow noopener">@Image[136]</a>
+<figcaption>The Audio/Video Configuration application.</figcaption>
 </figure>
-<p>Unfortunately, due to various factors, two participants in the call may be unable to connect to each other. This can occur due to firewalls or other routing settings which do not work well together. In such (rare) situations, a player may not be able to interface with the call. This can be solved through use of a Relay Server which acts as a middle-point to which both players connect and exchange their audio and video streams. The Foundry VTT server automatically starts a relay server which can be used for your calls - but the built in relay server does require a few things in order to work properly:</p>
-<ul>
-	<li>
-		<p>Its own port to listen to connections on</p>
-	</li>
-	<li>
-		<p>A big range of ports to be used for relaying</p>
-	</li>
-	<li>
-		<p>A publicly accessible IP</p>
-	</li>
-</ul>
-<p>If you are self hosting Foundry VTT and you have not done any port forwarding, then the relay server may not work correctly for you. If you are using a server such as AWS or DigitalOcean or any other VPS service, then as long as the proper ports are allowed access to the server, you shouldn't have any issues.</p>
-
-<h3 id="relay">Foundry's Relay Server</h3>
-<p>You can use the relay server included with the Foundry VTT server. In the options.json file of the FVTT's Config directory, you can customize its behavior with the following fields (default values are given here if those keys are not specified) :</p>
+<p>From within the Foundry app, the <strong>AV Configuration</strong> panel is accessible from the <strong>Settings</strong> sidebar within your active World. This allows you to customize the A/V broadcast mode (including enabling or disabling it), configure a custom signalling or relay server, and designate your preferred webcam and microphone hardware. If no microphone or webcam appear in this list, the most likely cause is that the devices are already in use by another program. Refreshing the screen (<strong>ctrl+f5</strong>) after you have released the devices from other programs using them should resolve this.</p>
+<dl>
+<dt>Audio/Video Conferencing Mode</dt>
+<dd>Used to select whether you wish to disable A/V, transmit audio only, video only, or use both audio and video conferencing.</dd>
+<dt>Voice Broadcasting Mode</dt>
+<dd>The method by which your microphone activates to transmit audio. If always enabled, the microphone will continually broadcast. Voice activation will activate the microphone only when it crosses a threshold of volume. Push to talk uses the assigned push-to-talk hotkey to trigger microphone activation while it is held down.</dd>
+<dt>Push-to-Talk/Mute key:</dt>
+<dd>Assign the keyboard key to be used to trigger Push to Talk. To assign a key, simply click into the input field and then press the keyboard key you wish to use. By default this is assigned to the backtick key: `</dd>
+<dt>Video Capture Device</dt>
+<dd>A list of available devices which can be used as a video source for video conferencing, choose your camera or video source here. If this list is empty or reads "Unknown Device", you may need to grant permission to use the camera for your browser, or to verify that no other programs are currently using the capture device.</dd>
+<dt>Audio Capture Device</dt>
+<dd>A list of available devices which can be used as an audio source, choose your microphone or audio source here. If this list is empty or reads "Unknown Device", you may need to grant permission to use the camera for your browser, or to verify that no other programs are currently using the capture device.</dd>
+<dt>Audio Output Device</dt>
+<dd>A list of available devices which FVTT should send audio-video to. By default, this is 'Default Device' which uses whichever device your OS uses as a primary sound output, but you can choose a specific output if you wish to output to headphones but not speakers, for example. (Please note that Firefox users will not see this option unless they have set <code>media.setsinkid.enabled</code> to true in their <code>about:config</code>).</dd>
+</dl>
+<p>For details on the configuration of the<strong> Server</strong> tab of A/V Configuration, please see discussion of relay and signalling servers below.</p>
+<h2 id="built-in" class="border">How A/V Integration Works</h2>
+<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/peer-to-peer-av-2021-01-21.jpg" target="_blank" rel="nofollow noopener">@Image[137]</a>
+<figcaption>Audio/Video connections when peer-to-peer is functioning correctly.</figcaption>
+</figure>
+<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/av-relay-server-2021-01-21.jpg" target="_blank" rel="nofollow noopener">@Image[138]</a>
+<figcaption>A/V Relying upon the relay server when peer-to-peer connections are unavailable.</figcaption>
+</figure>
+<p>Audio-Video communication through Foundry VTT primarily uses peer-to-peer connections, which requires that all users (not just the server host) need to have UDP ports allowed through software firewalls and routers in order to properly connect.</p>
+<p>The first diagram on the right shows an example of a peer-to-peer conference, all users are connected to one another. Notice how the connections are to one another, but do not actually pass through the Relay server. When one user speaks, they transmit audio and video directly to all other users in the game, and all other users receive that information directly without the user of a relay server. If the connections are not configured correctly, participants in the A/V conference may be unable to connect to each other and audio and video streams between those users will fail to appear.</p>
+<p>The second diagram on the right demonstrates the way the Foundry VTT relay server works. If a user cannot establish a peer-to-peer connection with another user, the Foundry VTT relay server is used to pass information between those users instead. Notice that the GM as well as Player 1 and Player 2 are still connected through peer-to-peer connections, but Player 3 and Player 4 are only connected via the relay server. In this case, when the user speaks, they transmit audio and video to the relay server, which then re-transmits the stream to that user instead. This process places far more network overhead on the Foundry VTT server.</p>
+<p>To allow connections through the FVTT Relay server, the following ports must be opened on any firewall software that is in use and a port forwarding rule must be created to direct these connections to your hosted server:</p>
+<pre>UDP primary port: 33478<br />UDP port range: 49152-65535</pre>
+<p>If you are self hosting Foundry VTT and you have not done any port-forwarding, then the relay server may not work correctly for you. If you are using a server such as AWS or DigitalOcean or any other VPS service, then as long as the proper ports are allowed access to the server, you shouldn't have any issues.</p>
+<p>You can customize the signalling and relay servers used for A/V functionality within the <strong>AV Config</strong> application accessed through the <strong>Settings</strong> Sidebar. The Foundry VTT server also acts as a signalling server so there is nothing to do here either. As long as you and your users can connect to FVTT, you are good to go. FVTT also has support for using an external signalling server if you wish and the GameMaster can configure it in the Audio/Video Configuration window under the Server tab. Using a custom server might be preferred if you are having trouble setting up a relaying server, though you can also configure a custom relay server to use directly.</p>
+<h4 id="relay">Configuring The Default Relay Server</h4>
+<p class="note info">Note: in addition to configuration via the options.json file, you can configure these options on a per-world basis from the Server tab of the A/V Configuration application.</p>
+<p>Foundry VTT's relay server can be configured from the <strong>options.json</strong> file located in the <strong>Config</strong> directory, you can customize its behavior with the following fields (default values are given here if those keys are not specified) :</p>
 <pre><code class="language-json">"turnListeningPort": 33478,
 "turnListeningIps": ["0.0.0.0"],
 "turnRelayIps": [],
@@ -84,9 +77,8 @@
 "turnMaxPort": 65535
 </code></pre>
 <p><strong>Warning: </strong>If your host machine is behind a NAT you must configure port forwarding in your router to make sure UDP port 33478 and the UDP port range 49152-65535 are forwarded to your machine properly.</p>
-
-<h3 id="custom">Using a Custom Relay Server</h3>
-<p>You may run a custom relay server using an external application such as <a href="https://github.com/coturn/coturn" target="_blank" rel="nofollow noopener">coturn</a>, which is a more advanced relay server which supports things such as relaying over UDP and TCP, using SSL for encrypting relayed data, use of a database for authentication, and many more options, as well as being optimized for heavy traffic production-ready systems. If you use such a custom relay and would like to tell Foundry VTT to use it by default for all players, or you would like to disable the use of the FVTT provided relay server entirely, you can do so by providing an array of configurations in the <code>turnConfigs</code> field in the options.json file.</p>
+<h4 id="custom">Using a Custom Relay Server</h4>
+<p>You may run a custom relay server using an external application such as <a href="https://github.com/coturn/coturn" target="_blank" rel="nofollow noopener">coturn</a> (a more advanced relay server optimized for heavy traffic, which supports many additional features). If you use such a custom relay and would like to tell Foundry VTT to use it by default for all players, or you would like to disable the use of the FVTT provided relay server entirely, you can do so by providing an array of <a href="https://developer.mozilla.org/en-US/docs/Web/API/RTCIceServer">configurations</a> in the <code>turnConfigs</code> field in the options.json file.</p>
 <pre><code class="language-json">"turnConfigs": [{
       "url": "turn:example.com:3478",
       "urls": ["turn:example.com:3478", "turns:example.com:5349"],
@@ -96,44 +88,19 @@
   ]
 </code></pre>
 <p>To disable Foundry's relay server, simply provide an empty list of turn configurations.</p>
-<hr />
-
-<h2 id="glossary">Glossary of A/V Related Terminology</h2>
-<dl>
-	<dt>NAT</dt>
-	<dd>
-		<p><strong>Network Address Translation</strong> (Routers create a NAT from the local network to the outside)</p>
-	</dd>
-	<dt>STUN</dt>
-	<dd>
-		<p><strong>Simple Traversal of UDP through NAT</strong> (A tool for UDP hole-punching through NATs)</p>
-	</dd>
-	<dt>TURN</dt>
-	<dd>
-		<p><strong>Traversal Using Relays around NAT</strong> (A relay for data)</p>
-	</dd>
-	<dt>ICE</dt>
-	<dd>
-		<p><strong>Interactive Connectivity Establishment</strong> (A methodology for using STUN (and TURN) to ensure a connection between 2 peers)</p>
-	</dd>
-	<dt>SDP</dt>
-	<dd>
-		<p><strong>Session Description Protocol</strong> (A protocol for describing media, like "we want to share audio, here are the codecs we support, here are our list of ICE candidates (IP addresses), etc&hellip;")</p>
-	</dd>
-	<dt>RTP</dt>
-	<dd>
-		<p><strong>Real Time Protocol</strong> (Protocol used to packetize the audio and video encoded streams over UDP packets)</p>
-	</dd>
-	<dt>RTC</dt>
-	<dd>
-		<p><strong>Real Time Communications</strong> (A broad name that encapsulates all of these technologies (and more) to make them work together so we can have real time communications)</p>
-	</dd>
-</dl>
-<hr />
-
-<h2 id="jitsi">Using a Jitsi Server</h2>
-<p>You can configure WebRTC in Foundry Virtual Tabletop to use a Jitsi server for better performance and stability. These steps are somewhat more advanced. Please see the following resources:</p>
+<h4 id="jitsi">Using a Jitsi Server</h4>
+<p>Jitsi is a free, open-source voice conferencing platform which can be used to provide an alternative to peer-to-peer WebRTC communications. By using Jitsi, all users connect to the Jitsi server instead of connecting directly to each other. This often removes the necessity for port forwarding (if the Jitsi server is not hosted on your computer.) Through use of third party modules it is possible to WebRTC in Foundry Virtual Tabletop to use a Jitsi server for better performance and stability. Please see the following resources for more information about using Jitsi:</p>
 <ol>
-	<li>The <a title="Jitsi RTC Module" href="https://github.com/luvolondon/fvtt-module-jitsiwebrtc" target="_blank" rel="nofollow noopener">Jitsi WebRTC</a> module.</li>
-	<li>The excellent <a title="Jitsi Server Setup Instructions" href="https://www.vttassets.com/articles/installing-a-self-hosted-jitsi-server-to-use-with-foundry-vtt" target="_blank" rel="nofollow noopener">Jitsi Server Setup Instructions</a> created by community member Solfolango.</li>
+<li>The <a title="Jitsi RTC Module" href="https://github.com/luvolondon/fvtt-module-jitsiwebrtc" target="_blank" rel="nofollow noopener">Jitsi WebRTC</a> module.</li>
+<li>The excellent <a title="Jitsi Server Setup Instructions" href="https://www.vttassets.com/articles/installing-a-self-hosted-jitsi-server-to-use-with-foundry-vtt" target="_blank" rel="nofollow noopener">Jitsi Server Setup Instructions</a> created by community member Solfolango.</li>
 </ol>
+<h3 id="signalling">The Signalling Server</h3>
+<p>WebRTC uses a signalling server to resolve how to connect one or more devices for the purposes of audio-video conferencing. Effectively, the Signalling server acts as a go-between which notifies users to connect peers for the purposes of peer-to-peer communications. Foundry VTT includes a default Signalling server which handles all of this, but its implementation is simplified in order to provide the most streamlined experience for users. By default, the Foundry VTT Signalling server is provided through use of the <a href ="https://github.com/open-easyrtc/open-easyrtc">Open-easyRTC</a> framework.</p>
+<p>There are more complex implementations of WebRTC signalling servers, and FVTT allows you to configure and use a custom signalling server in much the same way as it allows configuration of relay servers. If you are intending to replace the signalling server with another EasyRTC server, this process is simple and can be access through the server tab of the Audio Visual Configuration as seen above.</p>
+<p>It is possible to use other implementations of RTC signalling servers beyond EasyRTC, but this would require creating a module to override the WebRTC implementation used by Foundry VTT and is outside the scope of this article.</p>
+<p>
+<h2 class="border">API References</h2>
+<p>To interact with AV programmatically, consider using the following API concepts:</p>
+<p><a href="https://foundryvtt.com/api/AVMaster.html" target="_blank" rel="nofollow noopener">AVMaster</a> - The Master Audio/Video controller instance</p>
+<p><a href="https://foundryvtt.com/api/AVConfig.html" target="_blank" rel="nofollow noopener">AVConfig</a>- The Audio/Video Conferencing Configuration Sheet</p>
+<p><a href="https://foundryvtt.com/api/CameraViews.html" target="_blank" rel="nofollow noopener">CameraViews</a> - The Camera UI View</p>

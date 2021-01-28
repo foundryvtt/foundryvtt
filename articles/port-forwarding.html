@@ -1,15 +1,39 @@
-<p>An important topic for self-hosting Foundry Virtual Tabletop within a local network is the requirement for port forwarding. This article describes a brief overview of port forwarding, why it is necessary, and the steps you need to take in order to enable correct forwarding. ;</p>
+<h2>Overview</h2>
+<p>As with any server software, hosting Foundry VTT can require some network configuration to allow users to connect. It is also possible to use some simple network configuration for convenience or to provide some additional, more advanced features of FVTT (such as @Article[audio-video]). This article will introduce you to the following topics:</p>
+<dl>
+<dt>Port Forwarding</dt>
+<dd>A process that allows you to configure your home internet to allow connections to access a particular computer from outside your own network.</dd>
+<dt>Firewall</dt>
+<dd>Security software and hardware designed to prevent access to devices on your home internet from remote locations.</dd>
+<dt>CGNAT</dt>
+<dd>A service policy used by ISPs to decrease the number of IP addresses their networks use which often prevents configuration of Port Forwarding.</dd>
+<dt>Domain Names</dt>
+<dd>A shorthand reference to an IP address.</dd>
+</dl>
 
 <h2 id="what">What is Port Forwarding?</h2>
-<p>Let's use an analogy to explain port forwarding. Think of your home network like an apartment building where many people live where every resident has their own apartment number. In our case, the building is your home network and the residents are the devices connected to your network like your PC, your phone, your smart TV, or your printer.</p>
-<p>Suppose someone wants to mail a letter to a resident of the building - they would address that letter to the building street address and the apartment number within the building - but what if they don't know the right apartment number? ;</p>
-<p>This is the situation which occurs with web traffic. External requests know the public IP address of your local network (think of this as the "street address" of the building), but they don't know your local IP address within that network (think of this as your "apartment number" within the building).</p>
-<p>What port forwarding does is it helps to correctly route incoming traffic which arrives on a certain port to the correct internal IP address on the network which is expecting to recieve it. You are "forwarding" your traffic the same way you might forward physical mail. For the Foundry Virtual Tabletop use case, when traffic arrives at your external IP address on port <code>30000</code> (or an alternative port you choose to use), the port forwarding rule will automatically direct that traffic to your local PC which is running the Foundry application.</p>
+<p>Port forwarding is a topic that is often seen with some nervousness or frustration from users due to past negative experiences with configuration. To allow users to connect to your home network, however, some level of port forwarding is necessary.</p>
+<p>To take some of the mystery and complexity away from port forwarding and explain it simply, let's use an analogy: </p>
+	<blockquote id="analogy"><p>Think of your home network like an apartment building. The building has a front desk where a security guard directs visitors to the apartment they're looking for. The apartment building has an address, but every apartment in the building has an apartment number.</p> 
+	<p>In our case:</p>
+		 <ul> 
+			 <li>The apartment building is your home network.</li>
+			 <li>Its street address is your WAN IP (or Internet IP) address, assigned by your Internet Service Provider.</li>
+			 <li>The security guard is your router, and has a registry of all the apartment numbers.</li>
+			 <li>Your apartment is your computer.</li>
+			 <li>Your apartment number is your computer's LAN (or Local) IP address</li>
+			 <li>the other residents are the devices connected to your network, such as your phone, your smart TV, or your printer.</li>
+		</ul>
+<p>Suppose someone wants to visit you - they would receive an invitation to the address of the building (YOUR WAN/LOCAL IP), and upon arriving they would ask the security guard (ROUTER) how to find your apartment (YOUR COMPUTER). The security guard (ROUTER) would then check its list of apartment numbers (DEVICES) to find your apartment number (YOUR COMPUTER'S LAN IP ADDRESS) before directing them to your apartment (YOUR COMPUTER). In order to tell the security guard that it's okay to send people to your apartment, however, the security guard needs permission (A PORT FORWARDING RULE).</p>
+<p>Simplified completely, connections trying to reach your computer have to follow this path:</p>
+<p>Their computer → Internet → Your Router (WAN IP) → Your Computer(LAN IP)</p>
+</blockquote>
+<p>What port forwarding does is it helps to send users which are trying to connect to your WAN/INTERNET IP address to the correct LAN/LOCAL IP address. It does this by way of a <code>port</code> number which tells your router what kind of connection it is. For Foundry Virtual Tabletop, when traffic arrives at your WAN IP address on port <code>30000</code> (or an alternative port you can choose in the Setup menu), the port forwarding rule will automatically send the connections to your computer's LAN/LOCAL IP address.</p>
 
 <h4 id="when">When is Port Forwarding Not Required?</h4>
 <p>Under some circumstances, port forwarding may not be required:</p>
 <ul>
-	<li>If you have an <a title="About IPv6" href="https://en.wikipedia.org/wiki/IPv6" target="_blank" rel="nofollow noopener">IPv6 address</a> you <em>probably</em> do not need to port forward. IPv6 is an expanded protocol which is able to refer to specific device IPs.</li>
+	<li>If you have an <a title="About IPv6" href="https://en.wikipedia.org/wiki/IPv6" target="_blank" rel="nofollow noopener">IPv6 address</a> you <em>probably</em> do not need to port forward. IPv6 is an expanded protocol which is able to refer to specific device IPs. In this case, all you should have to do is configure your firewall to allow connections as per the firewall section of this article.</li>
 	<li>If you are using a router which supports <a title="About UPnP" href="https://en.wikipedia.org/wiki/Universal_Plug_and_Play" target="_blank" rel="nofollow noopener">Universal Plug and Play (UPnP)</a> and has that feature enabled you <em>probably</em> do not need to port forward. Some negative interactions between routers and UPNP can result in connection issues. If you experience connection issues while using UPnP, please disable it and manually port forward.</li>
 </ul>
 <hr/>
