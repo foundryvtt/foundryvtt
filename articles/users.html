@@ -1,20 +1,39 @@
-<p>Each player who connects to a Foundry Virtual Tabletop session is a User. Users represent human beigns (or possibly programmatic players) and are the cornerstone of identity in FVTT.</p>
+<h2>Overview</h2>
+<p>Each player who connects to a Foundry Virtual Tabletop session is a User. Each user is assigned a role which determines what the user has permission to do within the confines of the game world. Permissions can be configured in order to more finely control the features available to users in any hosted World. Foundry VTT has two tiers of permission settings which can be configured to allow as much or as little restriction as needed for your game and your users.</p>
+<dl>
+	<dt>Role Permissions</dt>
+	<dd>Chosen when setting up player accounts to assign use a configured set of default permissions for that account type in the Game World.</dd>
+	<dt>Entity Permissions</dt>
+	<dd>Assigned to each actor, item, journal entry or other entity to allow users to access documents. Entity permissions control how a specific user may interact with that entity.</dd>
+</dl>
+<h2 id="create" class="border">User Creation and Configuration</h2>
+<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/getting-started-user-management-2021-01-13.jpg">@Image[124]</a>
+	<figcaption>The User Management screen allows you to create, modify, and delete User accounts from your Game World.</figcaption>
+	</figure>
+<p>Users are created within an active Game World, and the set of users is specific to that world. There are no global, cross-world, user accounts within Foundry VTT, each World maintains it's own player list and user-level permission controls.</p>
+<p>To create a new User, click the Game Settings icon (three cogs icon) on the right sidebar, and then click on Configure Players. From here you should see the gamemaster user, and a button that says "Create Additional User." By clicking this button Foundry will create a new generic user slot, usually named "Player 2" or similar.</p>
+<p>You can then rename the user, give them a password, and set their permission level. For the purposes of this guide, players don't need to be assigned a role beyond "Player." Also bear in mind that user passwords are not cryptographically secure, and should not be reused from other important accounts or services you or your players use.</p>
+<p>Once you've set up all your player accounts click "Save and Return" and you'll be returned to your game. Players can now join and log in with the credentials you've given them. Though there's a bit more setup to do before they will be able to play.</p>
 
-<h2 id="create">User Creation and Configuration</h2>
-<p>Users are created within an active World, and the set of Users is specific to that world. There are no global user accounts, each World maintains it&rsquo;s own player list and user-level permission controls.</p>
-<p>To create a new User, visit the <strong>Configure Players</strong> screen through the Escape Menu or on the Settings Sidebar while logged into the World as a GameMaster user. From this management panel you can create new users, delete existing users, or change a user&rsquo;s name, access key, or role.</p>
-<figure><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/players-configuration-2020-02-25.jpg" alt="Players Configuration Form" />
-	<figcaption>The Players Configuration screen allows you to modify the Users who can participate in your Foundry VTT World.</figcaption>
+<h3 id="configuration">User Configuration Settings</h3>
+<figure class="right">
+	<a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/player-configuration-2020-02-25.jpg" alt="Player Configuration Sheet">@Image[8]</a>
+	<figcaption>The Player Configuration application allows a player to choose their preferred character and other User-specific settings.</figcaption>
 </figure>
+<p>Once a user account has been created, there are additional configuration options for each User which can be customized by either a GameMaster user or by the player themselves by right-clicking on their name within the <strong>Players List</strong> at the bottom-left corner of the UI.</p>
 
-<h2 id="roles">User Roles</h2>
-<p>Each User has a specific <strong>role</strong> which configures their basic permission set of actions they can perform within a Foundry VTT game. The role for each User is configured using the <strong>Configure Players</strong> page described above. Each of the role levels and their meanings are described below:</p>
+
+<h2 id="roles" class="border">User Roles</h2>
+<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/role-permission-defaults-2021-01-28.jpg">@Image[145]</a>
+	<figcaption>The default role permissions for all roles.</figcaption>
+	</figure>
+<p>Each User has a specific <strong>role</strong> which configures their basic permission set of actions they can perform within a Foundry VTT game. The role for each User is configured using the <strong>User Management</strong> page described above. Each of the role levels and their meanings are described below:</p>
 <dl>
     <dt><strong>None</strong></dt>
 	<dd>
 		<p>The User is blocked from taking actions in Foundry Virtual Tabletop. You can use this role to temporarily or permanently ban a user from joining the game.</p>
 	</dd>
-    <dt><strong>Player</strong></dt>
+	<dt><strong>Player</strong></dt>
 	<dd>
 		<p>The User is able to join the game with permissions available to a standard player. They cannot take some more advanced actions which require Trusted permissions, but they have the basic functionalities needed to operate in the virtual tabletop.</p>
 	</dd>
@@ -31,9 +50,27 @@
 		<p>A special User who has many of the same in-game controls as a Game Master User, but does not have the ability to perform administrative actions like changing User roles or modifying World-level settings.</p>
 	</dd>
 </dl>
+<h2 class="border">Entity Permissions</h2>
+<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/getting-started-actor-permissions-2021-01-13.jpg">@Image[125]</a>
+	<figcaption>The Entity Permission Configuration window lets you determine who has control of an entity and its data.</figcaption>
+	</figure>
+<p>Each entity has its own model for permissions which determine what a particularly user is allowed to do with that entity. To find out more about how entity permissions affect a specific entity, you should examine each entity article: @Article[actors], @Article[items], @Article[journal], @Article[macros]</p>
+<p>A brief overview of entity permissions:</p>
+<dl>
+	<dt>None</dt>
+	<dd>Restricts this entity so that they may not even see this entity in the sidebar. </dd>
+	<dt>Limited</dt>
+	<dd>The user may interact with this entity in very basic ways, it will generally appear in the sidebar, but the entity sheet will generally display only limited information (as defined by the Game System rules).</dd>
+	<dt>Observer</dt>
+	<dd>The user has ability to view this entity as if they were owner, but it is a read-only access. They may not make any changes.</dd>
+	<dt>Owner</dt>
+	<dd>The user is able to view and make changes to the entity as if they were the GM, the only exception is that they may not delete the entity.</dd>
+</dl>
+<h2 class="border">API References</h2>
+<p>To interact with Users programmatically, you will primarily use the following API concepts:</p>
+<ul>
+<li>The <a title="The User Entity" href="https://foundryvtt.com/api/User.html" target="_blank" rel="nofollow noopener">User</a> Entity</li>
+<li>The <a title="The Users Collection" href="https://foundryvtt.com/api/Users.html" target="_blank" rel="nofollow noopener">Users</a> Collection</li>
+<li>The <a title="The UserManagement Application" href="https://foundryvtt.com/api/UserManagement.html" target="_blank" rel="nofollow noopener">User Management</a> Setup Application</li>
 
-<h2 id="configuration">User Configuration Settings</h2>
-<p>Within the application, there are additional configuration options for each User which can be customized by either a GameMaster user or by the player themselves by right-clicking on the <strong>Players HUD</strong> at the bottom-left corner of the UI.</p>
-<figure><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/player-configuration-2020-02-25.jpg" alt="Player Configuration Sheet" />
-	<figcaption>The config sheet for a single User allows that player to choose their preferred character and other User-specific settings.</figcaption>
-</figure>
+</ul>
