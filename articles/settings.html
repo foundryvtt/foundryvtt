@@ -1,56 +1,60 @@
-<p>Foundry Virtual Tabletop features a number of configurable settings which are accessed by clicking the <strong>Configure Settings</strong> button in the <strong>Settings Sidebar</strong> tab.</p>
+<h2>Overview</h2>
+<p>Foundry Virtual Tabletop features a number of configurable settings which are accessed by clicking the <strong>Configure Settings</strong> button in the <strong>Settings Sidebar</strong> tab. Settings allow you to customise your FVTT experience and the way you interact with the software.</p>
+<dl>
+<dt>Core Settings</dt>
+<dd>change particular features of the core software and how it functions.</dd>
+<dt>System Settings</dt>
+<dd>change aspects of the game system you are currently using, if the system provides settings that can be changed..</dd>
+<dt>Module Settings</dt>
+<dd>change particular settings and customise functionality as provided by currently active add-on modules.</dd>
+</dl>
 
 <p class="note info">Note that these settings differ from the @Article[hosting] settings which are controlled by the server host.</p>
 
-<h3 id="scopes">Setting Scopes</h3>
-<p>There are two different setting scopes which are applied:</p>
+<h4 id="scopes">Setting Scopes</h4>
+<p>Setting Scopes are configured by the Foundry VTT API and determine if a setting affects all users, or only the user who has made the change.</p>
 <ul>
-    <li><strong>Client Settings</strong> which are saved in the local storage of the User's browser. As a consequence, client settings will apply to all Worlds that are accessed from the same device using the same browser. The Maximum Framerate is an example of a client setting. Any user can modify their own client-level settings.</li>
-    <li><strong>World Settings</strong> which are stored in the server-side database for the World. As a consequence, world settings only apply to a single World but are common to all Users within that World. Whether Chat Bubbles are enabled is an example of a world-level setting. By default, only a Gamemaster or User with the "Assistant Gamemaster" role can modify world-level settings.</li>
+<li><strong>Client Settings</strong> are saved in the browser. As a consequence, client settings will apply to all Worlds that are accessed from the same device using the same browser. <strong>Maximum Framerate</strong> is an example of a client setting. Any user, regardless of permission, can modify their own client-level settings.</li>
+<li><strong>World Settings</strong> which are stored in the server-side database for the World. As a consequence, world settings only apply to a single World but are common to all Users within that World. Whether Chat Bubbles are enabled is an example of a world-level setting. By default, only a Gamemaster or User with the "Assistant Gamemaster" role can modify world-level settings.</li>
 </ul>
-<hr/>
-
+<h4>Saving Your Settings</h4>
+<p>Changes to these game settings are only applied when the <strong>Save Changes</strong> button is clicked and some changes may require the browser to automatically refresh in order to take effect. All settings can be reset back to their default values by clicking the<strong>Reset Defaults</strong>button.</p>
+<hr />
 <h3 id="core">Core Software Settings</h3>
-<p>The following configurable settings are supported by the core Foundry Virtual Tabletop software on the "Core Settings" tab. </p>
-
-<figure>
-    @Image[35]
-    <figcaption>The Core Settings which can be configured by a gamemaster user in the Settings Sidebar.</figcaption>
+<hr />
+<figure class="right" style="width: 30%;"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/configure-game-settings-2020-05-19.png" target="_blank" rel="nofollow noopener"><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/configure-game-settings-2020-05-19.png" alt="Core Game Settings Configuration" /></a>
+<figcaption>The Core Settings menu as seen by a gamemaster.</figcaption>
 </figure>
-
+<p>The following configurable settings are supported by the core Foundry Virtual Tabletop software on the "Core Settings" tab.</p>
 <dl>
-    <dt>Configure Permissions</dt>
-    <dd>Open a separate configuration menu to customize permission controls for different User roles. See the section specific to Permission Configuration below for more details.</dd>
-
-    <dt>Configure Audio/Video</dt>
-    <dd>Foundry Virtual Tabletop supports optional configuration of Audio/Video chat integration using WebRTC. This button opens a separate dialog window for configuration of this feature. See the <a href="/audio-video" title="Audio/Video Chat Integration" target="_blank"></a> guide for more details.</dd>
-
-    <dt>Language Preference</dt>
-    <dd><strong>[Client]</strong> Select a supported language which you would like to use for Foundry Virtual Tabletop. English is supported by default and other languages may be installed as Modules. If a translation module is installed any languages which it defines will appear as an option in this dropdown list.</dd>
-
-    <dt>Enable Chat Bubbles</dt>
-    <dd><strong>[World]</strong> If this setting is enabled, in-character chat messages which originate from an Actor who has a Token on the active Scene will display a chat bubble above the position of that Token for all players.</dd>
-
-    <dt>Pan to Token Speaker</dt>
-    <dd><strong>[World]</strong> If this setting is enabled, and Enable Chat Bubbles is also enabled, when a Token chat bubble is displayed the camera position of the Scene will automatically pan to the location of the speaking Token.</dd>
-
-    <dt>Maximum Framerate</dt>
-    <dd><strong>[Client]</strong> Set a maximum framerate at which the Foundry Virtual Tabletop canvas will be rendered. By default the canvas renders at 60fps, but setting a lower maximum value may be helpful to limit the resource consumption of the Foundry application on less powerful machines.</dd>
-
-    <dt>Enable Soft Shadows</dt>
-    <dd><strong>[Client]</strong> Enable or disable the blur effect which is applied to dynamic lighting and fog of war which makes the edges of light sources and shadows "soft". Disabling this setting may offer improved performance for machines with lower-end hardware.</dd>
-
-    <dt>Animate Roll Tables</dt>
-    <dd><strong>[World]</strong> If this setting is enabled, Roll Tables will display a roulette-style animation when results are drawn and the Table Configuration sheet is currently open.</dd>
-
-    <dt>Cone Template Type</dt>
-    <dd><strong>[World]</strong> Choose which template measurement style should be used for cones. Flat cones will draw a straight line between the two outer rays while rounded cones will include a radial arc based on the angle of the cone.</dd>
+<dt>Configure Permissions</dt>
+<dd><strong>[World]</strong> Open a separate configuration menu to customize permission controls for different User roles. See the section specific to Permission Configuration below for more details.</dd>
+<dt>Configure Audio/Video</dt>
+<dd><strong>[Client]</strong> Foundry Virtual Tabletop supports optional configuration of Audio/Video chat integration using WebRTC. This button opens a separate dialog window for configuration of this feature. See the guide for more details.</dd>
+<dt>Language Preference</dt>
+<dd><strong>[Client]</strong> Select a supported language which you would like to use for Foundry Virtual Tabletop. English is supported by default and other languages may be installed as Modules. If a translation module is installed any languages which it defines will appear as an option in this dropdown list.</dd>
+<dt>Enable Chat Bubbles</dt>
+<dd><strong>[World]</strong> If this setting is enabled, in-character chat messages which originate from an Actor who has a Token on the active Scene will display a chat bubble above the position of that Token for all players.</dd>
+<dt>Pan to Token Speaker</dt>
+<dd><strong>[World]</strong> If this setting is enabled, and Enable Chat Bubbles is also enabled, when a Token chat bubble is displayed the camera position of the Scene will automatically pan to the location of the speaking Token.</dd>
+<dt>Left-Click to Release Objects</dt>
+<dd><strong>[Client]</strong> When set, this object allows you to release objects (deselect) on the canvas by using a single left click anywhere on the canvas, rather than the default behaviour of requiring a click-and-drag in empty space.</dd>
+<dt>Maximum Framerate</dt>
+<dd><strong>[Client]</strong> Set a maximum framerate at which the Foundry Virtual Tabletop canvas will be rendered. By default the canvas renders at 60fps, but setting a lower maximum value may be helpful to limit the resource consumption of the Foundry application on less powerful machines.</dd>
+<dt>Token Drag Vision</dt>
+<dd><strong>[World]</strong> When enabled, vision and lighting for a Token is previewed in real time during a left-click drag, allowing your players to preview what their token would be able to see when moved.</dd>
+<dt>Enable Soft Shadows</dt>
+<dd><strong>[Client]</strong> Enable or disable the blur effect which is applied to dynamic lighting and fog of war which makes the edges of light sources and shadows "soft". Disabling this setting may offer improved performance for machines with lower-end hardware.</dd>
+<dt>Token Vision Animation</dt>
+<dd><strong>[Client]</strong> When disabled, tokens will only update their vision when they arrive at the destination of their movement, rather than as they move. Disabling this setting may offer improved performance for machines with lower-end hardware.</dd>
+<dt>Zoomed Texture Antialiasing</dt>
+<dd><strong>[Client]</strong> By default, FVTT uses mipmap antialiasing on sprite textures such as tiles or tokens at lower levels of zoom, if disabled, textures will appear sharper when zoomed out but can look pixelated.</dd>
+<dt>Animate Roll Tables</dt>
+<dd><strong>[World]</strong> If this setting is enabled, Roll Tables will display a roulette-style animation when results are drawn and the Table Configuration sheet is currently open.</dd>
+<dt>Cone Template Type</dt>
+<dd><strong>[World]</strong> Choose which template measurement style should be used for cones. Flat cones will draw a straight line between the two outer rays while rounded cones will include a radial arc based on the angle of the cone.</dd>
 </dl>
-
-<p>Changes to these game settings are only applied when the <strong>Save Changes</strong> button is clicked and some changes may require the browser to automatically refresh in order to take effect. All settings can be reset back to their default values by clicking the <strong>Reset Defaults</strong> button.</p>
-<hr>
-
-<h3 id="permissions">Permission Configuration</h3>
+<hr /><h3 id="permissions">Permission Configuration</h3>
 <p>Clicking on the <strong>Permission Configuration</strong> button of the settings menu allows the customization of specific permissions which can be assigned or removed from different User roles.</p>
 
 <p class="note info">Visit the @Article[users] documentation to learn more about User roles and what they represent.</p>

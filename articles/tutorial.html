@@ -1,192 +1,122 @@
-<p>Foundry Virtual Tabletop is a powerful application with lots of features, so it can be overwhelming to a new game-master, even if you have previous experience using virtual tabletop software. This page attempts to walk you through the major concepts in Foundry VTT and guide you through the process of creating your first game-ready Scene.</p>
-
-<p>This page does not go into the installation process in detail. For instructions on how to set up the application and how to configure things for multiplayer hosting please see the<a href="../hosting" rel="nofollow" target="_blank">Hosting and Connectivity Guide</a>.</p>
-<hr>
-
-<h2>Part 1: A Grand Tour</h2>
-
-<figure class="right" style="width: 40%">
-    @Image[55]
-    <figcaption>Game Systems can be easily installed using the Module Browser.</figcaption>
-</figure>
-
-<p>Foundry Virtual Tabletop uses Game Worlds, Game Systems, and Add-On Modules to create playable campaigns. Each of these are explained in detail later, but the absolute minimum to create a functioning game is the creation of a Game World using a single Game System.</p>
-
-<h3 id="worlds">Game Worlds</h3>
-<p>A Game World uses a collection of data and system rules to define the aspects of a game necessary for play. This includes maps and locations @Article[scenes], characters and creatures @Article[actors], objects, equipment, and things @Article[items], lore and information @Article[journal]. Game Worlds can also include ambient sounds and music @Article[playlists], as well as archival packages called @Article[compendium] of any of these types of entities.</p>
-
-<p>All of this information that makes up a Game World is contained in a uniquely named folder within Foundry's directories under<code>Data/worlds</code>.</p>
-
-<h3 id="systems">Game Systems</h3>
-<p>A <a href="../../packages/systems/" rel="nofollow" target="_blank" title="Game System">Game System</a> defines the core concepts, data structures, rules, and user interfaces specific to a game system being used in a campaign. Example game systems are Dungeons & Dragons, 13th Age or Pathfinder 2e, all of which are already supported by Foundry at time of release. Game Worlds rely on Game Systems to function, given how much they define.
-</p>
-
-<p>Installing a new Game System is done via the "Install System" button at the bottom of the Game Systems menu, this browser allows you to Filter Packages by searching them by name.</p>
-<p>Below this is a list of available systems, their version number, and a link to the project page for them. By clicking the install button below the version number, the files necessary for the system will be added to your installation of Foundry VTT.</p>
-<p>At the bottom of this screen you can directly paste a link to a system.json manifest url (if you have one) and click the install button to directly install a system without selecting it from the list. This is useful if you are installing a system which is not listed in Foundry's officially supported packages.</p>
-
-<h3 id="modules">Add-on Modules</h3>
-<p><a href="../../packages/modules/" rel="nofollow" target="_blank" title="Game System">Add-on Modules</a> extend the core functionality of the Foundry VTT platform by contributing additional features, interfaces, tools, or content. Modules can be designed specifically for one game system, or can be generally applicable to any system, or Foundry VTT itself.</p>
-
-<p>The installation process for Add-on Modules is nearly identical to that described for Game Systems, except being initiated from the Modules tab.</p>
-<hr/>
-
-<figure class="right" style="width: 50%">
-    @Image[56]
-    <figcaption>The World configuration sheet allows you to specify the details of your Game World and edit them later.</figcaption>
-</figure>
-
-<h2 id="create">Creating a World</h2>
-
-<p>The Create World button located at the bottom of the Game Worlds menu is used to create a new Game World. The World Title is what players will see when logging in to the game, and how it will appear in most places in the interface. The Data Path to your world defines the subdirectory name within the worlds directory where your data will be stored.</p>
-
-<p class="info warn">Note: Since the data path for your world will be used in web URLs, adhere to common web standards in choosing this name: avoid spaces or special characters, use hyphens to separate multiple terms instead.</p>
-
-<p>The Game System is the ruleset that is going to be used to define numerous aspects of the game and how you and your players will interact with it. A world's game system cannot be changed once the world is created, since any data created in that world will use the data model and schema for that system.
-</p>
-
-<p class="info warn">Be aware; Game Worlds require a Game System to function. Refer to "Installing a System" above if your game system drop down list is empty.</p>
-
-<p>Background Image is used to set the image you and your players will see when logging in to the Game World for a session. This image will be stretched to fit each user's browser window, so it is recommended that this image is large enough to function as a desktop wallpaper.</p>
-
-<p>Next Session allows you to set the date and time for the next game session, and will be visible to any players from the login screen for your Game World.</p>
-
-<p>World Description can be used to provide a text description for your world, allowing for some additional thematic information or a brief description for your setting, current plot points, or other information players will need when logging in.</p>
-<hr/>
-
-<h3 id="launch">Editing and Launching Game Worlds</h3>
-
-<p>Once a game world has been created you will have a new entry, and three new buttons to interact with it.</p>
-
-<p>The Delete World button will remove all stored data and information the world contains and remove it from your installation of Foundry VTT. This not only removes the world from Foundry, but also deletes it from your storage device, so make sure you won't be deleting anything you want to keep.
-</p>
-
-<p>Edit World allows you to reopen the panel you used to create the Game World initially, This is useful for changing game details such as the title, background, session details or description.</p>
-
-<p>The last option, Launch World, primes the world for play, and takes you to the log-in screen for your game!</p>
-
-<p>The session login screen allows the GM and players to login. If this is a fresh game world it will have no players yet, and the Gamemaster account will have no password. Configuring your players and setting a GM password should be the first action you take after logging in to your world, otherwise just anyone can access your world.</p>
-<hr/>
-
-<h2 id="players">Player Configuration</h2>
-
-<p>The Player Configuration menu is accessed by selecting the gear icon to open the game settings tab, from here you can click on Configure Players to open the appropriate window.</p>
-
-<figure>
-    @Image[7]
-    <figcaption>The Player Configuration screen allows you to create, modify, and delete User accounts from your Game World.</figcaption>
-</figure>
-
-<p>You should create a Player Account for each user you expect to join your game. Control of actors, visibility of journals, and other general permissions are configured at the Player level. Having different users allows you to give each player access to different content.</p>
-
-<p>This panel also lets you set Access Keys and Permission Levels for players, if desired. Players may not set their own passwords.</p>
-
-<p class="info note">Note that The access keys used in Foundry Virtual Tabletop are NOT cryptographically secure. Please do not reuse any password that you also use for other important accounts or services.</p>
-
-<p>Each user is assigned a Permission Level which controls what capabilities they will have within the Virtual Tabletop.</p>
-
-<p>In the above example, I have created five Users for my world representing my players: Carrie, Jason, Michael, Tiffany, and Freddy. Each user (including the Gamemaster) has a different permission level assigned. Additional permissions for each role can be configured from the Permission Configuration window located in @Article[settings].</p>
-
+<h2>Overview</h2>
+<p>Foundry Virtual Tabletop is a powerful application with a lot of features, so it can be overwhelming to a new game-master, even if you have previous experience using virtual tabletop software. This article provides a basic introduction to the layout of Foundry VTT and gives you all of the beginning steps required for setting up a game for your players. This article will introduce you to:</p>
 <dl>
-    <dt>Gamemaster</dt>
-    <dd>Users with the Gamemaster permission level have full control over the world and its data. By default only the Gamemaster has this role, though additional Gamemaster permissions can be assigned.</dd>
-
-    <dt>Player</dt>
-    <dd>The most basic level of permission, Players can join the game and be given access to control or observe Actors and Items. In addition, the default permissions for player accounts includes permission to: create Measured Templates, Display their mouse cursor on screen, open and close Doors, use Script Macros, and Whisper Private messages.</dd>
-
-    <dt>Trusted Player</dt>
-    <dd>A player with the Trusted permission has some additional capabilities beyond that of an ordinary player, such as the ability to upload image files to the host's file system (token artwork, for example). The default permissions for a Trusted player include all of the permissions of a standard Player, and add the following permissions: Allow Broadcasting Audio and Video (if A/V chat is enabled in Foundry), Browse File Explorer, Configure Token Settings, Create Journal Entries, and Use Drawing Tools.</dd>
-    <dt>Assistant Gamemaster</dt>
-    <dd>An Assistant Gamemaster is similar to a regular Gamemaster, they can see the entire game canvas and can create or edit all content. Some permissions are limited, however: Assistant GMs are not allowed to delete Actors, Scenes, or Items.</dd>
+<dt>Entities</dt>
+<dd>Foundry VTT stores its data in collections of documents categorized by what that data represents. Maps and locations are stored as @Article[scenes], characters and creatures are @Article[actors], objects, equipment, spells and other miscelaneous things as @Article[items], as well as lore and information @Article[journal]. There are also ambient sounds and music are @Article[playlists], and archival packages called @Article[compendium].</dd>
+<dt>Game Worlds</dt>
+<dd>Each Game World encapsulates the entities that it contains, and also the accounts and information for player and GM accounts, game worlds also require game worlds provided by Game Systems which define the aspects of a game that are necessary play it. Whether the game you are playing calls them campaigns, chronicles, stories, or groups, the term Foundry VTT refers to them as Game Worlds.</dd>
+<dt>Game Systems</dt>
+<dd>A Game System contains all the rules and specific user interface elements for your game, and also defines how data is structured and stored. Foundry VTT's game systems are provided primarily by the community, with a wide variety of different games supported. <a href="https://foundryvtt.com/packages/systems">See a list of currently available Game Systems</a>.</dd>
 </dl>
-
-<p>Even if you don't have any specific players in mind for your world yet, it can be helpful to create a test player that you can use to look at or try out from the perspective of a potential player.</p>
-<hr>
-
-<h2>Part 2: First Steps in your World</h2>
-
-<figure>
-    @Image[58]
-    <figcaption>This UI map describes the primary interface elements you will first encounter in a newly created world.</figcaption>
+<p>In addition, this article will also give you all the steps required to create a Game World, how to configure it, and and how to launch the game world so that you can prepare your content for your players and allow them to connect.</p>
+<h4>Recommended Action: Set your Admin Password</h4>
+<p class="note warning">When you first launch Foundry Virtual Tabletop, it's recommended that you navigate to the Configuration tab and set an <strong>Administrator Password</strong>. This password is encrypted and allows you to secure Foundry VTT to prevent access to the main setup menu. It's also required to use the <strong>Return to Setup</strong> feature from the login page of any currently hosted world.</p>
+<h2 class="border">Installing a Game System</h2>
+<figure class="right"><a title="See Larger Image" href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/the-game-system-browser-2021-01-20.jpg" target="_blank" rel="nofollow noopener">@Image[55]</a>
+<figcaption>Game Systems can be easily installed using the Module Browser.</figcaption>
 </figure>
-
-<p>After creating a Game World and logging in as a Gamemaster you will be presented with a blank canvas upon which you can create new content. Content can also be imported using modules and compendium packs. There are many possible paths to take in creating a World in Foundry Virtual Tabletop, but for the purposes of this tutorial we will walk through creating a simple scene, and experimenting with the basic controls.</p>
-
-<p class="note info">When you first load into a World, the game starts as Paused. This prevents players from immediately moving their Tokens. You can pause or un-pause the session at any time by pressing the spacebar.</p>
-<hr/>
-
-<h3 id="scenes">Creating a Scene</h3>
-<p>Scenes are locations and maps that your players explore during the course of a campaign. Scenes are displayed in the game canvas and contain objects used to populate and define the area like Tokens, Walls, Light Sources, Sounds, and more. To learn more about this key entity type visit the @Article[scenes] page.</p>
-
-<p>To create a new Scene, open the Scenes Directory (the map icon, 3rd from the left) in the Sidebar on the right-side of the screen. At the bottom of the Sidebar you can create a new Scene directly. You also have the option to create a folder for organizing scenes into groups, which you can do at any time. To organize scenes in folders, you can simply click and drag them to the desired folder.
-</p>
-
-<p>For this section of the tutorial we will use a map of a tavern to create a simple location to play with. The tavern map used is available on<a href="https://www.deviantart.com/foundryatropos/art/Foundry-Tavern-at-Night-746759206/" rel="nofollow" target="_blank">DeviantArt</a>. To keep things simple, use the provided image as the map's background image. Foundry will automatically size the map to match the size of the image (3150x2800px). Give your scene a name and set the background image. You can ignore the rest of the settings for now.
-</p>
-
-<figure>
-    @Image[59]
-    <figcaption>In this tutorial, we are going to create a tavern scene like this one using a Scene, Walls, Light Sources, and Tokens.</figcaption>
-</figure>
-
-<p>Once you have created a Scene, let's first learn some basics of navigation. To move your view of the map, click and drag with your right-mouse button to pan the scene. You can also use Control + Arrow Keys to move your view. To zoom in or out, simply use your mouse wheel, or the page up/down keys. You can press Tab to move your view to the scene's starting point. Since we didn't set specific coordinates for this, it will default to the upper-left corner of the image.</p>
-<hr/>
-
-<h3 id="actors">Creating Actors and Placing Tokens</h3>
-<p>Once you have created and configured a Scene, and gotten used to moving your view, we'll try creating an Actor and placing that Actor within the Scene by creating a Token. To learn all about Actors and their properties please read the page on @Article[actors]. Creating an Actor will allow you to place Tokens as well as experience the Scene from a player's perspective. The Actors Directory icon can be found to the right of the scenes tab icon.</p>
-
-<p>As a Gamemaster you have full control of all tokens at all times, but individual players may only control tokens for which they have permission. Once you have created an Actor, a good idea is to assign permissions to that Actor for other User accounts, if needed. To do this, right click on the Actor entry in the sidebar and click Permissions. Give the OWNER permission to a user you want to have full control over this Actor.</p>
-
-<p>A typical next step in the Actor creation workflow is to configure the default Token that represents this new Actor. Click the<strong>Configure Token</strong> button at the top of the Actor sheet and review the material presented on the @Article[tokens] page to learn about all the Token configuration options which are available. Once you are satisfied with your Token configuration, drag the Actor from the sidebar onto the Scene canvasto place the Actor's configured Token into the Scene.</p>
-<hr/>
-
-<h2 id="walls">Create Walls and Lighting</h2>
-<p>By default all new scenes have vision enabled, meaning that actors with vision will only be able to see the map if it is lit, and their line of sight allows it.</p>
-
-<h3>Creating Walls</h3>
-<p>Now that you have a map and an actor to place on the map, you may want to set up walls. Walls are used to control how light spreads, and what actors are able to see in a map. Creating walls is as easy as dragging out lines to denote a wall that blocks sight. There are multiple types of walls, which all do slightly different things. You can learn more about walls in the @Article[walls] article.</p>
-
-<p>Take some time to create walls on your map, be sure to use some of the special wall types for doors or invisible walls where you feel they are appropriate. You can use the image above as a guide for the walls that I created.</p>
-<hr/>
-
-<h3>Creating Lights</h3>
-<p>Lights are necessary for actors to see things, unless the scene has the Global Illumination tag set, in which case the entire scene will be affected by Bright Light, allowing full visibility for any areas of the scene where an owned token has line-of-sight. You can learn all about @Article[lighting] and begin placing some light sources in the Tavern.</p>
-
-<p>Creating a light is as simple as clicking on a point in the scene and dragging out the light's radius. The two rings visible as the light's being created shows the inner bright radius, and the outer dim radius. Once you have created a light you can double click on it to change its various properties including the color, and specific radii of the bright and dim rings.</p>
-
-<p>Lights will interact with walls, creating shadows and sections of darkness where the light can't reach.</p>
-
-<p>By default, all scenes have Fog Exploration (more commonly called Fog of War) enabled, meaning that exploration will be tracked on a per-User basis and stored to the database as the Scene is explored. Fog exploration will only occur if Tokens are set to Have Vision, and the revealed areas are limited to only what the Token can see. Once you have created Walls and Light sources, test out how the dynamic vision and lighting is working in your scene.</p>
-
-<p class="note info">You may periodically want to reset the Fog of War state for the map so you can test it as a new player would experience it. Do this using the Reset Fog button in the Lighting Layer controls.</p>
-<hr/>
-
-
-<h2 id="controls">Part 3: Controlling the Game</h2>
-<p>Gamemasters have access to a significantly expanded array of controls and features compared to those with Player permissions. Take some time to review the available @Article[settings] and @Article[controls] to learn more about controlling the game environment.</p>
-
-<p>Once you have multiple Scenes created, you will want to move between them by assigning those scenes to the Navigation Bar. Scenes in the navigation bar allows you to access a few key options which affect which Scene your players experience.</p>
-
-<p>The <strong>Preload Scene</strong> option will begin loading the image and video assets needed to display this Scene without activating it for players, allowing you set up seamless transitions between Scenes.</p>
-
-<p>The <strong>Activate</strong> option sets the chosen scene as active and immediately loads that scene for all Users regardless of their permission level.</p>
-
-<p>If you wish to move a particular player to a scene rather than all current players, you can navigate to the scene you wish to use (left click the scene name in the Navigation Bar), right click the name of the User in the Users Menu (bottom-left-corner) and choose <strong>Pull to Scene</strong>.</p>
-<hr/>
-
-<h3 id="combat">Combat Encounters and Token Bars</h3>
-<p>A Gamemaster may find that the Scene they have created would be used for situations where actors must take turns, such as in combat. The concept of Combat Encounters can be used to great effect to help coordinate actor's turns. A Gamemaster may initiate combat encounters, while a player may not. For more information on adding tokens to a combat encounter and initiating combat, please read the article on @Article[combat].</p>
-
-<p>Game Systems in Foundry VTT are able to display a token's health for easy access. By right-clicking a token, clicking the gear icon on the token overlay, and clicking on the Resources tab on the Token Configuration window, a token can be configured to display up to two bars that reflect token data. The Token Configuration window can also be brought up by double right-clicking the token. For the Dungeons & Dragons 5th Edition system, "attributes.hp" represents both the current and maximum hit points of a creature. By setting a bar's attribute to this (and selecting a suitable Display Bars option), the token's HP will be displayed as bar above or below the token. Then, by right-clicking the token, the token's HP can be edited on the fly. Alternatively, the HP can be adjusted by double left-clicking the token to open its character sheet, and editing the HP field there.</p>
-<hr/>
-
-<h2 id="more">Next Steps</h2>
-<p>Once you have completed this tutorial, there is far more about Foundry Virtual Tabletop to explore. We recommend the following next steps:</p>
-
+<p>Before you can create your first world you will first need to install a <strong>Game System</strong>. Game Systems set the rules by which your world operates, whether this is one of the more common rulesets from a major publisher, or if you prefer to use something like the Simple Worldbuilding System. Each world has a <strong>Game System</strong> tied to it. Without one installed, it is impossible to create a world.</p>
+<p>Foundry VTT provides a package installation system available from the Setup screen for the installation of <strong>Game Worlds</strong>, <strong>Game Systems</strong>, and <strong>Add-on Modules</strong>. The "Install System" button at the bottom of each of these tabs on the Setup screen will allow you to install the package type for that tab.</p>
+<h4>The Game System Installation Menu</h4>
 <ol>
-    <li>Continue to peruse the Knowledge Base to read articles on topics you would like to reinforce or learn more about.</li>
-    <li>Watch the fantastic Foundry VTT Tutorials video series from Encounter Library: https://www.youtube.com/watch?v=kEQlhdF1568&list=PLGgCMB0gYnLFWxyrCkUYwHY4vvA_yME7m</li>
-    <li>Explore available <a href="https://foundryvtt.com/packages/" title="Install Systems and Modules">Modules</a> and see if there are any modules which change the way Foundry Virtual Tabletop functions that make things more enjoyable or easier for you to use.</li>
+<li>From the <strong>Setup</strong> screen navigate to the Game Systems tab</li>
+<li>Click the "<strong>Install System</strong>" button at the bottom of the menu</li>
+<li>A package installation browser will appear allowing you to see all of the Game Systems currently available for Foundry VTT</li>
+<li>You can search this listing with the search field, or filter the listing using package categories</li>
+<li>Once you have chosen a Game System, click the install button to the right of the system's name, and FVTT will download and install it for you</li>
 </ol>
-
-<p class="note">Thank you for working through our Tutorial, we hope you found it helpful. Please share any feedback you have on this tutorial with us in Discord so we can continue to improve it over time.</p>
+<p>Game Systems which have not yet been officially released can also be installed manually if you have a link to the <code>system.json</code> file (called the <strong>manifest</strong> url) for that system, by pasting the URL into the Manifest URL field and clicking the install button.</p>
+<h4>Updating Game Systems</h4>
+<p>As a reminder, it is wise to periodically update installed systems from the Game System tab of the main Foundry VTT menus. You can update game systems individually by clicking the associated "check update" button in the system's entry, or use the "update all" button at the bottom of the tab to check all of your installed systems for updates, which will then be automatically applied if one is available.</p>
+<h4>About Modules</h4>
+<p>It is a common pitfall for some users to rush immediately to install Add-on Modules without first learning to use the basic features of Foundry VTT. While @Article[modules] provide a large variety of customization and changes to the way core Foundry VTT features work, they can carry with them some compatibility issues and should be installed in small increments to allow you to be certain which features were added by community-supported modules and which features are part of the core software.</p>
+<p>Always remember, the first step in troubleshooting any issue you may experience in Foundry VTT is to disable all modules.</p>
+<h2 class="border">Creating A New World</h2>
+<figure class="right" style="width: 30%;"><a title="See Larger Image" href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/the-world-configuration-sheet-2020-05-23.png" target="_blank" rel="nofollow noopener">@Image[56]</a>
+<figcaption>The World configuration sheet allows you to specify the details of your Game World and edit them later.</figcaption>
+</figure>
+<p>Now that you have a <strong>Game System</strong>, navigate to the <strong>Game Worlds</strong> tab, from here you will create your very first Game World! Clicking the "Create World" button on this tab presents a dialog menu.</p>
+<h4>Editing an Existing World</h4>
+<p>The <strong>Edit Game World</strong> button can be used at any time after a world has been created, allowing you to display this menu again in order to change details about your game world such as the description, next session, background image, or title! It can also be used to <strong>reset active modules</strong> or <strong>reset user access keys</strong>without having to launch the world first. If you are having trouble launching your world or logging in, simply edit the world and check the appropriate box to reset modules or user access keys as necessary.</p>
+<h4>The Create World Menu</h4>
+<dl>
+<dt>World Title</dt>
+<dd>The title that players will see when logging in to the game, and how the world will be referred to in the user interface.</dd>
+<dt>Data Path</dt>
+<dd>The folder name within the Worlds folder where your data will be stored. As this will be used in web URLs, it <strong>cannot contain spaces or special characters</strong>, use hyphens to separate multiple terms instead. (Example: <strong>my-first-campaign</strong> is better than <strong>"my first campaign"</strong>.)</dd>
+<dt>Game System</dt>
+<dd>The ruleset the world will use. A game system cannot be changed once the world is created, so be sure you are using the correct system.</dd>
+<dt>Background Image</dt>
+<dd>An image that you and your players will see when logging in to the Game World for a session. This image will be stretched to fit the browser window, so it is recommended that you use an image that is at least large enough to function as a desktop wallpaper.</dd>
+<dt>Next Session</dt>
+<dd>Allows you to set the date and time for the next game session, and will be visible to any players from the login screen for your Game World. This is purely optional. The date and time is automatically localized to the user's correct timezone.</dd>
+<dt>World Description</dt>
+<dd>Provides a text description for your world, allowing for some additional thematic information or a brief description for your setting, current plot points, or other information your players will see when logging in.</dd>
+</dl>
+<p>Once you have filled out these fields to your liking, click Create World to finalize your Game World!</p>
+<h2 class="border">Installing a Game World</h2>
+<p>Foundry VTT offers a number of adventures and campaigns which come already prepared with everything you need to run them with your players. Similar to the installation of Game Systems, these worlds can be installed from the Game Worlds tab and will automatically install all content, including the Game System for you.</p>
+<h4>The Game World Installation Menu</h4>
+<ol>
+<li>From the<strong>Setup</strong>screen navigate to the Game Systems tab</li>
+<li>Click the "<strong>Install World</strong>" button at the bottom of the menu</li>
+<li>A package installation browser will appear allowing you to see all of the Game Worlds currently available for Foundry VTT</li>
+<li>You can search this listing with the search field, or filter the listing using package categories</li>
+<li>Once you have chosen a Game World, click the install button to the right of the World's Title, and FVTT will download and install it for you</li>
+</ol>
+<p>As with Game Systems, Game Worlds which have not yet been officially released can also be installed manually using the <code>world.json</code> Manifest URL field.</p>
+<h2 class="border">Launching Your New World</h2>
+<p>Once your Game World has been created, simply clicking the "Launch World" button to the right of the world's Title will launch it the world and take you to the game's login screen. From here you can select the username to log in as (by default there is initially only a single, passwordless gamemaster account) or return to the setup menu.</p>
+<p>Select the gamemaster player, and log in.</p>
+<p>Once you have joined the game session, you'll see the core user interface which you and your players will use to plan and play games in FVTT. The image below details the major elements.</p>
+<figure><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/gm-ui-map-2021-01-27.jpg">@Image[58]</a>
+<figcaption>This UI map describes the primary interface elements you will first encounter in a newly created world.</figcaption>
+</figure>
+<dl>
+<dt>Canvas</dt>
+<dd>The canvas, not labeled in the picture to the right, is the underlying layer where the scene and all objects are shown.</dd>
+<dt>Game Pause Indicator</dt>
+<dd>When the game is paused, players may not move their tokens or activate doors. You can toggle the paused state of the game by pressing the <code>space</code> as GM at any time.</dd>
+<dt>Layer Controls</dt>
+<dd>Used to switch layers on your @Article[scenes] to control the various placeable canvas objects, including: Tokens, Measured Templates, Tiles, Drawings, Walls, Lights, Sounds, and Map Notes.</dd>
+<dt>Layer Tools</dt>
+<dd>The specific tools related to the layer you are currently using.</dd>
+<dt>Scene Navigation Bar</dt>
+<dd>Used to switch between currently available scenes. Activatating a scene will display it for all users, simply clicking on a scene will display it only for you.</dd>
+<dt>Sidebar Tabs</dt>
+<dd>Used to access data for the various entities stored in your world.</dd>
+</dl>
+<ul>
+<li><strong>Chat Log</strong> displays current chat messages and dice rolls</li>
+<li><strong>Combat Tracker</strong> displays any currently active combats</li>
+<li><strong>Scenes</strong> allow you to create new scenes or switch between scenes that are currently available</li>
+<li><strong>Actors</strong> are commonly used to store and access character sheets</li>
+<li><strong>Items</strong> store information sheets for inventory and equipment, but also are commonly used for spells and abilities</li>
+<li><strong>Journals</strong> store image and text handouts which can be viewed and edited by yourself or shown to your players as necessary</li>
+<li><strong>Tables</strong> can be used to roll for determining randomized outcomes from a list of results</li>
+<li><strong>Playlists</strong> control audio that can be played for all users to hear</li>
+<li><strong>Compendium Packs</strong> are used to store entities that are not actively needed</li>
+<li><strong>Settings</strong> allows for the configuration or customization of Foundry VTT as well as adding users to your game world</li>
+</ul>
+<dl>
+<dt>Players List</dt>
+<dd>Displays the current user accounts, when collapsed, only shows the users who are currently signed in.</dd>
+<dt>Macro Directory</dt>
+<dd>Provides access to all macros that have been created which you have permission to view, use, or edit.</dd>
+<dt>Macro Hotbar</dt>
+<dd>Gives instant keypress access to 10 quick Macros, which can be used to send chat messages or perform scripted API actions. Primarily used by advanced users. Some systems provide the ability to drop items or actors onto the macro bar to generate a macro for quick use. The Hotbar Pages control can be used to switch between up to four different pages of macro layouts.</dd>
+<dt>Default Roll Mode</dt>
+<dd>used to set the current mode to be used for rolling dice. For more information see Rolling Dice.</dd>
+<dt>Export Chat Log</dt>
+<dd>used to save a copy of all messages which presently appear in your chat log to a plain text file.</dd>
+<dt>Clear Chat Log</dt>
+<dd>deletes all messages from the chat log.</dd>
+<dt>Chat Entry</dt>
+<dd>used to chat, communicate, and enter chat commands.</dd>
+</dl>
+<h4>Conclusion of Part 1</h4>
+<p>This concludes part one of the Getting Started Tutorial!</p>
+<ul>
+    <li>Continue to @Article[tutorial-part-two].</li>
+    <li>Refer your players to the @Article[player-orientation].</li>
+</ul>

@@ -87,7 +87,7 @@
 <h4>Describing Dice</h4>
 <p>In addition to whole rolls, individual rolls inside multiple roll commands can be commented to specify what the roll is for. This is most useful in games where one or more types of die combine to deliver a total amount of damage.</p>
 <pre><code class="language-plaintext">/roll {roll}[desired text for roll]</code></pre>
-<p>Roll two six-sided dice with the tag of &ldquo;slashing damage&rdquo; followed by one eight-sided die with the tag of &ldquo;fire damage.&rdquo;</p>
+<p>Roll two six-sided dice with the tag of "slashing damage" followed by one eight-sided die with the tag of "fire damage."</p>
 <pre><code class="language-plaintext">/roll 2d6[slashing damage]+1d8[fire damage]</code></pre>
 <hr/>
 
@@ -147,11 +147,11 @@
 <h3 id="reroll">Re-rolls and Exploding Dice</h3>
 <dl>
     <dt>r : Reroll</dt>
-    <dd>Rerolls the die based on the set condition, keeping the outcome regardless of whether it is better. Reroll (r) will only reroll the die once, for continual rerolling see &ldquo;x : explode&rdquo;</dd>
+    <dd>Rerolls the die based on the set condition, keeping the outcome regardless of whether it is better. Reroll (r) will only reroll the die once, for continual rerolling see "x : explode"</dd>
     <dt>x : Explode</dt>
     <dd>Rerolls a die continually based on the set condition, so that each occurrence of the number rolls again, continually adding to the total result.</dd>
     <dt>xo : Explode Once</dt>
-    <dd>Rerolls a die once based on the set condition, used primarily by games which use a &ldquo;dice pool&rdquo;, adding to the total result.</dd>
+    <dd>Rerolls a die once based on the set condition, used primarily by games which use a "dice pool", adding to the total result.</dd>
 </dl>
 <h4>Examples</h4>
 <p>Roll one ten-sided die, and re-roll it if the result is a 1.</p>
@@ -264,7 +264,7 @@
 <p>Foundry Virtual Tabletop also natively supports two special types of dice: Coins, and Fate Dice.</p>
 
 <h4>Coins</h4>
-<p>Coins are two-sided dice with two results: heads, or tails. They can be rolled as any other die, but are not affected by mathematical expressions, though they can still be combined with other dice types. Coins also allow the roller to call (c) a specific result in advance, which will treat rolling coins similarly to &ldquo;count success&rdquo;. By default, Coins tally the number of heads as successes in the results.</p>
+<p>Coins are two-sided dice with two results: heads, or tails. They can be rolled as any other die, but are not affected by mathematical expressions, though they can still be combined with other dice types. Coins also allow the roller to call (c) a specific result in advance, which will treat rolling coins similarly to "count success". By default, Coins tally the number of heads as successes in the results.</p>
 <pre><code class="language-plaintext">/roll 4dc # Flip four coins.</code></pre>
 <pre><code class="language-plaintext">/roll 3dcc1 # Flip three coins and tally the number of coins that result in Heads</code></pre>
 <pre><code class="language-plaintext">/roll 3dcc0 # Flip a number of coins and tally the number of coins that result in Tails</code></pre>
@@ -286,7 +286,7 @@
 <pre><code class="language-plaintext">/roll (2d4)d8</code></pre>
 <p>Roll a number of dice equal to the results of one roll of a 20-sided die multiplied by two, with a number of sides between 1 and 10.</p>
 <pre><code class="language-plaintext">/roll (1d20*2)d(1d10)</code></pre>
-<p>Count the number of success based on the selected token&rsquo;s &lsquo;power&rsquo; attribute.</p>
+<p>Count the number of success based on the selected token's &lsquo;power' attribute.</p>
 <pre><code class="language-plaintext">/roll 3d12cs&lt;=(@attributes.power)</code></pre>
 <p>Get the margin of success based on an opposed roll of 4d6.</p>
 <pre><code class="language-plaintext">/roll 3d12ms&gt;(4d6)</code></pre>
@@ -309,7 +309,7 @@
 <hr/>
 
 <h2 id="data">Data Paths as Variables<a class="scrollto">back to top</a></h2>
-<p>Foundry VTT stores important values in the data for each Entity, regardless of its type. These data paths can be called within rolls in order to provide complex functionality and references to a selected character&rsquo;s statistics and
+<p>Foundry VTT stores important values in the data for each Entity, regardless of its type. These data paths can be called within rolls in order to provide complex functionality and references to a selected character's statistics and
     modifiers.</p>
 
 <h4>Understanding The Structure of Roll Data</h4>
@@ -322,13 +322,13 @@ console.log(actor.getRollData());
 <p>If used correctly, either of these commands will output a clickable list of the object data stored on every character which can be conveniently referenced with rolls using <code>@the.path.to.data</code>.</p>
 
 <h4>Using Data Paths as Variables</h4>
-<p>Once you know the structure of an actor, you can use them as part of any roll formula. When a roll formula resolves a data path variable, it automatically gets the data from the <strong>currently controlled token first</strong>, and if no token is controlled, gathers the data from whichever Actor has been chosen in the &ldquo;Select Character&rdquo; section of player configuration.</p>
+<p>Once you know the structure of an actor, you can use them as part of any roll formula. When a roll formula resolves a data path variable, it automatically gets the data from the <strong>currently controlled token first</strong>, and if no token is controlled, gathers the data from whichever Actor has been chosen in the "Select Character" section of player configuration.</p>
 <p>Data path variables can take the place of any number in any part of a roll formula.</p>
-<p>For example in this screenshot from the dnd5e system, by rolling <code>/roll 1d20 + @abilities.cha.mod</code> you would perform a check of your selected token&rsquo;s Charisma modifier.</p>
+<p>For example in this screenshot from the dnd5e system, by rolling <code>/roll 1d20 + @abilities.cha.mod</code> you would perform a check of your selected token's Charisma modifier.</p>
 <hr/>
 
 <h2 id="js">Including Math Functions<a class="scrollto">back to top</a></h2>
-<p>One of the benefits of Foundry VTT&rsquo;s robust API is that it exposes all of its dice rolling functions to the benefits of the JavaScript Math methods. For more about these methods, see here:
+<p>One of the benefits of Foundry VTT's robust API is that it exposes all of its dice rolling functions to the benefits of the JavaScript Math methods. For more about these methods, see here:
     <a title="Math Expressions" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math" target="_blank" rel="nofollow noopener">Math Expressions</a>. This allows users to leverage complex mathematical functions in their dice rolls.</p>
 <h4>Examples</h4>
 <p>Return the largest integer less than or equal to the result of a roll of 1d12 divided by 3.</p>
