@@ -1,95 +1,97 @@
-<p>Foundry Virtual Tabletop has a powerful engine for Lighting and Fog of War which interacts with placed @Article[walls] and Ambient Light sources to define the visibility and exploration progress of a Scene in a way that allows players to explore an environment through their character's perspective, seeing only what their Token would see in a certain position.</p>
-
-<figure>
-    @Image[94]
-    <figcaption>Ambient Light sources add visibility to areas of your Scene as well as allowing for beautiful shading effects.</figcaption>
+<h2>Overview</h2>
+<p>Foundry Virtual Tabletop has a powerful engine for Lighting and Fog of War which interacts with placed <a title="Walls" href="/admin/article/walls/" target="_blank" rel="nofollow noopener">Walls</a> and Ambient Light sources to define the visibility and exploration progress of a Scene in a way that allows players to explore an environment through their character's perspective, seeing only what their Token would see in a certain position.</p>
+<h2 id="tools" class="border">Lighting Layer</h2>
+<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/lighting-layer-control-diagram-2021-02-02.jpg" alt="Lighting Layer Controls">@Image[154]</a>
+<figcaption>The Lighting Layer controls allow you to create lights, and change the scene's lighting, and reset fog or war quickly.</figcaption>
 </figure>
-
-<h3 id="create">Creating and Editing Light Sources</h3>
-
-<p>To work with Ambient Light sources, activate the Lighting Layer using the Canvas controls palette (the icon looks like a lightbulb). When enabled you can viewing, create, and modify Ambient Light sources. Ambient Light sources can be easily created on any scene by selecting the Create Light tool from the control palette and using a drag-and-drop workflow to paint the light location.</p>
-
-<p>Lights that are created will be blocked by any type of Wall which blocks perception (such as Walls, Terrain Walls, and Ethereal Walls.) The outer edges of the Ambient Light source will shape to conform to any vision restrictions, updating for the GM in real time so they can see where the light will be drawn. A centre ring approximates where the default division between Bright and Dim light will be for that light source.</p>
-
-<p>After a light has been placed, it can be moved at any time by accessing the Lighting Layer to show light sources and then clicking and dragging the light to a new location. An Ambient Light source may be edited via the Light Source Configuration Menu, which can be opened at any time by double clicking on the Light Source you wish to edit. This menu provides the following options:</p>
-
-<dl>
-    <dt>Light Type</dt>
-    <dd>This setting controls whether the Light Source is Local, Global or Universal. Local Lights adhere to vision restrictions and are blocked by walls, Global Lights provide vision of a location without adhering to vision restrictions (but are still blocked by walls), and Universal Lights are always visible regardless of vision or walls.</dd>
-
-    <dt>X-Position (Pixels)</dt>
-    <dd>The current x-coordinate of the Light Source in a Scene. It can be changed to reposition the light.</dd>
-
-    <dt>Y-Position (Pixels)</dt>
-    <dd>The current y-coordinate of the Light Source in a Scene. It can be changed to reposition the light.</dd>
-
-    <dt>Dim Radius (Grid Units)</dt>
-    <dd>A radius of dim light emitted by this Light Source.</dd>
-
-    <dt>Bright Radius (Grid Units)</dt>
-    <dd>A radius of bright light emitted by this Light Source.</dd>
-
-    <dt>Emission Angle (Degrees)</dt>
-    <dd>An angle of Light between zero and 360 degrees (the default) which represents the allowed radius of light for this Light Source.</dd>
-
-    <dt>Light Rotation Angle (Degrees)</dt>
-    <dd>The current direction the light is facing in degrees. Rotation of zero (the default) corresponds to a southward facing. This can also be adjusted by holding shift(or ctrl/cmd) and using scrollwheel while hovering over a directional light source.</dd>
-	
-	<dt>Darkness Threshold</dt>
-    <dd>When the Scene's Darkness Level transitions from 0(bright) to 1(dark), the value of this setting determines when the light will be switched on.</dd>
-
-    <dt>Light Color</dt>
-    <dd>Set the color of light that the Light Source in Hex (#000000).</dd>
-
-    <dt>Color Intensity</dt>
-    <dd>Adjusts how vivid the color of the light is from 0(faded) to 1(vibrant).</dd>
-	
-	<dt>Animation Type</dt>
-    <dd>Animate this ambient light in one of three styles: torch, pulse, or chroma.</dd>
-	
-	<dt>Animation Speed</dt>
-    <dd>The speed of the animation effect, from 0(slow) to 1(fast).</dd>
-	
-	<dt>Animation Intensity</dt>
-    <dd>The intensity of the animation effect, from 0(subtle) to 1(intense).</dd>
-	
-
-</dl>
-<hr/>
-<h3 id="animations">Animations</h3>
-
-<p><strong>Torch</strong></p>
-<p>The Torch animation effect provides a semi-randomized flickering quality to the light source, intended to simulate light provided by fire. It works best when used to represent torches, candles, and campfires.</p>
-
-<p><strong>Pulse</strong></p>
-<p>The Pulse animation effect can be used to provide flares of lighting, intended to simulate light from electrical disturbances, neon signs, warning lights, or magical effects.  </p>
-
-<p><strong>Chroma</strong></p>
-<p>The Chroma animation effect offers a way to provide a lightsource which shifts between colors. When set, it will choose colors along the same hue if set to a low intensity, or across all spectrums if set to a high intensity. Chroma is intended for situations with color-shifting lights, such as night clubs, neon signs, or magical portals.</p>
-<hr/>
-<h3 id="tools">Additional Lighting Tools</h3>
-
 <p>The Lighting Layer controls also provides access to some tools which change the overall view of the Scene, as well as controls for the Fog of War for that scene.</p>
-
 <h4 id="transition">Transition to Daylight</h4>
 <p>If your scene presently has a Darkness Level configured, pressing this button will smoothly slide the Darkness Level toward 0 (Bright) transitioning the scene to daylight. This effect is synchronized for all connected Users.</p>
-
 <h4>Transition to Darkness</h4>
 <p>Similar to the Transition to Daylight button, this will smoothly slide the Darkness Level toward 1 (Dark) transitioning the scene to night. This effect is synchronized for all connected Users.</p>
-<p class="note info"> Note: If a global illumination threshhold has been set on the scene, global illumination will be toggled off when that darkness level has been reached. </p>
-
+<p>Note: If a global illumination threshold has been set on the scene, global illumination will be toggled off when that darkness level has been reached.</p>
 <h4 id="fog">Reset Fog of War</h4>
 <p>This button resets the recorded Fog of War exploration for that scene for all players regardless of their level of connection.</p>
-
 <h4 id="clear">Clear Lights</h4>
 <p>This button deletes all lights presently placed on the canvas for this Scene.</p>
-<hr/>
-
-<h3 id="api">API References</h3>
+<h2 id="create" class="border">Creating and Editing Light Sources</h2>
+<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/lighting-configuration-menu-2020-10-02.jpg" alt="Lighting Configuration Menu">@Image[94]</a>
+<figcaption>Ambient Light sources add visibility to areas of your Scene as well as allowing for beautiful shading effects.</figcaption>
+</figure>
+<p>To work with Ambient Light sources, activate the Lighting Layer using the Canvas controls palette (the icon looks like a lightbulb). When enabled you can viewing, create, and modify Ambient Light sources. Ambient Light sources can be easily created on any scene by selecting the Create Light tool from the control palette and using a drag-and-drop workflow to paint the light location.</p>
+<p>Lights that are created will be blocked by any type of Wall which blocks perception (such as Walls, Terrain Walls, and Ethereal Walls.) The outer edges of the Ambient Light source will shape to conform to any vision restrictions, updating for the GM in real time so they can see where the light will be drawn. A centre ring approximates where the default division between Bright and Dim light will be for that light source.</p>
+<p>After a light has been placed, it can be moved at any time by accessing the Lighting Layer to show light sources and then clicking and dragging the light to a new location. An Ambient Light source may be edited via the Light Source Configuration Menu, which can be opened at any time by double clicking on the Light Source you wish to edit. This menu provides the following options:</p>
+<dl>
+<dt>Light Type</dt>
+<dd>This setting controls whether the Light Source is Local, Global or Universal. Local Lights adhere to vision restrictions and are blocked by walls, Global Lights provide vision of a location without adhering to vision restrictions (but are still blocked by walls), and Universal Lights are always visible regardless of vision or walls.</dd>
+<dt>X-Position (Pixels)</dt>
+<dd>The current x-coordinate of the Light Source in a Scene. It can be changed to reposition the light.</dd>
+<dt>Y-Position (Pixels)</dt>
+<dd>The current y-coordinate of the Light Source in a Scene. It can be changed to reposition the light.</dd>
+<dt>Dim Radius (Grid Units)</dt>
+<dd>A radius of dim light emitted by this Light Source.</dd>
+<dt>Bright Radius (Grid Units)</dt>
+<dd>A radius of bright light emitted by this Light Source.</dd>
+<dt>Emission Angle (Degrees)</dt>
+<dd>An angle of Light between zero and 360 degrees (the default) which represents the allowed radius of light for this Light Source.</dd>
+<dt>Light Rotation Angle (Degrees)</dt>
+<dd>The current direction the light is facing in degrees. Rotation of zero (the default) corresponds to a southward facing. This can also be adjusted by holding shift(or ctrl/cmd) and using scrollwheel while hovering over a directional light source.</dd>
+<dt>Darkness Threshold</dt>
+<dd>When the Scene's Darkness Level transitions from 0(bright) to 1(dark), the value of this setting determines when the light will be switched on.</dd>
+<dt>Light Color</dt>
+<dd>Set the color of light that the Light Source in Hex (#000000).</dd>
+<dt>Color Intensity</dt>
+<dd>Adjusts how vivid the color of the light is from 0(faded) to 1(vibrant).</dd>
+<dt>Animation Type</dt>
+<dd>Animate this ambient light in one of several styles. The animations are detailed below.</dd>
+<dt>Animation Speed</dt>
+<dd>The speed of the animation effect, from 0(slow) to 1(fast).</dd>
+<dt>Animation Intensity</dt>
+<dd>The intensity of the animation effect, from 0(subtle) to 1(intense).</dd>
+</dl>
+<h3 id="animations">Animations</h3>
+<p><strong>Torch</strong></p>
+<p>The Torch animation effect provides a semi-randomized flickering quality to the light source, intended to simulate light provided by fire. Animation speed determines how quickly the light flickers, and intensity determines how large and powerful the flickers are.</p>
+<p>This lighting animation can be used to represent any flickering or unstable light, but works best when used to represent torches, candles, and campfires.</p>
+<p><strong>Pulse</strong></p>
+<p>The Pulse animation effect create a light source that grows and fades on a steady rhythm. Animation speed determines how quickly the pulses appear and fade, with the lowest speed have the longest fade in and fade out speed. Lighting intensity determines how large the pulsing glow is outside of the bright light area.</p>
+<p>This lighting animation can be used to provide flares of lighting, intended to simulate light from electrical disturbances, neon signs, warning lights, or magical effects.</p>
+<p><strong>Chroma</strong></p>
+<p>The Chroma animation effect offers a way to provide a lightsource which shifts between colors. Animation speed determines how quickly the light moves through color transitions, and animation intensity determines how strongly it color shifts. A low intensity limits the light to choosing colors along the same hue, while a high intensity allows the light to select colors across all spectrums.</p>
+<p>This lighting animation is intended for situations with color-shifting lights, such as night clubs, neon signs, or magical portals.</p>
+<p><strong>Pulsing Wave</strong></p>
+<p>The Pulsing Wave animation effect creates concentric circles of bright light that move out from the center of the light source. Animation speed governs how quickly the rings of light move, and animation intensity governs the frequency at which new rings are created.</p>
+<p>This lighting animation can be used to represent flows of water from outlets, or waves of energy from a magic source.</p>
+<p><strong>Swirling Fog</strong></p>
+<p>The Swirling Fog animation effect creates a random field of smoke or hazy that moves around the area of the light. Animation speed governs how quickly the fog cloud moves, dies out, and is reformed, with a low speed creating a slow, lingering fog. Animation intensity determines how thick or opaque the fog is. This animation effect is more pronounced the brighter the color used, and is more subtle the darker the color.</p>
+<p>This lighting animation can be used to represent smoke, fog, clouds, embers in a dying firepit, or seething lava, based on color and intensity used.</p>
+<p><strong>Sunburst</strong></p>
+<p>The Sunburst animation effect creates a rotating halo of light with bright beams emanating from the center of the light source. Animation speed determines how quickly the light beams rotate around the source, and how rapidly the inner core of light pulses. Animation intensity determines how large the inner glow of the light is, with maximum intensity creating a glow about the size of the light's bright radius, and a low intensity giving the light almost no glow at all, enhancing the appearance of the light rays.</p>
+<p>This lighting animation is more pronounced the brighter the color is, and can be used to create anything from sun beams and holy auras, to the glittering of gold in a dragon's hoard.</p>
+<p><strong>Light Dome</strong></p>
+<p>The Light Dome animation effect creates a spherical barrier of rippling light while maintaining the bright and dim radius of the light itself. Animation speed determines how quickly the ripples of energy move, while intensity determines the size of the ripples. A lower intensity creates larger ripples, while a higher intensity creates a smaller, more dense layer of energy.</p>
+<p>This lighting animation is more pronounced the brighter the color is, and can be used to represent energy shields, mystical barriers, and with a low speed and intensity, ponds or water pools.</p>
+<p><strong>Mysterious Emanation</strong></p>
+<p>The Mysterious Emanation animation effect creates a semi-random spiraling swirl of energy. Animation speed determines how often the swirling tendrils of light change direction, while animation intensity determines how many tendrils there are.</p>
+<p>This lighting animation is more pronounced the brighter the color is, and can be used to represent hypnotic energies, alien signal emitters, or even wild magic barriers.</p>
+<p><strong>Hexa Dome</strong></p>
+<p>The Hexa Dome animation effect creates a rotating spherical barrier of hexagons with pulsing interiors, while also maintaining the bright and dim light radius around the light source. Animation speed determines how quickly the shield rotates, and how quickly the light in the hex cells pulse. Animation intensity determines how big the hex cells are, with a lower intensity creating larger hexes, and a high intensity creating smaller hexes.</p>
+<p>This lighting animation is more pronounced the brighter the color is, and can be used to represent powerful energy shields.</p>
+<p><strong>Ghostly Light</strong></p>
+<p>The Ghostly Light animation effect creates a rippling water-like effect with layers that flow over overtop each other and the light below it. Animation speed determines how quickly the ripples move, while animation intensity determines how visible the ripples are, and how strongly lit they are.</p>
+<p>This lighting animation works best with bright colors, and can be used to represent pools of rippling water, vats of acid, lingering energies, or otherworldly fogs.</p>
+<p><strong>Energy Field</strong></p>
+<p>The Energy Field animation effect creates a spherical dome of creeping, seething energy webs over the light's bright and dim radii. Animation speed determines how quick and pronounced the ripples and warping effects on the energy field are, while animation intensity determines how tight the energy web is, with a low intensity being very large, transparent strands of energy.</p>
+<p>This lighting animation is very flexible, and can be used to represent web shields of magical or alien energy, or with clever application can create reflected light from pools of water, or seething, deadly pools of chemicals.</p>
+<p><strong>Roiling Mass (Darkness)</strong></p>
+<p>The Roiling Mass animation effect creates a dark, rippling object at the center of the light source, and is meant to be used with negative brightness light sources to create patches of darkness. Animation speed determines how quickly the inner blob of darkness shifts and ripples, while animation intensity determines how large the blob is, with a low intensity being tightly packed around the light source, and a high intensity taking up the light's entire radius.&nbsp;</p>
+<p>This lighting animations can be used with positive light settings, but the effect is meant to be used with negative lights which create artificial darkness in a scene. The color of the light has no bearing on the appearance of this effect when using negative light radii.</p>
+<p><strong>Black Hole (Darkness)</strong></p>
+<p>The Black Hole animation effect creates a series of dark swirls to emanate from the bright radius of the light which move to the edge of the light radius, and is meant to be sued with negative brightness light sources. Animation speed determinse how quickly the swirls of darkness move to the edge of the light radius, while animation intensity determines the shape of the swirls, with a low intensity creating almost concentric swirls, and a high intensity creating pronounced zig-zag ripples.</p>
+<h2 id="api" class="border">API References</h2>
 <p>To interact with AmbientLights programmatically, consider using the following API concepts:</p>
 <ul>
-    <li>The @API[AmbientLight,The AmbientLight Object] Object</li>
-	<li>The @API[LightingLayer,The LightingLayer Canvas Layer] Canvas Layer</li>
-	<li>The @API[LightConfig,The LightConfig Application] Application</li>
+<li>The <a title="The AmbientLight Object" href="https://foundryvtt.com/api/AmbientLight.html" target="_blank" rel="nofollow noopener">AmbientLight</a> Object</li>
+<li>The <a title="The LightingLayer Canvas Layer" href="https://foundryvtt.com/api/LightingLayer.html" target="_blank" rel="nofollow noopener">LightingLayer</a> Canvas Layer</li>
+<li>The <a title="The LightConfig Application" href="https://foundryvtt.com/api/LightConfig.html" target="_blank" rel="nofollow noopener">LightConfig</a> Application</li>
 </ul>
-<hr>
