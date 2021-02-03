@@ -2,11 +2,42 @@
 <p>Journal Entries provide a method for GMs to present and maintain hand-outs for their players. Entries are edited using a rich text editor (with HTML support gated behind a convenient 'source' button in the editor). Journal entries can be displayed to all players at the touch of a button, and conveniently "pinned" to the grid in any scene to allow for quick access to that entry.</p>
 <p>This article will familiarise you with creating and editing journal entries, changing their views, adjusting their permission levels, and creating dynamic links to entities.</p>
 <h2 class="border">The Journal Entries Directory</h2>
-<p>Journal entries are created and managed from the Journal Entries sidebar. Like the Scenes, Actors, and Items Directories, this directory can contain folders to organize your world's Journal Entries. Only a Gamemaster or Assistant-level user can change or move folders, but any players with at least Limited permissions for a Journal Entry can see it and the folder containing it.</p>
+<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/journals-directory-2021-01-28.jpg" alt="FVTT UI Map">@Image[147]</a>
+<figcaption>The Journals Directory contains your world's collected journal entries.</figcaption>
+</figure>
+<p>Journal entries are created and managed from the Journal Entries sidebar.</p>
+<p>Like the Scenes, Actors, and Items Directories, this directory can contain folders to organize your world's Journal Entries. To organize journals into folders, you can click and drag the journals directly, or when editing the journal entry, you can select the folder it belongs to. You can click on folders to expand them, showing all of the contained journal entries, or click an expanded folder to collapse it, hiding the contained journal entries.&nbsp;</p>
+<p>Only a Gamemaster or Assistant-level user can change or move folders themselves, but any players with at least Limited permissions for a Journal Entry can see it and the folder containing it.</p>
 <p>As with all other entity directories, the "quill" icon on a Journal Entry folder will create a new journal entry inside that folder, and the "plus folder" icon will create a new subfolder.</p>
+<h4 id="pins">Creating Map Notes from Journal Entries</h4>
+<p>A Journal Entry can be 'pinned' to any scene, generating a Map Note that connects to that Journal Entry simply by dragging the entry from the sidebar to the location you would like to place a Map Note. The visibility of these map notes is based on the entry's configured permissions, which are discussed later in this article.</p>
+<p>For a greater explanation of this feature, and how it can be used you can also refer to the <a title="Map Notes" href="https://foundryvtt.com/article/map-notes/" target="_blank" rel="nofollow noopener">Map Notes</a> article.</p>
 <h3>Creating Journal Entries</h3>
-<p>To create a new journal entry, click the Create Entry, this will open a dialog where you'll name the entry. Once you've named the journal entry and clicked Create New Journal Entry you'll be presented with the blank edit window for that entry. From this point you can begin filling it out as you see fit!</p>
-<h3>Journal Context Menu Options</h3>
+<p>To create a new journal entry, click the Create Entry, this will open a dialog where you'll name the entry. If you have created folders in your journals directory, you can select the folder it should be placed in, if you like.</p>
+<p>Once you've named the journal entry and clicked Create New Journal Entry you'll be presented with the blank edit window for that entry.</p>
+<p>From this point you can begin filling it out as you see fit!</p>
+<h2 class="border">The Journal Editor</h2>
+<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/a-journal-entry-2020-05-22.png" alt="A Journal Entry">@Image[42]</a>
+<figcaption>An example Journal Entry in Text mode.</figcaption>
+</figure>
+<p>Journal Entries may have both a Text View and an Image View, which can be switched between by clicking the "Text" or "Image" buttons on the top menu of the Journal Entry.</p>
+<p>Text View is the default mode of all newly created journal entries, and includes the text editor. The GM or Owner can make numerous changes to the way the text is formatted using the menus at the head of the editor while in editing mode.&nbsp;</p>
+<p>Image View mode provides the GM or Owner to select an image using the Filepicker, and places the selected image in a shadow box.&nbsp; A journal entry that has an image and no text will automatically open in image view.</p>
+<h4>Secret Text</h4>
+<p>Foundry adds a custom formatting called Secret to text entries which will only be visible to the GM or Owner of the Journal Entry. You can create a Secret by selecting "Custom" and then "Secret" from the Paragraph formatting menu. If text is selected when you choose 'secret' it will change the selected text to Secret.</p>
+<h4>Journal Source Code</h4>
+<p>In addition to the formatting option available through TinyMCE, using the "Source Code" option from the formatting menu will allow you to edit the HTML of the journal entry directly, opening access to HTML tags and a vast array of custom styling.</p>
+<h4>Linking Entities</h4>
+<p>The editor allows you to link to other types of entities in the rich text editor, including actors, item, journal entries, rollable tables and scenes. For more information on this, consult the <a href="#links" target="_blank" rel="nofollow noopener">Dynamic Entity Links</a> section later in this article.</p>
+<h3 id="show">Showing Journal Entries to Players</h3>
+<p>Journal entries may be shown to all players regardless of their permission to access the journal, simply click "Show Players" from the heading menu for any Journal Entry.</p>
+<p>Clicking the Show Players button while in Text View will show all players with sufficient permissions the text content of the journal entry.</p>
+<p>Clicking the Show Players button while in Image View will show all players with sufficient permissions the selected image.</p>
+<h2 class="border">Journal Context Menu Options</h2>
+<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/journals-directory-2021-01-28.jpg" alt="FVTT Journal Entry Context Menu">@Image[148]</a>
+<figcaption>The context menu provides a selection of useful actions related to manipulating existing journals.</figcaption>
+</figure>
+<p>You can right click any journal entry in the journals directory to open the context menu. This menu provides a list of useful actions that allow you to manipulate the chosen entry in various ways. The specific options are as follows:</p>
 <dl>
 <dt>Clear Folder</dt>
 <dd>Removes the Journal Entry from all folders, placing it at the top level of the Journal Entries directory.</dd>
@@ -33,38 +64,19 @@
 <dt>Owner (default for creator)</dt>
 <dd>The user may see the map pin and sidebar entry for this journal, and when the window is open may edit and change any features of that Journal Entry.</dd>
 </dl>
-<h2 class="border">The Journal Editor</h2>
-<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/a-journal-entry-2020-05-22.png">@Image[42]</a>
-<figcaption>An example Journal Entry in Text mode.</figcaption>
-</figure>
-<p>Journal Entries may have both a Text View and an Image View, which can be switched between by clicking the "Text" or "Image" buttons on the top menu of the Journal Entry.</p>
-<p>Text View is the default mode of all newly created journal entries, and includes the text editor. The GM or Owner can make numerous changes to the way the text is formatted using the menus at the head of the editor while in editing mode.</p>
-<p>Image View mode provides the GM or Owner to select an image using the Filepicker, and places the selected image in a shadow box. A journal entry that has an image and no text will automatically open in image view.</p>
-<h4>Secret Text</h4>
-<p>Foundry adds a custom formatting called Secret to text entries which will only be visible to the GM or Owner of the Journal Entry. You can create a Secret by selecting "Custom" and then "Secret" from the Paragraph formatting menu. If text is selected when you choose 'secret' it will change the selected text to Secret.</p>
-<h4>Journal Source Code</h4>
-<p>In addition to the formatting option available through TinyMCE, using the "Source Code" option from the formatting menu will allow you to edit the HTML of the journal entry directly, opening access to HTML tags and a vast array of custom styling.</p>
-<h3 id="show">Showing Journal Entries to Players</h3>
-<p>Journal entries may be shown to all players regardless of their permission to access the journal, simply click "Show Players" from the heading menu for any Journal Entry.</p>
-<p>Clicking the Show Players button while in Text View will show all players with sufficient permissions the text content of the journal entry.</p>
-<p>Clicking the Show Players button while in Image View will show all players with sufficient permissions the selected image.</p>
-<h3 id="links">Dynamic Entity Links</h3>
+<h2 id="links" class="border">Dynamic Entity Links</h2>
 <p>Though not exclusive to Journal Entries, Foundry supports linking to other types of Entities from within its rich text editor system. Actors, Items, Journal Entries, and Rollable Tables may be linked to dynamically by dragging and dropping an entity from the sidebar into an open editor.</p>
 <p>The syntax to create a dynamic link is as follows:</p>
 <pre><code>@EntityType[Entity Name]
-
 @EntityType[Entity ID]{Custom Text}
-
 </code></pre>
 <p>For example:</p>
 <pre><code>@Actor[Locke]
-
 @Actor[Pt1jPTgVWdJ6QYIA]{Locke}
-
 </code></pre>
 <p>This allows a GM to quickly link numerous journal entries to one another and, if the user viewing the Journal Entry has permission to view the linked entity, clicking on the link will open the linked entity in another sub-window of Foundry.</p>
-<h3 id="pins">Creating Map Notes from Journal Entries</h3>
-<p>A Journal Entry can be 'pinned' to any scene, generating a Map Note that connects to that Journal Entry simply by dragging the entry from the sidebar to the location you would like to place a Map Note. For more information, see@Article[map-notes].</p>
+<h4>Dragging and Dropping Entities</h4>
+<p>In addition to the above method, you can drag and drop any actor, item, scene roll table or other journal entry into an open journal entry that's being edited. This will create a link to the item in question, which can be clicked to open when the journal entry is being viewed in its saved form. This is useful for creating hub entries that can help direct readers to other articles or reference other aspects of the game world. Readers may need specific permissions for the entity links, however, or else the items in question won't be fully visible to them.&nbsp;</p>
 <h3 id="scene">Scene Notes</h3>
 <p>Scenes may be configured to provide easy access to a Journal Entry containing notes for that scene for the GM's convenient reference. To do so, from the scene configuration menu choose the Journal Entry you wish to associate with your scene from the Journal Notes dropdown menu.</p>
 <p>These notes can be accessed quickly by right clicking the Scene Name in the Navigation Menu and choosing "Scene Notes."</p>
