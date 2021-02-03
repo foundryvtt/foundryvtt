@@ -1,42 +1,88 @@
-<p>Macros are an exciting part of any virtual tabletop. In Foundry Virtual Tabletop, you will find that macros are as versatile, powerful, and simple as you want them to be. With the right macros, you can speed up your game, automate the unwieldy, and even do things that would normally require modding. And best of all, macros are easily shared among users, allowing you to pick and choose your own tailored experience in Foundry Virtual Tabletop!</p>
+<p>Macros are an exciting part of any virtual tabletop. In Foundry Virtual Tabletop, you will find that macros are as versatile, powerful, and simple as you want them to be. With the right macros, you can speed up your game, automate the unwieldy, and even do things that would normally require use of Add-on Modules. Best of all, macros are easily shared among users, allowing you to pick and choose your own tailored experience in Foundry Virtual Tabletop!</p>
+<p>Macros are pre-written commands in Foundry Virtual Tabletop that when used, execute their commands. Macros can be created and accessed through the macro toolbar located on the bottom of the Foundry window. This article will introduce you to two types of macros: </p>
+<dl>
+	<dt>Chat Macros</dt>
+	<dd>Simple and easy to use, chat macros post pre-defined chat messages to the chat log when executed. All users can execute chat macros by default.</dd>
+	<dt>Script Macros</dt>
+	<dd>Complex and powerful macros which leverage the FVTT API through plain JavaScript to perform functions as simple or as advanced as you can imagine.</dd>
+</dl>
 
-<h2>What Are Macros?</h2>
-<p>Macros are pre-written commands in Foundry Virtual Tabletop that when used, execute their commands. Macros can be created and accessed through the macro toolbar located on the bottom of the Foundry window.</p>
-<p>There are two types of macros in Foundry Virtual Tabletop: chat macros and script macros.</p>
-<p>Chat macros are, as indicated by the name, macros that will utilize chat when executed. They are simpler to create, but do not have the wide range of capabilities that a script macro can execute. A chat macro can involve a simple dice command like <code>/r d100</code> pinging an item card in chat, or displaying pre-written text or HTML content. For more details on chat syntax, see the Knowledge Base article on <a href="../chat/" target="_blank" rel="nofollow noopener">Chat Messages</a>.</p>
-<p>Script macros are more complicated, but powerful commands that can interact with the Foundry JavaScript API to do many things. For example, script macros could automatically consume character resources, roll dice checks, toggle conditions, or change Token appearance. Users can perform any task using a script macro that their User role and permissions settings allow for them to take. Script Macros are written in JavaScript and require some basic scripting knowledge to implement.</p>
-<p>As script macros are more powerful than chat macros, a Gamemaster can choose to disable script macros for players via the permissions system, which is found in the <strong>Configure Settings</strong> menu under the Game Settings tab.</p>
-<hr />
-
-<h2 id="ui">The Macros UI</h2>
-<figure><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/macro-hotbar-2020-04-17.jpg" />
+<h2 id="ui" class="border">The Macros UI</h2>
+<figure class="center">@Image[22]
 	<figcaption>The Macro Hotbar is located at the bottom of the game interface. See the legend below for explanations of each element.</figcaption>
 </figure>
-<p>Above is a labeled diagram for the macro bar. They are as follows:</p>
-<ol>
-	<li>
-		<p>This is where macros are kept on the macro bar. New macros can be created by clicking on an empty slot and typing them out, or by dragging an item from an actor sheet to an empty macro bar space.</p>
-	</li>
-	<li>
-		<p>This button allows the user to cycle through their various macros. Users can have five macro bars, or 50 macros on quick-access.</p>
-	</li>
-	<li>
-		<p>This arrow allows the user to toggle showing/hiding the macro bar.</p>
-	</li>
-	<li>
-		<p>This folder contains the macro directory, showing all the macros that the user has permission to view. For most players, it will only display their own macros, while it will display all macros currently in the game to the GM.</p>
-	</li>
-</ol>
-<hr />
+<p>The sections of the macro bar are as follows:</p>
+<dl>
+<dt>Macro Directory</dt>
+<dd>Provides access to all macros that have been created which you have permission to view, use, or edit.</dd>
+<dt>Macro Hotbar</dt>
+<dd>Gives instant keypress access to 10 quick Macros, which can be used to send chat messages or perform scripted API actions. Primarily used by advanced users. Some systems provide the ability to drop items or actors onto the macro bar to generate a macro for quick use. </dd>
+<dt>Macro Pages</dt>
+<dd>The macro pages control allows you to switch between up to four different pages of macro layouts for convenience. </dd>
+</dl>
 
-<h2 id="create">Creating, Using, and Sharing Macros</h2>
-<p>Macros can be created by clicking on an empty slot in the macro bar, and typing out the relevant information. Chat macros work the same as typing a message in chat. For more information on chat syntax and the possible actions a user can do within chat, see <a href="../chat/" target="_blank" rel="nofollow noopener">here</a>.</p>
-<p>Chat macros can also be created by dragging and dropping an item from the actor sheet to the Hotbar. For the item chat macro to work, an actor who owns this item must be selected on the canvas.</p>
-<p>Finally, if there exists a macro compendium accessible in the game, any user with access to the compendium can drag macros from the compendium to their macro bar, though they will need user permissions in the game in order to use script macros.</p>
-
+<h2 id="create" class="border">Creating, Using, and Sharing Macros</h2>
+<p>Macros can be created by clicking on an empty slot in the macro bar, and typing out the relevant information. If your Game System supports it, macros can also be created by dragging and dropping an item from an actor sheet to the Hotbar. In addition, existing macros stored in a compendium or in the Macros Directory can be dragged to the macro hotbar for convenience.</p>
 <h4 id="execute">Executing Macros</h4>
-<p>Macros can be used by clicking on them in the macro bar, or by pressing the number they are labelled in the macro bar. You can also execute a macro from it's configuration sheet by pressing the Execute button at the bottom.</p>
+<p>Macros can be used by clicking on them in the macro bar, or by pressing the corresponding number key on your keyboard. You can also execute a macro from its configuration window by pressing the Execute button at the bottom.</p>
 
 <h4 id="share">Sharing Macros</h4>
 <p>Macros can be shared in several different ways in Foundry Virtual Tabletop. The easiest method is to copy and paste the macro text. This is as simple as sharing it on Discord, hosting it on a text-pasting website, or putting it in a macro repository- the community wiki has one hosted <a href="https://foundryvtt.wiki/en/basics/Macros" target="_blank" rel="nofollow noopener">here</a>.</p>
 <p>In the Macros Directory, a single Macro can be exported to a JSON file and re-imported in a different World. Lastly, Macros can also be stored in a compendium, which can be shared among users via a Module.</p>
+
+<h3>Creating Chat Macros</h3>
+<p>Chat macros are, as indicated by the name, macros that will utilize chat when executed. They are simpler to create, but do not have the wide range of capabilities that a script macro can execute.</p>
+<p>A chat macro can involve a simple dice command like <code>/r 1d100</code> linking an entity in chat<code>@Entity["Entity Name Here"]</code>, or displaying pre-written text or an image using HTML tags <pre><code><h2>Foundry VTT is AWESOME!</h2><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/asset/fvtt-community-content-anvil-2020-09-16.png" width="100%"/></code>.</pre> </p>
+<p>Chat macros work the same as typing a message in chat, and anything you can type into the chat entry field can be entered here.For more information on chat syntax and the possible actions a user can do within the chat entry field, see @Article[chat]</p>
+<h4>Example Chat Macros</h4>
+<pre><code>	/r 1d6#which of my players is the next victim?</code></pre>
+<pre><code>	/roll {4d6kh3, 4d6kh3, 4d6kh3, 4d6kh3, 4d6kh3, 4d6kh3}#Rolling for DND5e Ability Scores. Don't forget to click to expand the message!</code></pre>
+<pre><code>
+&lt;em&gt;&lt;u&gt;Singing:&lt;/u&gt;
+There once was a ship that put to sea,
+and the name of the ship was the &lt;b&gt;Billy o' Tea!&lt;/b&gt;
+The winds blew hard, her bow dipped down
+Blow, me bully boys, blow!&lt;/em&gt;
+</code></pre>
+
+<h3>What Are Macros?</h3>
+<p>Script macros are more complicated, but powerful commands that can interact with the Foundry JavaScript API. Script macros are limited only by your imagination and the functions available to JavaScript. Users can perform any task using a script macro that their User role and permissions settings allow for them to take. For example, script macros could automatically consume character resources, roll dice checks, toggle conditions, or change Token appearance.</p>
+<p>As script macros are more powerful than chat macros, a Gamemaster can choose to disable script macros for players via the permissions system, which is found in the <strong>Configure Settings</strong> menu under the Game Settings tab.</p>
+<h3>Example script macros</h3>
+<h4>Scene Wall and Light Duplicator</h4>
+<pre><code class="language-javascript">
+const source = game.scenes.getName("BASEMAP NAME HERE");
+canvas.walls.createMany(source.data.walls);
+canvas.lighting.createMany(source.data.lights)
+</code></pre>
+<h4>Emergency Campaign Resolver</h4>
+<pre><code class="language-javascript">
+//Rocks Fall, everyone dies.
+
+let targets = []
+game.user.targets.forEach(i => {
+let name = i.name;
+targets.push(name);
+})
+
+if(targets.length === 0) {targets = "no one, this time"}
+
+let roll = new Roll(`8d10+100`).roll();
+console.log(this.roll)
+
+let results_html = `<h2>Cave In!</h2>The cave collapses from above, dealing <a class="inline-result"><i class="fas fa-dice-d20"></i>${roll.total}</a> damage to <strong>${targets}</strong>.`
+
+ChatMessage.create({
+user: game.user._id,
+speaker: ChatMessage.getSpeaker({token: actor}),
+content: results_html
+});
+</code></pre>
+<h2 class="border">API References</h2>
+<p>While anything within the <a href="https://foundryvtt.com/api/">Foundry VTT API</a> can be used within a Macro, to interact with Macros themselves, you will primarily use the following API concepts:</p>
+<ul>
+<li>The <a title="The Macro Entity" href="https://foundryvtt.com/api/Macro.html" target="_blank" rel="nofollow noopener">Macro</a> Entity</li>
+<li>The <a title="The Macros Collection" href="https://foundryvtt.com/api/Macros.html" target="_blank" rel="nofollow noopener">Macros</a> Collection</li>
+<li>The <a title="The Macro Directory" href="hhttps://foundryvtt.com/api/MacroDirectory.html" target="_blank" rel="nofollow noopener">Macro Directory</a> Setup Application</li>
+
+</ul>
