@@ -1,0 +1,262 @@
+<h2 class="border">Foundry Virtual Tabletop - Version 0.8.0 Update Notes</h2>
+<figure>
+	<img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/update-080-banner-2021-02-17.jpg" title="Foundry VTT Version 0.8.0 Release Notes" alt="Release Notes for the Foundry Virtual Tabletop 0.8.0 update version"/>
+	<figcaption>Welcome to the Foundry Virtual Tabletop update notes for Release version 0.8.0.</figcaption>
+</figure>
+
+<p>Hello friends, I am both nervous and excited to introduce the very first alpha channel release of the new <code>0.8.x</code> series of development for Foundry Virtual Tabletop. This update marks a major milestone for the software, an enormous amount of thoughtful work has gone into this update and I am very proud of it. I am confident that it establishes a high architectural standard of quality that will empower further developments to Foundry Virtual Tabletop - both by myself as well as by our fantastic developer community - for years to come. Before continuing, please take a moment to read this <strong>very important reminder</strong>.</p>
+
+<p class="note warning"><strong>WARNING:</strong> Updates on the alpha channel involve major new features which are likely to introduce unforeseen bugs, breakages to existing game systems or modules, or other problems which will be disruptive to the usage of the software. Do not install this update unless you are doing so for the specific purposes of testing. The purpose of Alpha channel builds are to allow new experimental features to be tested and to help developers to begin the process of updating packages which are impacted by these changes. If you chose to update to this version you expose yourself to serious risk of having a bad experience. Please take this warning to heart.</p>
+
+<p>If you choose to install the Alpha 0.8.0 update, you <strong>must</strong> perform a fresh installation of the software. It is not possible (for reasons which will be explained later in these notes) to update from within the Foundry VTT interface to version 0.8.0. As always, before any significant update:</p>
+
+<p class="note warning">Be certain to carefully back up any critical user data before installing this update.</p>
+
+<p>Those important disclaimers aside, I look forward to sharing the update notes with you for the incredible amount of work which has gone into this new version. Version 0.8.0 is one of the most significant updates to the software ever, both in terms of work involved (hundreds of hours of work have gone into it) as well as due to the significance of these changes in establishing paradigms that the software will rely upon for years to come.</p>
+
+<h3 class="border">Update Overview</h3>
+
+<p>The <code>0.8.x</code> update sequence is focused on two primary user-facing features <strong>Audio System Improvements</strong> and <strong>Overhead Tiles</strong>. Before starting work on those two major features, the first update in the sequence, this one, focuses exclusively on major infrastructural investments which reinforce and empower the software architecture upon which further enhancements will be built. As such, this particular update is <em>very</em> infrastructure, API, and developer-focused. I assure you that the major improvements to audio systems and the addition of overhead tiles will be coming soon in updates 0.8.1 and 0.8.2 respectively.</p>
+
+<p>The major infrastructure themes which are central to this update version are briefly summarized as follows:</p>
+<ol>
+    <li>The terms of the End User License Agreement have been updated to improve the clarity of terminology used to explain licensing expectations. There are no major changes to the terms of the license, only wording changes to make the intention of the agreement more clear. See https://gitlab.com/foundrynet/foundryvtt/-/issues/4092 for a list and an exact diff of what changed. Upon installing 0.8.0 you will be prompted to re-sign the updated license agreement.</li>
+    <li>Foundry Virtual Tabletop now requires Node.js 14. For those of you who use the regular application - you will need to install the application from scratch to get the underlying Node 14 support, you won't be able to update through the in-app updater this time. If you run a dedicated server, you'll need to confirm your environment is updated to use Node 14.</li>
+    <li>Moving to Node 14 allows ESModules to be used server-side instead of CommonJS. This is the "missing link" which means that Foundry VTT can now run the exact same code on the server that it can run on the client without the need for any build or transpiling step required. Previously, the Foundry codebase was partitioned with related but independent <code>client</code> and <code>server</code> libraries. Now there is a third pillar, the <code>common</code> module, which is used by both the client and the server - allowing both components of the software architecture to share the exact same implementation for many key features.</li>
+    <li>The most important component of this new shared module is the "Common Document Model" which provides a renovated set of abstractions for documents, data schema, database operations, and much more. This is a major step away from the legacy concepts of "Entities" and "Embedded Entities". A byproduct of the improved Document model is a significant improvement in the flexibility and reusability of the Document API - which is especially evident in areas like Compendium documents or un-linked Token Actors which were previously difficult to work with.</li>
+    <li>As a consequence of the new standardized Document model, objects which are placed on the canvas (Tokens, Tiles, etc...) now have a separation between the classes which are responsible for how the object is rendered and the classes which define and manage their underlying data structure.</li>
+    <li>The API Documentation has been comprehensively reviewed and re-designed to improve the coverage and accuracy of documented constructs. API Documentation for the alpha-channel 0.8.0 is available here: https://foundryvtt.com/api/alpha/</li>
+</ol>
+
+<p>The above list is a poor attempt to summarize what is a very comprehensive update, so I encourage those of you who are developers to read the full update notes carefully. These design choices result in a number of <strong>breaking</strong> changes which are important to be aware of and will be addressed first in the notes. Please note that most of these "breaking" changes are not immediately breaking, but rather will display a deprecation warning while internally redirecting to a new approach. There are, however, several areas where immediately breaking changes were unavoidable. A goal for the subsequent update <code>0.8.1</code> will be to identify any unexpected breaking changes and resolve them in ways that will minimize the amount of immediate changes forced upon game systems and modules.</p>
+
+<h3 class="border">Breaking Changes</h3>
+<h4>Document Changes</h4>
+<ul>
+    <li>You must migrate to Node.js 14.x which is now required in order to utilize server-side ESModules and V8 JavaScript features. <strong>This will require all users upgrading to version 0.8.x from 0.7.x to perform a complete re-installation of the software rather than updating from within the application.</strong></li>
+    <li>The <code>Document</code> abstraction has been re-designed to feature a symmetric design which shares common definitions of data schema and functionality between server and clientside code. A brief design overview of this major change is available here: https://gitlab.com/foundrynet/foundryvtt/-/issues/4373</li>
+    <li>The Entity class has been removed in favor of a DocumentMixin combined with the abstract Document class definitions. Throughout the software references to "Entity" and "EmbeddedEntity" have been replaced with references to "Document" and "embedded Document" respectively. See https://gitlab.com/foundrynet/foundryvtt/-/issues/4380</li>
+    <li>All Document data types models now include a formal <code>DocumentData</code> subclass definition which standardizes the data schema, initialization, and validation workflows for documents of that type. As a consequence, the <code>Document#data</code> property for any document will now provide a <code>DocumentData</code> instance rather than a plain object.</li>
+    <li>The create, update, and delete hooks for Document modification actions are now always passed a full Document instance rather than (occasionally) a plan object. This is a major change for Document types which are embedded within some parent Document (previously termed "Embedded Entities") which now have full Document class definitions rather than simply being an array of objects within the parent data structure. See https://gitlab.com/foundrynet/foundryvtt/-/issues/4434</li>
+    <li>Created a new PlaylistSound Document type in preparation for the upcoming Audio overhauls, instances of PlaylistSound belong to the <code>Playlist#sounds Collection</code>. See https://gitlab.com/foundrynet/foundryvtt/-/issues/4450</li>
+    <li>Created a Combatant Document type which internalizes helper methods for manipulating a combatant entry within the Combat tracker. Instances of the Combatant document belong to the <code>Combat#combatants</code> collection. See https://gitlab.com/foundrynet/foundryvtt/-/issues/4090</li>
+    <li>Created a TableResult Document type which provides a formal definition and helpful functionality for individual results within a Roll Table. Instances of the TableResult document belong to the <code>RollTable#results</code> collection. See https://gitlab.com/foundrynet/foundryvtt/-/issues/4090</li>
+    <li>The concept of an "OwnedItem" is immediately deprecated as the Document standardization results in the Item document being used as both a primary world-level document as well as an embedded Document type within a parent Actor. As such "owned item" management methods such as <code>getOwnedItem</code>, <code>createOwnedItem</code>, <code>updateOwnedItem</code>, and <code>deleteOwnedItem</code> have been deprecated (with a warning message) in favor of manipulating Item instances directly. See https://gitlab.com/foundrynet/foundryvtt/-/issues/4459</li>
+    <li>The Setting class has been refactored to follow the standard interfaces used by other Document types.</li>
+    <li>Created a new FogExploration Document type which provides helper functionality for loading, manipulating, and saving the fog exploration progress.</li>
+    <li>The SceneData#description field has been formally deprecated as it has been unused since an early Beta version.</li>
+    <li>Serializing a DocumentData instance will now only return the <code>_source</code> component of that data which needs to be persisted in the database rather than the full data object including derived data elements or downstream transformations. See https://gitlab.com/foundrynet/foundryvtt/-/issues/4502</li>
+    <li>Document#prepareData calls have been moved outside of Document#_onUpdate to avoid cases where a system developer overrides this event handler and forgets to re-prepare Document data. See https://gitlab.com/foundrynet/foundryvtt/-/issues/4458</li>
+    <li>The Document.socketListeners static method has been renamed to Document._activateSocketListeners to more semantically describe the action that is taken as well as to denote that the method should not be called by external code.</li>
+    <li>In order to resolve an overlap with <code>ClientDocumentMixin#Render</code>, the <code>ChatMessage#render</code> method has been renamed to <code>ChatMessage#getHTML</code>.</li>
+    <li>(Deprecation Notice) The Document.config static object has been deprecated in favor of the more standardized Document.metadata. See https://gitlab.com/foundrynet/foundryvtt/-/issues/4386</li>
+</ul>
+<h4>Canvas Changes</h4>
+<ul>
+    <li>The global Canvas object has been standardized and now has the same expected properties in cases where a canvas is used as well as in cases where no canvas is present. This is especially important given the optional new "no-canvas" setting. Developers should rely upon the <code>canvas.ready</code> boolean to make choices about whether or not to perform canvas-related actions. See https://gitlab.com/foundrynet/foundryvtt/-/issues/4359</li>
+    <li>The current PlaceableObject class has been split into separate concepts for data management (Document), visualization on the canvas (CanvasObject), and configuration (DocumentSheet) which better separate concerns related to documents which are embedded within a Scene and displayed on the Canvas. Each Canvas Object will reference the <code>document</code> that it represents, and each Document will contain a reverse-lookup relationship back to the Canvas Object which represents it. See See https://gitlab.com/foundrynet/foundryvtt/-/issues/4468</li>
+    <li>(Deprecation Notice) CONST.DRAWING_DEFAULT_VALUES has been deprecated in favor of the defaults defined in the DrawingData schema.</li>
+</ul>
+<h4>Application Changes</h4>
+<ul>
+    <li>The BaseEntitySheet interface class has been renamed to DocumentSheet to better reflect the semantic conventions of 0.8.0. A backwards compatible class interface has been provided using the old name.</li>
+    <li>PlayerConfig has been renamed to UserConfig for increased consistency with how other configuration applications are named relative to the base Document type that they modify.</li>
+    <li>The data structure of the object prepared by <code>ActorSheet#getData</code> is redesigned in order to to provide more sensible references for the Actor, its data, and any items or effects that the Actor owns. See https://gitlab.com/foundrynet/foundryvtt/-/issues/4321</li>
+    <li>To support the new Document nomenclature, the SidebarDirectory class definitions now reference Documents rather than Entities. See https://gitlab.com/foundrynet/foundryvtt/-/issues/4503</li>
+    <li>Allow for merging Application options when calling Application#render(force, options) to conveniently assign or toggle application options when the interface is re-rendered. See https://gitlab.com/foundrynet/foundryvtt/-/issues/4577  </li>
+    <li>Some hooks have been renamed to follow the standard <code>{verb}{subject}</code> semantics, specifically <code>sidebarCollapse</code> has been renamed to <code>collapseSidebar</code>. See https://gitlab.com/foundrynet/foundryvtt/-/issues/4243</li>
+</ul>
+<h4>Other Breaking Changes</h4>
+<ul>
+    <li>Removed the functions and UI elements that are used outside of the /game endpoint into a separate setup JS file which does not expose those methods to the normal game API.</li>
+    <li>The <code>FEATURES</code> global object has had its values incremented (for one final time) and is being deprecated. It is no longer recommended to use the FEATURES global object to track evolutions of the Foundry VTT API. See https://gitlab.com/foundrynet/foundryvtt/-/issues/4632</li>
+    <li>The <code>Collection#get</code> method now returns undefined on a failed lookup rather than null, in order to remain compliant with the parent Map behavior.</li>
+    <li>The <code>Collection#entries</code> attribute has been renamed to <code>Collection#contents</code> to avoid overriding the parent implementation of <code>Map#entries</code>.</li>
+    <li>The <code>game.data.world</code> data structure has changed to mirror the data structure of the game system and modules rather than having a different structure.</li>
+</ul>
+
+<h3 class="border">New Features</h3>
+<h4>Architecture</h4>
+<ul>
+    <li>Foundry Virtual Tabletop now requires Node.js 14. For those of you who use the regular application - you will need to install the application from scratch to get the underlying Node 14 support, you won't be able to update through the in-app updater this time. If you run a dedicated server, you'll need to confirm your environment is updated to use Node 14.</li>
+    <li>Updated Electron to version 12.x supporting Node.js 14</li>
+    <li>Server-side database modifications now use a per-file semaphore to avoid concurrency issues which could previously occur in instances where multiple operations were performed simultaneously.</li>
+    <li>The core HTTPS server implementation has been upgraded to use HTTP2 using the SPDY protocol if certificates are provided for the application to run using SSL.</li>
+    <li>The server-side code has been comprehensively overhauled to standardize the use of ESModules and remove usage of TypeScript.</li>
+    <li>Relaxed the approach used to obfuscation of the server-side code in order to improve application performance by removing Proxy objects added through obfuscation.</li>
+    <li>When requesting the set of available core software updates, the updater will now pass the Node.js and Electron (if used) version numbers as part of the request data which allows the Foundry web server to avoid recommending updates to users if their server does not have the required environment to support it.</li>
+</ul>
+
+<h4>Compendium Packs</h4>
+<ul>
+    <li>With the introduction of the Document data model, it is now possible to modify embedded Documents directly from within an editable Compendium Document. For example: It is now possible to edit the values of an Item owned by an Actor stored in a Compendium.</li>
+    <li>Exporting a Document to a world compendium will now retain the permissions of that document instead of resetting them, as would occur when exporting to a compendium pack outside of the World context.</li>
+    <li>Each Compendium pack view will now request and persist its index in memory so that the UI can be instantaneously rendered and dynamic entity links to compendium content can be resolved by name. The contents of the index will be automatically updated when new documents are added or removed from the Compendium pack.</li>
+    <li>Accessing the full Document data for contents of a Compendium pack will now temporarily cache those Documents them in memory to improve performance when frequently or repeatedly interacting with Compendium content.</li>
+    <li>Compendium data which is vended to the client will no longer contain the absolute path to the compendium.</li>
+    <li>Locking or unlocking a compendium pack will now re-render the contents of the compendium to change their editable state based on the locked status.</li>    
+</ul>
+
+<h4>Canvas, Lighting, Vision</h4>
+<ul>
+    <li>Foundry Virtual Tabletop supports a new "No-Canvas" mode which can be enabled via the Settings menu which bypasses rendering of the game canvas but still allows the remaining functionality of Foundry Virtual Tabletop to fully function. This is a client-side setting, designed to allow for individual users with less capable computer hardware to still interact with the other aspects of Foundry Virtual Tabletop without the additional hardware requirements that the WebGL canvas involve.</li>
+    <li>The display of chat message bubbles and pan to token speaker settings have been re-scoped and are now client-specific instead of world-specific to allow users to apply personal preference.</li>
+    <li>In order to make vision and lighting more performant, sight Rays now perform calculations for more intensive calculations such as angle and distance only when necessary rather than for all Rays.</li>
+    <li>Define a new <code>SourcePolygon</code> class which extends PIXI.Polygon which is used for line-of-sight and field-of-vision polygons and utilized by the <code>SightLayer#testVisibility</code> to provide a much more efficient containment test given the polygon's radial nature.</li>
+    <li>The <code>SightLayer#computeSight</code> function has been optimized by storing test point data in a Map of integer keys instead of using an object for improved efficiency in accessing the data.</li>
+</ul>
+
+<h4>UI and UX</h4>
+<ul>
+    <li>Added an additional icons sub-folder containing 488 beautifully drawn webp icons for foods, potions, mushrooms, beverages, and more that may be used within your game sessions.</li>
+    <li>The "Return to Setup" in the Join screen will now only prompt for the server admin password to be entered if the current User has not already authenticated as an admin user.</li>
+    <li>The Token name field can is now optional, and if left empty will default to the name of the associated actor.</li>
+    <li>The styling rules used for directory containers, Sidebar Tabs, and the User Configuration character select application have been simplified.</li>
+    <li>Added a default SVG icon used for Items, the icon to be used may be configured using the ItemData.DEFAULT_ICON static attribute.</li>
+    <li>The page template layouts for "game" and "main" have been consolidated to share logic which generalizes across both use cases.</li>
+</ul>
+
+<h4>Other Features</h4>
+<ul>
+    <li>The terms of the End User License Agreement have been updated to improve the clarity of terminology used to explain licensing expectations. There are no major changes to the terms of the license, only wording changes to make the intention of the agreement more clear. See https://gitlab.com/foundrynet/foundryvtt/-/issues/4092 for a list and an exact diff of what changed. Upon installing 0.8.0 you will be prompted to re-sign the updated license agreement.</li>
+    <li>Server-side Datastores now have an improved means by which to dump their contents as plain objects, allowing for faster World#vend operations instead of constructing Document instances.</li>
+    <li>Combat encounters which do not designate a specific Scene (by setting scene to null) will now be displayed in the Combat Tracker across all Scenes, regardless of which is currently viewed.</li>
+    <li>An optional <code>actorId</code> foreign-key field has been added to the Combatant data model to track the relationship to a specific Actor for cases where a Token may not be present.</li>
+    <li>Chat Log timestamps now only update for chat messages whose HTML is currently displayed and the underlying function for this has been optimized to use a more modern HTML query selection and update syntax.</li>
+    <li>When using the Electron application, the Electron version will now be logged to the console as part of the initialization workflow.</li>
+    <li>Modules may now designate themselves as a Library module by setting the parameter <code>"library": true</code> in <code>module.json</code>. These modules will be included before non-library modules in javascript and CSS load order.</li>
+    <li>Game Systems may now designate which of their contained data fields are HTML data which require server-side sanitization by defining the <code>htmlFields</code> array key in <code>template.json</code> which lists data paths that should be treated as HTML. See https://gitlab.com/foundrynet/foundryvtt/-/issues/4187</li>
+    <li>Client IP addresses are now stored in the created log-files when an authorization success or failure occurs.</li>
+    <li>The UPnP implementation now supports an advanced optional configuration parameter to customize the UPnP lease duration, allowing for the possibility of permanent leases for routers which do not support temporary leases. To define an indefinite lease duration set the parameter <code>upnpLeaseDuration</code> to '0' in <code>options.json</code></li>
+    <li>Added support for a localHostname application configuration option which can override the local network address used for invitation links, mirroring the functionality of the hostname option which configures the external address.</li>
+</ul>
+
+<h3 class="border">API Improvements</h3>
+<h4>Documents</h4>
+<ul>
+    <li>Created internal pre-operation methods for all Document and Embedded Document instances which mirror the syntax of pre-hooks but designed specifically for internal use by document classes. See https://gitlab.com/foundrynet/foundryvtt/-/issues/3888</li>
+    <li>Documents and their embedded collections now support differential updates for their elements as part of Document#update operations. See https://gitlab.com/foundrynet/foundryvtt/-/issues/4553</li>
+    <li>The database modification workflows used for Token actorData have been refactored and can now simulate the standard CRUD workflow (including pre and post callbacks and hooks) used for other Actor documents. See https://gitlab.com/foundrynet/foundryvtt/-/issues/3435</li>
+    <li>In order to improve performance when duplicating objects, implemented a new utility method to deepClone an object which replaces the previous JSON.duplicate approach. See https://gitlab.com/foundrynet/foundryvtt/-/issues/4231</li>
+    <li>The processes used for data sanitization within the Document constructor now ensures that all required data attributes have valid values, falling back to default values if an invalid value was previously persisted.</li>
+    <li>The way initial sanitization of Document input data has been improved and now provides better handling of nullish values for required fields.</li>
+    <li>Replaced several direct uses of base document classes with their configured implementation versions.</li>
+    <li>Temporary Document creation now takes place entirely within the requesting client and no request is dispatched to the server when documents are created with <code>options.temporary</code> as true. See https://gitlab.com/foundrynet/foundryvtt/-/issues/4607</li>
+    <li>Added <code>game.collections</code> as an analogue to <code>game.packs</code>, this provides a DocumentCollection instance for each canonical primary Document type.</li>
+    <li>Document.owner has been renamed to Document.isOwner (formerly Entity.owner) to make it more clear that it is a boolean check.</li>
+    <li>The _data object which was previously used to persist the base data of an Entity is no longer necessary, this functionality has been folded into the AbstractBaseData layer for each Document type.</li>
+    <li>The set of active Applications associated with a Document instance are now automatically registered and cleared when using the DocumentSheet (Formerly BaseEntitySheet) class.</li>
+    <li>Documents which use a default icon as their initial artwork may now have that icon customized via the static DEFAULT_ICON attribute of their data schema definition.</li>
+</ul>
+<h4>Compendiums and Folders</h4>
+<ul>
+    <li>In order to improve the performance of Compendium index creation, the database query now applies a projection to filter to restrict only to those fields required for the index.</li>
+    <li>Standard CRUD pre and post hooks are now provided for modification operations to Documents within a Compendium pack. See https://gitlab.com/foundrynet/foundryvtt/-/issues/4289</li>
+    <li>Documents in Compendium Packs now support multi-document modification operations. See https://gitlab.com/foundrynet/foundryvtt/-/issues/4564</li>
+    <li>Compendium Packs now support 'pack' as a canonical context argument for Document construction similar to 'parent', this standardizes the way that Compendium Packs are recognized as the context for a Document instance.</li>
+    <li>The SidebarDirectory _onDrop handling has been refactored in order to simplify and improve readability of the directory drop handling logic.</li>
+</ul>
+<h4>Other API changes</h4>
+<ul>
+    <li>Systems and Modules may now override the implementation used for each placeable canvas Object by modifying the CanvasObject class definition in the CONFIG object. For example: The CanvasObject definition used to display a Token may be replaced as <code>CONFIG.Token.objectClass</code></li>
+    <li>Added a new hook event for <code>changeSidebarTab</code>. See https://gitlab.com/foundrynet/foundryvtt/-/issues/4142</li>
+    <li>It is now possible to pass explicit scope parameters for Actor and Token to the <code>Macro#execute</code> method.</li>
+    <li>The event handling logic for Application constructs such as tabs, scrolling containers, or drag/drop interfaces are now activated in a private method which is always invoked and does not depend on subclasses remembering to call super.activateListeners.</li>
+    <li>Moved the definition of core included scripts and styles into the Express view data middleware layer.</li>
+    <li>Corrected an issue where <code>Hooks.call()</code> would previously return void in cases where no handlers were registered.</li>
+</ul>
+
+<h3 class="border">Localization Improvements</h3>
+<ul>
+    <li>Modules may now designate themselves as primary localization providers by setting the parameter <code>"coreTranslation": true</code> in <code>module.json</code>. These modules will be placed first in the module load order and will provide official language designations and labels for all menus.</li>
+    <li>Portions of the Setup menu which previously did not support localization can now be localized, but only by a primary localization provider.</li>
+    <li>The Join screen is now a Setup application, allowing for localization of its content, but only by a primary localization provider.</li>
+    <li>Portions of the Combat Tracker interface which previously did not support localization can now be localized.</li>
+    <li>Portions of the Tile Configuration Application which previously did not support localization can now be localized.</li>
+    <li>The Combat Initiative Roll label now supports localization.</li>
+    <li>Renamed Basic Controls to Token Controls to bring the labelling consistent with other tools.</li>
+    <li>The Save Application Configuration dialog window Header and Contents now has support for localization.</li>
+    <li>The Scene Navigation collapse toggle now has a tooltip identifying its function.</li>
+    <li>A convenience option has been added in order to allow for localization of the contents of <code>ui.notifications.notify</code> messages. See https://gitlab.com/foundrynet/foundryvtt/-/issues/4640</li>
+</ul>
+
+<h3 class="border">Bug Fixes</h3>
+<h4>Document Fixes</h4>
+<ul>
+    <li>Applying active effect programmatically now correctly applies token effect icon immediately.</li>
+    <li>Document.create will now always return an array if input data was provided as an array.</li>
+    <li>The diffObject() helper method will now recognize keys in the original object which are explicitly set to undefined if the <code>inner</code> option is passed as true.</li>
+    <li>Returning false for the pre-modification hooks (such as preDelete and preCreate) will remove that single document from the batch rather than canceling the entire batch.</li>
+    <li>As a result of document creation workflow changes, new Document creations no longer fail to correctly update the game.data array when new documents are created.</li>
+    <li>Cases where primary and secondary attributes that were defined in the system.json manifest were not correctly used as a resource for tokens has been resolved.</li>
+    <li>Game settings defined with type Array are no longer incorrectly wrapped in an outer array and should now return the array as the setting value directly.</li>
+    <li>Updating a chatMessage through the ChatMessage.update function should now properly update the popped out message as well.</li>
+    <li>The User#assignHotbarMacro method should no longer incorrectly. consider <code>slot</code> to be a required parameter.</li>
+    <li>Assistant GMs can now correctly edit and delete canvas placeables if they have the permission to create those placeables.</li>
+    <li>Exporting a Document that has transformed/derived values in its data model will no longer incorrectly include those derived values in the exported data.</li>
+</ul>
+
+<h4>Application Fixes</h4>
+<ul>
+    <li>The contents of Dialog.prompt should now be properly rejected if the dialog window is closed without making a selection</li>
+    <li>The _onSortItem function was previously using a hardcoded definition for .item and should now properly use dragSelector instead.</li>
+    <li>Trying to open the actor sheet for a token which had its actor deleted previously appeared to silently fail. It will now display a warning.</li>
+    <li>Improved the TinyMCE editor saving workflow to avoid an error related to the link plugin which would occur if no text was selected.</li>
+    <li>Immediate inline rolls in an Actor Sheet should now obtain that Actor's roll data object as expected.</li>
+    <li>Corrected an issue where Drag and Drop functions would attempt to evaluate plain text data on drop, this should no longer occur.</li>
+    <li>The confirmation input prompt when deleting a World no longer allows autocompletion.</li>
+    <li>Right-clicking on an empty hotbar slot should no longer show context menu options that are not available for empty slots.</li>
+    <li>Corrected for cases where mouse wheel events on a disabled range input would still allow values to be set.</li>
+</ul>
+
+<h4>Canvas Fixes</h4>
+<ul>
+    <li>The Ray#fromAngle now correctly returns returns rays with normalized angles, also corrected an issue normalizeDegrees where it could return incorrect values.</li>
+    <li>Walls _onUpdate no longer incorrectly calls _onModifyWall when unnecessary.</li>
+    <li>Corrected an issue with Scene Thumbnail creation which could prevent the dimensions of a new background image from being accurately discovered if tiles were also present in the scene.</li>
+    <li>Fog of War was previously defined as a function of the canvas dimensions, and is now defined separately to correct for issues where scene padding could affect it.</li>
+    <li>Use of the LightingLayer#animateDarkness function should no longer produce errors if it is used to change the darkness level to the same value it currently holds.</li>
+    <li>The placeholder for the Units field in the scene configuration previously displayed "ft" as an example, this has been corrected as it could cause confusion and appear as though it had been set.</li>
+    <li>TokenConfig.getTrackedAttributes should no longer throw an error in Token.getBarAttribute as a result of incorrectly returned null values.</li>
+    <li>Left-Click to Release Objects should now correctly release tokens when the "Select Target" tool is in use.</li>
+    <li>To correct for cases where escape key presses would cause issues with releasing objects if pressed while dragging an object, Escape key-presses will now be ignored during drag operations.</li>
+</ul>
+
+<h4>Dice Fixes</h4>
+<ul>
+    <li>Dice roll modifier targets should now be processed correctly using a non-null value. This should correct for cases where certain modifiers like <code>cs&lt;0</code> would incorrectly treat the target as a non-zero value.</li>
+    <li>Roll.toMessage() should now adhere to data passed in the messageOptions.rollMode parameter as expected.</li>
+</ul>
+
+<h4>Other Bug Fixes</h4>
+<ul>
+    <li>Hardened several aspects of security in the the server-side software to avoid an exploit which could grant unintended user permissions.</li>
+    <li>Corrected an issue with license signing which would prevent the authorization of licenses and cause the License Agreement to be shown repeatedly if the hostname contained any non-ASCII characters.</li>
+    <li>The progress bar for core software updates should now correctly report and update during the extraction and installation process, this is no longer the case.</li>
+    <li>Assistant-level Users can no longer shut down a currently active world.</li>
+    <li>Reloading <code>/setup</code> should now correctly update data for currently available worlds by parsing available world.json files.</li>
+    <li>Entering an empty string ("") rather than null for the sslCert, sslKey, or awsConfig keys in options.json will now be detected as those fields not being provided and will no longer break application startup.</li>
+    <li>To correct an issue for some users where the Socket.io connection could potentially display a "Cookie "io" not secure" message, the Socket.io implementation has been explicitly configured to <code>cookie: false</code> as its functionality was not previously used.</li>
+    <li>Resolved a situation which could cause more than one ContextMenu to open at a time.</li>
+    <li>Keyboard handling events for inputs with an attached datalist should no longer produce errors related to the Keyboard manager.</li>
+</ul>
+
+<h3 class="border">Documentation Improvements</h3>
+<ul>
+    <li>The API Documentation has been comprehensively reviewed and re-designed to improve the coverage and accuracy of documented constructs. API Documentation for the alpha-channel 0.8.0 is available here: https://foundryvtt.com/api/alpha/</li>
+    <li>Improved inter-linking of documentation to provide references to constants, configuration objects, and object types which are used as inputs.</li>
+    <li>Corrected the class extends/implements annotations for classes which were previously did not have their constructor correctly documented.</li>
+    <li>Corrected a number of entries where JSDoc comments were entirely missing.</li>
+    <li>Corrected a number of identified locations in the client-side code where public function parameters were not documented in JSDoc.</li>
+    <li>Corrected a number of entries where parameters and their types were incorrectly ordered in JSDoc.</li>
+    <li>Corrected a number of typographic errors in JSDoc tags.</li>
+    <li>The CONST and CONFIG objects are now enumerated by way of a JSDoc enum tag.</li>
+    <li>Provided JSDoc documentation for helper functions which extend primitive data classes with additional static or instance methods.</li>
+    <li>Provided JSDoc documentation for helpers module of utility functions.</li>
+    <li>Provided JSDoc documentation for the commons data module which defines shared data schema and base document models for all core data types.</li>
+    <li>The API documentation for Localization now includes example usage for the localize and format methods.</li>
+    <li>Added documentation for the Tabs parameter to the Application constructor API documentation.</li>
+<li>The documentation of the Dialog class has had its parameters corrected.</li>
+    <li>Replaced documentation references to PIXI.interaction.InteractionEvent which is renamed to PIXI.InteractionEvent</li>
+    <li>Added specific information and attribution for icons from game-icons sources under the <code>public/icons/svg</code> directory for additional license visibility in addition to the existing credits listed on the Foundry Virtual Tabletop website.</li>
+</ul>
