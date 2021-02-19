@@ -56,6 +56,24 @@
 	<figcaption>An example of port forwarding for a specific router model. My local IP address is 192.168.1.100.</figcaption>
 </figure>
 <hr/>
+<h2 class="border">Firewall Configuration</h2>
+<p>Most modern operating systems come pre-equipped with a built in firewall designed to prevent incoming connections and stop unwanted access to your computer. For the most part, these firewall softwares should be automatically configured when opening Foundry VTT through an Operating System level prompt which will ask if you wish to allow incoming connections. However, in some cases (particularly Windows 10 Firewall) it is necessary to manually allow connections to FVTT through your firewall.</p>
+
+<p>As this most commonly arises related to Windows Defender, the following steps are provided:</p>
+<h4>Windows Defender Firewall</h4>
+<ul>
+	<li>Navigate to Control Panel, System and Security and Windows Firewall.</li>
+	<li>Select Advanced settings and highlight Inbound Rules in the left pane.</li>
+	<li>Right click Inbound Rules and select New Rule.</li>
+	<li>Add the port you need to open (30000) and click Next.</li>
+	<li>Add the protocol (TCP) and the port number (30000) into the next window and click Next.</li>
+	<li>Select "Allow the connection" in the next window and click Next.</li>
+	<li>Select the network type (both) and click Next.</li>
+	<li>Name the rule something meaningful and click Finish.</li>
+</ul>
+
+<h3>About IPv6 and Firewalls</h3>
+<p>While IPv6 does not require port forwarding, it does require access to the ports on the hosting device. This means that any firewall software must be configured to allow connection on that port for IPv6 connections.</p>
 
 <h2 id="faq">Frequently Asked Questions</h2>
 <blockquote class="question">

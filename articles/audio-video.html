@@ -33,6 +33,16 @@
 </li>
 <li>Port-forwarding UDP ports 33478, and 49152-65535.</li>
 </ul>
+<h2 class="border">Enabling A/V Chat Integration</h2>
+<p>If you have already performed the necessary technical steps to configure the integration, set up your domain and configured your SSL Certificates, you can enable the A/V chat integration by following these steps:</p>
+<ol>
+  <li>Access the Settings (gearwheel) sidebar tab</li>
+  <li>Click 'Configure Settings'</li>
+  <li>Click Configure Audio/Video</li>
+  <li>Change the Audio/Video Conferencing Mode to either: transmit audio only, video only, or use both audio and video conferencing.</li>
+  <li>Click Save Changes</li>
+</ol>
+<p> When completed, this will enable the A/V chat UI and display frames for each connected user.</p>
 <h2 class="border">A/V Configuration</h2>
 <figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/audio-visual-configuration-2021-01-21.jpg" target="_blank" rel="nofollow noopener">@Image[136]</a>
 <figcaption>The Audio/Video Configuration application.</figcaption>
@@ -98,7 +108,7 @@
 <p>WebRTC uses a signalling server to resolve how to connect one or more devices for the purposes of audio-video conferencing. Effectively, the Signalling server acts as a go-between which notifies users to connect peers for the purposes of peer-to-peer communications. Foundry VTT includes a default Signalling server which handles all of this, but its implementation is simplified in order to provide the most streamlined experience for users. By default, the Foundry VTT Signalling server is provided through use of the <a href ="https://github.com/open-easyrtc/open-easyrtc">Open-easyRTC</a> framework.</p>
 <p>There are more complex implementations of WebRTC signalling servers, and FVTT allows you to configure and use a custom signalling server in much the same way as it allows configuration of relay servers. If you are intending to replace the signalling server with another EasyRTC server, this process is simple and can be access through the server tab of the Audio Visual Configuration as seen above.</p>
 <p>It is possible to use other implementations of RTC signalling servers beyond EasyRTC, but this would require creating a module to override the WebRTC implementation used by Foundry VTT and is outside the scope of this article.</p>
-<p>
+
 <h2 class="border">API References</h2>
 <p>To interact with AV programmatically, consider using the following API concepts:</p>
 <p><a href="https://foundryvtt.com/api/AVMaster.html" target="_blank" rel="nofollow noopener">AVMaster</a> - The Master Audio/Video controller instance</p>

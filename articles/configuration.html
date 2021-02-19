@@ -1,6 +1,105 @@
-<p>Foundry Virtual Tabletop has two primary ways to set configuration options, <i>command line flags</i> and <i>directives in options.json</i>.  In most cases, options set via command line flag will override the corresponding directives in options.json, however, the number of flags available is comparatively limited.</p>
+<h2>Overview</h2>
+<p>Foundry Virtual Tabletop offers a number of layers of configuration allowing you to customize the application and server to suit your specifications. Whether you are changing these configuration options via the command line when launching FVTT, by editing the options.json configuration file, or by way of the main setup menu. This article will introduce you to the concepts of:</p>
+<dt>Command Line Flags</dt>
+<dd>A very simple way to instruct a program that a configuration option needs to be changed. Best used for temporary changes as they have to be specified every time the program launches. These instructions override the options.json file.</dd>
+<dt>Options.JSON Directives</dt>
+<dd>Foundry VTT loads instructions, or directives, from the options.json file every time it launches, allowing you to make more permanent changes to its configuration without having to specify those changes each time you launch. </dd>
+<p class="info warning">It is strongly recommended that all users set an Administrator Access Key in order to protect their setup screen from unwanted access.</p>
+<h2 id="setup" class="border">The Configuration Menu</h2>
+<figure>
+	@image[]
+	<figcaption>An overview of the Foundry VTT Setup menu - Configuration Tab.</figcaption>
+</figure>
+<p>The simplest way to adjust configuration options for Foundry VTT is through the configuration tab found on the Setup menu. Changing values on this tab alters them in the <code>options.json</code> file without having to edit the file directly. This menu contains the most common options you may wish to change and is most commonly used for adjusting the port number used for hosting or the User Data path. Any change made to the Foundry VTT's directives through the Setup menu requires a restart of the program before it will take effect, choosing Save Changes will write the data to <code>options.json</code> and cause Foundry VTT to shut down.</p>
+<dl>
+	<dt>Administrator Password</dt>
+	<dd>This is the password used to access the Setup menu, whether at first launch or when clicking Return to Setup from the login screen of a world. This password is encrypted and stored within the <code>admin.txt</code> Config folder in your User Data directory.</dd>
+	<dt>Port</dt>
+	<dd>Designates the TCP port for Foundry VTT to listen on </dd>
+	<dt>Enable UPnP</dt>
+	<dd>Universal Plug & Play (UPnP) allows Foundry VTT to attempt to automatically configure your network to allow inbound connections. If this is checked, any firewall or router on your network which allows UPnP configuration will be automatically updated with a port-forwarding rule, removing the necesessity to manually port forward. For more information, see @Article[port-forwarding].</dd>
+	<dt>User Data Path</dt>
+	<dd>This directive instructs Foundry VTT to store its data in a different location than default. Please note that the folder you point this to must already exist when you direct to it. <p>Note that custom paths for Windows need to either use forward slashes, ex: <code>D:/path/to/appdata</code> or escaped backwards slashes, ex: <code>D:\\path\\to\\appdata</code>.</p></dd>
+	<dt>Default World</dt>
+	<dd>Setting this option will cause your Foundry VTT to automatically launch your Game World when the program is started.</dd>
+	<dt>Default Language</dt>
+	<dd>As may be expected, this setting configures the localization of the program and can be leveraged by localization modules to ensure that the interface is translated to the language of your choosing wherever possible.</dd>
+	<dt>Optimize Static Files</dt>
+	<dd>This directive provides minified, compacted, JavaScript and CSS files to clients when they connect rather than providing the full versions of those documents, resulting in less network bandwidth consumption for most users.</dd>
+	<dt>SSL Certificate</dt>
+	<dd>Primarily used when configuring your Foundry VTT to use @Article[audio-video], this directive points Foundry VTT to the certificate file used for SSL in order to enable HTTPS transfers. </dd>
+	<dt>SSL Private Key</dt>
+	<dd>Primarily used when configuring your Foundry VTT to use @Article[audio-video], this directive points Foundry VTT to the private key file used for SSL in order to enable HTTPS transfers.</dd>
+	<dt>AWS Configuration Path</dt>
+	<dd>This directive points Foundry VTT toward the <code>aws-s3.json</code> file used when configuring @Article[aws-s3].</dd>
+</dl>
 
-<h2 id="command-line">Command Line Flags</h2>
+<h2 id="where-user-data">Where Is My Data Stored?</h2>
+<p>In order to protect your data, and to comply with operating system expectations, Foundry VTT secures the data for your Game Worlds, Systems, and Add-on Modules in a separate, user-specific folder stored in 
+referred to by Foundry VTT as the User Data folder. </p>
+<p>When Foundry VTT is launched it checks for any directive that might change where to find its User Data folder in the following order:</p>
+<ol>
+	<li><strong>Command Line Flag</strong>. See the Command Line Options below.</li>
+	<li><strong>Environment Variable</strong>. Set <code>FOUNDRY_VTT_DATA_PATH</code>.</li>
+	<li><strong>Config Data Override</strong>. See the Configuration Menu section above.</li>
+	<li><strong>Default OS Application Data</strong>.</li>
+</ol>
+<p>If multiple options are set, the first valid option will be used. The default application data location for each operating system is the following:</p>
+<p><strong>Windows</strong></p> <pre><code class="language-bash">%localappdata%/FoundryVTT</code></pre>
+<p><strong>macOS</strong></p> <pre><code class="language-bash">~/Library/Application Support/FoundryVTT</code></pre>
+<p><strong>Linux (in order of availability)</strong></p>
+<pre><code class="language-bash">/home/$USER/.local/share/FoundryVTT
+/home/$USER/FoundryVTT
+/local/FoundryVTT
+</code></pre>
+<h4>Regarding File Naming Conventions</h4>
+<p>Since Foundry VTT works as a web server, you should be sure to use directory and file names which conform to web file and URL encoding conventions. You should generally avoid using spaces or special characters as these are likely to cause issues when serving your content to other players. See the <a href="https://developers.google.com/maps/documentation/urls/url-encoding" target="_blank" rel="nofollow noopener">Google URL Guidelines</a> for more detail.</p>
+
+<h2 id="userdata" class="border">Managing Your User Data</h2> 
+<p>Users frequently ask for best practices for managing their existing User Data folders to ensure that they're maintaining good backups of their worlds or in some cases to move their user data to a new location.</p>
+<h3 id="backup">Backing Up Your User Data</h3>
+<p>The easiest way to backup your User Data folder is to simply copy or create a zip file of your User Data folder of it in entirety. Our partners over at Encounter Library have produced a short video on this which details the process perfectly: <a href="https://www.youtube.com/watch?v=OmbxMmqNNXU">Encounter Library - Backing up your User Data Folder</a> </p>
+<h3 id="migrate">Moving Your User Data</h3>
+The steps for migrating the User Data folder vary slightly depending on which OS you are using, but can be reduced to the following steps (please note that these steps are over-cautious in the interest of protecting your data):
+<ol>
+	<li>Close FVTT if it is open. Open your current User Data path in a file browser.</li>
+	<li>Open a second file browser and create a new folder wherever you plan to store your data. This location can be anywhere, but must not be within the Foundry VTT Application folder.</li>
+	<li>COPY the Config, Data, and Logs folders from your current User Data folder to your new location.</li>
+	<li>Open Foundry VTT and on the configuration tab of the main menu, set your User Data path to the new location and click Save Changes .</li>
+	<li>Foundry VTT will shut down. Relaunch it.</li>
+	<li>Check to see that your Worlds still appear and that the User Data Path still shows correctly on the Configuration Tab.</li>
+	<li>Temporarily move the Data folder from your previous (or default) User Data folder to a new location.</li>
+	<li>Close and Relaunch Foundry VTT.</li>
+	<li>If your worlds still appear in this list, you have successfully moved your User Data to a new location and you may delete the copy of the Data folder you moved in step 7.</li>
+</ol>
+
+<h3 class="border">The User Data File Structure</h3>
+<p>The user data folder contains the following basic directory and file structure.</p>
+
+<ul class="file-structure">
+	<li><code>Config/</code> - The configuration directory
+		<ul class="file-structure">
+			<li><code>options.json</code> - Application configuration options</li>
+		</ul>
+	</li>
+	<li><code>Data/</code> - User data directory
+		<ul class="file-structure">
+			<li><code>systems/</code> - Installed game systems</li>
+			<li><code>modules/</code> - Installed add-on modules</li>
+			<li><code>worlds/</code> - Installed game worlds</li>
+		</ul>
+	</li>
+	<li><code>Logs/</code> - Server log files</li>
+</ul>
+<p>When referencing data from within the virtual tabletop application, any content stored inside the Data directory is publicly available to be served directly. This is where you should put your content that you intend to use inside the application. You are free to create any folder or directory structure that you want inside this data directory. For example, if you have the following file in your file system:</p>
+
+<pre><code class="language-plaintext">&lt;User Data Path&gt;/Data/worlds/my-world/maps/dungeons/deadly-dungeon-01.jpg</code></pre>
+
+<p>When using that map image inside Foundry VTT, you can reference it as a web-accessible URL using the path relative to the Data folder</p>
+
+<pre><code class="language-plaintext">worlds/my-world/maps/dungeons/deadly-dungeon-01.jpg</code></pre>
+
+<h2 id="command-line" class="border">Using Command Line Flags</h2>
 
 <p>Foundry has four command-line flags that can be passed when the application is run at the command line.  These work with both the packaged Electron executable as well when starting Foundry via Node.js.</p>
 
@@ -31,9 +130,8 @@
 <pre><code class="language-bash">foundryvtt --port=30000 --world=myworld --dataPath=/local/data/foundryvtt</code></pre>
 <hr/>
 
-<h2 id="application-configuration">Configuration Options</h2>
-<p class="info note">It is strongly recommended that all users set an Administrator Access Key in order to protect their setup screen from unwanted access.</p>
-<p>Foundry's behavior can also be customized via editing the options.json file stored in the Config directory located in the user data directory.  The directives take one of three data types:</p>
+<h2 id="application-configuration" class="border">Using Options.json</h2>
+<p>Foundry's behavior can also be customized via editing the <code>options.json</code> file stored in the Config directory within the User Data directory.  The directives take one of three data types:</p>
 
 <dl>
 	<dt>String</dt>
@@ -70,55 +168,6 @@
 	<dt>proxySSL</dt>
 	<dd>Boolean --  indicates whether the software is running behind a reverse proxy that uses SSL. This allows invitation links and A/V functionality to work as if the Foundry Server had SSL configured directly.</dd>
 	<dt>proxyPort</dt>
-	<dd>Boolean -- informs Foundry that the software is running behind a reverse proxy on some other port. This allows the invitation links created to the game to include the correct external port.</dd>
+	<dd>Integer -- informs Foundry that the software is running behind a reverse proxy on some other port. This allows the invitation links created to the game to include the correct external port.</dd>
 </dl>
 <hr/>
-
-<h2 id="where-user-data">Where Is My Data Stored?</h2>
-<p>In order to comply with operating system expectations (most notably on Windows and macOS), it is important not to store actively updated user data inside the application directory itself. Therefore Foundry Virtual Tabletop relies upon the concept of a <strong>user data path</strong> which defines the location that user data is saved. There are four ways that the user data location can be set.</p>
-<ol>
-	<li><strong>Command Line Flag</strong>. See the Command Line Options above.</li>
-	<li><strong>Environment Variable</strong>. Set <code>FOUNDRY_VTT_DATA_PATH</code>.</li>
-	<li><strong>Config Data Override</strong>. See the Application Configuration Options section above.</li>
-	<li><strong>Default OS Application Data</strong>. See below for details.</li>
-</ol>
-<p>These options are evaluated in the above order, so if multiple options are set, the first valid option will be used. The default application data location for each operating system is the following:</p>
-<p><strong>Windows</strong></p> <pre><code class="language-bash">%localappdata%/FoundryVTT</code></pre>
-
-<p>Note that when configuring a custom path in Windows you need to either use forward slashes, for example <code>D:/path/to/appdata</code> or escaped backwards slashes, <code>D:\\path\\to\\appdata</code>.</p>
-
-<p><strong>macOS</strong></p> <pre><code class="language-bash">~/Library/Application Support/FoundryVTT</code></pre>
-<p><strong>Linux (in order of availability)</strong></p>
-
-<pre><code class="language-bash">/home/$USER/.local/share/FoundryVTT
-/home/$USER/FoundryVTT
-/local/FoundryVTT
-</code></pre>
-
-<p>These default locations may not be ideal for many users, so it is recommended to use one of the above alternative methods to point Foundry VTT to a different data location as suits your preferences. The user data folder contains the following basic directory and file structure.</p>
-
-<ul class="file-structure">
-	<li><code>Config/</code> - The configuration directory
-		<ul class="file-structure">
-			<li><code>options.json</code> - Application configuration options</li>
-		</ul>
-	</li>
-	<li><code>Data/</code> - User data directory
-		<ul class="file-structure">
-			<li><code>systems/</code> - Installed game systems</li>
-			<li><code>modules/</code> - Installed add-on modules</li>
-			<li><code>worlds/</code> - Installed game worlds</li>
-		</ul>
-	</li>
-	<li><code>Logs/</code> - Server log files</li>
-</ul>
-<p>When referencing data from within the virtual tabletop application, any content stored inside the Data directory is publicly available to be served directly. This is where you should put your content that you intend to use inside the application. You are free to create any folder or directory structure that you want inside this data directory. For example, if you have the following file in your file system</p>
-
-<pre><code class="language-plaintext">&lt;User Data Path&gt;/Data/worlds/my-world/maps/dungeons/deadly-dungeon-01.jpg</code></pre>
-
-<p>When using that map image inside Foundry VTT, you can reference it as a web-accessible URL using the path relative to the Data folder</p>
-
-<pre><code class="language-plaintext">worlds/my-world/maps/dungeons/deadly-dungeon-01.jpg</code></pre>
-
-<h4>Regarding File Naming Conventions</h4>
-<p>Since Foundry VTT works as a web server, you should be sure to use directory and file names which conform to web file and URL encoding conventions. You should generally avoid using spaces or special characters as these are likely to cause issues when serving your content to other players. See the <a href="https://developers.google.com/maps/documentation/urls/url-encoding" target="_blank" rel="nofollow noopener">Google URL Guidelines</a> for more detail.</p>

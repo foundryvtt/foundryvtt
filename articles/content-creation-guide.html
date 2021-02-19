@@ -4,7 +4,7 @@
 <h4>Module Dependency</h4>
 <p>Creating content for Foundry VTT distribution should not be done with modules enabled UNLESS those modules are going to be dependencies for your content. This keeps the data structures of your content clean and ensures that the users installing it will have an identical experience to what you intend.</p>
 <hr />
-<h3>File Structure</h3>
+<h3 id="files">File Structure</h3>
 <p>Foundry VTT is a web server (httpd), and like any web server has file naming conventions it must adhere to in order to serve content to users in a non-disruptive way.</p>
 <p>The file structure of your module or world should be standardized before any other work is done, as changing filenames and folder names after configuration in FVTT has been completed will require either careful editing of .db files or worse, manual setting of each individual file path for tokens, scenes, etc.</p>
 <h4>Allowed Characters</h4>
@@ -18,7 +18,7 @@
 <p>It is common for content creators to include metadata in their file names in order to make the images they're distributing to users easier to identify when there are variations. An example of this would be "<strong>Fortress-Dungeon(30x25-3000x2500-gridless).jpg</strong>". This information should not be required for users of FVTT using a content pack, as the settings for that map are configured in the Scene Configuration window and does not require them to look directly at file names.</p>
 <p>It is recommended that this metadata be removed from filenames to prevent complications in file selection. If proper naming systems are used, however, this is not strictly necessary.</p>
 <hr />
-<h3>Compendium Configuration and the Manifest JSON</h3>
+<h3 id="compendium">Compendium Configuration and the Manifest JSON</h3>
 <p>Getting a module or world started correctly is very important to make the process of packaging the compendiums for distribution as easy as possible. When making a world folder for distribution there is very little needed to do, as the distribution process only requires adding a few lines to the world.json file to allow for download once it has been hosted.</p>
 <p>For modules, however, some pre-configuration in the early stage can save some headaches when exporting later:</p>
 <h4>Always Work in the Modules Folder</h4>
@@ -58,7 +58,7 @@
 </ul>
 <p>You are now fully prepared to get all your content working in Foundry VTT.</p>
 <hr />
-<h3>Scene Configuration</h3>
+<h3 id="scene">Scene Configuration</h3>
 <p>Several facets of the scene configuration can and should be standardized. As a rule, there should be no reason to use the Grid Configuration tool to make adjustments to the grid.</p>
 <h4>Overall Guidelines:</h4>
 <p>Tile-based scenes should be created with Padding Percentage set to 0, and should have a width and height large enough to incorporate all tiles that the scene would have. This prevents any mishaps with laying tiles outside the rendered lighting area.</p>
@@ -79,7 +79,7 @@
 <figcaption>Left: A map with art drawn at 140x140 grid scale, but in a scene with a 100px grid scale. <br />Right: The same map, after attempts to align the walls to the grid, which is impossible.</figcaption>
 </figure>
 <hr />
-<h3>Grids</h3>
+<h3 id="grid">Grids</h3>
 <p>Scenes created for use in FVTT must have a minimum grid size of 50px. Grids must be an integer, decimal based grids will not work. Ideally, these grids should be at least 100px to allow for the best snapping of grids when placing objects.</p>
 <p>Foundry uses a sub-grid system for placement of walls and lights which provides snap-points for those objects. As the precision of the sub-grid improves based on the size of the grid square, it benefits strongly from larger pixel grids. The subgrid scales in the following ways:</p>
 <h4>Grid Precision</h4>
@@ -87,7 +87,7 @@
 <p><strong>64px or higher:</strong> Snap points every 8th (0.125) of a square.</p>
 <p><strong>50px or higher: </strong>Snap points every 4th (0.25) of a square.</p>
 <hr />
-<h4>Vision and Global Illumination</h4>
+<h4 id="vision">Vision and Global Illumination</h4>
 <p>Foundry VTT automatically enables Token Vision and Fog of War exploration for newly created scenes, but defaults Global Illumination to off.</p>
 <p>Global Illumination should be used in scenarios where the lighting of the scene is so strong that it allows all persons in that scene to see as far as they are physically able. Global illumination should be enabled for outdoor scenes which do not have indoor portions, and should be disabled for indoor scenes. In scenes that are mixed, Global illumination should not be used, and instead a large ambient light source should be provided in the outdoor portions.</p>
 <p>Darkness level should be set to 0 for most maps, though for caverns and dungeons, and other places with very low lighting if your map is quite bright adding a darkness level at .3 or .6 can provide a great ambient feel and emphasize light sources for players without obscuring the art. As a rule, if a map was made dark to represent night already, no Darkness Level should be set.</p>
@@ -97,7 +97,7 @@
 <p>FVTT supports setting a grid square to be whatever distance or measurement you feel to be appropriate, however- keep in mind that in most cases tokens for the map will take up one whole grid square by default. If that grid is set to 10 feet, 3 meters, or 1km, it can break immersion for players whose characters can suddenly attack an enemy well-outside their normal arm's reach.</p>
 <p>For scenes containing art representative of much larger spaces, like a town or regional map, it is best to use miles or kilometers if measuring distance, or possible days and hours, if measuring travel time instead. These maps may also benefit from being set as gridless scenes, allowing for more fluid movement between locations.</p>
 <hr />
-<h3>Walls</h3>
+<h3 id="walls">Walls</h3>
 <p>The placement of walls and restriction of visibility is a matter that many people have strong opinions on, and wherever possible the Foundry VTT team wants to be sure that we're respecting the intent of a creator when we're providing feedback and recommendations for standardization. However, there are some best practices that can be passed on that will both streamline your efforts at walling and provide some tricks that will leverage Foundry VTT's vision system to emphasize visual aspects of your maps.</p>
 <h4>General Rules</h4>
 <p>A good shortcut for handling a large map for walling is to wall everything as a normal wall, rapidly, while holding the ctrl key down. This allows you to place a lot of walls in rapid sequence which can be selected and edited later.</p>
@@ -133,7 +133,7 @@
 <figcaption>An example of microwalls.</figcaption>
 </figure>
 <hr />
-<h3>Lighting</h3>
+<h3 id="lighting">Lighting</h3>
 <p>Lighting can completely change the way players view a map and elevate the already great artwork being provided to a new level. Foundry VTTs light source options can be leveraged in clever and subtle ways in order to provide extra emphasis that can't be achieved with just an image file.</p>
 <h4>General Rules</h4>
 <p>Unless it is necessary to account for specific system-related light mechanics for your content, lighting should favour the visual appearance of lighting in a map over trying to adhere to strict mechanical rules on how far light spreads based on a game system. Users are less likely to check a light source to see if the torch matches what their game says it should cast for light than they are to notice that a light source just 'looks wrong'. Aesthetics are more important than mechanics.</p>
