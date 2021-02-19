@@ -1,6 +1,6 @@
 <h2>Overview</h2>
 <p>Foundry Virtual Tabletop is available cross-platform, so users of Windows, macOS, and various linux distributions can all host servers for their GMs and Players to use conveniently and easily. This article will instruct you on the installation of Foundry VTT for your operating system, some of the more common pitfalls users face when trying to install and set up the software for the first time, and introduce some more advanced topics like:</p>
-<h2 class="border">The FVTT Application</h2>
+<h2 class="border">The Foundry Virtual Tabletop Application</h2>
 <p>The Foundry VTT application is the recommended installation path for most users: it bundles the the Foundry game server software with a built-in chromium web browser to serve as a client view, allowing you to interact with the server directly and conveniently. If you are planning to host a dedicated server instead, you will want to install the Node.js version described later in this article.</p>
 <h4>Downloading</h4>
 <p>To download Foundry Virtual Tabletop you must be a software license owner, if you have purchased a license the links to download the latest stable release of the software are available on your user profile by clicking on the<strong> Purchased Licenses</strong> button in the lower left-hand corner.</p>
@@ -46,13 +46,13 @@ In order to use the NodeJS package it is necessary to install NodeJS for whichev
 <p class="note info">Note that a relatively modern version of Node.js is required in order to support various security features which are required by the application. Please use Node.js version 14.x or newer.</p>
 
 <h4 id="redhat">For Red Hat / Amazon Linux package manager</h4> <pre><code class="language bash">sudo yum install -y openssl-devel
-	curl --silent --location https://rpm.nodesource.com/setup_14.x | sudo bash -
-	sudo yum install -y nodejs
+curl --silent --location https://rpm.nodesource.com/setup_14.x | sudo bash -
+sudo yum install -y nodejs
 	</code></pre>
 	
 <h4 id="debian">Debian / Ubuntu package manager</h4> <pre><code class="language bash">sudo apt install -y libssl-dev
-	curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
-	sudo apt install -y nodejs
+curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
+sudo apt install -y nodejs
 	</code></pre>
 
 <h3>Downloading via Terminal</h3>
@@ -66,34 +66,34 @@ In order to use the NodeJS package it is necessary to install NodeJS for whichev
 <p>Now that you have downloaded both the Foundry VTT NodeJS package and installed NodeJS, it's time to extract the zip and create your data directory.</p> 
 <h4 id="dedicated-linux">For Linux</h4>
 <pre><code class="language bash"># Create application and user data directories
-	cd $HOME
-	mkdir foundryvtt
-	mkdir foundrydata
-	
-	# Install the software
-	cd foundryvtt
-	wget -O foundryvtt.zip "&lt;foundry-website-download-url&gt;"
-	unzip foundryvtt.zip
-	
-	# Start running the server
-	node resources/app/main.js --dataPath=$HOME/foundrydata
-	</code></pre>
+cd $HOME
+mkdir foundryvtt
+mkdir foundrydata
+
+# Install the software
+cd foundryvtt
+wget -O foundryvtt.zip "&lt;foundry-website-download-url&gt;"
+unzip foundryvtt.zip
+
+# Start running the server
+node resources/app/main.js --dataPath=$HOME/foundrydata
+</code></pre>
 
 <h4 id="dedicated-mac">For macOS</h4>
 	<p>Foundry VTT is also supported as a native application on macOS using Electron, however if you wish to host the software using Node.js directly, this is also an option in the macOS environment. Simply visit <a href="https://nodejs.org/en/download/" target="_blank" rel="nofollow noopener">https://nodejs.org/en/download/</a> and download the macOS installer. Node is installed on your system, you can run the server using the instructions in the below section via your Mac terminal.</p>
 	
 <pre><code class="language bash"># access the application directory
-		cd ~/Library/Application Support/FoundryVTT
-		# Start running the server
-		node resources/app/main.js --dataPath=$HOME/foundrydata
+cd ~/Library/Application Support/FoundryVTT
+# Start running the server
+node resources/app/main.js --dataPath=$HOME/foundrydata
 </code></pre>
 	
 <h4 id="dedicated-windows">For Windows</h4>
 	<p>Note that you can run a dedicated server from Windows also, for Windows you should download and install node.js from <a href="https://nodejs.org/en/download/" target="_blank" rel="nofollow noopener">https://nodejs.org/en/download/</a>.</p>
 	<pre><code class="language bash"># access the application directory
-		cd C:\Program Files\FoundryVTT\
-		# Start running the server
-		node resources/app/main.js --dataPath=$HOME/foundrydata
+cd C:\Program Files\FoundryVTT\
+# Start running the server
+node resources/app/main.js --dataPath=$HOME/foundrydata
 </code></pre>
 <p>Now that you are running Foundry VTT via node, open any modern web browser and connect to <a href="http://127.0.0.1:30000"></a>http://127.0.0.1:30000</a> to access your Foundry VTT server. If you wish to keep the server running perpetually, you can find relevant documentation for maintaining background processes with a package manager such as PM2 <a href="https://pm2.keymetrics.io/docs/usage/quick-start/">here</a>, or otherwise review the relevant documentation for crontab or the equivalent for your operating system.</p>
 <!---This section reserved for PM2 explanation--->
