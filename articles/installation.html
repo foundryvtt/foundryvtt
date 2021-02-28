@@ -82,7 +82,11 @@ node resources/app/main.js --dataPath=$HOME/foundrydata
 <h4 id="dedicated-mac">For macOS</h4>
 	<p>Foundry VTT is also supported as a native application on macOS using Electron, however if you wish to host the software using Node.js directly, this is also an option in the macOS environment. Simply visit <a href="https://nodejs.org/en/download/" target="_blank" rel="nofollow noopener">https://nodejs.org/en/download/</a> and download the macOS installer. Node is installed on your system, you can run the server using the instructions in the below section via your Mac terminal.</p>
 	
-<pre><code class="language bash"># access the application directory
+<pre><code class="language bash"># create a user data directory
+cd $HOME
+mkdir foundrydata
+
+# access the application directory
 cd ~/Library/Application Support/FoundryVTT
 # Start running the server
 node resources/app/main.js --dataPath=$HOME/foundrydata
@@ -90,10 +94,15 @@ node resources/app/main.js --dataPath=$HOME/foundrydata
 	
 <h4 id="dedicated-windows">For Windows</h4>
 	<p>Note that you can run a dedicated server from Windows also, for Windows you should download and install node.js from <a href="https://nodejs.org/en/download/" target="_blank" rel="nofollow noopener">https://nodejs.org/en/download/</a>.</p>
-	<pre><code class="language bash"># access the application directory
+	<pre><code class="language bash"># create a user data directory
+cd %userprofile%
+mkdir foundrydata
+		
+# access the application directory
 cd C:\Program Files\FoundryVTT\
+
 # Start running the server
-node resources/app/main.js --dataPath=$HOME/foundrydata
+node resources/app/main.js --dataPath=%userprofile%/foundrydata
 </code></pre>
 <p>Now that you are running Foundry VTT via node, open any modern web browser and connect to <a href="http://127.0.0.1:30000"></a>http://127.0.0.1:30000</a> to access your Foundry VTT server. If you wish to keep the server running perpetually, you can find relevant documentation for maintaining background processes with a package manager such as PM2 <a href="https://pm2.keymetrics.io/docs/usage/quick-start/">here</a>, or otherwise review the relevant documentation for crontab or the equivalent for your operating system.</p>
 <!---This section reserved for PM2 explanation--->
