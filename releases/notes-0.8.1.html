@@ -1,0 +1,258 @@
+<h2 class="border">Foundry Virtual Tabletop - Version 0.8.1 Update Notes</h2>
+<figure>
+	<img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/update-081-banner-2021-03-28.jpg" title="Foundry VTT Version 0.8.1 Release Notes" alt="Release Notes for the Foundry Virtual Tabletop 0.8.1 version"/>
+	<figcaption>Welcome to the Foundry Virtual Tabletop update notes for Release version 0.8.1.</figcaption>
+</figure>
+
+<p>Hello everyone, I am excited to introduce the next alpha channel release of the new 0.8.x series of development for Foundry Virtual Tabletop. This update brings a wide variety of changes to the audio and dice systems and I am very pleased with its current state. I am confident that the community will enjoy the new audio features and that the development community will be pleased with the changes to the Dice API.</p>
+
+<p class="note warning"><strong>WARNING:</strong> Updates on the alpha channel involve major new features which are likely to introduce unforeseen bugs, breakages to existing game systems or modules, or other problems which will be disruptive to the usage of the software. Do not install this update unless you are doing so for the specific purposes of testing. The purpose of Alpha channel builds are to allow new experimental features to be tested and to help developers to begin the process of updating packages which are impacted by these changes. If you chose to update to this version you expose yourself to serious risk of having a bad experience. Please take this warning to heart.</p>
+
+<p>If you choose to install the Alpha 0.8.1 update, you must perform a fresh installation of the software. Because of some of the infrastructure changes It is not possible to update to this version from within Foundry application. As always, before any significant update:</p>
+
+<p class="note warning">Be certain to carefully back up any critical user data before installing this update.</p>
+
+<p>This update focuses on major improvements to the audio system in Foundry Virtual Tabletop, one of the three major themes of the <code>0.8.x</code> update sequence. This update completely redesigns the way Foundry handles audio playlists and ambient audio sources on the canvas, bringing many new and exciting features to those systems including: setting fade durations, an enhanced control interface for audio, bulk audio importing, the ability to temporarily disable ambient audio sources, a new way of defining ambient audio (and also ambient lighting) to only be active between certain darkness levels, and a new audio API that is much more robust.</p>
+<p>In addition to big changes for audio, this update also includes some pretty major improvements to the data structures underlying the Dice rolling system. The parsing logic for translating dice equations into executable rolls has been redesigned using a more comprehensive and reliable approach which will enable system and module developers to carry their dice rolling automation to even greater heights. Additionally, this update adds the opportunity to support asynchronous dice rolling, allowing Foundry VTT to integrate with external dice rolling services or hardware devices.</p>
+
+<h3 class="border">Update Overview</h3>
+
+<p>The major themes which are central to this update version are briefly summarized as follows:</p>
+<ol>
+    <li>The audio library previously used by Foundry VTT (Howler) has been replaced in favor of a newly developed custom implementation relying directly upon the Web Audio API (https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API). This new approach solves a variety of audio-related issues while providing the opportunity to add many new improvements.</li>
+    <li>The dice parser previously used by Foundry VTT had several edge-case issues which resulted in a less than stellar user experience for some users. It has now been refactored in a much more elegant way and should no longer have these issues.</li>
+    <li>In addition to the new dice parser, support has been brought in for asynchronous dice rolling, allowing developers to wait for input from outside sources in order to deliver dice results. This feature will replace the current synchronous rolling system over the course of the next major version (0.9.x), so developers are encouraged to migrate to it over time.</li>
+    <li>As part of the Ambient audio overhaul changes, Ambient light sources can now also be set up to only activate during certain darkness levels, allowing audio sources and lights to only turn on when it is bright, dark, or anywhere in between.</li>
+    <li>The audio playlist sidebar tab has undergone significant UI enhancements and now supports folders for better organization. It has also been significantly de-cluttered for a better overall appearance.</li>
+    <li> A new UI feature brings "Currently Playing" to the sidebar tab, keeping all tracks you might have playing or paused at the top of the sidebar for convenient handling.</li>
+</ol>
+
+<h3 class="border">Breaking Changes</h3>
+<h4>Documents and Data</h4>
+<ul>
+    <li>The Hook signatures for Document create, update, and delete operations have been re-standardized to apply the exact same signature for Documents which have a parent (embedded) as well as Documents which do not. The new hook signatures for Document preCreate, create, preUpdate, update, preDelete, and delete hooks are revised as described in this issue: https://gitlab.com/foundrynet/foundryvtt/-/issues/4658</li>
+    <li>Game settings were previously (in 0.7.x) allowed to contain periods in their key names which was prevented by a new validation rule in 0.8.0. The strictness of this validation has been reduced to once again allow such setting names.</li>
+    <li>The Item.createOwned static constructor was intended to have been deprecated in 0.8.0, and is now marked as such.</li>
+</ul>
+
+<h4>The Game Canvas</h4>
+<ul>
+	<li>The helper methods used to compute sound and vision source polygons have been reorganized into the WallsLayer class as a generalized computePolygon helper which both the sight and sounds layer use (with different arguments).</li>
+</ul>
+
+<h4>Interface and Applications</h4>
+<ul>
+    <li>In order to address some ongoing bugs with audio and provide a better user experience, the Howler.js library was deprecated (immediately) in favor of a move to using native and more modern Web Audio APIs. For details, please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/3679.</li>
+    <li>The game.audio.play utility method has been redesigned to resolve issues with incorrect howler syntax and have been migrated to the new Web Audio SoundNode implementation.</li>
+</ul>
+
+<h4>Dice System</h4>
+<ul>
+    <li>The Roll#evaluate method now features a secondary version which is async in order to allow for asynchronous use cases. For details, please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/4135.</li>
+    <li>DiceTerm#getResultLabel has been refactored as an instance method (DiceTerm#getResultLabel) allowing for more nuanced formatting of the labeled output.</li>
+    <li>The way DiceTerm modifiers are evaluated has been improved to record the exact set of modifiers which were applied, eliminating any invalid matches from the final formula.</li>
+    <li>In the interest of standardization, the default behavior for what is automatically populated as ChatMessageData#content when a Roll is included in a Chat Message has changed. For details, please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/4780.</li>
+    <li>RollTable#roll has been refactored to async to now return a Promise in support of asynchronous dice rolling infrastructure.</li>
+</ul>
+
+<h4>Other Changes</h4>
+<ul>
+    <li>Some utility functions were moved in 0.8.0, but not documented in the prior update notes. The following changes are intentional, but do cause some breaking modifications relative to 0.7.9 behavior: https://gitlab.com/foundrynet/foundryvtt/-/issues/4668</li>
+    <li>Deleted unused jquery "shake" extension from the codebase as it was only present from legacy code.</li>
+    <li>Localizations which previously encoded HTML "Are You Sure" messages as two separate localization strings have been replaced. For the affected localization strings please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/4750.</li>
+</ul>
+
+<h3 class="border">New Features</h3>
+<h4>Architecture and Infrastructure</h4>
+<ul>
+    <li>Audio Playlists now allow users to define a fade duration for audio transitions between PlaylistSounds. Fade duration can be configured at the Playlist level, affecting all PlaylistSounds (by default) or at the individual sound level.</li>
+    <li>Sequential and Shuffled playlists now support skipping to the next track or previous track in the list.</li>
+    <li>Sequential and Shuffled playlists have had their handling logic improved to ensure that only one sound track is playing at a time.</li>
+    <li>Playlists and PlaylistSound documents now allow users to define a description. This allows annotating tracks in your playlists for quick reference of their purpose, for example: "Moody and violent, barbarian rage soundtrack."</li>
+    <li>Shuffled playlists now store their state and are reshuffled when the playlist is no longer active so that a different shuffle order is chosen (reliably) every time the playlist starts.</li>
+    <li>Scenes may now designate a specific PlaylistSound in place of a full Playlist as the default audio which should begin playing when that Scene is activated.</li>
+    <li>The track order of Sounds within a Playlist now defaults to an alphabetical sort method.</li>
+    <li>Playlists can now be filtered by name using the search field at the top of the playlist tab.</li>
+    <li>Added support for M4A (.m4a) and OPUS (.opus) as a usable audio file types anywhere that audio files may be chosen and used.</li>
+</ul>
+
+<h4>Documents and Data</h4>
+<ul>
+    <li>The "Large File Streaming" attribute from the PlaylistSound data model has been removed as it is no longer required under the newly renovated Web Audio API implementation.</li>
+    <li>Preloading a scene that has designated a specific PlaylistSound as its audio will now also preload that sound.</li>
+    <li>The Database.connect workflow has been redesigned and now loads each datastore sequentially instead of in-parallel with (optional) forced garbage collection between each load. This should reduce occurrences of database errors on world load.</li>
+</ul>
+
+<h4>The Game Canvas</h4>
+<ul>
+    <li>The data structure for light source darkness threshold has been redesigned and now allows users to define a minimum and maximum activation value, allowing the possibility of lights that are only active during a certain range, for example when darkness is low (daytime).</li>
+    <li>Ambient Sound activation thresholds have been added as a function of the darkness level in the Scene, allowing for defining ambient sounds which trigger only during specific darkness levels.</li>
+    <li>Bringing feature parity with Ambient Light Sources, Ambient Audio sources can now be disabled via right-click on their control icon.</li>
+    <li>The Sound Layer scene controls now has a toggle for Audio Preview which allows a GM or Assistant user to preview ambient audio by mouseover.</li>
+    <li>The Ambient Sound volume easing function has been improved to provide a more natural curve as you approach the origin of the sound.</li>
+    <li>Wall types now differentiate between restriction for sight and restriction for sound. This allows for walls which sound can penetrate, but not vision - or vice versa.</li>
+    <li>Token 'lock rotation' now locks the rotation of the Token at the angle that is currently set rather than at 0 (south).</li>
+    <li>A new permission setting has been introduced which allows Players to create Map Notes from Journal Entries which they own.</li>
+</ul>
+
+<h4>Interface and Applications</h4>
+<ul>
+    <li>The overall UI of the Playlists Sidebar has been economized by shifting edit and delete into the context menu, and the volume bar and pause button are now only shown for currently playing audio.</li>
+    <li>The playlists sidebar now has a "Currently Playing" section which is always anchored to the top of the playlist directory, it displays a list of sounds that are currently playing across all playlists in a centralized location for more convenient management.</li>
+    <li>The global volume controls section of the playlist sidebar can now be conveniently expanded/collapsed.</li>
+    <li>When a currently playing track is within a certain duration of it's ending, pre-loading of the next track will now automatically begin. This duration is 20 seconds by default. The API allows this to be changed, for details please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/3680.</li>
+    <li>When manually stopping the only playing track within Playlist, the playing status of the parent Playlist is now set to false as well.</li>
+    <li>The Audio Playlists sidebar now displays a spinner when a sound is about to start playing but is still in the process of loading.</li>
+    <li>Currently playing sounds now display a timestamp showing current and total track duration.</li>
+    <li>When auto-creating a Track Name from a new sound file in a Playlist, the filename will now be correctly stripped of URL characters in order to preserve special characters in the title.</li>
+    <li>Playlists now support bulk import of sound files by folder from a chosen directory path.</li>
+    <li>The Playlist sidebar tab now supports Folders to organize and group Playlists more effectively.</li>
+    <li>The Playlist sidebar tab now supports context menu activation via right-click for operations including duplicate, export, import, and delete.</li>
+    <li>Volume changes for Playlist Sounds which are currently playing now fade slightly between volumes in order to eliminate jarring changes when either the document volume or the local override volume is changed.</li>
+    <li>Added a debounce wrapper for playlist sound volume changes to prevent excessive DB operations when rapidly changing volume level.</li>
+    <li>Added a pause control for Playlist Sounds in the PlaylistDirectory sidebar tab, pausing a track will allow you to resume playback of that track from where you left off.</li>
+    <li>Search and filtering methods for all document types have been improved and will now treat text characters with accents or diacritics as the base version of that text character instead.</li>
+    <li>All static class attributes have now been redefined as public static class fields which are now supported across all relevant browsers.</li>
+    <li>The Combat tracker now provides a new "Clear Initiative" context option for Combatants, which will reset their initiative to an un-rolled state.</li>
+</ul>
+
+<h4>Dice System</h4>
+<ul>
+    <li>Replaced the previous dice parser in order to reduce parsing errors. The new Dice parsing method now tokenizes all parts of a submitted formula and works recursively from inside out to evaluate parenthetical expressions while maintaining order of operations. This implementation should be more robust and provide far less cases for errors to occur from misinterpreted data in parsing.</li>
+    <li>The new implementation of the dice parser allows term-specific flavor text to be attached to NumericTerm objects in a Roll expression, for example: /r (1d10)[fire damage] + 2d8 [lightning damage].</li>
+    <li>The dice system now supports minimum and maximum roll modifiers. For details please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/3776.</li>
+    <li>The dice system now supports modifiers to count even and count odd numbered results. For details please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/3776.</li>
+    <li>The dice system now suypports recursive rerolls that continue rerolling until a result condition is met. For details please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/4781.</li>
+    <li>Inline Rolls can now be named as part of the template declaring it and will display the name instead of the formula on the clickable roll button. Until documentation is updated, usage details are available at: https://gitlab.com/foundrynet/foundryvtt/-/issues/4672</li>
+    <li>The way Dice Term individual results are styled for display in a chat message tooltip has been refactored into its own helper method on the DiceTerm class.</li>
+    <li>For FateDie, 1s will now automatically be classified as a "success" and -1s as a "failure" for highlighting and counting purposes.</li>
+</ul>
+
+<h4>Documentation</h4>
+<ul>
+    <li>Alpha channel API documentation has been built and uploaded to the website for your convenience: https://foundryvtt.com/api/alpha/</li>
+    <li>Renamed user configuration and user management interface objects in order to remove any any ambiguity in the interface with regard to user configuration. Going forward: "User Management" will refer to the view where new users are created and access keys/roles are assigned, while "User Configuration" will refer to the user-level configuration sheet inside the main VTT view.</li>
+</ul>
+
+<h4>Other Features</h4>
+<ul>
+    <li>The initialization settings for the Electron app have been adjusted to set a more strict context isolation with sandbox mode.</li>
+</ul>
+
+<h3 class="border">API Improvements</h3>
+<h4>Documents and Data</h4>
+<ul>
+    <li>Introduced "DirectoryPicker" and "FilePicker" as valid types for registering game settings.</li>
+    <li>It is now possible to create a FilePicker with type "folder" which allows selecting a folder path to be returned as the browser target rather than a specific file.</li>
+</ul>
+
+<h4>Interface and Applications</h4>
+<ul>
+    <li>Added a generalized SearchFilter helper to standardize the way that string filtering fields are applied throughout the client-side software. For usage details please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/4259.</li>
+    <li>The API now supports assigning a class as a custom type to a registered game setting. For details please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/4660.</li>
+    <li>The API now supports using SoundNode#schedule(function, playbackTime) to provide support for fine-tuned scheduling control over audio playback events. For details please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/4751.</li>
+    <li>Macro execution is now wrapped in an async wrapper. This allows the use of await statements and early returns for more elegant macro syntax.</li>
+    <li>The Application#render method now supports an option to focus a currently rendered sheet to the top of the z-index and maximize its content.</li>
+</ul>
+
+<h4>Dice System</h4>
+<ul>
+    <li>Introduced a new static factory method that allows creating a Roll from a list of terms, replacing the existing workaround in RollTable#drawMany.</li>
+</ul>
+
+<h4>Documentation</h4>
+<ul>
+    <li>Added missing documentation for the renderChatMessage Hook.</li>
+    <li>Corrected documentation on the parameter slot of User.assignHotbarMacro so note that passing a string (containing) a number is also OK.</li>
+    <li>Fixed the documentation signature of the Token#setPosition method to properly reflect the options object.</li>
+</ul>
+
+<h3 class="border">Localization Improvements</h3>
+<ul>
+    <li>Improved the localization system to now require canonical internationalization locales (such as pt-br). The Localization article documentation is slated for improvement to denote that language keys may use ISO 3166-1 alpha-2 country codes and will be updated further in the near future. For now please see details here: https://gitlab.com/foundrynet/foundryvtt/-/issues/4725</li>
+    <li>Standardized the localization labels for all Document types, for details please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/4793</li>
+    <li>Enabled the loading of CSS styles for the primary server translation module for cases where CSS rules are needed in order to render a proper localization.</li>
+    <li>Added localization support for the "Administrator Access Required" prompt which appears on the Setup screen.</li>
+    <li>Added localization support to tags in Game Worlds, Game Systems, and Add-On Modules lists.</li>
+    <li>Added localization support to various user management operations.</li>
+    <li>Unifed terminology for Administrator Password throughout UI to improve consistency.</li>
+    <li>Added localization support to Ambient Sound Configuration window.</li>
+    <li>Remove a stray comma after the "Hidden" localization string.</li>
+</ul>
+
+<h3 class="border">Bug Fixes</h3>
+<h4>Documents and Data</h4>
+<ul>
+    <li>Fixed a permission issue that prevented users from creating Item or Active Effect embedded documents within an Actor that they owned.</li>
+    <li>Calling ChatMessage.create without an explicit User resulted in an malformed object which was serialized to a string, which has been fixed.</li>
+    <li>The String#titleCase helper method will no longer fail on strings which contain multiple sequential spaces.</li>
+    <li>Hotbar.expand has been refactored to an async function as originally intended.</li>
+    <li>Fixed an issue where CompendiumCollection.migrate() returned TypeError in socket response.</li>
+    <li>flags.core.sourceId should now correctly retain data when items are imported from a compendium in all cases.</li>
+    <li>SetupConfigurationForm#getData.current should no longer return an undefined value.</li>
+    <li>ModuleManagement#getData.query should no longer return an undefined value.</li>
+    <li>Corrected cases in which DocumentData.toJSON would return a plain object version of ActorData#data instead of returning a safe copy.</li>
+    <li>Deleting a Token from a Scene which has an active Combat encounter, but that Token is not present in the encounter was throwing an error. This behavior has been corrected.</li>
+    <li>Combat encounters failed to hold the current turn's Token ID in the current or previous objects, which has been corrected.</li>
+    <li>Corrected errors resulting from Documents being export to Compendium packs after a page refresh.</li>
+    <li>Corrected an issue which could result in the access key for a User being reset back to an empty string when that User was updated.</li>
+    <li>Fixed an issue with data cleaning of Token rotation values which failed to properly normalize them on the range of 0 to 360.</li>
+    <li>The backwards compatible deprecated functions for Actor#createOwnedItem, Actor#updateOwnedItem, and Actor#deleteOwned item did not correctly tolerate the possibility of either array or object-typed input as they did previously in 0.7.9.</li>
+</ul>
+
+<h4>The Game Canvas</h4>
+<ul>
+    <li>GridHighlight# no longer incorrectly extends PIXI.Graphics.</li>
+    <li>Cursor position updates no longer throw errors when the receiving client has the canvas disabled.</li>
+    <li>Resizing drawings on the canvas was behaving erratically and did not properly display the new size until after refresh.</li>
+    <li>Corrected issues resulting from invalid configuration of token resource bar attributes which caused errors for the Token and its HUD.</li>
+    <li>Resolved an issue with Combatant resource updating which failed to work properly due to a bug in the Token's update routine for changes to the base actor.</li>
+    <li>The default value method for NoteData fontFamily attribute referenced the inaccessible CONFIG object without an adequate globalThis guard - which has been fixed.</li>
+    <li>Corrected for an issue where Scene thumbnail generation would incorrectly position Tile objects relative to the background image in the composite thumbnail.</li>
+</ul>
+
+<h4>Interface and Applications</h4>
+<ul>
+    <li>The core ActorSheet#getData preparation method was incorrectly cloning the Actor object itself rather than creating a copy-safe duplicate of the contained Actor Data.</li>
+    <li>In order to reduce cases where WebGL does not correctly use Hardware Acceleration for cases where the device has dual GPUs, Foundry VTT will now explicitly request high-performance rendering when constructing the PIXI Application.</li>
+    <li>Issues with previous audio implementation could cause disconnection of clients (socket exhaustion) after playing many streamed audio files back to back. The entire audio library was refactored to correct this issue and now uses a more modern native Web Audio API approach.</li>
+    <li>Resolved an issue where Firefox would fail to receive playlist file requests or show the requests as blocked.</li>
+    <li>Corrected an issue where an ambient sound with no file path prevented window closure.</li>
+    <li>Renaming a track whose source is shared between multiple playlists no longer halts playback of any currently playing sounds of that source.</li>
+    <li>Correct an issue where volume easing fade-in effects were nonexistent for players but fine for gms.</li>
+    <li>The volume control slider for ambient sounds will now properly control the volume at which ambient sounds are played for non-GM users.</li>
+    <li>Corrected an issue that would cause client-level playlist sound volume overrides to be incorrectly applied to the global playlist volume.</li>
+    <li>Added an error message if the Electron application configured to attempt proxySSL does so without providing certificates explicitly.</li>
+    <li>Corrected several minor typos and errors in the English translation of the application.</li>
+    <li>Ensured that when scene.createThumbnail is called that it places the background image correctly in the generated thumbnail image.</li>
+    <li>Corrected an issue where world paths were not properly sanitized, leading to possible issues launching worlds.</li>
+    <li>Corrected a CSS issue which could cause the playlist "edit sound" button to be out of place in Firefox.</li>
+    <li>Avoid constructing a TinyMCE editor instance when rendering form applications where the form is not editable.</li>
+    <li>Combatants in the combat tracker were previously incorrectly detected as not yet having rolled initiative if their initiative score was zero.</li>
+</ul>
+
+<h4>Dice System</h4>
+<ul>
+    <li>Improved the detection method of content in a ROLL message to prevent instances of unwanted content replacement.</li>
+    <li>The new dice parser corrects for an issue which would cause Parentheses within a Roll Term's flavor text to be misidentified as part of a parenthetical grouping. As such you should now be able to use parentheses within flavour text without issue.</li>
+    <li>Resolved issues with Roll evaluation for parenthetical expressions inside a Math function.</li>
+    <li>The Roll class now correctly interprets double negatives as addition.</li>
+    <li>Corrected an issue which would cause dice option data to be lost on Roll object after it had been evaluated.</li>
+    <li>Spaces are no longer removed from dice term flavor text when rolling.</li>
+</ul>
+
+<h4>Documentation</h4>
+<ul>
+    <li>Some subclasses of DocumentSheet failed to properly denote their _updateObject method as async, these annotations have been added.</li>
+    <li>Corrected documentation for Roll.render, and Roll.getTooltip to indicate the correct type of data they return.</li>
+    <li>Fixed incorrect usage of the <code>@external</code> tag in JSDoc docstrings.</li>
+</ul>
+
+<h4>Other Fixes</h4>
+<ul>
+    <li>Collection#find now has the same return type as Array#find (undefined if the target is not located).</li>
+    <li>The Collection#mergeArray method was defined in the source code but did not do anything. It has been removed.</li>
+	<li>Validate that the type of a registered game setting must be either a constructable object or a callable function.</li>
+    <li>Corrected a "path not defined" error when updating the administrator access key in the main Setup and Configuration menu.</li>
+    <li>Several miscellaneous compatibility updates related to documentation of breaking changes in 0.8.0. See https://gitlab.com/foundrynet/foundryvtt/-/issues/4690</li>
+</ul>
