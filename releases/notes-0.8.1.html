@@ -119,10 +119,10 @@
 <h4>Dice System</h4>
 <ul>
     <li>Replaced the previous dice parser in order to reduce parsing errors. The new Dice parsing method now tokenizes all parts of a submitted formula and works recursively from inside out to evaluate parenthetical expressions while maintaining order of operations. This implementation should be more robust and provide far less cases for errors to occur from misinterpreted data in parsing.</li>
-    <li>The new implementation of the dice parser allows term-specific flavor text to be attached to NumericTerm objects in a Roll expression, for example: /r (1d10)[fire damage] + 2d8 [lightning damage].</li>
-    <li>The dice system now supports minimum and maximum roll modifiers. For details please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/3776.</li>
+    <li>The new implementation of the dice parser allows term-specific flavor text to be attached to NumericTerm objects in a Roll expression, for example: /r 10[fire damage] + 2d8[lightning damage].</li>
+    <li>The dice system now supports minimum and maximum roll modifiers. For details please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/3439.</li>
     <li>The dice system now supports modifiers to count even and count odd numbered results. For details please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/3776.</li>
-    <li>The dice system now suypports recursive rerolls that continue rerolling until a result condition is met. For details please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/4781.</li>
+    <li>The dice system now supports recursive rerolls that continue rerolling until a result condition is met. For details please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/4781.</li>
     <li>Inline Rolls can now be named as part of the template declaring it and will display the name instead of the formula on the clickable roll button. Until documentation is updated, usage details are available at: https://gitlab.com/foundrynet/foundryvtt/-/issues/4672</li>
     <li>The way Dice Term individual results are styled for display in a chat message tooltip has been refactored into its own helper method on the DiceTerm class.</li>
     <li>For FateDie, 1s will now automatically be classified as a "success" and -1s as a "failure" for highlighting and counting purposes.</li>
