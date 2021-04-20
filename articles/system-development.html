@@ -12,6 +12,30 @@
 </ul>
 <hr />
 
+<h2 id="structure">System File Structure</h2>
+<p>Each game system is a subdirectory within the <code>{userData}/Data/systems</code> path of your Foundry Virtual Tabletop user data location. When developing a new system, we recommend creating your git repository directly within this location for ease of development and testing. Within this directory there are two required files: <code>system.json</code> and <code>template.json</code> which are each explained below. You are free to use your own naming conventions for subdirectories and files within your game system, but we encourage you to use lower-case hyphen-separated file and folder names as a best practice.</p>
+<p>A standard example file structure for a minimal system might look like this:</p><pre><code class="language-plaintext">{userData}/Data/systems/mysystem/
+    system.json
+    template.json
+    scripts/
+        system-script.js
+        system-module.mjs
+    styles/
+        system-styles.css
+    packs/
+        monsters.db
+        items.db
+	lang/
+	    en.json
+</code></pre>
+<p>There are three ways to share a created system with others:</p>
+<ol>
+	<li><strong>Manual Install</strong>: You may package the system directory directly into a .zip file which users can extract within their own systems folder.</li>
+	<li><strong>Manifest Install</strong>: Instead of transacting the .zip file directly, you can host that file in a publicly accessible location and provide users with the URL to the system manifest file, which can automate the installation process.</li>
+	<li><strong>Foundry Package Browser</strong>: You can also configure your system to appear within the in-app system browser which will allow Foundry VTT users to install your system with a single click. This requires the package to be submitted to our <a href="https://foundryvtt.com/packages/submit" title="Submit new Game System" target="_blank">website listing</a>.</li>
+</ol>
+<hr />
+
 <h2 id="manifest">The System Manifest</h2>
 <p>Each game system must include a <code>system.json</code> file which provides the system specification. This file is required and must be included at the root level of your system folder. The system folder itself must match the <code>"name"</code> attribute designated within the specification file. For example, if we create a game system with the name <code>mysystem</code>, then we would create the file <code>{userData}/Data/systems/mysystem/system.json</code>.</p> <pre><code class="language-json">{
   "name": "mysystem",
@@ -34,17 +58,13 @@
   "packs": [
     {
       "name": "monsters",
-      "label": "Monsters",
-      "system": "mysystem",
-      "module": "mysystem",
+      "label": "My Monsters",
       "path": "packs/monsters.db",
       "entity": "Actor"
     },
     {
       "name": "items",
-      "label": "Items",
-      "system": "mysystem",
-      "module": "mysystem",
+      "label": "My Items",
       "path": "packs/items.db",
       "entity": "Item"
     }
@@ -226,28 +246,24 @@
 		<p>A public URL that provides a zip archive of your system. The archive at this URL is retrieved during the automated system installation or update process.</p>
 	</dd>
 </dl>
-<hr />
-
-<h2 id="structure">System File Structure</h2>
-<p>The file structure of a system folder requires a parent directory whose name identically matches the name attribute in the manifest. Within that directory, the <code>system.json</code> and <code>template.json</code> files are required and must live at the root level. The naming conventions for other files and folders able to be freely configured, but we recommend a standard structure with subdirectories for <code>scripts</code>, <code>styles</code>, and <code>packs</code> if applicable.</p> <pre><code class="language-plaintext">{userData}/Data/systems/mysystem/
-    system.json
-    template.json
-    scripts/
-        system-script-1.js
-        system-script-2.js
-        system-module-1.mjs
-    styles/
-        system-styles-1.css
-        system-styles-2.css
-    packs/
-        monsters.db
-        items.db
-</code></pre>
-<p>To share the system with other players, simply zip the <code>mysystem</code> directory and distribute it using whatever mechanism is most convenient. Players can download the system and extract it within their own systems folder - making the system available for them to use in Foundry Virtual Tabletop!</p>
+<p>You can learn more about the fields supported in a package manifest file on the <a href="https://foundryvtt.com/api/alpha/PackageData.html" title="Package Data API Documentation" target="_blank">PackageData</a> and <a href="https://foundryvtt.com/api/alpha/SystemData.html" title="System Data API Documentation" target="_blank">SystemData</a> API documentation pages.</p>
 <hr />
 
 <h2 id="data">The Data Template</h2>
-<p>In addition to the System Specification file described above, each game system must include a Data Template file named <code>template.json</code> at the root-level of the system folder which defines the data model used by Actors and Items under this game system. For example, if we create a game system with the name <code>mysystem</code>, then we would create the file <code>{userData}/Data/systems/mysystem/template.json</code>.</p> <pre><code class="language-json">{
+<p>In addition to the System Specification file described above, each game system must include a Data Template file named <code>template.json</code> at the root-level of the system folder. For example, if we create a game system with the name <code>mysystem</code>, then we would create and include the file <code>{userData}/Data/systems/mysystem/template.json</code>.</p>
+<p>The data template defines a data model which is used by Actor and Item documents within this game system. Normally, Documents in Foundry Virtual Tabletop have strictly define data schema - but the system template.json file allows for game systems to extend that schema to contain additional system-specific data attributes.</p>
+<p>The basic structure of the data template provides top-level objects which define schema for each of the <code>Actor</code> and <code>Item</code> document types. Within a single document block, the following keys are supported:</p>
+<dl>
+	<dt>types</dt>
+	<dd>An array of string sub-types for different varieties of Actor or Item document which may be used. Each document type can have its own different schema.</dd>
+	<dt>templates</dt>
+	<dd>An object of named data templates which define modular and reusable sets of fields which can be included in the schema for multiple types. Consider defining a named template for sets of attributes which are reused across multiple types of Actor or Item documents.</dd>
+	<dt>{type}</dt>
+	<dd>An object block for each sub-type which defines their unique attributes as well as any included template blocks. For attributes which are unique to a single type - you can declare those attributes directly within this block without the need to define a template.</dd>
+</dl>
+<p>Fields within the data model may have any of the primitive types of <code>string</code>, <code>number</code>, or <code>boolean</code>, or provide an inner <code>Array</code> or <code>Object</code> structure. The provided value defines both the default value for new documents as well as the data type for the field. here is no limitation on the depth or structure of the template - however we encourage logical grouping of similarly themed attributes within named objects as this tends to help with organization and maintainability.</p>
+<p>The following provides an example <code>template.json</code> file which uses these tools to define a system template that includes three Actor types: hero, pawn, and villain - as well as two Item types: weapon, and spell. Note how certain templates like "resources" are included for each Actor type, while certain actor types have additional attributes which only apply to that type.</p>
+<pre><code class="language-json">{
 "Actor": {
   "types": ["hero", "pawn", "villain"],
   "templates": {
@@ -305,17 +321,13 @@
 }
 }
 </code></pre>
-<p>The basic structure of the data template is the following. Top-level entries specify data schemas for the <code>Actor</code> and <code>Item</code> entity types. Within each entity type, the <code>"data"</code> entry defines shared data elements which all entities of that type have. Objects defined as siblings to <code>"data"</code> define specialized entity sub-types which may have data elements which extend or overwrite those defined by the basic data object.</p>
-<p>In the example, the Actor entity has 3 sub-types: <code>["hero", "pawn", "villain"]</code>. All 3 types include the common set of <code>"resources"</code>, while heroes and villains also include a <code>"background"</code>.</p>
-<p>Elements in the data model may have any of the primitive types of <code>string</code>, <code>number</code>, or <code>boolean</code>. Additionally elements of the data model may also represent <code>Object</code> or <code>Array</code> structures. There is no requirement or limitation on the depth or structure of the template - however we encourage logical grouping of similarly themed attributes within named objects as this tends to help with organization and maintainability.</p>
 
-<h3 id="resources">Resource Attributes</h3>
+<h4 id="resources">Resource Attributes</h4>
 <p>Specific attributes will be recognized by the game system as a "resource" if (and only if) they contain keys which define a <code>value</code> and a <code>max</code>. In the above example, health, power, and goodness would be detected as eligible resources for hero type characters.</p>
 
-<h3 id="model">How the Data Model is Applied</h3>
-<p>When a new Entity is created in a game using this system, it will automatically have it's own internal data populated to conform to the schema defined in the system template. For example, when using this system, if I were to execute the following code:</p> <pre><code class="language-javascript">Item.create({name: "Test Weapon", type: "weapon"}).then(item =&gt; {
-  console.log(item.data);
-})
+<h4 id="model">How the Data Model is Applied</h4>
+<p>When a new Document is created in a game using this system, it will automatically have it's own internal data populated to conform to the schema defined in the system template. For example, when using this system, if I were to execute the following code:</p> <pre><code class="language-javascript">const item = await Item.create({name: "Test Weapon", type: "weapon"});
+console.log(item.data); // The created item data structure
 </code></pre>
 <p>I would observe that the item was created and assigned an ID, and the <code>data</code> contained within the item matches the expected contents defined by my game system template.</p> <pre><code class="language-json">{
   "_id": "e6c7US1VK2cqejVJ",
@@ -336,4 +348,3 @@
 <h3 id="migration">Data Model Migrations</h3>
 <p>Often, during the course of system development, changes to the template data structure are needed. In such cases, if you increment the <code>version</code> number in your system manifest file any existing Actors or Items will be automatically migrated to the latest template data specification when a World that uses the system is next loaded. During this migration process - any newly added data attributes will be added to existing entities, however old attributes which are no longer required by the template are not removed in case that data needs to be migrated.</p>
 <p>To apply additional migration rules, the recommended approach is to provide client side logic which detects whether a migration and uses the client side API to facilitate additional changes.</p>
-<hr/>
