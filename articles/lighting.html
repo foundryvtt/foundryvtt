@@ -18,7 +18,7 @@
 <figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/lighting-configuration-menu-2020-10-02.jpg" alt="Lighting Configuration Menu">@Image[94]</a>
 <figcaption>Ambient Light sources add visibility to areas of your Scene as well as allowing for beautiful shading effects.</figcaption>
 </figure>
-<p>To work with Ambient Light sources, activate the Lighting Layer using the Canvas controls palette (the icon looks like a lightbulb). When enabled you can viewing, create, and modify Ambient Light sources. Ambient Light sources can be easily created on any scene by selecting the Create Light tool from the control palette and using a drag-and-drop workflow to paint the light location.</p>
+<p>To work with Ambient Light sources, activate the Lighting Layer using the Canvas controls palette (the icon looks like a lightbulb). When enabled you can view, create, and modify Ambient Light sources. Ambient Light sources can be easily created on any scene by selecting the Create Light tool from the control palette and using a drag-and-drop workflow to paint the light location.</p>
 <p>Lights that are created will be blocked by any type of Wall which blocks perception (such as Walls, Terrain Walls, and Ethereal Walls.) The outer edges of the Ambient Light source will shape to conform to any vision restrictions, updating for the GM in real time so they can see where the light will be drawn. A centre ring approximates where the default division between Bright and Dim light will be for that light source.</p>
 <p>After a light has been placed, it can be moved at any time by accessing the Lighting Layer to show light sources and then clicking and dragging the light to a new location. An Ambient Light source may be edited via the Light Source Configuration Menu, which can be opened at any time by double clicking on the Light Source you wish to edit. This menu provides the following options:</p>
 <dl>
@@ -36,8 +36,8 @@
 <dd>An angle of Light between zero and 360 degrees (the default) which represents the allowed radius of light for this Light Source.</dd>
 <dt>Light Rotation Angle (Degrees)</dt>
 <dd>The current direction the light is facing in degrees. Rotation of zero (the default) corresponds to a southward facing. This can also be adjusted by holding shift(or ctrl/cmd) and using scrollwheel while hovering over a directional light source.</dd>
-<dt>Darkness Threshold</dt>
-<dd>When the Scene's Darkness Level transitions from 0(bright) to 1(dark), the value of this setting determines when the light will be switched on.</dd>
+<dt>Darkness Activation Range</dt>
+<dd>The range in which the light will be switched on. By default when the Scene's Darkness Level is between 0(bright) and 1(dark), the light will be active. By adjusting the minimum and maximum darkness range you can fine-tune when the light is active.</dd>
 <dt>Light Color</dt>
 <dd>Set the color of light that the Light Source in Hex (#000000).</dd>
 <dt>Color Intensity</dt>
@@ -49,6 +49,7 @@
 <dt>Animation Intensity</dt>
 <dd>The intensity of the animation effect, from 0(subtle) to 1(intense).</dd>
 </dl>
+
 <h3 id="animations">Animations</h3>
 <p><strong>Torch</strong></p>
 <p>The Torch animation effect provides a semi-randomized flickering quality to the light source, intended to simulate light provided by fire. Animation speed determines how quickly the light flickers, and intensity determines how large and powerful the flickers are.</p>
@@ -88,6 +89,7 @@
 <p>This lighting animations can be used with positive light settings, but the effect is meant to be used with negative lights which create artificial darkness in a scene. The color of the light has no bearing on the appearance of this effect when using negative light radii.</p>
 <p><strong>Black Hole (Darkness)</strong></p>
 <p>The Black Hole animation effect creates a series of dark swirls to emanate from the bright radius of the light which move to the edge of the light radius, and is meant to be sued with negative brightness light sources. Animation speed determinse how quickly the swirls of darkness move to the edge of the light radius, while animation intensity determines the shape of the swirls, with a low intensity creating almost concentric swirls, and a high intensity creating pronounced zig-zag ripples.</p>
+
 <h2 id="api" class="border">API References</h2>
 <p>To interact with AmbientLights programmatically, consider using the following API concepts:</p>
 <ul>

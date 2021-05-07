@@ -1,3 +1,4 @@
+<h2>Overview</h2>
 <p>Foundry Virtual Tabletop allows for local ambient sound effects which are activated when a player-controlled Token is moved into it's area of effect. This can be useful for environmental features like a waterfall or a crackling campfire which your players will be able to hear when their Tokens are nearby.</p>
 
 <figure>
@@ -9,10 +10,10 @@
 
 <p>Ambient Sounds are created by navigating to the Sounds layer of the active Scene by clicking on the musical notes icon in the Scene control palette. While on the Sounds layer, you can create a new Sound by using a left-click and drag workflow to expand the area of effect (you can change it later). Once you are done dragging the Sound Configuration form will appear. You must select a sound file to play in order to complete the creation. The Sound Configuration shown in the following figure and it's configuration options are explained below:</p>
 
-<figure>
-    <img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/ambient-sound-configuration-2020-05-18.png" alt="Ambient Sound Configuration" />
-	<figcaption>Double click the Ambient Sound to open the Configuration Form.</figcaption>
-</figure>
+<h2 class="border" id="ambientconfigure">Ambient Sound Configuration</h2>
+<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/ambient-sound-configuration-2020-05-18.png" alt="Ambient Sound Configuration">@Image[29]</a>
+	<figcaption>The ambient sound configuration screen, shown when first creating an ambient sound, or by double-clicking an existing sound.</figcaption>
+	</figure>
 
 <dl>
     <dt>Sound Type</dt>
@@ -43,26 +44,27 @@
 	<dd>
 		<p>This slider configures the maximum volume level of the Ambient Sound at it's point of origin (if easing is applied) or throughout the area (if no easing).</p>
 	</dd>
+    <dt>Darkness Activation Range</dt>
+	<dd>
+		<p>These fields configure the darkness levels in which the Ambient Sound plays. The default setting of between 0 and 1 results in a sound that is always playing.</p>
+	</dd>
 </dl>
-<hr/>
-
-<h3 id="modifying">Modifying Placed Sounds</h3>
-
+<h2 class="border" id="modifying">Modifying Placed Sounds</h2>
 <p>After an Ambient Sound has been created, you can edit it later by double clicking on its control icon that is visible when on the Sounds Layer. To move the position of an existing Ambient Sound you can click and drag it's icon to move it. You may also use <code>CTRL+C</code> and <code>CTRL+V</code> commands to copy and paste sounds.</p>
-
 <p>Players can control the volume level of playing Ambient Sounds using the global Ambient slider in the Playlists tab of the Sidebar.</p>
-
 <p>Note that Ambient Sounds always loop if a Token is within their area of effect. If you are interested in one-time audio effects which play at a certain time that will be handled by the Event Trigger system, a post-release feature that is not yet added.</p>
-<hr/>
+<h4>Muting Placed Sounds</h4>
+<p>Once an Ambient Sound has been created, you can mute/un-mute it by right-clicking on the icon for the emission point when on the Sounds Layer.</p>
+<h4>Previewing Placed Sounds</h4>
+<p>Once an Ambient Sound has been created, you can toggle the preview audio feature from the Sounds Layer tool bar. While this is toggled your mouse cursor will be treated as an actor on the canvas, allowing you to hear sounds based on where it is in the scene. This is useful for quickly checking how a scene would sound based on current ambient sound placement and settings. Please note that this toggle remains even if you switch to a new layer.</p>
 
-<h3 id="api">API References</h3>
-<p>To interact with Ambient Sound objects programmatically, you will primarily use the following API concepts:
+<h2 class="border" id="api">API References</h2>
+<p>To interact with Ambient Sound objects programmatically, you will primarily use the following API concepts:</p>
 <ul>
 	<li>The <a href="/api/AmbientSound.html" title="The AmbientSound Object" target="_blank">AmbientSound</a> Object</li>
 	<li>The <a href="/api/SoundsLayer.html" title="The SoundsLayer Object" target="_blank">SoundsLayer</a> Canvas Layer</li>
 	<li>The <a href="/api/AmbientSoundConfig.html" title="The AmbientSoundConfig Application" target="_blank">AmbientSoundConfig</a> Application</li>
 </ul>
-</p>
 <hr/>
 
 <h3>Attributions</h3>

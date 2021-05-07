@@ -1,0 +1,72 @@
+<h2>Overview</h2>
+<p>A game world is an instance of a system with a cohesive data structure that allows for playing a tabletop game in Foundry VTT. Game worlds require a game system to be created. This article will familiarize you with the aspects of the game world menus: creating, installing, and editing. It will also discuss launching worlds, enabling safe mode, and deleting worlds.</p>
+<p class="note info">If you are new to Foundry Virtual Tabletop and want help setting up your first game, we strongly recommend starting with: <a title="Tutorial - Gamemaster Part One" href="/article/tutorial/" target="_blank" rel="nofollow noopener">Tutorial - Gamemaster Part One</a></p>
+<h2 class="border">Creating Worlds</h2>
+<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/create-world-window-2021-04-15.jpg" target="_blank" rel="nofollow noopener"><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/create-world-window-2021-04-15.jpg" alt="Create World Menu" /></a>
+<figcaption>The create world menu allows you to create a new world with a game system of your choice.</figcaption>
+</figure>
+<p>The Create New World dialog has the following entries which determine different aspects of the game world. Many of these items cannot be changed once the game world is created.</p>
+<dl>
+<dt>World Title</dt>
+<dd>This is the human-readable name of the world which appears at the top of every world entry in the game worlds tab of the main menu. This field is required, and can be changed later by editing the world after it is created.</dd>
+<dt>Data Path</dt>
+<dd>This is the folder name for where the game world&rsquo;s data is stored. As the create game world menu shows, this will be located in your foundry Data/worlds folder. This field is required and cannot be changed after the game world is created.</dd>
+<dt>Game System</dt>
+<dd>This is the game system tied to the game world. The system determines the data schema used in the world to store, categorize and utilize information on characters, items, and similar items unique to the game itself. This is required for a game world, and cannot be changed once the game world is created.</dd>
+<dt>Background Image</dt>
+<dd>This is the image that is used on the game world&rsquo;s login screen once the game has been loaded. It&rsquo;s recommended you use 1920x1080 or larger images for best appearance, but any web safe image format and resolution will work here. This field is optional and can be changed later by editing the world after it&rsquo;s created.</dd>
+<dt>Next Session</dt>
+<dd>This field allows you to determine the next time your game will run. You can manually enter the next game day, or click the calendar button to open a drop down calendar to select the specific date. This date will be shown to all users on the login screen when the game is loaded. You can also manually enter the time of day that the game is played, or click the clock to open a drop down clock to select the game session time. Both of these fields are optional, and can be changed later by editing the world after it&rsquo;s created.</dd>
+<dt>World Description</dt>
+<dd>This text box allows you to create a description of the game world, it&rsquo;s themes, house rules, or to provide messages to your players when they are logging in to the game. You can see this text on the game worlds tab of the main Foundry menus, as well as the login screen when the game world has been loaded. This field is optional, and can be changed later by editing the world after it is created.</dd>
+</dl>
+
+<h2 class="border">Installing Worlds</h2>
+<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/premade-game-world-browser-2021-04-15.jpg" target="_blank" rel="nofollow noopener"><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/premade-game-world-browser-2021-04-15.jpg" alt="Premade Game World Browser" /></a>
+<figcaption>The premade worlds browser allows you select from a list of game worlds already configured for immediate play.</figcaption>
+</figure>
+<p>Foundry VTT provides several exclusive and community sourced premade worlds that are already set up and prepared for play. To install one of these worlds, click the Install World button, select a world from the list, and click the install button to the right of its entry.</p>
+<p><strong>Note:</strong> You will also need to install the game system that is meant to be used with this game world before you will be able to launch it.</p>
+<h3>Launching Worlds</h3>
+<p>Launching a world begins the process of creating a server with a live game for your players to connect to. Once a world is launched a login screen will be available for players to join the game from. It will display the world title, background image, next session, session time, and world description.</p>
+<p>Users can select the user account they want to log in with, which may require a password, depending on how a game master has configured the users in the game world.</p>
+
+<h2 class="border">Editing Worlds</h2>
+<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/edit-world-menu-2021-04-15.jpg" target="_blank" rel="nofollow noopener"><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/edit-world-menu-2021-04-15.jpg" alt="Edit World Menu" /></a>
+<figcaption>The Edit World dialog allows you to change certain aspects of the game world after it has been created.</figcaption>
+</figure>
+<p>Once a world has been created it will be placed into the list of available game worlds in the Game World tab of the Foundry main menus. The <strong>Edit World</strong> button opens the edit world dialog which allows you to change certain details about the game world such as the title, background image, next session date and time, and the world description.</p>
+<p>You cannot change the game data path or game system once the game world has been created.</p>
+
+<h4>Reset User Access Keys</h4>
+<p>When this option is toggled the associated world will have all of the user passwords blanked, including any gamemaster level users. This is useful for regaining access to a game world where passwords have been forgotten or lost.</p>
+<p>To set new access keys you will need to launch the game world and enter the user management menu. You can find more information on user configuration in the <a title="Users and Permissions" href="/article/users/" target="_blank" rel="nofollow noopener">Users and Permissions</a> article.</p>
+<p class="note info">Note: This feature is coming with the 0.8.x series of updates. Users running the current stable (and recommended) release of Foundry Virtual Tabletop 0.7.9 will not see this option.</p>
+
+<h4 id="safemode">Safe Launching a World</h4>
+<p>It is possible to launch a world with a "Safe Configuration" to circumvent issues which might be preventing a world from loading correctly. To do this, edit the game world and enable the Launch in Safe Configuration setting, then launch the game world.</p>
+<p>When Safe Configuration is toggled on, the next time the game world is launched the following effects will be applied to it:</p>
+<ul>
+<li>Disable all active modules.</li>
+<li>Deactivate all scenes.</li>
+<li>Stop all previously playing audio.</li>
+</ul>
+<p>Once a world has been launched with this setting enabled it will automatically be turned off. This setting is especially useful for troubleshooting worlds in which bad assets, scripts, or corrupted data is preventing a game world from loading.</p>
+<p class="note info">Note: The Safe Mode feature will replace <strong>Deactivate Modules</strong> in the 0.8.x series of updates, and serves largely the same purpose but casts a wider net in terms of load issues it can potentially circumvent. Users running the current stable (and recommended) release of Foundry Virtual Tabletop 0.7.9 will not see this option.</p>
+
+<h3>Deleting Worlds</h3>
+<p>Clicking the Delete World button will bring up a prompt to delete the world and all of its data. The process of deleting worlds includes verification to prevent accidental deletion of a game world, and requires a user to type the title of the game world into the text field before it will allow the user to click the Yes button and complete the process.</p>
+<p><strong>Please note: This process cannot be undone.</strong></p>
+
+<h2 class="border">Game World Flags</h2>
+<p>On the Game Worlds screen of the main menu of Foundry there are multiple flags which can be applied to a game world to provide users useful information or warnings before they launch a game world. The possible flags are listed below.</p>
+<dl>
+<dt>Compatibility Risk</dt>
+<dd>The compatibility risk flag indicates that a module or system developer has not verified this package works in your current version of Foundry VTT. This does not mean that the module or system will not work, though it may experience errors. If your modules indicate compatibility risk, it is important to be cautious and watch for any issues or problems that may arise.</dd>
+<dt>Compendium</dt>
+<dd>The compendium flag indicates that the game world contains at least one compendium.</dd>
+<dt>Core Version 0.x.x</dt>
+<dd>The core version flag indicates the version of Foundry VTT that the world was initially created with.</dd>
+<dt>Requires System Update</dt>
+<dd>The requires system update flag indicates the system attached to this world is missing, damaged or so out of date that the game world may not properly launch.</dd>
+</dl>
