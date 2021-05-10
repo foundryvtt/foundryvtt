@@ -6,7 +6,8 @@
 
 <p>Welcome to the first beta channel update in the Foundry Virtual Tabletop 0.8.x series! This update focuses on continued series of improvements that were the focus of 0.8.x, including a new audio engine for improved Playlists and audio functionality, improvements to the dice system, a brand new Overhead Tiles system, and a complete overhaul of data structures for the purposes of standardizing the API. The incorporation of another 1500 pieces of icon artwork available to all users, and a substantial number of user experience improvements, bug fixes, and API enhancements.</p>
 <p class="note warning"><strong>WARNING:</strong> Beta channel releases have the potential to introduce breaking bugs that may be disruptive to play. These features are close to ready for a stable release - but likely to still include some bugs and incompatibilities which may frustrate you. If your game in particular relies upon a large number of add-on modules, it would be best to wait for the stable release.</p>
-<p>If you choose to install the Beta 0.8.3 update - and are currently using 0.7.9 or earlier - <strong>you must perform a fresh installation of the software</strong>. Because of some of the infrastructure changes it is only possible to update to this version from within the Foundry VTT application if you are already using 0.8.0. As always, before any significant update:</p>
+<p>If are upgrading the Foundry Virtual Tabletop <strong>application</strong> to 0.8.3 from 0.7.9 <strong>you must perform a fresh installation of the software</strong>. Because of some of the infrastructure changes it is only possible to update to this version from within the Foundry VTT application if you are already using 0.8.0. This does not apply to users running <strong>dedicated servers</strong> with Node 14+.</p>
+<p>As always, before any significant update:</p>
 <p class="note warning">Be certain to carefully back up any critical user data before installing this update.</p>
 
 <h3 class="border">Update Overview</h3>
@@ -130,10 +131,15 @@
     <li>The <code>caption</code> HTML element is no longer removed during the HTML sanitization process.</li>
     <li><code>ItemSheet.id</code> should now correctly return the itemID used in html elements.</li>
     <li>Clicking "Return to Setup" from the Settings Sidebar should now properly return to Setup.</li>
+    <li>The world login screen should once again take into account logged in users and disable the ability to log in as them.</li>
     <li>Chat Messages that were created on a scene will no longer prevent worlds from loading if that scene no longer exists.</li>
     <li>Marking a non-roll chat message as hidden should now conceal it from players as expected.</li>
     <li>Launch in Safe Mode has been renamed to "Launch in Safe Configuration" and should now correctly deactivate when toggled off.</li>
     <li>When popped out the Audio sidebar now correctly displays the current playtime as expected.</li>
+    <li>The Create Compendium dialog should now correctly reference "Type of Document" instead of "Type of Entity"</li>
+    <li>The Compendium application should now receive the correct data-pack HTML attribute.</li>
+    <li>Document Sheets should now include their previous class returning the document name as a title.</li>
+    <li>Script macros should now properly execute even if there is no active scene.</li>
 </ul>
 
 <h4>Dice System</h4>
@@ -143,11 +149,6 @@
     <li>Recursive re-rolls should now properly produce an unlimited number of additional rolls (with the same max recursion depth as Exploding Dice).</li>
     <li>Corrected some issues with splitting comma-separated arguments of a MathTerm, to resolve some issues with commas within parenthetical terms.</li>
     <li>Calling /gmr in the chat log no longer performs an incorrect deepClone operation.</li>
-    <li>The world login screen should once again take into account logged in users and disable the ability to log in as them.</li>
-    <li>The Create Compendium dialog should now correctly reference "Type of Document" instead of "Type of Entity"</li>
-    <li>The Compendium application should now receive the correct data-pack HTML attribute.</li>
-    <li>Document Sheets should now include their previous class returning the document name as a title.</li>
-    <li>Script macros should now properly execute even if there is no active scene.</li>
 </ul>
 
 <h4>Documentation</h4>
