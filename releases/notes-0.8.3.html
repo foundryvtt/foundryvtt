@@ -1,0 +1,156 @@
+<h2 class="border">Foundry Virtual Tabletop - Version 0.8.3 Update Notes</h2>
+<figure>
+	<img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/update-083-banner-2021-05-10.jpg" title="Foundry Virtual Tabletop Version 0.8.3 Release Notes"/>
+	<figcaption>Welcome to the Foundry Virtual Tabletop update notes for Release version 0.8.3.</figcaption>
+</figure>
+
+<p>Welcome to the first beta channel update in the Foundry Virtual Tabletop 0.8.x series! This update focuses on continued series of improvements that were the focus of 0.8.x, including a new audio engine for improved Playlists and audio functionality, improvements to the dice system, a brand new Overhead Tiles system, and a complete overhaul of data structures for the purposes of standardizing the API. The incorporation of another 1500 pieces of icon artwork available to all users, and a substantial number of user experience improvements, bug fixes, and API enhancements.</p>
+<p class="note warning"><strong>WARNING:</strong> Beta channel releases have the potential to introduce breaking bugs that may be disruptive to play. These features are close to ready for a stable release - but likely to still include some bugs and incompatibilities which may frustrate you. If your game in particular relies upon a large number of add-on modules, it would be best to wait for the stable release.</p>
+<p>If you choose to install the Beta 0.8.3 update - and are currently using 0.7.9 or earlier - <strong>you must perform a fresh installation of the software</strong>. Because of some of the infrastructure changes it is only possible to update to this version from within the Foundry VTT application if you are already using 0.8.0. As always, before any significant update:</p>
+<p class="note warning">Be certain to carefully back up any critical user data before installing this update.</p>
+
+<h3 class="border">Update Overview</h3>
+
+<p>The 0.8.3 update primarily focused upon bringing bug fixes for some of the more prominent bugs that appeared during the 0.8.2 testing process and addresses a great number of those. The 0.8.3 update incorporates all of the changes documented in updates 0.8.0 through 0.8.2. You can read the full update notes for each individual release in the 0.8.x series using the following links:</p>
+<ol>
+    <li>https://foundryvtt.com/releases/0.8.0</li>
+    <li>https://foundryvtt.com/releases/0.8.1</li>
+    <li>https://foundryvtt.com/releases/0.8.2</li>
+</ol>
+<p>The highlights of these features are:</p>
+<ul>
+    <li>Overhead Tiles allow GMs to set tiles as overhead (which are rendered above the token layer) or as roofs (which appear above the token and light layer) in order to provide functionality for GMs to give a visually distinct appearance to tree canopies, roofs, clouds, or other things that would visually obscure tokens. Overhead tiles also include the option to set an occlusion mode which will change the opacity of the tile when a token moves below it. If a tile has its occlusion mode set to Fade (entire tile) it will lower its transparency to the configured Occlusion Alpha when a Token is beneath it. If its Occlusion Mode is set to Roof (lighting and vision) it will also obscure light sources below it when it is visible.</li>
+    <li>New audio system which replaces HowlerJS with a new, more powerful engine based on the native Web Audio API. This new audio system brings great gains in stability and is not just more performant, but also brings with it support for fading audio, better easing for ambient audio sources, and a number of UX improvements.</li>
+    <li>The dice parser has been refactored and brings a lot of overall improvements in the way dice formulae are handled. In addition this update introduces the ability for dice rolls to be made asynchronous through the API, exposing new, more powerful functionality for Dice addons to use.</li>
+    <li>0.8.0 brought a complete refactor and revision to the Foundry VTT API, standardizing a lot of functions and ushering in a new "Common Document Model" which provides a renovated set of abstractions for documents, data schema, database operations, and much more. This is a major step away from the legacy concepts of "Entities" and "Embedded Entities". A byproduct of the improved Document model is a significant improvement in the flexibility and re-usability of the Document API - which is especially evident in areas like Compendium documents or unlinked Token Actors which were previously difficult to work with.</li>
+    <li>Backend improvements for packages bringing additional benefits for dependencies as well as a number of new small features for the general users, including the ability to lock a module or system to prevent it from updating beyond its current version.</li>
+    <li>More than 1,500 new icons have been added, the majority of which are "action" oriented, depicting skills, abilities, and magic spells!</li>
+</ul>
+
+<h3 class="border">Breaking Changes</h3>
+<h4>Documents and Data</h4>
+<ul>
+    <li>As of 0.8.0 package manifests are now managed by the DocumentData architecture. It is not possible for these JSON files to include additional arbitrary fields which are not part of the defined schema. In recognition to a number of modules and system devs we have implemented a new <code>flags</code> field to manifest JSONs which will allow for storing arbitrary key value pairs.</li>
+    <li>To prevent a namespace collision with <code>Document#parent</code>, the <code>Folder#parent</code> attribute has been renamed to <code>Folder#parentFolder</code>.</li>
+    <li>Package validation changes prematurely considered module names with capital letters as invalid. While this is in keeping with our documentation on naming conventions and requirements, a change of this magnitude was not intended to be done without warning. In the future we will be evaluating the necessity of this with a more clear path to deprecation and migration.</li>
+</ul>
+
+<h3 class="border">New Features</h3>
+<h4>The Game Canvas</h4>
+<ul>
+    <li>The Tile configuration sheet has been extended and now supports changing the zIndex of a tile for more specific placement above or below other tiles.</li>
+</ul>
+
+<h4>Interface and Applications</h4>
+<ul>
+    <li>The package lock icon now has a helpful tooltip to explain its purpose.</li>
+    <li>New player accounts now default to no longer include a space in order to reduce difficulties some players may experience with whispering usernames that contain a space.</li>
+    <li>Improved the error messaging surrounding sending messages to invalid users or sending invalid messages to an existing user to make it more clear what the error was determined to be.</li>
+</ul>
+
+<h4>Dice System</h4>
+<ul>
+    <li>Roll commands will no longer automatically and presumptively close parentheses and curly-brackets from dice roll formulae, and will instead throw an error if they are detected. This is necessary to ensure precise validation of dice roll formulae.</li>
+</ul>
+
+<h3 class="border">API Improvements</h3>
+<h4>Documents and Data</h4>
+<ul>
+    <li>The <code>deepClone</code> utility method has been improved and should now skip over advanced Object structures which are not compatible with cloning.</li>
+    <li>Propagating changes made to a base <code>Actor</code> document onward to unlinked <code>TokenDocument</code> instances which reference that Actor's data now uses the <code>TokenDocument</code> class for an improved workflow.</li>
+    <li>Provide an option as part of the <code>DocumentModificationContext</code> that allows for document create operations to try and preserve an existing <code>_id</code> rather than forcibly discarding and re-generating it.</li>
+</ul>
+
+<h4>Interface and Applications</h4>
+<ul>
+    <li><code>_restoreScrollPositions()</code> should now be called after render hooks are fired to ensure restoration of the scroll position is correctly applied.</li>
+    <li>General improvements have been made to module and system load order.</li>
+    <li><code>Dialog.prompt</code> now provides a more informative error message that explains that the prompt was closed without having a response chosen.</li>
+</ul>
+
+<h4>Other Features</h4>
+<ul>
+	<li>Dependencies for aws-sdk, electron, electron-builder, express-handlebars, npm, socket-io, socket-io-client, terser, and tinymce have been updated.</li>
+</ul>
+
+<h3 class="border">Bug Fixes</h3>
+<h4>Documents and Data</h4>
+<ul>
+	<li>An unintended change resulted in a premature deprecation of chat.db in favour of messages.db, this has been reverted.</li>
+    <li>ActiveEffect creation will no longer incorrectly fail if it does not receive duration data at the time of initial creation.</li>
+    <li>Token appearance (bars, effect icons) should now be properly updated when items are added or removed from the actor.</li>
+    <li>Corrected for an issue where placing a token for a new actor would reset this actor's derived data in the sidebar / collection until the next update.</li>
+    <li>Embedded Item creation should now be handled correctly by the server-side <code>cleanHTML</code> function.</li>
+    <li>The <code>preCreate</code> hook events for items or active effects in unlinked Tokens should now pass the correct version of the data for those classes.</li>
+    <li>Corrected for an issue where some data would be incorrectly cleared when passing an Actor into a Compendium.</li>
+    <li>Corrected a world migration issue which would fail to update the <code>coreVersion</code> in a world.json after update.</li>
+    <li>Modules which declare dependencies that don't have a type should now assume the type for those dependencies is "module" for the purposes of loading.</li>
+    <li>Corrected an issue where the <code>PackageData</code> system field was reconfigured as a string array field, which caused it to no longer support the previously accepted format of a single-system string.</li>
+    <li>The Module Management interface should now correctly store a safe copy of the data structure for the purposes of rendering.	</li>
+    <li>Roll Table documents should once again be serialized and un-serialized in a way that preserves their full contents.</li>
+    <li>Rollable Tables which recursively call inner tables should once again function as expected.</li>
+    <li>A change in permitted filetypes incorrectly restricted the use of <code>.handlebars</code> file extensions, this is no longer the case.</li>
+    <li><code>ChatLog#flush</code> now correctly uses the Document.deleteDocuments method for clearing.</li>
+    <li>Creating a new Macro by passing a User object as the macro author should now succeed as expected without logging a warning as a result of converting authors to their ID strings.</li>
+    <li>Token vision now correctly have unrestricted vision when a scene's darkness level falls below its vision limitation threshold.</li>
+    <li>The <code>Actor.fromToken</code> method now accepts a canvas Token object as a parameter again.</li>
+    <li>The initiative field is now available again in the SystemData manifest schema.</li>
+</ul>
+
+<h4>The Game Canvas</h4>
+<ul>
+    <li>Hover, copy, and paste events should now include the correct hook name in cases where a custom object subclass is used.</li>
+    <li>Switching scenes during a measuring operation on the canvas should no longer result in Ruler.clear failing to complete and should now function as expected.</li>
+    <li>Newly created scenes should once again correctly toggle navigation for ease of activation.</li>
+    <li>To address issues with perception refresh updates, when a current scene is deactivated it should now cancel pending scheduled perception refreshes.</li>
+    <li>Corrected an issue where using an overhead and underfoot version of the same Tile could trigger an error when the canvas is deactivated.</li>
+    <li>Disabling "Token Vision Animation" should no longer prevent vision updates from functioning as expected.</li>
+    <li>The overhead tile and padding area masking functions should now work as expected even if the Token Vision Animation setting is disabled.</li>
+    <li>The view of a tile should now correctly update if a controlled token is on an underfoot tile that changes to an overhead tile without requiring token movement.</li>
+    <li>Dragging a Canvas Placeable over the edge of the scene boundary should no longer erroneously cause the mouse to draw a bounding box on next click.</li>
+    <li>Token movement animation should once again correctly snap the token to the grid alignment as expected.</li>
+    <li>Tokens in a half space at the edge of a scene or within the boundary of scene padding should no longer be impeded from moving.</li>
+    <li>Placing a text box with the ‘Draw Text’ tool and then deleting it should now correctly delete the drawing without error.</li>
+    <li>Database storage of Z-index sorting values for Drawing and Tile Documents should now be handled properly.</li>
+    <li>Animated tiles playing audio should now correctly stop playing when the current scene is changed.</li>
+    <li>Background and foreground video files are now properly detected and play automatically.</li>
+    <li>The GM mouse cursor should be properly hidden from players when disabled in the permissions configuration again.</li>
+    <li>Preloading a scene no longer causes the currently rendered scene to become inoperable.</li>
+</ul>
+
+<h4>Interface and Applications</h4>
+<ul>
+    <li>Corrected for an issue where rejected settings database writes would cause issues when changing user role permissions.</li>
+    <li>The /api/status endpoint should no longer incorrectly report the world inactive and should now function as expected.</li>
+    <li>Resolved an issue with socket listeners which prevented the /stream view from functioning as expected.</li>
+    <li>Secret block tags should no longer be incorrectly stripped by HTML sanitization.</li>
+    <li>Re-renders of the InstallPackage UI should no longer result in invalid or strange package category listings.</li>
+    <li>Corrected a CSS issue which caused non-GM accounts to incorrectly see the scene creation buttons outside the sidebar.</li>
+    <li>Opening the FilePicker from the TinyMCE insert image dialog multiple times should no longer result in the popup displaying inaccessibly behind the Journal sheet.</li>
+    <li>The <code>caption</code> HTML element is no longer removed during the HTML sanitization process.</li>
+    <li><code>ItemSheet.id</code> should now correctly return the itemID used in html elements.</li>
+    <li>Clicking "Return to Setup" from the Settings Sidebar should now properly return to Setup.</li>
+    <li>Chat Messages that were created on a scene will no longer prevent worlds from loading if that scene no longer exists.</li>
+    <li>Marking a non-roll chat message as hidden should now conceal it from players as expected.</li>
+    <li>Launch in Safe Mode has been renamed to "Launch in Safe Configuration" and should now correctly deactivate when toggled off.</li>
+    <li>When popped out the Audio sidebar now correctly displays the current playtime as expected.</li>
+</ul>
+
+<h4>Dice System</h4>
+<ul>
+    <li>Corrected an issue where the preparation workflow for enriched HTML in chat messages would no longer correctly prepare Document links or inline rolls.</li>
+    <li>Minimize and maximize options should now be passed correctly into the Roll class for component DiceTerm instances.</li>
+    <li>Recursive re-rolls should now properly produce an unlimited number of additional rolls (with the same max recursion depth as Exploding Dice).</li>
+    <li>Corrected some issues with splitting comma-separated arguments of a MathTerm, to resolve some issues with commas within parenthetical terms.</li>
+    <li>Calling /gmr in the chat log no longer performs an incorrect deepClone operation.</li>
+    <li>The world login screen should once again take into account logged in users and disable the ability to log in as them.</li>
+    <li>The Create Compendium dialog should now correctly reference "Type of Document" instead of "Type of Entity"</li>
+    <li>The Compendium application should now receive the correct data-pack HTML attribute.</li>
+    <li>Document Sheets should now include their previous class returning the document name as a title.</li>
+    <li>Script macros should now properly execute even if there is no active scene.</li>
+</ul>
+
+<h4>Documentation</h4>
+<ul>
+	<li>The API docs now correctly show the syntax for the <code>TextEditor.enrichHTML</code> method as taking an object and not individual parameters.</li>
+</ul>
