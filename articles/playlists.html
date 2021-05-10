@@ -1,39 +1,70 @@
 <h2>Overview</h2>
 <p>Foundry Virtual Tabletop supports the use of audio to accentuate player actions or enrich the atmosphere during gaming sessions.</p>
 <p>This page details the use of Playlists, the sounds contained within them, and the playlist's various settings.</p>
-<h2 id="playlistdirectory" class="border">The Playlist Directory</h2>
-<p>The Playlist Directory allows Gamemasters and Assistants to create new Playlists and modify existing ones. All players can access this sidebar, to view the currently playing playlists and adjust client-side volume controls.</p>
+<p class="note warning">This article details features introduced in the 0.8.x series of updates, and may not reflect the current version of Foundry VTT software you are using.</p>
+
+<h2 id="playlists" class="border">The Audio Playlists Tab</h2>
+<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/playlist-sidebar-2020-05-22.png" alt="The Playlist Directory Controls">@Image[43]</a>
+    <figcaption>The Gamemaster's view of the Playlist Directory sidebar.</figcaption>
+    </figure>
+<p>The Audio Playlist tab allows Gamemasters and Assistants to create new Playlists and modify existing ones. All players can access this sidebar, to view the currently playing playlists and adjust their client-side volume controls.</p>
+<p>Playlists in Foundry can be viewed, created, and managed in this sidebar. Like the Scenes, Actors, and Journal Entries directories, this directory can contain folders to organize your world's audio. Like folders in other directories, the "plus folder" icon will create a new subfolder, and the "circled plus" icon on an item folder will create a new playlist in that folder.</p>
+
 <h3 id="controls">Global Volume Controls</h3>
-<p>Global volume controls are client-sided sliders that modify all sounds of certain categories, allowing players to fine-tune volume levels on their end.</p>
+<p>Global volume controls are client-sided sliders that modify all sounds of certain categories, allowing players to fine-tune volume levels on their end. This panel can be expanded and collapsed with a left-click of the mouse, showing or hiding the following volume sliders:</p>
 <p>The <strong>Playlists</strong> volume slider determines the master volume of playlists played by the Gamemaster.</p>
 <p>The <strong>Ambient</strong> volume slider adjusts the master volume of Ambient Sounds heard in a Scene.</p>
 <p>The <strong>Interface</strong> volume slider adjusts the master volume of sounds triggered through interface actions (such as chat messages and dice rolls).</p>
-<h3 id="create">Creating Playlists</h3>
+
+<h3 id="nowplaying">Currently Playing Track</h3>
+<p>If a track is playing, it will be indicated here along with how much of the track has played, and the track's current volume, which you can adjust on the fly. The currently playing area also allows you to quickly toggle if the track should repeat, as well as provides controls to pause and stop the track directly. Pausing a track will not remove it from the currently playing bar, but stopping the track will.</p>
+<p>If no track is being played this part of the interfact will be hidden.</p>
+<p class="note info">This feature was introduced in the 0.8.x series of updates.</p>
+
+<h3 id="createplaylist">Creating Playlists</h3>
 <p>In order to play audio tracks on demand, or as a sequence, they must be first added to a playlist. A playlist can contain multiple sounds, and the same sound can be in multiple playlists.</p>
-<p>Click the "Create Playlist" button at the bottom of the Playlist Directory sidebar to create a playlist. From there, a prompt will appear, allowing you to enter the name of the playlist.</p>
-<p class="note info">Playlists are added to the bottom of the list, but are sorted in alphabetical order once Foundry is refreshed.</p>
-<h3 id="manage">Managing Playlists</h3>
-<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/playlist-sidebar-2020-05-22.png" alt="The Playlist Directory Controls">@Image[43]</a>
-<figcaption>The Gamemaster's view of the Playlist Directory sidebar.</figcaption>
-</figure>
-<p>Playlists on their own come with various buttons and toggles used to manage both the playlist itself and the playback of the sounds it contains.</p>
+<p>Click the "Create Playlist" button at the top of the Playlist Directory sidebar to create a playlist. From there, a prompt will appear, allowing you to enter the name of the playlist. Once you have named your playlist the configuration window will appear, allowing you to set additional details about the playlist. This step is optional, but the following settings can be configured:</p>
+
 <dl>
-<dt>Edit Playlist</dt>
-<dd>Opens a prompt to edit the playlist's name and its Playback Mode</dd>
-<dt>Add Sound</dt>
-<dd>Adds a Sound to the playlist. See the "Adding Sounds" section in this article.</dd>
-<dt>Delete Playlist</dt>
-<dd>Deletes the playlist after accepting a confirmation prompt.</dd>
-<dt>Playback Mode</dt>
-<dd>Cycles through the various playback modes. Playback Mode determines the behavior of the playlist when the "Play Playlist" button is pressed.<br /><strong>Sequential Playback:</strong> Plays each sound in the playlist, one at a time, in order.<br /><strong>Shuffle Tracks:</strong> Plays each sound in the playlist, one at a time, in a random order.<br /><strong>Simultaneous Playback:</strong> Plays each sound in the playlist at the same time.<br /><strong>Soundboard Only: </strong> Does not allow the playlist to be played as a whole. The playlist will always be expanded when Foundry reloads, and each sound can be played separately as normal.</dd>
-<dt>Play/Stop Playlist</dt>
-<dd>Plays the tracks in the playlist according to the Playlist Mode. If stopping, all currently playing tracks in the playlist will stop playing.</dd>
+    <dt>Playlist Name</dt>
+    <dd>This is the name of the playlist, and how it will appear on the sound sidebar.</dd>
+    <dt>Playback Mode</dt>
+    <dd>This dropdown list allows you to set a specific playback mode for the playlist. Playback Mode determines the behavior of the playlist when the "Play Playlist" button is pressed.<br />- <strong>Sequential Playback:</strong> Plays each sound in the playlist, one at a time, in order.<br />- <strong>Shuffle Tracks:</strong> Plays each sound in the playlist, one at a time, in a random order.<br />- <strong>Simultaneous Playback:</strong> Plays each sound in the playlist at the same time.<br />- <strong>Soundboard Only: </strong> Does not allow the playlist to be played as a whole.</dd>
+    <dt>Fade Duration (ms)</dt>
+    <dd>Determines the amount of time that Foundry takes to fade in or out a sound in this playlist as it begins playback or stops playback. The time is in miliseconds. Note that fade time for a playlist is combined with fade time for individual tracks.</dd>
+    <dt>Playlist Description</dt>
+    <dd>This is a text box for writing notes about the playlist, such as artist information, thematic notes, or specific usage situations for the playlist and its sounds.</dd>
+    <dt>Bulk Import</dt>
+    <dd>This button allows you to select a folder, importing all of the sounds contained within it. This creates a new sound for every valid audio file that Foundry detects in the folder, and gives it a basic name with can be edited after the fact.</dd>
 </dl>
-<p class="note info">Normally, only Gamemasters and Assistant users can view and manage playlists, but all players can see the names of playlists when they are played. Take care to keep your playlist and sound names spoiler-free!</p>
-<h3 id="add">Adding Sounds</h3>
+
+<h3 id="manage">Managing Playlists</h3>
+<p>Playlists on their own have two buttons which are used to add new sounds and cycle the playback mode used.</p>
+<dl>
+    <dt>Create Sound</dt>
+    <dd>Adds a Sound to the playlist. See the "Adding Sounds" section in this article.</dd>
+    <dt>Playback Mode</dt>
+    <dd>Cycles through the various playback modes as described above.</dd>
+</dl>
+
+<h4>Playlist Context Menu</h4>
+<p>By right-clicking a playlist you can bring up a context menu with additional options for managing playlists. This context menu has the following options:</p>
+<ul>
+    <li><strong>Edit Playlist:</strong> Allows you to open the playlist configuration window to change any of the playlist details discussed above.</li>
+    <li><strong>Clear Folder:</strong> Move the playlist out of the current folder it's in.</li>
+    <li><strong>Delete:</strong> Delete the playlist and all contained tracks. Warning: This can't be undone, but you will be given a chance to confirm this action.</li>
+    <li><strong>Duplicate:</strong> Make a copy of the playlist and all of its tracks.</li>
+    <li><strong>Export Data:</strong> Opens a file window that allows you to save the playlist data as a .json file which can be imported by Foundry. Note that this does not export the sound files associated with the track, only their file paths. If this track .json is imported to a server that lacks the files none of the tracks will work.</li>
+    <li><strong>Import Data:</strong> Opens a file picker that allows you to select a playlist .json file, importing all of the info and track data contained in it.</li>
+</ul>
+
+<p class="note info">Normally, only Gamemasters and Assistant users can view and manage playlists, but all players can see the names of playlists when they are played. Take care to keep your playlist and track names spoiler-free!</p>
+
+<h3 id="trackadd">Adding Tracks</h3>
 <figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/the-playlist-sound-configuration-sheet-2021-02-15.jpg" alt="The Playlist Sound Configuration Sheet">@Image[44]</a>
 <figcaption>The New Track configuration window.</figcaption>
 </figure>
+
 <p>Once a playlist has been created, individual sounds can be added to it by clicking the "Add Sound" button next to the playlist (notated by a plus sign icon). This will bring up the configuration window allowing you to add the sound to the chosen playlist. Once a sound has been created in a playlist, the playlist can be expanded to manage the individual sound, such as editing the name or sound source, toggling the track to loop when played, or deleting the sound from the playlist.</p>
 <dl>
 <dt>Track Name</dt>
@@ -44,9 +75,22 @@
 <dd>The volume of the individual sound. The sound's volume is also affected by the Master Playlists volume slider.</dd>
 <dt>Repeat</dt>
 <dd>Determines whether the sound repeats when played. Note that currently, sounds do not loop seamlessly - there will be a short gap between loops, regardless of the sound file chosen.</dd>
+<dt>Fade Duration (ms)</dt>
+<dd>Determines the amount of time that Foundry takes to fade in or out a sound as it begins playback or stops playback. The time is in miliseconds. Note that fade time for tracks is combined with fade time for playlists. </dd>
+<dt>Sound Description</dt>
+<dd>This is a text box for writing notes about the sound, such as artist information, thematic notes, or specific usage situations.</dd>
 <dt>Large File Streaming</dt>
-<dd>Determines whether the sound should be streamed to players instead of using HTML5 audio. This toggle is meant for audio files greater than 5MB, as HTML5 Audio is not ideal for large audio files due to various technical reasons. This function will very likely be removed after the upcoming 0.8.1 update in favour of a better implementation of audio play.</dd>
+<dd>Determines whether the sound should be streamed to players instead of using HTML5 audio. This toggle is meant for audio files greater than 5MB, as HTML5 Audio is not ideal for large audio files due to various technical reasons. <strong>Note:</strong> As of the 0.8.x series of audio updates this function has been removed. Now Foundry utilizes a more efficient and less resource intensive method of detecting and playing large audio files.</dd>
 </dl>
+
+<h4>Sound Context Menu</h4>
+<p>By right-clicking a playlist you can bring up a context menu with additional options for managing playlists. This context menu has the following options:</p>
+<ul>
+    <li><strong>Edit Sound:</strong> Opens the sound configuration window which allows you edit the traits of a track as noted above.</li>
+    <li><strong>Preload Sound:</strong> Order Foundry to begin loading a sound in preparation of playback. This can reduce delays between a GM playing a track and users hearing it start to play, which is especially useful for very large sound files.</li>
+    <li><strong>Delete:</strong> Delete the sound. <strong>Warning:</strong> This can't be undone, but you will be given a chance to confirm this action.</li>
+</ul>
+
 <h2 id="playlistapi" class="border">API References</h2>
 <p>To interact with Playlists programmatically, consider using the following API concepts:</p>
 <ul>

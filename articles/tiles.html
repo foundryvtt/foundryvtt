@@ -1,6 +1,7 @@
 <h2>Overview</h2>
 <p>Foundry Virtual Tabletop includes support for placing Tiles, which are individual pieces of artwork displayed above the background image of the scene to add decorations, props, or custom features to be interacted with or to change the aesthetics of the scene.</p>
 <p>This article will familiarize you with the two methods of placing tiles into scenes, and how to manipulate and configure them once placed.</p>
+
 <h2 class="border">Tile Controls</h2>
 <p>The tile layer tools have the following options available:</p>
 <figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/tiles-control-palette-2021-01-21.jpg">@Image[39]</a>
@@ -13,7 +14,10 @@
 <dd>This tool allows you to draw out a rectangle then opens a dialog to let you select the specific artwork you want to place inside the confines of the rectangle.</dd>
 <dt>Tile Browser</dt>
 <dd>This tool opens a file browser for your instance of Foundry VTT which shows you all of the available images that foundry can use as map tiles. You can click and drag any image found in this browser to the current scene, placing it into the map. The tiles default to their full resolution, but can be resized after being placed.</dd>
+<dt>Foreground Layer Toggle</dt>
+<dd>Introduced in the 0.8.x. update series with the overhead tile system, this button toggles between the background and foreground on the @Article[canvas-layers], allowing you to clearly see and interact with any overhead tiles currently in the scene while toggled on. When leaving the canvas layer this toggle is turned off automatically.</dd>
 </dl>
+
 <h3>Placing Tiles</h3>
 <figure class="right"><a title="See Larger Image" href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/tile-sprites-placing-tiles-2021-01-21.webp" target="_blank" rel="nofollow noopener">@Image[139]</a>
 <figcaption>A demonstration of the two ways you can place tiles with the tile tools. (Click to enlarge)</figcaption>
@@ -25,6 +29,7 @@
 <dt>Use the File Browser</dt>
 <dd>by clicking the folder icon in the tool palette you will be shown a File Picker where you can drag and drop image assets onto the Scene to create Tiles.</dd>
 </dl>
+
 <h2 class="border">The Tile HUD</h2>
 <p>There are additional options for configuring the Tile in the HUD which is accessed on a single right-click.</p>
 <figure class="right"><a title="See Larger Image" href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/the-tile-hud-2020-05-21.png" target="_blank" rel="nofollow noopener">@Image[41]</a>
@@ -41,24 +46,52 @@
 <dt>Send to Back</dt>
 <dd>Send the Tile to the back of the Tiles Layer, displaying it below other nearby Tiles.</dd>
 </dl>
-<h2 class="border">The Tile Configuration Sheet</h2>
+
+<h2 class="border">Tile Configuration</h2>
 <p>Once a Tile is created, you can configure all the details of the Tile by double-clicking on the Tile. Once any changes to the Tile have been made, click the "Update Tile" button to confirm your changes. The tile configuration options are described below:</p>
 <figure class="right"><a title="See Larger Image" href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/tile-configuration-2020-05-21.png" target="_blank" rel="nofollow noopener">@Image[40]</a>
 <figcaption>The Tile configuration sheet is accessed by double-clicking on a Tile and can customize the display and position of the Tile.</figcaption>
 </figure>
+<h4>Tab: Basic</h4>
 <dl>
-<dt>Tile Sprite</dt>
-<dd>The image or video file path of the displayed tile. Note that Tiles can be either static images or videos. If using Video tiles, the <code>.webm</code> format is recommended to support transparency (if needed).</dd>
-<dt>X-Position</dt>
-<dd>The x-coordinate location of the top-left corner of the Tile.</dd>
-<dt>Y-Position</dt>
-<dd>The y-coordinate location of the top-left corner of the Tile.</dd>
-<dt>Width</dt>
-<dd>The horizontal width of the desired Tile display.</dd>
-<dt>Height</dt>
-<dd>The vertical height of the desired Tile display.</dd>
-<dt>Rotation</dt>
-<dd>The rotation of the Tile, in degrees. You can directly edit this field, or quickly rotate a tile placed in a scene by holding down Shift or Control and using the W-A-S-D keys, the arrow keys, or the mousewheel. When used with the mousewheel, Control offers smaller increments of rotation than the Shift key, allowing for finer adjustments.</dd>
+    <dt>Tile Sprite</dt>
+    <dd>The image or video file path of the displayed tile. Note that Tiles can be either static images or videos. If using Video tiles, the <code>.webm</code> format is recommended to support transparency (if needed).</dd>
+    <dt>X-Position</dt>
+    <dd>The x-coordinate location of the top-left corner of the Tile.</dd>
+    <dt>Y-Position</dt>
+    <dd>The y-coordinate location of the top-left corner of the Tile.</dd>
+    <dt>Width</dt>
+    <dd>The horizontal width of the desired Tile display.</dd>
+    <dt></dt>Height</dt>
+    <dd>The vertical height of the desired Tile display.</dd>
+    <dt>Rotation</dt>
+    <dd>The rotation of the Tile, in degrees. You can directly edit this field, or quickly rotate a tile placed in a scene by holding down Shift or Control and using the W-A-S-D keys, the arrow keys, or the mousewheel. When used with the mousewheel, Control offers smaller increments of rotation than the Shift key, allowing for finer adjustments.</dd>
+    <dt>Tile Opacity</dt>
+    <dd>The opacity of the tile from 0 (transparent) to 1 (fully opaque). With this slider you can directly affect the default level of transparency the tile has on the canvas, which is good for tiles such as dirt, cracks, damage, and similar overlay tiles that might be too intense or stark at full opacity.</dd>
+    <dt>Tint Color</dt>
+    <dd>The color overlay on a tile represented in hex color code. The color is set to multiply over the art of the tile, which means that the darker the color is the more it will darken the tile. In this case black (#000000) will turn the tile entirely black while white (#ffffff) will not affect the appearance of the tile at all.</dd>
+</dl>
+<h4>Tab: Overhead</h4>
+The overhead tab of the tile configuration menu is only available in version 0.8.2 and later of the 0.8.x series of updates coming to Foundry VTT. This tab allows you to configure how a tile interacts with the canvas as an overhead tile. These features are expected to grow as the update series progresses.
+<dl>
+    <dt>Is Overhead?</dt>
+    <dd>Toggles if the tile is to be treated as an overhead tile. When on the tile cannot be modified while the Foreground Layer toggle is off in the Tile Layer tool sidebar. Overhead tiles are rendered above background tiles in the @Article[canvas-layers]. Overhead tiles are automatically hidden when actors move under them.</dd>
+    <dt>Occlusion Mode</dt>
+    <dd>The occlusion mode determines how the overhead tile interacts with actor tokens on the canvas. The default setting is Fade (Entire Tile) which caues the whole tile to fade when an actor token moves under it. The setting of None (Always Visible) turns off occlusion, making the tile never fade while tokens are under it. The setting of Roof places the tile above light sources. Additional occlusion modes are planned with the development of the 0.8.x series of updates for Foundry VTT.</dd>
+    <dt>Occlusion Alpha</dt>
+    <dd>The occlusion alpha setting determines what level of opacity the overhead tile should maintain even when an actor token is under it. The setting ranges from 0 (transparent) to 1 (fully opaque). This setting defaults to 0, meaning that all overhead tiles fully vanish when an actor token moves under them.</dd>
+    <dt>Fade Radius</dt>
+    <dd>The fade radius setting will determine the distance around an actor token that an overhead tile using the (planned) Radial occlusion mode that will have revealed when a token is under it. At this time the setting has no effect, but will as the development of the 0.8.x series of updates continues.</dd>
+</dl>
+<h4>Tab: Animation</h4>
+The animation tab of the tile configuration menu is only available in version 0.8.2 and later of the 0.8.x series of updates coming to Foundry VTT. This tab allows you to configure how a video tile behaves on the canvas.
+<dl>
+    <dt>Loop Video</dt>
+    <dd>This toggle determines if the video should automatically start again after playing its last frame of animation.</dd>
+    <dt>Autoplay Video</dt>
+    <dd>This toggle determines if the video should automatically start playback when the scene loads, or if it should wait for the play button to be pressed on the token hud.</dd>
+    <dt>Video Volume</dt>
+    <dd>This slider determines the volume of video tiles that have sound. By default all tiles start with a volume setting of 0 (muted) to prevent unwanted audio playback.</dd>
 </dl>
 <h2 class="border">API References</h2>
 <p>To interact with Tiles programmatically, consider using the following API concepts:</p>
