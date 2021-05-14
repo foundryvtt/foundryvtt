@@ -1,5 +1,6 @@
 <h2>Overview</h2>
 <p>Scenes represent the areas of a World that the players may explore. Scenes may depict a variety of settings ranging from world or regional maps all the way down to small buildings or dungeons. At each point in time, one Scene is classified as the <strong>active</strong> scene. The same scene is active for all users. For each individual user a different Scene may be treated as the <strong>viewed</strong> scene, which is the area currently rendered on the game canvas for that user.</p>
+
 <h2 id="configuration" class="border">Scenes Directory</h2>
 <figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/scenes-directory-2021-01-29.jpg" alt="Scenes Directory">@Image[149]</a>
 <figcaption>The Scenes Directory holds all of your world's collected scenes.</figcaption>
@@ -7,12 +8,14 @@
 <p>Scenes are created and managed from the Scene Directory sidebar.</p>
 <p>Like the Journal, Actors, and Items Directories, this directory can contain folders to organize your world's scenes. To organize scenes into folders, you can click and drag them directly into the desired folder, or when editing the scene, you can select the folder it belongs to. You can click on folders to expand them, showing all of the contained scenes, or click an expanded folder to collapse it, hiding the contained scenes.</p>
 <p>As with all other entity directories, the "quill" icon on a Scene folder will create a new scene inside that folder, and the "plus folder" icon will create a new subfolder.</p>
+
 <h3>Creating New Scenes</h3>
 <p>To create a new Scene click&nbsp;<strong>Create New Scene</strong>, you'll be prompted to give the scene a name. Once you've named your scene you will see the Configure Scene dialog, which allows you to set all of the specific details about your scene from the artwork used to its dimensions, and grid scale.</p>
 <p>The specifics of each of the options contained in this screen are detailed in the next section of this article.</p>
 <p>Scenes can be created without editing the configuration screen as it appears, which results in an empty scene with a gray background, light gray grid, and basic vision settings.</p>
 <p>A scene created from the default settings can be edited easily to become whatever sort of scene is needed by reopening the scene configuration window from the scene sidebar, or by right clicking the scene in the upper navigation bar and selecting configure scene.&nbsp;</p>
-<h2 id="configuration" class="border">Scene Configuration</h2>
+
+<h2 id="sceneconfiguration" class="border">Scene Configuration</h2>
 <figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/scene-configuration-2020-11-20.png" alt="Scene Configuration Dialog">@Image[6]</a>
 <figcaption>The Scene configuration sheet contains many important options. Each supported configuration option is described on this page.</figcaption>
 </figure>
@@ -40,26 +43,29 @@
 <dd>
 <p>The file path or web address of the background image you wish to use for your scene. The icon to the right of the field will open a File Picker that helps you to locate images within your public directory.</p>
 </dd>
+<dt>Foreground Image</dt>
+<dd>
+<p>The file path or web address of the foreground image you wish to use for your scene. The image must be the same size as the background, and will be resized to fit automatically if it's not. As with the background image, the icon to the right of the field will open a File Picker that helps you to locate images within your public directory. Foreground images are always drawn with no occlusion and are always visible on top of the background, no matter what is below the art, so care should be taken when designing the foreground image to avoid it ruining visibility of the map. More information on the foreground and occlusion modes can be found in the @Article[canvas-layers] and @Article[tiles] articles.</p>
+</dd>
 <dt>Scene Dimensions</dt>
 <dd>
-<p>Set the the rendered width abd height of your scene in pixels. If you do not fill this field out, the application will figure out both automatically once the image is loaded.</p>
+<p>Set the the rendered width and height of your scene in pixels. If you do not fill this field out, the application will figure out both automatically once the image is loaded.</p>
 </dd>
 <dt>Padding Percentage</dt>
 <dd>
-<p>Creates a border region around the background image that is a percentage of the total scene dimensions. This padding space treats everything as lit and visible, but otherwise functions as normal map space. It is intended to be used for staging tokens and tiles waiting to be used in a scene - but please be aware the padding region is visible to players. When editing this after a scene is created Foundry will attempt to keep placed tokens and tiles in the padding space if its area is reduced.</p>
+<p>Creates a border region around the background image that is a percentage of the total scene dimensions. This padding space treats everything as unlit and hidden unless lights and an actor with vision is in that padding area. The padding otherwise functions as normal map space. The padding is intended to be used for staging tokens and tiles waiting to be used in a scene, or as extra side-rooms or hidden spaces.</p> 
+<p><strong>Note:</strong> When editing a scene's padding after a scene is created Foundry will attempt to keep placed tokens and tiles in the padding space if its area is reduced, but the change in overall scene dimension will displace walls, lights, tokens, tiles, and notes. It is advised that you not change a scene's padding once you begin detailing a scene unless you're willing to rework any out of place assets.</p>
 </dd>
 <dt>Background Color</dt>
 <dd>
 <p>A background color to fill behind the Scene background image.</p>
 </dd>
 </dl>
-<h3 id="appearance">Grid Configuration</h3>
+
+<h3 id="configuregrid">Grid Configuration</h3>
 <figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/scenes-configuration-grid-2021-01-29.jpg" alt="Scene Config - Grid">@Image[150]</a>
 <figcaption>The grid section of the scene configuration screen allows you to tune to appearance and nature of the map grid.</figcaption>
 </figure>
-<dl>
-<dt>General Info</dt>
-<dd>
 <p>This configuration section is used to modify the grid type and alignment which is displayed as an overlay atop the Scene. Even if you are using a map that has a pre-drawn grid it is important to configure this section because the Foundry grid dictates the positions where Tokens are placed, how distance is measured, or how Measured Templates identify target spaces. Configuration of the Grid in Foundry uses three key concepts:</p>
 <ul>
 <li>The width (in pixels) of the image.</li>
@@ -69,7 +75,7 @@
 <p>For example, suppose you have a map with a pre-drawn square grid which has 22 grid spaces in width and 18 grid spaces in height. The original map image is 3080px by 2520px. By knowing the dimensions of the image and by counting the number of grid spaces displayed on the map we can learn that the intended grid size for this map is 140px per square.</p>
 <p class="note info">Foundry Virtual Tabletop enforces a minimum grid size of 50px. If your map uses a grid size lower than 50px you can still use it by increasing the background size. The easiest solution is to multiply all 3 of the width, height, and grid size by two to double every dimension.</p>
 <p class="note info">If your background image has a visible grid already incorporated into the image and you are having trouble aligning the Foundry grid with the pre-existing one, be sure to use the <strong>Grid Alignment Tool</strong> by clicking the angled-ruler icon to the right of the Grid Type dropdown which has a specialized tool and workflow to assist with this process.</p>
-</dd>
+<dl>
 <dt>Grid Type</dt>
 <dd>
 <p>Foundry Virtual Tabletop supports multiple grid types which can be configured on a per-Scene basis. The following options are supported:</p>
@@ -84,7 +90,8 @@
 </dd>
 <dt>Grid Size</dt>
 <dd>
-<p>The grid size (in pixels); the number of pixels which represent a single grid space.</p>
+<p>The grid size (in pixels); the number of pixels which represent a single grid space. Foundry's default is 100 pixel squares, and has a minimum of 50px squares. Most maps use grid sizes of 70, 100, 140, or 200 pixels per square.</p>
+<p><strong>Note:</strong> Changing the grid size of a map may change the alignment of walls, lights, notes, and tiles. It is recommended you get the grid size set and properly adjusted before you begin adding details to the scene to avoid having to do additional work.</p>
 </dd>
 <dt>Offset Background</dt>
 <dd>
@@ -103,6 +110,7 @@
 <p>Customize the transparency of the grid. Higher opacity results in a less transparent grid, and vice versa. If you set this slider all the way to zero (left) the grid will not be visible at all.</p>
 </dd>
 </dl>
+
 <h3 id="lighting">Lighting and Vision</h3>
 <figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/scenes-configuration-vision-lighting-2021-01-29.jpg" alt="Scene Config - Vision & Lighting">@Image[151]</a>
 <figcaption>The vision and lighting section of the scene configuration screen allows you to tune what tokens see on the grid.</figcaption>
@@ -112,13 +120,13 @@
 <dd>
 <p>If this setting is enabled, visibility of the scene will require ownership of a Token which is placed in the scene and has a vision setting. If this setting is disabled, players will be able to see a scene even if they do not have a token present. This setting must be enabled to make use of Fog of War and Dynamic Lighting features.</p>
 </dd>
-<dt>Global Illumination</dt>
-<dd>
-<p>If this setting is enabled, the entire scene will be affected by Bright Light, allowing full visibility for any areas of the scene where an owned token has line-of-sight. This setting will have no effect if Token Vision is disabled.</p>
-</dd>
 <dt>Fog Exploration</dt>
 <dd>
 <p>If this setting is enabled, fog-of-war exploration will be tracked on a per-User basis and stored to the database as the Scene is explored. If this setting is disabled, fog exploration does not occur and instead Tokens are limited to only see their current vision polygon.</p>
+<dt>Unrestricted Vision Range</dt>
+<dd>
+<p>If this setting is enabled, tokens with vision toggled on will be able to see everything within their line-of-sight. If the setting is disabled, tokens with vision will have what they can see restricted to only locations that are lit by a light source of some kind. In both cases walls will continue to obstruct vision as expected. This setting will have no effect if Token Vision is disabled for the scene or if the token does not have vision toggled. Prior to the 0.8.x updates this setting was known as "Global Illumination," the effect is identical.</p>
+</dd>
 </dd>
 <dt>Darkness Level</dt>
 <dd>
@@ -127,12 +135,13 @@
 </dl>
 <p class="note info">Note: setting a Darkness Level has no effect on Global Illumination.</p>
 <dl>
-<dt>Global Illumination Threshold</dt>
+<dt>Vision Limitation Threshold</dt>
 <dd>
-<p>When toggled, this will cause Foundry to automatically disable Global Illumination if the darkness level goes over the specified threshold.</p>
+<p>When toggled, this slider determines the darkness level required for Foundry to automatically disable Unrestricted Vision (see above). Prior to the 0.8.x series of updates this option was called "Global Illumination Threshold". The feature's functionality is idential between 0.7.9 and 0.8.x series despite the name change.</p>
 </dd>
 </dl>
-<h3 id="appearance">Ambience and Atmosphere</h3>
+
+<h3 id="atmosphere">Ambience and Atmosphere</h3>
 <figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/scenes-configuration-ambience-atmosphere-2021-01-29.jpg" alt="Scene Config - Ambience & Atmosphere">@Image[152]</a>
 <figcaption>The ambience and atmosphere section of the scene configuration screen allows you to keep notes, set music, and weather effects.</figcaption>
 </figure>
@@ -143,7 +152,11 @@
 </dd>
 <dt>Audio Playlist</dt>
 <dd>
-<p>Define a reference to an existing Audio Playlist which will begin automatically playing when this Scene is activated.</p>
+<p>With the dropdown menu you can select one of your world's @article[playlists] which will begin automatically playing when this Scene is activated.</p>
+</dd>
+<dt>Playlist Sound</dt>
+<dd>
+<p>If a playlist has been selected in the above option this dropdown list will let you select a specific playlist sound to play when this scene is activated.</p>
 </dd>
 <dt>Weather Effect</dt>
 <dd>
@@ -154,6 +167,7 @@
 <p>Define the coordinates of an initial camera position which would define the starting view position for a character which <em>does not</em> have a controlled Token in the Scene. Players who have a Token in the Scene will begin their view centered on their Token location.</p>
 </dd>
 </dl>
+
 <h2 id="context" class="border">Scene Context Options</h2>
 <p>Scenes which are displayed in the Navigation bar will appear at the top of the screen. The navigation bar is intended to act similarly to "bookmarks" for commonly used Scenes which are expected to be used during the game session. You may have many more Scenes in your World than you wish to keep in the Navigation bar at any given time. Remember that players can access Scenes in the navigation bar also if they are not set to <strong>GM Only</strong>.</p>
 <h3>Navigation Bar Context Menu</h3>
@@ -170,6 +184,7 @@
 <dt>Toggle Navigation</dt>
 <dd>Remove the Scene from the Navigation bar if it is not active.</dd>
 </dl>
+
 <h3>Scenes Sidebar Context Menu</h3>
 <p>All Scenes, including those not displayed in the Navigation Bar, are available in the Scenes sidebar directory which is denoted by a tri-fold map icon. Each Scene in the sidebar has additional context menu options available.</p>
 <figure class="right"><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/scene-sidebar-context-2020-05-20.png" alt="Scene Sidebar Context" />
@@ -193,6 +208,7 @@
 <dt>Import Data</dt>
 <dd>Load stored data for a Scene from a file on your computer, updating the Scene with the stored settings.</dd>
 </dl>
+
 <h2 class="border">API References</h2>
 <p>To interact with Scenes programmatically, you will primarily use the following API concepts:</p>
 <ul>
