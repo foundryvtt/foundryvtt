@@ -1,10 +1,11 @@
 <h2>Overview</h2>
 <p>This article covers all of the roll modifiers that Foundry VTT currently offers and how to use them. For an introduction to simple dice concepts see the @Article[dice] article. For more complex dice rolling concepts, and API references see the @article[dice-complex] article.</p>
 
-<h2 id="modifiers" class="border">Roll Modifiers<a class="scrollto">back to top</a></h2>
+<h2 id="modifiers" class="border">Roll Modifiers</h2>
 <p>In addition to basic arithmetic and adding text comments to rolls, there are a variety of short-hand modifiers which can be used to change the way a dice roll is processed. These modifiers are conditional, and only trigger in certain (defined) circumstances.</p>
 
 <h3 id="reroll">Re-rolls and Exploding Dice</h3>
+<figure class="right">@Image[193]</figure>
 <dl>
     <dt>r : Reroll</dt>
     <dd>Rerolls the die based on the set condition, keeping the outcome regardless of whether it is better. Reroll (r) will only reroll the die once, for continual rerolling see "x : explode"</dd>
@@ -31,7 +32,8 @@
 <p><em>Chronicles of Darkness - Rote Rolls</em>; roll five ten-sided dice, re-rolling any dice that fall under 8, and re-rolling any dice that score a 10, before counting the total successes in the roll.</p>
 <pre><code class="language-plaintext">/r 5d10xo&lt;8x10cs&gt;=8</code></pre>
 
-<h3 id="keeping">Keeping or Dropping Results<a class="scrollto">back to top</a></h3>
+<h3 id="keeping">Keeping or Dropping Results</h3>
+<figure class="right">@Image[192]</figure>
 <dl>
     <dt>kh, k : Keep Highest</dt>
     <dd>Whether you use 'kh' or the shorter 'k', this modifier causes the dice roller to keep a number of dice you specify, selecting the highest of the roll results available. Without a specified number it will keep the single highest number. If the number of dice rolled is less than the number of dice being kept, then it will keep all the rolls made.</dd>
@@ -70,10 +72,8 @@
 <p>Roll four ten-sided dice, replacing any 9s or 10s with 8s.</p>
 <pre><code class="language-plaintext">/r 4d10max8</code></pre>
 
-<h3 id="success">Successes and Failures<a class="scrollto">back to top</a></h3>
-<figure class="right">
-    <img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/count-successes-2020-10-21.jpg" alt="Count Successes"/>
-</figure>
+<h3 id="success">Successes and Failures</h3>
+<figure class="right">@Image[101]</figure>
 <dl>
     <dt>cs : Count Successes</dt>
     <dd>This modifier causes each die that rolls a specified result to be counted as a success which is tallied when the roll concludes. Without a specified number to succeed, all dice rolled are considered successes. This modifier can have the requirements for success specified through several comparison symbols, as follows:</dd>
@@ -136,8 +136,8 @@
 <p>Roll three six-sided dice and subtract 10 from the final result.</p>
 <pre><code class="language-plaintext">/r 3d6ms10</code></pre>
 
-<h2 id="special" class="border">Special Dice<a class="scrollto">back to top</a></h2>
-<figure class="right"><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/special-dice-2020-10-21.jpg" alt="Special Dice" /></figure>
+<h2 id="special" class="border">Special Dice</h2>
+<figure class="right">@Image[102]</figure>
 <p>Foundry Virtual Tabletop also natively supports two special types of dice: Coins, and Fate Dice.</p>
 
 <h4>Coins</h4>

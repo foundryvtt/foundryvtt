@@ -2,9 +2,7 @@
 <p>This article covers all of the basics of rolling dice, the various roll modes available to users, and some of the fundamental features that can be used to notate rolls during play. For more complex dice rolling concepts, and API references see the @article[dice-complex] article. In addition to the basic types of rolling covered in this article, Foundry Virtual Tabletop provides a number of modifiers which can be used to change how dice work in order to support different game systems. For a comprehensive listing dice modifiers consult the @article[dice-modifiers] article.</p>
 
 <h2 id="rollmodes" class="border">Roll Modes</h2>
-<figure class="right">
-    <img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/roll-modes-2020-10-21.jpg" alt="Roll Modes"/>
-</figure>
+<figure class="right">@Image[98]</figure>
 
 <p>Before learning to roll dice, it is important to be familiar with the concept of "roll modes" which affect the visibility and presentation of dice rolls.</p>
 <p>Every dice roll becomes a message in the chat log, but the visibility of that message and the details of the roll can be controlled by the user. At the bottom of the chat log there is a drop down list of roll types, these determine who can see the roll made by your <code>/roll</code> command.</p>
@@ -22,7 +20,7 @@
 </dl>
 <p>A roll that is made in private (such as a Private GM Roll, Blind GM Roll, or Self Roll) may be revealed to the other users by right-clicking and choosing <strong>Reveal to Everyone</strong>.</p>
 
-<h3 id="simplerolls">Simple Roll Commands<a class="scrollto">back to top</a></h3>
+<h3 id="simplerolls">Simple Roll Commands</h3>
 <p>A dice roll can be made by entering the <code>/roll</code> (or <code>/r</code>) <strong>chat command</strong> followed by some simple syntax to identify the number of dice, and which type of die you wish to roll. This roll command uses whichever <strong>Default Roll Mode</strong> is currently set by the user.</p>
 <p class="note info">All of the example rolls on this page may be pasted directly into Foundry VTT exactly as they are, including commented text which will label the roll explaining what it does.</p>
 <pre><code class="language-plaintext">/r {number of dice}d{faces}</code></pre>
@@ -31,7 +29,7 @@
 <h4>Expanding Rolls</h4>
 <p>Once a roll has been made and appears in the chat log, users can click on that message to expand the results, showing the individual dice rolls that determined its outcome. Clicking the chat message a second time collapses the results again.</p>
 
-<h2 id="simplemath" class="border">Using Simple Math with Rolls<a class="scrollto">back to top</a></h2>
+<h2 id="simplemath" class="border">Using Simple Math with Rolls</h2>
 <p>Most dice rolls result in a number that is the sum of any dice rolled, and simple math modifiers can be used to increase or decrease this result after rolls are made.</p>
 <ul>
     <li><code>+</code> adds the number that follows it to the sum of the roll.</li>
@@ -62,9 +60,7 @@
 <pre><code class="language-plaintext">/r (1d8+4) * 2</code></pre>
 
 <h2 id="describingrolls" class="border">Describing Rolls</h2>
-<figure class="right">
-    <img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/described-rolls-2020-10-21.jpg" alt="Described Rolls"/>
-</figure>
+<figure class="right">@Image[100]</figure>
 <p>Users can add a text description to a roll by adding a # and desired text at the end of the /roll chat command. The text appears under the name of the user that made the roll.</p>
 <pre><code class="language-plaintext">/r {roll command} # {desired text}</code></pre>
 <p>Example: roll a 20-sided die, adding 2 to the result. Includ some text to describe the roll.</p>
@@ -81,7 +77,7 @@
 <pre><code class="language-plaintext">[inline roll formula]{inline roll label}</code></pre>
 <p>If a deferred role is labeled, but has no flavor text in the formula otherwise, the label is included in the resulting roll as flavor text.</p>
 
-<h2 id="inlinerolls" class="border">Inline Rolls<a class="scrollto">back to top</a></h2>
+<h2 id="inlinerolls" class="border">Inline Rolls</h2>
 <p>If a chat message contains a roll formula, Foundry VTT will automatically run the formula for the roll and place the result or command in the message with special style formatting. Anything that a regular roll command can do, an Inline Roll can do.</p>
 <p>Inline rolls can also be used in a Journal Entry, or any other place that the TinyMCE Rich Text Editor appears, such as Item or Action description fields.</p>
 <p>There are two types of inline roll:</p>
