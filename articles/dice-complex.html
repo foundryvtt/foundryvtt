@@ -2,10 +2,10 @@
 <p>This article covers complex dice concepts such as parenthetical expressions, evaluating pools of dice, complex data paths in rolls, and the dice rolling API. For an introduction to simple dice concepts see the @Article[dice-basics] articles. For a comprehensive list of dice modifiers see the @Article[dice-modifiers] article.</p>
 
 <h2 class="border">Parenthetical Expressions and Dice Pools<a class="scrollto">back to top</a></h2>
-<p>When a roll command includes Parenthesis ( ) and curly braces { }, Foundry VTT interprets these as instructions to handle the roll in particular ways. These expressions are evaluated first before other elements of hte roll formula.</p>
+<p>When a roll command includes Parenthesis ( ) and curly braces { }, Foundry VTT interprets these as instructions to handle the roll in particular ways. These expressions are evaluated first before other elements of the roll formula.</p>
 
 <h3 id="parenthesis">Parentheses</h3>
-<p>The contents of a parenthetical expression are always evaluated before the outer portion.This allows for options where the number, faces, or modifiers of a dice roll are themselves dynamic in some way. Using parenthetical expressions can allow you to roll a variable number of dice based on a data attribute or an inner dice roll. Parenthetical expressions can also be used in conjunction with roll modifiers to allow checking a roll against a particular value. For example to count the number of successes relative to some target attribute or opposed dice roll.</p>
+<p>The contents of a parenthetical expression are always evaluated before the outer portion. This allows for options where the number, faces, or modifiers of a dice roll are themselves dynamic in some way. Using parenthetical expressions can allow you to roll a variable number of dice based on a data attribute or an inner dice roll. Parenthetical expressions can also be used in conjunction with roll modifiers to allow checking a roll against a particular value. For example to count the number of successes relative to some target attribute or opposed dice roll.</p>
 <h4>Examples</h4>
 <p>Roll a single die with a number of sides randomly determined by a d20 roll.</p>
 <pre><code class="language-plaintext">/roll 1d(1d20)</code></pre>
@@ -65,11 +65,17 @@ console.log(actor.getRollData());
 <p>Return the absolute value of a roll where the result could be either positive or negative.</p>
 <pre><code class="language-plaintext">/r abs(5d6 - 20)</code></pre>
 
-<h2 id="api" class="border">API References<a class="scrollto">back to top</a></h2>
-<p>For module and system developers who want to go deeper with dice mechanics - there is a robust JavaScript API which can do even more with dice rolls. See the @API[Roll,The Roll Class] API documentation for details.</p>
-
 <h4 id="advanced">Mersenne Twister PRNG<a class="scrollto">back to top</a></h4>
-<h4>How does Foundry Virtual Tabletop handle randomization?</h4>
+<strong>How does Foundry Virtual Tabletop handle randomization?</strong>
 <p>Foundry utilizes a Mersenne Twister pseudorandom number generator for all of its dice rolls. It was originally developed in 1997 by Makoto Matsumoto and Takuji Nishimura to rectify most of the flaws found in older PRNGs.</p>
 <p>It is fast, reliably random over long periods of usage, and easily implemented, which has led to its widespread use in numerous programming languages. In fact, this pseudorandom number generator is the most widely used general-purpose PRNG in existence, and widely viewed as the most reliable for use in dice and other gaming impelementations.</p>
 <p>The Mersenne Twister utilizes a seed number that the internal mathematics use to determine the set of random numbers generated. In Foundry VTT, this seed is set at the time each user connects, giving them a unique set of rolls for the rest of that session.</p>
+
+<h2 id="api" class="border">API References<a class="scrollto">back to top</a></h2>
+<p>For module and system developers who want to go deeper with dice mechanics - there is a robust JavaScript API which can do even more with dice rolls. See the following API documentation for details.</p>
+<ul>
+    <li>The @API[Roll, The Roll Class] Class.</li>
+    <li>The @API[DiceTerm, The DiceTerm Base Class] Base Class.</li>
+    <li>The @API[Die, The Die Constructor] Die Term that can be used as part of a Roll Formula.</li>
+    <li>The @API[DicePool, The DicePool Constructor] DicePool set of Roll expressions.</li>
+</ul>
