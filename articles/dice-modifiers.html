@@ -1,0 +1,151 @@
+<h2>Overview</h2>
+<p>This article covers all of the roll modifiers that Foundry VTT currently offers and how to use them. For an introduction to simple dice concepts see the @Article[dice] article. For more complex dice rolling concepts, and API references see the @article[dice-complex] article.</p>
+
+<h2 id="modifiers" class="border">Roll Modifiers</h2>
+<p>In addition to basic arithmetic and adding text comments to rolls, there are a variety of short-hand modifiers which can be used to change the way a dice roll is processed. These modifiers are conditional, and only trigger in certain (defined) circumstances.</p>
+
+<h3 id="reroll">Re-rolls and Exploding Dice</h3>
+<figure class="right">@Image[193]</figure>
+<dl>
+    <dt>r : Reroll</dt>
+    <dd>Rerolls the die based on the set condition, keeping the outcome regardless of whether it is better. Reroll (r) will only reroll the die once, for continual rerolling see "x : explode"</dd>
+    <dt>rr : Recursive Reroll</dt>
+    <dd>Rerolls the die based on the set condition, and rerolls that result if it also meets the criteria, or keeps it if it does not. Unlike Reroll (r) which will only reroll the die once, recursive reroll will keep rolling as long as results meet the reroll criteria.</dd>
+    <dt>x : Explode</dt>
+    <dd>Rerolls a die continually based on the set condition, so that each occurrence of the number rolls again, continually adding to the total result.</dd>
+    <dt>xo : Explode Once</dt>
+    <dd>Rerolls a die once based on the set condition, used primarily by games which use a "dice pool", adding to the total result.</dd>
+</dl>
+<h4>Examples</h4>
+<p>Roll one ten-sided die, and re-roll it if the result is a 1.</p>
+<pre><code class="language-plaintext">/roll 1d10r1</code></pre>
+<p>Roll one twenty-sided die, and if the result is less than 10, re-roll it.</p>
+<pre><code class="language-plaintext">/r 1d20r&lt;10</code></pre>
+<p>Roll one twenty-sided die, and if the result is less than 3, re-roll it, including any results that are also less than 3.</p>
+<pre><code class="language-plaintext">/r 1d20rr&lt;3</code></pre>
+<p>Roll five ten-sided dice, and if any of the individual results are a 10, roll another ten-sided die add the result to the total.</p>
+<pre><code class="language-plaintext">/r 5d10x10</code></pre>
+<p>Roll one twenty-sided die, rolling additional dice if the result is less than 10, until one of the dice is ten or better, which is the only result it will keep.</p>
+<pre><code class="language-plaintext">/r 1d20x&lt;10kh</code></pre>
+<p>Roll six ten-sided dice, and roll one additional die for each 10 rolled, but do not re-roll 10s on the additional die, adding them to the total.</p>
+<pre><code class="language-plaintext">/r 6d10xo10</code></pre>
+<p><em>Chronicles of Darkness - Rote Rolls</em>; roll five ten-sided dice, re-rolling any dice that fall under 8, and re-rolling any dice that score a 10, before counting the total successes in the roll.</p>
+<pre><code class="language-plaintext">/r 5d10xo&lt;8x10cs&gt;=8</code></pre>
+
+<h3 id="keeping">Keeping or Dropping Results</h3>
+<figure class="right">@Image[192]</figure>
+<dl>
+    <dt>kh, k : Keep Highest</dt>
+    <dd>Whether you use 'kh' or the shorter 'k', this modifier causes the dice roller to keep a number of dice you specify, selecting the highest of the roll results available. Without a specified number it will keep the single highest number. If the number of dice rolled is less than the number of dice being kept, then it will keep all the rolls made.</dd>
+    <dt>kl : keep lowest</dt>
+    <dd>This modifier causes the dice roller to keep a number of dice you specify, selecting the lowest of the roll results available. Without a specified number it will keep the single lowest number. If the number of dice rolled is less than the number of dice being kept, then it will keep all the rolls made.</dd>
+    <dt>dl, d : drop lowest</dt>
+    <dd>This modifier causes the dice roller to drop a number of dice you specify, selecting the lowest of the roll results available. If a number of dice to drop is not specified, then it will drop the lowest number rolled. If the number of dice is less than the dice being dropped, then it will keep all the rolls made.</dd>
+    <dt>dh : drop highest</dt>
+    <dd>This modifier causes the dice roller to drop a number of dice you specify, selecting the highest of the roll results available. If a number of dice to drop is not specified, then it will drop the highest number rolled. If the number of dice is less than the dice being kept, then it will keep all the rolls made.</dd>
+    <dt>min : replace with minimum</dt>
+    <dd>This modifier causes the dice roller to replace any numbers lower than the result specified. Anything over the minimum is kept. If a minimum result is not specified, then it will roll the dice as normal without replacing any results.</dd>
+    <dt>max : replace with maximum</dt>
+    <dd>This modifier causes the dice roller to replace any numbers higher than the result specified with the maximum number. Anything under the maximum is kept. If a maximum result is not specified, then it will roll the dice as normal without replacing any results.</dd>
+</dl>
+<h4>Examples</h4>
+<p>Roll three ten-sided dice, keeping the highest of the three.</p>
+<pre><code class="language-plaintext">/r 3d10k</code></pre>
+<p>Roll four six-sided dice, keeping the three highest rolls available.</p>
+<pre><code class="language-plaintext">/r 4d6k3</code></pre>
+<p><em>DND 5e - Advantage</em>: Roll two twenty sided dice, and use the higher of the two for the final result which has 2 added to it.</p>
+<pre><code class="language-plaintext">/roll 2d20kh + 2</code></pre>
+<p>Roll three ten-sided dice, keeping the lowest of the three.</p>
+<pre><code class="language-plaintext">/r 3d10kl</code></pre>
+<p>Roll four six-sided dice, keeping the three lowest rolls available.</p>
+<pre><code class="language-plaintext">/r 4d6kl3</code></pre>
+<p><em>DND 5e -Disadvantage</em>: Roll two twenty sided dice, and use the lower of the two for the final result which has 5 added to it.</p>
+<pre><code class="language-plaintext">/roll 2d20kl + 5</code></pre>
+<p>Roll three six-sided dice, dropping the lowest number rolled of the three.</p>
+<pre><code class="language-plaintext">/r 3d6d</code></pre>
+<p>Roll four ten-sided dice, dropping the two lowest numbers rolled.</p>
+<pre><code class="language-plaintext">/r 4d10d2</code></pre>
+<p>Roll three six-sided dice, dropping the highest number rolled of the three.</p>
+<pre><code class="language-plaintext">/r 3d6dh</code></pre>
+<p>Roll four ten-sided dice, replacing any 1s with 2s</p>
+<pre><code class="language-plaintext">/r 4d10min2</code></pre>
+<p>Roll four ten-sided dice, replacing any 9s or 10s with 8s.</p>
+<pre><code class="language-plaintext">/r 4d10max8</code></pre>
+
+<h3 id="success">Successes and Failures</h3>
+<figure class="right">@Image[101]</figure>
+<dl>
+    <dt>cs : Count Successes</dt>
+    <dd>This modifier causes each die that rolls a specified result to be counted as a success which is tallied when the roll concludes. Without a specified number to succeed, all dice rolled are considered successes. This modifier can have the requirements for success specified through several comparison symbols, as follows:</dd>
+    <dt>cs={y}</dt><dd>Count the number of dice which resulted exactly in y.</dd>
+    <dt>cs&gt;{y}</dt><dd>Count the number of dice which rolled greater than y.</dd>
+    <dt>cs&gt;={y}</dt><dd>Count the number of dice which rolled greater than or equal to y.</dd>
+    <dt>cs&lt;{y}</dt><dd>Count the number of dice which rolled less than y.</dd>
+    <dt>cs&lt;={y}</dt><dd>Count the number of dice which rolled less than or equal to y.</dd>
+    <dt>even : Count Evens</dt>
+    <dd>This modifier counts any dice that generate an even number as a success.</dd>
+    <dt>odd : Count Odds</dt>
+    <dd>This modifier counts any dice that generate an odd number as a success.</dd>
+    <dt>cf : Count Failures</dt>
+    <dd>The syntax of this modifier works identically to count success, but counts the number of dice that failed to meet the specified criteria.</dd>
+    <dt>df : Deduct Failures</dt>
+    <dd>This modifier is used to specify the criteria for a die result to be a failure, then deducts the number of failures from the dice result, counting each failure as -1. The criteria for failure are specified identically to count success. It is intended primarily for use with Count Success, but also functions on its own.</dd>
+    <dt>sf : Subtract Failures</dt>
+    <dd>This modifier sets a failure criteria, and any die that meets that criteria has its roll subtracted from the final result. The criteria for failure are specified identically to count success.</dd>
+    <dt>ms : Margin of Success</dt>
+    <dd>This modifier subtracts a target value set by the user from the result of the dice rolled, and returns difference as the final total. If the amount rolled is less than the target it outputs a negative number, and a positive number if there is a remainder after subtraction.</dd>
+</dl>
+
+<h4>Examples</h4>
+<p>Roll ten twenty-sided dice, and count a success for each die which rolls a 20.</p>
+<pre><code class="language-plaintext">/r 10d20cs20</code></pre>
+<p>Roll ten twenty-sided dice and count a success for each die which rolls above a 10.</p>
+<pre><code class="language-plaintext">/r 10d20cs&gt;10</code></pre>
+<p>Roll six ten-sided dice and count a success for each die which rolls a 6 or higher.</p>
+<pre><code class="language-plaintext">/r 6d10cs&gt;=6</code></pre>
+<p>Roll a single one-hundred sided die and count a success if the result is 20 or lower.</p>
+<pre><code class="language-plaintext">/r 1d100cs&lt;=20</code></pre>
+<p>Roll three six-sided dice and count a success for each die which rolls an even number.</p>
+<pre><code class="language-plaintext">/roll 3d6even</code></pre>
+<p>Roll three six-sided dice and count a success for each die which rolls an odd number.</p>
+<pre><code class="language-plaintext">/roll 3d6odd</code></pre>
+<p><em>World of Darkness - Dice vs Difficulty</em>: roll five ten-sided dice, counting any roll of a 6 or higher as a success, while deducting a success for any roll that is a 1.</p>
+<pre><code class="language-plaintext">/r 5d10cs&gt;=6df=1</code></pre>
+<p><em>Chronicles of Darkness - Dice vs Difficulty</em>: Roll five ten-sided dice, counting a success for every die that rolls 8 or higher, and rolling an additional die any time a result of 10 is rolled.</p>
+<pre><code class="language-plaintext">/r 5d10cs&gt;=8x=10</code></pre>
+<p><em>Chronicles of Darkness - 9 again and 8 again using exploding dice</em>: roll five dice, counting a success for every die that rolls 8 or higher, and rolling an additional d10 any time a 9 or 10 is rolled.</p>
+<pre><code class="language-plaintext">/r 5d10cs&gt;=8x&gt;=9</code></pre>
+<p>Roll ten dice, counting a success for every die that rolls 8 or higher, and rolling an additional d10 any time an 8 or higher is rolled.</p>
+<pre><code class="language-plaintext">/r 10d10cs&gt;=8x&gt;=8</code></pre>
+<p>Rolls ten twenty-sided dice, and counts a failure for each die which rolls a 20.</p>
+<pre><code class="language-plaintext">/r 10d20cf20</code></pre>
+<p>Roll ten twenty-sided dice and count a failure for each die which rolls over a 10.</p>
+<pre><code class="language-plaintext">/r 10d20cf&gt;10</code></pre>
+<p>Roll six ten-sided dice and count a failure for each die which rolls a 6 or higher.</p>
+<pre><code class="language-plaintext">/r 6d10cf&gt;=6</code></pre>
+<p>Roll a single one-hundred sided die and count a failure if the result is 20 or lower.</p>
+<pre><code class="language-plaintext">/r 1d100cf&lt;=20</code></pre>
+<p>Roll four six-sided dice, treating any roll of exactly 6 as a success, and removing 1 from the final result for each die that rolls a 1.</p>
+<pre><code class="language-plaintext">/r 4d6cs6df1</code></pre>
+<p>Roll ten ten-sided dice, treating any roll of 6 or better as a success, and removing 1 from the final result for each die which rolls a 1.</p>
+<pre><code class="language-plaintext">/r 10d10cs&gt;5df1</code></pre>
+<p><em>Chronicles of Darkness - Chance Rolls</em>: roll a single ten-sided die, counting a 10 as a success and a 1 as a failure.</p>
+<pre><code class="language-plaintext">/r 1d10cs=10df=1</code></pre>
+<p>Roll three six-sided dice, and subtract the value of any dice that roll lower than three.</p>
+<pre><code class="language-plaintext">/r 3d6sf&lt;3</code></pre>
+<p>Roll three six-sided dice and subtract 10 from the final result.</p>
+<pre><code class="language-plaintext">/r 3d6ms10</code></pre>
+
+<h2 id="special" class="border">Special Dice</h2>
+<figure class="right">@Image[102]</figure>
+<p>Foundry Virtual Tabletop also natively supports two special types of dice: Coins, and Fate Dice.</p>
+
+<h4>Coins</h4>
+<p>Coins are two-sided dice with two results: heads, or tails. They can be rolled as any other die, but are not affected by mathematical expressions, though they can still be combined with other dice types. Coins also allow the roller to call (c) a specific result in advance, which will treat rolling coins similarly to "count success". By default, Coins tally the number of heads as successes in the results.</p>
+<pre><code class="language-plaintext">/roll 4dc # Flip four coins.</code></pre>
+<pre><code class="language-plaintext">/roll 3dcc1 # Flip three coins and tally the number of coins that result in Heads</code></pre>
+<pre><code class="language-plaintext">/roll 3dcc0 # Flip a number of coins and tally the number of coins that result in Tails</code></pre>
+
+<h4>Fate Dice</h4>
+<p>Fate dice are six-sided dice that can roll a plus, minus, or blank face. They are used in the fudge and fate systems, and are rolled like any other dice in foundry, but are not affected by mathematical expressions, as their faces have no numerical values and are considered a zero.</p>
+<pre><code class="language-plaintext">/r 4df # Roll 4 fate dice, generating a random number of plus, minus, or blank results.</code></pre>
