@@ -19,6 +19,8 @@
 
 <h3 class="border">Breaking Changes</h3>
 <li>Following internal discussion, the change made to load order to which loaded script files after ESmodules has been reverted, and vanilla js scripts will now be loaded before ESmodules. This is a return to the load order used in 0.7.x to allow developers to more easily include dependency scripts.</li>
+<li>The preCreate{DocumentName} hook is no longer incorrectly being provided with the expanded DocumentData as its second parameter rather than the initial data object provided to the Document creation request, as intended. For more information please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/5126
+</li>
 
 <h3 class="border">New Features</h3>
 <h4>Architecture and Infrastructure</h4>
@@ -28,7 +30,7 @@
 
 <h4>The Game Canvas</h4>
 <ul>
-    <li>Overhead Tiles now support a radial occlusion mode which fade away a portion of the overhead tile in radius around a controlled Token. The radius around the token can be configured in each tile's menu.</li>
+    <li>Overhead Tiles now support a radial occlusion mode which fade away a portion of the overhead tile in radius around a controlled Token.</li>
     <li>Roof tiles now suppress the presence of weather effects when they are occluded by a controlled token beneath them.</li>
     <li>The progress reported for loading assets in when a scene is activated or pre-loaded should now be more specific, providing improved visual feedback for loading.</li>
     <li>When a player loads into a Scene where they have multiple owned tokens, the Scene will now initialize with all of those tokens controlled rather than only one of them.</li>
