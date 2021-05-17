@@ -14,6 +14,9 @@
 <p>The 0.8.4 update primarily focused upon bringing bug fixes for some of the more prominent bugs that appeared during the 0.8.3 testing process, most of which were related to package management or document data. However, it also brings a couple of new features in to improve Overhead tile functionality. </p>
 <p>0.8.4 adds the Radial Occlusion mode for Overhead Tiles, which allows for a small circular cutout around tokens passing below an Overhead Tile. In addition, if an Overhead tile is set to the Roof mode, weather effects on the scene will be masked, allowing the Roof tile to prevent weather from falling in the area below it.</p>
 
+<h3 class="border">Known Issues</h3>
+<p>Audio/Video Chat integration using the built-in EasyRTC server is currently non-functional. Other methods of Audio/Video chat such as Jitsi should not be impacted. We hope to have this issue resolved in the next release.</p>
+
 <h3 class="border">Breaking Changes</h3>
 <li>Following internal discussion, the change made to load order to which loaded script files after ESmodules has been reverted, and vanilla js scripts will now be loaded before ESmodules. This is a return to the load order used in 0.7.x to allow developers to more easily include dependency scripts.</li>
 
@@ -28,6 +31,7 @@
     <li>Overhead Tiles now support a radial occlusion mode which fade away a portion of the overhead tile in radius around a controlled Token. The radius around the token can be configured in each tile's menu.</li>
     <li>Roof tiles now suppress the presence of weather effects when they are occluded by a controlled token beneath them.</li>
     <li>The progress reported for loading assets in when a scene is activated or pre-loaded should now be more specific, providing improved visual feedback for loading.</li>
+    <li>When a player loads into a Scene where they have multiple owned tokens, the Scene will now initialize with all of those tokens controlled rather than only one of them.</li>
 </ul>
 
 <h4>Interface and Applications</h4>
@@ -49,6 +53,11 @@
     <li>Propagating changes made to a base <code>Actor</code> document onward to unlinked <code>TokenDocument</code> instances which reference that Actor's data now uses the <code>TokenDocument</code> class for an improved workflow.</li>
     <li>Provide an option as part of the DocumentModificationContext that allows for document create operations to try and preserve an existing _id rather than forcibly discarding and re-generating it.</li>
 </ul>
+<h4>The Game Canvas</h4>
+<ul>
+    <li>A new <code>CachedContainer</code> has been implemented. This enables rendering the contents of a <code>PIXI.Container</code> to a screen-sized renderTexture each frame. For more information please see: https://foundryvtt.com/api/alpha/CachedContainer.html</li>
+    <li>To allow all canvas blur filters to be synchronized when soft-shadows and zoom-level settings are changed, the logic for <code>BlurFilter</code> management in the canvas has been centralized with the <code>createBlurFilter</code> and <code>updateBlur</code> methods. </li>
+</ul>
 
 <h4>Interface and Applications</h4>
 <ul>
@@ -60,6 +69,7 @@
 <h4>Dice System</h4>
 <ul>
     <li><code>Roll.safeEval</code> will now produce an explicit error in cases where it fails to produce a numeric outcome.</li>
+    <li>The Macro execution scope now has an explicitly bound <code>this</code> which refers to the Macro document being executed.</li>
 </ul>
 
 <h3 class="border">Localization Improvements</h3>
@@ -79,6 +89,8 @@
     <li>A duplicated Rollable Table should once again correctly inherit Result Descriptions.</li>
     <li><code>RollTable#normalize</code> should now correctly reference the <code>TableResult#data.weight</code> path.</li>
     <li>Editing images for RollTableResult entries in a RollTable configuration sheet should now work as expected.</li>
+    <li>Providing an incorrect data path to the PlaylistConfig bulk upload utility should now fail more gracefully and provide a more accurate error message.</li>
+    <li>Unlinked tokens in a combat encounter should no longer cause errors when the <code>TokenDocument#_onUpdateBaseActor</code> workflow is being processed.</li>
 </ul>
 
 <h4>The Game Canvas</h4>
@@ -86,18 +98,20 @@
     <li>The Vision Limitation Threshold should once again refresh lighting and sight as expected.</li>
     <li>In order to prevent situations where movement using keypresses could result in incorrect pathing calculations, Token keyboard movement has ben changed to calculate Token position using the last <code>_validPosition</code></li>
     <li>Assigning "Lock Rotation" in Token Configuration should once again prevent rotation of the token.</li>
+    <li>Targeting indicators for tokens should once again be synchronized accross all active players.</li>
 </ul>
 
 <h4>Interface and Applications</h4>
 <ul>
-    <li>A/V Conferencing should once again be functional.</li>
     <li>The System field for Game Worlds should once again display the name of system.</li>
     <li>Installing a package with declared dependencies should once again install those dependencies. </li>
     <li>After updating a single module on Setup and Configuration, the "Update" button should now correctly become disabled and marked with the "Current" label instead.</li>
+    <li>Corrected an issue which could sometimes cause the package installer window to fail to fully load until the window was refreshed.</li>
     <li>Clicking on dynamic Document links now correctly references the Document instead of attempting to resolve the deprecated Entity.</li>
     <li>Corrected an issue where the vertical position of the floating chat tab could reach a state where it could no longer be repositioned vertically. </li>
     <li>Left-clicking on the chat icon of a collapsed Sidebar should now correctly pop it out to a new frame.</li>
     <li>Pressing keys in the ChatLog text entry field before <code>game.keyboard</code> is initialized should no longer throws console errors.</li>
+    <li>Resolved an issue with permissions which prevented Players and Trusted Players from updating and deleting macros from the Macro bar.</li>
     <li>The HTML entry for Compendiums should once again receive the data-pack attribute to match its Collection name.</li>
     <li>Clicking "Return to Setup" from within a World should once again Return to the Setup Screen as expected.</li>
 </ul>
@@ -107,13 +121,17 @@
     <li>Creating a dice roll that opens with a negative number should now be treated correctly as a negative integer.</li>
     <li>Described Rolls should once again be correctly parsed and shown in their chat message.</li>
     <li><code>DiceTerm</code> should now allow rolling more than with more than 999 rolls once more, a new higher limit has been imposed.</li>
+    <li><code>Roll#roll</code> should now correctly not pass roll options to <code>Roll#evaluate</code> no longer display a deprecation warning.</li>
 </ul>
 
 <h4>Documentation</h4>
 <ul>
     <li>Removed the attribute <code>Token#_noAnimate</code> which was erroneously included in documentation but does not appear in the codebase.</li>
-    <li>Corrected documentation for <code>MathTerm.dice</code> and <code>ParentheticalTerm.dice</code> to indicate they return <code>DiceTerm[]</code></li>
+    <li>Corrected documentation for <code>MathTerm.dice</code> and <code>ParentheticalTerm.dice</code> to indicate they return <code>DiceTerm[]</code>.</li>
     <li>Corrected some missing documentation in the <code>RollTerm</code> class.</li>
+    <li>Corrected a typo in JSDoc for <code>foundry.data.validators._hasFileExtension.</code></li>
+    <li>Corrected references in <code>foundry.abstract.DatabaseBackend</code> to use <code>BaseUser</code> for consistency.</li>
+    <li>Corrected the <code>Return</code> type documentation for <code>foundry.abstract.DatabaseBackend#_getParent</code>.</li>
 </ul>
 
 <h4>Other Fixes</h4>
