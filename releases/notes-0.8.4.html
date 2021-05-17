@@ -1,11 +1,11 @@
 <h2 class="border">Foundry Virtual Tabletop - Version 0.8.4 Update Notes</h2>
 <figure>
-	<img src="{BANNER_IMG}" title="Foundry VTT Version 0.8.4 Release Notes" alt="Release Notes for the Foundry Virtual Tabletop 0.8.4 version"/>
+	<img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/update-084-banner-2021-05-17.jpg" title="Foundry VTT Version 0.8.4 Release Notes" alt="Release Notes for the Foundry Virtual Tabletop 0.8.4 version"/>
 	<figcaption>Welcome to the Foundry Virtual Tabletop update notes for Release version 0.8.4.</figcaption>
 </figure>
-<p>Welcome to the second beta channel update in the Foundry Virtual Tabletop 0.8.x series! This update focuses on continued series of improvements that were the focus of 0.8.x, including a new audio engine for improved Playlists and audio functionality, improvements to the dice system, a brand new Overhead Tiles system, and a complete overhaul of data structures for the purposes of standardizing the API. The incorporation of another 1500 pieces of icon artwork available to all users, and a substantial number of user experience improvements, bug fixes, and API enhancements.</p>
+<p>Welcome to the second beta channel update in the Foundry Virtual Tabletop 0.8.x series! This update focuses on a continued series of improvements that were the focus of 0.8.x, including a new audio engine for improved Playlists and audio functionality, improvements to the dice system, a brand new Overhead Tiles system, and a complete overhaul of data structures for the purposes of standardizing the API. This series of updates also brings another 1500 pieces of icon artwork for all users, and a substantial number of user experience improvements, bug fixes, and API enhancements.</p>
 <p class="note warning"><strong>WARNING:</strong> Beta channel releases have the potential to introduce breaking bugs that may be disruptive to play. These features are close to ready for a stable release - but likely to still include some bugs and incompatibilities which may frustrate you. If your game in particular relies upon a large number of add-on modules, it would be best to wait for the stable release.</p>
-<p>If are upgrading the Foundry Virtual Tabletop <strong>application</strong> to 0.8.4 from 0.7.9 <strong>you must perform a fresh installation of the software</strong>. Because of some of the infrastructure changes it is only possible to update to this version from within the Foundry VTT application if you are already using 0.8.0. This does not apply to users running <strong>dedicated servers</strong> with Node 14+.</p>
+<p>If you are upgrading the Foundry Virtual Tabletop <strong>application</strong> to 0.8.4 from 0.7.9 <strong>you must perform a fresh installation of the software</strong>. Because of some of the infrastructure changes it is only possible to update to this version from within the Foundry VTT application if you are already using 0.8.0. This does not apply to users running <strong>dedicated servers</strong> with Node 14+.</p>
 <p>As always, before any significant update:</p>
 <p class="note warning">Be certain to carefully back up any critical user data before installing this update.</p>
 
@@ -18,7 +18,7 @@
 <p>Audio/Video Chat integration using the built-in EasyRTC server is currently non-functional. Other methods of Audio/Video chat such as Jitsi should not be impacted. We hope to have this issue resolved in the next release.</p>
 
 <h3 class="border">Breaking Changes</h3>
-<li>Following internal discussion, the change made to load order to which loaded script files after ESmodules has been reverted, and vanilla js scripts will now be loaded before ESmodules. This is a return to the load order used in 0.7.x to allow developers to more easily include dependency scripts.</li>
+<li>Following internal discussion, the change made to load order which loaded script files after ESmodules has been reverted. Vanilla JS scripts will now be loaded before ESmodules. This is a return to the load order used in 0.7.x to allow developers to more easily include dependency scripts.</li>
 <li>The preCreate{DocumentName} hook is no longer incorrectly being provided with the expanded DocumentData as its second parameter rather than the initial data object provided to the Document creation request, as intended. For more information please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/5126
 </li>
 
@@ -30,8 +30,8 @@
 
 <h4>The Game Canvas</h4>
 <ul>
-    <li>Overhead Tiles now support a radial occlusion mode which fade away a portion of the overhead tile in radius around a controlled Token.</li>
-    <li>Roof tiles now suppress the presence of weather effects when they are occluded by a controlled token beneath them.</li>
+    <li>Overhead Tiles now support a radial occlusion mode which fades away a portion of the overhead tile in radius around a controlled Token.</li>
+    <li>Overhead Tiles set as a Roof now suppress the presence of weather effects below them.</li>
     <li>The progress reported for loading assets in when a scene is activated or pre-loaded should now be more specific, providing improved visual feedback for loading.</li>
     <li>When a player loads into a Scene where they have multiple owned tokens, the Scene will now initialize with all of those tokens controlled rather than only one of them.</li>
 </ul>
@@ -79,7 +79,7 @@
 
 <h3 class="border">Localization Improvements</h3>
 <ul>
-    <li>A new an optional "module" field has been added: <code>PackageLanguageData</code> will allow the translation file defined by that block to only be loaded if a specific module is present and active in the world.</li>
+    <li>A new optional "module" field has been added: <code>PackageLanguageData</code> will allow the translation file defined by that block to only be loaded if a specific module is present and active in the world.</li>
     <li>Invalid language configurations will now fail with error and the file they contain will no longer be read instead of acting as a blocking error.</li>
     <li>The coreTranslation flag is should once again be supported as a field in ModuleData, and should no longer preventing modules which configure this flag from being detected as core translation providers.</li>
     <li>The string <code>`${this.user.name} privately rolled some dice`;</code> now supports localization.</li>
@@ -102,7 +102,7 @@
 <h4>The Game Canvas</h4>
 <ul>
     <li>The Vision Limitation Threshold should once again refresh lighting and sight as expected.</li>
-    <li>In order to prevent situations where movement using keypresses could result in incorrect pathing calculations, Token keyboard movement has ben changed to calculate Token position using the last <code>_validPosition</code></li>
+    <li>In order to prevent situations where movement using keypresses could result in incorrect pathing calculations, Token keyboard movement has been changed to calculate Token position using the last <code>_validPosition</code></li>
     <li>Assigning "Lock Rotation" in Token Configuration should once again prevent rotation of the token.</li>
     <li>Targeting indicators for tokens should once again be synchronized across all active players.</li>
 </ul>
