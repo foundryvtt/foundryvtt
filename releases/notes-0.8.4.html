@@ -11,8 +11,8 @@
 
 <h3 class="border">Update Overview</h3>
 
-<p>The 0.8.4 update primarily focused upon bringing bug fixes for some of the more prominent bugs that appeared during the 0.8.3 testing process, most of which were related to package management or document data. However, it also brings a couple of new features in to improve Overhead tile functionality. </p>
-<p>0.8.4 adds the Radial Occlusion mode for Overhead Tiles, which allows for a small circular cutout around tokens passing below an Overhead Tile. In addition, if an Overhead tile is set to the Roof mode, weather effects on the scene will be masked, allowing the Roof tile to prevent weather from falling in the area below it.</p>
+<p>The 0.8.4 update primarily focused upon bringing bug fixes for some of the more prominent bugs that appeared during the 0.8.3 testing process, most of which were related to package management or document data. However, it also brings a couple of new features in to improve Overhead Tile functionality. </p>
+<p>0.8.4 adds the Radial Occlusion mode for Overhead Tiles, which allows for a small circular cutout around Tokens passing below an Overhead Tile. In addition, if an Overhead Tile is set to the Roof mode, weather effects on the scene will be masked, allowing the Roof tile to prevent weather from falling in the area below it.</p>
 
 <h3 class="border">Known Issues</h3>
 <p>Audio/Video Chat integration using the built-in EasyRTC server is currently non-functional. Other methods of Audio/Video chat such as Jitsi should not be impacted. We hope to have this issue resolved in the next release.</p>
@@ -33,7 +33,7 @@
     <li>Overhead Tiles now support a radial occlusion mode which fades away a portion of the overhead tile in radius around a controlled Token.</li>
     <li>Overhead Tiles set as a Roof now suppress the presence of weather effects below them.</li>
     <li>The progress reported for loading assets in when a scene is activated or pre-loaded should now be more specific, providing improved visual feedback for loading.</li>
-    <li>When a player loads into a Scene where they have multiple owned tokens, the Scene will now initialize with all of those tokens controlled rather than only one of them.</li>
+    <li>When a player loads into a Scene where they have multiple owned Tokens, the Scene will now initialize with all of those Tokens controlled rather than only one of them.</li>
 </ul>
 
 <h4>Interface and Applications</h4>
@@ -61,7 +61,7 @@
 <h4>The Game Canvas</h4>
 <ul>
     <li>A new <code>CachedContainer</code> has been implemented. This enables rendering the contents of a <code>PIXI.Container</code> to a screen-sized renderTexture each frame. For more information please see: https://foundryvtt.com/api/alpha/CachedContainer.html</li>
-    <li>To allow all canvas blur filters to be synchronized when soft-shadows and zoom-level settings are changed, the logic for <code>BlurFilter</code> management in the canvas has been centralized with the <code>createBlurFilter</code> and <code>updateBlur</code> methods. </li>
+    <li>To allow all canvas blur filters to be synchronized when "soft shadows" and "zoom level" settings are changed, the logic for <code>BlurFilter</code> management in the canvas has been centralized with the <code>createBlurFilter</code> and <code>updateBlur</code> methods. </li>
 </ul>
 
 <h4>Interface and Applications</h4>
@@ -92,19 +92,19 @@
     <li>Dragging and dropping an Active Effect between different Actor Sheets should once again correctly transfer the effect between Actors.</li>
     <li>Importing Actors from compendium packs one at a time should now import the correctly selected Actor.</li>
     <li>Validation errors in one or more Document instances should no longer prevent a world from loading.</li>
-    <li>A duplicated Rollable Table should once again correctly inherit Result Descriptions.</li>
+    <li>A duplicated Rollable Table should once again correctly inherit result descriptions.</li>
     <li><code>RollTable#normalize</code> should now correctly reference the <code>TableResult#data.weight</code> path.</li>
     <li>Editing images for RollTableResult entries in a RollTable configuration sheet should now work as expected.</li>
     <li>The "Upload" file prompt displayed as part of the PlaylistConfig bulk import utility has been removed to reduce confusion.</li>
-    <li>Unlinked tokens in a combat encounter should no longer cause errors when the <code>TokenDocument#_onUpdateBaseActor</code> workflow is being processed.</li>
+    <li>Unlinked Tokens in a combat encounter should no longer cause errors when the <code>TokenDocument#_onUpdateBaseActor</code> workflow is being processed.</li>
 </ul>
 
 <h4>The Game Canvas</h4>
 <ul>
     <li>The Vision Limitation Threshold should once again refresh lighting and sight as expected.</li>
-    <li>In order to prevent situations where movement using keypresses could result in incorrect pathing calculations, Token keyboard movement has been changed to calculate Token position using the last <code>_validPosition</code></li>
-    <li>Assigning "Lock Rotation" in Token Configuration should once again prevent rotation of the token.</li>
-    <li>Targeting indicators for tokens should once again be synchronized across all active players.</li>
+    <li>In order to prevent situations where movement using keypresses could result in incorrect pathing calculations, Token keyboard movement has been changed to calculate Token position using the last <code>_validPosition</code>.</li>
+    <li>Assigning "Lock Rotation" in Token Configuration should once again prevent rotation of the Token.</li>
+    <li>Targeting indicators for Tokens should once again be synchronized across all active players.</li>
 </ul>
 
 <h4>Interface and Applications</h4>
@@ -119,7 +119,7 @@
     <li>Pressing keys in the ChatLog text entry field before <code>game.keyboard</code> is initialized should no longer throws console errors.</li>
     <li>Resolved an issue with permissions which prevented Players and Trusted Players from updating and deleting macros from the Macro bar.</li>
     <li>The HTML entry for Compendiums should once again receive the data-pack attribute to match its Collection name.</li>
-    <li>Clicking "Return to Setup" from within a World should once again Return to the Setup Screen as expected.</li>
+    <li>Clicking "Return to Setup" from within a World should once again return to the Setup Screen as expected.</li>
 </ul>
 
 <h4>Dice System</h4>
