@@ -241,6 +241,7 @@
 <dl>
 <dt>Token Image Path</dt>
 <dd>The path to the folder containing the images you wish to have the token draw from. This should be set to something such as: <code><strong>/your/path/here/*</strong></code> for all images in the folder or <strong><code>/your/path/here/*.png</code></strong> for all files of the <code>.png</code> format in the folder. It can also include case sensitive options such as <code><strong>/your/path/here/Goblin*</strong></code> for all images that start with the word "Goblin."</dd>
+<dd>It can also include a selection list, for specified options using <code><strong>/your/path/here/{Goblin_1,Goblin_2}.png</strong></code> to choose only between the <code>Goblin_1.png</code> or <code>Goblin_2.png</code> when the actor is placed into a scene. This can be combined with the asterisk as detailed above to further randomize how Foundry VTT selects tokens.</dd>
 </dl>
 <dl>
 <dt>Randomize Wildcard Images</dt>
@@ -266,4 +267,8 @@
 <li>The <a title="The TokenConfig Application" href="/api/TokenConfig.html" target="_blank" rel="nofollow noopener">TokenConfig</a> Application</li>
 <li>The <a title="The TokenHUD Interface" href="/api/TokenHUD.html" target="_blank" rel="nofollow noopener">TokenHUD</a> Interface</li>
 </ul>
-<hr />
+</ul>
+<p>Additionally, the wildcard system for token images utilizes the minimatch library.</p>
+<ul>
+    <li><a title="Official minimatch documentation" href="https://www.npmjs.com/package/minimatch" target="_blank" rel="nofollow noopener">Official minimatch documentation</a></li>
+</ul>
