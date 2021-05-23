@@ -55,19 +55,16 @@ In order to use the NodeJS package it is necessary to install NodeJS for whichev
 
 <h4 id="redhat">For Red Hat / Amazon Linux package manager</h4> <pre><code class="language bash">sudo yum install -y openssl-devel
 curl --silent --location https://rpm.nodesource.com/setup_14.x | sudo bash -
-sudo yum install -y nodejs
-	</code></pre>
+sudo yum install -y nodejs</code></pre>
 	
 <h4 id="debian">Debian / Ubuntu package manager</h4> <pre><code class="language bash">sudo apt install -y libssl-dev
 curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
-sudo apt install -y nodejs
-	</code></pre>
+sudo apt install -y nodejs</code></pre>
 
 <h3>Downloading via Terminal</h3>
 <p>You may have noticed a small 'chain' link icon next to the download links on the download page. Clicking this chain icon generates a temporary link which can be used to download Foundry VTT via a terminal or shell interface using wget.</p>
 <p>When downloading the link using a command line utility such as <code>wget</code> it's important to wrap the link in double-quotes. This ensures that the link is read correctly by the command. For example: </p>
-<blockquote>~/:$ wget -O foundryvtt.zip "PASTED URL FROM FOUNDRY VTT GOES HERE"</blockquote>
-
+<pre><code class="language bash">wget -O foundryvtt.zip "PASTED-URL-FROM-FOUNDRY-WEBSITE-HERE"</code></pre>
 <p class="info note">Please be aware that the download links provided via the purchased licenses page expire every 5 minutes.</p>
 
 <h3>Extracting and Launching the Server Using NodeJS</h3>
@@ -84,8 +81,7 @@ wget -O foundryvtt.zip "&lt;foundry-website-download-url&gt;"
 unzip foundryvtt.zip
 
 # Start running the server
-node resources/app/main.js --dataPath=$HOME/foundrydata
-</code></pre>
+node resources/app/main.js --dataPath=$HOME/foundrydata</code></pre>
 
 <h4 id="dedicated-mac">For macOS</h4>
 	<p>Foundry VTT is also supported as a native application on macOS using Electron, however if you wish to host the software using Node.js directly, this is also an option in the macOS environment. Simply visit <a href="https://nodejs.org/en/download/" target="_blank" rel="nofollow noopener">https://nodejs.org/en/download/</a> and download the macOS installer. Node is installed on your system, you can run the server using the instructions in the below section via your Mac terminal.</p>
@@ -97,12 +93,11 @@ mkdir foundrydata
 # access the application directory
 cd ~/Library/Application Support/FoundryVTT
 # Start running the server
-node resources/app/main.js --dataPath=$HOME/foundrydata
-</code></pre>
+node resources/app/main.js --dataPath=$HOME/foundrydata</code></pre>
 	
 <h4 id="dedicated-windows">For Windows</h4>
-	<p>Note that you can run a dedicated server from Windows also, for Windows you should download and install node.js from <a href="https://nodejs.org/en/download/" target="_blank" rel="nofollow noopener">https://nodejs.org/en/download/</a>.</p>
-	<pre><code class="language bash"># create a user data directory
+<p>Note that you can run a dedicated server from Windows also, for Windows you should download and install node.js from <a href="https://nodejs.org/en/download/" target="_blank" rel="nofollow noopener">https://nodejs.org/en/download/</a>.</p>
+<pre><code class="language bash"># create a user data directory
 cd %userprofile%
 mkdir foundrydata
 		
@@ -110,8 +105,7 @@ mkdir foundrydata
 cd C:\Program Files\FoundryVTT\
 
 # Start running the server
-node resources/app/main.js --dataPath=%userprofile%/foundrydata
-</code></pre>
+node resources/app/main.js --dataPath=%userprofile%/foundrydata</code></pre>
 <p>Now that you are running Foundry VTT via node, open any modern web browser and connect to <a href="http://127.0.0.1:30000">http://127.0.0.1:30000</a> to access your Foundry VTT server.</p>
 <h4>Running FVTT as a Service</h4>
- <p>If you wish to keep the server running perpetually, you can find relevant documentation for maintaining background processes with a package manager such as PM2 <a href="https://pm2.keymetrics.io/docs/usage/quick-start/">here</a>, or otherwise review the relevant documentation for crontab or the equivalent for your operating system.</p>
+<p>If you wish to keep the server running perpetually, you can find relevant documentation for maintaining background processes with a package manager such as PM2 <a href="https://pm2.keymetrics.io/docs/usage/quick-start/">here</a>, or otherwise review the relevant documentation for crontab or the equivalent for your operating system.</p>

@@ -1,0 +1,135 @@
+<p>The past year has been pretty surreal - for a number of reasons - and I can scarcely imagine that Foundry Virtual Tabletop is a full year old today. It feels like just yesterday that I was scrambling around to try and get the software launched, but after such an eventful year that also feels like a lifetime ago. This is an ideal moment to collect my thoughts and share a post that reflects on the past 12 months and looks ahead towards where we are headed.</p>
+<figure><img title="A Year in Review" src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/year-in-review-triptych-2021-05-22.jpg" />
+<figcaption>Join me in surveying the major achievements and milestones we have accomplished during the first year since Foundry Virtual Tabletop's initial release.</figcaption>
+</figure>
+<p>I would like to begin by expressing sincere gratitude and thanks: the awesome community that has grown around Foundry Virtual Tabletop astounds me almost daily, and I am very thankful that so many of you have been so supportive. Our community continues to be welcoming, helpful, and enthusiastic as we all celebrate the roleplaying hobby that we love. Thank you all for continually contributing to the community in such a positive and fun way.</p>
+<p>I hope that you take pride in the community as I do and will join me in celebrating some of the incredible things we have accomplished over the past year.</p>
+<h2 class="border">Progress for the Software</h2>
+<p>Since software launch with version 0.6.0 on May 22, 2020 we have released 22 updates spanning major versions 0.6, 0.7, and now 0.8. I'm proud of myself and the team for maintaining that pace of progress. Across those 22 milestones we closed 1,553 issues on GitLab - compared to 2,245 issues which were closed in the 1.5 years of development prior to the software release. Even if you discount bug-fixes (more on this later) it's an amount of work that I'm very happy with and proud of.</p>
+<h3 class="border">Major Features Added</h3>
+<p>Let's review some of the major features that have been added during that time.</p>
+<p><strong>V2 Lighting Engine</strong></p>
+<p>We overhauled the dynamic lighting engine in 0.7 to significantly improve the performance and power of the system by moving to use WebGL shaders that compute the appearance of light sources directly on the GPU. This has enabled a number of powerful animations, more realistic day/night transitions, improved interaction between adjacent lights, better performance, and more.</p>
+<p><strong>V1 Active Effects</strong></p>
+<p>We launched the first version of the Active Effects system which allows an Actor or Item to be modified by temporary status effects or conditions which dynamically alter their attributes. The Active Effects system is integrated with the old Token status effects menu and the tracked conditions in the Combat Tracker, and many game systems and modules are making use of Active Effects as a way to handle system-specific mechanics for buffs, de-buffs, statuses, conditions, equipment properties, and more.</p>
+<p><strong>V1 and V2 Icon Library</strong></p>
+<p>In both the 0.7 and 0.8 updates we added and then expanded a massive library of built-in icons that can be used to depict items, creatures, weapons, equipment, loot, and more. These icons are licensed for distribution with the core Foundry VTT software so that everyone can enjoy and use them within their games. The icons are all optimized as webp files with standardized resolution, and this library now includes over 5,500 individual icons.</p>
+<p><strong>V2 Dice Parser</strong></p>
+<p>The dice system was re-worked (partly in 0.7, partly in 0.8) to improve the way that roll expressions are parsed, tokenized into individual terms, and evaluated. This has resulted in a dramatic improvement in the handling of dice-related edge cases and significantly expanded ability for module and system developers to extend the rolling API with custom classes, terms, modifiers, and more.</p>
+<p><strong>V2 Audio System</strong></p>
+<p>The audio system has been completely re-worked in 0.8 to move to the native Web Audio API which has brought significant gains to performance and reliability of audio streamed to your players. Improvements to Ambient Audio which allow sounds to be enabled or disabled - even dynamically as a function of the darkness level - as well as a way to preview the ambient audio landscape in real-time.</p>
+<p><strong>V2 Document Model</strong></p>
+<p>The underlying architecture for how data objects are modeled and updated was re-worked in the 0.8 series to have a much more consistent and standardized design which will empower future generations of both core software as well as module development.</p>
+<p><strong>V2 Package Management</strong></p>
+<p>The built-in package management, installation, and updating system was improved in the 0.8 series to offer better tools for both users and developers - helping developers by making it easier for them to manage the life-cycle of their module versions, and helping users by making it easier to understand the reasons why installed modules were (or were not) updated. This work has included support for much desired features like module dependencies as well as the system that enables protected content that requires website authorization in order to be installed.</p>
+<p><strong>V1 Overhead Tiles</strong></p>
+<p>The community-voted feature for 0.8, the first version of Overhead Tiles system has been added which adds a Foreground Layer to every scene which can be used to place assets that appear above tokens who are able to pass underneath them. This includes support for different occlusion modes like roofs which behave differently for tokens that are outside of the roof area compared to tokens which are inside the building. The work to create this system lays some of the foundation for more ambitious systems like Scene Levels which will further improve the way that verticality and phasing is handled within Scenes.</p>
+<p><strong>Improved Documentation</strong></p>
+<p>A goal outlined in the 2020 Q4 "State of Foundry" update was to improve our documentation for assisting users and developers. I'm happy to report we achieved both goals with an overhauled Knowledge Base on the Foundry VTT website as well as improved Alpha API documentation that has tracked the latest state of the 0.8 codebase throughout its development. While we are proud of the improvements here, we also know we need to keep investing in documentation to compensate for the growing scope and complexity of the Foundry VTT software. This is an area where we will remain focused.</p>
+<h3 class="border">Areas for Improvement</h3>
+<p>It's important to celebrate our successes, but also to learn from areas where we see opportunities to improve. There are many, but a few that I think are particularly worth highlighting include:</p>
+<p><strong>Smaller Update Cycles</strong></p>
+<p>Both the 0.7 and 0.8 update cycles ended up being large and lengthy. This forced community developers into a situation where they faced challenging migrations to get systems and modules compatible with the new release version where those migrations needed to handle hundreds of different changes. It's easy for us to get carried away with all the exciting features that we are adding to the software, but we need to do this more incrementally for future update cycles. As we plan and execute upon the next 0.9 update, we will work to manage the scope and phasing of that update sequence to be easier for developers to manage from a migration and compatibility perspective.</p>
+<p><strong>Better Internal Testing</strong></p>
+<p>The new features we created really pushed the software forward, but they also left a fair bit of instability in their wake. Over the past year 45% of the issues we have closed on GitLab have been tagged with the "Bug" label. To a degree I think this is normal for a fast-moving software that is evolving its technical stack while exposing early alpha/beta builds to external customers for feedback. However I also think we have room for improvement by tightening the way that we internally test prior to making releases available. I know we can do better in this area and I hope the next 12 months of releases are better tested with fewer surprising side-effects for users and community developers.</p>
+<p><strong>Upkeep of Fringe Components</strong></p>
+<p>We have added a number of features to Foundry Virtual Tabletop that are in "V1" of their implementation, and we have not yet had time to go back and revise or improve them. I think specifically of systems like the Weather System which was added but not since improved upon, the Journal System which is still very basic in its feature set, and the Audio/Video chat system which has several long-standing pain points. We want to keep our focus narrow to concentrate on the features that are the priorities for each update, but we also need to do a better job of making sure that other areas of the Foundry VTT software don't fall behind.</p>
+<p><strong>Achieving Feature Completeness</strong></p>
+<p>There are a few features that are absent from Foundry VTT that were always envisioned as things that the "complete" software would have. Some specific areas where we are missing features that belong in the complete software include support for Card Decks, the Event Triggers system for scripting dynamic interactions, support for Scene transitions, and a more robust Journal system. I don't know whether we will implement all of these features during the next 12 months, but they are certainly areas where I hope we will focus our attention. A commonly asked question is <em>when will Foundry VTT be version 1.0</em>, and the answer to that largely hinges on when and whether we have incorporated all the features that are missing in order for the software to feel "complete", although we have no plans to stop working on the Foundry VTT software even once these features are added!</p>
+<h2 class="border">Community Growth</h2>
+<p>In addition to all the progress for the core software, we have seen astounding growth of our community.</p>
+<p><strong>Foundry License Owners</strong></p>
+<p>The number of Foundry VTT license owners has grown at a fantastic rate, sales of the software have been strong enough not only to support this as a full-time job but also to enable us to expand our team (more on this in the following section). While I won't reveal exact sales figures, I can share some high level growth metrics. If we divide the first year into two six-month segments, the number of license owners today has more than doubled compared to the number we had six months ago - with trailing three month growth of 35%. As a one-time-purchase software, we expect license sales to slow (eventually) but I am confident there is sufficient opportunity in the market for our business model to remain successful for years to come.</p>
+<p><strong>Foundry Community Discord</strong></p>
+<p>Our official <a href="https://discord.gg/foundryvtt" target="_blank" rel="nofollow noopener">Discord</a> server (which became partnered during the past year) now boasts 33,000 members - ten times our membership this time last year. The Discord server transacts around 150,000 posts and 300 hours of voice conversation every month. Each week we see around 20,000 distinct active users with strong retention from week-to-week. This data all goes to support what we can see with our own eyes, that our community is incredibly passionate and engaged. We are so appreciative and thankful for that and for the support that you all provide for the project.</p>
+<p><strong>Foundry Subreddit</strong></p>
+<p>The community managed <a href="https://www.reddit.com/r/FoundryVTT/" target="_blank" rel="nofollow noopener">subreddit </a> has just eclipsed 20,000 members which is an absolutely amazing milestone and establishes an exciting marker of how strongly the Foundry community has been growing relative to the overall growth we have seen in the tabletop gaming and VTT communities over the past 12 months. It's incredible to see all the creative examples of foundry VTT in-action as well as the helpful reinforcement that community members on Reddit provide to each other.</p>
+<p><strong>Launch of Foundry Hub</strong></p>
+<p>This year also marked the launch of an incredible fan site for Foundry Virtual Tabletop called <a href="https://www.foundryvtt-hub.com/" target="_blank" rel="nofollow noopener">Foundry Hub</a>. The Foundry Hub site is developed and run by the community featuring articles, tutorials, guides, videos, and more.</p>
+<p><strong>League of Foundry VTT Developers</strong></p>
+<p>The community organized league has also grown impressively with a tremendous number of active module and system developers using this community-organized and managed <a href="https://discord.gg/Hgv6W7xBes" target="_blank" rel="nofollow noopener">League Discord</a> server as a place to share ideas, form collaborations, ask questions, and work together to solve module development problems.</p>
+<h2 class="border">Expansion of the Team</h2>
+<p>To keep pace with the growth of the Foundry community, we have expanded our team, bringing our team size to 5 full-time (soon to be 6) employees.</p>
+<ul>
+<li><strong>Andrew </strong>(Atropos#3814) - I am the creator and lead developer of Foundry Virtual Tabletop.</li>
+<li><strong>Shane </strong>(Anathema#3668) - Our project coordinator and community manager, Shane oversees our official Discord server, works with content partners, and ensures that we are achieving our goals through careful planning. Shane was the first addition to the team and his work has been truly invaluable in achieving the results of this past year and keeping me sane in the process.</li>
+<li><strong>Roman </strong>(Cobalt#7779) - A content developer and technical writer, Roman manages the continued improvement of our knowledge base documentation, partners directly with content creators, and organizes special initiatives like the addition of our curated icon library.</li>
+<li><strong>Cody </strong>(cswendrowski#9701) - A software developer with deep roots in the Foundry developer community, Cody joined less than 2 months ago but has already made a big impression with key contributions to the 0.8 update - specifically the fantastic improvements to package management.</li>
+<li><strong>Matt </strong>(mattexdee#8612) - A content developer and project manager, Matt partners directly with premium content publishers and community creators to ensure that the best possible tabletop gaming content is available on Foundry VTT. Matt also manages our media presence with his expertise in streaming and video creation.</li>
+<li><strong>Kim </strong>(Fyorl#1292) - I am excited to announce that the next addition to our team will be starting soon, Kim will be a software developer working alongside myself and Cody to continue improving the Foundry Virtual Tabletop software with exciting new features and improvements to existing components.</li>
+</ul>
+<h2 class="border">Content Partnerships</h2>
+<p>Despite all the successes and improvements for the Foundry Virtual Tabletop software itself, the tools we build would not be very useful without amazing content to bring to your gaming table.</p>
+<h3 class="border">Premium Content</h3>
+<p>In November we launched support for our protected content system which allows for premium for-sale content to be purchased from the publisher and activated on the Foundry Virtual Tabletop website - securely granting access to that content for users who have activated it.</p>
+<p>In the past 6 months we have seen releases for 31 fantastic pieces of premium content (<a href="/packages/premium" target="_blank" rel="nofollow noopener">https://foundryvtt.com/packages/premium</a>) and I have been overwhelmed with the quality of what has been released so far in partnership with the following fantastic creators:</p>
+<ul>
+<li><strong>Cubicle7</strong> - Official content for Warhammer Fantasy Roleplay 4th Edition</li>
+<li><strong>DeepDark Designs</strong> - Unofficial content for the 5e game system</li>
+<li><strong>Free League</strong> - Official content for the Alien and Forbidden Lands game systems</li>
+<li><strong>Pinnacle Entertainment Group</strong> - Official content for Savage Worlds Adventure Edition</li>
+<li><strong>Goodman Games</strong> - Official content for Dungeon Crawl Classics</li>
+<li><strong>Dragonshorn Tales</strong> - Unofficial content for the 5e and 3.5e game systems</li>
+<li><strong>Paizo</strong> - Official content for Pathfinder 2e</li>
+<li><strong>Ulisses Spiele</strong> - Official content for Das Schwarze Auge and Torg Eternity game systems</li>
+</ul>
+<p>In addition to these fantastic creators who have already launched premium content for Foundry Virtual Tabletop, we are already partnered with 7 fantastic publishers who will be joining this list in the very near future, and we are closing in on partnership agreements with 4 more. The future is very bright for official TTRPG content in Foundry Virtual Tabletop!</p>
+<h3 class="border">Content Creators</h3>
+<p>In addition to our partnerships with publishers, we have invested significantly in partnering closely with some of the most talented artists, musicians and storytellers in the content creator community with whom we have partnered to feature 31 packages of Exclusive Content (<a href="/packages/exclusive" target="_blank" rel="nofollow noopener">https://foundryvtt.com/packages/exclusive</a>) which is designed specifically for Foundry Virtual Tabletop.</p>
+<p>Simply by owning a license key for Foundry Virtual Tabletop you are able to install content of the highest quality from the following amazing creators, each of whom are highly deserving of your support:</p>
+<ul>
+<li>Adventure Music (Music): <a href="https://www.patreon.com/adventuremusicjr" target="_blank" rel="nofollow noopener">https://www.patreon.com/adventuremusicjr</a></li>
+<li>Apotheosis Studios (Adventures): <a href="https://www.kickstarter.com/projects/stonejamison/sirens-battle-of-the-bards" target="_blank" rel="nofollow noopener">https://www.kickstarter.com/projects/stonejamison/sirens-battle-of-the-bards</a></li>
+<li>Atropos (Battlemaps): <a href="https://www.patreon.com/foundryvtt" target="_blank" rel="nofollow noopener">https://www.patreon.com/foundryvtt</a></li>
+<li>Caeora (Battlemaps and Tokens): <a href="https://www.caeora.com/" target="_blank" rel="nofollow noopener">https://www.caeora.com/</a></li>
+<li>Cze and Peku (Battlemaps): <a href="https://www.czepeku.com/" target="_blank" rel="nofollow noopener">https://www.czepeku.com/</a></li>
+<li>Darkraven Games (Ambient Audio): <a href="http://www.darkravengames.com/" target="_blank" rel="nofollow noopener">http://www.darkravengames.com/</a></li>
+<li>DMDave (Adventures): <a href="https://www.patreon.com/dmdave" target="_blank" rel="nofollow noopener">https://www.patreon.com/dmdave</a></li>
+<li>Domille's Wondrous Works (Battlemaps): <a href="https://www.patreon.com/dww" target="_blank" rel="nofollow noopener">https://www.patreon.com/dww</a></li>
+<li>Dragonshorn Studios (Adventures): <a href="https://www.dragonshorn.info/" target="_blank" rel="nofollow noopener">https://www.dragonshorn.info/</a></li>
+<li>Frag Maps (Battlemaps): <a href="https://www.patreon.com/fragmaps/" target="_blank" rel="nofollow noopener">https://www.patreon.com/fragmaps/</a></li>
+<li>Forgotten Adventures (Battlemaps and Tokens): <a href="https://forgotten-adventures.net/" target="_blank" rel="nofollow noopener">https://forgotten-adventures.net/</a></li>
+<li>Humperdink's Wares (Adventures): <a href="https://www.patreon.com/humpswares" target="_blank" rel="nofollow noopener">https://www.patreon.com/humpswares</a></li>
+<li>Kev's Lounge (Tokens and Minis): <a href="https://www.patreon.com/kevsloungepaperminis" target="_blank" rel="nofollow noopener">https://www.patreon.com/kevsloungepaperminis</a></li>
+<li>Limithron (Adventures): <a href="https://www.patreon.com/limithron" target="_blank" rel="nofollow noopener">https://www.patreon.com/limithron</a></li>
+<li>Loot Tavern (Items): <a href="https://www.patreon.com/LootTavern" target="_blank" rel="nofollow noopener">https://www.patreon.com/LootTavern</a></li>
+<li>McRoMusic (Music): <a href="https://www.patreon.com/McRoMusic" target="_blank" rel="nofollow noopener">https://www.patreon.com/McRoMusic</a></li>
+<li>Meditating Munky (Battlemaps): <a href="https://www.patreon.com/Meditating_Munky/" target="_blank" rel="nofollow noopener">https://www.patreon.com/Meditating_Munky/</a></li>
+<li>Michael Ghelfi (Ambient Audio): <a href="https://michaelghelfi.bandcamp.com/" target="_blank" rel="nofollow noopener">https://michaelghelfi.bandcamp.com/</a></li>
+<li>MikWewa (Battlemaps): <a href="https://www.patreon.com/mikwewa/" target="_blank" rel="nofollow noopener">https://www.patreon.com/mikwewa/</a></li>
+<li>Milby's Maps (Battlemaps): <a href="https://www.patreon.com/milbysmaps" target="_blank" rel="nofollow noopener">https://www.patreon.com/milbysmaps</a></li>
+<li>Miska's Maps (Battlemaps): <a href="https://www.patreon.com/miskasmaps" target="_blank" rel="nofollow noopener">https://www.patreon.com/miskasmaps</a></li>
+<li>Monkey DM (Adventures): <a href="https://www.monkeydm.com/" target="_blank" rel="nofollow noopener">https://www.monkeydm.com/</a></li>
+<li>Moonlight Maps (Battlemaps): <a href="https://www.patreon.com/MoonlightMaps" target="_blank" rel="nofollow noopener">https://www.patreon.com/MoonlightMaps</a></li>
+<li>MusicD20 (Music): <a href="https://www.patreon.com/musicd20" target="_blank" rel="nofollow noopener">https://www.patreon.com/musicd20</a></li>
+<li>The Reclusive Cartographer (Battlemaps): <a href="https://www.patreon.com/thereclusivecartographer/" target="_blank" rel="nofollow noopener">https://www.patreon.com/thereclusivecartographer/</a></li>
+<li>Spellarena (Battlemaps): <a href="https://spellarena.com/" target="_blank" rel="nofollow noopener">https://spellarena.com/</a></li>
+<li>Tabletop Music Bazaar (Music): <a href="https://www.patreon.com/tabletopmusicbazaar" target="_blank" rel="nofollow noopener">https://www.patreon.com/tabletopmusicbazaar</a></li>
+<li>Tabletop RPG Music (Music): <a href="https://github.com/Tabletop-RPG-Music/tabletop-rpg-music/" target="_blank" rel="nofollow noopener">https://github.com/Tabletop-RPG-Music/tabletop-rpg-music/</a></li>
+<li>Tactical Master (Battlemaps): <a href="https://www.patreon.com/tacticalmap" target="_blank" rel="nofollow noopener">https://www.patreon.com/tacticalmap</a></li>
+<li>Tavern Tales (Adventures): <a href="https://www.patreon.com/taverntalesmaps" target="_blank" rel="nofollow noopener">https://www.patreon.com/taverntalesmaps</a></li>
+<li>The Boy King of Idaho (Music): <a href="https://www.patreon.com/boykingofidaho" target="_blank" rel="nofollow noopener">https://www.patreon.com/boykingofidaho</a></li>
+<li>The MAD Cartographer (Battlemaps): <a href="https://www.patreon.com/themadcartographer" target="_blank" rel="nofollow noopener">https://www.patreon.com/themadcartographer</a></li>
+<li>Tom Cartos (Battlemaps and Tokens): <a href="https://www.patreon.com/tomcartos" target="_blank" rel="nofollow noopener">https://www.patreon.com/tomcartos</a></li>
+</ul>
+<h3 class="border">Kickstarter Presence</h3>
+<p>In addition to all this fantastic content, it's been a real thrill to see Foundry Virtual Tabletop incorporated into several amazing Kickstarters which have launched specifically with Foundry VTT support as one of their primary features, including:</p>
+<ul>
+<li>Sirens - Battle of The Bards</li>
+<li>Arkenforge: The Sci Fi Master&rsquo;s Toolkit</li>
+<li>Dungeon Alchemist</li>
+<li>Kibbles&rsquo; Compendium of Craft and Creation</li>
+<li>Hammerdog Games: The World's Greatest Inserts</li>
+<li>DM Dave: Legends of Omeria, Pexia&rsquo;s Guide to Omeria, Hand of the Eight</li>
+<li>Free League: Ruins of Symbaroum</li>
+<li>Token Vault</li>
+<li>Pixels Electronic Dice</li>
+<li>Valhalla Darkraven Fantasy Soundscapes</li>
+<li>Pathfinder for Savage Worlds</li>
+</ul>
+<h2 class="border">Closing Thoughts</h2>
+<p>It's been a challenging year, with the effects of COVID-19 changing the way we live our lives. I am sure many of you have been struggling with hardship, loss, and other terrible challenges during the past 12 months. I hope that tabletop gaming and the solidarity of this community have given you some respite during that time, and I am proud if Foundry Virtual Tabletop has been able to provide a bright spot to keep gaming groups rolling dice together during a very difficult period.</p>
+<p>As we approach healthier days ahead - I am happy for the groups who are able to resume their in-person games as well as for those that choose to remain online. I hope that Foundry VTT can be a tool in the toolbox for GMs of all types, whether it is technology-at-the-table or fully-virtual, I am excited to see where the groundswell of interest in our hobby leads as we find new ways of telling stories and creating memorable moments with our friends.</p>
+<p>Thank you all so much for supporting me and supporting this project - it is no exaggeration to say that I would not be writing this post without the community that has formed around Foundry Virtual Tabletop. I am so excited to see where the next 12 months lead and I hope you will join me for the next chapter of that adventure.</p>
+<p><em>Cheers and happy gaming!</em></p>
+<p>Andrew</p>
