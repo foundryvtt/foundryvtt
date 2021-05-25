@@ -235,6 +235,15 @@
 <dd>
 <p>A publicly accessible URL where update and release notes about the package may be found.</p>
 </dd>
+<dt>library</dt>
+<dd>
+<p>The library field is a boolean that indicates whether the package is a library intended for other packages to
+  depend on and consume. This field should be true if your package does not present any user-facing features, but
+  rather provides functionality for other packages to utilize and rely upon. Packages with this field set to true
+  may be hidden from third party package lists to avoid confusing users.</p>
+    <p><code>"library": true,</code></p> 
+  <p>When omitted the default value of this field is false. It is not necessary to explicitly set this value unless it needs to be true.</p>
+</dd>
 </dl>
 <h2 class="border" id="includes">Including JavaScript</h2>
 <p>For many modules which want to expand or modify core software functionality is to include a JavaScript file (or module) which can introduce programmatic behavior into the Foundry VTT environment. An ideal second step once you have populated your module manifest with the required fields is to create a "Hello World" script which is loaded when your module is active. Experiment with adding a script file to the <code>"scripts"</code> attribute of the manifest. Suppose we create the JavaScript file in our example module <code>dice-tray/scripts/roller.js</code>. We would modify the <code>module.json</code> file as follows and the contents of our created JavaScript file will be automatically loaded and parsed by the browser when a game is loaded.</p>
