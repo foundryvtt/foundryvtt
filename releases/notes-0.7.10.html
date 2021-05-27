@@ -1,41 +1,37 @@
 <h2 class="border">Foundry Virtual Tabletop - Version 0.7.10 Update Notes</h2>
 <figure>
-	<img src="{BANNER_IMG}" title="Foundry VTT Version 0.7.10 Release Notes" alt="Release Notes for the Foundry Virtual Tabletop 0.7.10 version"/>
+	<img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/release-0710-banner-2021-05-26.jpg" title="Foundry VTT Version 0.7.10 Release Notes" alt="Release Notes for the Foundry Virtual Tabletop 0.7.10 version"/>
 	<figcaption>Welcome to the Foundry Virtual Tabletop update notes for Release version 0.7.10.</figcaption>
 </figure>
 
-<p>Hello everyone! I am very satisfied to release Foundry Virtual Tabletop version 0.7.10, the final stable release in the 0.7.x series of updates. This update focuses on resolving and fixing a few remaining bugs that have lingered since 0.7.9, providing a path for migration to 0.8.x for smooth upgrades for those running their servers using Node 14+ already, and bringing our final inclusions in the icon library back for those users who might wish to remain on 0.7.x for a while longer. As the closing version for 0.7.x, no further features or changes will be brought to 0.7.x as we look toward the future by supporting the 0.8.x stable branch and working toward the exciting features yet to come in 0.9.x.</p>
+<p>We are pleased to release Foundry Virtual Tabletop version 0.7.10, the final stable release in the 0.7.x series. This update resolves several lingering bugs, addresses security issues, provides a direct path for migration to 0.8 for users hosting their server via NodeJS version 14+, and back-ports the incredible icon library for users who wish to remain on version 0.7. We do not expect any further features or changes will be brought to the 0.7.x series as we look toward the future with our upcoming stable release of 0.8.6 and new exciting features yet to come in 0.9.</p>
 
-<p class="note warning"><strong>WARNING:</strong> WARNING: Version 0.7.10 is labeled as a stable release, but there is always the possibility of unexpected bugs or module compatibility issues. We do not recommend updating immediately prior to a game session unless you are confident in your own ability to troubleshoot any issues that arise.</p>
+<p class="note warning"><strong>WARNING:</strong> Version 0.7.10 is labeled as a stable release, but as always please be sure to back up your personal data in case of any unexpected bugs or compatibility issues. We do not recommend updating immediately prior to a game session unless you are confident in your own ability to troubleshoot any issues that arise.</p>
 
 <h3 class="border">Update Overview</h3>
-
-<p>As the final stable release for 0.7.x this update primarily focused on some minor bug fixes. As such, the only new feature is the addition of more than 1500 icons that were previously only available to the 0.8.x version.</p>
-
+<p>As the final stable release for 0.7.x this update primarily focused on some bug and security fixes. As such, the only new feature is the addition of more than 1500 icons that were previously only available to the 0.8.x version. Since this release does include several security fixes it is strongly recommended for everyone who wishes to remain on the 0.7 series of the software to update to version 0.7.10.</p>
 
 <h3 class="border">New Features</h3>
 <h4>Interface and Applications</h4>
 <ul>
 	<li>More than 1500 new icons have been added, the majority of which are "action" oriented, depicting skills, abilities, and magic spells!</li>
     <li>The software update function now performs a node.js version check as part of the update process, allowing individuals using node to host the server to upgrade directly to 0.8.x if Node 14+ is detected.</li>
+	<li>A one-time override to the package compatibility logic has been included in 0.7.10. For the purposes of determining "Compatibility Risk" warnings for modules and packages, 0.7.10 is treated as 0.7.9 to avoid a situation where installing this update causes the user to receive warnings that all of their installed systems and modules are outdated.</li>
 </ul>
-
-<h3 class="border">API Improvements</h3>
 <h4>Documents and Data</h4>
 <ul>
-	<li>Macro execution is now wrapped in an async scope, which allows the use of await within script macros.</li>
+	<li>Back-ported an improvement that conveniently wraps Macro execution in an async scope, allowing the use of await within script macros.</li>
 </ul>
 
 <h3 class="border">Bug Fixes</h3>
-<h4>Infrastructure and Architecture</h4>
+<h4>Security Fixes</h4>
 <ul>
-	<li>Added some security fixes discovered while working on 0.8.x which were suitable for backporting.</li>
+	<li>Back-ported two security fixes from 0.8.x to close loopholes which allowed player clients to access some configuration data that should only be visible to the GM or server admin.</li>
+	<li>Back-ported two security fixes from 0.8.x to prevent package or world installation from escaping the bounds of the allowed user data directory.</li>
+	<li>Back-ported a security fix from 0.8.x which hardens a flaw related to session token generation. Thanks to <code>@sum_catnip</code> for identifying this issue (as well as two of the above) and contacting me with their findings.</li>
 </ul>
-<h4>Documents and Data</h4>
+<h4>Other Fixes</h4>
 <ul>
 	<li>Actors and items imported from compendia will no longer be incorrectly created using derived data, and now use the correct base data structure instead.</li>
-</ul>
-<h4>The Game Canvas</h4>
-<ul>
 	<li>Token disposition color will now be displayed correctly based on set disposition, instead of assuming every token is neutral.</li>
 </ul>
