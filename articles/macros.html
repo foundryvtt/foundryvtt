@@ -32,32 +32,32 @@
 
 <h3>Creating Chat Macros</h3>
 <p>Chat macros are, as indicated by the name, macros that will utilize chat when executed. They are simpler to create, but do not have the wide range of capabilities that a script macro can execute.</p>
-<p>A chat macro can involve a simple dice command like <code>/r 1d100</code> linking an entity in chat<code>@Entity["Entity Name Here"]</code>, or displaying pre-written text or an image using HTML tags <pre><code><h2>Foundry VTT is AWESOME!</h2><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/asset/fvtt-community-content-anvil-2020-09-16.png" width="100%"/></code>.</pre> </p>
+<p>A chat macro can involve a simple dice command like <code>/r 1d100</code> linking an entity in chat<code>@Entity["Entity Name Here"]</code>, or displaying pre-written text or an image using HTML tags.</p>
 <p>Chat macros work the same as typing a message in chat, and anything you can type into the chat entry field can be entered here.For more information on chat syntax and the possible actions a user can do within the chat entry field, see @Article[chat]</p>
 <h4>Example Chat Macros</h4>
-<pre><code>	/r 1d6#which of my players is the next victim?</code></pre>
-<pre><code>	/roll {4d6kh3, 4d6kh3, 4d6kh3, 4d6kh3, 4d6kh3, 4d6kh3}#Rolling for DND5e Ability Scores. Don't forget to click to expand the message!</code></pre>
-<pre><code>
-&lt;em&gt;&lt;u&gt;Singing:&lt;/u&gt;
+<pre><code>/r 1d6#which of my players is the next victim?</code></pre>
+<pre><code>/roll {4d6kh3, 4d6kh3, 4d6kh3, 4d6kh3, 4d6kh3, 4d6kh3}#Rolling for DND5e Ability Scores. Don't forget to click to expand the message!</code></pre>
+<pre>
+<code>&lt;em&gt;&lt;u&gt;Singing:&lt;/u&gt;
 There once was a ship that put to sea,
 and the name of the ship was the &lt;b&gt;Billy o' Tea!&lt;/b&gt;
 The winds blew hard, her bow dipped down
-Blow, me bully boys, blow!&lt;/em&gt;
-</code></pre>
+Blow, me bully boys, blow!&lt;/em&gt;</code>
+</pre>
+<pre><code>&lt;h2>Foundry VTT is AWESOME!&lt;/h2>
+&lt;img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/asset/fvtt-community-content-anvil-2020-09-16.png" width="100%"/></code></pre>
 
 <h3>What Are Macros?</h3>
 <p>Script macros are more complicated, but powerful commands that can interact with the Foundry JavaScript API. Script macros are limited only by your imagination and the functions available to JavaScript. Users can perform any task using a script macro that their User role and permissions settings allow for them to take. For example, script macros could automatically consume character resources, roll dice checks, toggle conditions, or change Token appearance.</p>
 <p>As script macros are more powerful than chat macros, a Gamemaster can choose to disable script macros for players via the permissions system, which is found in the <strong>Configure Settings</strong> menu under the Game Settings tab.</p>
 <h3>Example script macros</h3>
 <h4>Scene Wall and Light Duplicator</h4>
-<pre><code class="language-javascript">
-const source = game.scenes.getName("BASEMAP NAME HERE");
+<pre><code class="language-javascript">const source = game.scenes.getName("BASEMAP NAME HERE");
 canvas.walls.createMany(source.data.walls);
 canvas.lighting.createMany(source.data.lights)
 </code></pre>
 <h4>Emergency Campaign Resolver</h4>
-<pre><code class="language-javascript">
-//Rocks Fall, everyone dies.
+<pre><code class="language-javascript">//Rocks Fall, everyone dies.
 
 let targets = []
 game.user.targets.forEach(i => {
