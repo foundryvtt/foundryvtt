@@ -1,0 +1,64 @@
+<h2 id="asset-overview">Overview</h2>
+<p>This article will detail preferred file naming practices, where Foundry VTT stores user data, and some common actions that can be taken with it.</p>
+<p>Information contained in this article is considered a vital first-step for optimizing files, and something that all users should practice. This will help ensure your files are organized and loading without issue. Improperly organized and named files can make session planning unnecessarily difficult and in some rare cases, cause files to fail to display or load correctly.</p>
+
+<h2 class="border" id="file-structure">File Structure and Naming</h2>
+<p>This section details the recommended method of naming and organizing your files. Proper organization, file naming, and formatting will ensure Foundry works as smoothly as possible, reduce the risk of issues, and potentially improve your own workflow efficiency.</p>
+
+    <h3>Folder Structure</h3>
+        <p>It is recommended by the Foundry VTT creator Atropos that you organize by the thematic purpose for different assets:</p>
+            <ul>
+                <li><code>/artwork</code> for art included in journals, items, or handouts</li>
+                <li><code>/audio</code> for sound files</li>
+                <li><code>/tiles</code> for tile images used in scenes</li>
+                <li><code>/tokens</code> for actor tokens</li>
+                <li><code>/maps</code> for map backgrounds used in scenes</li>
+            </ul>
+
+    <h3>File Naming</h3>
+        <p>Since Foundry VTT is a web server, it adheres to file naming conventions expected for a web server, and thus the file structure and filenames of your assets should be standardized accordingly. The most common things are:</p>
+
+        <p>1. <strong>Don't include spaces in filenames or folders.</strong></p>
+        <p>For example: <code>/modules/my awesome content/maps/fortress of doom.jpeg</code> should be avoided. Spaces should either be removed, or replaced with dashes (-) and underscores (_) instead. So the file and folder above would become: <code>/modules/my-awesome-content/fortress_of_doom.jpeg</code></p>
+        
+        <p>2. <strong>Avoid unnecessary metadata in filenames.</strong></p>
+        <p>It is common for content creators to include metadata in their file names in order to make the images they're distributing to users easier to identify when there are variations.</p>
+        <p>An example of this would be <code>fortress_of_doom(30x25-3000x2500-gridless).jpeg</code> which is not inherently wrong, but should be shortened to just <code>fortress_of_doom.jpeg</code> since that extra information is not necessary for a premade module.</p>
+        
+        <p>3. <strong>Don't use potentially disruptive or special characters in filenames or folders.</strong></p>
+        <p>It's best to stick to universally readable characters to avoid potentially breaking file paths or creating errors within Foundry VTT when reading filenames. This includes spaces (as above), characters specific to non-english keyboards, and the following characters:</p>
+        <p><code>a-z, A-Z, 0-9, . - _ ~ * ' ( ) ; : @ &amp; = + $ , / ? % # [ ]</code></p>
+        
+        <h4>Token File Naming Conventions</h4>
+            <p>If providing multiple varieties of the same base token, file naming conventions should allow all tokens to begin with the same file prefix. This should generally be the creature name, major variations, then minor variation.</p>
+            
+            <p>Example:</p>
+            <p><code>red-guard.png, blue-guard.png, green-sword-guard.png, green-guard-spear.png</code>.</p>
+            <p>Should be: <code>guard-red.png, guard-blue.png, guard-green-sword.png, guard-green-spear.png</code> instead of </p>
+            <p>This way, Foundry wildcard token paths can easily use <code>guard-*.png</code> to get a guard of any of the major colors available (red, blue or green) or <code>guard-green-*.png</code> to get a green guard with a random weapon (a sword or spear in this case).</p>
+
+<h2 class="border" id="user-data">User Data Locations</h2>
+<p>Foundry VTT stores User Data separately from the program data in order to keep your games safe from accidental deletion when the program is updating. Depending on operating system, user data is stored in a different default locations.</p>
+<p>Default UserData Locations</p>
+<ul>
+    <li>Windows 10 - <code>%localappdata%\FoundryVTT\</code></li>
+    <li>macOS - <code>~/Library/Application Support/FoundryVTT</code></li>
+    <li>Linux - <code>~/.local/share/FoundryVTT</code></li>
+</ul>
+
+<h3>Creating User Data Backups</h3>
+<p>To save heartache and data loss, it's good to practice safe data storage. You can backup your Foundry VTT data at any time:</p>
+<a href="https://www.youtube.com/watch?v=OmbxMmqNNXU">https://www.youtube.com/watch?v=OmbxMmqNNXU</a>
+<em>Video Tutorial courtesy of Encounter Library</em>
+
+<h3>Duplicating a World</h3>
+<p>It is possible to duplicate a world in order to run the same content for additional groups or preserve a pristine, unedited version of your world before you start a campaign. To do so, follow these steps:</p>
+<ol>
+    <li>Close FVTT</li>
+    <li>In your filesystem, duplicate your world folder inside /worlds in your User Data path..</li>
+    <li>Rename the new duplicate, without using spaces.</li>
+    <li>Edit the world.json file inside that folder so that the name entry matches the folder name exactly. Case-sensitive. Edit the title entry to be the new display name.</li>
+    <li>Open FVTT.</li>
+    <p>If it worked, you should now have a duplicate copy of your world showing in the worlds list.</p>
+</ol>
+
