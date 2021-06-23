@@ -1,5 +1,41 @@
 <h2 id="asset-overview">Overview</h2>
-<p>This article will walk you through the best practices and files format considerations for your media assets for use in Foundry VTT. This includes information on formatting art assets, and audio assets.</p>
+<p>This article will walk you through the best practices and files format considerations for your media assets for use in Foundry VTT. This includes information on naming, organizing and formatting assets for use in Foundry VTT.</p>
+
+<h2 class="border" id="file-structure">File Structure and Naming</h2>
+<p>This section details the recommended method of naming and organizing your files. Proper organization, file naming, and formatting will ensure Foundry works as smoothly as possible, reduce the risk of issues or losing files, and potentially improve your own workflow efficiency.</p>
+
+<h3>Folder Structure</h3>
+<p>It is recommended by the Foundry VTT creator Atropos that you organize by the thematic purpose for different assets:</p>
+    <ul>
+        <li><code>/artwork</code> for art included in journals, items, or handouts</li>
+        <li><code>/audio</code> for sound files</li>
+        <li><code>/tiles</code> for tile images used in scenes</li>
+        <li><code>/tokens</code> for actor tokens</li>
+        <li><code>/maps</code> for map backgrounds used in scenes</li>
+    </ul>
+
+<h3>File Naming</h3>
+<p>Since Foundry VTT is a web server, it adheres to file naming conventions expected for a web server, and thus the file structure and filenames of your assets should be standardized accordingly. The most common things are:</p>
+
+<ol>
+<li><strong>Don't include spaces in filenames or folders.
+    <br /></strong>For example: <code>/my awesome content/maps/fortress of doom.jpeg</code> should be avoided. Spaces should either be removed, or replaced with dashes (-) and underscores (_) instead. So the file and folder above would become: <code>/maps/my-awesome-content/fortress_of_doom.jpeg</code></li>
+
+<li><strong>Avoid unnecessary metadata in filenames.
+    <br /></strong>It is common for content creators to include metadata in their file names in order to make the images they're distributing to users easier to identify when there are variations.
+    <br />An example of this would be <code>fortress_of_doom(30x25-3000x2500-gridless).jpeg</code> which is not inherently wrong, but should be shortened to just <code>fortress_of_doom.jpeg</code> since that extra information is not necessary.</li>
+
+<li><strong>Don't use potentially disruptive or special characters in filenames or folders.
+    <br /></strong>It's best to stick to universally readable characters to avoid potentially breaking file paths or creating errors within Foundry VTT when reading filenames. This includes spaces (as above), characters specific to non-english keyboards, and the following characters: <code>a-z, A-Z, 0-9, . - _ ~ * ' ( ) ; : @ &amp; = + $ , / ? % # [ ]</code></li>
+</ol>
+        
+<h4>Token File Naming Conventions</h4>
+<p>If providing multiple varieties of the same base token, file naming conventions should allow all tokens to begin with the same file prefix. This should generally be the creature name, major variations, then minor variation.</p>
+            
+<p>Example:</p>
+<p><code>red-guard.png, blue-guard.png, green-sword-guard.png, green-guard-spear.png</code>.</p>
+<p>Should be: <code>guard-red.png, guard-blue.png, guard-green-sword.png, guard-green-spear.png</code> instead of </p>
+<p>This way, Foundry wildcard token paths can easily use <code>guard-*.png</code> to get a guard of any of the major colors available (red, blue or green) or <code>guard-green-*.png</code> to get a green guard with a random weapon (a sword or spear in this case).</p>
 
 <h2 class="border" id="art-assets">Art Assets</h2>
 <p>Generating image assets for Foundry carries with it some best practices which can help to optimize your content for distribution. </p>
@@ -9,25 +45,25 @@
 <dl>
     <dt>WebP</dt>
     <dd>
-        <p>The current best-in-class image file format for Foundry VTT usage is WebP, which achieves the best quality-to-size ratio of any image format with lower file-sizes than JPEG with comparable quality and support for transparency.</p>
-        <p>WebP uses a more complex algorithm for compression which requires more work for the client CPU. Generally this trade-off is worth it, to reduce network transit in favor of more utilization of the client PC. The same holds true for audio codecs like OGG.</p>
+    <p>The current best-in-class image file format for Foundry VTT usage is WebP, which achieves the best quality-to-size ratio of any image format with lower file-sizes than JPEG with comparable quality and support for transparency.</p>
+    <p>WebP uses a more complex algorithm for compression which requires more work for the client CPU. Generally this trade-off is worth it, to reduce network transit in favor of more utilization of the client PC. The same holds true for audio codecs like OGG.</p>
     </dd>
     
     <dt>SVG</dt>
     <dd>
-        <p>For images which do not require a lot of visual complexity, SVG (Scalable Vector Graphics) can also be used which will feature tiny file-sizes, support for transparency, can be easily animated, and can be scaled to any size without noticeable loss of quality. Consider using SVGs if you are making tiles, tokens, or icons for use in foundry that would benefit from transparency and scaling, but do not require extremely complex colour depth and detail.</p>
+    <p>For images which do not require a lot of visual complexity, SVG can also be used which will feature tiny file-sizes, support for transparency, can be easily animated, and can be scaled to any size without noticeable loss of quality. Consider using SVGs if you are making tiles, tokens, or icons for use in foundry that would benefit from transparency and scaling, but do not require extremely complex colour depth and detail.</p>
         
         <p class="note info">In order to use a SVG image on a WebGL canvas, the SVG document must be given an explicit default width and height in its markup, for example: </p>
         <pre><code>&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512"&gt;</code></pre>
     </dd>
     <dt>PNG</dt>
     <dd>
-        <p>Given the design of PNG (Portable Network Graphics) files as a lossless compression format, it tends to have substantially larger file sizes by comparison to other formats. PNG is recommended for smaller images (with or without transparency) where the file size remains more manageable. Using PNG for very large images, such as scene backgrounds, can result in very large files that take longer for players to receive and load.</p>
+    <p>Given the design of PNG files as a lossless compression format, it tends to have substantially larger file sizes by comparison to other formats. PNG is recommended for smaller images (with or without transparency) where the file size remains more manageable. Using PNG for very large images, such as scene backgrounds, can result in very large files that take longer for players to receive and load.</p>
     </dd>
     
     <dt>JPEG or JPG</dt>
     <dd>
-        <p>JPEG (Joint Photographic Expert Group) files are great for large images as they generally have a small file size, but this comes at the cost of heavy, lossy compression methods that create visual artifacts, making images appear grainy. JPEG files are best used for medium sized images that don't need extreme image fidelity, or won't be see constantly by players. Using JPEG for scene backgrounds is generally better than PNGs in terms of file size, but the compression will severely impact the clarity of the image.</p>
+        <p>JPEG files are great for large images as they generally have a small file size, but this comes at the cost of heavy, lossy compression methods that create visual artifacts, making images appear grainy. JPEG files are best used for medium sized images that don't need extreme image fidelity, or won't be see constantly by players. Using JPEG for scene backgrounds is generally better than PNGs in terms of file size, but the compression will severely impact the clarity of the image.</p>
     </dd>
 </dl>
 
@@ -83,9 +119,9 @@ Foundry VTT has support for a wide variety of ways to use audio assets. You can 
 
 <dl>
     <dt>OGG</dt>
-    <dd>Arguably the best format for audio for the purpose of streaming online. An average OGG file will have similar filesize to a 128kbps MP3 file, but with clearer quality. Additionally, OGG comes with the added bonus of being able to loop cleanly in audio players that support the perfect looping of audio. Many tools and DAWs can natively export to this format as well, making it easy to create OGG files. However, Safari does not natively support OGG files.</dd>
+    <dd>The overall best format for audio for the purpose of streaming online, an average OGG file will have similar filesize to a 128kbps MP3 file, but with clearer quality. Additionally, OGG comes with the added bonus of being able to loop cleanly in audio players that support the perfect looping of audio. Many tools and DAWs can natively export to this format as well, making it easy to create OGG files. However, Safari does not fully support OGG files.</dd>
     <dt>MP3</dt>
-    <dd>A fairly "standard" format. Provides a fairly solid tradeoff between audio quality and filesize, but is not as efficient with its compression as OGG and will not loop cleanly. Just about any device capable of playing sound files will be able to play MP3s. MP3 encoders such as LAME sometimes have a higher risk of developing artifacts or quantization errors in converted files, but is overall a safe choice.</dd>
+    <dd>Provides a fairly solid tradeoff between audio quality and filesize, but is not as efficient with its compression as OGG and will not loop cleanly. Just about any device capable of playing sound files will be able to play MP3s. MP3 encoders such as LAME sometimes have a higher risk of developing artifacts or quantization errors in converted files, but is overall a safe choice.</dd>
     <dt>FLAC</dt>
     <dd>A lossless audio format, with manageable file sizes. FLAC files loop cleanly, and do not experience the quality drop normally seen in compression. However, FLAC files tend to have a larger bitrate than standard mp3 files. FLACs can still be useful, particularly for samples that more easily suffer a drop in quality when compressed, or on connections where bandwidth is not an issue (such as servers hosted over LAN).</dd>
     <dt>WEBM</dt>
