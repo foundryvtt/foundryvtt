@@ -1,0 +1,109 @@
+<h2 class="border">Foundry Virtual Tabletop - Version 0.8.8 Update Notes</h2>
+<figure>
+    <img alt="Release Notes for the Foundry Virtual Tabletop 0.8.8 version" src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/release-088-banner-2021-06-24.jpg" title="Foundry VTT Version 0.8.8 Release Notes"/>
+    <figcaption>Welcome to the Foundry Virtual Tabletop update notes for Release version 0.8.8.</figcaption>
+</figure>
+
+<p>Hello Foundry Virtual Tabletop community! We are excited to release Foundry Virtual Tabletop version 0.8.8 as a subsequent stable release in the version 8 series of updates. The version 0.8.8 release includes a variety of targeted fixes for bugs that have been reported by our dilligent community in 0.8.7 and also continues to add layers of polish to the existing feature set for this major version.</p>
+
+<p class="note warning"><strong>WARNING:</strong> Version 0.8.8 is labeled as a stable release, but there is always the possibility of unexpected bugs or module compatibility issues. We do not recommend updating immediately prior to a game session unless you are confident in your own ability to troubleshoot any issues that arise.</p>
+
+<h3 class="border">Update Overview</h3>
+
+<p>As is common with stable releases, 0.8.8 primarily includes fixes for bugs rather than introducing new features.</p>
+<h4>Compendium Indices and World Loading Times</h4>
+<p>In version 0.8.7 we evaluated reports of increased loading times for some worlds. Upon investigation it was revealed that changes made with intent to provide faster loading of compendium data by generating indices for Compendium packs caused this behaviour. Scene compendium packs which contained thumbnails were passing base64 images into the index, resulting in some indices being generated that were of unexpectedly large size. Correcting this required introducing a breaking change for module and system developers, but in consultation with the community we have decided the benefit of this change outweighs any risk. If you are a developer negatively impacted by this please reach out to us via #08x-dev-support via our community discord for assistance.</p>
+<h4>HTML Sanitization</h4>
+<p>Some of you may have noticed with the advent of 0.8.x that some of the HTML you were using in rich text fields were being cleared out when you saved. This was a result of changes made for security purposes to sanitize these fields of HTML tags which could potentially be used for risky purposes. After internal discussion we have relaxed some of these restrictions and reintroduced support for iframes, video elements, and a few other ones the community provided feedback on.</p>
+
+<h3 class="border">Breaking Changes</h3>
+<h4>Documents and Data</h4>
+<ul>
+    <li>In consultation with the community developers which might be most impacted by this change, we have improved the methods used to index compendiums by limiting the information called initially. This should reduce the overall world loading time for those users who experienced long load times related to compendium data. Read more about this fix here: <a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5453" rel="nofollow" target="_blank">https://gitlab.com/foundrynet/foundryvtt/-/issues/5453</a></li>
+</ul>
+
+<h3 class="border">New Features</h3>
+<h4>Interface and Applications</h4>
+<ul>
+    <li>Changed the icon for "Remove Combatant" in the combat tracker's right-click menu, so that it is in line with other UI elements of the same type.</li>
+    <li>HTML sanitization now allows a number of additional HTML elements and attributes, including: <code>&lt;iframe&gt;</code>,<code>&lt;audio&gt;</code>, <code>&lt;video&gt;</code> and more. </li>
+</ul>
+
+<h4>Other Features</h4>
+<ul>
+    <li>Introduced a new serverside <code>--demo</code> mode which resets a World to it's pristine original state at a configurable interval. Read more about this feature here: <a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/2780" rel="nofollow" target="_blank">https://gitlab.com/foundrynet/foundryvtt/-/issues/2780</a></li>
+    <li>Agreement to the EULA now carries over to installations of older versions of the software.</li>
+    <li>Added the ability for simple-peer to use a custom TURN server if configuration details are provided.</li>
+</ul>
+
+<h3 class="border">API Improvements</h3>
+<h4>Documents and Data</h4>
+<ul>
+    <li><code>isColorString</code> should now only allow characters in the hexadecimal range.</li>
+    <li>The documentation for Nested Tabs now indicates that a <code>data-group</code> should be used.</li>
+    <li>Provided an internal migration for modules using the old 'systems' property that was renamed in 0.8.2.</li>
+</ul>
+
+<h4>Interface and Applications</h4>
+<ul>
+    <li>Resolved instances where the <code>folder</code> type <code>FilePicker</code> was providing a nonfunctional upload field, and also added the ability to supply a valid <code>FilePicker</code> type to the <code>FilePicker</code> property when registering a setting, in place of <code>filePicker: true</code>. For more information, please refer to the official documentation here: <a href="https://foundryvtt.com/api/FilePicker.html" rel="nofollow">https://foundryvtt.com/api/FilePicker.html</a></li>
+    <li>Setting <code>DocumentModificationContext.render</code> to 'false' should now correctly prevent the re-render of the parent's sheet when updating Embedded Documents.	</li>
+    <li>Corrected an error which caused the <code>/api/status</code> user count to remain at 0 at all times.</li>
+</ul>
+
+<h4>Documentation</h4>
+<ul>
+    <li>Added entries for the "alpha" and "lightAlpha" properties of <code>TokenData</code>.</li>
+    <li>Added documentation for <code>BasePlaylistSound</code>.</li>
+    <li>Updated documentation of <code>FormDataExtended</code> which was out of date and inaccurate.</li>
+    <li>Markup within JSDoc should now be escaped when rendering on the docs page.</li>
+</ul>
+
+<h3 class="border">Bug Fixes</h3>
+<h4>Documents and Data</h4>
+<ul>
+<li>The <code>DocumentData</code> initialization process now corrects for issues which result from Documents which had previously saved an invalid (non-array) data structure for an embedded collection.</li>
+</ul>
+<h4>The Game Canvas</h4>
+<ul>
+    <li>Revealed fog of war should once again be saved for tokens with no dim or bright vision.</li>
+    <li><code>SightLayer#loadFog</code> no longer incorrectly constructs <code>FogExploration</code> documents from a hard coded core class.</li>
+    <li>Corrected an issue which could result in an incorrect fog resolution, resulting in fog exploration data no longer saving.</li>
+    <li>Fixed an error when removing doors from a scene which would create errors and phantom walls.</li>
+    <li>Opening a door should now properly reveal fog of war without requiring a token to move first.</li>
+    <li>Players with Draw permission should now be correctly permitted to draw without also needing Measured Template permissions first.</li>
+</ul>
+
+<h4>Interface and Applications</h4>
+<ul>
+    <li>Fixed a permissions-based error which would cause worlds that have been placed in Safe Configuration to fail to launch.</li>
+    <li>Corrected for an issue where the "Update All" method for packages could become stuck in a pending state.</li>
+    <li>SimplePeer now gracefully handles users with no input device during setup.</li>
+    <li>Compendium packs can once again be closed after editing their permissions.</li>
+    <li>Compendium packs that are pending compaction on initial connection should no longer fail to query their index when clients connect.</li>
+    <li>Scenes exported to a compendium with 'Merge by name' enabled should now correctly update their scene thumbnails.</li>
+    <li>Corrected for an issue which allowed the placement of items on an actor in a locked compendium.</li>
+    <li>The lock/unlock icon for packages should now be synced properly with its current state.</li>
+    <li>The combat tracker should now increment and decrement time correctly when using <code>nextRound()</code> and <code>previousRound()</code>.</li>
+    <li>Initiative rolls from actor sheets that already have linked token in a combat tracker should now function as expected.</li>
+    <li>Corrected an issue that could result in flags assigned to Rollable Tables to be lost as a result of 'diff' being set to 'true'.</li>
+    <li>Journals should once again maintain separate Text / Image window dimensions as intended.</li>
+    <li>Corrected the labels for buttons in the ambient sound configuration.</li>
+</ul>
+
+<h4>Dice System</h4>
+<ul>
+    <li>Additional spaces in inline rolls will no longer prevent journal entries from opening.</li>
+    <li><code>replaceFormulaData</code> now treats a missing value as 0.</li>
+</ul>
+
+<h4>Other Fixes</h4>
+<ul>
+    <li>Fixed an issue which could cause password salts to fail to be created during migration.</li>
+    <li>Migration to 0.8.7 should no longer double-hash passwords when the "resetKeys" option is set.</li>
+    <li>Corrected an issue where a Playlist Track could become stuck in a pending state which would result in Audio Playlists tab failing to render its controls.</li>
+    <li>Playing/stopping a number of playlist tracks should no longer cause additional tracks to stop playing.</li>
+    <li>Corrected a bug that was causing 10+ minute long audio tracks not to loop properly.</li>
+    <li>Ensured that the volume of local sounds properly update on token movement.</li>
+    <li>Added a short timeout to <code>process.exit</code> to allow time for the logger to record Fatal errors.</li>
+</ul>
