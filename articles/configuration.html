@@ -106,6 +106,8 @@ The steps for migrating the User Data folder vary slightly depending on which OS
 <p>Foundry has four command-line flags that can be passed when the application is run at the command line.  These work with both the packaged Electron executable as well when starting Foundry via Node.js.</p>
 
 <dl>
+	<dt><code>--demo</code></dt>
+	<dd>Launching Foundry in demo mode allows you to configure a world which will be automatically launched and reset at a frequency of your choosing. When the world is reset, it is deactivated. The source data for the world is restored to its original state using a provided .zip file, and the next reset is automatically scheduled. Details on configuring demo mode are provided below.</dd>
 	<dt><code>--port</code></dt>
 	<dd>This specifies the port Foundry will listen on for incoming connections.  If not specified, Foundry will use the port defined in options.json, or <code>30000</code>. This is the port you should use for @Article[port-forwarding].</dd>
 	<dt><code>--world</code></dt>
@@ -131,6 +133,20 @@ The steps for migrating the User Data folder vary slightly depending on which OS
 <h4>Electron (Linux)</h4>
 <pre><code class="language-bash">foundryvtt --port=30000 --world=myworld --dataPath=/local/data/foundryvtt</code></pre>
 <hr/>
+
+<h4>Configuring demo mode</h4>
+You can configure the demo directive of the <code>options.json</code> file used to configure the server in the following way:
+<pre><code class="language-json">	{
+		...,
+		"demo": {
+		  "worldName": "demo-world",
+		  "sourceZip": "demo-world.zip",
+		  "resetSeconds": 3600
+		},
+		...
+	  }
+</code></pre>
+<p>You can also pass <code>--demo=demoConfig.json</code> which provides an absolute or relative path to a separate <code>.json</code> file containing the data structure of the above example. This usage is helpful if you sometimes want to run a demo and sometimes want to run a non-demo on the same server.</p>
 
 <h2 id="application-configuration" class="border">Using Options.json</h2>
 <p>Foundry's behavior can also be customized via editing the <code>options.json</code> file stored in the Config directory within the User Data directory.  The directives take one of three data types:</p>
