@@ -1,0 +1,40 @@
+<h2 id="data-overview">Overview</h2>
+<p>This article will detail where Foundry VTT stores user data, and some common actions that can be taken with it.</p>
+<p class="note warning">Information contained in this article relates to data that could be lost or damaged if mishandled. Please be careful when manipulating files and folders in detailed below, and be sure to create backups before making any changes.</p>
+
+<h2 class="border" id="user-data">User Data Locations</h2>
+<p>Foundry VTT stores User Data separately from the program data in order to keep your games safe from accidental deletion when the program is updating. Depending on operating system, user data is stored in a different default locations.</p>
+<h4>Default UserData Locations</h4>
+<ul>
+    <li>Windows 10 - <code>%localappdata%\FoundryVTT\</code></li>
+    <li>macOS - <code>~/Library/Application Support/FoundryVTT</code></li>
+    <li>Linux - <code>~/.local/share/FoundryVTT</code></li>
+</ul>
+<p>For guidance on how to format, name and organize your files within the Foundry user <code>Data</code> folder, please refer to the @Article[media] article.</p>
+
+<h3>Creating User Data Backups</h3>
+<p>To save heartache and data loss, it's good to practice safe data storage. You can backup your Foundry VTT data at any time:</p>
+<a href="https://www.youtube.com/watch?v=OmbxMmqNNXU">https://www.youtube.com/watch?v=OmbxMmqNNXU</a>
+<p><em>Video Tutorial courtesy of Encounter Library</em></p>
+
+<h2 class="border" id="core-folders">Core Data Folders</h2>
+<p>When Foundry is first installed it comes with three folders that are core to its data storage: modules, systems, and worlds. Most users will not need to interact with these folders or place files in them under normal circumstances, as they are used by the software to store information.</p>
+<dl>
+    <dt>modules</dt>
+    <dd>This folder is where Foundry places modules that are installed through the add-on module menu. Modules will store the majority of their assets here, as well.</dd>
+    <dt>systems</dt>
+    <dd>This folder is where Foundry places systems that are installed through the game systems menu. Systems will store all of their art, icons, and similar assets here as well.</dd>
+    <dt>worlds</dt>
+    <dd>This folder is where Foundry places your created game worlds and any external game worlds you install. By default these folders will not contain media assets (art of audio) unless you specifically place them there, or they are included, such as with a premade world that you install.</dd>
+</dl>
+
+<h3>Duplicating a World</h3>
+<p>It is possible to duplicate a world in order to run the same content for additional groups or preserve a pristine, unedited version of your world before you start a campaign. To do so, follow these steps:</p>
+<ol>
+    <li>Close FVTT</li>
+    <li>In your filesystem, duplicate your world folder inside /worlds in your User Data path..</li>
+    <li>Rename the new duplicate, without using spaces.</li>
+    <li>Edit the world.json file inside that folder so that the name entry matches the folder name exactly, this is case-sensitive. Edit the title entry to be the new display name.</li>
+    <li>Open FVTT.</li>
+    <p>You should now have a duplicate copy of your world showing in the worlds list.</p>
+</ol>
