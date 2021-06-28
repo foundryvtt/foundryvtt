@@ -142,12 +142,23 @@ The steps for migrating the User Data folder vary slightly depending on which OS
 <h4>Configuring demo mode</h4>
 You can configure the demo directive of the <code>options.json</code> file used to configure the server in the following way:
 <pre><code class="language-json">	{
-		"worldName": "pathfinder-demo",
-		"sourceZip": "pathfinder-demo.zip",
-		"resetSeconds": 3600,
-	  }
+	...,
+	"demo": {
+	  "worldName": "demo-world",
+	  "sourceZip": "demo-world.zip",
+	  "resetSeconds": 3600
+	},
+	...
+  }
 </code></pre>
-<p>Alternatively, you can use <code>--demo=demoConfig.json</code> which provides an absolute or relative path to a separate <code>.json</code> file containing the data structure of the above example. This usage is helpful if you sometimes want to run a demo and sometimes want to run a non-demo on the same server.</p>
+
+<p>Alternatively, you can use <code>--demo=demoConfig.json</code> which provides an absolute or relative path to a separate <code>.json</code> file containing the data structure of the above example. This usage is helpful if you sometimes want to run a demo and sometimes want to run a non-demo on the same server. In this case the <code>demoConfig.json</code> would look as follows:</p>
+<pre><code class="language-json">	{
+	"worldName": "pathfinder-demo",
+	"sourceZip": "pathfinder-demo.zip",
+	"resetSeconds": 3600,
+  }
+</code></pre>
 
 <h2 id="application-configuration" class="border">Using Options.json</h2>
 <p>Foundry's behavior can also be customized via editing the <code>options.json</code> file stored in the Config directory within the User Data directory.  The directives take one of three data types:</p>
