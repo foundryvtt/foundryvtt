@@ -1,7 +1,7 @@
 <h2>Overview</h2>
-<p>(TODO: Insert version info screenshot right-aligned, screenshot of update tab center-aligned. Updated screenshots for phases and timeline)</p>
+<p class="note warning">Users who rely heavily upon add-on modules should not attempt to run a live game using a Testing Release.</p>
 <p>This article is designed to explain the way Foundry Virtual Tabletop handles releases of new software Versions, and the naming conventions used. It will introduce you to the concepts of:</p>
-<figure class="right">
+<figure class="right"> @Image[222]
 <figcaption>Version information is displayed on the Configuration Tab within a Game World, providing a visible indicator of the current Version, Release Number, and Build Number for the purposes of troubleshooting.</figcaption></figure>
 
 <dl>
@@ -18,7 +18,7 @@
 <dt>Private API</dt>
 <dd>The portion of the Foundry Virtual Tabletop API which is intended for internal use only, which is subject to change without consultation.</dd>
 </dl>
-
+<p class="note info">This article only applies after the release of Version 9.</p>
 <h2 class="border">The Phased Cycle Approach</h2>
 <p>Foundry Virtual Tabletop uses a phased approach to development containing 6 formal categories, as well as an additional (and more informal) 'closing' phase which is rarely more than a formal name given to the last Release in a Version. Some of these phases are internal to the Foundry VTT development team. It is noteworthy that all phases include some amount of planning and testing; and that the labels are more about the <strong>focus</strong> of that phase than to indicate it's the only thing happening during that phase.</p>
 <p>As each phase of development passes, changes become less extreme until the changes being made are corrections to software bugs only, with the earliest Releases in any Version containing the most drastic changes. Foundry Virtual Tabletop intends to release up to four Versions annually, introducing new features to the software with each Prototype Version.</p>
@@ -41,17 +41,18 @@
 <p>For developers who only have the bandwidth to update their packages once per Version, content creators, or premium partners, this phase is the right time to update your Packages before the general public starts using the Version. However, developers who submit API feature requests here may be forced to wait until the next major version for those changes to be made in order to prevent changes which might break API usage for other community developers.</p>
 <p>For interested Server Admins and Users, this is the phase where you should spin up a test world and try out the new features so you can provide Foundry VTT with UX/UI and general testing feedback.</p>
 <p>It is not recommended that users run their live games on a testing release unless they (and their players) are comfortable experiencing some bugs that may negatively impact play.</p>
-<p class="note warning">Users who rely heavily upon add-on modules should not attempt to run a live game using a Testing Release.</p>
+
 <h3>Stable</h3>
 <p>During this phase the goal is to implement any remaining fixes for bugs discovered during the Feature Testing phase. This phase concludes when its first Release is ready for the general public and for use in live games. The API is still closed, with breaking changes now being introduced only in circumstances where a critical bug requires it. Workflows are now also closed, with big changes being made only due to high-priority issues.</p>
 <h3>Maintenance</h3>
 <p>After a Stable Release has been launched for a Version, the development team shift focus on this Version to a Maintenance phase. This phase is internal to the development team and focuses on fixing bugs that can be resolved in a non-disruptive way as well as smoothing issues with UX/UI. At this point, the team circles back and begins Planning for the next Version.</p>
 <h4>Closing</h4>
 <p>This is an internal term used to refer to the final Release in a Version, the Closing Release usually coincides with the Release of a new Stable Version. A closing Release generally contains backported security fixes, minor quality of life improvements from the next Version which are deemed safe to implement, and any changes needed to support Users staying on the Version for a longer term while preparing them to upgrade to the next Version. There may not always be a formal "Closing" Release.</p>
-<figure class="center"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/development-cycle-phases-2021-06-21.jpg" target="_blank" rel="nofollow noopener"> <img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/development-cycle-phases-2021-06-21.jpg" alt="Development Cycle Phases" /></a>
-<figcaption>A summary of the Foundry Virtual Tabletop Development Phases</figcaption>
-</figure>
+
 <h3>Update Channels</h3>
+<figure class="right"> @Image[221]
+    <figcaption>Version information is displayed on the Configuration Tab within a Game World, providing a visible indicator of the current Version, Release Number, and Build Number for the purposes of troubleshooting.</figcaption>
+</figure>
 <p>Foundry VTT provides the option to choose an update channel, allowing users to select which Phase they would like to receive updates for. Each of these update channel contains Releases intended for different kinds of use:</p>
 <ul>
 <li><strong>Stable </strong>- Releases that have been carefully tested and are recommended for use in live games.</li>
@@ -60,6 +61,7 @@
 <li><strong>Prototype</strong> - Releases for previewing the design of experimental features which are not yet fully developed.</li>
 </ul>
 
+    
 <h2 class="border">API Changes During Development Phases</h2>
 <p>The Foundry VTT API actually has two divisions: the Public API and the Private API.</p> 
 <p>The Public API contains all the Methods and Variables, Hooks, and any other facet of the software intended for community development. During the Foundry VTT development cycle there are particular times where the API is referred to as "Closed" or "Open". These periods refer specifically to the Public API, and as a team we endeavour to maintain the public API in a state that is as stable and reliable as possible.</p>
