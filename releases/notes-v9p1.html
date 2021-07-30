@@ -1,0 +1,185 @@
+<h2 class="border">Foundry Virtual Tabletop - Version 0.x.y Update Notes</h2>
+<figure>
+	<img src="{BANNER_IMG}" title="Foundry VTT Version 0.x.y Release Notes" alt="Release Notes for the Foundry Virtual Tabletop 0.x.y version"/>
+	<figcaption>Welcome to the Foundry Virtual Tabletop update notes for Release version 0.x.y.</figcaption>
+</figure>
+
+<p>{PREAMBLE}</p>
+
+<p class="note warning"><strong>WARNING:</strong> {RELEVANT_WARNING_MESSAGES}</p>
+
+<p>{SUMMARY_OF_MAJOR_FEATURES}</p>
+
+<h3 class="border">Update Overview</h3>
+
+<p>{EXPLANATION_OF_UPDATE_THEMES}</p>
+
+<h3 class="border">Breaking Changes</h3>
+<h4>Documents and Data</h4>
+<ul>
+    <li>	The <code>CONFIG.Canvas</code> object has been restructured to define both "groups" and "layers" which organize the previous layers into the groups to which they belong.	</li>
+    <li>	The <code>TextureLoader</code> now caches <code>BaseTexture<code> instances instead of <code>Texture</code> instances, allowing textures to be safely destroyed in cases where multiple sprites are all loaded from the same texture cache.	</li>
+    <li>	The <code>EffectsLayer (canvas.effects)</code> he been renamed to <code>WeatherLayer (canvas.weather)</code> to be more explicit about it's purpose and functionality.	</li>
+    <li>	The <code>PointSource</code> class has been expanded and split into subclass implementations for <code>LightPointSource</code>, <code>SightPointSource</code>, and <code>SoundPointSource</code> to handle different source types.	</li>
+    <li>	The parameter "noUpdateFog" for <code>PerceptionManager#refresh</code> and <code>PerceptionManager#update</code> has been renamed to "skipUpdateFog" in the interest of clarity.	</li>
+    <li>	The canvas layers have been reorganized to better suit handling adaptive lighting and allow for the creation of a <code>CachedContainer</code> for all layers below the lighting engine.	</li>
+    <li>	The existing lighting shaders have been rewritten in order to implement adaptive lighting computations, illumination modes, and coloration modes.	</li>
+    <li>	Restrictions for walls have been reconfigured to allow differentiation between sight restriction and light restriction. These new configuration options allow configuring these restrictions independent from one another.	</li>
+    <li>	The rendering of interface elements such as control icons, nameplates, or tooltips have been moved to a separate canvas layer which is now rendered overtop of other layers that might otherwise obscure these informative elements.	</li>
+    <li>	The data structure and interface used to persist and edit light emission configuration for Token objects has been improved, and now provides separate configuration menus for these advanced features through the use of tabs.	</li>
+    <li>	The algorithms used to compute Line of Sight LOS (or FOV) polygons have been factored out as a subclass of <code>PointSourcePolygon</code> and can be configured as <code>CONFIG.Canvas.losBackend<code>. This allows the use of different computation algorithms for different performance modes or scenes.	</li>
+</ul>
+
+<h4>The Game Canvas</h4>
+<ul>
+	<li></li>
+</ul>
+
+<h4>Interface and Applications</h4>
+<ul>
+    <li>	The <code>LightConfig</code> application has been renamed to <code>AmbientLightConfig</code> for consistency with the naming convention for other Document configuration sheets.	</li>
+</ul>
+
+<h4>Dice System</h4>
+<ul>
+	<li></li>
+</ul>
+
+<h4>Other Changes</h4>
+<ul>
+    <li>	Socket handling for joining games has been improved by adding a new socket method called <code>"getJoinData"</code> which specifically vends only the data needed for an unauthenticated user to join a game world.	</li>
+</ul>
+
+<h3 class="border">New Features</h3>
+<h4>Architecture and Infrastructure</h4>
+<ul>
+    <li>	Packages such as Worlds, Systems, and Modules may now define their compatibility based on an entire Version of the software instead of particular Releases. For example, a module may now set itself as compatible with V9, and will be considered compatible with any Release within that Version.	</li>
+    <li>	The workflow for bulk package updates has been improved for better handling of batch updates, now primes the server side cache, and should now avoid timeouts resulting from web server latency.	</li>
+    <li>	The version comparison logic has been updated to match our newly updated approach to Versioning. For more information see the article: https://foundryvtt.com/article/versioning/	</li>
+    <li>	Server administrator authentication has been moved to a new <code>/auth</code> route instead of presenting an authentication form that is part of the larger <code>/setup</code> view.	</li>
+</ul>
+
+<h4>Documents and Data</h4>
+<ul>
+</ul>
+
+<h4>The Game Canvas</h4>
+<ul>
+    <li>	Vision polygon computation now uses a new "Radial Sweep" method which eliminates unnecessary rays by maintaining the set of active walls sorted by angle with respect to origin, resulting in better performance and accuracy for vision calculations.	</li>
+    <li>	The Lighting engine now uses a new "Adaptive Lighting" mode which contextually blends light sources into the canvas view based on the context of the underlying scene. This provides a much more "realistic" feel for ambient light sources.	</li>
+    <li>	The Lighting engine now uses a new culling algorithm which dynamically reduces the scope of canvas rendering by excluding objects which are external to the current viewport, improving overall performance and reliability of calculated vision.	</li>
+    <li>	Grid line anti-aliasing has been improved in order to avoid issues where diagonal lines for hexagonal grids disappear at higher levels of zoom.	</li>
+    <li>	MSAA usage for most canvas elements has been reduced, including evaluation of the new SmoothGraphics implementation, improving canvas performance for all users but particular beneficial for those on older computers.	</li>
+    <li>	Visibility of Map Note icons will now be filtered based on the vision polygon of current tokens to prevent showing map notes to players for regions of a scene which they have not yet explored.	</li>
+    <li>	New animation options "Vortex" and "Bewitching Wave" have been added for Ambient Light sources.	</li>
+    <li>	Support for an "Animation Reverse" attribute for Ambient Lights has been added, allowing a light animation to be played in the opposite direction to provide a different visual appearance.	</li>
+    <li>	Light animation options which were previously Darkness-only (such as Roiling Mass and Black Hole) now support positive-light animations with custom chosen colors.	</li>
+    <li>	The falloff between bright and dim illumination is handled can now be configured, allowing for smooth or blurred falloff instead of a sharp differentiation between bright and dim light.	</li>
+    <li>	The calculation used to determine dim light color has been adjusted to weight between the bright color and the background color instead of the bright color and darkness.	</li>
+    <li>	Drag token vision for multiple tokens simultaneously now uses perception update batching for improved overall performance.	</li>
+    <li>	Instead of drawing the LOS polygon as a PIXI.Graphic in multiple locations (sight layer, lighting layer, fog of war exploration), it is now rendered once to a <code>RenderTexture</code> and uses a Sprite with the same baseTexture as necessary.	</li>
+    <li>	Provide light sources with a way to configure their luminosity to control how much illumination they produce and how that illumination interacts with the darkness level of the scene.	</li>
+    <li>	Updates to the Fog of War now return the Render Texture to a reusable pool instead of re-creating it each time it updates, improving performance of Fog of War operations.	</li>
+    <li>	When computing a Sight Polygon, the bounding box of the polygon collision points is now stored, allowing collision detection to use a more efficient rectangular-based approach for determining whether a point is within the polygon. This is an overall performance and accuracy improvement for Sight polygon rendering.	</li>
+    <li>	Adaptive lighting performance will adjust to the new Performance Modes a user can choose between.	</li>
+    <li>	Instead of re-drawing roof sprites every lighting render to suppress the light sources they contain, the roofs container is now drawn only once and the contained sprites are toggled as necessary.	</li>
+    <li>	Update adaptive lighting shaders with screen dimensions when the canvas is resized and provide overhead roof masking textures to suppress lights that are beneath a roof.	</li>
+    <li>	Ambient Light sources now include new advanced configuration options including: coloration technique, luminosity, background saturation, contrast, background shadows, and color-inversion for much more fine-grained control over the appearance of light sources.	</li>
+    <li>	The Lighting Controls now offers an option for a "Lighting Region Delimiter" which can be toggled on to make emphasize the border between dim and bright light on light sources.	</li>
+    <li>	Ambient Light Sources now support an expanded range of light animation speeds, including zero which will produce "animation" appearances that are static and motionless.	</li>
+    <li>    The algorithm used to create a masking texture for an overhead tile has been improved to remove partially transparent pixels which might occur as a result of artifacts or shadows in the original image.	</li>
+    <li>    A set of "Performance Modes" have been implemented as settings which provide preset configurations and allow users to control the optimization and performance of the software.	</li>
+    <li>	The occlusion logic used for roof tiles has been updated and now uses the the new Line of Sight and Vision rendering algorithms, this should be more performant when handling occlusion calculations.	</li>
+    <li>	Three new animation options have been added to support rainbow-based light source effects.	</li>
+</ul>
+
+<h4>Interface and Applications</h4>
+<ul>
+    <li>	The displayed version information for Foundry VTT has been refactored to show only the top level Version on the world login screen, without including Release or Build number. 	</li>
+    <li>	The presentation and description of software versioning information on both the Update Software tab and Configuration tab have been updated to match the new versioning language.	</li>
+    <li>	The code architecture of server-side views has been improved to make the express routing code more maintainable.	</li>
+    <li>	The way that fetch requests are created by the server has been improved to have better handling of request timeouts.	</li>
+</ul>
+
+<h4>Dice System</h4>
+<ul>
+	<li></li>
+</ul>
+
+<h4>Documentation</h4>
+<ul>
+	<li></li>
+</ul>
+
+<h4>Other Features</h4>
+<ul>
+	<li></li>
+</ul>
+
+<h3 class="border">API Improvements</h3>
+<h4>Documents and Data</h4>
+<ul>
+    <li>	A new optional "strict" parameter has been added to <code>deepClone</code> which, if true, throws an error when encountering an object that cannot be cloned.	</li>
+    <li>	The Combatant document has been refactored to maintain references to the <code>TokenDocument</code> that it represents, rather than the placed Token object.	</li>
+</ul>
+
+<h4>The Game Canvas</h4>
+<ul>
+    <li>	A new subclass of <code>PIXI.Mesh</code> named <code>SamplerMesh</code> has been created and is designed to be used with a corresponding <code>BaseSamplerShader</code> to render a texture with faster performance than using a <code>PIXI.Sprite.</code>	</li>
+    <li>	The <code>WallsLayer.getRayCollisions</code> method has been redesigned and now avoids reliance on the old <code>QuadtreeExpansion</code> algorithm.	</li>
+    <li>	Corrected the behavior and documentation of <code>TokenLayer#toggleCombat</code> to ensure that it returns an array of Combatant documents.	</li>
+</ul>
+
+<h4>Interface and Applications</h4>
+<ul>
+	<li></li>
+</ul>
+
+<h4>Dice System</h4>
+<ul>
+	<li></li>
+</ul>
+
+<h4>Other Changes</h4>
+<ul>
+    <li>	The documentation for <code>EffectsLayer#emitters</code> has been updated with appropriate references to <code>PIXI.particles.Emitter[]</code>. This stores the array of active particle emitter instances which are active within a Scene.	</li>
+</ul>
+
+<h3 class="border">Localization Improvements</h3>
+<ul>
+	<li></li>
+</ul>
+
+<h3 class="border">Bug Fixes</h3>
+<h4>Documents and Data</h4>
+<ul>
+    <li>	To address issues where local cache expiration could prevent a compendium document from being updated or deleted, the handling for compendium caching has been redesigned to check for an uncached entry as part of the update or deletion workflow.	</li>
+</ul>
+
+<h4>The Game Canvas</h4>
+<ul>
+    <li>	Some instances of wall placement could result in sight polygons failing to accurately detect wall visibility, allowing vision to pierce walls. The new "Radial Sweep" approach to vision rendering should resolve these issues.	</li>
+    <li>	Corrected an issue which could cause <code>Global</code> Ambient Light sources set to a negative radius type to disappear when not line of sight.	</li>
+    <li>	Resolved an issue with <code>Global/Universal</code> Ambient Lights where they would fail to reveal tokens positioned within their radius.	</li>
+    <li>	As part of the layer rendering reorganization and refactor, important UI labels should now be correctly rendered above the fog of war.	</li>
+</ul>
+
+<h4>Interface and Applications</h4>
+<ul>
+	<li></li>
+</ul>
+
+<h4>Dice System</h4>
+<ul>
+	<li></li>
+</ul>
+
+<h4>Documentation</h4>
+<ul>
+	<li></li>
+</ul>
+
+<h4>Other Fixes</h4>
+<ul>
+	<li></li>
+</ul>
