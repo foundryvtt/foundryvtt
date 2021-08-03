@@ -45,8 +45,8 @@
 <h3 class="border">Breaking Changes</h3>
 <h4>Documents and Data</h4>
 <ul>
-    <li>The algorithms used to compute Line of Sight LOS (or FOV) polygons have been factored out as a subclass of <code>PointSourcePolygon</code> and can be configured as <code>CONFIG.Canvas.losBackend<code>. This allows the use of different computation algorithms for different performance modes or scenes.</li>
-    <li>The <code>TextureLoader</code> now caches <code>BaseTexture<code> instances instead of <code>Texture</code> instances, allowing textures to be safely destroyed in cases where multiple sprites are all loaded from the same texture cache.</li>
+    <li>The algorithms used to compute Line of Sight LOS (or FOV) polygons have been factored out as a subclass of <code>PointSourcePolygon</code> and can be configured as <code>CONFIG.Canvas.losBackend</code>. This allows the use of different computation algorithms for different performance modes or scenes.</li>
+    <li>The <code>TextureLoader</code> now caches <code>BaseTexture</code> instances instead of <code>Texture</code> instances, allowing textures to be safely destroyed in cases where multiple sprites are all loaded from the same texture cache.</li>
     <li>The <code>PointSource</code> class has been expanded and split into subclass implementations for <code>LightPointSource</code>, <code>SightPointSource</code>, and <code>SoundPointSource</code> to handle different source types.</li>
     <li>The canvas layers have been reorganized to better suit handling adaptive lighting and allow for the creation of a <code>CachedContainer</code> for all layers below the lighting engine.</li>
     <li>The rendering of interface elements such as control icons, nameplates, or tooltips now occurs on a separate canvas layer which is rendered overtop of other layers that might otherwise obscure these informative elements.</li>
