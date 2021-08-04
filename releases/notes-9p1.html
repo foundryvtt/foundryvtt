@@ -26,6 +26,7 @@
 <li>A toggle for "Gradual Illumination" allows you to have lights which smoothly transition between dim and bright light.</li>
 <li>We also modified the way walls interact with light sources, adding new menu options to walls to allow them to be configured to restrict vision, to restrict light, or to restrict both.</li>
 </ul>
+
 <h4>New Light Animations</h4>
 <p>With the addition of all the awesome advanced features of Adaptive Lighting, we were able to implement some new lighting animations and some new configuraiton options for animated lights. In addition to the new light animations listed below, Animation Speed can now be set to 0 to stop the animation but provide a light source with the appearance of the effect, and a Reverse Direction toggle allows you to invert the behaviour of the animation. </p>
 <ul>
@@ -35,6 +36,7 @@
     <li>Bewitching wave - an alternative mesmerizing light source which uses a less structured wave pattern.</li>
     <li>Vortex - A swirling vortex for all your portal and maelstrom needs.</li>
 </ul>
+
 <h4>Vision Performance and Accuracy</h4>
 <p>The Lighting and Vision engine now uses a new method of polygon computation, a "Radial Sweep" approach. By eliminating unnecessary rays we are now able to calculate vision more accurately and with significantly improved performance, which allowed us to also improve performance in a number of other adjacent areas of the canvas code. Special thanks goes out to Stäbchenfisch whose module <a href="https://foundryvtt.com/packages/lichtgeschwindigkeit" target="_blank">Lichtgeschwindigkeit</a> helped motivate this approach. This new method of vision calculation reduces the amount of processing overhead for: Line of Sight polygons, Wall detection and collision, Fog of War rendering, Overhead Tile occlusion. This set of approaches for improved rendering are also being leveraged to cull the rendering of canvas objects which aren't within the current field of view for some significant performance improvements. </p>
 <p>Canvas objects which are obscured (for example, lights below Roof Tiles, are now rendered more performantly) and Overhead Tiles themselves now benefit from better detection of shadows and other partially transparent pixels. Map notes which are not within the visible canvas space for a token are now no longer rendered. Lastly, an improvement to the canvas overall; HUD elements such as labels or controls now render above other canvas elements intuitively, allowing for these elements to not be obscured by fog of war or blocked by the rendering of of canvas darkness.</p>
@@ -102,7 +104,6 @@
     <li>Grid line anti-aliasing has been improved in order to avoid issues where diagonal lines for hexagonal grids disappear at higher levels of zoom.</li>
     <li>Visibility of Map Note icons will now be filtered based on the vision polygon of current tokens to prevent showing map notes to players for regions of a scene which they have not yet explored.</li>
     <li>A set of "Performance Modes" have been implemented as settings which provide preset configurations and allow users to control the optimization and performance of the software.</li>
-    <li>Adaptive lighting performance will adjust to the new Performance Modes a user can choose between.</li>
     <li>The algorithm used to create a masking texture for an overhead tile has been improved to remove partially transparent pixels which might occur as a result of artifacts or shadows in the original image.</li>
     
 </ul>
@@ -110,11 +111,9 @@
 <h4>Interface and Applications</h4>
 <ul>
     <li>A new configurable setting has been added which allows the toggling of an FPS meter that will appear in the bottom-right of the canvas interface.</li>
-    
     <li>The presentation and description of software versioning information on both the Update Software tab and Configuration tab have been updated to match the new versioning language.</li>
     <li>The displayed version information for Foundry VTT has been refactored to show only the top level Version on the world login screen, without including Release or Build number. </li>
     <li>The code architecture of server-side views has been improved to make the express routing code more maintainable.</li>
-    <li>The way that fetch requests are created by the server has been improved to have better handling of request timeouts.</li>
 </ul>
 
 <h3 class="border">API Improvements</h3>
@@ -147,5 +146,6 @@
     <li>Some instances of wall placement could result in sight polygons failing to accurately detect wall visibility, allowing vision to pierce walls. The new "Radial Sweep" approach to vision rendering should resolve these issues.</li>
     <li>Global or Universal Ambient Lights should now correctly reveal tokens positioned within their radius.</li>
     <li>Corrected an issue which could cause <code>Global</code> Ambient Light sources set to a negative radius type to disappear when not within line of sight.</li>
+    <li>Controls (Pause/Play) for video tiles no longer incorrectly affect all instances of tiles which have the same filename.</li>
     <li>As part of the layer rendering reorganization and refactor, important UI labels should now be correctly rendered above the fog of war.</li>
 </ul>
