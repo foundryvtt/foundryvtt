@@ -1,10 +1,12 @@
 <h2>Overview</h2>
 <p>Foundry Virtual Tabletop has a powerful engine for Lighting and Fog of War which interacts with placed <a title="Walls" href="/article/walls/" target="_blank" rel="nofollow noopener">Walls</a> and Ambient Light sources to define the visibility and exploration progress of a Scene in a way that allows players to explore an environment through their character's perspective, seeing only what their Token would see in a certain position.</p>
 <h2 id="tools" class="border">Lighting Layer</h2>
-<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/lighting-layer-control-diagram-2021-02-02.jpg" alt="Lighting Layer Controls">@Image[154]</a>
+<figure class="right">@Image[154]
 <figcaption>The Lighting Layer controls allow you to create lights, and change the scene's lighting, and reset fog or war quickly.</figcaption>
 </figure>
 <p>The Lighting Layer controls also provides access to some tools which change the overall view of the Scene, as well as controls for the Fog of War for that scene.</p>
+<h4 id="drawlight">Draw Light Source</h4>
+<p>Create new lights by selecting this tool, clicking somewhere in a scene, and dragging out the desired light radius. All lights created this way split the total radius between bright and dim light, with no color, or shader animations.</p>
 <h4 id="transition">Transition to Daylight</h4>
 <p>If your scene presently has a Darkness Level configured, pressing this button will smoothly slide the Darkness Level toward 0 (Bright) transitioning the scene to daylight. This effect is synchronized for all connected Users.</p>
 <h4>Transition to Darkness</h4>
@@ -24,10 +26,8 @@
 <dl>
 <dt>Light Type</dt>
 <dd>This setting controls whether the Light Source is Local, Global or Universal. Local Lights adhere to vision restrictions and are blocked by walls, Global Lights provide vision of a location without adhering to vision restrictions (but are still blocked by walls), and Universal Lights are always visible regardless of vision or walls.</dd>
-<dt>X-Position (Pixels)</dt>
-<dd>The current x-coordinate of the Light Source in a Scene. It can be changed to reposition the light.</dd>
-<dt>Y-Position (Pixels)</dt>
-<dd>The current y-coordinate of the Light Source in a Scene. It can be changed to reposition the light.</dd>
+<dt>X & Y Position (Pixels)</dt>
+<dd>The current x/y coordinates of the Light Source in a Scene. It can be changed to reposition the light. All newly created lights using the Draw Light Source tool have these fields automatically filled in based on where in the scene the light was created. Repositioning the light in the scene also changes these values automatically.</dd>
 <dt>Dim Radius (Grid Units)</dt>
 <dd>A radius of dim light emitted by this Light Source.</dd>
 <dt>Bright Radius (Grid Units)</dt>
