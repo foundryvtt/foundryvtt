@@ -1,0 +1,166 @@
+<h2 class="border">Foundry Virtual Tabletop - Version 9 Development 1 Release Notes</h2>
+<figure>
+    <img src="{BANNER_IMG}" title="Foundry VTT - Version 9 Development 1 Release Notes" alt="Release Notes for Foundry Virtual Tabletop Version 9 Development 1"/>
+    <figcaption>Welcome to the Foundry Virtual Tabletop update notes for Version 9 Development 1.</figcaption>
+</figure>
+
+<p>{PREAMBLE}</p>
+
+<p class="note warning"><strong>WARNING:</strong> {RELEVANT_WARNING_MESSAGES}</p>
+
+<p>{SUMMARY_OF_MAJOR_FEATURES}</p>
+
+<h2 class="border">Update Highlights</h2>
+
+<p>{EXPLANATION_OF_UPDATE_THEMES}</p>
+<h4>{Theme 1}</h4>
+<h4>{Theme 2}</h4>
+<h4>{Theme 3}</h4>
+<p>{POSTAMBLE}</p>
+<div>
+<h2 class="border">Breaking Changes</h2>
+
+<h3>Architecture and Infrastructure</h3>
+<ul>
+    <li>In continuing the deprecation of Entity declarations, we have begun deprecating the Entity field in compendium definitions in favour of a type field more common in our Document schema. The previous entity field will continue to be supported until v11 to allow for module and system authors to make the changes as above. Worlds will be migrated automatically and do not require any user action.(<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5992" target="_blank">5992</a>)</li>
+</ul>
+
+</div>
+<div>
+<h2 class="border">New Features</h2>
+    <h3>Architecture and Infrastructure</h3>
+    <ul>
+        <li>Chat.db has been migrated to messages.db in order to match with the naming schema for Documents. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5016" target="_blank">5016</a>)</li>
+        <li>When browsing packages that can be installed or checking for package updates only a single request will be sent to the <a href="https://foundryvtt.com">https://foundryvtt.com</a>, avoiding an issue that could result in multiple simultaneous requests. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5883" target="_blank">5883</a>)</li>
+        <li>Updated Electron wrapper to 14.1.1 including the LetsEncrypt root certificate fix. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5993" target="_blank">5993</a>)</li>
+    </ul>
+    <h3>Cards</h3>
+    <ul>
+        <li>Cards now support drag-and-drop workflows for re-arranging cards within a deck or hand, or transferring a card between piles. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5913" target="_blank">5913</a>)</li>
+        <li>If a cards collection does not contain any Card Documents, a placeholder text will now be displayed.(<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5991" target="_blank">5991</a>)</li>
+        <li><code>Cards#dealDialog</code>, <code>Cards#passDialog</code>, and <code>Cards#drawDialog</code> now provide warning notifications for cases where no valid source or target cards documents are present to support the operation, for example: in cases where a deck is empty or a pile is not present. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5904" target="_blank">5904</a>)</li>
+        <li><code>Cards#pass</code> has been implemented, allowing for transferring a specific list of embedded Card documents (by id) to another Cards pile. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5924" target="_blank">5924</a>)</li>
+        <li>Permission controls for Cards have been improved, allowing more control over which players have access to which card pile, and operations those players can perform on individual Card documents within those stacks. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5919" target="_blank">5919</a>)</li>
+        <li>The baked-in padding around the provided card images has been removed. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5922" target="_blank">5922</a>)</li>
+        <li>A number of artwork corrections were made for Jack and Queen face cards to adjust facing and position of text to match the standard for the decks.(<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5932" target="_blank">5932</a>)</li>
+        <li>It is now possible to pass one or more Cards back to a parent Deck via <code>Card#pass</code> or <code>Cards#pass</code>, doing so will unset the drawn attribute for that card. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5994" target="_blank">5994</a>)</li>
+        <li>The function signatures for the Cards and Card method APIs have been standardized and should now always keep updateData within the additional options object. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5976" target="_blank">5976</a>)</li>
+    </ul>
+    <h3>The Game Canvas</h3>
+    <ul>
+        <li><code>Ruler#moveToken</code> has had its efficiency improved and now retrieves the existing animation for Token movement, awaiting its completion rather than dispatching a redundant animation request. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5940" target="_blank">5940</a>)</li>
+    </ul>
+    <h3>Interface and Applications</h3>
+    <ul>
+        <li>Scene Configuration has been redesigned with a simplified layout, offering a more streamlined and tabbed approach to changing scene options. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/4757" target="_blank">4757</a>)</li>
+        <li>With the previous introduction of Font sizes as CSS variables, a settings menu option has been implemented which offers ability to adjust font size scaling application-wide. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5266" target="_blank">5266</a>)</li>
+        <li>The Playlists sidebar UI has been reworked and should no longer dramatically reposition elements when audio is started or stopped. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5415" target="_blank">5415</a>)</li>
+        <li>The UI for package listings has been improved and the display of versioning, compatibility, and other tags for packages has been standardized for a more clean overall appearance. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5456" target="_blank">5456</a>)</li>
+        <li>The <code>/setup</code> now provides a simple underline as a visual indicator of the current active tab. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5634" target="_blank">5634</a>)</li>
+        <li>To provide support for small-width screens, the new flex-based UI layout has been leveraged and now allows for some UI overlap, allowing for a reduction of the minimum required resolution width. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5917" target="_blank">5917</a>)</li>
+        <li>The Macro Directory now supports folders for organizing your Macros. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5918" target="_blank">5918</a>)</li>
+        <li>The title of the login and game pages now include the name of the current world. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5926" target="_blank">5926</a>)</li>
+    </ul>
+    <h3>Other Changes</h3>
+    <ul>
+        <li>The Game Invitation Links application now provides an active check of whether the server is reachable from a remote connection for IPV4 hosts, displaying a notification for whether or not the connection appears t be open or closed. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5938" target="_blank">5938</a>)</li>
+        <li>To help prevent cases of streamers accidentally revealing their game invitation links to their audience, the remote invite link is now obscured by default. A button has been provided to allow toggling visibility of the link. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5977" target="_blank">5977</a>)</li>
+        <li>A new filter field has been added to the Game Worlds, Game Systems, and Add-on Modules tabs on the setup menu, allowing users to more easily locate individual packages for update or removal. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5978" target="_blank">5978</a>)</li>
+        <li>Deleting a world now generates a simple code which must be entered for deletion rather than requiring an exact retyping of the world name. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5902" target="_blank">5902</a>)</li>
+    </ul>
+</div>
+<div>
+<h2 class="border">API Improvements</h2>
+    <h3>Architecture and Infrastructure</h3>
+    <u>
+        <li>All remaining references to Entity and Entities in the API have been removed or given a deprecation path. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5972" target="_blank">5972</a>)</li>
+        <li>As part of the ongoing deprecrations for Entities, CONST variables which previously referenced Entities have been restructured as getters which throw deprecation warnings. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5907" target="_blank">5907</a>)</li>
+        <li>Removed the unused function Playlist#audio. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5970" target="_blank">5970</a>)</li>
+        <li><code>TextEditor#_onDragEntityLink</code> now resolves using <code>size</code> instead of <code>length</code>. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5990" target="_blank">5990</a>)</li>
+    </u>
+    <h3>Documents and Data</h3>
+    <ul>
+       x <li>Consider whether ActiveEffect#isSuppressed would provide a better interface as a simple getter with more advanced logic delegated to individual game systems to implement. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5921" target="_blank">5921</a>)</li>
+        <li>To address a race condition that could rarely occur which would prevent sheet types from rendering, the process for sheet registration in <code>EntitySheetConfig</code> has been refactored to remove the requirement for a<code>_pending</code> queue of deferred registrations.(<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5175" target="_blank">5175</a>)</li>
+        <li>It should now be possible for a <code>PrototypeTokenDocument</code> to perform update operations upon itself. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5950" target="_blank">5950</a>)</li>
+        <li>preCreate hooks for synthetic actors and actor have been standardized in their functionality and behaviour. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5930" target="_blank">5930</a>)</li>
+    </ul>
+    <h3>The Game Canvas</h3>
+    <ul>
+        <li>Added a Hook for <code>PIXI.Application</code> to allow configuration of canvas initialization settings. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/4965" target="_blank">4965</a>)</li>
+    </ul>
+    <h3>Dice System</h3>
+    <ul>
+        <li>Added the new property <code>Roll#isDeterministic</code> which indicates whether the result of a constructed Roll instance is non-random. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5931" target="_blank">5931</a>)</li>
+        <li><code>DiceTerm.fromMatch</code> has been refactored and will now fall back to <code>CONFIG.Dice.terms.d</code> rather than the Die class explicitly, allowing systems or modules to override the default numeric Die representation if need be. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5941" target="_blank">5941</a>)</li>
+    </ul>
+    <h3>Other Changes</h3>
+    <ul>
+        <li><code>ui.activeWindow</code> has been provided as a way to access the current Active Application. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5951" target="_blank">5951</a>)</li>
+        <li>The sorting method for sidebar documents now provides an easier approach to customizing how documents within a sidebar container are visually sorted. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5341" target="_blank">5341</a>)</li>
+        <li>Created new hooks for various Card and Cards methods, this will allow for modules to take additional actions when certain card operations are performed. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5915" target="_blank">5915</a>)</li>
+        <li>Implemented an initial <code>Card#play</code> which serves as an alias for <code>Card#pass</code> for now, but may provide additional functionality in the future. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5916" target="_blank">5916</a>)</li>
+        <li>CRUD operations on EmbeddedDocuments within a Document inside a Compendium pack will now infer the pack from the parent Document. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5937" target="_blank">5937</a>)</li>
+        <li><code>ChatMessage#roll </code>should no longer throw an error if the message data doesn't contain a roll. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5947" target="_blank">5947</a>)</li>
+    </ul>
+</div>
+<div>
+    <h2 class="border">Documentation Improvements</h2>
+    <ul>
+        <li>Provided a number of corrections for JSDoc strings including <code>TextureLoader</code>, <code>PlaylistSound</code>,<code>PlaylistData</code>, <code>Soundsource#initialize</code> (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5888" target="_blank">5888</a>, <a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5963" target="_blank">5963</a>, <a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5965" target="_blank">5965</a>, <a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5969" target="_blank">5969</a>, <a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5894" target="_blank">5894</a>)</li>
+        <li>Removed documentation for the unused Preview option in AmbientSoundConfig. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5984" target="_blank">5984</a>)</li>
+    </ul>
+</div>
+
+<div>
+<h2 class="border">Localization Improvements</h2>
+<ul>
+    <li>SIDEBAR.TabCards has now been provided with a localization translation string. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5903" target="_blank">5903</a>)</li>
+</ul>
+
+</div>
+<div>
+<h2 class="border">Bug Fixes</h2>
+    <h3>Architecture and Infrastructure</h3>
+    <ul>
+        <li>Compendium pack DB files containing invalid or otherwise corrupted data should no longer cause issues with the initialisation process. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5885" target="_blank">5885</a>)</li>
+        <li>Implemented a timeout to prevent cases where failed requests to contact the package repository would repeat the attempts endlessly. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5889" target="_blank">5889</a>)</li>
+        <li>The Filepicker should no longer attempt to lazy-load images when in list. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5897" target="_blank">5897</a>)</li>
+        <li>Attempts to update a package which fail due to an invalid local manifest URL (404) should now correctly fallback to use the manifest URL provided from the package repository. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5900" target="_blank">5900</a>)</li>
+        <li>Corrected an issue which could prevent updates of the core software. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5906" target="_blank">5906</a>)</li>
+        <li>Failed user logins should no longer trigger header warnings in the node console. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5912" target="_blank">5912</a>)</li>
+        <li>The user password field should no longer incorrectly display the option to show the password if no password has been set. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5955" target="_blank">5955</a>)</li>
+    </ul>
+
+    <h3>Documents and Data</h3>
+    <ul>
+        <li>It is no longer possible to use <code>form</code> html tags within an existing journal entry. Users may use other form elements within the existing entry, but this may have unintended consequences during the journal update flow, so use an abundance of caution when doing so.(<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5901" target="_blank">5901</a>)</li>
+        <li>&quot;Show Players&quot; should once again function correctly for Journals. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5911" target="_blank">5911</a>)</li>
+        <li>Creating embedded documents on a synthetic actor should no longer fail in cases where the existing number of embeddedDocuments is 0. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5939" target="_blank">5939</a>)</li>
+        <li>Token effects should now correctly get activeEffects from Token#_onUpdate. This previously caused issues with bulk activeEffect update operations. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5953" target="_blank">5953</a>)</li>
+        <li>Actors imported from JSON now retain the ID association between Active Effects and the embeddedDocuments (Items) which provide them. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5962" target="_blank">5962</a>)</li>
+    </ul>
+    <h3>The Game Canvas</h3>
+    <ul>
+        <li><code>Canvas#draw</code> should no longer cause errors in the teardown workflow for the existing Scene. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5884" target="_blank">5884</a>)</li>
+        <li>Adjusting light source luminosity should no longer incorrectly remove coloration from the light sources. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5908" target="_blank">5908</a>)</li>
+        <li>Fog of war is set to explored for all tokens on scene-activation. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5946" target="_blank">5946</a>)</li>
+        <li>Fog of war should no longer recede from walls on each fog update for scenes with unrestricted vision range enabled. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5948" target="_blank">5948</a>)</li>
+        <li>Setting an excessive distance within a measurement template should no longer prevent world loading. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5979" target="_blank">5979</a>)</li>
+        <li>An artifact from the previous lighting design prevented Vision source rendering when the canvas darkness level was set to zero. Vision sources are now rendered regardless of the darkness level. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5975" target="_blank">5975</a>)</li>
+    </ul>
+    <h3>Interface and Applications</h3>
+    <ul>
+        <li>Audio/Video communication should now be able to start regardless of whether a video camera is present. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/4197" target="_blank">4197</a>)</li>
+        <li>Resolved an issue where AV Clients would receive a duplicate attempt to connect when a user was kicked. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5886" target="_blank">5886</a>)</li>
+        <li>Sidebar folders should once again properly display their background color. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5909" target="_blank">5909</a>)</li>
+        <li>Reverted a change which unintentionally caused the HTML sctructure for Tabbed containers to require those containers as a direct descendent of the root content element.(<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5920" target="_blank">5920</a>)</li>
+    </ul>
+    <h3>Other Changes</h3>
+    <ul>
+        <li>Closing the window for an embedded sheet should no longer trigger an unexpected token update for synthetic token actors. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5866" target="_blank">5866</a>)</li>
+        <li>Card documents which do not yet have any valid image representation should now display a default image. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5905" target="_blank">5905</a>)</li>
+        <li><code>User#_onUpdate</code> has been restructured to allow use of a custom user class provided by a game system or module. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5929" target="_blank">5929</a>)</li>
+        <li>In cases where <code>fromUuid</code> is used to call an entity within a compendium pack that does not exist, it will now return null rather than throwing an error. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5956" target="_blank">5956</a>)</li>
+    </ul>
+</div>
