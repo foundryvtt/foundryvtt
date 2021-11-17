@@ -13,7 +13,7 @@
 
 <p>The Version 9 API Development 2 update (V9d2) centered primarily around lighting and vision rendering improvements, the initial implementation of keybindings, improvements to audio video chat integration, and addressing a variety of concerns submitted by the FVTT development community.</p>
 <h4>Lighting and Vision Accuracy and Efficiency</h4>
-<p>As part of the implementation of the new Adaptive Lighting system, we wanted to tackle the complex problem of providing calculation of vision and lighting polygons in a way that was both more accurate and more efficient. In addition to working toward creation of some new algorithmic approaches to this problem, we were able to work with some subject matter experts within the community on this problem and the outcome is one we are extremely proud of. The new <code>ClockwiseSweepAlgorithm</code> which emerged from this work has shown a significant increase in performance, a reduction in issues where vision was not rendered accurately, a complete removal of cases where walls did not impede vision as intended, and enables scenes to be rendered at a comfortable FPS with a far greater number of walls and light sources than ever before. In short: Everything about the way lighting and vision is rendered is now more accurate and faster, with most calculations completing in less than a single millisecond.</p>
+<p>As part of the implementation of the new Adaptive Lighting system, we wanted to tackle the complex problem of providing calculation of vision and lighting polygons in a way that was both more accurate and more efficient. In addition to working toward creation of some new algorithmic approaches to this problem, we were able to work with some subject matter experts within the community (the awesome @caewok#9192 specifically) on this problem and the outcome is one we are extremely proud of. The new <code>ClockwiseSweepAlgorithm</code> which emerged from this work has shown a significant increase in performance, a reduction in issues where vision was not rendered accurately, a complete removal of cases where walls did not impede vision as intended, and enables scenes to be rendered at a comfortable FPS with a far greater number of walls and light sources than ever before. In short: Everything about the way lighting and vision is rendered is now more accurate and faster, with most calculations completing in less than a single millisecond.</p>
 <h4>Audio Video Chat Integration Improvements</h4>
 <p>There have been a number of lingering issues with A/V chat since we transitioned to the new webRTC impelementation through simple-peer in a previous version. As part of an ongoing effort to improve the overall state of A/V Chat Integration, we have resolved a number of bugs and added support for a few features. In addition to correcting some issues related to voice activation and display of user avatars, we completely redesigned the data passed internally for A/V settings and it now maintains information on the state of connected clients, including whether or not their microphone is muted, camera is disabled, or if they are currently speaking. Doing so lays the groundwork for extending A/V support in the future in meaningful ways. </p>
 <h4>Keybinding Support</h4>
@@ -22,10 +22,6 @@
 <h2 class="border">New Features</h2>
     <h3>Architecture and Infrastructure</h3>
     <ul>
-        <li><code>Tile _alphaMap</code> has been updated to only compute when required, avoiding unnecessary work for underfoot tiles which do not require this data. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5523" target="_blank">5523</a>)
-        </li>
-        <li>The PIXI Application environment has been configured to use the autoDensity option for assigning screenspace to address some potential edge cases where <code>Canvas#_onResize</code> might result in a non-integer screenspace. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6046" target="_blank">6046</a>)</li>
-        <li>The PIXI Environment has been reconfigured to ensure that the preferred WebGL version is set to 2. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6028" target="_blank">6028</a>)</li>
         <li>Updated a number of dependency packages to their latest stable versions. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6102" target="_blank">6102</a>)</li>
         <li>Upgraded Electron to latest stable version 15.3.2 from previous Electron version 14. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6108" target="_blank">6108</a>)</li>
     </ul>
@@ -34,15 +30,18 @@
     <ul>
         <li>The underlying Vision and Lighting system now uses a new <code>ClockwiseSweepAlgorithm</code> which is both more accurate and more efficient, resulting in major performance gains for rendering lighting and vision polygons. The <code>ClockwiseSweepAlgorithm</code> constructs a <code>PointSourcePolygon</code> using 2d geometry orientation tests (clockwise, counter-clockwise) rather than computing ray distances and angles for major performance gains in polygon construction. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5891" target="_blank">5891</a>)</li>
         <li>Introduced a new approach for segmenting intersecting walls to prevent cases where overlapping walls would cause vision to be calculated incorrectly using the new <code>RadialSweepPolygon</code> or <code>ClockwiseSweepPolygon</code> implementations. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5675" target="_blank">5675</a>)</li>
+        <li><code>Tile _alphaMap</code> has been updated to only compute when required, avoiding unnecessary work for underfoot tiles which do not require this data. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5523" target="_blank">5523</a>)
+        </li>
+        <li>The PIXI Application environment has been configured to use the autoDensity option for assigning screenspace to address some potential edge cases where <code>Canvas#_onResize</code> might result in a non-integer screenspace. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6046" target="_blank">6046</a>)</li>
+        <li>The PIXI Environment has been reconfigured to ensure that the preferred WebGL version is set to 2. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6028" target="_blank">6028</a>)</li>
+        <li>It is now possible to change Scene background color, grid color, and grid opacity without re-drawing the entire canvas. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/4880" target="_blank">4880</a>)</li>
     </ul>
     <h3>Interface and Applications</h3>
     <ul>
         <li>Audio/Video chat integration settings have been redesigned and now maintains a transient state of connected clients, their muted/hidden status, and whether they are currently speaking. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/3659" target="_blank">3659</a>)</li>
         <li>The "Custom Signaling Server" options have been removed from A/V configuration intertface as they were no longer used. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6045" target="_blank">6045</a>)</li>
-        <li>It is now possible to change Scene background color, grid color, and grid opacity without re-drawing the entire canvas. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/4880" target="_blank">4880</a>)</li>
         <li>A new UI option allows users to create a combat that is not linked to a scene, allowing for GMs to conveniently create a combat which spans multiple scenes.(<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6050" target="_blank">6050</a>)</li>
         <li>The combat tracker now only re-renders in cases where specific relevant data attributes were changed.(<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5017" target="_blank">5017</a>)</li>
-        <li><code>CombatData#turn</code> is now nullable, and core combat handling no longer assumes that a turn is non-null, treating a null value as "no one's turn". <code>Combat#combatant</code> can now return null or undefined as a result. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/4956" target="_blank">4956</a>)</li>
         <li>The chat entry field now supports creation of dynamic links to Documents using drag and drop workflows, allowing convenient linking to specific actors, items, journal entries or otherwise. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6053" target="_blank">6053</a>)</li>
         <li>A new <code>/macro</code> chat command has been implemented which introduces ability to execute a macro. It accepts both <code>/macro {macro name}</code> and <code>/macro {hotbar number}</code> as parameters for locating a macro.(<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6011" target="_blank">6011</a>)</li>
         <li>The list of journal entries in the dropdown selector for Journal map notes is now alphabetically sorted. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6078" target="_blank">6078</a>)</li>
@@ -53,24 +52,22 @@
 </div>
 <div>
 <h2 class="border">API Improvements</h2>
-    <h3>Architecture and Infrastructure</h3>
-    <ul>
-        <li>Introduced two new methods to be used by the new Keybindings system: <code>game.toggleCharacterSheet()</code> and <code>canvas.highlightObjects(active)</code>. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6104" target="_blank">6104</a>) (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6105" target="_blank">6105</a>)</li>
-        <li><code>PIXI.settings.FILTER_RESOLUTION</code> has been reconfigured to use <code>canvas.app.renderer.resolution</code> by default. Filters which are constructed prior to canvasInit or which need a different resolution will require individual configuration. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5892" target="_blank">5892</a>)</li>
-        <li>The <code>WallConfig</code> class has been reconfigured to be a standard <code>DocumentSheet</code> subclass. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6101" target="_blank">6101</a>)</li>
-        <li>Resolved an unused &#x60;name&#x60; variable in &#x60;PermissionControl.updateObject&#x60;. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6018" target="_blank">6018</a>)</li>
-        <li>Corrected an invalid <code>this</code> reference in <code>Compendium#metadata#entity</code> does not have the correct &quot;this&quot; reference to obtain the &quot;type&quot; field. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6024" target="_blank">6024</a>)</li>
-        <li><code>CompendiumCollection#updateAll</code> should now function as expected, allowing the updating of particular data values for all objects contained within a compendium pack. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6076" target="_blank">6076</a>)</li>
-        
-    </ul>
-
+<p class="note info">API documentation for V9 has been updated and deployed, it is <a href="https://foundryvtt.com/api/alpha/" target="_blank">available here.</a></p>
+    
+    <h3>Documents and Data</h3>
+<ul>
+    <li><code>CombatData#turn</code> is now nullable, and core combat handling no longer assumes that a turn is non-null, treating a null value as "no one's turn". <code>Combat#combatant</code> can now return null or undefined as a result. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/4956" target="_blank">4956</a>)</li>
+</ul>
     <h3>The Game Canvas</h3>
     <ul>
         <li>Several new classes and functions designed to support improved polygon computation have been introduced, including <code>ClockwiseSweepPolygon</code>, <code>PolygonVertex</code>, <code>PolygonEdge</code>, <code>CollisionResult</code>, and many more. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6021" target="_blank">6021</a>)</li>
+        <li>The workflows for sight layer fog initialization and reloading have been reworked to function as expected regardless of the persisted fog state from the database. This resolves an issue where toggling fog exploration off for a scene would not correctly obscure current exploration progress. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6082" target="_blank">6082</a>)</li>
+        <li><code>PIXI.settings.FILTER_RESOLUTION</code> has been reconfigured to use <code>canvas.app.renderer.resolution</code> by default. Filters which are constructed prior to canvasInit or which need a different resolution will require individual configuration. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5892" target="_blank">5892</a>)</li>
         <li>The <code>screenDimension</code> updating logic has been refactored and now uses a centralized <code>Canvas#screenDimensions</code> array which can be used directly to define uniforms which need the renderer dimensions. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6080" target="_blank">6080</a>)</li>
         <li><code>ControlIcon#draw</code> now verifies whether a control icon has already been destroyed during scene teardown operations. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6055" target="_blank">6055</a>)</li>
         <li><code>Token.drawBars</code> is no longer called twice when updating a synthetic actor. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6086" target="_blank">6086</a>)</li>
         <li><code>ForegroundLayer#displayRoofs</code> will now return a boolean as expected. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6019" target="_blank">6019</a>)</li>
+        <li>Introduced a new <code>canvas.highlightObjects(active)</code> method and updated the keybinding handler to use it. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6105" target="_blank">6105</a>)</li></li>
         <li>The <code>Canvas#getLayer</code> method has been deprecated and will be deleted in v10. It is not currently used by the core API. Callers of this method should instead use the known canvas layer references directly. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6079" target="_blank">6079</a>)</li>
     </ul>
     <h3>Interface and Applications</h3>
@@ -79,8 +76,9 @@
         <li>All core Keybindings have been remapped to use the new <code>game.keybindings</code> registration approach. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6000" target="_blank">6000</a>)</li>
         <li>Added a way to process native JavaScript Keyboard Events and execute matching registered Keybind Actions. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6001" target="_blank">6001</a>)</li>
         <li>Keyboard <code>handleMovement</code> has received a minor update to its handling logic. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6090" target="_blank">6090</a>)</li>
+        <li>Introduced a new <code>game.toggleCharacterSheet()</code> and updated the keybindings handler to use this method. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6104" target="_blank">6104</a>)</li>
         <li>It is now possible to register sheets for every document type, allowing for a choice of sheets to be used at an individual document level in the same way as Actor and Item documents. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/4994" target="_blank">4994</a>)</li>
-        <li>Resolved a number of cases where <code>Application#render</code> did not provide the expected return. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6026" target="_blank">6026</a>)</li>
+        <li>The <code>WallConfig</code> class has been reconfigured to be a standard <code>DocumentSheet</code> subclass. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6101" target="_blank">6101</a>)</li>
     </ul>
 </div>
 <div>
@@ -99,10 +97,19 @@
 </div>
 <div>
 <h2 class="border">Bug Fixes</h2>
+    <h3>API</h3>
+    <ul>
+        <li>Resolved an unused <code>name</code> variable in <code>PermissionControl.updateObject</code>. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6018" target="_blank">6018</a>)</li>
+        <li>Corrected an invalid <code>this</code> reference in <code>Compendium#metadata#entity</code> does not have the correct <code>this</code> reference to obtain the <code>type</code>; field. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6024" target="_blank">6024</a>)</li>
+        <li><code>CompendiumCollection#updateAll</code> should now function as expected, allowing the updating of particular data values for all objects contained within a compendium pack. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6076" target="_blank">6076</a>)</li>
+        <li>Resolved a number of cases where <code>Application#render</code> did not provide the expected return. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6026" target="_blank">6026</a>)</li>
+        <li>The <code>makeDefault</code> option for document sheet registration (such as  <code>Actors.registerSheet</code>) now uses the last registered competing 'default' as the default sheet. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5997" target="_blank">5997</a>)</li>
+        
+    </ul>
     <h3>Architecture and Infrastructure</h3>
     <ul>
-        <li>To resolve an issue which would prevent launching a world during server-side migration and potentially result in serverside crashes, the <code>game.ready</code> flag is now set after a migration has completed. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6066" target="_blank">6066</a>)</li>
-        <li>Corrected a compendium migration issue resulting from the <code>entity -> type</code> change which could cause Worlds to fail to load in v8 after migration to v9. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6060" target="_blank">6060</a>)</li>
+        <li>Launching a world now delays flagging the world as ready until after any core migration operations have successfully completed to avoid a situation where a player could try and join a world before it is able to accept connections. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6066" target="_blank">6066</a>)</li>
+        <li>The compendium data schema in package manifest files can now include both <code>entity</code> and <code>type</code> keys in order to provide shared compatibility for both v9 and v8. The <code>entity</code> key will eventually be deprecated, but not until v10 or later. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6060" target="_blank">6060</a>)</li>
     </ul>
 
     <h3>Documents and Data</h3>
@@ -112,6 +119,8 @@
         <li>Adding a new owned item to an actor with unlinked tokens no longer requires a refresh to update the unlinked token actors. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6075" target="_blank">6075</a>)</li>
         <li>Corrected a handling issue with drag and drop operations for Items embedded on Actors for unlinked tokens. This resolves an error which would occur in the specific case of dropping an embedded item onto an actor sheet from which the unlinked token originated. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6071" target="_blank">6071</a>)</li>
         <li>Importing card decks from compendium packs now functions as expected and no longer fails with error. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6035" target="_blank">6035</a>)</li>
+        <li>Permissions for token actors should now correctly update when permissions are changed on the actor from which the token originated. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6022" target="_blank">6022</a>)</li>
+        <li>Retreiving a compendium document should no longer incorrectly discard indexed properties. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6087" target="_blank">6087</a>)</li>
     </ul>
     <h3>The Game Canvas</h3>
     <ul>
@@ -120,7 +129,6 @@
         <li>Resolved an issue where it was possible to see token Conditions and Condition Overlays even if they were obscured by scene Padding. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6030" target="_blank">6030</a>)</li>
         <li>Moving a webm token or tile no longer results in animation halting and the placeable disappearing. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6036" target="_blank">6036</a>)</li>
         <li>Panning operations at screen edges should now appropriately handle cases where the arrow-key based movement occurs within the width of the sidebar. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6063" target="_blank">6063</a>)</li>
-        <li>The workflows for sight layer fog initialization and reloading have been reworked to function as expected regardless of the persisted fog state from the database. This resolves an issue where toggling fog exploration off for a scene would not correctly obscure current exploration progress. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6082" target="_blank">6082</a>)</li>
     </ul>
     <h3>Interface and Applications</h3>
     <ul>
@@ -135,11 +143,5 @@
         <li>Resolved a permission error which could occur in cases where a user attempted to set the defeated condition on a combatent for systems which do not have a specified 'defeated' effect. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6089" target="_blank">6089</a>)</li>
         <li>Resolved an issue where dragging to resize a tile could result in a non-integer width and height which prevented future updates to a Tile through the Tile configuration sheet. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6092" target="_blank">6092</a>)</li>
         <li>The authors field for package data once again appears on package listings and on the <code>/setup</code> page. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5983" target="_blank">5983</a>)</li>
-    </ul>
-    <h3>Other Changes</h3>
-    <ul>
-        <li>The <code>makeDefault</code> option for document sheet registration (such as  <code>Actors.registerSheet</code>) now uses the last registered competing 'default' as the default sheet. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5997" target="_blank">5997</a>)</li>
-        <li>Permissions for token actors should now correctly update when permissions are changed on the actor from which the token originated. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6022" target="_blank">6022</a>)</li>
-        <li>Retreiving a compendium document should no longer incorrectly discard indexed properties. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6087" target="_blank">6087</a>)</li>
     </ul>
 </div>
