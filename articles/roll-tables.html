@@ -1,5 +1,5 @@
 <h2>Overview</h2>
-<p>Rollable Tables allow you to draw from a predefined list of outcomes which, in addition to allowing text entries, can link to @Article[actors], @Article[items], @Article[journal], @Article[macros], @Article[playlists], @Article[scenes], or even other Rollable Tables. In addition, Rollable tables have full access to @Article[compendium] and the entities they contain.</p>
+<p>Rollable Tables allow you to draw from a predefined list of outcomes which, in addition to allowing text entries, can link to @Article[actors], @Article[items], @Article[journal], @Article[macros], @Article[playlists], @Article[scenes], or even other Rollable Tables. In addition, Rollable tables have full access to @Article[compendium] and the documents they contain.</p>
 <p>This article will familiarize you with rollable tables, how to create, configure and use them.</p>
 <h2 id="rolltable" class="border">The Rollable Table Interface</h2>
 <figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/rollable-table-configuration-menu-2020-10-02.jpg" alt="Rollable Table Configuration Menu">@Image[95]</a>
@@ -41,11 +41,11 @@
 <dl>
 <dt>Result Type</dt>
 <dd>
-<p>This dropdown selection input allows you to choose either <strong>Text</strong>, <strong>Entity</strong> or <strong>Compendium</strong>. Text allows you to enter plain text or HTML scripted entries which will be output to Chat when they are entered. Entities can be any named entity from</p>
+<p>This dropdown selection input allows you to choose either <strong>Text</strong>, <strong>Document</strong> or <strong>Compendium</strong>. Text allows you to enter plain text or HTML scripted entries which will be output to Chat when they are entered. Documents can be any named document from</p>
 </dd>
 <dt>Result Details</dt>
 <dd>
-<p>Each type of Result carries with it some specific options. Text allows you to enter plain text or HTML scripted entries which will be output to Chat when they are entered; Text entries can also utilize Foundry's Entity Links(@Entity[ID]) for advanced functionality. Entities require you to choose which type of entity the Rollable Table refers to, with a second box allowing you to type the exact name of the entity to be found. Compendium function effectively the same as Entity, but you select the compendium from which to find the entity's name.</p>
+<p>Each type of Result carries with it some specific options. Text allows you to enter plain text or HTML scripted entries which will be output to Chat when they are entered; Text entries can also utilize Foundry's Document Links(@Document[ID]) for advanced functionality. Documents require you to choose which type of document the Rollable Table refers to, with a second box allowing you to type the exact name of the document to be found. Compendium function effectively the same as Document, but you select the compendium from which to find the document's name.</p>
 </dd>
 <dt>Weight</dt>
 <dd>
@@ -57,12 +57,12 @@
 </dd>
 </dl>
 <h3 id="nesting">Nesting Tables</h3>
-<p>By default, Foundry supports rolling on secondary tables inside a Rollable table. To accomplish this, assign a result to the Entity - RollTable type and enter the name of the table.</p>
+<p>By default, Foundry supports rolling on secondary tables inside a Rollable table. To accomplish this, assign a result to the Document - RollTable type and enter the name of the table.</p>
 <p>If you wish to have the first table indicate that it is rolling on a sub-table, assign a text result before the secondary Rollable Table result to make a declaration, such as "A small chest containing:". Then provide both of these results the same Range.</p>
 <h2 id="api" class="border">API References</h2>
 <p>To interact with Rollable Tables programmatically, consider using the following API concepts:</p>
 <ul>
-<li>The <a title="The RollTable Entity" href="/api/RollTable.html" target="_blank" rel="nofollow noopener">RollTable</a> Entity</li>
+<li>The <a title="The RollTable Document" href="/api/RollTable.html" target="_blank" rel="nofollow noopener">RollTable</a> Document</li>
 <li>The <a title="The RollTable Collection" href="/api/RollTables.html" target="_blank" rel="nofollow noopener">RollTables</a> Collection</li>
 <li>The <a title="The RollTable Sidebar Directory" href="/api/RollTableDirectory.html" target="_blank" rel="nofollow noopener">RollTableDirectory</a> Sidebar Directory</li>
 <li>The <a title="The RollTable Application" href="/api/RollTableConfig.html" target="_blank" rel="nofollow noopener">RollTableConfig</a> Application</li>
