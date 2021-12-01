@@ -60,13 +60,13 @@
       "name": "monsters",
       "label": "My Monsters",
       "path": "packs/monsters.db",
-      "entity": "Actor"
+      "type": "Actor"
     },
     {
       "name": "items",
       "label": "My Items",
       "path": "packs/items.db",
-      "entity": "Item"
+      "type": "Item"
     }
   ],
   "languages": [
@@ -126,7 +126,7 @@
 	</dd>
 	<dt>packs</dt>
 	<dd>
-		<p>Game systems may come bundled with Compendium packs which add pre-generated content for Actors, Items, or other supported Entity types. Compendium packs are defined as objects which have their own internal metadata. For each included compendium. These options are listed below:</p>
+		<p>Game systems may come bundled with Compendium packs which add pre-generated content for Actors, Items, or other supported Document types. Compendium packs are defined as objects which have their own internal metadata. For each included compendium. These options are listed below:</p>
 		<dl>
 	        <dt>name</dt>
 			<dd>
@@ -148,9 +148,9 @@
 			<dd>
 				<p>The path for each compendium pack should designate a database file with the <code>.db</code> extension. As a best practice, I recommend placing these database files within the <code>packs</code> subdirectory. You do not need to create these files yourself. If a system includes a compendium pack, the database file for that pack will be created automatically when the system is loaded, if it does not already exist.</p>
 			</dd>
-	        <dt>entity</dt>
+	        <dt>type</dt>
 			<dd>
-				<p>Each compendium pack must designate a specific Entity type that it contains. Valid entities include <code>Actor</code>, <code>Item</code>, or <code>Scene</code>.</p>
+				<p>Each compendium pack must designate a specific Document type that it contains. Valid documents include <code>Actor</code>, <code>Item</code>, or <code>Scene</code>.</p>
 			</dd>
 		</dl>
   </dd>
@@ -346,5 +346,5 @@ console.log(item.data); // The created item data structure
 </code></pre>
 
 <h3 id="migration">Data Model Migrations</h3>
-<p>Often, during the course of system development, changes to the template data structure are needed. In such cases, if you increment the <code>version</code> number in your system manifest file any existing Actors or Items will be automatically migrated to the latest template data specification when a World that uses the system is next loaded. During this migration process - any newly added data attributes will be added to existing entities, however old attributes which are no longer required by the template are not removed in case that data needs to be migrated.</p>
+<p>Often, during the course of system development, changes to the template data structure are needed. In such cases, if you increment the <code>version</code> number in your system manifest file any existing Actors or Items will be automatically migrated to the latest template data specification when a World that uses the system is next loaded. During this migration process - any newly added data attributes will be added to existing documents, however old attributes which are no longer required by the template are not removed in case that data needs to be migrated.</p>
 <p>To apply additional migration rules, the recommended approach is to provide client side logic which detects whether a migration and uses the client side API to facilitate additional changes.</p>
