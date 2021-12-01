@@ -1,0 +1,116 @@
+<h2 class="border">Foundry Virtual Tabletop - Version 9 Testing 1 Release Notes</h2>
+<figure>
+    <img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/version-testing-1-release-banner-2021-11-30.jpg" title="Foundry VTT - Version 9 Testing 1 Release Notes" alt="Release Notes for Foundry Virtual Tabletop Version 9 Testing 1"/>
+    <figcaption>Welcome to the Foundry Virtual Tabletop update notes for Version 9 Testing 1.</figcaption>
+</figure>
+
+<p>Hello everyone and welcome to the first User Testing release for Version 9. With a stable release looming, we have been working to correct reported bugs and to further polish some features. This update brings further changes to the lighting and vision algorithm for increased performance, further improvements to the keybindings API, some playlist improvements and much more! </p>
+
+<p class="note warning"><strong>WARNING:</strong> Releases on the Testing channel have the potential to introduce bugs that may be disruptive to play. These features are close to a stable release - but likely to still include some bugs and incompatibilities which may frustrate you. While these releases are intended for testing by the average user, we do not recommend you use them yet in your long running campaigns. We instead ask you try them out in a new world or oneshot with no modules.</p>
+<p class="note warning"><strong>WARNING:</strong> Be certain to back up any critical user data before installing this update.</p>
+
+<h2 class="border">Update Highlights</h2>
+
+<p>As the first update in our User Testing phase, this update doesn't bring a whole lot in the way of new features and its primary focus was on refining UX/UI and fixing bugs discovered during the API development phase.</p>
+<h4>Lighting Performance and Bug Fixes</h4>
+<p>During the API Development phase we were fortunate to catch a memory leak which would have caused lasting performance implications for all users. In addition, we further refined the way we were handling detection of wall intersections, leading to better initial load times and an overall increase in performance for large maps with an excessive number of walls. We also resolved some bugs related to light rendering particularly at the edges of the map and for limited angle light sources.</p>
+<h4>Playlist Drag and Drop</h4>
+<p>We were able to reach back into the UX/UI improvements list we had planned for 0.8.x and bring forward a planned feature that was left behind in the interest of giving it the time it needed. Playlists now support drag-and-drop operations in a number of ways, allowing users to reorder tracks within and between playlists, drag tracks into journal entries as dynamic links or onto the canvas as audio sources.</p>
+<h4>Further Keybinding Refinements</h4>
+<p>As we work toward a UI implementation for rebinding hotkeys, we have begun implementing the framework to allow the Keybinding system to detect and support button presses from gamepad devices. While we wouldn't call this "Gamepad support", as it doesn't make Foundry Virtual Tabletop operational only with a gamepad, it will allow users to bind any of the functions which support rebinding to use gamepad button presses. In addition, we took the time to correct some API bugs with the keybinding system and are looking forward to more improvements as we implement the user interface for it.</p>
+<div>
+<h2 class="border">Known Issues</h2>    
+    <ul>
+        <li>Lights with limited emission angles do not project through single terrain walls properly. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6158" target="_blank">6158</a>)</li>
+    </ul>
+</div>
+<div>
+<h2 class="border">New Features</h2>
+    <h3>The Game Canvas</h3>
+    <ul>
+        <li>Wall intersection detection (<code>WallsLayer#identifyWallIntersections</code>) has been improved and now uses a superior algorithm to compute all the intersection points for all walls within a scene. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6154" target="_blank">6154</a>)</li>
+        <li>The performance of <code>WallsLayer#identifyWallIntersections</code> has been further improved by incrementally calculating the intersections for a single wall when it is changed instead of recomputing all intersections for the entire Scene. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6107" target="_blank">6107</a>)</li>
+        <li>In cases where <code>SmoothGraphics</code> is not required for antialiasing, the canvas will render using <code>PIXI.LegacyGraphics</code> explicitly, to provide for improved performance. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6099" target="_blank">6099</a>)</li>
+        <li>The Gradual Illumination setting for light sources is now enabled by default for newly created (or migrated) lights. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6178" target="_blank">6178</a>)</li>
+        
+    </ul>
+    <h3>Interface and Applications</h3>
+    <ul>
+        <li>Playlist Sounds may now be re-ordered using drag-and-drop operations. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/642" target="_blank">642</a>)</li>
+        <li>Playlist Sounds may now be moved between playlists using drag-and-drop operations. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6175" target="_blank">6175</a>)</li>
+        <li>Playlist Sounds may now be dropped into a rich text field such as a Journal Entry to create a dynamic link. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6173" target="_blank">6173</a>)</li>
+        <li>Playlist sounds may now be dropped on the canvas to create and place an Ambient Sound. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6174" target="_blank">6174</a>)</li>
+        <li>In addition to highlighting the icon to indicate if a combat is Pinned, Pinned Combats now use a separate icon to better indicate whether a combat has been pinned to a scene or not. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6134" target="_blank">6134</a>)</li>
+        <li>When creating a world, the data path for the world will now auto-fill using a slugified version of the world title. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6096" target="_blank">6096</a>)</li>
+    </ul>
+</div>
+<div>
+<h2 class="border">API Improvements</h2>
+    <h3>Architecture and Infrastructure</h3>
+    <ul>
+        <li> Objects within CONST declarations now have <code>Object.freeze</code> explicitly called to prevent modification of those values, as these should not be altered on the client side. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6179" target="_blank">6179</a>)</li>    
+    </ul>
+    <h3>The Game Canvas</h3>
+    <ul>
+        <li><code>PointSourcePolygonConfig</code> now contains a <code>source</code> property which references the PointSource that created it, if any. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6111" target="_blank">6111</a>)</li>
+    </ul>
+    <h3>Interface and Applications</h3>
+    <ul>
+        <li>The Keybindings system now supports registering Gamepad button presses. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6041" target="_blank">6041</a>)</li>
+        <li>Many occurrences of <code>KeyboardManager.isControl</code> have been removed as it is now deprecated. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6167" target="_blank">6167</a>)</li>
+        <li>Keyboard <code>_downKeys</code> private method has been reintroduced as a public <code>downKeys</code> method. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6139" target="_blank">6139</a>)</li>
+        <li>Certain keys (such as F5) are now prevented from being rebound. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6136" target="_blank">6136</a>)</li>
+        <li>Keyboard, Mouse, and Gamepad control management has been divided into <code>game.keyboard</code>, <code>game.mouse</code>, and <code>game.gamepad</code>. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6182" target="_blank">6182</a>)</li>
+    </ul>
+    <h3>Other Changes</h3>
+    <ul>
+        <li>Users hosting via a third party service may now use the command line flag <code>noipdiscovery</code> to skip the external port check. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6118" target="_blank">6118</a>)</li>
+        <li>In order to lay groundwork for future compendium improvements, the preliminary model for a new Document type ("Adventure") has been created. This Document type is not ready to be used, and we ask that community developers refrain from building upon it at this time. This document type is expected to become part of the public API in V10.</li>
+    </ul>
+</div>
+
+<div>
+<h2 class="border">Bug Fixes</h2>
+    <h3>Architecture and Infrastructure</h3>
+    <ul>
+        <li>Corrected an issue where attempting to overwrite a .webp file incorrectly detected it as an unsupported file type. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6133" target="_blank">6133</a>)</li>
+        <li>Browsing an S3 source for audio files to add to a playlist should once again display files to choose from. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6135" target="_blank">6135</a>)</li>
+    </ul>
+
+    <h3>Documents and Data</h3>
+    <ul>
+        <li>It is now possible to save an existing scene configuration even if the user has the canvas disabled. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6124" target="_blank">6124</a>)</li>
+    </ul>
+    <h3>The Game Canvas</h3>
+    <ul>
+        <li>Hovering and dragging Tiles no longer performs perception refresh calls, resulting in an increase of performance when dragging tile previews. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6100" target="_blank">6100</a>)</li>
+        <li>Submitting a Light Source configuration form no longer performs an unnecessary call to <code>AmbientLight#updateSource</code>. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6122" target="_blank">6122</a>)</li>
+        <li>Rulers are no longer incorrectly reproduced on other scenes if they are active when the scene changes. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6109" target="_blank">6109</a>)</li>
+        <li>Sight layer visibility testing no longer causes token-emitted light sources to be incorrectly visible through a wall. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6123" target="_blank">6123</a>)</li>
+        <li>The boundary edges of the canvas are now included when precomputing wall intersections, so that walls which intersect the canvas boundary still produce correct lighting and vision polygons. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6127" target="_blank">6127</a>)</li>
+        <li>The <code>ClockwiseSweepPolygon</code> no longer causes light sources that extend to the edge of the canvas to become blurred instead of seamlessly reaching the outer edge. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6128" target="_blank">6128</a>)</li>
+        <li>The WebGL version check should no longer incorrectly establish a temporary WebGL context with default options, but instead use the context provided by the renderer. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6141" target="_blank">6141</a>)</li>
+        <li>Thumbnail generation now raises an informative error message when attempting to create a scene with the canvas disabled. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6144" target="_blank">6144</a>)</li>
+        <li>Resolved a memory leak which would occur as a result of unused graphics objects not being destroyed. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6147" target="_blank">6147</a>)</li>
+        <li>Light sources of tokens are now added to sources in <code>LightingLayer#initializeSources</code>. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6151" target="_blank">6151</a>)</li>
+        <li>Lights migrating from 0.8.9 now correctly migrate values for emission angle and darkness activation threshold. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6157" target="_blank">6157</a>)</li>
+        <li>Framerate restrictions are now correctly applied to all tickers used by the PIXI. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6169" target="_blank">6169</a>)</li>
+    </ul>
+    <h3>Interface and Applications</h3>
+    <ul>
+        <li>Command+Left is now prevented from trying to navigate away from the page for MacOS devices. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6131" target="_blank">6131</a>)</li>
+        <li><code>onUp</code> events now correctly fire for CTRL key presses. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6149" target="_blank">6149</a>)</li>
+        <li>When opened from a popout window, compendium views now open and close as expected. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6146" target="_blank">6146</a>)</li>
+        <li>Modifier keys now correctly differentiate between one modifier key pressed and all modifier keys pressed. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6150" target="_blank">6150</a>)</li>
+        <li>The token conditions menu no longer incorrectly displays the list of conditions as a single column. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6155" target="_blank">6155</a>)</li>
+        <li>Video windows do not make use of available extra space when player list is hidden. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6160" target="_blank">6160</a>)</li>
+        <li><code>updateLocalStream</code> is no longer incorrectly called as a public method. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6159" target="_blank">6159</a>)</li>
+        <li>Clicking Return to Setup with the wrong administrator access key from the world join screen should now raise an error message instead of a connection time-out. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6176" target="_blank">6176</a>)</li>
+        <li>The file upload button for a world background in the Edit World configuration window is now displayed even if an Admin key is not set. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6138" target="_blank">6138</a>)</li>
+    </ul>
+    <h3>Other Changes</h3>
+    <ul>
+        <li><code>Datalist</code> and other input options which provide auto-fill suggestions no longer cause KeyboardManager to throw errors. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6142" target="_blank">6142</a>)</li>
+        <li>Setting a default world to launch once again functions as expected. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6162" target="_blank">6162</a>)</li>
+    </ul>
+</div>
