@@ -4,47 +4,50 @@
     <figcaption>Welcome to the Foundry Virtual Tabletop update notes for Version 9 Testing 2.</figcaption>
 </figure>
 
-<p>{PREAMBLE}</p>
+<p>Welcome to the release of Version 9 Testing 2 for Foundry Virtual Tabletop! As we march ever closer to stable release, we've been clearing out bugs reported during the Feature Testing and API Development phases. We'd like to thank all the users and community developers who have taken the time to test Version 9 with us and provide us with important feedback and reports of bugs. The key features we focused on developing in V9 were improvements to the Lighting and Vision system, support for managing and playing cards, and we managed to smuggle some cool bonus features in as well such as the new Keybindings system. </p>
 
-<p class="note warning"><strong>WARNING:</strong> {RELEVANT_WARNING_MESSAGES}</p>
-
-<p>{SUMMARY_OF_MAJOR_FEATURES}</p>
+<p class="note warning"><strong>WARNING:</strong> Releases on the Testing channel have the potential to introduce bugs that may be disruptive to play. These features are close to a stable release - but likely to still include some bugs and incompatibilities which may frustrate you. While these releases are intended for testing by the average user, we do not recommend you use them yet in your long running campaigns. We instead ask you try them out in a new world or oneshot with no modules.</p>
+<p class="note warning"><strong>WARNING:</strong> Be certain to back up any critical user data before installing this update.</p>
 
 <h2 class="border">Update Highlights</h2>
 
 <p>As the second release in our Feature Testing phase for Version 9, this update primarily focused on implementing fixes to bugs based on feedback from the intrepid parts of the community willing to test our previous build. As such there aren't a whole lot of features to highlight or dicuss. </p>
 <h4>Next Step for Keybindings</h4>
-<p>Having corrected some flaws in the keybinding system we're still working toward making the user experience of setting new key bindings comfortable. This update brings the first UI implementation, in the form of a read-only display of keybindings that you have configured via the API. Our next iteration will feature ability to change keybindings via this menu, but for now we chose to focus on getting a preliminary display up for the user instead. Please note: it is not within the scope of V9 to allow users to rebind mouse button clicks, as this would require far more significant changes to the infrastructure for our controls.</p>
+<p>Having corrected some flaws in the keybinding system, we're still working toward making the user experience of setting new key bindings comfortable. This update brings the first UI implementation, in the form of a read-only display of keybindings that you have configured via the API. Our next iteration will feature ability to change keybindings via this menu, but for now we chose to focus on getting a preliminary display up for the user instead. Please note: it is not within the scope of V9 to allow users to rebind mouse button clicks, as this would require far more significant changes to the infrastructure for our controls.</p>
 <h4>Continued Canvas Improvements</h4>
 <p>As a large part of the focus for V9 has centered around lighting and vision rendering, we continue to optimize the numerous refactors we've made. While the performance gains for many of the changes made in today's update are minor, the continued refinements reduce technical debt overall and should help to make V9 one of the most performant releases to date. In addition to making changes to a number of background tasks, we have also taken the time to implement a setting for Performance Mode (Low, Medium, High, and Maximum) which allows users to fine-tune some ways the canvas handles rendering. If you do not have a Performance Mode set when you first join a game, it will automatically base your performance mode on your detected hardware. Those with more substantial gaming computers with dedicated GPUs should feel comfortable setting this to maximum.</p>
 <h4>New User Experience Improvements</h4>
 <p>Some of you may have noticed that we have a new label for issues on gitlab: NUE. These issues are ones we've identified as potential pain points where new users struggle to adapt to the software or where improvements could generally be made to streamline the learning curve. This release brings the first in a series of updates we will be working toward over time in order to make the software more approachable for new users. We have changed the behaviour of the setup menu a little for fresh installations, so that new users are prompted to install a Game System before they get started trying to create a World.</p>
-<p>{POSTAMBLE}</p>
+
 <div>
 <h2 class="border">New Features</h2>
     <h3>The Game Canvas</h3>
     <ul>
         <li>The Foreground layer's occlusion mask texture is now only rendered when it is necessary to do so (when roof or radial overhead tiles are present). (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6117" target="_blank">6117</a>)</li>
-        <li>Assign a default performance mode for clients which do not have a saved setting based on the attributes of the detected GPU. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6208" target="_blank">6208</a>)</li>
-        <li>The lighting illumination container now uses a <code>BlurFilter</code> instead of an <code>>AlphaFilter</code> for high or maximum performance modes to ensure that borders of vision and light sources blend smoothly. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6145" target="_blank">6145</a>)</li>
-        xx <li>When using the low performance mode, disable use of render textures for lighting and vision rendering. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6207" target="_blank">6207</a>)</li>
+        <li>Clients which do not already have a Performance Mode setting defined are now assigned one based on the attributes of the detected GPU. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6208" target="_blank">6208</a>)</li>
+        <li>The lighting illumination container now uses a <code>BlurFilter</code> instead of an <code>AlphaFilter</code> for high or maximum performance modes to ensure that borders of vision and light sources blend smoothly. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6145" target="_blank">6145</a>)</li>
+        <li>The Low performance mode setting disables the use of rendered textures for lighting and vision rendering in the interest of performance. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6207" target="_blank">6207</a>)</li>
         <li>Some prototype code for the lighting layer delimiter display which was intended for internal use only has been removed. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6205" target="_blank">6205</a>)</li>
         <li>The previous restriction on maximum vision radius has been removed as this is now determined by the bounds of the canvas. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6218" target="_blank">6218</a>)</li>
     </ul>
     <h3>Interface and Applications</h3>
     <ul>
-        <li>A basic UI for managing keybinds has been added in preparation of allowing users to rebind keys. At present, this UI is read-only, setting new keybinds still requires use of the keybinds API. Please note: rebinding mouse click functions is not supported and will not be supported in V9. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6040" target="_blank">6040</a>) and (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6094" target="_blank">6094</a>)</li>
-        <li>The combat tracker's configuration window now allows users to change the icon which will be used when a combatant is defeated. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6129" target="_blank">6129</a>)</li>
+        <li>A basic UI for managing keybinds has been added in preparation of allowing users to rebind keys. At present, this UI is read-only, setting new keybinds still requires use of the keybinds API. Please note: rebinding mouse click functions is not supported and will not be supported in V9. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6040" target="_blank">6040</a>) (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6094" target="_blank">6094</a>)</li>
         <li>The Reset Advanced Options button has been moved and now only appears on the advanced lighting options tab when configuring light sources. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6217" target="_blank">6217</a>)</li>
+        <li>When filtering the pages of the Setup menu, such as the Add-on Modules tab, a message is now displayed if no results are found. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6241" target="_blank">6241</a>)</li>
     </ul>
     <h3>Other Changes</h3>
     <ul>
-        <li>To make it more clear for new users, a freshly installed Foundry VTT will now display a prompt recommending installing a game system and disables the Worlds tab until a game system is installed. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6183" target="_blank">6183</a>)</li>
+        <li>To make it more clear for new users, a freshly installed Foundry VTT will now display a prompt recommending installing a game system, in addition the the Game Worlds tab is disabled until a game system is installed. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6183" target="_blank">6183</a>)</li>
     </ul>
 </div>
 <div>
 <h2 class="border">API Improvements</h2>
-
+    <h3>Architecture and Infrastructure</h3>
+    <ul>
+        <li>Minor version updates have been made to  dependency packages. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6245" target="_blank">6245</a>)</li>
+        <li><code>CONST.DEFAULT_NOTE_ICON</code> and <code>CONST.DEFAULT_MACRO_ICON</code> have been redefined and are now located on their respective <code>DocumentData</code> classes so that they can be configured using the API. A deprecation path has been left in place for the previous CONST declarations and will be removed in V10. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6242" target="_blank">6242</a>)</li>
+    </ul>
     <h3>The Game Canvas</h3>
     <ul>
         <li>The data type of the new <code>core.performanceMode</code> setting has changed from a string to an integer enum indexed by <code>CONST.CANVAS_PERFORMANCE_MODES</code> for improved comparison of performance options. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6237" target="_blank">6237</a>)</li>
@@ -68,15 +71,12 @@
 <h2 class="border">Bug Fixes</h2>
     <h3>Architecture and Infrastructure</h3>
     <ul>
-        <li>An issue which prevented launching the Electron app within Fedora Linux 35 has been corrected as a result of the updated Electron version used for V9. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6098" target="_blank">6098</a>)</li>
         <li>Attempting to return to setup from world login without an admin key set no longer attempts to access an undefined page. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6196" target="_blank">6196</a>)</li>
+        <li>Packages, such as Add-on Modules and Game Systems, which define <code>compatibleCoreVersion: 9</code> should no longer incorrectly notify the user they may be incompatible with new versions when installed. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6243" target="_blank">6243</a>)</li>
     </ul>
 
     <h3>The Game Canvas</h3>
     <ul>
-
-        xx <li>Rework the lighting shaders to use more canonical variable names and theory for gamma and luminance. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6054" target="_blank">6054</a>)</li>
-
         <li>Lights with limited emission angles should now correctly project through single terrain walls. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6158" target="_blank">6158</a>)</li>
         <li>A redundant initialization workflow for Ambient Light sources when a scene is first loaded has been removed. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6168" target="_blank">6168</a>)</li>
         <li>Dragging wall points should now work as expected. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6186" target="_blank">6186</a>)</li>
@@ -88,7 +88,6 @@
         <li>Canvas Mouse events should once again pass the correct details for chaining checks, resolving issues with wall and ruler chaining. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6188" target="_blank">6188</a>) (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6191" target="_blank">6191</a>)</li>
         <li>The notification pip indicating that an update is available no longer continues to show if you abandon a forced update. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6202" target="_blank">6202</a>)</li>
         <li>Pressing Alt to highlight canvas objects no longer incorrectly causes all objects to become stuck in a highlighted state. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6220" target="_blank">6220</a>)</li>
-        <li>Minimzed applications now have an applied border radius to make them appear more consistent with similar UI elements such as the sidebar. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6221" target="_blank">6221</a>)</li>
         <li>Collapsing the macro hotbar now also collapses the hotbar page controls. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6222" target="_blank">6222</a>)</li>
         <li>The Active Modules tab of the Module Management window no longer reports that the user lacks permissions to modify the list if there are no modules active. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6229" target="_blank">6229</a>)</li>
         <li>Pressing enter in quick succession in a Dialog should no longer cause default form submission events. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6230" target="_blank">6230</a>)</li>
@@ -100,7 +99,7 @@
     <h3>Other Changes</h3>
     <ul>
         <li>The property declarations for <code>DatabaseBackend#_getDocuments</code> and <code>DatabaseBackend#_getEmbeddedDocuments</code> have been updated to more accurately reflect their usage. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6177" target="_blank">6177</a>)</li>
-        <li> Some cases where a created <code>ContextMenu</code> have been corrected and now appropriately dispatch a corresponding hook. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6187" target="_blank">6187</a>)</li>
+        <li> In some cases, <code>ContextMenu</code> was not correctly dispatching corresponding hooks, this has been corrected. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6187" target="_blank">6187</a>)</li>
         <li>Deleting a deck of cards which has cards dealt to player hands is now prevented and notifies the user to suggest resetting the deck before deleting. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6199" target="_blank">6199</a>)</li>
         <li>Banning or unbanning a player should once again function as expected. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6235" target="_blank">6235</a>)</li>
     </ul>
