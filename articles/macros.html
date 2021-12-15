@@ -70,8 +70,8 @@ if(targets.length === 0) {targets = "no one, this time"}
 let roll = new Roll(`8d10+100`).roll();
 console.log(this.roll)
 
-let results_html = `&lt;h2>Cave In!</h2&gt;
-The cave collapses from above, dealing <a class="inline-result"><i class="fas fa-dice-d20"></i>${roll.total}</a> damage to <strong>${targets}</strong>.`
+let results_html = `&lt;h2&gt;Cave In!&lt;/h2&gt;
+The cave collapses from above, dealing &lt;a class="inline-result"&gt;&lt;i class="fas fa-dice-d20"&gt;&lt;/i&gt;${roll.total}&lt;/a&gt; damage to &lt;strong&gt;${targets}&lt;/strong&gt;.`
 
 ChatMessage.create({
 user: game.user._id,
@@ -82,8 +82,7 @@ content: results_html
 <h2 class="border">API References</h2>
 <p>While anything within the <a href="https://foundryvtt.com/api/">Foundry VTT API</a> can be used within a Macro, to interact with Macros themselves, you will primarily use the following API concepts:</p>
 <ul>
-<li>The <a title="The Macro Document" href="https://foundryvtt.com/api/Macro.html" target="_blank" rel="nofollow noopener">Macro</a> Document</li>
-<li>The <a title="The Macros Collection" href="https://foundryvtt.com/api/Macros.html" target="_blank" rel="nofollow noopener">Macros</a> Collection</li>
-<li>The <a title="The Macro Directory" href="hhttps://foundryvtt.com/api/MacroDirectory.html" target="_blank" rel="nofollow noopener">Macro Directory</a> Setup Application</li>
-
+<li>The @API[Macro, The Macro Document] Macro Document</li>
+<li>The @API[Macros, The Macros Collection] Macros Collection</li>
+<li>The @API[MacroDirectory, The MacroDirectory Setup Application] MacroDirectory Setup Application</li>
 </ul>
