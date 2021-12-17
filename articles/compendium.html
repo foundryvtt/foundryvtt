@@ -7,7 +7,7 @@
 	<p>Each Compendium can only contain one type of document: @Article[actors], @Article[items], @Article[journal], @Article[macros], @Article[playlists], @Article[roll-tables] or @Article[scenes]. Data contained in compendium packs are not loaded until needed, reducing the amount of data that a particular user must load when first joining a game.</p>
 
 <h2 id="create">Creating and Using Compendium Packs</h2>
-	<p>A compendium can be easily created in any World. First, navigate to the Compendium Packs sidebar tab, and then click the "Create Compendium" button. Enter the name of the compendium (for example "Player Characters") and choose the type of document (like actors, items, or journal entries) that will be contained in it from the Document Type dropdown.</p>
+	<p>A compendium can be easily created in any World (if you're interested in making a module with compendium packs check out our @Article[packaging-guide]). First, navigate to the Compendium Packs sidebar tab, and then click the "Create Compendium" button. Enter the name of the compendium (for example "Player Characters") and choose the type of document (like actors, items, or journal entries) that will be contained in it from the Document Type dropdown.</p>
 		
 	<p>After your compendium has been created, clicking on the its name in the sidebar will open a new window that will allow you to drag and drop from a sidebar tab into the compendium. You can also export whole folders to a compendium pack by right clicking the folder and clicking the "Export to Compendium" option. Compendium Packs and their contents are automatically sorted alphabetically.</p>
 
@@ -38,15 +38,3 @@
 	<p>Once content has been imported into a game world it becomes a localized part of that world, and any changes made to the documents will not be reflected in the compendium unless you also export the content back to the compendium, or create a new compendium with the changed documents.</p>
 <h3 id="exporting-packs">Exporting Compendium Packs</h3>
 	<p>Compendia are limited to specific game worlds by default, but it is possible to move them to new worlds or create modules which contain compendia for use in other worlds. To learn how to do this, refer to the Module Packaging Guide.</p>
-
-
-
-
-One particular feature we'd like to highlight is the introduction of the keepId option for Document and Compendium import and export functions. This allows documents to maintain a unique id regardless of where they are stored for convenient updating.
-
-When creating a primary Document which provides explicit embedded document data as part of the creation request, all embedded documents will now have freshly generated IDs unless options.keepId is true. (5853)
-
-The keepId option is no longer ignored when creating embedded documents on synthetic actors. (5826)
-
-The toCompendium and fromCompendium methods have been expanded and now support thekeepIds option which is useful when bulk importing or exporting compendium content. (5779)
-
