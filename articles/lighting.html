@@ -1,29 +1,19 @@
 <h2>Overview</h2>
 <p>Foundry Virtual Tabletop has a powerful engine for Lighting and Fog of War which interacts with placed <a title="Walls" href="/article/walls/" target="_blank" rel="nofollow noopener">Walls</a> to define the visibility and exploration progress of a Scene. Lights can be used to influence the appearance of a scene as well as allows players to explore an environment through their character's perspective with lights revealing areas they would normally be unable to see.</p>
 <h2 id="tools" class="border">Lighting Layer</h2>
-<figure class="right">@Image[154]
-<figcaption>The Lighting Layer controls allow you to create lights, and change the scene's lighting, and reset fog or war quickly.</figcaption>
-</figure>
+<figure class="right">@Image[287]
+    <figcaption>The Lighting Layer controls allow you to create lights, and change the scene's lighting, and reset fog or war quickly.</figcaption>
+    </figure>
 <p>The Lighting Layer controls allow you to create and edit lights which change the appearance of scenes, as well as reset fog of war exploration that has already taken place</p>
 <p>Light sources can be easily created on any scene by selecting the Draw Light Source tool from the control palette and using a click-and-drag workflow to set the light location and its overall radius. Lights default to splitting the overall radius drawn between bright and dim light. The radii of both levels of light can be configured after the light is created. Lights are blocked by Walls which have been configured to stop light, by default this includes all standard walls, Terrain Walls, and Ethereal Walls.</p>
 <p>For more info on how to create and configure walls please see the @Article[walls] article.</p>
 <h4 id="light-palette">Light Control Palette</h4>
 <ul>
-    <li>
-        <p><strong><i class="fas fa-lightbulb"></i> Draw Light Source:</strong> This tool allows you to create new lights. With this tool active click and drag anywhere on a scene canvas. This will create a basic light with a radius dependent on how far you dragged the mouse. You can edit any light created in this manner by double clicking the lightbulb icon at the center of the radius.</p>
-    </li>
-    <li>
-        <p><strong><i class="fas fa-sun"></i> Transition to Daylight: </strong> This button will smoothly transition your scene to a Darkness level of 0 (fully bright). If your scene is already at Darkness 0, this button will do nothing. This effect is synchronized for all connected Users.</p>
-    </li>
-    <li>
-        <p><strong><i class="fas fa-moon"></i> Transition to Darkness</strong> This button will smoothly transition your scene to a Darkness level of 1 (fully dark). Similar to the Transition to Daylight button, this effect is synchronized for all connected Users.</p>
-    </li>
-    <li>
-        <p><strong><i class="fas fa-cloud"></i> Reset Fog of War: </strong> This button resets the recorded Fog of War exploration for that scene for all Users. This includes any that are not currently connected.</p>
-    </li>
-    <li>
-        <p><strong><i class="fas fa-trash"></i> Clear Lights:</strong> This button deletes all lights presently placed on the canvas for this Scene.</p>
-    </li>
+    <li><p><strong>Draw Light Source</strong> (<i class="fas fa-lightbulb"></i>): This tool allows you to create new lights. With this tool active click and drag anywhere on a scene canvas. This will create a basic light with a radius dependent on how far you dragged the mouse. You can edit any light created in this manner by double clicking the lightbulb icon at the center of the radius.</p></li>
+    <li><p><strong>Transition to Daylight</strong> (<i class="fas fa-sun"></i>): This button will smoothly transition your scene to a Darkness level of 0 (fully bright). If your scene is already at Darkness 0, this button will do nothing. This effect is synchronized for all connected Users.</p></li>
+    <li><p><strong>Transition to Darkness</strong> (<i class="fas fa-moon"></i>): This button will smoothly transition your scene to a Darkness level of 1 (fully dark). Similar to the Transition to Daylight button, this effect is synchronized for all connected Users.</p></li>
+    <li><p><strong>Reset Fog of War</strong> (<i class="fas fa-cloud"></i>): This button resets the recorded Fog of War exploration for that scene for all Users. This includes any that are not currently connected.</p></li>
+    <li><p><strong>Clear Lights</strong> (<i class="fas fa-trash"></i>): This button deletes all lights presently placed on the canvas for this Scene.</p></li>
 </ul>
 <h2 id="create" class="border">Editing Light Sources</h2>
 <figure class="right">@Image[94]
@@ -34,6 +24,9 @@
 <p>The lighting configuration panel is separated into three tabs which contain the various light settings. These tabs are <strong>Basic Configuration</strong>, <strong>Light Animation</strong>, and <strong>Advanced Options</strong>. The settings in these tabs are detailed below.</p>
 
 <h4>Basic Configuration</h4>
+<figure class="right">@Image[284]
+    <figcaption>The Basic Configuration panel governs the fundamental features of the light including size, color, and activation.</figcaption>
+    </figure>
 <p>Basic configuration contains the most commonly used features of lights. These settings allow you to manipulate the basic size and appearance of the light.</p>
 <ul>
     <li><strong>Coordinates (Pixels, X & Y):</strong> This displays the current x/y coordinates of the Light Source in the Scene. All newly created lights using the Draw Light Source tool have these fields automatically filled in based on where in the scene the light was created. Repositioning the light in the scene also changes these values automatically. These can be changed to reposition the light manually, and to make precise modifications. </li>
@@ -46,6 +39,9 @@
 </ul>
 
 <h4>Light Animation</h4>
+<figure class="right">@Image[285]
+    <figcaption>The Light Animation panel allows for the selection and configuration of light animation shaders.</figcaption>
+    </figure>
 <p>This panel contains the options necessary to select and customize the lighting animations that can be applied to lights. For more information on the specific features of each animation see the @Article[lighting-animations] article.</p>
 <ul>
     <li><strong>Light Animation Type: </strong>This dropdown list contains all of the currently available animation shaders available in the software. Selecting one of the options automatically applies it to the light. Some shaders work best with a light color, and may not automatically appear when selected until one is set.</li>
@@ -55,6 +51,9 @@
 </ul>
 
 <h4>Advanced Option</h4>
+<figure class="right">@Image[286]
+    <figcaption>The Advanced Options panel allows users to fine tune lights in terms of brightness, saturation, and blending styles.</figcaption>
+    </figure>
 <p>This panel allows for specific manipulation of various advanced lighting features that can drastically change the appearance of the light and how it affects the rest of the scene.</p>
 <ul>
     <li><strong>Constrained by Walls: </strong>This setting determines where the light is affected by nearby walls. All newly created lights have this setting toggled on by default. Toggling it off will cause the light to shine through walls even if they would normally block light.</li>
@@ -74,30 +73,31 @@
     <li><strong>Adaptive Luminance: </strong>This is the default blending method for all newly created lights. This blending mode was introduced in Version 9 and utilizes proper RGB color blending which preserves visibility of the underlying scene background while imparting strong color on the scene.</li>
     <li><strong>Internal Halo: </strong>This blending mode produces a more pronounced flare of light inside of the bright radius. The dim light radius functions as a normal per adaptive luminance. This blending mode requires a light color to produce any visible effect, with bright colors having a more pronounced effect</li>
     <li><strong>External Halo: </strong>This blending mode produces a pronounced flare of light inside the dim radius while allowing the bright radius to function as a normal per adaptive luminance. This creates a distinct ring of very bright light. This blending mode requires a light color to produce any visible effect, with bright colors having a more pronounced effect.</li>
-    <li><strong>Color Burn: </strong></li>
-    <li><strong>Internal Color Burn: </strong></li>
-    <li><strong>External Color Burn: </strong></li>
-    <li><strong>Low Absorption: </strong></li>
-    <li><strong>High Absorption: </strong></li>
-    <li><strong>Invert Absorption: </strong></li>
+    <li><strong>Color Burn: </strong> This blending mode darkens all colors in the light radius and increases the contrasts of them, creating dramatic, creating sharp, glowing outlines on tokens, tiles, and background art.</li>
+    <li><strong>Internal Color Burn: </strong>This blending mode works like the Internal Halo mode combined with the Color Burn mode, creating an inner ring of color burn light and an outer ring of adaptive light.</li>
+    <li><strong>External Color Burn: </strong>This blending mode works like the External Halo mode combined with the Color Burn mode, creating an inner ring of adaptive light and an outer ring of color burn light.</li>
+    <li><strong>Low Absorption: </strong>This blending mode causes the darker colors in the underlying scene texture to absorb more of the light, while lighter arreas absorb less, taking on a distinct glow that can make surfaces appear shiny or raised.</li>
+    <li><strong>High Absorption: </strong>This blending mode works similarly to Low Absorption, but increases how much light is absorbed by darker colors of the underlying textures, creating a more pronounced effect.</li>
+    <li><strong>Invert Absorption: </strong>This blending mode works as an inversion of Low Absorption, causing lighter colors in the light radius to absorb less color while making darker areas be affected more strongly.</li>
 </ul>
 
 <h3 id="animations">Animations</h3>
+<p>Foundry VTT includes nearly twenty customizable animation shaders which create moving textures in scenes. These animations are selectable in the Light Animation tab of the light configuration window as detailed above. These animations are influenced by two sliders that govern their speed the the intensity of the animation.</p>
 <ul>
-    <p><strong>Torch: </strong>The Torch animation effect provides a semi-randomized flickering quality to the light source, intended to simulate light provided by fire. Animation speed determines how quickly the light flickers, and intensity determines how large and powerful the flickers are.</p>
-    <p><strong>Pulse: </strong>The Pulse animation effect create a light source that grows and fades on a steady rhythm. Animation speed determines how quickly the pulses reach their maximum intensity and then fade out. Lighting intensity determines how much the bright radius of the light fades out during a pulse, with 0 being only a slight reduction and 1 being a full reduction of the bright radius to nothing before it reappears.</p>
-    <p><strong>Chroma: </strong>The Chroma animation effect offers a way to provide a lightsource which shifts between colors. Animation speed determines how quickly the light moves through color transitions, and animation intensity determines how strongly it color shifts. A low intensity limits the light to choosing colors along the same hue, while a high intensity allows the light to select colors across all spectrums.</p>
-    <p><strong>Pulsing Wave: </strong>The Pulsing Wave animation effect creates concentric circles of bright light that move out from the center of the light source. Animation speed governs how quickly the rings of light move, and animation intensity governs the size and frequency at which new rings are created.</p>
-    <p><strong>Swirling Fog: </strong>The Swirling Fog animation effect creates a random field of smoke or hazy that moves around the area of the light. Animation speed governs how quickly the fog cloud moves, dies out, and is reformed, with a low speed creating a slow, lingering fog. Animation intensity determines how thick or opaque the fog is.</p>
-    <p><strong>Sunburst: </strong>This animation effect creates a rotating halo of light with bright beams emanating from the center of the light source. Animation speed determines how quickly the light beams rotate around the source, and how rapidly the inner core of light pulses. Animation intensity determines how large the inner glow of the light is, with maximum intensity creating a glow about the size of the light's bright radius, and a low intensity giving the light almost no glow at all, enhancing the appearance of the light rays.</p>
-    <p><strong>Light Dome: </strong>This animation effect creates a spherical barrier of rippling light while maintaining the bright and dim radius of the light itself. Animation speed determines how quickly the ripples of energy move, while intensity determines the size of the ripples. A lower intensity creates larger ripples, while a higher intensity creates a smaller, more dense layer of energy.</p>
-    <p><strong>Mysterious Emanation: </strong>This animation effect creates a semi-random spiraling swirl of energy. Animation speed determines how often the swirling tendrils of light change direction, while animation intensity determines how many tendrils there are.</p>
-    <p><strong>Hexa Dome: </strong>This animation effect creates a rotating spherical barrier of hexagons with pulsing interiors, while also maintaining the bright and dim light radius around the light source. Animation speed determines how quickly the shield rotates, and how quickly the light in the hex cells pulse. Animation intensity determines how big the hex cells are, with a lower intensity creating larger hexes, and a high intensity creating smaller hexes.</p>
-    <p><strong>Ghostly Light: </strong>This animation effect creates a rippling water-like effect with layers that flow over overtop each other and the light below it. Animation speed determines how quickly the ripples move, while animation intensity determines how visible the ripples are, and how strongly lit they are.</p>
-    <p><strong>Energy Field: </strong>This animation effect creates a spherical dome of creeping, seething energy webs over the light's bright and dim radii. Animation speed determines how quick and pronounced the ripples and warping effects on the energy field are, while animation intensity determines how tight the energy web is, with a low intensity being very large, transparent strands of energy.</p>
-    <p><strong>Roiling Mass: </strong>This animation effect creates a dark, rippling effect around the edges of the bright light radius. Animation speed determines how quickly the inner blob of darkness shifts and ripples, while animation intensity increases a darkening effect present on the dim light radius.</p>
-    <p>This lighting animations can be used with positive light settings, but the effect is meant to be used with negative lights which create artificial darkness in a scene. The color of the light has no bearing on the appearance of this effect when using negative light radii.</p>
-    <p><strong>Black Hole: </strong>This animation effect creates a series of dark swirls to emanate from the bright radius of the light which move to the edge of the light radius, and is meant to be sued with negative brightness light sources. Animation speed determinse how quickly the swirls of darkness move to the edge of the light radius, while animation intensity determines the shape of the swirls, with a low intensity creating almost concentric swirls, and a high intensity creating pronounced zig-zag ripples.</p>
+    <li><p><strong>Torch: </strong>The Torch animation effect provides a semi-randomized flickering quality to the light source, intended to simulate light provided by fire. Animation speed determines how quickly the light flickers, and intensitydetermines how large and powerful the flickers are.</p></li>
+    <li><p><strong>Pulse: </strong>The Pulse animation effect create a light source that grows and fades on a steady rhythm. Animation speed determines how quickly the pulses reach their maximum intensity and then fade out. Lighting intensity determineshow much the bright radius of the light fades out during a pulse, with 0 being only a slight reduction and 1 being a full reduction of the bright radius to nothing before it reappears.</p></li>
+    <li><p><strong>Chroma: </strong>The Chroma animation effect offers a way to provide a lightsource which shifts between colors. Animation speed determines how quickly the light moves through color transitions, and animation intensity determines howstrongly it color shifts. A low intensity limits the light to choosing colors along the same hue, while a high intensity allows the light to select colors across all spectrums.</p></li>
+    <li><p><strong>Pulsing Wave: </strong>The Pulsing Wave animation effect creates concentric circles of bright light that move out from the center of the light source. Animation speed governs how quickly the rings of light move, and animation intensitygoverns the size and frequency at which new rings are created.</p></li>
+    <li><p><strong>Swirling Fog: </strong>The Swirling Fog animation effect creates a random field of smoke or hazy that moves around the area of the light. Animation speed governs how quickly the fog cloud moves, dies out, and is reformed, with a lowspeed creating a slow, lingering fog. Animation intensity determines how thick or opaque the fog is.</p></li>
+    <li><p><strong>Sunburst: </strong>This animation effect creates a rotating halo of light with bright beams emanating from the center of the light source. Animation speed determines how quickly the light beams rotate around the source, and how rapidlythe inner core of light pulses. Animation intensity determines how large the inner glow of the light is, with maximum intensity creating a glow about the size of the light's bright radius, and a low intensity giving the light almost no glow at all,enhancing the appearance of the light rays.</p></li>
+    <li><p><strong>Light Dome: </strong>This animation effect creates a spherical barrier of rippling light while maintaining the bright and dim radius of the light itself. Animation speed determines how quickly the ripples of energy move, while intensitydetermines the size of the ripples. A lower intensity creates larger ripples, while a higher intensity creates a smaller, more dense layer of energy.</p></li>
+    <li><p><strong>Mysterious Emanation: </strong>This animation effect creates a semi-random spiraling swirl of energy. Animation speed determines how often the swirling tendrils of light change direction, while animation intensity determines how manytendrils there are.</p></li>
+    <li><p><strong>Hexa Dome: </strong>This animation effect creates a rotating spherical barrier of hexagons with pulsing interiors, while also maintaining the bright and dim light radius around the light source. Animation speed determines how quickly theshield rotates, and how quickly the light in the hex cells pulse. Animation intensity determines how big the hex cells are, with a lower intensity creating larger hexes, and a high intensity creating smaller hexes.</p></li>
+    <li><p><strong>Ghostly Light: </strong>This animation effect creates a rippling water-like effect with layers that flow over overtop each other and the light below it. Animation speed determines how quickly the ripples move, while animation intensitydetermines how visible the ripples are, and how strongly lit they are.</p></li>
+    <li><p><strong>Energy Field: </strong>This animation effect creates a spherical dome of creeping, seething energy webs over the light's bright and dim radii. Animation speed determines how quick and pronounced the ripples and warping effects on theenergy field are, while animation intensity determines how tight the energy web is, with a low intensity being very large, transparent strands of energy.</p></li>
+    <li><p><strong>Roiling Mass: </strong>This animation effect creates a dark, rippling effect around the edges of the bright light radius. Animation speed determines how quickly the inner blob of darkness shifts and ripples, while animation intensityincreases a darkening effect present on the dim light radius.</p></li>
+    <li><p>This lighting animations can be used with positive light settings, but the effect is meant to be used with negative lights which create artificial darkness in a scene. The color of the light has no bearing on the appearance of this effect whenusing negative light radii.</p></li>
+    <li><p><strong>Black Hole: </strong>This animation effect creates a series of dark swirls to emanate from the bright radius of the light which move to the edge of the light radius, and is meant to be sued with negative brightness light sources. Animation speed determinse how quickly the swirls of darkness move to the edge of the light radius, while animation intensity determines the shape of the swirls, with a low intensity creating almost concentric swirls, and a high intensity creating pronounced zig-zag ripples.</p></li>
     <li><p><strong>Vortex: </strong>This animation effect creates a swirling tornado texture on the light source which rotates around the center. Animation speed governs how quickly the vortex rotates, and animation intensity governs how tightly the vortex coils around the center of the light radius.</p></li>
     <li><p><strong>Bewitching Wave: </strong>This animation effect creates concentric circles of bright light that move out from the center of the light source much like Pulsing Wave, but introduces ripples and warping effects into these rings. Animation speed governs how quickly the rings of light move, and animation intensity governs the size and frequency at which new rings are created and how pronounced the warping effect on the ripples is.</p></li>
     <li><p><strong>Swirling Rainbow: </strong>This animation effect creates a swirling spiral around the light source which undegoes color shifting like the chroma animations shader. Animation speed governs how quickly the vortex rotates around the light source, and animation intensity governs how vibrant the color shifting effect is.</p></li>
