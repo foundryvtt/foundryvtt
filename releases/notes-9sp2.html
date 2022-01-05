@@ -1,7 +1,7 @@
-<h2 class="border">Foundry Virtual Tabletop - Version # Phase # Release Notes</h2>
+<h2 class="border">Foundry Virtual Tabletop - Version 9 Stable Patch 1 Release Notes</h2>
 <figure>
-    <img src="{BANNER_IMG}" title="Foundry VTT - Version # Phase # Release Notes" alt="Release Notes for Foundry Virtual Tabletop Version #"/>
-    <figcaption>Welcome to the Foundry Virtual Tabletop update notes for Version # Phase #.</figcaption>
+    <img src="{BANNER_IMG}" title="Foundry VTT - Version 9 Stable Patch 1 Release Notes" alt="Release Notes for Foundry Virtual Tabletop Version 9 Stable Patch 1"/>
+    <figcaption>Welcome to the Foundry Virtual Tabletop update notes for Version 9 Stable Patch 1.</figcaption>
 </figure>
 
 <div class="note">
@@ -52,7 +52,18 @@
 
 <h2 class="border">Update Highlights</h2>
 
-<p>As an update on the Stable channel, V9 Stable Patch 1 brings a few key fixes for bugs discovered after the stable release. These are changes are relatively non-controversial and as such there isn't much to highlight. To draw attention to some of the more prominent bugs fixed by this update: we have resolved a number of issues related to the new keybindings system and extended ability to rebind macro hotbar buttons to different keys. A number of edge-case issues with vision and lighting have been resolved. We took the opportunity to correct some issues with the import of actor data from compendiums, and doing so should now respect the stored compendium data for folders, permissions, and prototype tokens. We resolved an issue which prevented saving of settings in the Audio/Video Chat Integration configuration window. We also resolved a number of UX/UI issues discovered with the handling of Cards. Lastly, we corrected a small but irritating bug which resulted in Ambient Sounds being incorrectly restrained by walls when they were set not to. For a comprehensive list of everything we fixed, see below! </p>
+<p>As an update on the Stable channel, V9 Stable Patch 1 brings a few key fixes for bugs discovered after the stable release. These are changes are relatively non-controversial and as such there isn't much to highlight. </p>
+<p>To draw attention to some of the more prominent bugs fixed by this update: 
+<ul>
+    <li>We have resolved a number of issues related to the new keybindings system and extended ability to rebind macro hotbar buttons to different keys. </li>
+    <li>We corrected a number of edge-case issues with vision and lighting which could result in rare cases where vision polygons were inaccurate. </li>
+    <li>We took the opportunity to correct some issues with the import of actor data from compendium packs and JSON files, and doing so should now respect the stored data for folders, permissions, and prototype tokens. </li>
+    <li>We resolved an issue which prevented saving of settings in the Audio/Video Chat Integration configuration window. </li>
+    <li>We also corrected a number of UX/UI issues discovered with the handling of Cards. </li>
+    <li>Lastly, we corrected a small but irritating bug which resulted in Ambient Sounds being incorrectly restrained by walls when they were set not to.</li>
+</ul> 
+</p>
+<p>For a comprehensive list of everything we fixed, see below! </p>
 
 <div>
 <h2 class="border">New Features</h2>
@@ -75,11 +86,11 @@
     <h3>Interface and Applications</h3>
     <ul>
         <li><code>ChatMessage#_renderRollContent</code> from <code>ChatMessage#getData</code> has been refactored and now allows for more targetted overrides of how <code>Dice</code> rolls are rendered and embedded within the context of <code>ChatMessage</code> documents. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6420" target="_blank">6420</a>)</li>
-        <li>Keybindings can now contain <code>.</code> as within <code>action</code> data. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6402" target="_blank">6402</a>)</li>
+        <li>Keybindings can now contain <code>.</code> within the defined <code>action</code> data. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6402" target="_blank">6402</a>)</li>
     </ul>
     <h3>Documents and Data</h3>
     <ul>
-        <li><code>Scene#createThumbnail</code> now provides new customization options <code>format</code> and <code>quality</code> in addition to the default <code>image/png</code> encoding. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6376" target="_blank">6376</a>)</li>
+        <li><code>Scene#createThumbnail</code> now provides new customization options for <code>format</code> and <code>quality</code> in addition to the default <code>image/png</code> encoding. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6376" target="_blank">6376</a>)</li>
     </ul>
 </div>
 <div>
@@ -128,7 +139,7 @@
     <ul>
         <li>The position of setup menu buttons should no longer be pushed outside of the menu boundaries. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6358" target="_blank">6358</a>)</li>
         <li>Ambient Sounds should once again be Constrained by Walls only in cases where that option has been toggled on. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6363" target="_blank">6363</a>)</li>
-        <li>Configuration sheets (such as User, Folder, and Drawing) should now correctly append their UUID to their html <code>#id</code>, and no longer prevent multple sheets of the same type from being opened. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6379" target="_blank">6379</a>)</li>
+        <li>Configuration sheets (such as User, Folder, and Drawing) should now correctly append their UUID to their html <code>#id</code>, and no longer prevent multiple sheets of the same type from being opened. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6379" target="_blank">6379</a>)</li>
         <li><code>downKeys</code> has been expanded and should no longer cause complications with workflows when returning to the application after loss of application focus. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6392" target="_blank">6392</a>)</li>
         <li>Ctrl+A should once again select all walls and other expected canvas placeables. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6400" target="_blank">6400</a>)</li>
         <li>The Keybindings API should now correctly handle cases of <code>keyUp</code> if an element is focused. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6404" target="_blank">6404</a>)</li>
