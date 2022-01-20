@@ -12,17 +12,20 @@
 	<figcaption>The Macro Hotbar is located at the bottom of the game interface. See the legend below for explanations of each element.</figcaption>
 </figure>
 <p>The sections of the macro bar are as follows:</p>
-<dl>
-<dt>Macro Directory</dt>
-<dd>Provides access to all macros that have been created which you have permission to view, use, or edit.</dd>
-<dt>Macro Hotbar</dt>
-<dd>Gives instant keypress access to 10 quick Macros, which can be used to send chat messages or perform scripted API actions. Primarily used by advanced users. Some systems provide the ability to drop items or actors onto the macro bar to generate a macro for quick use. </dd>
-<dt>Macro Pages</dt>
-<dd>The macro pages control allows you to switch between up to four different pages of macro layouts for convenience. </dd>
-</dl>
+
+<h4>Macro Hotbar</h4>
+<p>The Macro Hotbar gives instant keypress access to 10 quick Macros, which can be used to send chat messages or perform scripted API actions. Primarily used by advanced users. Some systems provide the ability to drop items or actors onto the macro bar to generate a macro for quick use. The macro hotbar has four macro pages that users can switch between, giving them up to four different pages of macro layouts for convenience. These can be cycled by using the up and down indicators on the right of the macro bar (<i class="fas fa-angle-up"> </i> and <i class="fas fa-angle-down"> </i>).</p>
+
+<h4>Macro Directory</h4>
+<p>The Macro Directory (<i class="fas fa-folder"> </i>) provides access to all macros that have been created which you have permission to view, use, or edit. From inside this directory you can create new macros by clicking the <strong>Create Macro</strong> button, which will open the macro creation dialog, allowing you to set a name and select the type of macro you want to create.</p>
+
+<p>You can also use the <strong>Create Folder</strong> button to create a folder in this directory. Macros can be dragged to and from folders to organize macros as desired. Clicking the Create Macro icon (<i class="fas fa-user-plus"> </i>) on the folder itself will open the macro creation dialog, allowing you to create a new macro that will automatically be placed into that folder.</p>
+
+<p>Folders can be edited by right clicking them and selecting "Edit Folder," the resulting dialog allows you to set the name and color of the folder as you see fit. You can also configure the permissions of the folder to decide what level of user can see and use the macros within. This uses the same permission guidelines found in the @Article[users] article. You can also export all the macros in a folder to an unlocked compendium, create a new rolltable with the macros in the folder as the possible results, remove the folder (this places the macros back into the directory itself), or delete the folder and all items within it.</p>
 
 <h2 id="create" class="border">Creating, Using, and Sharing Macros</h2>
 <p>Macros can be created by clicking on an empty slot in the macro bar, and typing out the relevant information. If your Game System supports it, macros can also be created by dragging and dropping an item from an actor sheet to the Hotbar. In addition, existing macros stored in a compendium or in the Macros Directory can be dragged to the macro hotbar for convenience.</p>
+
 <h4 id="execute">Executing Macros</h4>
 <p>Macros can be used by clicking on them in the macro bar, or by pressing the corresponding number key on your keyboard. You can also execute a macro from its configuration window by pressing the Execute button at the bottom.</p>
 
@@ -32,7 +35,7 @@
 
 <h3>Creating Chat Macros</h3>
 <p>Chat macros are, as indicated by the name, macros that will utilize chat when executed. They are simpler to create, but do not have the wide range of capabilities that a script macro can execute.</p>
-<p>A chat macro can involve a simple dice command like <code>/r 1d100</code> linking an entity in chat<code>@Entity["Entity Name Here"]</code>, or displaying pre-written text or an image using HTML tags.</p>
+<p>A chat macro can involve a simple dice command like <code>/r 1d100</code> linking a document in chat<code>@Document["Document Name Here"]</code>, or displaying pre-written text or an image using HTML tags.</p>
 <p>Chat macros work the same as typing a message in chat, and anything you can type into the chat entry field can be entered here.For more information on chat syntax and the possible actions a user can do within the chat entry field, see @Article[chat]</p>
 <h4>Example Chat Macros</h4>
 <pre><code>/r 1d6#which of my players is the next victim?</code></pre>
@@ -70,8 +73,8 @@ if(targets.length === 0) {targets = "no one, this time"}
 let roll = new Roll(`8d10+100`).roll();
 console.log(this.roll)
 
-let results_html = `&lt;h2>Cave In!</h2&gt;
-The cave collapses from above, dealing <a class="inline-result"><i class="fas fa-dice-d20"></i>${roll.total}</a> damage to <strong>${targets}</strong>.`
+let results_html = `&lt;h2&gt;Cave In!&lt;/h2&gt;
+The cave collapses from above, dealing &lt;a class="inline-result"&gt;&lt;i class="fas fa-dice-d20"&gt;&lt;/i&gt;${roll.total}&lt;/a&gt; damage to &lt;strong&gt;${targets}&lt;/strong&gt;.`
 
 ChatMessage.create({
 user: game.user._id,
@@ -82,8 +85,7 @@ content: results_html
 <h2 class="border">API References</h2>
 <p>While anything within the <a href="https://foundryvtt.com/api/">Foundry VTT API</a> can be used within a Macro, to interact with Macros themselves, you will primarily use the following API concepts:</p>
 <ul>
-<li>The <a title="The Macro Entity" href="https://foundryvtt.com/api/Macro.html" target="_blank" rel="nofollow noopener">Macro</a> Entity</li>
-<li>The <a title="The Macros Collection" href="https://foundryvtt.com/api/Macros.html" target="_blank" rel="nofollow noopener">Macros</a> Collection</li>
-<li>The <a title="The Macro Directory" href="hhttps://foundryvtt.com/api/MacroDirectory.html" target="_blank" rel="nofollow noopener">Macro Directory</a> Setup Application</li>
-
+<li>The @API[Macro, The Macro Document] Macro Document</li>
+<li>The @API[Macros, The Macros Collection] Macros Collection</li>
+<li>The @API[MacroDirectory, The MacroDirectory Setup Application] MacroDirectory Setup Application</li>
 </ul>

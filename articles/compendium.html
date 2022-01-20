@@ -1,25 +1,40 @@
+<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_70/screen/compendium-tab-screenshot-2021-12-16.webp" alt="The Compendium Packs tab as seen by a gamemaster.">@Image[281]</a>
+	<figcaption>The Compendium Packs tab as seen by a gamemaster.</figcaption>
+</figure>
 <h2>Overview</h2>
-<p>Compendium Packs exist to reduce the strain on worlds that have accrued a large number of actors, items, macros, playlists, rollable tables, or scenes. When these elements are not in use, but are not ready to be deleted, they should be stored in compendia. Compendium Packs should be used to help you keep your world organized and reduce clutter.</p>
-<p>Compendium packs are also used by modules to store large amounts of content to be unpacked and added to an existing game world, such as part of a premium or exclusive content pack.</p>
-<p>Each Compendium can only contain one type of document: @Article[actors], @Article[items], @Article[journal], @Article[macros], @Article[playlists], @Article[roll-tables] or @Article[scenes]. Data contained in compendium packs are not loaded until needed, reducing the amount of data that a particular user must load when first joining a game.</p>
+	<p>Compendium Packs exist to reduce the strain on worlds that have accrued a large number of actors, items, macros, playlists, rollable tables, or scenes. When these elements are not in use, but are not ready to be deleted, they should be stored in compendia. Compendium Packs should be used to help you keep your world organized and reduce clutter.</p>
+	<p>Compendium packs are also used by modules to store large amounts of content to be unpacked and added to an existing game world, such as part of a premium or exclusive content pack.</p>
+	<p>Each Compendium can only contain one type of document: @Article[actors], @Article[items], @Article[journal], @Article[macros], @Article[playlists], @Article[roll-tables] or @Article[scenes]. Data contained in compendium packs are not loaded until needed, reducing the amount of data that a particular user must load when first joining a game.</p>
 
 <h2 id="create">Creating and Using Compendium Packs</h2>
-	<p>A compendium can be easily created in any World. First, navigate to the Compendium Packs sidebar tab, and then click the "Create Compendium" button. Enter the name of the compendium (for example "Player Characters") and choose the type of document that will be contained in it from the Document Type dropdown. After your compendium has been created, clicking on the compendium name in the sidebar will open a new window that will allow you to drag and drop from a sidebar tab into the compendium.</p>
+	<p>A compendium can be easily created in any World (if you're interested in making a module with compendium packs check out our @Article[packaging-guide]). First, navigate to the Compendium Packs sidebar tab, and then click the "Create Compendium" button. Enter the name of the compendium (for example "Player Characters") and choose the type of document (like actors, items, or journal entries) that will be contained in it from the Document Type dropdown.</p>
+		
+	<p>After your compendium has been created, clicking on the its name in the sidebar will open a new window that will allow you to drag and drop from a sidebar tab into the compendium. You can also export whole folders to a compendium pack by right clicking the folder and clicking the "Export to Compendium" option. Compendium Packs and their contents are automatically sorted alphabetically.</p>
 
-	<p>Compendium Packs and their contents are automatically sorted alphabetically.</p>
+	<p class="note info">To export content to a compendium pack the pack will need to be unlocked.</p>
 
-	<p>You can also export whole folders to compendia by right clicking the folder and clicking the "Export to Compendium" option. This then gives you the ability to choose the destination pack (the compendium you want to export the folder's documents to), and if you want to overwrite existing entries with the same names. If the "Merge by name?" option is toggled off, then new copies of similar entities will be added. This is useful for storing multiple versions of the same document in a compendium.</p>
+	<p>When exporting content to a compendium pack you'll have two additional choices:</p>
+
+	<dl>
+		<dt>Merge By Name</dt>
+		<dd>When <strong>Merge By Name</strong> is checked Foundry will overwrite existing documents that have the same name as one of your exported documents. When it's unchecked Foundry will create new copies of those documents.</dd>
+		<dt>Keep Document IDs</dt>
+		<dd>Every document in Foundry VTT has a unique ID that represents it. When you export a document like an actor or a journal entry into a compendium pack Foundry will generate a new ID for it. If you check the <strong>Keep Document IDs</strong> option on export it will use the same ID as the document in the world. This can be useful when you want to maintain links in journal entries, character biographies, macros, and more.</dd>
+	</dl>
 
 <h3>Locking Packages</h3>
 	<p>You can only export folders to compendium packs which are unlocked. To lock and unlock a compendium, go to the Compendium Packs tab, right click a compendium, and choose the "Toggle Edit Lock" option. This will lock or unlock the chosen compendium. Note that you will receive a warning and be asked to confirm your choice to unlock compendia that are included in game systems and modules, but not within your own worlds.</p>
 	<dl>
 		<dt>Do I need a Compendium?</dt>
-		<dd>Storing unused Entities in a Compendium <strong>greatly</strong> reduces the time it takes to load your world. Even though each Actor, Item, or other document may be small, as their numbers start to rise into the hundreds the amount of data that gets transferred to each of your players when they join can cause your world to slow down over time. It is a best to practice good organization.</dd>
+		<dd>Storing unused Documents in a Compendium <strong>greatly</strong> reduces the time it takes to load your world. Even though each Actor, Item, or other document may be small, as their numbers start to rise into the hundreds the amount of data that gets transferred to each of your players when they join can cause your world to slow down over time. It is a best to practice good organization.</dd>
 	</dl>
 
-<h3>Importing Compendium Content</h3>
-<p>If you would like to import all of the content in a compendium pack you can do so by right-clicking the pack in the Compendium tab of the sidebar, then selecting the "Import All Content" option. This will open a dialog box allowing you to change the name of the folder which the compendium pack's content should be imported into. It will use the compendium's name if you choose not to edit the name, or if you leave the field blank.</p>
-
-<p>Once content has been imported into a game world it becomes a localized part of that world, and any changes made to the documents will not be reflected in the compendium unless you also export the content back to the compendium, or create a new compendium with the changed documents.</p>
-<h3>Exporting Compendium Packs</h3>
-<p>Compendia are limited to specific game worlds by default, but it is possible to move them to new worlds or create modules which contain compendia for use in other worlds. To learn how to do this, refer to the Module Packaging Guide.</p>
+<h3 id="importing-packs">Importing Compendium Content</h3>
+	<p>If you would like to import all of the content in a compendium pack you can do so by right-clicking the pack in the Compendium tab of the sidebar, then selecting the "Import All Content" option. This will open a dialog box allowing you to change the name of the folder which the compendium pack's content should be imported into. It will use the compendium's name if you choose not to edit the name, or if you leave the field blank. You'll also have an option to <strong>Keep Document IDs</strong>.</p>
+	<dl>
+		<dt>Keep Document IDs</dt>
+		<dd>Every document in Foundry VTT has a unique ID that represents it. When you import a document like an actor or a journal entry into your world Foundry will generate a new ID for it. If you check the <strong>Keep Document IDs</strong> option on import it will use the same ID as the document in the compendium pack. This can be useful when you want to maintain links in journal entries, character biographies, macros, and more.</dd>
+	</dl>
+	<p>Once content has been imported into a game world it becomes a localized part of that world, and any changes made to the documents will not be reflected in the compendium unless you also export the content back to the compendium, or create a new compendium with the changed documents.</p>
+<h3 id="exporting-packs">Exporting Compendium Packs</h3>
+	<p>Compendia are limited to specific game worlds by default, but it is possible to move them to new worlds or create modules which contain compendia for use in other worlds. To learn how to do this, refer to the Module Packaging Guide.</p>

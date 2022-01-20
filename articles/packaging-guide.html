@@ -34,8 +34,10 @@
     <dt>"minimumCoreVersion": "0.8.6",</dt>
     <dd><p>This specifies the minimum Foundry Virtual Tabletop version which is <strong>required</strong> in order for this module to function properly. We default this to 0.8.6. which is the current baseline stable release of the software at the time of this article's creation. If a user has a core FVTT version which is older than the specified minimum core version, the module will not be able to be installed unless the user first updates the core software.</p></dd>
     
-    <dt>"compatibleCoreVersion": "0.8.7",</dt>
-    <dd><p>This specifies the latest Foundry Virtual Tabletop version that the module will function with. If a user is using a core FVTT version which is more recent than the specified compatible core version, the module can be installed and used but will display a warning that it may not function properly. This can and should be changed whenever your module gets updated to support a newer version of the software.</p></dd>
+    <dt>"compatibleCoreVersion": "9.235",</dt>
+    <dd><p>This specifies the latest Foundry Virtual Tabletop version that the module will function with. If a user is using a core FVTT version which is more recent than the specified compatible core version, the module can be installed and used but will display a warning that it may not function properly. This can and should be changed whenever your module gets updated to support a newer version of the software.</p>
+    <p class="note info"><strong>Note:</strong> For V9 and beyond the versioning scheme changed. For example the last stable release in V8 was '0.8.9' but releases in V9 and beyond will use a format like '9.235'. If your module is compatible with all versions in the V9 series of updates you can make the compatibleCoreVersion '9'. To support only up to a specific build you can use the full build number like '9.235'.</p>
+    </dd>
     </dl>
 
 <h2 class="border">Step 2: Asset Staging</h2>
@@ -55,18 +57,28 @@
 <h3>Actions:</h3>
 <ol>
 <li>Create a clean world to work out of, utilizing the system your module is meant for.<br /><em>This world should have no other modules loaded except for the one you're working on. If you already have the world setup for this, make sure that it's clean of all other modules.</em></li>
-<li>Create the content that will be going into your module. <br /><em>Set up actors, set up scenes, create, format and stylize your journals, lay down walls and lighting in your scenes, fine tune everything. Basically you will now build your module as you want it to appear when being imported. If you have already built this content in a preexisting world, now is your opportunity to polish and organize it before the next step.</em></li>
-<li>Once all of the content has been created, export it to your compendia.<br /><em>By putting the content into compendium packs now, you can simplify later steps of this guide.</em></li>
+<li>Create the content that will be going into your module. <br /><em>Set up actors, set up scenes, create, format and stylize your journals, lay down walls and lighting in your scenes, fine tune everything. Basically you will now build your module as you want it to appear when being imported. If you have already built this content in a pre-existing world, now is your opportunity to polish and organize it before the next step.</em></li>
+<li>Once all of the content has been created, export it to your compendia using the steps below.<br /><em>By putting the content into compendium packs now, you can simplify later steps of this guide.</em></li>
 </ol>
-<p><strong>Note:</strong> It is important to remember that you want to build your content using assets you staged in the FoundryVTT/modules folder earlier. If you create content from other folders on your computer later steps of this guide will not be doable without creating extra work to correct.</p>
-<h4>Why should I deactivate modules?</h4>
-<p>Certain modules can inject unwanted information into actors, items and scenes which could interact badly with another user's world, causing them to suffer performance issues, bugs, or data loss. It's possible to create modules that have dependencies or requirements for other modules though, and we'll discuss that later in this guide.</p>
+<p class="note warning"><strong>Note:</strong> It is important to remember that you want to build your content using assets you staged in the FoundryVTT/modules folder earlier. If you create content from other folders on your computer later steps of this guide will not be doable without creating extra work to correct.</p>
 <h4>How do I put content into compendium packs?</h4>
 <p>Moving content to compendia can be done one of two ways:</p>
 <ol>
-<li>The document in question (a scene, actor, journal, etc) can be dragged from the sidebar to a compendium that you've opened which matches that type of document.</li>
-<li>If you have been using folders to organize your content, you can right-click on the folder and select "<strong>Export to Compendium</strong>" which will prompt you to select an unlocked compendium that matches the document type contained in that folder.</li>
+<li>The document in question (a scene, actor, journal, etc.) can be dragged from the sidebar to a compendium that you've opened which matches that type of document.</li>
+<li>If you have been using folders in Foundry VTT to organize your content, you can right-click on the folder and select "<strong>Export to Compendium</strong>" which will prompt you to select an unlocked compendium that matches the document type contained in that folder.</li>
 </ol>
+	<p><strong>Note:</strong> When exporting content from a folder to a compendium pack you'll have two additional choices:</p>
+    <figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_70/screen/export-to-compendium-pack-options-2021-12-17.webp" alt="Options when exporting to a compendium pack">@Image[290]</a>
+        <figcaption>The options available when exporting to a compendium pack from a folder.</figcaption>
+    </figure>
+	<dl>
+		<dt>Merge By Name</dt>
+		<dd>When <strong>Merge By Name</strong> is checked Foundry will overwrite existing documents that have the same name as one of your exported documents. When it's unchecked Foundry will create new copies of those documents.</dd>
+		<dt>Keep Document IDs</dt>
+		<dd>Every document in Foundry VTT has a unique ID that represents it. When you export a document like an actor or a journal entry into a compendium pack Foundry will generate a new ID for it. If you check the <strong>Keep Document IDs</strong> option on export it will use the same ID as the document in the world. This can be useful when you want to maintain links in journal entries, character biographies, macros, and more.</dd>
+	</dl>
+<h4>Why should I deactivate modules?</h4>
+<p>Certain modules can inject unwanted information into actors, items and scenes which could interact badly with another user's world, causing them to suffer performance issues, bugs, or data loss. It's possible to create modules that have dependencies or requirements for other modules though, and we'll discuss that later in this guide.</p>
 <p>To better understand compendia we recommend also reading the @Article[compendium] article. </p>
 
 <h2 class="border">Step 4: Module Cleanup and Testing</h2>
@@ -87,9 +99,11 @@
         "name": "module-creatures",
         "label": "Module Creatures",
         "path": "./packs/creatures.db",
+        "type": "Actor",
         "entity": "Actor"
     }
 </code></pre>
+<p class="note info">The <code>"entity": "Actor"</code> and preceding comma are only necessary to maintain backwards compatibility with V8 of Foundry VTT. If you only want to support V9 you can remove the comma after <code>"Actor"</code> and delete the <code>"entity"</code> line entirely.</p>
 <p>To rename a pack, open the <code>module.json</code>, and change the <code>label</code> field.</p>
 <p>To delete a pack, simply delete everything inside of curly brackets (<code>{</code>,<code>}</code>), and the brackets themselves, then save your file. You should also delete the associated <code>.db</code> file in the <code>/packs</code> folder, as it won't be needed.</p>
 <p class="note warning"><strong>Note:</strong> Make sure all of the pack entries except the last one in the list have a comma (<code>,</code>) following the closing curly bracket. If there is a comma missing, or if the last entry in the packs list has an unneeded comma your module will not be recognized by Foundry when it next loads.</p>
