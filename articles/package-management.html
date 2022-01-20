@@ -51,7 +51,7 @@
 <h4 id="h-082"><strong>0.8.2+ Onward</strong></h4>
 <ol>
 <li>User initiates the flow by either clicking on "Check Update" an individual module or the "Update All" button.</li>
-<li>If the Package is listed in the Package Repository:<br />2.a Foundry checks to see if the <code>manifest</code> field has changed in the Package Repository listing<br />2.b If so, Foundry prompts the User to see if they want to use the old local value, or the new Package Respository value (recommended)<br />2.c If the User selects "Yes", the local <code>manifest</code> is overwritten with the new value from the Package Repository</li>
+<li>If the Package is listed in the Package Repository:<br />2.a Foundry checks to see if the <code>manifest</code> field has changed in the listing and points to a newer version compatible with the installed version of Foundry.<br />2.b If so, Foundry prompts the User to see if they want to use the old local value, or the new Package Repository value (recommended)<br />2.c If the User selects "Yes", the local <code>manifest</code> is overwritten with the new value from the Package Repository</li>
 <li>Foundry fetches the manifest from the url in the currently installed package's manifest json.</li>
 <li>Foundry compares the <code>version</code> strings of the installed module's manifest against the fetched manifest.<br />4.a If the user is doing this on an individual package they have to then click the "Update" button.</li>
 <li>If Foundry determines that the fetched manifest json has a newer version, it then downloads that manifest's <code>download</code> and checks if it is a zip file. If so, it unzips.</li>
@@ -62,7 +62,7 @@
 <figcaption>An example of the metadata update process for a game system.</figcaption>
 </figure>
 <h2 class="border">API&nbsp; References</h2>
-<p>The following concept is utlized when Foundry checks for updates:</p>
+<p>The following concept is utilized when Foundry checks for updates:</p>
 <ul>
 <li>Foundry uses its <code>isNewerVersion</code> helper function detailed <a class="is-external-link" href="/api/global.html#isNewerVersion" target="_blank" rel="nofollow noopener">here</a> to compare manifest version strings.</li>
 </ul>
