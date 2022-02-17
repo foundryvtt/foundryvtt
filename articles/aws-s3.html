@@ -10,12 +10,29 @@
     <dd>Amazon Web Services' Identity and Access management tool, which allows configuration of permissions for your AWS services (and in this specific case, S3).</dd>
     <dt>Cross Origin Resource Sharing (CORS)</dt>
     <dd>CORS is an 'HTTP-header' based security restriction that many webservers use to prevent unwanted linking to images and other assets hosted on that server. AWS S3 Integration requires you to configure a CORS policy for your AWS S3 bucket.</dd>
-    
 </dl>
+
 <h3>Requirements</h3>
 <p>This article assumes that you have already set up an S3 account through AWS or another S3 provider. It is written primarily with an eye toward AWS S3, though other providers can work assuming they provide an S3-compatible service compliant with AWS SDK 2.0. This article assumes you have already created an AWS account and that you already have an admin account for managing your AWS-S3.</p>
 
 <p>After you have created an AWS account, you will need to perform some basic configuration of S3 to support Foundry VTT's usage of your S3 buckets. There are already a number of guides which cover the process of setting up an AWS account and configuring S3 in general, so this article will focus on the specific aspects of configuration related to Foundry VTT. </p>
+
+<h2 class="border">Enabling S3 Integration</h2>
+<p>The rest of this article will provide instructions for how to set up and configure a S3 bucket, but for those of you who already have a S3 bucket set up let's skip ahead to how you configure Foundry Virtual Tabletop to integrate with AWS and S3.</p>
+<p>Foundry Virtual Tabletop integrates with AWS using the Node.js library provided by Amazon. In order to configure your use of S3, Foundry VTT needs to be provided with an JSON configuration which can be stored as a file in the Config sub-folder of your User Data directory or embedded in-line as part of your <code>options.json</code> configuration file. The configuration data provided is used to authenticate with AWS and to customize other attributes of your integration, like your preferred region. The contents of an example AWS configuration is as follows</p>
+<pre><code class="language-json">{
+  "accessKeyId": "YOUR_ACCESS_KEY_ID",
+  "secretAccessKey": "YOUR_SECRET_ACCESS_KEY",
+  "region": "YOUR_PREFERRED_REGION"
+}
+</code></pre>
+<p>The AWS configuration file may also include other parameters which will be passed to the S3 client as described by the <a title="JavaScript SDK documentation" href="https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#constructor-property" target="_blank" rel="nofollow noopener">JavaScript SDK documentation</a> including options to support a custom <code>endpoint</code> for integrating with other S3-compatible services.</p>
+
+<p class="note info">The simplest way to integrate with AWS is by providing credentials directly in this JSON configuration, but for improved security we recommend omitting these credentials and instead using one of the <a href="https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-credentials-node.html" title="AWS SDK Authentication Methods">more preferred methods</a> supported by AWS.</p>
+
+<p>The Foundry Virtual Tabletop software can be instructed to use this configuration by either saving it as a JSON file in the Config folder, for example <code>{User Data}/Config/aws.json</code>, or by including it in-line <code>options.json</code> configuration file. The <code>aws</code> field of the <code>options.json</code> file accepts either an in-line AWS configuration or a relative file path to a separate AWS configuration JSON file. If using a separate file with a path reference, this may be configured in the Setup menu of the Foundry Virtual Tabletop software.</p>
+
+<p>The remainder of this article covers some more specialized topics intended to assist users with creating or configuring an S3 integration.</p>
 
 <h2 class="border">Creating an S3 Bucket</h2>
 <p>Before you can store files in S3, you need to configure a bucket to work with.</p>
@@ -142,14 +159,3 @@
     <li>On the "Success" screen, choose to download the CSV. This contains the credentials you'll need for your FVTT S3 configuration.</li>
 </ol>
 <p class="note warning">If you lose your csv credential file you will need to reset the credentials by performing this process again. There is no way to recover the existing credentials.</p>
-
-<h2 class="border">Enabling S3 Support for Foundry Virtual Tabletop</h2>
-<p>Now that you've prepared S3 on the AWS side of things, it's time to configure Foundry VTT. We need to create a JSON file containing the credentials we'll use for S3. For convenience, place your <code>s3config.json</code> in the Config folder of your User Data directory. Using the credential CSV you downloaded when you created the secondary S3 account, populate the configuration with the following information:</p>
-<pre><code class="language-json">{
-  "accessKeyId": "YOUR_ACCESS_KEY_ID",
-  "secretAccessKey": "YOUR_SECRET_ACCESS_KEY",
-  "region": "YOUR_PREFERRED_REGION"
-}
-</code></pre>
-<p>Once you have this file placed, you can define its path from the Configuration Tab of the Setup main menu by simply filling the AWS Configuration Path field with "s3config.json" and choosing Save Changes.</p>
-<p>Note that the AWS config file may also include other parameters which are passed to the S3 constructor as described by the <a title="JavaScript SDK documentation" href="https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#constructor-property" target="_blank" rel="nofollow noopener">JavaScript SDK documentation</a> including options to support a custom <code>endpoint</code> for working with other S3-compatible services.</p>
