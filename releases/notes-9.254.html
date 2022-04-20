@@ -1,0 +1,40 @@
+<h2 class="border">Foundry Virtual Tabletop - Version 9 Stable 3 Build 254 Release Notes</h2>
+<figure>
+    <img alt="Release Notes for Foundry Virtual Tabletop Version 254" src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/v9-stable-patch-3-release-banner-2022-03-01.jpg" title="Foundry VTT - Version 9 Stable 3 Build 254 Release Notes"/>
+    <figcaption>Welcome to the Foundry Virtual Tabletop update notes for Version 9 Stable 3 Build 254.</figcaption>
+</figure>
+
+<p class="note warning"><strong>WARNING:</strong> While this is categorized as a stable release there is always a possibility of unexpected bugs or compatibility issues. As with any time you update the core software, be sure to perform a complete backup of your user data to minimize any risk of data loss (<a href="https://www.youtube.com/watch?v=OmbxMmqNNXU" rel="nofollow" target="_blank">Follow this handy guide</a>). </p>
+
+<h2 class="border">Update Highlights</h2>
+
+<p>A quick update to resolve some minor, but frustrating bugs that slipped through in our most recent update. This update addresses issues with the prototype token configuration sheet failing to close when submitting changes, and resolves the issue with dragging and dropping onto the hotbar. In addition we smuggled an API change in to benefit those community developers who are working extensively with chat messages.</p>
+
+<div>
+<h2 class="border">API Improvements</h2>
+    <h3>Documents and Data</h3>
+    <ul>
+        <li>The <code>ChatMessage#logged</code> property has been added and indicates whether or not the message currently appears in the ChatLog. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6796" rel="nofollow" target="_blank">6796</a>)</li>
+    </ul>
+</div>
+
+<div>
+<h2 class="border">Bug Fixes</h2>
+    <h3>The Game Canvas</h3>
+    <ul>
+        <li>Fixed a bug which occasionally prevented <code>SightLayer#testVisibility</code> from correctly hiding tokens which should be outside of current line-of-sight. (6795) (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6795" rel="nofollow" target="_blank">6795</a>)</li>
+        <li>Disabling the Scene's "Token Vision" setting will now properly remove the LOS mask from ambient light rendered on the Lighting Layer. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6797" rel="nofollow" target="_blank">6797</a>)</li>
+    </ul>
+    <h3>Interface and Applications</h3>
+    <ul>
+        <li>The Hotbar <code>_onDrop</code> handler will once again correctly pass dropped data on to hooked functions. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6783" rel="nofollow" target="_blank">6783</a>)</li>
+        <li>Updating a Prototype Token configuration no longer results in thrown errors and the configuration sheet failing to close. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6785" rel="nofollow" target="_blank">6785</a>)</li>
+        <li>When ALT is released to stop highlighting all objects, an object which was previously the true hovered target no longer gets stuck in an incorrect hover state. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6786" rel="nofollow" target="_blank">6786</a>)</li>
+        <li>Rolling the minimum number or maximum number on a die once again correctly displays as red for the minimum and green for the maximum. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6789" rel="nofollow" target="_blank">6789</a>)</li>
+        <li>The change which exposed the "trash bin" icon on individual chat messages for non-GM users has been reverted. Users who wish to delete their own posted messages may use the right-click context-menu. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6798" rel="nofollow" target="_blank">6798</a>)</li>
+    </ul>
+    <h3>Other Bug Fixes</h3>
+    <ul>
+        <li>Fixed a bug in the <code>Math.roundDecimals</code> helper function which caused it to always round to zero decimal places rather than the requested number. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6780" rel="nofollow" target="_blank">6780</a>)</li>
+    </ul>
+</div>

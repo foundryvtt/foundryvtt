@@ -1,0 +1,84 @@
+<h2 class="border">Foundry Virtual Tabletop - Version 9 Stable Build 266 Release Notes</h2>
+<figure>
+    <img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_70/screen/v9-stable-4-release-banner-2022-04-08.webp" title="Foundry VTT - Version 9 Stable Build 266 Release Notes" alt="Release Notes for Foundry Virtual Tabletop Version 9 Stable Build 266"/>
+    <figcaption>Welcome to the Foundry Virtual Tabletop update notes for Version 9 Stable Build 266.</figcaption>
+</figure>
+
+<p>We are very pleased to bring you all another bug-fixing focused update with Version 9 Stable Build 266. As with all releases on the Stable branch, this build is composed of fixes and changes for bugs sourced from feedback provided by you, our awesome community, as well as internal testing. These updates prioritize resolving bugs in ways which will not introduce breaking changes to the API or negatively impact modules and game systems.</p>
+
+<p class="note warning"><strong>WARNING:</strong> While this is categorized as a stable release there is always a possibility of unexpected bugs or compatibility issues. As with any time you update the core software, be sure to perform a complete backup of your user data to minimize any risk of data loss (<a href="https://www.youtube.com/watch?v=OmbxMmqNNXU" rel="nofollow" target="_blank">Follow this handy guide</a>). </p>
+
+
+<h2 class="border">Update Highlights</h2>
+
+<p>Our goal for this release was to polish up a few lingering non-critical (but no less irritating) bugs to help keep V9 stable while our development focus is spent primarily on Version 10. This is a fairly light update, surgically targeting a few UI and API issues as well as a few lingering bugs that couldn't be addressed during our last update. We also took the opportunity to address a few UI and documentation inconsistencies.</p>
+
+<div>
+<h2 class="border">New Features</h2>
+    <h3>Architecture and Infrastructure</h3>
+    <ul>
+        <li>For convenience, if the authorization menu is not available users will now be redirected to the login screen for the currently active world. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6900" target="_blank">6900</a>)</li>
+    </ul>
+
+</div>
+<div>
+<h2 class="border">API Improvements</h2>
+<h3>Documents and Data</h3>
+    <ul>
+        <li><code>ClientDocumentMixin#link</code> now supports linking to Documents within compendium packs. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6923" target="_blank">6923</a>)</li>
+        
+    </ul>
+</div>
+<h3>Interface and Applications</h3>
+    <ul>
+        <li><code>AmbientLightConfig#close</code> and <code>TileConfig#close</code> now correctly use <code>this.object.prepareData()</code> to reset the document with <code>prepareData</code> included. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6805" target="_blank">6805</a>)</li>   
+    </ul>
+<h3>Dice System</h3>
+    <ul>
+        <li>The static <code>PoolTerm.REGEXP</code> field has been added, ensuring that <code>PoolTerm.fromExpression</code> works as expected. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6843" target="_blank">6843</a>)</li>
+    </ul>
+<div>
+    <h2 class="border">Documentation Improvements</h2>
+    <ul>
+        <li>Instructional text tips on the permissions menu have been updated to use the terminology "users" rather than players for improved clarity.  (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6847" target="_blank">6847</a>)</li>
+        <li>The JSDoc strings for <code>Token#setTarget</code> have been updated to include the appropriate information for the <code>user</code>, <code>releaseOthers</code> and <code>groupSelection</code> parameters. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6839" target="_blank">6839</a>)</li>
+        <li>The JSDoc strings for <code>SceneControlTool</code> have been updated to reflect the presence of a 'title' property instead of a 'label' property. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6851" target="_blank">6851</a>)</li>
+        <li><code>WallsLayer#checkCollision</code> should now have a consistent return type and its documentation has been clarified. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6927" target="_blank">6927</a>)</li>
+        <li>The JSDoc strings for <code>ClientDocumentMixin#createDialog</code> and <code>Folder#createDialog</code> have been improved and should now be consistent with their behaviour. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6863" target="_blank">6863</a>)</li>
+    </ul>
+</div>
+
+<div>
+<h2 class="border">Localization Improvements</h2>
+<ul>
+    <li>A number of UI labels related to measurement and distance have been standardized. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6926" target="_blank">6926</a>)</li>
+</ul>
+</div>
+<div>
+<h2 class="border">Bug Fixes</h2>
+
+    <h3>Documents and Data</h3>
+    <ul>
+        <li>Updating Token webm images should no longer result in a brief, much larger display of single frame of the webm. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6858" target="_blank">6858</a>)</li>
+        <li>An issue which prevented players from cycling control to a token outside their current field of vision has been resolved. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6860" target="_blank">6860</a>)</li>
+        <li><code>Token#_onDelete</code> now handles sight and light source data in a cleaner way, prior to downstream hooks being called. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6896" target="_blank">6896</a>)</li>
+        <li>Cards documents should now consistently be reset before a deletion. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6844" target="_blank">6844</a>)</li>
+    </ul>
+    <h3>The Game Canvas</h3>
+    <ul>
+        <li>The updated <code>restrictVisibility</code> code for the lighting layer no longer incorrectly fails to apply line of sight masking to coloration containers. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6799" target="_blank">6799</a>)</li>
+        <li><code>Token#rotate</code> should now correctly return a Promise as expected. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6876" target="_blank">6876</a>)</li>
+
+    </ul>
+    <h3>Interface and Applications</h3>
+    <ul>
+        <li>Changing font size from 5 to 6 should no longer create abormal distances between rolltable results. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6623" target="_blank">6623</a>)</li>
+        <li>Users with permission to create templates and drawings may now copy and paste those placeables. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6779" target="_blank">6779</a>)</li>
+        <li>Tiles containing baked-in audio should now appropriately route that audio through the Ambient volume control slider. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6848" target="_blank">6848</a>)</li>
+        <li>HTML source should now be stripped from the title heading of popped-out chat card windows. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6855" target="_blank">6855</a>)</li>
+        <li>An issue related to the sorting of playlist tracks has been corrected and tracks should now play in the arranged order rather than the order in which they were added. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6857" target="_blank">6857</a>)</li>
+        <li>Assistant GMs should now be able to create, update, and delete users, but are correctly prevented from elevating themselves to a GM role. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6869" target="_blank">6869</a>)</li>
+        <li>The Setup menu's "Update" status button is now synchronized with the progress of the update installation, indicating if it is downloading or installing. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6684" target="_blank">6684</a>)</li>
+        <li>To resolve rare cases where Scenes would appear to be player-navigable to a GM when they were not, the handling of document permission testing has been improved. This issue stemmed from a case where importing a scene from a compendium would fail to tolerate the case in which the permissions object did not have a default key (assuming the default level as NONE). (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6812" target="_blank">6812</a>)</li>
+    </ul>
+</div>

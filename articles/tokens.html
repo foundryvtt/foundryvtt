@@ -1,266 +1,124 @@
 <h2 id="types">Overview</h2>
-<p>The <strong>Token</strong> is a placeable object which visually represents <a title="Actors" href="/article/actors/" target="_blank" rel="nofollow noopener">Actors</a> on the game Canvas.&nbsp;The Token displays the Actor's position, appearance, rotation, vision configuration, status effects, and more. Each Token is specific to <a title="Scenes" href="/article/scenes/" target="_blank" rel="nofollow noopener">Scenes</a> in which it exists.</p>
+<p>The <strong>Token</strong> is a placed object which visually represents @Article[actors] on the game Canvas. The Token displays the Actor's position, appearance, rotation, vision configuration, status effects, and more. Each Token is specific to @Article[scenes] in which it exists.</p>
 <p>This document will familiarize you with the various options available to the tokens, and how to manipulate them. It will also detail the difference between a prototype and placed token, and how the token wildcard system works.</p>
+
 <h2 id="options" class="border">Token Configuration Options</h2>
 <p>The Token Configuration sheet features a large number of options spread out across five different tabs, each tab allowing you to modify certain aspects of the token. The options of each tab and their effects are explained in the following sections of this article.</p>
 <p>Note that modifying these traits on a placed token will change them for only that token in the scene. To make changes to all future tokens placed from an actor, the prototype token must be configured first. The difference between placed and prototype tokens is explained <a href="#tokentypes" target="_blank" rel="nofollow noopener">here</a> in this article.</p>
-<h3>Character Tab</h3>
-<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/token-configuration-character-tab-2020-05-22.png" alt="Token Config - Character">@Image[4]</a>
+
+<h4>Identity Tab</h4>
+<figure class="right">@Image[4]
 <figcaption>This tab controls what actor data is associate with the token.</figcaption>
 </figure>
-<dl>
-<dt>Token Name</dt>
-<dd>
-<p>This determines the name which is shown for the token. When a new actor is created this defaults to whatever name that actor was given, but it can be changed to be different from the name.</p>
-</dd>
-<dt>Display Name</dt>
-<dd>
-<p>Configure the level of visibility for the token's nameplate. The following options are supported:</p>
 <ul>
-<li>Never Displayed - The nameplate is not displayed at all.</li>
-<li>When Controlled - The nameplate is displayed when the Token is currently controlled</li>
-<li>Hovered by Owner - The nameplate is displayed when the token is hovered over by a User who owns the token's Actor</li>
-<li>Hovered by Anyone - The nameplate is displayed when the token is hovered over by any User</li>
-<li>Always for Owner - The nameplate is displayed at all times to any User who owns the token's Actor</li>
-<li>Always for Everyone - The nameplate is displayed at all times to every User</li>
+    <li><strong>Token Name</strong>: This determines the name which is shown for the token. When a new actor is created this defaults to whatever name that actor was given, but it can be changed to be different from the name.</li>
+    <li><strong>Display Name</strong>: Configure the level of visibility for the token's nameplate.</li>
+        <ul>
+            <li>Never Displayed - The nameplate is not displayed at all.</li>
+            <li>When Controlled - The nameplate is displayed when the Token is currently controlled</li>
+            <li>Hovered by Owner - The nameplate is displayed when the token is hovered over by a User who owns the token's Actor</li>
+            <li>Hovered by Anyone - The nameplate is displayed when the token is hovered over by any User</li>
+            <li>Always for Owner - The nameplate is displayed at all times to any User who owns the token's Actor</li>
+            <li>Always for Everyone - The nameplate is displayed at all times to every User</li>
+        </ul>
+        <li><strong>Represented Actor</strong>: Specify which Actor in the world defines the Actor data which used by the Token. The dropdown list of options is drawn from the available actors in the game world.</li>
+        <li><strong>Link Actor Data</strong>: When enabled, changes to the resource pools either on the base Actor or on the Token itself will reflect in the other location. These changes apply to all linked tokens in all scenes, and is best used for unique or named characters. It's not recommended to link actor data for generic creatures or types of character (such as bandits). When data is not linked, each Token will have independent resources pools and turn order tracking.</li>
+        <li><strong>Coordinates (Pixels)</strong>: (Placed Tokens Only) The current horizontal X position and vertical Y position of the Token in a Scene. Directly editing these fields on a token placed in a scene will change the token's position, these fields are automatically set when the token is placed into a scene or moved during play.</li>
+        <li><strong>Elevation (Distance)</strong>: The Token's current elevation in grid units distance which is displayed visually above the Token. This is used to indicate whether certain Tokens are flying or burrowing at an altitude that differs from what is standard for the Scene. Editing this on a prototype token has no effect, as the token starts at 0 elevation when placed into a scene.</li>
+        <li><strong>Rotation (Degrees)</strong>: The Token's current direction of facing in degrees. Rotation of zero (the default) corresponds to a southward facing as this is the most commonly used convention for Token artwork. Editing this field on a prototype token determines the default rotation in degrees when it's placed into a scene. Tokens in a scene can also be rotated by holding down Shift and using the W-A-S-D keys, the arrow keys, or the mouse wheel. You can also hold down Control when using the mouse wheel to get smaller increments of rotation to more finely control a token's orientation.</li>
+        <li><strong>Lock Rotation</strong>: If this setting is enabled the token cannot be rotated. This setting is typically ideal for portrait style tokens where the artwork orientation is more ideally fixed.</li>
+        <li><strong>Token Disposition</strong>: Sets the color of the border shown around a Token when it's selected or hovered over with a mouse cursor. Disposition is used to differentiate enemies from allies during combat encounters. Neutral tokens have yellow borders, friendly tokens have teal borders, and hostile tokens have red borders.</li>
 </ul>
-</dd>
-<dt>Represented Actor</dt>
-<dd>
-<p>Specify which Actor in the world defines the Actor data which used by the Token.</p>
-</dd>
-<dt>Link Actor Data</dt>
-<dd>
-<p>When enabled, changes to the resource pools either on the base Actor or on the Token itself will reflect in the other location. These changes apply to tokens in all scenes, and as such it is best to only link tokens if their Actor is a unique character with only one instance of that Actor within any particular Scene. Alternatively, Tokens should not be linked when the Actor entry represents a generic creature or type of character. When data is not linked, each Token will have independent resources pools and turn order tracking.</p>
-</dd>
-<dt>Token Disposition</dt>
-<dd>
-<p>For non-player characters, setting a Token disposition allows for the colored border shown around a Token to be drawn in a different color which can differentiate enemies from allies during combat encounters. Neutral tokens have yellow borders, friendly tokens have teal borders, and hostile tokens have red borders.</p>
-</dd>
-</dl>
-<h3>Image Tab</h3>
-<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/token-configuration-image-tab-2021-02-05.jpg" alt="Token Configuration - Image Tab">@Image[46]</a>
+
+<h4>Appearance Tab</h4>
+<figure class="right">@Image[46]
 <figcaption>This tab controls the art used for the token and how it appears.</figcaption>
 </figure>
-<dl>
-<dt>Token Image Path</dt>
-<dd>
-<p>The file path to the artwork that is used for the Token. This file must be in the <code>$UserData/Data/</code> directory or a publicly accessible web location.</p>
-</dd>
-<dt>Randomize Wildcard Images</dt>
-<dd>
-<p>If checked, the provided Token Image Path is treated as a wildcard pattern that is matched against multiple existing files. When a wildcard Token is configured, each time that Token is placed an image is randomly chosen from the matching set. Note that this can only be configured on prototype tokens. Once a token is placed in a scene the image used is set, it must then be changed manually by editing the in-scene token.</p>
-<p>For a more detailed explanation of this feature, see the dedicated section later in this article.</p>
-</dd>
-<dt>Alternate Actor Tokens</dt>
-<dd>
-<p>If Randomize Wildcard Images is checked on a prototype token, this dropdown list appears when the token is placed into a scene. It provides a list of all available images which matched the wildcard you entered, and allows you to quickly select a specific image you want to use for that actor.</p>
-</dd>
-<dt>Width</dt>
-<dd>
-<p>The number of grid units in the horizontal dimension that this token occupies. A token which uses a single grid square would have a width of 1.</p>
-</dd>
-<dt>Height</dt>
-<dd>
-<p>The number of grid units in the vertical dimension that this token occupies. A token which uses a single grid square would have a height of 1.</p>
-</dd>
-<dt>Scale</dt>
-<dd>
-<p>A scaling ratio for the size of the Token's artwork. The token base size in grid units is unaffected by this value, but the visual size of the artwork is relative to that size and will change with scale. Numbers greater than 1 result in larger token artwork while numbers less than 1 result in smaller token artwork.</p>
-</dd>
-<dt>Mirror Horizontally</dt>
-<dd>
-<p>If this option is checked, the token artwork is flipped horizontally to "mirror" the Token's appearance.</p>
-</dd>
-<dt>Mirror Vertically</dt>
-<dd>
-<p>If this option is checked, the Token artwork is flipped vertically to "mirror" the Token's appearance.</p>
-</dd>
-<dt>Tint</dt>
-<dd>
-<p>This applies a hex color tint to the token's artwork as an overlay, and can either be entered directly or chosen using a color picker.</p>
-</dd>
-</dl>
-<h3>Position Tab</h3>
-<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/token-configuration-position-tab-2020-05-22.png" alt="Token Configuration - Position Tab">@Image[47]</a>
-<figcaption>This tab allows you to fine-tune a token's location, elevation, and rotation in scene.</figcaption>
-</figure>
-<dl>
-<dt>X-Coordinate</dt>
-<dd>
-<p>The current x-coordinate of the Token in a Scene. Directly editing this field on a token placed in a scene will change the token's position, but has no effect on prototype tokens, as these fields are automatically set when the token is placed into a scene</p>
-</dd>
-<dt>Y-Coordinate</dt>
-<dd>
-<p>The current y-coordinate of the Token in a Scene. Directly editing this field on a token placed in a scene will change the token's position, but has no effect on prototype tokens, as these fields are automatically set when the token is placed into a scene.</p>
-</dd>
-<dt>Elevation</dt>
-<dd>
-<p>The Token's current elevation in grid units which is displayed visually above the Token. This is used to indicate whether certain Tokens are flying or burrowing at an altitude that differs from what is standard for the Scene. Editing this on a prototype token has no effect, as the token starts at 0 elevation when placed into a scene.</p>
-</dd>
-<dt>Rotation</dt>
-<dd>
-<p>The Token's current direction of facing in degrees. Rotation of zero (the default) corresponds to a southward facing as this is the most commonly used convention for Token artwork. Editing this field on a prototype token determines the default rotation in degrees when it's placed into a scene. Tokens in a scene can also be rotated by holding down Shift and using the W-A-S-D keys, the arrow keys, or the mousewheel. You can also hold down Control when using the mousewheel to get smaller increments of rotation to more finely control a token's orientation.</p>
-</dd>
-<dt>Lock Rotation</dt>
-<dd>
-<p>If this setting is enabled the token cannot be rotated. This setting is typically ideal for portrait style tokens where the artwork orientation is more ideally fixed.</p>
-</dd>
-</dl>
-<h3>Vision Tab</h3>
-<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/token-configuration-vision-tab-2020-11-20.png" alt="Token Configuration - Vision Tab">@Image[48]</a>
-<figcaption>This tab allows you to control a token's vision, and if it generates light.</figcaption>
-</figure>
-<dl>
-<dt>Has Vision</dt>
-<dd>
-<p>This checkbox denotes whether the Token should be treated as a source of vision. If this is enabled, when the Token is controlled dynamic vision will be computed from the perspective of the Token. If this is disabled, the Token will not be a source of vision and no vision computations will occur as a result of controlling it. This setting, and other settings in the vision section, will only be used within a Scene which has Token Vision enabled.</p>
-</dd>
-<dt>Dim Vision</dt>
-<dd>
-<p>The visible radius with which the Token can see as if in dim light conditions.</p>
-</dd>
-<dt>Bright Vision</dt>
-<dd>
-<p>The visible radius with which the Token can see as if in bright light conditions. Please note that both this setting and the Dim Vision setting are radii with respect to the token location as the origin, so typically the Bright Vision radius is a smaller number than the Dim Vision setting.</p>
-</dd>
-<dt>Sight Angle</dt>
-<dd>
-<p>An angle of vision between zero and 360 degrees (the default) which represents the allowed field of view for this token. The computed angle of vision aligns to the direction of facing controlled by the rotation attribute.</p>
-</dd>
-<dt>Emit Dim Light</dt>
-<dd>
-<p>A radius of dim light emitted by this token that is visible by all other tokens.</p>
-</dd>
-<dt>Emit Bright Light</dt>
-<dd>
-<p>A distance of bright light emitted by this token that is visible by all other tokens. As with the above settings, these distances are radii with respect to the token center, so typically Emit Bright Light is a smaller number than the Emit Dim Light setting.</p>
-</dd>
-<dt>Emission Angle</dt>
-<dd>
-<p>An angle of light emission between zero and 360 degrees (the default) which represents the field of light that is emitted by this Token. The computed angle of emission aligns to the direction of facing controlled by the rotation attribute.</p>
-</dd>
-<dt>Light Color</dt>
-<dd>
-<p>Set the color of light that the Token emits in Hex (#000000).</p>
-</dd>
-<dt>Color Intensity</dt>
-<dd>
-<p>Adjusts how vivid the color of the light is from 0(faded) to 1(vibrant).</p>
-</dd>
-<dt>Animation Type</dt>
-<dd>
-<p>Select the style of animation shader to be applied to the light.</p>
-</dd>
-<dt>Animation Speed</dt>
-<dd>
-<p>The speed of the animation effect, from 0(slow) to 1(fast).</p>
-</dd>
-<dt>Animation Intensity</dt>
-<dd>
-<p>The intensity of the animation effect, from 0(subtle) to 1(intense).</p>
-</dd>
-</dl>
-<h4>Tokens with Shared Vision</h4>
-<p>If a User has permission to more than one token with vision, when no Token is controlled, the vision displayed will be the union of vision across all Tokens. If a User has a single Token controlled, their vision will be only what is visible to that one Token. If you select a single Token and want to go back to shared vision across all tokens just de-select it by one of the following methods:</p>
 <ul>
-<li>Select an empty rectangle on the map.</li>
-<li>Shift+click the token to remove it from the controlled set.</li>
-<li>Press ESCAPE.</li>
-<li>Left-click anywhere on the canvas. (if you have enabled "Left-click to Release Objects" from the Settings Menu)</li>
+    <li><strong>Token Image Path</strong>: The file path to the artwork that is used for the Token. This file must be in the <code>$UserData/Data/</code> directory or a publicly accessible web location.</li>
+    <li><strong>Randomize Wildcard Images</strong>: (Prototype Tokens Only) If checked, the provided Token Image Path is treated as a wildcard pattern that is matched against multiple existing files. When a wildcard Token is configured, each time that Token is placed an image is randomly chosen from the matching set. Note that this can only be configured on prototype tokens. Once a token is placed in a scene the image used is set, it must then be changed manually by editing the in-scene token. For a more detailed explanation of this feature, see the dedicated section later in this article. Please see below for more information on using image wildcards.</li>
+    <li><strong>Alternate Actor Tokens</strong>: (Placed Tokens Only) If Randomize Wildcard Images is checked on a prototype token, this dropdown list appears in the token config window for the placed actor. This list provides all available images which matched the wildcard you entered and allows you to quickly select a specific image you want to use for that actor.</li>
+    <li><strong>Dimensions (Grid Units)</strong>: The number of grid units this token occupies. A token which uses a single grid square would have a width and height of 1.</li>
+    <li><strong>Scale (Ratio)</strong>: A scaling ratio for the size of the Token's artwork. The token base size in grid units is unaffected by this value, but the visual size of the artwork is relative to that size and will change with scale. Numbers greater than 1 result in larger token artwork while numbers less than 1 result in smaller token artwork.</li>
+    <li><strong>Mirror Image:</strong>: This option provides two check boxes which determine if the token artwork is flipped horizontally or vertically, based on which boxes are checked.</li>
+    <li><strong>Tint</strong>: This applies a hex color tint to the token's artwork as an overlay, and can either be entered directly or chosen using a color picker.</li>
 </ul>
+
+<h4>Vision Tab</h4>
+<figure class="right">@Image[48]
+<figcaption>This tab allows you to control a token's vision.</figcaption>
+</figure>
+<ul>
+    <li><strong>Has Vision</strong>: This checkbox denotes whether the Token should be treated as a source of vision. If this is enabled, when the Token is controlled dynamic vision will be computed from the perspective of the Token. If this is disabled, the Token will not be a source of vision and no vision computations will occur as a result of controlling it. This setting, and other settings in the vision section, will only be used within a Scene which has vision enabled.</li>
+    <li><strong>Vision Radius (Grid Units)</strong>: Sets the radius with which the Token can see. The Dim field acts as though their vision range is a dim light only they can see, while the Bright field provides a vision radius with which the Token can see as if in bright light conditions. Please note that both settings are radii with respect to the token location as the origin, so typically the Bright Vision radius should be a smaller number than the Dim Vision setting.</li>
+    <li><strong>Vision Angle (Degrees)</strong>: An angle of vision between zero and 360 degrees (the default) which represents the allowed field of view for this token. The computed angle of vision aligns to the direction of facing controlled by the rotation attribute.</li>
+</ul>
+
+<p><strong>Tokens with Shared Vision:</strong> If a User has permission to more than one token with vision, when no Token is controlled, the vision displayed will be the union of vision across all Tokens. If a User has a single Token controlled, their vision will be only what is visible to that one Token, and any other tokens will have their vision hidden.</p>
+
+<h4>Lighting Tab</h4>
+<figure class="right">@Image[47]
+<figcaption>This tab allows you to manipulate a token's light emission.</figcaption>
+</figure>
+
+<p>This tab is broken down into three sub-tabs which determine the appearance and reach of the token's light emission. The settings here are identical to those found in the ambient lighting tools, please refer to @Article[lighting] for an in-depth explanation of the various options available.</p>
+
 <h3>Resources Tab</h3>
-<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/token-configuration-resources-tab-2020-05-22.png" alt="Token Configuration - Resources Tab">@Image[49]</a>
+<figure class="right">@Image[49]
 <figcaption>This tab determines what attributes from the actor sheet are tracked on the token.</figcaption>
 </figure>
-<dl>
-<dt>Display Bars</dt>
-<dd>
-<p>Configure the level of visibility for the token's resource bars. The following options are supported:</p>
 <ul>
-<li>
-<p>Never Displayed - Resource bars will not be shown</p>
-</li>
-<li>
-<p>When Controlled - Resource bars are displayed when the Token is currently controlled.</p>
-</li>
-<li>
-<p>Hovered by Owner - Resource bars are displayed to any User that owns the token's Actor when they hover their cursor over the token.</p>
-</li>
-<li>
-<p>Hovered by Anyone - Resource bars are displayed to any User that overs their cursor over the token.</p>
-</li>
-<li>
-<p>Always for Owner - Resource bars are displayed at all times, and visible to the Actor's owner.</p>
-</li>
-<li>
-<p>Always for Everyone - Resource bars are displayed at all times, and visible to all Users.</p>
-</li>
+    <li><strong>Display Bars</strong>: Configure the level of visibility for the token's resource bars. The following options are supported:</li>
+    <ul>
+        <li> <p>Never Displayed - Resource bars will not be shown</p> </li>
+        <li> <p>When Controlled - Resource bars are displayed when the Token is currently controlled.</p> </li>
+        <li> <p>Hovered by Owner - Resource bars are displayed to any User that owns the token's Actor when they hover their cursor over the token.</p> </li>
+        <li> <p>Hovered by Anyone - Resource bars are displayed to any User that overs their cursor over the token.</p> </li>
+        <li> <p>Always for Owner - Resource bars are displayed at all times, and visible to the Actor's owner.</p> </li>
+        <li> <p>Always for Everyone - Resource bars are displayed at all times, and visible to all Users.</p> </li>
+    </ul>
+    <li><strong>Bar 1 Attribute</strong>: Select the attribute from the Actor's available data fields which should be displayed using the Token's primary resource bar.</li>
+    <li><strong>Bar 1 Data</strong>: These fields are displayed for reference purposes only - you cannot configure the value of resource bars within the Token configuration as those are controlled by the Actor which the Token represents.</li>
+    <li><strong>Bar 2 Attribute</strong>: Select the attribute from the Actor's available data fields which should be displayed using the Token's secondary resource bar.</li>
+    <li><strong>Bar 2 Data</strong>: These fields are displayed for reference purposes only - you cannot configure the value of resource bars within the Token configuration as those are controlled by the Actor which the Token represents.</li>
 </ul>
-</dd>
-<dt>Bar 1 Attribute</dt>
-<dd>
-<p>Select the attribute from the Actor's available data fields which should be displayed using the Token's primary resource bar.</p>
-</dd>
-<dt>Bar 1 Data</dt>
-<dd>
-<p>These fields are displayed for reference purposes only - you cannot configure the value of resource bars within the Token configuration as those are controlled by the Actor which the Token represents.</p>
-</dd>
-<dt>Bar 2 Attribute</dt>
-<dd>
-<p>Select the attribute from the Actor's available data fields which should be displayed using the Token's secondary resource bar.</p>
-</dd>
-<dt>Bar 2 Data</dt>
-<dd>
-<p>These fields are displayed for reference purposes only - you cannot configure the value of resource bars within the Token configuration as those are controlled by the Actor which the Token represents.</p>
-</dd>
-</dl>
-<h3>The Token Hud</h3>
-<figure class="right"><a title="See Larger Image" href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/player-token-hud-2021-01-28.jpg" target="_blank" rel="nofollow noopener"><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/player-token-hud-2021-01-28.jpg" alt="Player Token HUD" /></a>
-<figcaption>The token hud allows you to make quick adjustments to a token's status.</figcaption>
+
+<h3>The Token HUD</h3>
+<figure class="right">@Image[146]
+<figcaption>The token HUD (Head-Up Display) allows you to make quick adjustments to a token's status on the fly.</figcaption>
 </figure>
-<p>Once a character has been placed onto the canvas as a token, a number of quick actions become available through the Token Heads Up Display that can bew viewed by right clicking on a token at any time. The specific functions are detailed below.</p>
-<dl>
-<dt>Resource Bars</dt>
-<dd>If configured via the resource table, these bars provide a visual representation of resource attributes. The system will govern what resources can be tracked and modified.</dd>
-<dt>Resource Bar Inputs</dt>
-<dd>Are used to change the value of the displayed resource bars. Clicking on the input and then adding a positive or negative number allows you to quickly increase or decrease the number presented.</dd>
-<dt>Status Effects</dt>
-<dd>This allows you to assign status effects to the token, which appear as small icons overlaid on the token art in the upper left corner. The specific art of the status effects are defined by whichever Game System is currently in use. Right clicking an icon creates a large overlay that covers the majority of the token. Tokens can only have one large overlay at a time.</dd>
-<dt>Elevation</dt>
-<dd>This provides a simple height indicator label that will appear above a token to indicate their current elevation in the measurement that the map is configured to use. This does not affect token vision at this time. Using positive and negative numbers in this field allows a user to quickly adjust the number instead of directly editing the elevation number.</dd>
-<dt>Target</dt>
-<dd>This allows a user to toggle a targeting indicator on the token.</dd>
-<dt>Toggle Combat</dt>
-<dd>If there is an active combat, clicking this button will place the token in the combat tracker. Clicking it a second time will remove the token from combat. When this is done, the token's initiative score (if it had one) is not retained.</dd>
-</dl>
-<h2 id="wildcards" class="border">Wildcard Token Images</h2>
-<figure class="right"><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/wildcard-tokens-2020-06-18.jpg" alt="Wildcard Tokens" />
-<figcaption>Wildcard tokens allow for semi-random image selection of art for actor tokens.</figcaption>
-</figure>
-<p>Wildcard tokens provide a way for GMs to manage use of a single actor representing a diverse group of characters that all have the same attributes, or which do not necessarily require a fully linked actor sheet.</p>
-<p>To configure Wildcard Tokens, access the token configuration menu and on the image tab, set the following options:</p>
-<dl>
-<dt>Token Image Path</dt>
-<dd>The path to the folder containing the images you wish to have the token draw from. This should be set to something such as: <code><strong>/your/path/here/*</strong></code> for all images in the folder or <strong><code>/your/path/here/*.png</code></strong> for all files of the <code>.png</code> format in the folder. It can also include case sensitive options such as <code><strong>/your/path/here/Goblin*</strong></code> for all images that start with the word "Goblin."</dd>
-<dd>It can also include a selection list, for specified options using <code><strong>/your/path/here/{Goblin_1,Goblin_2}.png</strong></code> to choose only between the <code>Goblin_1.png</code> or <code>Goblin_2.png</code> when the actor is placed into a scene. This can be combined with the asterisk as detailed above to further randomize how Foundry VTT selects tokens.</dd>
-</dl>
-<dl>
-<dt>Randomize Wildcard Images</dt>
-<dd>
-<p>This checkbox enables Foundry to apply the wildcard filter to the path provided, when it is unchecked, Foundry will not apply any token if the path contains a *.</p>
-</dd>
-</dl>
+<p>Once a character has been placed onto the canvas as a token, a number of quick actions become available through the Token Head-Up Display that can be viewed by right clicking on a token at any time. The specific functions are detailed below.</p>
+<ul>
+    <li><strong>Resource Bars</strong>: If configured via the resource table, these bars provide a visual representation of resource attributes. The system will govern what resources can be tracked and modified.</li>
+    <li><strong>Resource Bar Inputs</strong>: Are used to change the value of the displayed resource bars. Clicking on the input and then adding a positive or negative number allows you to quickly increase or decrease the number presented.</li>
+    <li><strong>Status Effects</strong>: This allows you to assign status effects to the token, which appear as small icons overlaid on the token art in the upper left corner. The specific art of the status effects are defined by whichever Game System is currently in use. Right clicking an icon creates a large overlay that covers the majority of the token. Tokens can only have one large overlay at a time.</li>
+    <li><strong>Elevation</strong>: This provides a simple height indicator label that will appear above a token to indicate their current elevation in the measurement that the map is configured to use. This does not affect token vision at this time. Using positive and negative numbers in this field allows a user to quickly adjust the number instead of directly editing the elevation number.</li>
+    <li><strong>Target</strong>: This allows a user to toggle a targeting indicator on the token.</li>
+    <li><strong>Toggle Combat</strong>: If there is an active combat, clicking this button will place the token in the combat tracker. Clicking it a second time will remove the token from combat. When this is done, the token's initiative score (if it had one) is not retained.</li>
+</ul>
+
+<h3 id="wildcards">Wildcard Token Images</h3>
+<p>Wildcard tokens provide a way for GMs to manage use of a single actor representing a diverse group of characters that all have the same attributes, or which do not necessarily require a fully linked actor sheet. To configure Wildcard Tokens, access the token configuration menu and on the appearance tab, tick the Randomize Wildcard Images toggle. Then configure the image path to use wildcards.</p>
+
+<p>The path to the folder containing the images you wish to have the token draw from. This should be set to something such as: <code><strong>/your/path/here/*</strong></code> for all images in the folder or <strong><code>/your/path/here/*.png</code></strong> for all files of the <code>.png</code> format in the folder.</p>
+<p>This can also include case sensitive options such as <code><strong>/your/path/here/Goblin*</strong></code> for all images that start with the word "Goblin," it can also include a selection list, for specified options using <code><strong>/your/path/here/{Goblin_1,Goblin_2}.png</strong></code> to choose only between the <code>Goblin_1.png</code> or <code>Goblin_2.png</code> when the actor is placed into a scene.</p>
+<p>This can be combined with the asterisk as detailed above to further randomize how Foundry VTT selects tokens.</p>
+
 <p>After placing a token that has the Randomize Wildcard Image option set, you can change the token from a convenient list of other tokens in that folder. To do so, right click the token you wish to change and on the image tab simply select a different image from the Alternate Actor Tokens selection menu.</p>
+
 <h2 id="tokentypes" class="border">Prototype vs. Placed Tokens</h2>
 <p class="note info">An important concept to understand when working with Tokens is the difference between a <strong>Prototype Token</strong> and a placed <strong>Token</strong>.</p>
+
 <h4 id="prototype">Prototype Tokens</h4>
 <p>A Prototype Token is the configuration of a Token for a particular Actor before that Token has been placed onto the game canvas. The prototype defines the default setup that a newly created Token starts with. To configure the Prototype Token for an Actor, open the Actor Sheet and click the <strong>Prototype Token</strong> button in the top bar.</p>
+
 <h4 id="placed">Placed Tokens</h4>
 <p>Once a Token is placed, it becomes its own independent copy of the prototype. For example - a Prototype Token for a player character could be configured to have a certain vision distance - but when that Token is placed into a Scene that has different lighting conditions, the placed copy of the Token could be changed to increase or decrease visibility for that scene. To configure a placed Token, right click on the Token to display the Token HUD and click the gear icon to open that Token's configuration sheet, or double right-click the token.</p>
-<figure><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/tokens-prototype-token-example-2021-02-05.jpg" alt="Tokens - Prototype Token Example">@Image[155]</a>
-<figcaption>The highlighted areas indicate the differences between a prototype token and a token placed into a scene, while the arrow indicates the title difference between both windows.</figcaption>
+
+<figure>@Image[155]
+<figcaption>Prototype token configuration (orange outline) versus placed token configuration (purple outline) differs slightly in terms of available options.</figcaption>
 </figure>
+
 <h2 id="api" class="border">API References</h2>
 <p>To interact with Tokens programmatically, consider using the following API concepts:</p>
 <ul>
@@ -268,7 +126,6 @@
 <li>The @API[TokenLayer, The TokenLayer Canvas Layer] TokenLayer Canvas Layer </li>
 <li>The @API[TokenConfig, The TokenConfig Application] TokenConfig Application </li>
 <li>The @API[TokenHUD, The TokenHUD Interface] TokenHUD Interface </li>
-</ul>
 </ul>
 <p>Additionally, the wildcard system for token images utilizes the minimatch library.</p>
 <ul>
