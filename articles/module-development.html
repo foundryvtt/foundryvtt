@@ -1,31 +1,17 @@
 <h2>Overview</h2>
 <p>This page provides an overview of the basic steps required to create a <strong>Module</strong> which can be activated to extend and modify the behavior of Foundry Virtual Tabletop and its game systems. At a conceptual level, think of each Module as a "plug-in" or "add-on" which changes the software behavior in small (or large) ways. Modules can alter the behavior of the core software in several different ways:</p>
-<ul>
-<li><strong>Content:</strong> Modules which add data in the form of compendium packs of Actors, Items, Scenes, Journal Entries, Roll Tables, or Playlists.</li>
-<li><strong>Interface:</strong> Modules which change the way the UI looks or behaves, changing the aesthetics and user experience of the software.</li>
-<li><strong>Functionality:</strong> Modules which add entirely new functionalities or features which do not exist in the base software, or modules which change the behavior of core features so they behave differently.</li>
-<li><strong>Translation:</strong> Modules which add support for translation of text displayed in Foundry VTT into other languages.</li>
-</ul>
-<p>Each module could include one or more of these types of modifications, and users can mix-and-match multiple modules (provided they are compatible) to achieve a high degree of customization for their Foundry VTT experience. This page goes into detail about how module development works for developers who are interested in creating their own module content.</p>
-<h3 id="foreword">Before you Begin</h3>
-<p>Foundry Virtual Tabletop is a web application, and module development in FVTT uses web technologies. Specifically, modules rely upon four primary technologies which each serve an important role: HTML, CSS, JavaScript, and JSON. If you are new to web development - Foundry Virtual Tabletop can provide an excellent opportunity to learn these skills while creating something fun and useful for your roleplaying game table. There are an abundance of resources and training courses for learning this technology, the following links provide a simple place to start.</p>
 <dl>
-<dt>HTML</dt>
-<dd>Used to define the structure and content of web pages and interface elements. Visit <a title="Structuring the web with HTML" href="https://developer.mozilla.org/en-US/docs/Learn/HTML" target="_blank" rel="nofollow noopener">Structuring the web with HTML</a> to begin learning more about HTML.</dd>
-<dt>CSS</dt>
-<dd>
-<p>Used to define the layout and appearance of HTML elements. Visit <a title="Learn to style HTML using CSS" href="https://developer.mozilla.org/en-US/docs/Learn/CSS" target="_blank" rel="nofollow noopener">Learn to style HTML using CSS</a> to begin learning more about CSS</p>
-</dd>
-<dt>JavaScript</dt>
-<dd>
-<p>Used to define module behaviors, handle underlying data, and provide interactivity for UI elements. Visit <a title="JavaScript - Dynamic client-side scripting" href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript" target="_blank" rel="nofollow noopener">JavaScript - Dynamic client-side scripting</a> to begin learning more about JavaScript.</p>
-</dd>
-<dt>JSON</dt>
-<dd>
-<p>A universal data storage format which is used to store and transfer data used by web applications. Visit <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON" target="_blank" rel="nofollow noopener">JavaScript Object Notation (JSON)</a> to begin learning more about JSON.</p>
-</dd>
+  <dt>Content</dt>
+<dd> Modules which add data in the form of compendium packs of Actors, Items, Scenes, Journal Entries, Roll Tables, or Playlists.</dd>
+<dt>Interface</dt>
+<dd> Modules which change the way the UI looks or behaves, changing the aesthetics and user experience of the software.</dd>
+<dt>Functionality</dt>
+<dd> Modules which add entirely new functionalities or features which do not exist in the base software, or modules which change the behavior of core features so they behave differently.</dd>
+<dt>Translation</dt>
+<dd> Modules which add support for translation of text displayed in Foundry VTT into other languages.</dd>
 </dl>
-<p>Building a module in Foundry Virtual Tabletop will require use of some or all of these techniques. You do not need to be an expert - but understanding the basics will be critical. While you undertake this journey be sure to remain patient and focus on making progress one step at a time. Building your first module will almost certainly take longer than you think, but as you learn your pace of progress should speed up considerably.</p>
+<p>Each module could include one or more of these types of modifications, and users can mix-and-match multiple modules (provided they are compatible) to achieve a high degree of customization for their Foundry VTT experience. This page goes into detail about how module development works for developers who are interested in creating their own module content.</p>
+
 <h2 class="border" id="structure">Module File Structure</h2>
 <p>A <strong>Module</strong> is defined as a uniquely-named subfolder folder within <code>{userData}/Data/modules</code> which contains a <strong>manifest</strong> file in JSON format named <code>module.json</code> which defines the module and describes what features it contains. For the purpose of this example, let's create a module named <code>dice-tray</code>. The first step of your module development should be to define the manifest file and ensure that your module is recognized as valid by the Foundry VTT software.</p>
 <p>The bare minimum in order for a module to be recognized by Foundry VTT is a file structure that looks like this:</p>
@@ -74,7 +60,7 @@
   "description": "A simple module created as a demo for working in the Foundry Virtual Tabletop framework.",
   "author": "Atropos",
   "version": "1.0.0",
-  "minimumCoreVersion": "0.5.0"
+  "minimumCoreVersion": "9"
 }</code></pre>
 <p>The above manifest file is sufficient for the module to be recognized, displayed, and enabled within Foundry VTT. The module would not <em>do anything</em> because we have not included any content - but this is a good place to start to make sure that your module is recognized by the system before advancing further.</p>
 <p class="note info"><strong>Hint:</strong> JSON files have very specific syntax requirements. Your JSON manifest file must be valid in order for your module to be recognized and loaded. Use the <a title="JSON Lint" href="https://jsonlint.com/" target="_blank" rel="nofollow noopener">JSON Lint</a> tool to validate that your JSON file is correct if you encounter any issues.</p>
@@ -95,7 +81,7 @@
 </dd>
 <dt>version</dt>
 <dd>
-<p>The module version number can be a number or a string which denotes the version of your module. We recommend using the <a title="Semantic Versioning" href="https://semver.org/" target="_blank" rel="nofollow noopener">Semantic Versioning</a> schema but this is not strictly required. When making changes to your module, incrementing the version number in your manifest file is used to signal to users that an update is available.</p>
+<p>The module version number can be a number or a string which denotes the version of your module. When making changes to your module, incrementing the version number in your manifest file is used to signal to users that an update is available. We discuss some supported options for versioning in the @Article[intro-development] article. </p>
 </dd>
 <dt>author</dt>
 <dd>
@@ -103,22 +89,22 @@
 </dd>
 <dt>minimumCoreVersion</dt>
 <dd>
-<p>Specify the minimum Foundry Virtual Tabletop version which is <strong>required</strong> in order for this module to function properly. Sometimes changes or improvements to the core software code will necessitate changing this indicator to ensure that module users are able to utilize this module's features. If a user has a core FVTT version which is older than the specified minimum core version, the module will not be able to be installed unless the user first updates the core software.</p>
+<p>Specify the minimum Foundry Virtual Tabletop version which is <strong>required</strong> in order for this module to function properly. Sometimes changes or improvements to the core software code will necessitate changing this indicator to ensure that module users are able to utilize this module's features. If a user has a core FVTT version which is older than the specified minimum core version, the module will not be able to be installed unless the user first updates the core software. It is recommended that the minimum core version use the all-encompasing number of the latest Version, but developers who wish to limit their package to working on a specific build can append the build number, for example: <code>"minimumCoreVersion": "9.268"</code>.</p>
 </dd>
 </dl>
 <h3 id="options">Optional Manifest Attributes</h3>
 <dl>
 <dt>compatibleCoreVersion</dt>
 <dd>
-<p>Specify the latest Foundry Virtual Tabletop version with which this module's features are confirmed to function properly. This field provides a way to signal to module users that a module is safe to use with a certain core version. While it is possible to set this field to any value, including future VTT version numbers which do not exist yet, please use this field responsibly and only denote compatibility with core versions which have been tested and confirmed. If a user is using a core FVTT version which is more recent than the specified compatible core version, the module can be installed and used but will display a warning that it may not function properly.</p>
+<p>Specify the latest Foundry Virtual Tabletop version with which this module's features are confirmed to function properly. This field provides a way to signal to module users that a module is safe to use with a certain core version. While it is possible to set this field to any value, including future VTT version numbers which do not exist yet, please use this field responsibly and only denote compatibility with core versions which have been tested and confirmed. If a user is using a core FVTT version which is more recent than the specified compatible core version, the module can be installed and used but will display a warning that it may not function properly. As with <code>minimumCoreVersion</code> the expectation is to use the single digit indicator for the overall version in this field. For example: <code>"compatibleCoreVersion": "9"</code></p>
 </dd>
 <dt>scripts</dt>
 <dd>
-<p>An array of JavaScript file paths which should be included whenever this module is being used. Each listed script path should be relative to the module root directory. All scripts which exist will be automatically included in the game session and loaded in their listed order.</p>
+<p>A less common way of including Javascript with the increasing adoption of ESModules, this field allows you to define an array of JavaScript file paths which should be included whenever this module is being used. Each listed script path should be relative to the module root directory. All scripts which exist will be automatically included in the game session and loaded in their listed order.</p>
 </dd>
 <dt>esmodules</dt>
 <dd>
-<p>In addition to including traditional JavaScript script files, you may also include JS files which use the newer ES6 modules specification. As with Scripts, this should be declared as an array. These files are identified separately in the manifest so they may be correctly loaded as a module rather than a script.</p>
+<p>The preferred method for including Javascript with your project. This field allows you to define an array of JS files which use the newer ES6 modules specification. As with <code>scripts</code>>, this should be declared as an array. These files are identified separately in the manifest so they may be correctly loaded as a module rather than a script.</p>
 </dd>
 <dt>styles</dt>
 <dd>
