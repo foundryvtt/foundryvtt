@@ -1,0 +1,52 @@
+<h2>Overview</h2>
+<p>Foundry Virtual Tabletop includes built-in support for optional, powerful add-on modules which can change almost every aspect of the software, adding new features and content for games. Modules are managed from the Add-on Modules tab, and are toggled on or off from within game worlds. This article will go over the process of installing, updating, and activating them for your games.</p>
+<p>Though modules are generally safe to use, we strongly advise some caution when selecting modules to use for your games. Utilizing too many modules, or using modules that are heavily out of date can cause instability (and rarely, data loss). If you are experiencing unwanted behavior or issues with your Foundry game worlds, disable your modules and see if the issues persists. If the issues only occur while modules are loaded in your world, further investigation of your module list will likely reveal the module(s) responsible for causing the issues.</p>
+
+<h2 class="border">Add-On Modules Menu</h2>
+<figure class="right">@Image[360]
+	<figcaption>The Add-on Module Tab found in the main menu allows you to manage installed modules.</figcaption>
+</figure>
+
+<p>Once Foundry has been loaded click on <strong><i class="fas fa-plug"> </i> Add-on Modules</strong> to load the module management tab. From here you can manage any currently installed modules, as well as install new modules.</p>
+
+<h4>Module Tags</h4>
+<p>In the module lists entries will have multiple colored icons that provide at-a-glance information about the module. The most common tags are:</p>
+<ul>
+<li><strong><i class="fas fa-language"> </i></strong> denotes the presence of localization changes, which adds new or changes existing text strings which may affect the UI, game system, character sheets, etc.</li>
+<li><strong><i class="fas fa-book"> </i></strong> denotes the presence of at least one compendium, this is common for modules which provide new content such as scenes, actors, journals or sounds.</li>
+<li><strong><i class="fas fa-exclamation-triangle"> </i></strong> denotes a compatibility warning. Modules with compatibility warnings may still work with the installed version of Foundry, but were specifically built for a different version of the software than what is being used.</li>
+<li><strong><i class="fas fa-code-branch"> </i></strong> denotes the version of the module that is installed.</li>
+</ul>
+
+<h4>Updating Modules</h4>
+<p>To update an installed module, click the <strong><i class="fas fa-sync"> </i> Update</strong> button, this will check for any updates to the selected module, downloading and installing one if found. Modules that do not have an available update will be marked as "Current" briefly. Modules that are locked cannot be updated, and will not have the update button available.</p>
+<p>It is also possible to update all unlocked modules by using the <strong><i class="fas fa-cloud-arrow-down"> </i> Update All</strong> button, which will check all installed modules for updates and automatically download them.</p>
+
+<h4>Locking Modules</h4>
+<p>Clicking the lock icon (<i class="fas fa-unlock"> </i>) will toggle module lock on, and change the icon to a closed padlock. While the module is locked it cannot be updated or deleted.</p>
+<h4>Uninstalling Modules</h4>
+<p>To uninstall a module click the <strong><i class="fas fa-trash"> </i> Uninstall </strong>button next to the module in the Add-on Modules tab. This will prompt you to confirm your choice. By clicking yes the module will be uninstalled and its associated data will be removed. Modules that are locked will not have an uninstall button available until they are unlocked.</p>
+
+<h3>Installing New Modules</h3>
+<figure class="right">@Image[361]
+	<figcaption>The Add-on Module browser allows you to install new modules.</figcaption>
+</figure>
+<p>Modules need to be installed before they can be used in game worlds. There are three ways to install modules for Foundry VTT to use: through the installer menu, with a manifest url, and by manually placing the module files in your user data folder.</p>
+<p>From the Add-on Modules tab, click the <strong><i class="fas fa-download"> </i> Install Module</strong> button to open the module browser. This will bring up a list of all available modules hosted on the official Foundry VTT repository.&nbsp; From this list you can click the install module button for an individual module, which will cause Foundry to download and install the module. This may take several minutes depending on the size of the module, but a notice will appear when the installation is complete.</p>
+<p>Modules that are already installed will be indicated, and modules which are paid premium content which need specific content keys will be listed as "Not Owned" if you do not have access to the content. Premium content you have purchased needs to be applied to the account which owns the foundry license being used to appear as owned in the module list. These content keys are activated through the main website for Foundry.</p>
+
+<h4>Installing via Manifest URL</h4>
+<p>In some instances modules you will want to install will not be part of the core Module Repository and will instead need to be installed using the module.json file. In these cases you will use the Manifest URL box at the bottom of the install module window. To do this, simply paste in the web url ending in module.json and click install to begin the process. Once complete a notice will appear indicating success.</p>
+<p>In some instances the provided JSON may not include the necessary information to install the module properly, and will result in an error. When this occurs, double-check that the url is correct, and that the module author has provided a valid module.json file for Foundry.</p>
+<h4>Installing Modules Manually</h4>
+<p>Installing a module manually is not recommended for users as the installer or manifest methods are more reliable and are unlikely to result in modules failing to load correctly. Regardless of that, it is not especially difficult to manually install modules to Foundry, but does require manipulating files on the hosting machine. To install a module manually, place the folder containing the module's data and <code>module.json</code> file into the <code>data/modules/</code> folder in your user data folder. If Foundry is running, it must be restarted for the software to recognize and load the new module.</p>
+
+<h3>Activating Modules</h3>
+<p>Modules can only be activated from within a loaded and active game world. To activate a module, load a game world and log in as a user with gamemaster level permissions. Then, from the configuration sidebar (<i class="fas fa-cogs"> </i> icon) select the<strong> <i class="fas fa-cube"> </i> Manage Modules</strong> button. This will open the module management panel. From here you can see all currently available, active, and inactive modules.</p>
+<p>To enable a module, tick the box next to the module name and then click <strong> <i class="far fa-save"> </i> Save Module Settings. </strong>This will reload the world with the selected module active in the game world. If the module has any listed dependencies it needs to function, you will be prompted to enable them as well. If these dependency modules are not present you will need to install them.</p>
+<p>To disable a module the process is identical, but requires you to uncheck the active module you no longer want loaded. This will reload the world as normal, removing the unwanted module in the process. If the module has dependencies, you will be asked if you want to disable them as well. This is only advised if you have no other modules that are reliant on those modules as well.</p>
+<p>You can also use <strong><i class="fas fa-ban"> </i> Deactivate All Modules</strong>, which will uncheck all active modules in the list for you. You will still need to save these changes to fully unload the modules, however.</p>
+
+<h4>Configuring Modules</h4>
+<p>Many modules include built-in settings which can be adjusted to customize and fine-tune how the module functions. These settings can be found in the Module Configuration panel. To access this panel, go to <strong><i class="fas fa-cogs"> </i> Configuration Settings</strong>, and then select the <strong><i class="fas fa-plug"> </i> Module Settings </strong>tab. This will provide a list of settings available to adjust based on the world's currently active modules. Details on what these settings do is determined by the module and its author.</p>
+<p>Modules that do not have adjustable settings will not have settings appear in this list.</p>
