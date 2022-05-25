@@ -1,0 +1,151 @@
+<h2 class="border">Foundry Virtual Tabletop - Version 10 Prototype 3 Release Notes</h2>
+<figure>
+    <img src="{BANNER_IMG}" title="Foundry VTT - Version 10 Prototype 3 Release Notes" alt="Release Notes for Foundry Virtual Tabletop Version 10 Prototype 3">
+    <figcaption>Welcome to the Foundry Virtual Tabletop update notes for Version 10 Prototype 3.</figcaption>
+</figure>
+
+<p>We are happy to release the third update in the prototype cycle for Version 10. The prototype version saw a large number of changes across multiple locations, and includes a wide array of bug fixes. The primary focus of this release however was game canvas organization and vision modes, enhanced package relationships, adventure document UI, and collaborative editing functionality. For a comprehensive breakdown highlighting the newest changes, please see below. </p>
+    
+<p>Version 10 as a whole has been focused on further improvements to our data architecture, introducing Journals V2 (as voted on by our Patreon subscribers), adding Visions Modes, and improving User Experience with Tours and various quality of life improvements.</p>
+
+<p class="note warning"><strong>WARNING:</strong> Updates on the Prototype channel provide the implementation of major new features which are likely to introduce unforeseen bugs, breakages to existing game systems or modules, or other problems which will be disruptive to the usage of the software. Do not install this update unless you are doing so for the specific purposes of testing, it is not intended for use in 'live game' scenarios. The purpose of Prototype builds are to allow new experimental features to be tested and to help developers to begin the process of updating packages which are impacted by these changes. If you choose to update to this version you expose yourself to serious risk of having a bad experience. Please take this warning to heart.</p>
+<p class="note warning">Be certain to carefully back up any critical user data before installing this update.</p>
+
+<h2 class="border">Update Highlights</h2>
+<p>Prototype 3 has seen continued iteration on the infrastructure and APIs that underpin Foundry VTT, in particular the Canvas Layers organization has undergone a major overhaul to pave the way for future work around elevation and scene levels in later versions. But there have also been several much more 'visible' changes with much more immediate impact in V10 that we can share:</p>
+<h4>Vision Modes</h4>
+<p>Prototype 3 introduces the initial vision mode system, menus, and underlying structure necessary to allow actors to have vision modes. These visions modes are incredibly powerful effects that change how the game canvas is rendered to simulate various perception modes such as light amplification goggles, dark vision, sonar, and the like.</p>
+<h4>Package Relationships</h4>
+<p>We've introduced a new framework for package relationships, replacing the old dependencies structure. This will allow us to add new features in the future, such as optional dependencies for modules.</p>
+<h4>Adventure Documents</h4>
+<p>Initially introduced as a barebones framework in V9, the adventure document has been getting steady improvement throughout V10's prototype phase to improve its function and usability. This release adds in the Adventure Importer and Exporter UI elements that facilitates the creation and loading of these adventure documents.</p>
+<h4>Collaborative Editing</h4>
+<p>This update significantly improves the Journals writing system to allow multiple users to edit an open document at the same time without overwriting each other when they save material. This was a major wish list item for the team and the community, and is made possible using the new ProseMirror editor.</p>
+<div>
+<h2 class="border">Breaking Changes</h2>
+    <h3>Architecture and Infrastructure</h3>
+    <ul>
+        <li>Introduced new <code>compatibility</code> field for package manifests which replaces the now-deprecated <code>minimumCoreVersion</code> and <code>compatibleCoreVersion</code> fields. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7011" target="_blank">7011</a>)</li>
+        <li>Introduced new <code>relationships</code> field for package manifests which replaces the now-deprecated <code>dependencies</code> field. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7075" target="_blank">7075</a>)</li>
+    </ul>
+
+    <h3>Documents and Data</h3>
+    <ul>
+        <li>Resolved some data conflicts in the <code>RollTableResult</code> caused by the new DataModel migration. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7116" target="_blank">7116</a>)</li>
+    </ul>
+    <h3>The Game Canvas</h3>
+    <ul>
+        <li>Eliminated container-wise separation of different canvas object types (like tiles and tokens), instead rendering their meshes as zIndex-ordered siblings directly inside the PrimaryCanvasGroup. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7113" target="_blank">7113</a>)</li>
+        <li>Generalized the concept of elevation for Tokens and Tiles, eliminating the specialized categorization of &quot;overhead&quot; vs &quot;non-overhead&quot; in favor of a generalized method for z-index sorting and Tile occlusion. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7114" target="_blank">7114</a>)</li>
+        <li>Changed the structure of state flags used by the PerceptionManager to flatten the flags to one dimension of depth with efficient tracking for whether a flag is dirty, and added support for flag propagation or resets. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7138" target="_blank">7138</a>)</li>
+        <li>Restructured the PrimaryCanvasGroup to contain only the visual representation of objects that are rendered as part of the Scene, moving all interactivity with those objects to layers in the interaction group. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7086" target="_blank">7086</a>)</li>
+    </ul>
+    <h3>Other Changes</h3>
+    <ul>
+        <li>Deprecated <code>isObjectEmpty</code> in favor of <code>isEmpty</code>. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7128" target="_blank">7128</a>)</li>
+    </ul>
+</div>
+<div>
+<h2 class="border">New Features</h2>
+    <h3>The Game Canvas</h3>
+    <ul>
+        <li>Implemented a feature to allow for pinning a specific journal entry page as a map note. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7104" target="_blank">7104</a>)</li>
+    </ul>
+    <h3>Interface and Applications</h3>
+    <ul>
+        <li>Implemented a ProseMirror editor with collaborative editing capabilities. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7134" target="_blank">7134</a>)</li>
+        <li>Implemented a comprehensive API for the creation of custom 'vision modes' which have fine-grained control over every aspect of token vision. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6706" target="_blank">6706</a>)</li>
+        <li>Improved the accessibility of the <code>Dialog</code> class by adding role and aria attributes to the element and allowing Tab to cycle through the buttons. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7019" target="_blank">7019</a>)</li>
+        <li>Implemented the Adventure Importer UI which loads Adventure documents into a game World. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7069" target="_blank">7069</a>)</li>
+        <li>Implemented the Adventure Exporter UI which prepares an Adventure document to be exported from the current game world. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7070" target="_blank">7070</a>)</li>
+        <li>Enabled AdventureDocument for use in Compendium packs and added a button in unlocked Adventure Document compendium packs to build a new adventure. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7071" target="_blank">7071</a>)</li>
+    </ul>
+</div>
+<div>
+<h2 class="border">API Improvements</h2>
+    <h3>Architecture and Infrastructure</h3>
+    <ul>
+        <li>Added a Package API method to write the manifest migration to disk. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7123" target="_blank">7123</a>)</li>
+    </ul>
+    <h3>Documents and Data</h3>
+    <ul>
+        <li>Improved <code>ArrayField</code> handling such that when data is provided to it as an object with numeric keys (i.e. from <code>FormDataExtended</code>), that object is flattened  into an array. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7088" target="_blank">7088</a>)</li>
+    </ul>
+    <h3>The Game Canvas</h3>
+    <ul>
+        <li>Made a change to update Tile occlusion appearance using a debounce so that animated token movements through a tile do not trigger rapid changes in the appearance. This creates a more smooth feeling UX when passing beneath an overhead tile. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7112" target="_blank">7112</a>)</li>
+        <li>Made Tile and Drawing resize handles easier to grab by defining a larger hitArea. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7119" target="_blank">7119</a>)</li>
+        <li>Improved the efficiency of WallsLayer#identifyWallIntersections by improving the sort logic, and generalized it as a utility function which accepts a callback when intersections are found. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7093" target="_blank">7093</a>)</li>
+        <li>Introduced new Canvas class <code>DocumentLayer</code> that extends <code>PlaceablesLayer</code>, and relaxed requirements on the <code>PlaceablesLayer</code> which required Document objects. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6475" target="_blank">6475</a>)</li>
+        <li>Updated the workflow for scene/light source/FOW parameters according to Vision Modes options. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6707" target="_blank">6707</a>)</li>
+        <li>Reworked the <code>CachedContainer</code> to make providing or acquiring a sprite a more intentional workflow and automatically render the container's sprite if one has been provided. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7085" target="_blank">7085</a>)</li>
+        <li>(Re-)Added the ability to pass options into <code>ParticleEffect</code>. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7095" target="_blank">7095</a>)</li>
+        <li>Improved the <code>PerceptionManager</code> to abandon the use of a bespoke debounce/throttle mechanism and instead hook into the PIXI Ticker to coordinate when flagged changes should be actioned. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7137" target="_blank">7137</a>)</li>
+        <li>Improved the speed of polygon triangulation. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7072" target="_blank">7072</a>)</li>
+        <li>Created specialized vision effects shaders to cover many particulars of the vision ecosystem. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7089" target="_blank">7089</a>)</li>
+        <li>Introduced a <code>VisionMode</code> class which extends <code>DataModel</code> to define the structure for a vision mode which can be added to <code>CONFIG.Canvas.visionModes</code> and configured for a certain Token. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7099" target="_blank">7099</a>)</li>
+        <li>Made a change to avoid unnecessarily re-drawing a Drawing document during drag and drop workflows when only the position changes. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7001" target="_blank">7001</a>)</li>
+    </ul>
+    <h3>Interface and Applications</h3>
+    <ul>
+        <li>Implemented an API for rendering <code>JournalEntryPage</code> sheets as part of their parent sheet. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7016" target="_blank">7016</a>)</li>
+        <li>Added an option to render a JournalSheet instance to a specific page. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7091" target="_blank">7091</a>)</li>
+        <li>Added an async option to <code>TextEditor.enrichHTML</code> allowing for asynchronous inline roll evaluation and <code>fromUuid</code> lookup. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7117" target="_blank">7117</a>)</li>
+        <li>Enhanced the Tours API to allow for rendering a dialog in the center of the screen. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6993" target="_blank">6993</a>)</li>
+        <li>Implemented a way to register custom enriching logic that will be called as part of the `TextEditor.enrichHTML` process. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/3146" target="_blank">3146</a>)</li>
+    </ul>
+    <h3>Other Changes</h3>
+    <ul>
+        <li>Modified the build pipeline to build the commons library into a single rollup bundle which greatly reduces the number of HTTP requests required upon initial load. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7120" target="_blank">7120</a>)</li>
+    </ul>
+</div>
+<div>
+    <h2 class="border">Documentation Improvements</h2>
+    <ul>
+        <li>Tidied the base <code>Canvas</code> class, improving method signatures and documentation as pre-work before reorganizing canvas layers into the interface group. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7106" target="_blank">7106</a>)</li>
+    </ul>
+</div>
+
+<div>
+<h2 class="border">Bug Fixes</h2>
+    <h3>Architecture and Infrastructure</h3>
+    <ul>
+        <li>Fixed the Filepicker being unable to upload files on slow upload connections. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6637" target="_blank">6637</a>)</li>
+        <li>Fixed worlds are always being labeled with Yellow &quot;Unknown&quot; tag. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7061" target="_blank">7061</a>)</li>
+    </ul>
+    <h3>Documents and Data</h3>
+    <ul>
+        <li>Fixed players being demoted from GM retaining ownership permission over scenes. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6749" target="_blank">6749</a>)</li>
+        <li>Fixed updates to attributes (such as hit points) via the Token HUD for unlinked actors not being reflected until a refresh occurs. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6914" target="_blank">6914</a>)</li>
+        <li>Fixed creating ActiveEffects using <code>createEmbeddedDocuments</code> failing to save provided data or create an <code>_id</code>. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7090" target="_blank">7090</a>)</li>
+        <li>Made a change to apply the data migration to input objects provided to <code>DataModel#data#update</code> which have not yet migrated to <code>DataModel#updateSource</code>. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7036" target="_blank">7036</a>)</li>
+        <li>Fixed updates to a <code>SystemDataField</code> not being applied correctly in the case that the system has defined a type-specific system schema. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7082" target="_blank">7082</a>)</li>
+        <li>Fixed <code>SchemaField</code> not respecting a configuration of <code>required: false</code>. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7098" target="_blank">7098</a>)</li>
+    </ul>
+    <h3>The Game Canvas</h3>
+    <ul>
+        <li>Fixed saved default drawing data not being cleaned to ensure that the stored values of this setting produce valid drawing outcomes. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6913" target="_blank">6913</a>)</li>
+        <li>Fixed roof occlusion state being updated too late for the new occlusion state to apply to sight polygons, resulting in sight polygons being one frame behind. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6946" target="_blank">6946</a>)</li>
+        <li>Addressed a variety of <code>SpriteMesh</code> issues. It should now behave more like a drop-in replacement for <code>PIXI.Sprite</code>. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7046" target="_blank">7046</a>)</li>
+        <li>Fixed the geometry created by <code>PolygonMesher</code> not being compatible with <code>PIXI.Mesh</code>. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7047" target="_blank">7047</a>)</li>
+        <li>Fixed an issue with hex grid rendering on odd hex grids with scene padding. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7063" target="_blank">7063</a>)</li>
+        <li>Fixed paused tiles being unable to be played again. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7080" target="_blank">7080</a>)</li>
+        <li>Fixed the <code>CanvasVisionMask</code> lagging one frame behind. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7101" target="_blank">7101</a>)</li>
+        <li>Addressed some instances of PIXI display objects being removed from a parent container but not adequately destroyed to immediately release memory. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7127" target="_blank">7127</a>)</li>
+        <li>Fixed a where rulers displayed a small offset on gridless maps. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7131" target="_blank">7131</a>)</li>
+        <li>Fixed <code>TemplateLayer#_onDragLeftStart</code> being hard-coded to construct <code>MeasuredTemplate(Document)</code> objects from core the class. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7132" target="_blank">7132</a>)</li>
+        <li>Fixed a memory leak in <code>TextureLoader</code>, and additionally cleaned up documentation and code style issues. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7122" target="_blank">7122</a>)</li>
+    </ul>
+    <h3>Interface and Applications</h3>
+    <ul>
+        <li>Fixed the 'Show to Players' function in Journal Entries. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7079" target="_blank">7079</a>)</li>
+        <li>Fixed clicking the resize handle without dragging leaving the tile/drawing in the resizing state. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6871" target="_blank">6871</a>)</li>
+        <li>Fixed the 'Installation Complete' button at the end of the in-app update process being an active button. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6991" target="_blank">6991</a>)</li>
+        <li>Fixed the CSS for the system update notification. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7042" target="_blank">7042</a>)</li>
+        <li>Fixed ping locations becoming incorrect after manipulating any <code>&lt;select&gt;</code> box. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7054" target="_blank">7054</a>)</li>
+        <li>Fixed <code>Combatant#testUserPermission</code> returning <code>false</code> even for GMs when the <code>Combatant</code> doesn't have an associated actor. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7129" target="_blank">7129</a>)</li>
+        <li>Fixed being unable to copy the contents of the macro editor when disabled in some browsers. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7133" target="_blank">7133</a>)</li>
+        <li>Fixed pressing No on the confirmation dialog when saving changes in the Configuration Tab of the setup screen temporarily hiding the contents of the tab. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7087" target="_blank">7087</a>)</li>
+        <li>Fixed text inputs with <code>data-dtype</code> set to <code>Number</code> not allowing <code>null</code> values. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7109" target="_blank">7109</a>)</li>
+    </ul>
+</div>
