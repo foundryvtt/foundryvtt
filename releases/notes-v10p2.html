@@ -5,7 +5,7 @@
 </figure>
 
 <p>We are extremely excited to bring forward another iteration in the prototype cycle for Version 10. The primary focus of this prototype version has been on introducing sweeping changes for our Journal Entry system, as well as refining a number of the more significant changes to Document Data from Prototype 1. For a more comprehensive breakdown highlighting some of the newest changes in summary, please see below. </p>
-    
+
 <p>Version 10 has focused on further improvements to our data architecture, introducing Journals V2 (as voted by you, our Patreon subscribers), and a new Tours interface for improving the experience of new users. In addition, there has been a fire burning in secret within our lighting and vision system that will bring some surprises to canvas rendering. We hope you will all enjoy the wide variety of changes coming in V10 as these new features becomes more visible to the public!</p>
 
 <p class="note warning"><strong>WARNING:</strong>Updates on the Prototype channel provide the implementation of major new features which are likely to introduce unforeseen bugs, breakages to existing game systems or modules, or other problems which will be disruptive to the usage of the software. Do not install this update unless you are doing so for the specific purposes of testing, it is not intended for use in 'live game' scenarios. The purpose of Prototype builds are to allow new experimental features to be tested and to help developers to begin the process of updating packages which are impacted by these changes. If you choose to update to this version you expose yourself to serious risk of having a bad experience. Please take this warning to heart.</p>
@@ -25,48 +25,48 @@
 <p>You may have all thought there was no way we would bring more lighting and vision upgrades in V10 after doing so in V7, V8 and V9...but we wanted to keep that cycle going. Atropos and Secretfire have been deep in the well of mathematical knowledge, finding new ways to make the lighting engine more performant so that we can cram even more features into it. Beginning with a restructuring of canvas layers to support future plans for handing canvas levels, new effects layers, and much more, this update also includes changes to the fog of war layer. Look forward to more performance increases and features coming in future updates!</p>
 <div>
 <h2 class="border">Breaking Changes</h2>
-<p class="note">There have been a significant number of breaking changes in Document and Data models from V9 to V10. For an overview of what breaking has changed since V10p1 please see: (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6849" target="_blank">6849</a>)</p>
+<p class="note">There have been a significant number of breaking changes in Document and Data models from V9 to V10. For an overview of what breaking has changed since V10p1 please see: (<a href="https://github.com/foundryvtt/foundryvtt/issues/6849" target="_blank">6849</a>)</p>
 <h3>Architecture and Infrastructure</h3>
 <ul>
-    <li>36 separate deprecated methods and classes have been removed and are no longer supported in the V10 API. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6738" target="_blank">6738</a>)</li>
-    <li>PixiJS has been updated to version 6.3.0 and we have adapted a number of new new techniques for culling, intersection testing, and rounded rectangle support. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6887" target="_blank">6887</a>)</li>
-    <li>A number of core dependencies have been updated. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6960" target="_blank">6960</a>)</li>
-    <li>The <code>name</code> field in manifest JSON files (including the dependency field) is being deprecated in favor of <code>id</code>, to reduce confusion about its purpose. There will be a deprecation period for this change and it will become enforced in Version 11. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7009" target="_blank">7009</a>)</li>
-    <li>The <code>author</code> field in manifest JSON is being deprecated in favor of <code>authors</code> in the interest of offering a single standardized way to present the author or authors of a package. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7010" target="_blank">7010</a>)</li>
+    <li>36 separate deprecated methods and classes have been removed and are no longer supported in the V10 API. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6738" target="_blank">6738</a>)</li>
+    <li>PixiJS has been updated to version 6.3.0 and we have adapted a number of new new techniques for culling, intersection testing, and rounded rectangle support. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6887" target="_blank">6887</a>)</li>
+    <li>A number of core dependencies have been updated. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6960" target="_blank">6960</a>)</li>
+    <li>The <code>name</code> field in manifest JSON files (including the dependency field) is being deprecated in favor of <code>id</code>, to reduce confusion about its purpose. There will be a deprecation period for this change and it will become enforced in Version 11. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7009" target="_blank">7009</a>)</li>
+    <li>The <code>author</code> field in manifest JSON is being deprecated in favor of <code>authors</code> in the interest of offering a single standardized way to present the author or authors of a package. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7010" target="_blank">7010</a>)</li>
 </ul>
 <h3>Documents and Data</h3>
 <ul>
-    <li><code>FormDataExtended</code> has been improved and now automatically produces a correctly-typed object as <code>FormDataExtended#object</code> instead of <code>FormDataExtended#toObject</code>. This addresses several issues with incorrect handling of field types. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6986" target="_blank">6986</a>)</li>
-    <li><code>DragData</code> creation and consumption workflows have been streamlined by using UUIDs in the interest of providing a more standardized approach across all Document types. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6990" target="_blank">6990</a>) (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6166" target="_blank">6166</a>)</li>
+    <li><code>FormDataExtended</code> has been improved and now automatically produces a correctly-typed object as <code>FormDataExtended#object</code> instead of <code>FormDataExtended#toObject</code>. This addresses several issues with incorrect handling of field types. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6986" target="_blank">6986</a>)</li>
+    <li><code>DragData</code> creation and consumption workflows have been streamlined by using UUIDs in the interest of providing a more standardized approach across all Document types. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6990" target="_blank">6990</a>) (<a href="https://github.com/foundryvtt/foundryvtt/issues/6166" target="_blank">6166</a>)</li>
 </ul>
 <h3>The Game Canvas</h3>
 <ul>
-    <li>The structure of the <code>EffectsCanvasGroup</code> has been refactored to remove the reliance on canvas layers for components of the canvas scene which should always be rendered without interactivity. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7013" target="_blank">7013</a>)</li>
-    <li>A new document data field for <code>TEXTURE_DATA</code> has been introduced which standardizes how canvas-rendered textures are stored. This approach replaces the current storage of texture data as an assorted set of fields in various canvas document data classes. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6455" target="_blank">6455</a>)</li>
+    <li>The structure of the <code>EffectsCanvasGroup</code> has been refactored to remove the reliance on canvas layers for components of the canvas scene which should always be rendered without interactivity. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7013" target="_blank">7013</a>)</li>
+    <li>A new document data field for <code>TEXTURE_DATA</code> has been introduced which standardizes how canvas-rendered textures are stored. This approach replaces the current storage of texture data as an assorted set of fields in various canvas document data classes. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6455" target="_blank">6455</a>)</li>
 </ul>
 </div>
 <div>
 <h2 class="border">New Features</h2>
     <h3>Architecture and Infrastructure</h3>
     <ul>
-        <li>Package definitions have been improved and now use the new <code>DataModel</code> specification shared between client and server with added package manifest functionality improvements. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6504" target="_blank">6504</a>)</li>
+        <li>Package definitions have been improved and now use the new <code>DataModel</code> specification shared between client and server with added package manifest functionality improvements. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6504" target="_blank">6504</a>)</li>
     </ul>
 
     <h3>Documents and Data</h3>
     <ul>
-        <li>Vision rendering may now produce effects in the background effects canvas layer. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6703" target="_blank">6703</a>)</li>
-        <li>Vision Modes now support the use of shaders, which may affect Background and Illumination. These shaders are extensible, allowing module and system developers to add their own. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6704" target="_blank">6704</a>)</li>
+        <li>Vision rendering may now produce effects in the background effects canvas layer. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6703" target="_blank">6703</a>)</li>
+        <li>Vision Modes now support the use of shaders, which may affect Background and Illumination. These shaders are extensible, allowing module and system developers to add their own. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6704" target="_blank">6704</a>)</li>
     </ul>
     <h3>The Game Canvas</h3>
     <ul>
-        <li>Light source animations are no longer disabled when creating or dragging a light source. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7021" target="_blank">7021</a>)</li>
-        <li>It is now possible to use specialized shaders which apply to the entire canvas (excluding the UI/HUD). (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6705" target="_blank">6705</a>)</li>
-        <li>Fog of War processing has been moved from the backend to the effects group of the canvas. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7014" target="_blank">7014</a>)</li>
-     <li>The drop shadow blur for <code>PIXI.TextStyle</code> has been reduced to account for upstream changes in how PIXI was computing drop shadow values. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6987" target="_blank">6987</a>)</li>
+        <li>Light source animations are no longer disabled when creating or dragging a light source. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7021" target="_blank">7021</a>)</li>
+        <li>It is now possible to use specialized shaders which apply to the entire canvas (excluding the UI/HUD). (<a href="https://github.com/foundryvtt/foundryvtt/issues/6705" target="_blank">6705</a>)</li>
+        <li>Fog of War processing has been moved from the backend to the effects group of the canvas. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7014" target="_blank">7014</a>)</li>
+     <li>The drop shadow blur for <code>PIXI.TextStyle</code> has been reduced to account for upstream changes in how PIXI was computing drop shadow values. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6987" target="_blank">6987</a>)</li>
     </ul>
     <h3>Interface and Applications</h3>
     <ul>
-        <li>The Setup menu now provides the option for a guided tutorial introducing the setup screen to new users. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6501" target="_blank">6501</a>)</li>
+        <li>The Setup menu now provides the option for a guided tutorial introducing the setup screen to new users. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6501" target="_blank">6501</a>)</li>
     </ul>
 
 </div>
@@ -74,42 +74,42 @@
 <h2 class="border">API Improvements</h2>
     <h3>Architecture and Infrastructure</h3>
     <ul>
-        <li><code>INDEX_FIELDS</code> has been relocated, and has become a key within <code>Document.metadata</code> instead of residing within the <code>CompendiumCollection</code> class. Additionally, the set of fields which are indexed may now be extended as part of the <code>CONFIG[documentName].compendiumIndexFields</code> data structure. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6152" target="_blank">6152</a>)</li>
-        <li>As part of efforts to standardize drag and drop API workflows, <code>dragData</code> now uses a single Document UUID instead of individual document ids such as <code>actorId</code>. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6581" target="_blank">6581</a>)</li>
-        <li>As part of the effort to standardize UUID operations, <code>fromUuid</code> now supports async operations. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5364" target="_blank">5364</a>)</li>
-        <li>In the interest of making sanitization of user-provided HTML input more streamlined, <code>HTMLField</code> has been implemented, which extends <code>StringField</code>, replacing the previous server-side pre-hooks approach. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6835" target="_blank">6835</a>)</li>
-        <li><code>DataModel.sanitizeInput</code> has been introduced as a new workflow which calls a field-level sanitization procedure for a provided set of changed fields. This can be used for both <code>HTMLField</code> and <code>FilePathField</code>. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6836" target="_blank">6836</a>)</li>
-        <li>A compatibility warning allow-list filter has been implemented as a new debugging tool. This allows use of a regular expression which the stack trace of a compatibility warning must match or be ignored. This allows community devs to ONLY target warnings originating from their own code. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6890" target="_blank">6890</a>)</li>
+        <li><code>INDEX_FIELDS</code> has been relocated, and has become a key within <code>Document.metadata</code> instead of residing within the <code>CompendiumCollection</code> class. Additionally, the set of fields which are indexed may now be extended as part of the <code>CONFIG[documentName].compendiumIndexFields</code> data structure. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6152" target="_blank">6152</a>)</li>
+        <li>As part of efforts to standardize drag and drop API workflows, <code>dragData</code> now uses a single Document UUID instead of individual document ids such as <code>actorId</code>. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6581" target="_blank">6581</a>)</li>
+        <li>As part of the effort to standardize UUID operations, <code>fromUuid</code> now supports async operations. (<a href="https://github.com/foundryvtt/foundryvtt/issues/5364" target="_blank">5364</a>)</li>
+        <li>In the interest of making sanitization of user-provided HTML input more streamlined, <code>HTMLField</code> has been implemented, which extends <code>StringField</code>, replacing the previous server-side pre-hooks approach. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6835" target="_blank">6835</a>)</li>
+        <li><code>DataModel.sanitizeInput</code> has been introduced as a new workflow which calls a field-level sanitization procedure for a provided set of changed fields. This can be used for both <code>HTMLField</code> and <code>FilePathField</code>. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6836" target="_blank">6836</a>)</li>
+        <li>A compatibility warning allow-list filter has been implemented as a new debugging tool. This allows use of a regular expression which the stack trace of a compatibility warning must match or be ignored. This allows community devs to ONLY target warnings originating from their own code. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6890" target="_blank">6890</a>)</li>
     </ul>
 
     <h3>Documents and Data</h3>
     <ul>
-        <li>Document update operations now support passing a <code>DataModel</code> instance directly and correctly processes the instance contents. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6912" target="_blank">6912</a>)</li>
-        <li>A new <code>JournalEntryPage</code> embedded Document type has been added, bringing support for more granular permissions and system-level page types. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6945" target="_blank">6945</a>)</li>
-        <li>Child <code>JournalEntryPage</code> documents now support the configuration ofindividual ownership permissions, with them inheriting ownership from the parent by default. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7015" target="_blank">7015</a>)</li>
-        <li><code>StringField</code> and <code>NumberField</code> entries may now be blank or nullable. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6959" target="_blank">6959</a>)</li>
+        <li>Document update operations now support passing a <code>DataModel</code> instance directly and correctly processes the instance contents. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6912" target="_blank">6912</a>)</li>
+        <li>A new <code>JournalEntryPage</code> embedded Document type has been added, bringing support for more granular permissions and system-level page types. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6945" target="_blank">6945</a>)</li>
+        <li>Child <code>JournalEntryPage</code> documents now support the configuration ofindividual ownership permissions, with them inheriting ownership from the parent by default. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7015" target="_blank">7015</a>)</li>
+        <li><code>StringField</code> and <code>NumberField</code> entries may now be blank or nullable. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6959" target="_blank">6959</a>)</li>
     </ul>
     <h3>The Game Canvas</h3>
     <ul>
-        <li>To support more visual effects at a Canvas level, the hierarchy of Canvas layers has been refactored. This implements the building blocks for a number of planned future features. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6965" target="_blank">6965</a>)</li>
-        <li>The <code>PlaceablesLayer</code> is now initialized earlier as part of the aforementioned canvas layer organization. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6227" target="_blank">6227</a>)</li>
-        <li>Public getters for <code>CanvasLayer#_active</code>, <code>PlaceableObject/Layer#_hover</code>, and <code>PlaceableObject#_controlled</code> have been added. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6969" target="_blank">6969</a>)</li>
+        <li>To support more visual effects at a Canvas level, the hierarchy of Canvas layers has been refactored. This implements the building blocks for a number of planned future features. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6965" target="_blank">6965</a>)</li>
+        <li>The <code>PlaceablesLayer</code> is now initialized earlier as part of the aforementioned canvas layer organization. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6227" target="_blank">6227</a>)</li>
+        <li>Public getters for <code>CanvasLayer#_active</code>, <code>PlaceableObject/Layer#_hover</code>, and <code>PlaceableObject#_controlled</code> have been added. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6969" target="_blank">6969</a>)</li>
     </ul>
     <h3>Interface and Applications</h3>
     <ul>
-        <li>Tooltips now use a more state-aware approach to prevent over-occurrence of animations. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6886" target="_blank">6886</a>)</li>
-        <li>Tooltip text from a <code>data-attribute</code> now supports and correctly renders included HTML. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7002" target="_blank">7002</a>)</li>
-        <li>Backwards compatibility has been added to support the Font Awesome 5 free package. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6893" target="_blank">6893</a>)</li>
-        <li>Embedded items may now be linked using dynamic links, using the new UUID approach. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7003" target="_blank">7003</a>)</li>
-        <li><code>Application#activateTab</code> has been added, bringing support for programmatically switching tabs within a specified <code>Application</code> instance. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7018" target="_blank">7018</a>)</li>
+        <li>Tooltips now use a more state-aware approach to prevent over-occurrence of animations. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6886" target="_blank">6886</a>)</li>
+        <li>Tooltip text from a <code>data-attribute</code> now supports and correctly renders included HTML. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7002" target="_blank">7002</a>)</li>
+        <li>Backwards compatibility has been added to support the Font Awesome 5 free package. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6893" target="_blank">6893</a>)</li>
+        <li>Embedded items may now be linked using dynamic links, using the new UUID approach. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7003" target="_blank">7003</a>)</li>
+        <li><code>Application#activateTab</code> has been added, bringing support for programmatically switching tabs within a specified <code>Application</code> instance. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7018" target="_blank">7018</a>)</li>
     </ul>
 </div>
 <div>
     <h2 class="border">Documentation Improvements</h2>
     <ul>
-        <li>Our API documentation solution has been overhauled. We are migrating from JSDoc, which is no longer actively maintained, to TypeDoc which supports a much more robust set of documentation options. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6989" target="_blank">6989</a>)</li>
-        <li>An issue related to a mislabeled JSDoc string in worker.js has been resolved. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6910" target="_blank">6910</a>)</li>
-        <li><code>NotesLayer#_onMouseDown</code> has had its JSDoc string corrected to align more clearly with the code. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7004" target="_blank">7004</a>)</li>
+        <li>Our API documentation solution has been overhauled. We are migrating from JSDoc, which is no longer actively maintained, to TypeDoc which supports a much more robust set of documentation options. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6989" target="_blank">6989</a>)</li>
+        <li>An issue related to a mislabeled JSDoc string in worker.js has been resolved. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6910" target="_blank">6910</a>)</li>
+        <li><code>NotesLayer#_onMouseDown</code> has had its JSDoc string corrected to align more clearly with the code. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7004" target="_blank">7004</a>)</li>
     </ul>
 </div>
 
@@ -117,39 +117,39 @@
 <h2 class="border">Bug Fixes</h2>
     <h3>Architecture and Infrastructure</h3>
     <ul>
-        <li>A migration issue incorrectly resulted in paths for localization fields within JSON Manifests being changed to invalid paths. This issue has been resolved. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6916" target="_blank">6916</a>)</li>
-        <li>To resolve some edge cases in Hooks which could result in conflicts when a single function was registered for multiple events, the internal data structures and storage used by Hooks have been redesigned. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6977" target="_blank">6977</a>)</li>
-        <li>An issue with an out of date API call for <code>socket.io</code> has been corrected, and logged messages for successful socket reconnection should once again occur. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7006" target="_blank">7006</a>)</li>
+        <li>A migration issue incorrectly resulted in paths for localization fields within JSON Manifests being changed to invalid paths. This issue has been resolved. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6916" target="_blank">6916</a>)</li>
+        <li>To resolve some edge cases in Hooks which could result in conflicts when a single function was registered for multiple events, the internal data structures and storage used by Hooks have been redesigned. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6977" target="_blank">6977</a>)</li>
+        <li>An issue with an out of date API call for <code>socket.io</code> has been corrected, and logged messages for successful socket reconnection should once again occur. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7006" target="_blank">7006</a>)</li>
     </ul>
 
     <h3>Documents and Data</h3>
     <ul>
-        <li>Resolved an issue which could cause thumbnails for duplicated MP4 scenes to show a previously existing Thumbnail. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6947" target="_blank">6947</a>)</li>
-        <li>Compendium indexing no longer results in additional unnecessary <code>getIndex</code> calls. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6975" target="_blank">6975</a>)</li>
-        <li>An API issue which caused Folder data to incorrectly include a <code>.content</code> attribute when preparing sidebar directory trees has been resolved. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6949" target="_blank">6949</a>)</li>
+        <li>Resolved an issue which could cause thumbnails for duplicated MP4 scenes to show a previously existing Thumbnail. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6947" target="_blank">6947</a>)</li>
+        <li>Compendium indexing no longer results in additional unnecessary <code>getIndex</code> calls. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6975" target="_blank">6975</a>)</li>
+        <li>An API issue which caused Folder data to incorrectly include a <code>.content</code> attribute when preparing sidebar directory trees has been resolved. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6949" target="_blank">6949</a>)</li>
     </ul>
     <h3>The Game Canvas</h3>
     <ul>
-        <li><code>AbstractBaseMaskFilter</code> now correctly handles adaptive resolution and multisample properties inherited from <code>AbstractFilter</code>. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6829" target="_blank">6829</a>)</li>
-        <li><code>GlowFilter#fragmentShader</code> has been refactored as part of canvas effect changes and no longer causes issues with <code>AbstractFilter</code>. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6937" target="_blank">6937</a>)</li>
-        <li>Some lingering issues with the implementation of <code>PolyMesher</code> triangulation have been addressed by a refactor. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6889" target="_blank">6889</a>)</li>
-        <li>Resolved an issue with the channel balancing of darkness in <code>channels.canvas</code> and <code>app.renderer.backgroundColor</code> which could cause scene darkness to be duplicated. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6884" target="_blank">6884</a>)</li>
-        
-        <li><code>shiftY</code> and <code>shiftX</code> for scenes no longer incorrectly interpret X and Y values. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6917" target="_blank">6917</a>)</li>
-        <li><code>TileDocument</code> no longer produces an error on construction. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6918" target="_blank">6918</a>)</li>
-        <li>A pair of issues which would cause HTML in speech bubble animations to be displayed for an incorrect amount of time have been addressed. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6985" target="_blank">6985</a>)</li>
-        <li><code>Drawing#normalizeShape</code> once again de-dupes points as expected. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7008" target="_blank">7008</a>)</li>
-        <li>An upstream issue in PIXI which caused animated tiles and tokens to display a single frame of black before looping has been resolved. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5336" target="_blank">5336</a>)</li>
+        <li><code>AbstractBaseMaskFilter</code> now correctly handles adaptive resolution and multisample properties inherited from <code>AbstractFilter</code>. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6829" target="_blank">6829</a>)</li>
+        <li><code>GlowFilter#fragmentShader</code> has been refactored as part of canvas effect changes and no longer causes issues with <code>AbstractFilter</code>. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6937" target="_blank">6937</a>)</li>
+        <li>Some lingering issues with the implementation of <code>PolyMesher</code> triangulation have been addressed by a refactor. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6889" target="_blank">6889</a>)</li>
+        <li>Resolved an issue with the channel balancing of darkness in <code>channels.canvas</code> and <code>app.renderer.backgroundColor</code> which could cause scene darkness to be duplicated. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6884" target="_blank">6884</a>)</li>
+
+        <li><code>shiftY</code> and <code>shiftX</code> for scenes no longer incorrectly interpret X and Y values. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6917" target="_blank">6917</a>)</li>
+        <li><code>TileDocument</code> no longer produces an error on construction. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6918" target="_blank">6918</a>)</li>
+        <li>A pair of issues which would cause HTML in speech bubble animations to be displayed for an incorrect amount of time have been addressed. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6985" target="_blank">6985</a>)</li>
+        <li><code>Drawing#normalizeShape</code> once again de-dupes points as expected. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7008" target="_blank">7008</a>)</li>
+        <li>An upstream issue in PIXI which caused animated tiles and tokens to display a single frame of black before looping has been resolved. (<a href="https://github.com/foundryvtt/foundryvtt/issues/5336" target="_blank">5336</a>)</li>
     </ul>
     <h3>Interface and Applications</h3>
     <ul>
-        <li>Double-clicking a keybind assignment in the Configure Controls application no longer results in a thrown error. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6908" target="_blank">6908</a>)</li>
-        <li>To correct an issue with undefined titles for Canvas document types, the <code>SheetConfiguration</code> application has been reconfigured to provide proper sheet titles for all document types. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6974" target="_blank">6974</a>)</li>
-        <li>A sorting issue with the Map Note icon list has been resolved. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7005" target="_blank">7005</a>)</li>
-        <li>An issue with File Picker selection not correctly triggering change events for the corresponding file path field has been resolved. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7012" target="_blank">7012</a>)</li>
+        <li>Double-clicking a keybind assignment in the Configure Controls application no longer results in a thrown error. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6908" target="_blank">6908</a>)</li>
+        <li>To correct an issue with undefined titles for Canvas document types, the <code>SheetConfiguration</code> application has been reconfigured to provide proper sheet titles for all document types. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6974" target="_blank">6974</a>)</li>
+        <li>A sorting issue with the Map Note icon list has been resolved. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7005" target="_blank">7005</a>)</li>
+        <li>An issue with File Picker selection not correctly triggering change events for the corresponding file path field has been resolved. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7012" target="_blank">7012</a>)</li>
     </ul>
     <h3>Dice System</h3>
     <ul>
-        <li><code>Roll.dice</code> should no longer unnecessarily duplicate terms in the <code>ChatMessage.rolls</code> array following an update. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6907" target="_blank">6907</a>)</li>
+        <li><code>Roll.dice</code> should no longer unnecessarily duplicate terms in the <code>ChatMessage.rolls</code> array following an update. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6907" target="_blank">6907</a>)</li>
     </ul>
 </div>

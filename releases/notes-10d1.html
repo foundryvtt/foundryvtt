@@ -37,13 +37,13 @@
 <h2 class="border">Breaking Changes</h2>
 <h3>The Game Canvas</h3>
 <ul>
-    <li>The <code>VisionSource#limited</code> property for <code>PointSourcePolygon#isConstrained</code> has been removed. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7140" target="_blank">7140</a>)</li>
+    <li>The <code>VisionSource#limited</code> property for <code>PointSourcePolygon#isConstrained</code> has been removed. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7140" target="_blank">7140</a>)</li>
 </ul>
 <h3>Interface and Applications</h3>
 <ul>
-    <li>The font configuration API has been improved and can now provide multiple font definitions for a single family, including weight and style variants. This is a breaking change because it deprecates use of the previously used <code>CONFIG.fontFamilies</code> array. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6498" target="_blank">6498</a>)</li>
-    <li><code>TextEditor.enrichHTML</code> parameters are now included when data is passed to custom enrich methods. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7196" target="_blank">7196</a>)</li>
-    <li>The Audio-Video user interface has been redesigned to be a full-height sidebar panel on the left-side of the interface which can be resized. Camera views of connected players are arrayed in a grid layout and can be popped out to separate frames. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7230" target="_blank">7230</a>)</li>
+    <li>The font configuration API has been improved and can now provide multiple font definitions for a single family, including weight and style variants. This is a breaking change because it deprecates use of the previously used <code>CONFIG.fontFamilies</code> array. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6498" target="_blank">6498</a>)</li>
+    <li><code>TextEditor.enrichHTML</code> parameters are now included when data is passed to custom enrich methods. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7196" target="_blank">7196</a>)</li>
+    <li>The Audio-Video user interface has been redesigned to be a full-height sidebar panel on the left-side of the interface which can be resized. Camera views of connected players are arrayed in a grid layout and can be popped out to separate frames. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7230" target="_blank">7230</a>)</li>
 </ul>
 </section>
 
@@ -51,28 +51,28 @@
 <h2 class="border">New Features</h2>
     <h3>Architecture and Infrastructure</h3>
     <ul>
-        <li>Software dependencies have been upgraded to their latest stable versions, including Electron which is upgraded to Electron 19. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7233" target="_blank">7233</a>) (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6543" target="_blank">6543</a>)</li>
+        <li>Software dependencies have been upgraded to their latest stable versions, including Electron which is upgraded to Electron 19. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7233" target="_blank">7233</a>) (<a href="https://github.com/foundryvtt/foundryvtt/issues/6543" target="_blank">6543</a>)</li>
     </ul>
 
     <h3>Documents and Data</h3>
     <ul>
-        <li>A global document index has been implemented in the interest of providing fast, name-based document lookups. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7201" target="_blank">7201</a>)</li>
+        <li>A global document index has been implemented in the interest of providing fast, name-based document lookups. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7201" target="_blank">7201</a>)</li>
 
     </ul>
     <h3>The Game Canvas</h3>
     <ul>
-        <li>The efficiency of Token field-of-vision (FOV) computation has been improved by switching to a method of polygon intersection with the unrestricted LOS polygon. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7226" target="_blank">7226</a>)</li>
-        <li>A new custom rendering workflow for measured templates has been implemented allowing templates and other canvas UI elements to be drawn in the interface group. This allows them to be unaffected by environmental effects and lighting, while still appearing to be beneath tokens and other objects in the Scene. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5981" target="_blank">5981</a>) (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5982" target="_blank">5982</a>)</li>
-        <li>The canvas grid (<code>GridLayer</code>) has been moved into the interface group and is now masked with tokens. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7227" target="_blank">7227</a>)</li>
-        <li>Contents of the interface group are now reverse-masked using a composite texture of token positions which provides the illusion of tokens being over-top of interface elements like token borders, the grid, grid highlights like rulers and templates, and more. As an interim solution, this reverse masking approach applies to the entire interface group, but we have plans as we continue development of V10 to refine exactly which interface elements are masked in this way. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7200" target="_blank">7200</a>)</li>
-        <li>Measured Template drag-and-drop actions now dynamically change the grid highlight as part of the drag workflow, making it easier to see the positions that will be affected by the new template location in real-time. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7235" target="_blank">7235</a>)</li>
-        <li>A <code>TokenDocument</code> flag has been added that allows skipping randomization of video offset position. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6994" target="_blank">6994</a>)</li>
-        <li>Map Notes may now be created without a corresponding journal entry by interacting with the canvas while on the Notes layer. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7207" target="_blank">7207</a>)</li>
+        <li>The efficiency of Token field-of-vision (FOV) computation has been improved by switching to a method of polygon intersection with the unrestricted LOS polygon. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7226" target="_blank">7226</a>)</li>
+        <li>A new custom rendering workflow for measured templates has been implemented allowing templates and other canvas UI elements to be drawn in the interface group. This allows them to be unaffected by environmental effects and lighting, while still appearing to be beneath tokens and other objects in the Scene. (<a href="https://github.com/foundryvtt/foundryvtt/issues/5981" target="_blank">5981</a>) (<a href="https://github.com/foundryvtt/foundryvtt/issues/5982" target="_blank">5982</a>)</li>
+        <li>The canvas grid (<code>GridLayer</code>) has been moved into the interface group and is now masked with tokens. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7227" target="_blank">7227</a>)</li>
+        <li>Contents of the interface group are now reverse-masked using a composite texture of token positions which provides the illusion of tokens being over-top of interface elements like token borders, the grid, grid highlights like rulers and templates, and more. As an interim solution, this reverse masking approach applies to the entire interface group, but we have plans as we continue development of V10 to refine exactly which interface elements are masked in this way. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7200" target="_blank">7200</a>)</li>
+        <li>Measured Template drag-and-drop actions now dynamically change the grid highlight as part of the drag workflow, making it easier to see the positions that will be affected by the new template location in real-time. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7235" target="_blank">7235</a>)</li>
+        <li>A <code>TokenDocument</code> flag has been added that allows skipping randomization of video offset position. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6994" target="_blank">6994</a>)</li>
+        <li>Map Notes may now be created without a corresponding journal entry by interacting with the canvas while on the Notes layer. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7207" target="_blank">7207</a>)</li>
     </ul>
     <h3>Interface and Applications</h3>
     <ul>
-        <li>The display of the Audio/Video interface has been redesigned to have a new columnar layout with improved functionality. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/3570" target="_blank">3570</a>)</li>
-        <li>A new Settings Menu option now allows users to include and define fonts for use in their game worlds, using files within the <code>userData</code> folder. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7139" target="_blank">7139</a>)</li>
+        <li>The display of the Audio/Video interface has been redesigned to have a new columnar layout with improved functionality. (<a href="https://github.com/foundryvtt/foundryvtt/issues/3570" target="_blank">3570</a>)</li>
+        <li>A new Settings Menu option now allows users to include and define fonts for use in their game worlds, using files within the <code>userData</code> folder. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7139" target="_blank">7139</a>)</li>
     </ul>
 </section>
 
@@ -80,26 +80,26 @@
     <h2 class="border">API Improvements</h2>
     <h3>Architecture and Infrastructure</h3>
     <ul>
-        <li>The <code>DataField</code> abstract class has been improved and its instances function more completely as nodes of a hierarchical tree with awareness of parent nodes, name path, and more. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7136" target="_blank">7136</a>)</li>
-        <li>DataModel validation now provides more expressive details for errors when they occur. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7206" target="_blank">7206</a>)</li>
-        <li>The need for a separate <code>RelatedPackage</code> and <code>RelatedSystem</code> schema has been eliminated by making the <code>RelatedPackage</code> definition more flexible. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7234" target="_blank">7234</a>)</li>
+        <li>The <code>DataField</code> abstract class has been improved and its instances function more completely as nodes of a hierarchical tree with awareness of parent nodes, name path, and more. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7136" target="_blank">7136</a>)</li>
+        <li>DataModel validation now provides more expressive details for errors when they occur. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7206" target="_blank">7206</a>)</li>
+        <li>The need for a separate <code>RelatedPackage</code> and <code>RelatedSystem</code> schema has been eliminated by making the <code>RelatedPackage</code> definition more flexible. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7234" target="_blank">7234</a>)</li>
     </ul>
     <h3>Documents and Data</h3>
     <ul>
-        <li>Calling <code>CompendiumCollection#getIndex</code> with an array of indices which are all already indexed no longer performs additional actions except to return the existing index. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7221" target="_blank">7221</a>)</li>
+        <li>Calling <code>CompendiumCollection#getIndex</code> with an array of indices which are all already indexed no longer performs additional actions except to return the existing index. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7221" target="_blank">7221</a>)</li>
     </ul>
     <h3>The Game Canvas</h3>
     <ul>
-        <li>A number of hooks have been added for <code>CanvasLayer</code>, <code>InteractionLayer</code>, and <code>PlaceableObject</code> life-cycle events in order to make it easier for module and system developers to customize canvas behaviors. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6968" target="_blank">6968</a>)</li>
-        <li>The standard framework for mouse interaction has been shifted from the <code>PlaceablesLayer</code> class to the <code>InteractionLayer</code> class to more easily support custom layers which require standard workflows for mouse interaction. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7007" target="_blank">7007</a>)</li>
-        <li>The elevation property of Tiles, Tokens, Drawings, and other primary objects is now available for developers to modify via the API to support modules and systems exerting control over rendering order until such a time that elevation becomes managed by a centralized core framework. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7147" target="_blank">7147</a>)</li>
-        <li>The <code>ClockwiseSweepPolygon</code> algorithm has been simplified and generalized to now support constraining the resulting polygon using an array of boundary shapes which generalizes the special case of circular radius and limited angle while allowing for more advanced and arbitrary bounding shapes. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7094" target="_blank">7094</a>)</li>
-        <li>The efficiency of <code>PointSourcePolygon#contains</code> has been improved to now test the rectangular bounds of a polygon first. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7191" target="_blank">7191</a>)</li>
-        <li>The new method <code>LightSource#updateVisibility</code> has been implemented, centralizing logic about whether a light source is currently active. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7185" target="_blank">7185</a>)</li>
-        <li>The code and data structures for the <code>MeasuredTemplate#highlightGrid</code> method has been refactored and now calls two helper methods: <code>MeasuredTemplate#_getGridHighlightShape</code> and <code>MeasuredTemplate#_getGridHighlightPositions</code>, computing which positions on the grid should be highlighted for a certain template and giving more flexibility to developers who wish to extend this class and override its functionality. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7190" target="_blank">7190</a>)</li>
-        <li>Improved the logic of <code>PointSource#optimalVertexDensity</code> to choose an optimal number of vertices according to polygon radius. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7192" target="_blank">7192</a>)</li>
-        <li>The <code>PerceptionManager</code> refresh workflow no longer requires the <code>skipUpdateFog</code> parameter, instead directly tracking which vision sources are temporary previews. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7232" target="_blank">7232</a>)</li>
-        <li>The <code>Token#getSightOrigin</code> algorithm has been improved and should now always return integer coordinates, preferring the true token center whenever possible. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7208" target="_blank">7208</a>)</li>
+        <li>A number of hooks have been added for <code>CanvasLayer</code>, <code>InteractionLayer</code>, and <code>PlaceableObject</code> life-cycle events in order to make it easier for module and system developers to customize canvas behaviors. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6968" target="_blank">6968</a>)</li>
+        <li>The standard framework for mouse interaction has been shifted from the <code>PlaceablesLayer</code> class to the <code>InteractionLayer</code> class to more easily support custom layers which require standard workflows for mouse interaction. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7007" target="_blank">7007</a>)</li>
+        <li>The elevation property of Tiles, Tokens, Drawings, and other primary objects is now available for developers to modify via the API to support modules and systems exerting control over rendering order until such a time that elevation becomes managed by a centralized core framework. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7147" target="_blank">7147</a>)</li>
+        <li>The <code>ClockwiseSweepPolygon</code> algorithm has been simplified and generalized to now support constraining the resulting polygon using an array of boundary shapes which generalizes the special case of circular radius and limited angle while allowing for more advanced and arbitrary bounding shapes. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7094" target="_blank">7094</a>)</li>
+        <li>The efficiency of <code>PointSourcePolygon#contains</code> has been improved to now test the rectangular bounds of a polygon first. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7191" target="_blank">7191</a>)</li>
+        <li>The new method <code>LightSource#updateVisibility</code> has been implemented, centralizing logic about whether a light source is currently active. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7185" target="_blank">7185</a>)</li>
+        <li>The code and data structures for the <code>MeasuredTemplate#highlightGrid</code> method has been refactored and now calls two helper methods: <code>MeasuredTemplate#_getGridHighlightShape</code> and <code>MeasuredTemplate#_getGridHighlightPositions</code>, computing which positions on the grid should be highlighted for a certain template and giving more flexibility to developers who wish to extend this class and override its functionality. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7190" target="_blank">7190</a>)</li>
+        <li>Improved the logic of <code>PointSource#optimalVertexDensity</code> to choose an optimal number of vertices according to polygon radius. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7192" target="_blank">7192</a>)</li>
+        <li>The <code>PerceptionManager</code> refresh workflow no longer requires the <code>skipUpdateFog</code> parameter, instead directly tracking which vision sources are temporary previews. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7232" target="_blank">7232</a>)</li>
+        <li>The <code>Token#getSightOrigin</code> algorithm has been improved and should now always return integer coordinates, preferring the true token center whenever possible. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7208" target="_blank">7208</a>)</li>
     </ul>
 </section>
 
@@ -107,53 +107,53 @@
 <h2 class="border">Bug Fixes</h2>
     <h3>Architecture and Infrastructure</h3>
     <ul>
-        <li>The search filter for Package Installation should once again function as expected, filtering by ID. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7143" target="_blank">7143</a>)</li>
-        <li>Locking a module to prevent updates should now correctly update its setting to persist its state.(<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7178" target="_blank">7178</a>)</li>
-        <li>The <code>Folder#children</code> property no longer incorrectly returns undefined. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7216" target="_blank">7216</a>)</li>
+        <li>The search filter for Package Installation should once again function as expected, filtering by ID. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7143" target="_blank">7143</a>)</li>
+        <li>Locking a module to prevent updates should now correctly update its setting to persist its state.(<a href="https://github.com/foundryvtt/foundryvtt/issues/7178" target="_blank">7178</a>)</li>
+        <li>The <code>Folder#children</code> property no longer incorrectly returns undefined. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7216" target="_blank">7216</a>)</li>
     </ul>
 
     <h3>Documents and Data</h3>
     <ul>
-        <li>Server-side document models should once again process compendium migrations correctly, as we have resolved an issue related to invalid syntax in <code>hasSystemData</code>. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7172" target="_blank">7172</a>)</li>
-        <li>Compendium packs are no longer being incorrectly created in the base <code>userData</code> folder. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7146" target="_blank">7146</a>)</li>
-        <li>Synthetic token actors are no longer incorrectly regenerated on every update. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7176" target="_blank">7176</a>)</li>
-        <li>Player tokens set to use Vision should no longer incorrectly raise a token vision warning. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7222" target="_blank">7222</a>)</li>
+        <li>Server-side document models should once again process compendium migrations correctly, as we have resolved an issue related to invalid syntax in <code>hasSystemData</code>. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7172" target="_blank">7172</a>)</li>
+        <li>Compendium packs are no longer being incorrectly created in the base <code>userData</code> folder. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7146" target="_blank">7146</a>)</li>
+        <li>Synthetic token actors are no longer incorrectly regenerated on every update. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7176" target="_blank">7176</a>)</li>
+        <li>Player tokens set to use Vision should no longer incorrectly raise a token vision warning. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7222" target="_blank">7222</a>)</li>
     </ul>
     <h3>The Game Canvas</h3>
     <ul>
-        <li>An issue which caused the currently viewed scene to not be correctly flagged as active has been resolved, and should no longer result in canvas rendering errors when re-drawing a Scene. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7177" target="_blank">7177</a>)</li>
-        <li>Cases where a Canvas <code>Document</code> or <code>PlaceableObject</code> were constructed directly by name rather than the expected subclass should no longer occur. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7183" target="_blank">7183</a>)</li>
-        <li><code>Token#mesh</code>, <code>Tile#mesh</code>, and <code>Drawing#shape</code> should once again be properly destroyed as part of normal deletion workflows. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7148" target="_blank">7148</a>)</li>
-        <li>The <code>PlaceablesLayer</code> quadtree positions should now be properly updated when <code>PlaceableObject</code> positions or bounds change. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7168" target="_blank">7168</a>)</li>
-        <li>The <code>WeatherEffects</code> layer has been assigned an elevation value and should be correctly displayed above tokens once more. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7145" target="_blank">7145</a>)</li>
-        <li>Secret Door control icons should no longer be duplicated when the door is visible. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7149" target="_blank">7149</a>)</li>
-        <li>A problem which prevented configuration changes for Token lighting from immediately applying has been resolved. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7180" target="_blank">7180</a>)</li>
-        <li>Changes to scene weather effects or grid canvas size should no longer result in all placeables failing to render. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7175" target="_blank">7175</a>)</li>
-        <li>Token-based light sources should once again be visible to other players. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7223" target="_blank">7223</a>)</li>
-        <li>The light source luminosity slider should now correctly produce a deeper level of darkness the further negative a luminosity value is set. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7193" target="_blank">7193</a>)</li>
-        <li>The <code>visionUpdate</code> property for <code>EffectsCanvasGroup#refreshLighting</code> should once again work as expected. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7197" target="_blank">7197</a>)</li>
-        <li>An issue with Map Note permissions which resulted in Limited permission Map Notes not being visible even when permissions were set correctly has been resolved. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7141" target="_blank">7141</a>)</li>
-        <li>Drawing textures should once again be drawn properly, with preview textures functioning as expected. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7203" target="_blank">7203</a>)</li>
-        <li>Adaptive stroke color for text drawings should apply correctly once again. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7187" target="_blank">7187</a>)</li>
-        <li>The Default Drawing Configuration should once again save its settings. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6846" target="_blank">6846</a>)</li>
+        <li>An issue which caused the currently viewed scene to not be correctly flagged as active has been resolved, and should no longer result in canvas rendering errors when re-drawing a Scene. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7177" target="_blank">7177</a>)</li>
+        <li>Cases where a Canvas <code>Document</code> or <code>PlaceableObject</code> were constructed directly by name rather than the expected subclass should no longer occur. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7183" target="_blank">7183</a>)</li>
+        <li><code>Token#mesh</code>, <code>Tile#mesh</code>, and <code>Drawing#shape</code> should once again be properly destroyed as part of normal deletion workflows. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7148" target="_blank">7148</a>)</li>
+        <li>The <code>PlaceablesLayer</code> quadtree positions should now be properly updated when <code>PlaceableObject</code> positions or bounds change. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7168" target="_blank">7168</a>)</li>
+        <li>The <code>WeatherEffects</code> layer has been assigned an elevation value and should be correctly displayed above tokens once more. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7145" target="_blank">7145</a>)</li>
+        <li>Secret Door control icons should no longer be duplicated when the door is visible. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7149" target="_blank">7149</a>)</li>
+        <li>A problem which prevented configuration changes for Token lighting from immediately applying has been resolved. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7180" target="_blank">7180</a>)</li>
+        <li>Changes to scene weather effects or grid canvas size should no longer result in all placeables failing to render. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7175" target="_blank">7175</a>)</li>
+        <li>Token-based light sources should once again be visible to other players. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7223" target="_blank">7223</a>)</li>
+        <li>The light source luminosity slider should now correctly produce a deeper level of darkness the further negative a luminosity value is set. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7193" target="_blank">7193</a>)</li>
+        <li>The <code>visionUpdate</code> property for <code>EffectsCanvasGroup#refreshLighting</code> should once again work as expected. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7197" target="_blank">7197</a>)</li>
+        <li>An issue with Map Note permissions which resulted in Limited permission Map Notes not being visible even when permissions were set correctly has been resolved. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7141" target="_blank">7141</a>)</li>
+        <li>Drawing textures should once again be drawn properly, with preview textures functioning as expected. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7203" target="_blank">7203</a>)</li>
+        <li>Adaptive stroke color for text drawings should apply correctly once again. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7187" target="_blank">7187</a>)</li>
+        <li>The Default Drawing Configuration should once again save its settings. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6846" target="_blank">6846</a>)</li>
     </ul>
     <h3>Interface and Applications</h3>
     <ul>
-        <li>An inconsistency in the Combat Tracker related to switching between combat encounters not linked to a scene has been resolved. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6911" target="_blank">6911</a>)</li>
-        <li>Playlist folders should now be able to be sorted in the same way as other folders. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7156" target="_blank">7156</a>)</li>
-        <li>The TinyMCE <code>&lt;hr&gt;</code> plugin has been removed as it no longer necessary. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7170" target="_blank">7170</a>)</li>
-        <li>Progress editing an Adventure in the <code>AdventureExporter</code> application should now be periodically saved to ensure changes are not lost when adding or removing content. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7174" target="_blank">7174</a>)</li>
-        <li>Individual playlist sound volume sliders should once again affect the volume level of that track. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7224" target="_blank">7224</a>)</li>
-        <li>The rendering of Tour tooltips should no longer display data in a disorganized way very briefly during the process of exiting or closing a Tour. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7058" target="_blank">7058</a>)</li>
-        <li>Tooltips should no longer get stuck in an open state. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7173" target="_blank">7173</a>)</li>
-        <li>Tooltip rendering for Scene controls should no longer be (very briefly) displayed in the top-left of the UI. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6909" target="_blank">6909</a>)</li>
+        <li>An inconsistency in the Combat Tracker related to switching between combat encounters not linked to a scene has been resolved. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6911" target="_blank">6911</a>)</li>
+        <li>Playlist folders should now be able to be sorted in the same way as other folders. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7156" target="_blank">7156</a>)</li>
+        <li>The TinyMCE <code>&lt;hr&gt;</code> plugin has been removed as it no longer necessary. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7170" target="_blank">7170</a>)</li>
+        <li>Progress editing an Adventure in the <code>AdventureExporter</code> application should now be periodically saved to ensure changes are not lost when adding or removing content. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7174" target="_blank">7174</a>)</li>
+        <li>Individual playlist sound volume sliders should once again affect the volume level of that track. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7224" target="_blank">7224</a>)</li>
+        <li>The rendering of Tour tooltips should no longer display data in a disorganized way very briefly during the process of exiting or closing a Tour. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7058" target="_blank">7058</a>)</li>
+        <li>Tooltips should no longer get stuck in an open state. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7173" target="_blank">7173</a>)</li>
+        <li>Tooltip rendering for Scene controls should no longer be (very briefly) displayed in the top-left of the UI. (<a href="https://github.com/foundryvtt/foundryvtt/issues/6909" target="_blank">6909</a>)</li>
     </ul>
     <h3>Other Changes</h3>
     <ul>
-        <li>Drawn cards should once again be able to be passed or played as expected. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7154" target="_blank">7154</a>)</li>
-        <li>Combatant documents should once again be able to be constructed locally without defining a Combat parent. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7182" target="_blank">7182</a>)</li>
-        <li><code>_checkFontsReady</code> should now function properly even in cases where a font family name contains numbers. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7215" target="_blank">7215</a>)</li>
-        <li>An issue with token visibility testing on scenes which use unrestricted vision distance has been resolved and tokens should once again be visible as expected. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7225" target="_blank">7225</a>)</li>
-        <li>A namespacing issue with <code>earcutEdges</code> has been resolved by isolating it into its own namespace. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7194" target="_blank">7194</a>)</li>
+        <li>Drawn cards should once again be able to be passed or played as expected. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7154" target="_blank">7154</a>)</li>
+        <li>Combatant documents should once again be able to be constructed locally without defining a Combat parent. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7182" target="_blank">7182</a>)</li>
+        <li><code>_checkFontsReady</code> should now function properly even in cases where a font family name contains numbers. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7215" target="_blank">7215</a>)</li>
+        <li>An issue with token visibility testing on scenes which use unrestricted vision distance has been resolved and tokens should once again be visible as expected. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7225" target="_blank">7225</a>)</li>
+        <li>A namespacing issue with <code>earcutEdges</code> has been resolved by isolating it into its own namespace. (<a href="https://github.com/foundryvtt/foundryvtt/issues/7194" target="_blank">7194</a>)</li>
     </ul>
 </section>
