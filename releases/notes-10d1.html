@@ -1,56 +1,57 @@
 <h2 class="border">Foundry Virtual Tabletop - Version 10 API Development 1 Release Notes</h2>
 <figure>
     <img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_70/screen/v10-api-development-1-release-banner-2022-06-10.webp" title="Foundry VTT - Version 10 API Development 1 Release Notes" alt="Release Notes for Foundry Virtual Tabletop Version 10"/>
-    <figcaption>Welcome to the Foundry Virtual Tabletop update notes for Version 10 API Development 1.</figcaption>
+    <figcaption>Update notes for the Foundry Virtual Tabletop release of Version 10 API Development 1.</figcaption>
 </figure>
 
 <p class="note warning">Be certain to carefully back up any critical user data before installing this update.</p>
 
-<p>With the close of the prototype phase, we are pleased to announce that we are now in the API Development cycle for v10. If you are a community developer, now is the time to begin testing your modules and systems in Version 10 in order to provide us with adequate feedback and request any API changes that would make their lives easier.</p> 
+<p>We have concluded the Prototype phase of our <a href="/article/versioning" title="Learn about our development cycle" target="_blank">development cycle</a> and we are fully focused now on further refinement of our new features and API enhancements. If you are a module or system developer, now is the time to begin testing your packages in Version 10 in order to provide us with adequate feedback and request any API changes that would make their lives easier.</p>
 
-<p>As we begin work on V10d2, we are targeting the end of June for its release and will be moving on to the User Testing phase after that. Any API requests we receive after the API development period will likely not make it into V10, and will have to wait for Version 11 to be addressed. </p>
+<p>We are targeting the end of June for our next release and will be moving on to the User Testing phase after that. Any API requests we receive after the API development period will likely not make it into V10 stable and will have to wait for Version 11 to be addressed.</p>
 
 <p class="note warning"><strong>WARNING:</strong>Updates on the Development channel are intended for testing and feedback from the development community. While the features and improvements of these updates may be close to a level of stability intended for public testing, they are likely to still include some bugs and incompatibilities which may frustrate you. It is not intended to use these releases for a live game.</p>
 
-
 <h2 class="border">Update Highlights</h2>
+<p>This update introduces a swath of new features and improvements to all the amazing things we've introduced in Version 10 during the Prototype phase, including exposing a lot of UX and UI access for those new features. There is obviously more to come as we progress toward the eventual stable release, but we've got a lot to highlight this time around!</p>
 
-<p>Here we are, racing toward the finish line for Version 10! This update introduces a swath of new features and improvements to all the amazing things we've introduced in Version 10 during the Prototype phase, including exposing a lot of UX and UI access for those new features. There is obviously more to come as we progress toward the eventual stable release, but we've got a lot to highlight this time around!</p>
-<h4>Vision Modes and Light Rendering</h4> 
+<h4>Vision Modes and Light Rendering</h4>
 <p> While we introduced the new Vision Modes settings for tokens in the last prototype version, we know it came saddled with a lot of unexpected behavior- tokens not being visible when they should, light sources disappearing until you hit F5, and many more rendering bugs, because that's what happens when you make dramatic changes to a rendering engine! This is why we have prototype versions! Since then, SecretFire and Atropos have worked relentlessly to correct the lion's share of the rendering issues and get Vision Modes into a place where the developer community can provide more detailed feedback about their experiences. You can find the new Vision Mode options under token configuration (whether prototype or not) and check out Darkvision (5e), Tremorsense (5e), or Light Amplification vision presets, or just play with modifications to your token vision as you see fit. More presets for vision modes are coming! </p>
+
 <p>While we were working on improving vision and light rendering, we decided to give (yet more) polish to the performance of light sources and vision and canvas rendering overall. As we look toward the future and implementing scenes that can span multiple floors, we added and refined support for assigning elevation to all canvas placeables, improved performance of rendering and detection algorithms for vision and lighting, and relaxed some API restrictions on things like mouse interactions and placeables on the canvas layers in order to empower our community developers who want to work more with the canvas. We also separated more UI elements such as borders, measured templates, and more out into their own layer masks, removing cases where those elements would have their appearance modified by light source effects such as desaturation.</p>
 
-<h4>New UX and UI Features!</h4> 
+<h4>New UX and UI Features!</h4>
 <p>This one is going to be a bit of a grab bag of surprises and things we've been sneakily working to incorporate as we close out the prototype phase. As many of you know already, the Dev API phase is when we start implementing new menus and giving the new API features we've added a user-facing menu to let people configure all the new cool features we've added. To get your attention with a few summary highlights in terms of UX and UI, here's a non-comprehensive quick list of the big ones:</p>
 <ul>
-    <li><strong>Audio Video Chat Integration UI</strong> - If you're the kind of person who likes to use our Audio Video chat integration, you're in for a treat. Fyorl has been hard at work overhauling the appearance of AV chat to give it a more aesthetically pleasing UI, featuring a new side panel for containing video frames, nameplates that rotate between player name and character name, border frames colored based on player color, and even more.</li>
-    <li><strong>Custom Font Support</strong> - The settings menu has expanded with a new button to Configure Additonal Fonts, which you can upload to your user data folder. Once the font file has been uploaded you can select it and set the Font Family name, weight, and style. These fonts will appear as options anywhere Foundry VTT allows for font selection.</li>
-    <li><strong>Journal-less Map Notes</strong> - Since we were in the area of journal entry and map note changes anyway, we took the time to bring in a small feature that we've often heard suggested by the community. You can now create Map Note pins from the Journal Notes layer of the canvas, without needing to associate them with a Journal Entry. Perfect if you're just trying to stamp "My Player's Burial Site" on the map in a hurry. </li>
-    <li><strong>Measured Templates Dynamic Updates</strong> - Drag and drop operations for measured templates now dynamically resize their highlighted area, a small but welcome UI change that makes it easier to tell if you're putting the template in the right place before placing it.</li>
-    <li><strong>Playlist Folder Drag and Drop</strong> - It's now possible to re-order your playlist folders through drag and drop, bringing feature parity with folder operations everywhere else. </li>
-    <li>and much more!</li>
+    <li><strong>Audio Video Chat Integration UI</strong> - If you're the kind of person who likes to use our Audio Video chat integration, you're in for a treat. Kim has been hard at work overhauling the appearance of AV chat to give it a more aesthetically pleasing UI, featuring a new side panel for containing video frames, nameplates that rotate between player name and character name, border frames colored based on player color, and even more.</li>
+    <li><strong>Custom Font Support</strong> - The settings menu has expanded with a new button to Configure Additional Fonts, which you can upload to your user data folder. Once the font file has been uploaded you can select it and set the Font Family name, weight, and style. These fonts will appear as options anywhere Foundry VTT allows for font selection.</li>
+    <li><strong>Easier Map Note Creation</strong> - Since we were in the area of journal entry and map note changes anyway, we took the time to bring in a small feature that we've often heard suggested by the community. You can now create Map Note pins from the Journal Notes layer of the canvas, without needing to first create a Journal Entry. Perfect if you're just trying to stamp "My Player's Burial Site" on the map in a hurry.</li>
+    <li><strong>Measured Template Re-Positioning</strong> - Drag and drop operations for measured templates now dynamically resize their highlighted area, a small but welcome UI change that makes it easier to tell if you're putting the template in the right place before placing it.</li>
+    <li><strong>Playlist Folder Drag and Drop</strong> - It's now possible to re-order your playlist folders through drag and drop, bringing feature parity with folder operations everywhere else.</li>
 </ul>
-<h4>API and Data Structures</h4> 
-<p>As the first release in the API development phase, it's to be expected that many of the more controversial changes to the API from the prototype phase got a revisit to improve their performance, correct errors, or provide additional functionality for our development community. We've rounded out DataModel validation to provide cleaner error messaging, removed or refined several cases of unused or unnecessary properties, and refactored some significant parts of the canvas rendering API in order to provide new helper methods, hooks, and functions. We look forward to receiving feedback from the development community during the API development phase!</p>
-<div>
-<h2 class="border">Breaking Changes</h2>
 
+<h4>API and Data Structures</h4>
+<p>As the first release in the API development phase, it's to be expected that many of the more controversial changes to the API from the prototype phase got a revisit to improve their performance, correct errors, or provide additional functionality for our development community. We've rounded out DataModel validation to provide cleaner error messaging, removed or refined several cases of unused or unnecessary properties, and refactored some significant parts of the canvas rendering API in order to provide new helper methods, hooks, and functions. We look forward to receiving feedback from the development community during the API development phase!</p>
+
+<section>
+<h2 class="border">Breaking Changes</h2>
 <h3>The Game Canvas</h3>
 <ul>
     <li>The <code>VisionSource#limited</code> property for <code>PointSourcePolygon#isConstrained</code> has been removed. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7140" target="_blank">7140</a>)</li>
 </ul>
 <h3>Interface and Applications</h3>
 <ul>
-    <li>The font configuration API has been improved and can now provide multiple font definitions for a single family, including weight and style variants. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6498" target="_blank">6498</a>)</li>
+    <li>The font configuration API has been improved and can now provide multiple font definitions for a single family, including weight and style variants. This is a breaking change because it deprecates use of the previously used <code>CONFIG.fontFamilies</code> array. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6498" target="_blank">6498</a>)</li>
     <li><code>TextEditor.enrichHTML</code> parameters are now included when data is passed to custom enrich methods. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7196" target="_blank">7196</a>)</li>
-    <li>The Audio-Video UI has been refactored and now provides a clean looking UI more representative of the Foundry VTT style. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7230" target="_blank">7230</a>)</li>
+    <li>The Audio-Video user interface has been redesigned to be a full-height sidebar panel on the left-side of the interface which can be resized. Camera views of connected players are arrayed in a grid layout and can be popped out to separate frames. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7230" target="_blank">7230</a>)</li>
 </ul>
-</div>
-<div>
+</section>
+
+<section>
 <h2 class="border">New Features</h2>
     <h3>Architecture and Infrastructure</h3>
     <ul>
-        <li>A number of software dependencies have been upgraded to their latest stable versions, including Electron. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7233" target="_blank">7233</a>) (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6543" target="_blank">6543</a>)</li>
+        <li>Software dependencies have been upgraded to their latest stable versions, including Electron which is upgraded to Electron 19. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7233" target="_blank">7233</a>) (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6543" target="_blank">6543</a>)</li>
     </ul>
 
     <h3>Documents and Data</h3>
@@ -60,30 +61,29 @@
     </ul>
     <h3>The Game Canvas</h3>
     <ul>
-        <li>The efficiency of Token constrained FOV computation has been improved by switching to a method of polygon intersection with the unrestricted LOS polygon. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7226" target="_blank">7226</a>)</li>
-        <li>A new custom rendering workflow for measured templates has been implemented allowing templates and other canvas UI elements to be drawn in the interface layer. This allows them to be unaffected by environmental effects and lighting, while still appearing to be beneath tokens and other objects in the Scene. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5981" target="_blank">5981</a>) (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5982" target="_blank">5982</a>)</li>
-        <li>In addition to the above changes to rendering of canvas UI elements, borders are now reverse-masked using the token's mesh to give the appearance that the token is above the border. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7200" target="_blank">7200</a>)</li>
-        <li>The canvas grid has been moved into the interface layer and is now masked with tokens. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7227" target="_blank">7227</a>)</li>
-        <li>A <code>TokenDocument</code> flag has been added that allows skipping randomization of video offset position. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6994" target="_blank">6994</a>)</li>
+        <li>The efficiency of Token field-of-vision (FOV) computation has been improved by switching to a method of polygon intersection with the unrestricted LOS polygon. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7226" target="_blank">7226</a>)</li>
+        <li>A new custom rendering workflow for measured templates has been implemented allowing templates and other canvas UI elements to be drawn in the interface group. This allows them to be unaffected by environmental effects and lighting, while still appearing to be beneath tokens and other objects in the Scene. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5981" target="_blank">5981</a>) (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/5982" target="_blank">5982</a>)</li>
+        <li>The canvas grid (<code>GridLayer</code>) has been moved into the interface group and is now masked with tokens. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7227" target="_blank">7227</a>)</li>
+        <li>Contents of the interface group are now reverse-masked using a composite texture of token positions which provides the illusion of tokens being over-top of interface elements like token borders, the grid, grid highlights like rulers and templates, and more. As an interim solution, this reverse masking approach applies to the entire interface group, but we have plans as we continue development of V10 to refine exactly which interface elements are masked in this way. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7200" target="_blank">7200</a>)</li>
         <li>Measured Template drag-and-drop actions now dynamically change the grid highlight as part of the drag workflow, making it easier to see the positions that will be affected by the new template location in real-time. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7235" target="_blank">7235</a>)</li>
-        
+        <li>A <code>TokenDocument</code> flag has been added that allows skipping randomization of video offset position. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6994" target="_blank">6994</a>)</li>
+        <li>Map Notes may now be created without a corresponding journal entry by interacting with the canvas while on the Notes layer. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7207" target="_blank">7207</a>)</li>
     </ul>
     <h3>Interface and Applications</h3>
     <ul>
-        <li>The display of AV Camera Frames when a user does not have a video device available or enabled has been improved. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/3570" target="_blank">3570</a>)</li>
+        <li>The display of the Audio/Video interface has been redesigned to have a new columnar layout with improved functionality. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/3570" target="_blank">3570</a>)</li>
         <li>A new Settings Menu option now allows users to include and define fonts for use in their game worlds, using files within the <code>userData</code> folder. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7139" target="_blank">7139</a>)</li>
-        <li>Map Notes may now be created without a corresponding journal entry. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7207" target="_blank">7207</a>)</li>
     </ul>
-</div>
-<div>
+</section>
+
+<section>
     <h2 class="border">API Improvements</h2>
     <h3>Architecture and Infrastructure</h3>
     <ul>
-        <li>DataModel validation now provides more details for errors when they occur. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7206" target="_blank">7206</a>)</li>
         <li>The <code>DataField</code> abstract class has been improved and its instances function more completely as nodes of a hierarchical tree with awareness of parent nodes, name path, and more. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7136" target="_blank">7136</a>)</li>
+        <li>DataModel validation now provides more expressive details for errors when they occur. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7206" target="_blank">7206</a>)</li>
         <li>The need for a separate <code>RelatedPackage</code> and <code>RelatedSystem</code> schema has been eliminated by making the <code>RelatedPackage</code> definition more flexible. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7234" target="_blank">7234</a>)</li>
     </ul>
-    
     <h3>Documents and Data</h3>
     <ul>
         <li>Calling <code>CompendiumCollection#getIndex</code> with an array of indices which are all already indexed no longer performs additional actions except to return the existing index. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7221" target="_blank">7221</a>)</li>
@@ -91,18 +91,19 @@
     <h3>The Game Canvas</h3>
     <ul>
         <li>A number of hooks have been added for <code>CanvasLayer</code>, <code>InteractionLayer</code>, and <code>PlaceableObject</code> life-cycle events in order to make it easier for module and system developers to customize canvas behaviors. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/6968" target="_blank">6968</a>)</li>
-        <li>Canvas layers other than <code>PlaceablesLayer</code> now support mouse events for the purposes of interaction. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7007" target="_blank">7007</a>)</li>
-        <li>The elevation property of Tiles, Tokens, Drawings, and other primary objects is now available for developers through the API, in the interest of providing support for modules and systems to have temporary control over rendering order, until such a time that becomes managed by a centralized core framework. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7147" target="_blank">7147</a>)</li>
-        <li>The <code>ClockwiseSweepPolygon</code> algorithm has been generalized and now supports computing a (pseudo) unrestricted polygon before applying a mask using a shape, such as a circle for limited radius or another arbitrary polygon. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7094" target="_blank">7094</a>)</li>
-        <li><code>PointSourcePolygon#contains</code> has been improved and now tests the bounds of a polygon first. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7191" target="_blank">7191</a>)</li>
-        <li>The new method <code>LightSource#updateVisibility</code> has been implemented, centralizing logic about whether or not a light source is currently active. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7185" target="_blank">7185</a>)</li>
-        <li>The code and data structures for the <code>MeasuredTemplate#highlightGrid</code> method has been refactored and now calls two helper methods: <code>MeasuaredTemplate#_getGridHighlightShape</code> and <code>MeasuredTemplate#_getGridHighlightPositions</code>, computing which positions on the grid should be highlighted for a certain template and giving more flexibility to developers who wish to extend this class and override its functionality. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7190" target="_blank">7190</a>)</li>
-        <li><code>PointSource#optimalVertexDensity</code> has received some overall improvements for determining vertex density. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7192" target="_blank">7192</a>)</li>
+        <li>The standard framework for mouse interaction has been shifted from the <code>PlaceablesLayer</code> class to the <code>InteractionLayer</code> class to more easily support custom layers which require standard workflows for mouse interaction. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7007" target="_blank">7007</a>)</li>
+        <li>The elevation property of Tiles, Tokens, Drawings, and other primary objects is now available for developers to modify via the API to support modules and systems exerting control over rendering order until such a time that elevation becomes managed by a centralized core framework. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7147" target="_blank">7147</a>)</li>
+        <li>The <code>ClockwiseSweepPolygon</code> algorithm has been simplified and generalized to now support constraining the resulting polygon using an array of boundary shapes which generalizes the special case of circular radius and limited angle while allowing for more advanced and arbitrary bounding shapes. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7094" target="_blank">7094</a>)</li>
+        <li>The efficiency of <code>PointSourcePolygon#contains</code> has been improved to now test the rectangular bounds of a polygon first. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7191" target="_blank">7191</a>)</li>
+        <li>The new method <code>LightSource#updateVisibility</code> has been implemented, centralizing logic about whether a light source is currently active. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7185" target="_blank">7185</a>)</li>
+        <li>The code and data structures for the <code>MeasuredTemplate#highlightGrid</code> method has been refactored and now calls two helper methods: <code>MeasuredTemplate#_getGridHighlightShape</code> and <code>MeasuredTemplate#_getGridHighlightPositions</code>, computing which positions on the grid should be highlighted for a certain template and giving more flexibility to developers who wish to extend this class and override its functionality. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7190" target="_blank">7190</a>)</li>
+        <li>Improved the logic of <code>PointSource#optimalVertexDensity</code> to choose an optimal number of vertices according to polygon radius. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7192" target="_blank">7192</a>)</li>
         <li>The <code>PerceptionManager</code> refresh workflow no longer requires the <code>skipUpdateFog</code> parameter, instead directly tracking which vision sources are temporary previews. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7232" target="_blank">7232</a>)</li>
         <li>The <code>Token#getSightOrigin</code> algorithm has been improved and should now always return integer coordinates, preferring the true token center whenever possible. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7208" target="_blank">7208</a>)</li>
-</div>
+    </ul>
+</section>
 
-<div>
+<section>
 <h2 class="border">Bug Fixes</h2>
     <h3>Architecture and Infrastructure</h3>
     <ul>
@@ -155,4 +156,4 @@
         <li>An issue with token visibility testing on scenes which use unrestricted vision distance has been resolved and tokens should once again be visible as expected. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7225" target="_blank">7225</a>)</li>
         <li>A namespacing issue with <code>earcutEdges</code> has been resolved by isolating it into its own namespace. (<a href="https://gitlab.com/foundrynet/foundryvtt/-/issues/7194" target="_blank">7194</a>)</li>
     </ul>
-</div>
+</section>
