@@ -4,7 +4,7 @@
 
 <p>In addition to these more significant features, this update also includes a large number of smaller features, bug fixes, and enhancements. I'm really excited about the continued progress for this software and motivated by the support and encouragement of the community. Thank you all for appreciating my work, providing thoughtful feedback, and encouraging me to do even more. As always, please keep an eye on the development progress board here for visibility into what features are in progress and coming up next!</p>
 
-<p><a href="https://gitlab.com/foundrynet/foundryvtt/boards" target="_blank" title="FVTT Story Board">https://gitlab.com/foundrynet/foundryvtt/boards</a></p>
+<p><a href="https://github.com/foundryvtt/foundryvtt/milestones" target="_blank" title="FVTT Story Board">https://github.com/foundryvtt/foundryvtt/milestones</a></p>
 <hr/>
 
 <h3>New Features</h3>
@@ -45,7 +45,7 @@
 <h3>Core Software, APIs, and Module Development</h3>
 <ul>
 	<li>Added a Hook event when the combat turn order changes which provides both previous and current Arrays reporting the round, turn, and token. This event should generalize to a wide range of callback actions that modules or systems may want to take when the combat order changes.</li>
-	<li>The <code>AudioHelper.play</code> method was lacking a socket listener to support propagating sounds to all connected clients, this has been added so the <code>push</code> argument of this method now functions as expected. See https://gitlab.com/foundrynet/foundryvtt/issues/476 for further detail.</li>
+	<li>The <code>AudioHelper.play</code> method was lacking a socket listener to support propagating sounds to all connected clients, this has been added so the <code>push</code> argument of this method now functions as expected. See https://github.com/foundryvtt/foundryvtt/issues/476 for further detail.</li>
 	<li>Added a generalized helper interface to standardize and automate the management of mouse event interactions for containers on the PIXI canvas. This will help me to standardize my approach for this and reduce overall code footprint. Module developers may consider using this pattern themselves if they end up drawing objects onto the canvas which require mouse interactions. See the <code>HandleManager</code> class for details (no docs yet, sorry).</li>
 	<li>Improved the approach towards tracking and detecting each user's active state - this should improve the reliability of the HUD which displays which players are currently connected to a game session.</li>
 </ul>

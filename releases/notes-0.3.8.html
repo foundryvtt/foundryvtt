@@ -4,7 +4,7 @@
 
 <p>Thank you all for appreciating my work, providing thoughtful feedback, and encouraging me to do even more. As always, please keep an eye on the development progress board here for visibility into what features are in progress and coming up next!</p>
 
-<p><a href="https://gitlab.com/foundrynet/foundryvtt/boards" target="_blank" title="FVTT Story Board">https://gitlab.com/foundrynet/foundryvtt/boards</a></p>
+<p><a href="https://github.com/foundryvtt/foundryvtt/milestones" target="_blank" title="FVTT Story Board">https://github.com/foundryvtt/foundryvtt/milestones</a></p>
 <hr/>
 
 <h3>New Features</h3>
@@ -56,8 +56,8 @@
 <h3>Core Software, APIs, and Module Development</h3>
 <ul>
 	<li>Addressed three security vulnerabilities in the server-side application. Thanks to Azzurite for pointing out several weak points.</li>
-	<li>Added a dedicated <code>updateMany</code> function and socket logic for every PlaceableObjects layer. See the <a href="https://gitlab.com/foundrynet/foundryvtt/issues/1462" title="Visit the GitLab Issue" target="_blank">GitLab issue</a> for more details and example usage.</li>
-	<li>Added a dedicated <code>deleteMany</code> function and socket logic for every PlaceableObjects layer. See the <a href="https://gitlab.com/foundrynet/foundryvtt/issues/1466" title="Visit the GitLab Issue" target="_blank">GitLab issue</a> for more details and example usage.</li>
+	<li>Added a dedicated <code>updateMany</code> function and socket logic for every PlaceableObjects layer. See the <a href="https://github.com/foundryvtt/foundryvtt/issues/1462" title="Visit the GitLab Issue" target="_blank">GitLab issue</a> for more details and example usage.</li>
+	<li>Added a dedicated <code>deleteMany</code> function and socket logic for every PlaceableObjects layer. See the <a href="https://github.com/foundryvtt/foundryvtt/issues/1466" title="Visit the GitLab Issue" target="_blank">GitLab issue</a> for more details and example usage.</li>
 	<li>Developed a generalized framework for handling the initialization of audio and video playback following an observed user interaction. This framework is now applied for all audio and video playback requests within the PIXI canvas to ensure that web autoplay standards are followed for modern browsers. This change should hopefully fix problems in previous versions with video map backgrounds or tiles.</li>
 	<li>Implemented an optimization for dynamic vision polygon generation which can realize performance improvements for large maps which have many small wall segments.</li>
 	<li>Added a Hook which allows for modules to insert additional context menu options for Scenes in the top navigation menu using <code>Hooks.on("getSceneNavigationContext", (html, menuOptions) => ());</code>.</li>
@@ -70,7 +70,7 @@
 	<li>The <code>Token.moveMany</code> and <code>Tile.moveMany</code> methods have been <strong>deprecated</strong>, effective immediately, in favor of a generalized <code>PlaceablesLayer.moveMany</code> method with a revised signature. If you were using the previous Token.moveMany method you must migrate immediately to the new approach.</li>
 	<li>No longer require the coordiantes of Drawing objects to be integers, as this was causing polygons and freehand to become distorted when resized to a small size.</li>
 	<li>Changed the behavior of the <code>PlaceablesLayer.copyObjects</code> function to store references to the copied objects themselves instead of just their data - this can give downstream APIs access to the full context of the origin objects, including the Scene from which they originate.</li>
-	<li>Added a Hook event to allow developers to respond when multiple PlaceableObjects are pasted onto a canvas layer. See the <a href="https://gitlab.com/foundrynet/foundryvtt/issues/1483" title="Visit the GitLab Issue" target="_blank">GitLab issue</a> for more details.</li>
+	<li>Added a Hook event to allow developers to respond when multiple PlaceableObjects are pasted onto a canvas layer. See the <a href="https://github.com/foundryvtt/foundryvtt/issues/1483" title="Visit the GitLab Issue" target="_blank">GitLab issue</a> for more details.</li>
 	<li>Added several attributes to <code>ui.sidebar</code> to facilitiate module development including <code>activeTab</code> and <code>popouts</code>.</li>
 	<li>An issue with the Chat Log template caused it to be incorrectly injected into another sidebar tab when manually re-rendered. This no longer occurs.</li>
 	<li>Added a <code>filterObject(object, keys)</code> core helper function which reduces an object to a subset of its keys by name, returning the filtered object.</li>

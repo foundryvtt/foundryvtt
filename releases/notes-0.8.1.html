@@ -30,7 +30,7 @@
 <h3 class="border">Breaking Changes</h3>
 <h4>Documents and Data</h4>
 <ul>
-    <li>The Hook signatures for Document create, update, and delete operations have been re-standardized to apply the exact same signature for Documents which have a parent (embedded) as well as Documents which do not. The new hook signatures for Document preCreate, create, preUpdate, update, preDelete, and delete hooks are revised as described in this issue: https://gitlab.com/foundrynet/foundryvtt/-/issues/4658</li>
+    <li>The Hook signatures for Document create, update, and delete operations have been re-standardized to apply the exact same signature for Documents which have a parent (embedded) as well as Documents which do not. The new hook signatures for Document preCreate, create, preUpdate, update, preDelete, and delete hooks are revised as described in this issue: https://github.com/foundryvtt/foundryvtt/issues/4658</li>
     <li>Game settings were previously (in 0.7.x) allowed to contain periods in their key names which was prevented by a new validation rule in 0.8.0. The strictness of this validation has been reduced to once again allow such setting names.</li>
     <li>The Item.createOwned static constructor was intended to have been deprecated in 0.8.0, and is now marked as such.</li>
 </ul>
@@ -42,24 +42,24 @@
 
 <h4>Interface and Applications</h4>
 <ul>
-    <li>In order to address some ongoing bugs with audio and provide a better user experience, the Howler.js library was deprecated (immediately) in favor of a move to using native and more modern Web Audio APIs. For details, please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/3679.</li>
+    <li>In order to address some ongoing bugs with audio and provide a better user experience, the Howler.js library was deprecated (immediately) in favor of a move to using native and more modern Web Audio APIs. For details, please see: https://github.com/foundryvtt/foundryvtt/issues/3679.</li>
     <li>The game.audio.play utility method has been redesigned to resolve issues with incorrect howler syntax and have been migrated to the new Web Audio SoundNode implementation.</li>
 </ul>
 
 <h4>Dice System</h4>
 <ul>
-    <li>The Roll#evaluate method now features a secondary version which is async in order to allow for asynchronous use cases. For details, please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/4135.</li>
+    <li>The Roll#evaluate method now features a secondary version which is async in order to allow for asynchronous use cases. For details, please see: https://github.com/foundryvtt/foundryvtt/issues/4135.</li>
     <li>DiceTerm#getResultLabel has been refactored as an instance method (DiceTerm#getResultLabel) allowing for more nuanced formatting of the labeled output.</li>
     <li>The way DiceTerm modifiers are evaluated has been improved to record the exact set of modifiers which were applied, eliminating any invalid matches from the final formula.</li>
-    <li>In the interest of standardization, the default behavior for what is automatically populated as ChatMessageData#content when a Roll is included in a Chat Message has changed. For details, please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/4780.</li>
+    <li>In the interest of standardization, the default behavior for what is automatically populated as ChatMessageData#content when a Roll is included in a Chat Message has changed. For details, please see: https://github.com/foundryvtt/foundryvtt/issues/4780.</li>
     <li>RollTable#roll has been refactored to async to now return a Promise in support of asynchronous dice rolling infrastructure.</li>
 </ul>
 
 <h4>Other Changes</h4>
 <ul>
-    <li>Some utility functions were moved in 0.8.0, but not documented in the prior update notes. The following changes are intentional, but do cause some breaking modifications relative to 0.7.9 behavior: https://gitlab.com/foundrynet/foundryvtt/-/issues/4668</li>
+    <li>Some utility functions were moved in 0.8.0, but not documented in the prior update notes. The following changes are intentional, but do cause some breaking modifications relative to 0.7.9 behavior: https://github.com/foundryvtt/foundryvtt/issues/4668</li>
     <li>Deleted unused jquery "shake" extension from the codebase as it was only present from legacy code.</li>
-    <li>Localizations which previously encoded HTML "Are You Sure" messages as two separate localization strings have been replaced. For the affected localization strings please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/4750.</li>
+    <li>Localizations which previously encoded HTML "Are You Sure" messages as two separate localization strings have been replaced. For the affected localization strings please see: https://github.com/foundryvtt/foundryvtt/issues/4750.</li>
 </ul>
 
 <h3 class="border">New Features</h3>
@@ -100,7 +100,7 @@
     <li>The overall UI of the Playlists Sidebar has been economized by shifting edit and delete into the context menu, and the volume bar and pause button are now only shown for currently playing audio.</li>
     <li>The playlists sidebar now has a "Currently Playing" section which is always anchored to the top of the playlist directory, it displays a list of sounds that are currently playing across all playlists in a centralized location for more convenient management.</li>
     <li>The global volume controls section of the playlist sidebar can now be conveniently expanded/collapsed.</li>
-    <li>When a currently playing track is within a certain duration of it's ending, pre-loading of the next track will now automatically begin. This duration is 20 seconds by default. The API allows this to be changed, for details please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/3680.</li>
+    <li>When a currently playing track is within a certain duration of it's ending, pre-loading of the next track will now automatically begin. This duration is 20 seconds by default. The API allows this to be changed, for details please see: https://github.com/foundryvtt/foundryvtt/issues/3680.</li>
     <li>When manually stopping the only playing track within Playlist, the playing status of the parent Playlist is now set to false as well.</li>
     <li>The Audio Playlists sidebar now displays a spinner when a sound is about to start playing but is still in the process of loading.</li>
     <li>Currently playing sounds now display a timestamp showing current and total track duration.</li>
@@ -120,10 +120,10 @@
 <ul>
     <li>Replaced the previous dice parser in order to reduce parsing errors. The new Dice parsing method now tokenizes all parts of a submitted formula and works recursively from inside out to evaluate parenthetical expressions while maintaining order of operations. This implementation should be more robust and provide far less cases for errors to occur from misinterpreted data in parsing.</li>
     <li>The new implementation of the dice parser allows term-specific flavor text to be attached to NumericTerm objects in a Roll expression, for example: /r 10[fire damage] + 2d8[lightning damage].</li>
-    <li>The dice system now supports minimum and maximum roll modifiers. For details please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/3439.</li>
-    <li>The dice system now supports modifiers to count even and count odd numbered results. For details please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/3776.</li>
-    <li>The dice system now supports recursive rerolls that continue rerolling until a result condition is met. For details please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/4781.</li>
-    <li>Inline Rolls can now be named as part of the template declaring it and will display the name instead of the formula on the clickable roll button. Until documentation is updated, usage details are available at: https://gitlab.com/foundrynet/foundryvtt/-/issues/4672</li>
+    <li>The dice system now supports minimum and maximum roll modifiers. For details please see: https://github.com/foundryvtt/foundryvtt/issues/3439.</li>
+    <li>The dice system now supports modifiers to count even and count odd numbered results. For details please see: https://github.com/foundryvtt/foundryvtt/issues/3776.</li>
+    <li>The dice system now supports recursive rerolls that continue rerolling until a result condition is met. For details please see: https://github.com/foundryvtt/foundryvtt/issues/4781.</li>
+    <li>Inline Rolls can now be named as part of the template declaring it and will display the name instead of the formula on the clickable roll button. Until documentation is updated, usage details are available at: https://github.com/foundryvtt/foundryvtt/issues/4672</li>
     <li>The way Dice Term individual results are styled for display in a chat message tooltip has been refactored into its own helper method on the DiceTerm class.</li>
     <li>For FateDie, 1s will now automatically be classified as a "success" and -1s as a "failure" for highlighting and counting purposes.</li>
 </ul>
@@ -148,9 +148,9 @@
 
 <h4>Interface and Applications</h4>
 <ul>
-    <li>Added a generalized SearchFilter helper to standardize the way that string filtering fields are applied throughout the client-side software. For usage details please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/4259.</li>
-    <li>The API now supports assigning a class as a custom type to a registered game setting. For details please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/4660.</li>
-    <li>The API now supports using SoundNode#schedule(function, playbackTime) to provide support for fine-tuned scheduling control over audio playback events. For details please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/4751.</li>
+    <li>Added a generalized SearchFilter helper to standardize the way that string filtering fields are applied throughout the client-side software. For usage details please see: https://github.com/foundryvtt/foundryvtt/issues/4259.</li>
+    <li>The API now supports assigning a class as a custom type to a registered game setting. For details please see: https://github.com/foundryvtt/foundryvtt/issues/4660.</li>
+    <li>The API now supports using SoundNode#schedule(function, playbackTime) to provide support for fine-tuned scheduling control over audio playback events. For details please see: https://github.com/foundryvtt/foundryvtt/issues/4751.</li>
     <li>Macro execution is now wrapped in an async wrapper. This allows the use of await statements and early returns for more elegant macro syntax.</li>
     <li>The Application#render method now supports an option to focus a currently rendered sheet to the top of the z-index and maximize its content.</li>
 </ul>
@@ -169,8 +169,8 @@
 
 <h3 class="border">Localization Improvements</h3>
 <ul>
-    <li>Improved the localization system to now require canonical internationalization locales (such as pt-br). The Localization article documentation is slated for improvement to denote that language keys may use ISO 3166-1 alpha-2 country codes and will be updated further in the near future. For now please see details here: https://gitlab.com/foundrynet/foundryvtt/-/issues/4725</li>
-    <li>Standardized the localization labels for all Document types, for details please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/4793</li>
+    <li>Improved the localization system to now require canonical internationalization locales (such as pt-br). The Localization article documentation is slated for improvement to denote that language keys may use ISO 3166-1 alpha-2 country codes and will be updated further in the near future. For now please see details here: https://github.com/foundryvtt/foundryvtt/issues/4725</li>
+    <li>Standardized the localization labels for all Document types, for details please see: https://github.com/foundryvtt/foundryvtt/issues/4793</li>
     <li>Enabled the loading of CSS styles for the primary server translation module for cases where CSS rules are needed in order to render a proper localization.</li>
     <li>Added localization support for the "Administrator Access Required" prompt which appears on the Setup screen.</li>
     <li>Added localization support to tags in Game Worlds, Game Systems, and Add-On Modules lists.</li>
@@ -254,5 +254,5 @@
     <li>The Collection#mergeArray method was defined in the source code but did not do anything. It has been removed.</li>
 	<li>Validate that the type of a registered game setting must be either a constructable object or a callable function.</li>
     <li>Corrected a "path not defined" error when updating the administrator access key in the main Setup and Configuration menu.</li>
-    <li>Several miscellaneous compatibility updates related to documentation of breaking changes in 0.8.0. See https://gitlab.com/foundrynet/foundryvtt/-/issues/4690</li>
+    <li>Several miscellaneous compatibility updates related to documentation of breaking changes in 0.8.0. See https://github.com/foundryvtt/foundryvtt/issues/4690</li>
 </ul>

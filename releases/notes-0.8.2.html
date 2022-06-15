@@ -31,13 +31,13 @@
 <h4>Documents and Data</h4>
 <ul>
     <li><code>Collection#getName</code> has been refactored and now returns undefined if no match is found, this brings consistency with <code>Map#get</code> and <code>Array#find.</code></li>
-    <li>The <code>SoundNode</code> class has been refactored into the <code>Sound</code> class which controls playback and the <code>AudioContainer</code> class, which interfaces with the underlying Web Audio API for different node types. For more information please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/4851</li>
-    <li>ActorSheet fields which currently have an Active Effect override are now prevented from submitting the overriden values via the submission workflow. For more information please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/4934 </li>
+    <li>The <code>SoundNode</code> class has been refactored into the <code>Sound</code> class which controls playback and the <code>AudioContainer</code> class, which interfaces with the underlying Web Audio API for different node types. For more information please see: https://github.com/foundryvtt/foundryvtt/issues/4851</li>
+    <li>ActorSheet fields which currently have an Active Effect override are now prevented from submitting the overriden values via the submission workflow. For more information please see: https://github.com/foundryvtt/foundryvtt/issues/4934 </li>
 </ul>
 
 <h4>The Game Canvas</h4>
 <ul>
-    <li>The <code>TilesLayer</code> has been refactored and combined into the BackgroundLayer which contains Tile objects for a single vertical cross-section of the Scene alongside a background image which fills the Scene canvas. For more information please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/4856</li>
+    <li>The <code>TilesLayer</code> has been refactored and combined into the BackgroundLayer which contains Tile objects for a single vertical cross-section of the Scene alongside a background image which fills the Scene canvas. For more information please see: https://github.com/foundryvtt/foundryvtt/issues/4856</li>
     <li>Vision and lighting rendering have been improved to make use of the canvas buffer region while obscuring it from Token vision (unless the controlled Token is within that buffer)</li>
 </ul>
 
@@ -114,24 +114,24 @@
 <ul>
     <li>Introduced a new <code>PerceptionManager</code> class. This class centralizes scheduling and execution of refresh workflows for lighting, sight, sound, and overhead tiles into a single perception.refresh call at the overall canvas level and also applies to initialization workflows.</li>
     <li>Canvas layers can now have their composition altered by modifying <code>CONFIG.Canvas.layers</code> within the init or ready hooks.</li>
-    <li>Added a new helper method to <code>NormalizedRectangle</code> class which can be used to compute a new rotated rectangle about its center. for more information please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/4873</li>
-    <li>It is now possible to customize the duration of a Scene darkness transition by passing a numeric value to the <code>animateDarkness</code> context option. For more information please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/4715</li>
+    <li>Added a new helper method to <code>NormalizedRectangle</code> class which can be used to compute a new rotated rectangle about its center. for more information please see: https://github.com/foundryvtt/foundryvtt/issues/4873</li>
+    <li>It is now possible to customize the duration of a Scene darkness transition by passing a numeric value to the <code>animateDarkness</code> context option. For more information please see: https://github.com/foundryvtt/foundryvtt/issues/4715</li>
     <li>Standardized the functionality of <code>moveToken</code> to extend functionality of <code>preUpdateToken</code> and <code>updateToken</code> hooks to each type of move action that a token can make.</li>
     <li>The validator for Token scale will now allow a token to be scaled up to 10x through API or macro usage, though the UI for this still restricts the maximum to 3x.</li>
 </ul>
 
 <h4>Interface and Applications</h4>
 <ul>
-    <li>Applications now support a new property that designates the initial render of the app, allowing for use cases where logic only needs to occur during the first time the application is rendered. For more information please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/4709</li>
+    <li>Applications now support a new property that designates the initial render of the app, allowing for use cases where logic only needs to occur during the first time the application is rendered. For more information please see: https://github.com/foundryvtt/foundryvtt/issues/4709</li>
     <li>New hooks have been added which occur when global volume changes for playlist volume, ambient volume, or interface volume.</li>
-    <li>It is now possible to dispatch web socket events only to a specific recipient user or set of users. For more information please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/4749</li>
-    <li>Added a Handlebars helper for <code>{{colorPicker}}</code> which creates the combination of color selector and string field while better handling data validation. For more information please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/4857</li>
-    <li>Added a Handlebars helper for <code>{{rangePicker}}</code> which creates the combination of range selector and corresponding span field which shows the numeric value. For more information please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/4858</li>
+    <li>It is now possible to dispatch web socket events only to a specific recipient user or set of users. For more information please see: https://github.com/foundryvtt/foundryvtt/issues/4749</li>
+    <li>Added a Handlebars helper for <code>{{colorPicker}}</code> which creates the combination of color selector and string field while better handling data validation. For more information please see: https://github.com/foundryvtt/foundryvtt/issues/4857</li>
+    <li>Added a Handlebars helper for <code>{{rangePicker}}</code> which creates the combination of range selector and corresponding span field which shows the numeric value. For more information please see: https://github.com/foundryvtt/foundryvtt/issues/4858</li>
 </ul>
 
 <h4>Dice System</h4>
 <ul>
-    <li>The <code>ParentheticalTerm.fromTerms</code> method has been exposed as a static to bring feature parity with <code>Roll.fromTerms</code>. For more information please see: https://gitlab.com/foundrynet/foundryvtt/-/issues/4820</li>
+    <li>The <code>ParentheticalTerm.fromTerms</code> method has been exposed as a static to bring feature parity with <code>Roll.fromTerms</code>. For more information please see: https://github.com/foundryvtt/foundryvtt/issues/4820</li>
 </ul>
 
 <h4>Documentation</h4>

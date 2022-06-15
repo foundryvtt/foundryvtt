@@ -7,7 +7,7 @@
 
 <p>Thank you all for appreciating my work, providing thoughtful feedback, and encouraging me to do even more. As always, please keep an eye on the development progress board here for visibility into what features are in progress and coming up next!</p>
 
-<p><a href="https://gitlab.com/foundrynet/foundryvtt/boards" target="_blank" title="FVTT Issue Tracker">https://gitlab.com/foundrynet/foundryvtt/boards</a></p>
+<p><a href="https://github.com/foundryvtt/foundryvtt/milestones" target="_blank" title="FVTT Issue Tracker">https://github.com/foundryvtt/foundryvtt/milestones</a></p>
 <hr/>
 
 <h3>New Features</h3>
@@ -46,7 +46,7 @@
 	<li>Avoid adding "undo" canvas operations to the history array which sometimes resulted in infinite undo recursion.</li>
 	<li>Fixed an issue with the delete button on the Combat Tracker which caused it to remain disabled even if the confirmation dialog was declined.</li>
 	<li>Corrected a problem with the Token HUD which prevented the bar control from being displayed in cases where the bar value was zero.</li>
-	<li>Using the <code>mergeObject</code> utility function to unset an inner object property in cases where the parent object does not exist resulted in inserting an erroneous key into the original object. See https://gitlab.com/foundrynet/foundryvtt/issues/1907 for details.</li>
+	<li>Using the <code>mergeObject</code> utility function to unset an inner object property in cases where the parent object does not exist resulted in inserting an erroneous key into the original object. See https://github.com/foundryvtt/foundryvtt/issues/1907 for details.</li>
 	<li>Fixed tooltip wording on the Join Game screen.</li>
 	<li>The configured route prefix operation for the Express server was not working as expected due to a number of relative links which were incorrect in the presence of a route prefix. These links have been updated to always include the prefix (if one is set) and this server configuration option should now work as expected.</li>
 	<li>A typo in the server-side socket registration prevented system-level dedicated socket channels from working properly. After the change, assigning <code>"socket": true</code> in your system manifest will correctly enable you to use the <code>"system.{systemName}"</code> messaging socket.</li>
@@ -72,21 +72,21 @@
 
 <h3>Core Software, APIs, and Module Development</h3>
 <ul>
-	<li>The required core compatibility version for modules and systems has been set to <code>0.4.4</code> due to the large number of breaking changes included in this update. All modules and systems must review the changes and update their package manifest files to support <code>minimumCoreVersion</code> of 0.4.4. I created an overview issue that provides some high-level explanation of the larger API changes in this update. If you are a module or system developer, please see the following issue: https://gitlab.com/foundrynet/foundryvtt/issues/1919</li>
+	<li>The required core compatibility version for modules and systems has been set to <code>0.4.4</code> due to the large number of breaking changes included in this update. All modules and systems must review the changes and update their package manifest files to support <code>minimumCoreVersion</code> of 0.4.4. I created an overview issue that provides some high-level explanation of the larger API changes in this update. If you are a module or system developer, please see the following issue: https://github.com/foundryvtt/foundryvtt/issues/1919</li>
 	<li>Added a number of new API concepts related to the new Macro entity. See http://foundryvtt.com/api/Macro.html and http://foundryvtt.com/api/Hotbar.html for API details.</li>
 	<li>Further standardize and simplify Socket Interface workflows to use the same preHook and postHook signatures for all CRUD events. See http://foundryvtt.com/api/SocketInterface.html for details.</li>
-	<li>Add universal support for multi-target database operations for all Entity and Embedded Entity types. See https://gitlab.com/foundrynet/foundryvtt/issues/1820 and http://foundryvtt.com/api/Entity.html for more details.</li>
+	<li>Add universal support for multi-target database operations for all Entity and Embedded Entity types. See https://github.com/foundryvtt/foundryvtt/issues/1820 and http://foundryvtt.com/api/Entity.html for more details.</li>
 	<li>This update introduces a major refactor to the structure of Embedded Entities which are now indexed by a unique string `<code>_id</code>` instead of a numeric <code>id</code>. Furthermore, embedded entity management has been comprehensively redesigned to standardize with a set of methods on the Entity class. See http://foundryvtt.com/api/Entity.html for details.</li>
 	<li>Comprehensively refactor the server side Document, Entity, EmbeddedEntity abstractions in the database document model to standardize and simplify the code structure.</li>
 	<li>The <code>EntityCollection.index()</code> method has been removed as it was not used by any core application.</li>
 	<li>Added support for an optional <code>strict</code> parameter in the <code>EntityCollection.get</code> operation which will raise an exception if the requested Entity ID does not exist.</li>
 	<li>Implement a new <code>filterObject</code> method which allows for socket update operations to broadcast back only the subset of valid keys and values which were successfully applied during the update.</li>
 	<li>A mapping of all synthetic Token Actors is now easily available under <code>game.actors.tokens</code> which provides a synthetic <code>Actor</code> instance for every Token id.</li>
-	<li>Added helper methods to the User entity to assist with macro management. See the following issue for details: https://gitlab.com/foundrynet/foundryvtt/issues/1935</li>
-	<li>Added a hook allowing systems and modules to customize Hotbar drop behavior. See https://gitlab.com/foundrynet/foundryvtt/issues/1941</li>
+	<li>Added helper methods to the User entity to assist with macro management. See the following issue for details: https://github.com/foundryvtt/foundryvtt/issues/1935</li>
+	<li>Added a hook allowing systems and modules to customize Hotbar drop behavior. See https://github.com/foundryvtt/foundryvtt/issues/1941</li>
 	<li>Simplified the distinction between <code>draw()</code> and <code>refresh()</code> operations for all Placeable Object subclasses. Draw operations are more comprehensive, completely re-constructing the canvas object while refresh operations are more lightweight, updating it's display in-place.</li>
-	<li>Redesigned the <code>filterObject()</code> utility method to work using 2 objects. See https://gitlab.com/foundrynet/foundryvtt/issues/1918 for details.</li>
-	<li>Improved the <code>Dialog.confirm()</code> wrapper to return a Promise which resolves once the prompted user makes a choice. See https://gitlab.com/foundrynet/foundryvtt/issues/1915 for details.</li>
+	<li>Redesigned the <code>filterObject()</code> utility method to work using 2 objects. See https://github.com/foundryvtt/foundryvtt/issues/1918 for details.</li>
+	<li>Improved the <code>Dialog.confirm()</code> wrapper to return a Promise which resolves once the prompted user makes a choice. See https://github.com/foundryvtt/foundryvtt/issues/1915 for details.</li>
 	<li>Rename <code>CONFIG.tokenTextStyle</code> to <code>CONFIG.canvasTextStyle</code> to better reflect the more widespread usage of this text styling configuration among multiple types of placeable objects.</li>
 	<li>Factor out some CRUD helper methods for synthetic Token Actor operations into a helper class to help simplify the Actor entity code.</li>
 	<li>Refactor <code>Playlist.howls</code> to more generically be named <code>Playlist.audio</code> as a collection of audio helper objects.</li>
@@ -95,7 +95,7 @@
 	<li>The EntityCollection.directory static attribute has been changed to an instance attribute.</li>
 	<li>The object of IP addresses and invitation links for the game has been renamed both on the server side as well as client side from <code>ips</code> to <code>addresses</code>.</li>
 	<li>Application developers are now able to customize the appearance and behavior of TinyMCE editors by overriding the <code>_createEditor</code> method to customize the options passed to TinyMCE initialization.</li>
-	<li>Improved <code>user.targets</code> as a specialized Set subclass which handles dispatching a Hook event whenever Token targets are changed. See https://gitlab.com/foundrynet/foundryvtt/issues/1940 for details.</li>
+	<li>Improved <code>user.targets</code> as a specialized Set subclass which handles dispatching a Hook event whenever Token targets are changed. See https://github.com/foundryvtt/foundryvtt/issues/1940 for details.</li>
 </ul>
 <hr/>
 

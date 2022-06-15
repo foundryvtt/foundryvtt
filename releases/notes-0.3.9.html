@@ -4,7 +4,7 @@
 
 <p>Thank you all for appreciating my work, providing thoughtful feedback, and encouraging me to do even more. As always, please keep an eye on the development progress board here for visibility into what features are in progress and coming up next!</p>
 
-<p><a href="https://gitlab.com/foundrynet/foundryvtt/boards" target="_blank" title="FVTT Story Board">https://gitlab.com/foundrynet/foundryvtt/boards</a></p>
+<p><a href="https://github.com/foundryvtt/foundryvtt/milestones" target="_blank" title="FVTT Story Board">https://github.com/foundryvtt/foundryvtt/milestones</a></p>
 <hr/>
 
 <h3>New Features</h3>
@@ -56,7 +56,7 @@
 
 <h3>Core Software, APIs, and Module Development</h3>
 <ul>
-	<li>I have comprehensively (I think) standardized the signature of SocketInterface trigger and triggerMany operations to adopt the same signature in all cases. See https://gitlab.com/foundrynet/foundryvtt/issues/1544 for an example. There were many small changes as part of this improvement including an improved SocketInterface.trigger API, better logging for pre-Hook prevention, and server-side refactoring to a more standardized handling workflow.</li>
+	<li>I have comprehensively (I think) standardized the signature of SocketInterface trigger and triggerMany operations to adopt the same signature in all cases. See https://github.com/foundryvtt/foundryvtt/issues/1544 for an example. There were many small changes as part of this improvement including an improved SocketInterface.trigger API, better logging for pre-Hook prevention, and server-side refactoring to a more standardized handling workflow.</li>
 	<li>The global configuration variables which was previously in the constants file have been refactored to all exist as children of the <code>CONST</code> global object. For temporary backwards-compatibility global references to these variables have been preserved, but this support will be removed before launch. If you were previously using a global configuration parameter (note, I am not talking about the <code>CONFIG</code> object) you should migrate to reference it through the <code>CONST</code> namespace instead.</li>
 	<li>Introduce a new <code>updateManyOwnedItem</code> helper method for the Actor class to simultaneously update many Items which belong to a parent Actor entity.</li>
 	<li>Improved the behavior of the `diffObject` helper. Previously if one object in a comparison was empty while the other was not, it would report that the new object was not different from the previous. For example <code>diffObject({foo: {bar: 1}}, {foo: {}}); // {}</code>. Now this comparison will report that the new object is empty.</li>
@@ -70,13 +70,13 @@
 	<li>Added a <code>Folder.entities</code> getter for convenience to vend an Array of all Entity instances which belong to that parent Folder.</li>
 	<li>Added some additional fields for package metadata to the conventional NPM package.json file.</li>
 	<li>Applied a stronger server-side permission check for Entity updates to validate that the requesting User has ownership permission over the specific document in question.</li>
-	<li>The underlying data structure for the buttons in the SceneControls app has been refactored from an Object (prior) to an Array (new). This has several advantages, including allowing for the order and composition of buttons to be manipulated by a new Hook which has been added. By hooking to <code>getSceneControlButtons</code> module authors may itroduce new buttons to the controls menu or modify the behavior of existing buttons. Please see https://gitlab.com/foundrynet/foundryvtt/issues/1528 for discussion and examples.</li>
+	<li>The underlying data structure for the buttons in the SceneControls app has been refactored from an Object (prior) to an Array (new). This has several advantages, including allowing for the order and composition of buttons to be manipulated by a new Hook which has been added. By hooking to <code>getSceneControlButtons</code> module authors may itroduce new buttons to the controls menu or modify the behavior of existing buttons. Please see https://github.com/foundryvtt/foundryvtt/issues/1528 for discussion and examples.</li>
 	<li>Improved the protection against cases where folders exceed the maximum allowed level of depth. Previously this would cause the entire Sidebar Tab to fail rendering. Now folders which exist at an invalid depth level are simply rendered at the root level of the sidebar directory.</li>
 	<li>Re-wrote and greatly improved the ChatMessage.getSpeaker() helper to construct the <code>speaker</code> data object from a given Token, Actor, or User entity.</li>
-	<li>Provided a new <code>canvasPan</code> Hook event to respond to changes to the canvas location or scale. This hook will fire whenever the canvas is panned (which can result in a lot of calls). Be careful if you use this hook to make sure your hooked function is as efficient as possible. See https://gitlab.com/foundrynet/foundryvtt/issues/1500 for more details.</li>
-	<li>Each registered Hook function is now assigned a numeric ID which can now be used as a token for unregistering (turning off) the Hook instead of the hooked function reference. This makes it much easier to un-register a Hook while still using anonymous functions. See https://gitlab.com/foundrynet/foundryvtt/issues/1490 for an example.</li>
+	<li>Provided a new <code>canvasPan</code> Hook event to respond to changes to the canvas location or scale. This hook will fire whenever the canvas is panned (which can result in a lot of calls). Be careful if you use this hook to make sure your hooked function is as efficient as possible. See https://github.com/foundryvtt/foundryvtt/issues/1500 for more details.</li>
+	<li>Each registered Hook function is now assigned a numeric ID which can now be used as a token for unregistering (turning off) the Hook instead of the hooked function reference. This makes it much easier to un-register a Hook while still using anonymous functions. See https://github.com/foundryvtt/foundryvtt/issues/1490 for an example.</li>
 	<li>Instaces of the <code>ImagePopout</code> class may not optionally refer back to an Entity instance which requested them to be shown. If such an entity reference exists, it is available under <code>options.entity</code> of the ImagePopout instance.</li>
-	<li>Added a simple CLI script which can quickly initialize a new module, creating some boilerplate structure for module developers to quickly build upon. See https://gitlab.com/foundrynet/foundryvtt/issues/1374 for example usage.</li>
+	<li>Added a simple CLI script which can quickly initialize a new module, creating some boilerplate structure for module developers to quickly build upon. See https://github.com/foundryvtt/foundryvtt/issues/1374 for example usage.</li>
 </ul>
 <hr/>
 

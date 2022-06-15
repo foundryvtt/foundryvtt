@@ -7,7 +7,7 @@ and many smaller features and bug fixes. Overall this version addressed and reso
 
 <p>I'm really excited about the continued progress for this software and motivated by the support and encouragement of the community. Thank you all for appreciating my work, providing thoughtful feedback, and encouraging me to do even more. As always, please keep an eye on the development progress board here for visibility into what features are in progress and coming up next!</p>
 
-<p><a href="https://gitlab.com/foundrynet/foundryvtt/boards" target="_blank" title="FVTT Story Board">https://gitlab.com/foundrynet/foundryvtt/boards</a></p>
+<p><a href="https://github.com/foundryvtt/foundryvtt/milestones" target="_blank" title="FVTT Story Board">https://github.com/foundryvtt/foundryvtt/milestones</a></p>
 <hr/>
 
 <h3>Please Read: Electron Migration</h3>
@@ -36,7 +36,7 @@ and many smaller features and bug fixes. Overall this version addressed and reso
 	<li>Added a new tool to <strong>showcase Actor Artwork</strong> or Token Artwork available in the right-click context menu for Actors and Items. This will display a pop-out UI which showcases the artwork in a more zoomed-in format. Moreover, this showcase can be handed out like a Journal Entry to show a profile image, token image, or item image to all connected players.</li>
 	<li>Improved the display rendering of Scene-type Compendium packs.</li>
 	<li>Substantially improved the performance of moving or deleting multiple Tokens at once using a group-selection workflow. These changes have been rolled out initially for Tokens alone, but the improvements will be generalized to benefit other types of Placeable Objects in a subsequent update.</li>
-	<li>Added support to run Foundry Virtual Tabletop using <code>HTTPS and a SSL Certificate</code>. In order to run FVTT in SSL mode, you (for now, this process can be improved in the future) need to edit the <code>options.json</code> file to add two new attributes directing the application towards a SSL key certificate files for your domain. If these properties have been defined and point towards valid files, the server will automatically run using HTTPS instead of simply HTTP. See the following for an example: https://gitlab.com/foundrynet/foundryvtt/issues/466</li>
+	<li>Added support to run Foundry Virtual Tabletop using <code>HTTPS and a SSL Certificate</code>. In order to run FVTT in SSL mode, you (for now, this process can be improved in the future) need to edit the <code>options.json</code> file to add two new attributes directing the application towards a SSL key certificate files for your domain. If these properties have been defined and point towards valid files, the server will automatically run using HTTPS instead of simply HTTP. See the following for an example: https://github.com/foundryvtt/foundryvtt/issues/466</li>
 </ul>
 <hr/>
 
@@ -73,7 +73,7 @@ and many smaller features and bug fixes. Overall this version addressed and reso
 	<li>Much of the client-side socket behavior has been factored out and standardized within the <code>SocketInterface</code> helper class which is re-used throughout the client-side codebase. This guarantees a more standardized data contract and handling logic to ensure that various APIs which transact data with the server for saving adhere to the same conventions and prototypical method signatures.</li>
 	<li>Previously, Module manifest <code>module.json</code> files were required to specify the <code>styles</code>, <code>packs</code>, and <code>scripts</code> attributes by passing empty Arrays if no assets of that type were included by the Module. Now these attributes may be safely omitted if none are included.</li>
 	<li>Extended the signature of the <code>Entity.hasPerm()</code> method to provide an additional argument for whether to require an exact match or an inequality-based permission match.</li>
-	<li>Modules may now request a specialized messaging socket be provided for their own use in exchanging data. Please see the following for more detail: https://gitlab.com/foundrynet/foundryvtt/issues/582</li>
+	<li>Modules may now request a specialized messaging socket be provided for their own use in exchanging data. Please see the following for more detail: https://github.com/foundryvtt/foundryvtt/issues/582</li>
 	<li>An extensive backend standardization and compatibility pass has occured for the server side Document, EmbeddedDocument, Entity, and EmbeddedEntity data classes. This has improved and standardized the data management approach used by the server-side code.</li>
 	<li>The server side code has been significantly overhauled and polished to feature better practices and more standardization for key server-side modules.</li>
 	<li>Added an extra sanity check on server start to check for and protect against missing write permissions in the public directory of the application location.</li>
