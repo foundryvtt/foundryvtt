@@ -19,7 +19,7 @@
 <dd>The portion of the Foundry Virtual Tabletop API which is intended for internal use only, which is subject to change without consultation.</dd>
 </dl>
 <p class="note info">This article only applies after the release of Version 9.</p>
-<h2 class="border">The Phased Cycle Approach</h2>
+<h2 class="border" id="phases">The Phased Cycle Approach</h2>
 <p>Foundry Virtual Tabletop uses a phased approach to development containing 6 formal categories, as well as an additional (and more informal) 'closing' phase which is rarely more than a formal name given to the last Release in a Version. Some of these phases are internal to the Foundry VTT development team. It is noteworthy that all phases include some amount of planning and testing; and that the labels are more about the <strong>focus</strong> of that phase than to indicate it's the only thing happening during that phase.</p>
 <p>As each phase of development passes, changes become less extreme until the changes being made are corrections to software bugs only, with the earliest Releases in any Version containing the most drastic changes. Foundry Virtual Tabletop intends to release up to four Versions annually, introducing new features to the software with each Prototype Version.</p>
 
@@ -37,8 +37,8 @@
 <p>This is the phase where the Foundry VTT development team expects the most feedback from community developers, and developer API feature requests which add support for specific use cases should be made here so that they can be incorporated before the API is closed for this version.</p>
 <p>During the Development phase, the UX/UI for new features will approach or reach full functionality, but may still have some rough edges.</p>
 <h3>Feature Testing</h3>
-<p>The Feature Testing phase places emphasis on focused and rigorous testing of the software while the UX/UI on new features is polished for public use. This is not to suggest that no testing occurs during the Prototype or Development phases, merely that the scope of testing and the number of users performing testing operations is much larger during this period. During this phase, the API is closed to changes, with breaking changes only occurring if necessary to correct critical bugs or high-priority issues.</p>
-<p>For developers who only have the bandwidth to update their packages once per Version, content creators, or premium partners, this phase is the right time to update your Packages before the general public starts using the Version. However, developers who submit API feature requests here may be forced to wait until the next major version for those changes to be made in order to prevent changes which might break API usage for other community developers.</p>
+<p>The Feature Testing phase places emphasis on focused testing of the software while the UX/UI on new features is polished for public use. This is not to suggest that no testing occurs during the Prototype or Development phases, merely that the scope of testing and the number of users performing testing operations is much larger during this period. During this phase, the API is closed to breaking changes, only allowing them to occur if it is deemed necessary to correct critical bugs or high-priority issues. The addition of new API components (or modifications of existing API components) may still occur in this phase to complete or expand a newly introduced feature, provided that they are not breaking. An example of such a change might be an addition of a new type of Journal Entry Page, a new shader being added to an existing list of shaders, or introducing a new application to offer a user-facing interface for existing API features.</p>
+<p>For developers who only have the bandwidth to update their packages once per Version, content creators, or premium partners, this phase is the right time to update your Packages before the general public starts using the Version. However, API feature requests received in this phase will likely not be accomodated until the next major version in order to prevent changes which might break API usage for other community developers.</p>
 <p>For interested Server Admins and Users, this is the phase where you should spin up a test world and try out the new features so you can provide Foundry VTT with UX/UI and general testing feedback.</p>
 <p>It is not recommended that users run their live games on a testing release unless they (and their players) are comfortable experiencing some bugs that may negatively impact play.</p>
 
@@ -47,9 +47,9 @@
 <h3>Maintenance</h3>
 <p>After a Stable Release has been launched for a Version, the development team shift focus on this Version to a Maintenance phase. This phase is internal to the development team and focuses on fixing bugs that can be resolved in a non-disruptive way as well as smoothing issues with UX/UI. At this point, the team circles back and begins Planning for the next Version.</p>
 <h4>Closing</h4>
-<p>This is an internal term used to refer to the final Release in a Version, the Closing Release usually coincides with the Release of a new Stable Version. A closing Release generally contains backported security fixes, minor quality of life improvements from the next Version which are deemed safe to implement, and any changes needed to support Users staying on the Version for a longer term while preparing them to upgrade to the next Version. There may not always be a formal "Closing" Release.</p>
+<p>This is an internal term used to refer to the final Release in a Version, the Closing Release usually coincides with the Release of a new Stable Version. A Closing Release generally contains backported security fixes, minor quality of life improvements from the next Version which are deemed safe to implement, and any changes needed to support Users staying on the Version for a longer term while preparing them to upgrade to the next Version. There may not always be a formal "Closing" Release.</p>
 
-<h3>Update Channels</h3>
+<h2 class="border" id="updates">Update Channels</h2>
 <figure class="right"> @Image[221]
     <figcaption>Version information is displayed on the Configuration Tab within a Game World, providing a visible indicator of the current Version, Release Number, and Build Number for the purposes of troubleshooting.</figcaption>
 </figure>
@@ -60,9 +60,8 @@
 <li><strong>Development </strong>- Releases for testing the design of new features and API changes to obtain feedback from the developer community.</li>
 <li><strong>Prototype</strong> - Releases for previewing the design of experimental features which are not yet fully developed.</li>
 </ul>
-
     
-<h2 class="border">API Changes During Development Phases</h2>
+<h2 class="border" id="breaking" >API Changes During Development Phases</h2>
 <p>The Foundry VTT API actually has two divisions: the Public API and the Private API.</p> 
 <p>The Public API contains all the Methods and Variables, Hooks, and any other facet of the software intended for community development. During the Foundry VTT development cycle there are particular times where the API is referred to as "Closed" or "Open". These periods refer specifically to the Public API, and as a team we endeavour to maintain the public API in a state that is as stable and reliable as possible.</p>
 <p>The Private API contains methods and variables which are intended only for internal use. Methods and Variables that belong to the Private API are named with an underscore convention, such as <code>_activateSocketListeners(socket)</code> or <code>this._fftArray</code> and are often noted in the API documentation as <code>@private</code> via JSDoc.</p>
