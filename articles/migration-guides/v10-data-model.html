@@ -1,0 +1,305 @@
+<p class="note warning permanent">This article describes breaking changes to the Foundry Virtual Tabletop API which arrived in Version 10 and require some action by community developers to adjust their code in response.</p>
+
+<p>The primary architectural innovation added in Foundry Virtual Tabletop version 10 is the new <code>DataModel</code> architecture which improves upon and replaces the prior concept of <code>DocumentData</code> which is now deprecated. In addition to overhauling the functionality of <code>DocumentData</code>, the <code>Document</code> class now directly extends <code>DataModel</code> instead of including a document data instance via composition.</p>
+
+<h3>Deprecation Period: Until Version 13</h3>
+<p>The combination of these two changes are the most significant breaking change in V10, however they do not generally require immediate action with a backwards-compatible deprecation period supported through Version 12.</p>
+
+<h2 id="data-model" class="border">The Data Model</h2>
+<p>The new Version 10 @APIV10[classes/foundry.abstract.DataModel] provides as a framework to define a structured data schema from which document objects can be constructed, validated, updated, and serialized.</p>
+
+<p>Most data structures and concepts in the Foundry Virtual Tabletop ecosystem can (and possibly should) be expressed as a DataModel. The most immediate use cases for such models are documents, but we have also adopted the data model for other cases in V10 ranging from @APIV10[classes/foundry.config.ApplicationConfiguration] to @APIV10[classes/client.VisionMode] definitions.</p>
+
+<h3>Data Schema</h3>
+<p>The foundation of any Data Model is its data schema which defines the set of fields which can belong to the model. As a major enhancement on prior versions, we now have a rich and expressive framework for defining @APIV10[classes/foundry.data.fields.DataField] instances with many helpful @APIV10[modules/foundry.data.fields,field types] provided.</p>
+<p>The <code>static schema</code> for every <code>DataModel</code> class is now defined using these fields, as follows:</p>
+<pre><code class="lang-js">import DataModel from "common/abstract/data.mjs";
+import * as fields from "common/data/fields.mjs";
+
+class MyDataModel extends DataModel {
+  static defineSchema() {
+    return {
+      requiredString: new fields.StringField({required: true, blank: false}),
+      positiveInteger: new fields.NumberField({required: true, nullable: false, integer: true, positive: true}),
+      stringArray: new fields.ArrayField(new fields.StringField()),
+      innerSchema: new fields.SchemaField({
+        innerBoolean: new fields.BooleanField({initial: false}),
+        numberSet: new fields.SetField(new fields.NumberField({nullable: false, min: 0, max: 1}))
+      })
+    }
+  }
+}</code></pre>
+<p>Data schema can be very expressive, including nested objects and structures. We encourage developers who wish to define a <code>DataModel</code> for their own use cases to survey the many examples provided by the core @APIV10[modules/foundry.documents,document definitions].</p>
+
+<h3>Document Construction</h3>
+<p>Each constructed instance of a <code>DataModel</code> is an individual object of data which is structured and validated according to its schema. Every field of the model is available as a property on the constructed data instance. For example, we can construct our defined model as:</p>
+<pre><code class="lang-js">const myData = new MyDataModel({
+  requiredString: "Hello",
+  positiveInteger: 7,
+  stringArray: ["one", "two", "seven"]
+});
+console.log(myData.positiveInteger); // 7</code></pre>
+<p>Attempting to construct a data model using invalid data will throw a @APIV10[classes/foundry.data.fields.ModelValidationError].</p>
+<pre><code class="lang-js">const myData = new MyDataModel({
+  requiredString: null,
+  positiveInteger: -1
+});
+// Uncaught Error: MyDataModel Model Validation Errors
+// [MyDataModel.requiredString]: may not be a blank string
+// [MyDataModel.positiveInteger]: may not be null</code></pre>
+<p>If you wish to construct a <code>DataModel</code> instance using potentially unclean data, you may do so by providing <code>{strict: false}</code> as a context option to the constructor. This will warn about validation failures instead of strictly raising an error.</p>
+<pre><code class="lang-js">const myData = new MyDataModel({
+  requiredString: null,
+  positiveInteger: -1
+}, {strict: false});
+console.log(myData.requiredString); // ""
+console.log(myData.positiveInteger); // 1</code></pre>
+
+<h3>Validation and Updating</h3>
+<p>A <code>DataModel</code> instance is validated strictly whenever its source data is updated using the <code>DataModel#updateSource</code> method.</p>
+<pre><code class="lang-js">myData.updateSource({requiredString: ""});
+// Uncaught Error: MyDataModel Model Validation Errors
+// [MyDataModel.requiredString]: may not be a blank string</code></pre>
+<p>You may test a candidate set of changes by calling the <code>DataModel#validate</code> method.</p>
+
+<h2 id="document-data-deprecation" class="border">Migration Guide</h2>
+<p>As a key feature of this new <code>DataModel</code> architecture, the pre-existing @APIV10[classes/foundry.abstract.Document] class now directly extends the <code>DataModel</code> and eliminates use of an internal <code>DocumentData</code> concept which is now <strong>deprecated</strong>. There are several significant consequences of this change.</p>
+
+<h3>DocumentData Deprecation</h3>
+<p>There no longer exists an inner <code>Document#data</code> object. Any code which references this data object will now generate console logged warnings and have their request redirected to the root level of the Document.</p>
+<section class="flexrow code-migration">
+    <div class="before">
+        <h4>Version 9 (Before)</h4>
+        <pre><code class="lang-js">const actor = game.actors.get(actorId);
+const schema = actor.data.constructor.schema;
+const name = actor.data.name;
+const trueName = actor.data._source.name;
+actor.data.update({name: "New Name"});
+actor.data.validate({name: "Is this valid?"});
+actor.data.reset();</code></pre>
+    </div>
+    <div class="after">
+        <h4>Version 10 (After)</h4>
+        <pre><code class="lang-js">const actor = game.actors.get(actorId);
+const schema = actor.constructor.schema;
+const name = actor.name;
+const trueName = actor._source.name;
+actor.updateSource({name: "New Name"});
+actor.validate({name: "Is this valid?"});
+actor.reset();</code></pre>
+    </div>
+</section>
+
+<h3>Renaming of System Data</h3>
+<p>While removing the inner <code>data</code> object from documents, we have also made a significant change to the semantics for the inner object of system-specific data. This inner-object was previously also named "data" which created an un-informative reference pattern for field paths like <code>actor.data.data.attributes</code>. The inner system-specific data object is now named <code>system</code> with backwards compatibility provided for pre-existing code which continues to reference <code>data</code>.</p>
+<section class="flexrow code-migration">
+    <div class="before">
+        <h4>Version 9 (Before)</h4>
+        <pre><code class="lang-js">const actor = game.actors.get(actorId);
+const systemData = actor.data.data;
+const strength = actor.data.data.attributes.strength;</code></pre>
+    </div>
+    <div class="after">
+        <h4>Version 10 (After)</h4>
+        <pre><code class="lang-js">const actor = game.actors.get(actorId);
+const systemData = actor.system;
+const strength = actor.system.attributes.strength;</code></pre>
+    </div>
+</section>
+<p>When creating or updating a document, references to the inner system data object will be redirected but will produce logged warnings.</p>
+<section class="flexrow code-migration">
+    <div class="before">
+        <h4>Version 9 (Before)</h4>
+        <pre><code class="lang-js">const newActor = await Actor.create({name: "My New Actor", type: "npc", "data.attributes.strength": 10});
+newActor.update({"data.attributes.strength": 5});</code></pre>
+    </div>
+    <div class="after">
+        <h4>Version 10 (After)</h4>
+        <pre><code class="lang-js">const newActor = await Actor.create({name: "My New Actor", type: "npc", "system.attributes.strength": 10});
+newActor.update({"system.attributes.strength": 5});</code></pre>
+    </div>
+</section>
+
+<h2 id="document-schema-changes" class="border">Document Schema Changes</h2>
+<h3>Required Schema Changes</h3>
+<p>As a required consequence of the above changes the inner system "data" object has been renamed to "system". Additionally, the object which tracks user-level ownership over a document has been renamed from "permission" to "ownership" to remove a collision with the <code>Document#permission</code> getter which still provides the ownership level for the current user. For similar reasons, <code>Actor#token</code> has been renamed to <code>Actor#prototypeToken</code> to disambiguate and avoid collision with the <code>token</code> getter which provides the placed Token object for un-linked Actors.</p>
+<p>The following Document schema changes have been made as a required consequence of the above changes:</p>
+<section class="flexrow code-migration">
+    <div class="before">
+        <h4>Version 9 (Before)</h4>
+        <pre><code class="lang-plaintext">// System Data Rename
+Actor#data#data
+Card#data#data
+Cards#data#data
+Item#data#data
+
+// Permission to Ownership Rename
+Actor#data#permission
+Cards#data#permission
+JournalEntry#data#permission
+Macro#data#permission
+Playlist#data#permission
+RollTable#data#permission
+Item#data#permission
+
+// Other Schema Changes
+Actor#data#token
+TableResult#data#collection
+TableResult#data#resultId</code></pre>
+    </div>
+    <div class="after">
+        <h4>Version 10 (After)</h4>
+        <pre><code class="lang-plaintext">// System Data Rename
+Actor#system
+Card#system
+Cards#system
+Item#system
+
+// Permission to Ownership Rename
+Actor#ownership
+Cards#ownership
+JournalEntry#ownership
+Macro#ownership
+Playlist#ownership
+RollTable#ownership
+Item#ownership
+
+// Other Schema Changes
+Actor#prototypeToken
+TableResult#documentCollection
+TableResult#documentId</code></pre>
+    </div>
+</section>
+
+<h3>Texture Data</h3>
+<p>We implemented an inner @APIV10[classes/foundry.data.TextureData] field type to standardize the way that data related to textures rendered on the game canvas are stored and validated. We have deployed this texture data object in the following locations which change the document schema:</p>
+<section class="flexrow code-migration">
+    <div class="before">
+        <h4>Version 9 (Before)</h4>
+        <pre><code class="lang-plaintext">Note#data#icon
+Note#data#tint
+
+Scene#data#img
+Scene#data#shiftX
+Scene#data#shiftY
+
+Tile#data#img
+Tile#data#tint
+
+Token#data#img
+Token#data#tint
+Token#data#mirrorX
+Token#data#mirrorY</code></pre>
+    </div>
+    <div class="after">
+        <h4>Version 10 (After)</h4>
+        <pre><code class="lang-plaintext">Note#texture#src
+Note#texture#tint
+
+Scene#background#src
+Scene#background#offsetX
+Scene#background#offsetY
+
+Tile#texture#src
+Tile#texture#tint
+
+Token#texture#src
+Token#texture#tint
+Token#texture#scaleX
+Token#texture#scaleY</code></pre>
+    </div>
+</section>
+
+<h3>Drawing Shape Data</h3>
+<p>We implemented an inner @APIV10[classes/foundry.data.ShapeData] field type to standardize the way that data related to textures rendered on the game canvas are stored and validated. We have deployed this texture data object in the following locations which change the document schema:</p>
+<section class="flexrow code-migration">
+    <div class="before">
+        <h4>Version 9 (Before)</h4>
+        <pre><code class="lang-plaintext">Drawing#data#type
+Drawing#data#width
+Drawing#data#height
+Drawing#data#points</code></pre>
+    </div>
+    <div class="after">
+        <h4>Version 10 (After)</h4>
+        <pre><code class="lang-plaintext">Drawing#shape#type
+Drawing#shape#width
+Drawing#shape#height
+Drawing#shape#points</code></pre>
+    </div>
+</section>
+
+<h3>Grid Configuration Data</h3>
+<p>We implemented an inner @APIV10[classes/foundry.data.fields.SchemaField] to store and structure data pertaining to Scene grid configuration as an inner-object of the Scene document. The following schema fields of the @APIV10[classes/client.Scene] document have been migrated.</p>
+<section class="flexrow code-migration">
+    <div class="before">
+        <h4>Version 9 (Before)</h4>
+        <pre><code class="lang-plaintext">Scene#data#gridType
+Scene#data#gridColor
+Scene#data#gridAlpha
+Scene#data#gridDistance
+Scene#data#gridUnits</code></pre>
+    </div>
+    <div class="after">
+        <h4>Version 10 (After)</h4>
+        <pre><code class="lang-plaintext">Scene#grid#type
+Scene#grid#color
+Scene#grid#alpha
+Scene#grid#distance
+Scene#grid#units</code></pre>
+    </div>
+</section>
+
+<h2 id="document-method-changes" class="border">Document Method Changes</h2>
+<p>For reasons similar to the data schema changes mentioned above, certain methods or attributes of Document instances were forced to change in order to avoid a collision with a DataModel attribute or schema field. The following methods or attributes have been renamed:</p>
+<section class="flexrow code-migration">
+    <div class="before">
+        <h4>Version 9 (Before)</h4>
+        <pre><code class="lang-plaintext">// Attribute Name Changes
+Card#face
+PlaylistSound#volume
+
+// Method Name Changes
+Cards#reset
+RollTable#reset
+        </code></pre>
+    </div>
+    <div class="after">
+        <h4>Version 10 (After)</h4>
+        <pre><code class="lang-plaintext">// Attribute Name Changes
+Card#currentFace
+PlaylistSound#effectiveVolume
+
+// Method Name Changes
+Cards#recall
+RollTable#resetResults
+        </code></pre>
+    </div>
+</section>
+
+<h2 id="invalid-documents" class="border">Invalid Documents</h2>
+<p>While the Version 10 software makes a careful attempt to migrate prior data to the new model, there are cases where some piece of pre-existing data may no longer be compatible with the new V10 data schema for a certain document class. In such cases that Document which cannot be constructed is placed into a sub-collection of invalid documents which allow for problems to be corrected. The server-side software will honor changes to an invalid document which transform it into a now-valid state.</p>
+<pre><code class="lang-js">// Retrieve the data for an invalid document
+const invalidActorIds = Array.from(game.actors._invalidActorIds);
+const invalidId = game.actors._invalidActorIds.first();
+const invalidActor = game.actors.getInvalid(invalidId);
+
+// Correct an invalid document
+await invalidActor.update(correctedData);
+
+// Delete an invalid document
+await invalidActor.delete();</code></pre>
+
+<h2 id="related-issues" class="border">Related Issues</h2>
+<p>This migration guide provides an overview of the migration steps related to the following issues:</p>
+<ul>
+    <li>@Issue[6841]</li>
+    <li>@Issue[6642]</li>
+    <li>@Issue[6849]</li>
+    <li>@Issue[6603]</li>
+    <li>@Issue[6467]</li>
+    <li>@Issue[6455]</li>
+    <li>@Issue[6452]</li>
+    <li>@Issue[6852]</li>
+    <li>@Issue[6736]</li>
+</ul>
