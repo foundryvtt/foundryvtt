@@ -18,18 +18,17 @@ game.modules.get("1000-fish").migrateManifest({v9Compatible: true});
 <div class="before">
 <h3>V9</h3>
 <pre><code class="lang-json">{
-"name": "1000-fish",
-"title": "1000 Fish"
+  "name": "1000-fish",
+  "title": "1000 Fish"
 }
 </code></pre>
 </div>
 <div class="after">
 <h3>V10</h3>
 <pre><code class="lang-json">{
-"id": "1000-fish",
-"title": "1000 Fish"
-}
-</code></pre>
+  "id": "1000-fish",
+  "title": "1000 Fish"
+}</code></pre>
 </div>
 </section>
 <h2 class="border" id="migration-2-compatibility">Migration 2: compatibility</h2>
@@ -49,40 +48,36 @@ game.modules.get("1000-fish").migrateManifest({v9Compatible: true});
 <div class="before">
 <h3>V9</h3>
 <pre><code class="lang-json">{
-"minimumCoreVersion": 9,
-"compatibleCoreVersion": "9.120"
-}
-</code></pre>
+  "minimumCoreVersion": 9,
+  "compatibleCoreVersion": "9.120"
+}</code></pre>
 </div>
 <div class="after">
 <h3>V10</h3>
 <pre><code class="lang-json">{
-"compatibility": {
-  "minimum": 9,
-  "verified": "9.120"
-}
-}
-</code></pre>
+  "compatibility": {
+    "minimum": 9,
+    "verified": "9.120"
+  }
+}</code></pre>
 </div>
 </section>
 <h3 id="example-1-compatible-with-only-v9">Example 1: Compatible with only V9</h3>
 <pre><code class="lang-json">{
-"compatibility": {
-  "minimum": 9, // Can't be installed before V9
-  "verified": 9, // Verified compatible with all of V9
-  "maximum": 9 // Can't be installed after V9
-}
-}
-</code></pre>
+  "compatibility": {
+    "minimum": 9, // Can't be installed before V9
+    "verified": 9, // Verified compatible with all of V9
+    "maximum": 9 // Can't be installed after V9
+  }
+}</code></pre>
 <h3 id="example-2-compatible-from-0-8-x-to-v9-verified-up-to-9-120">Example 2: Compatible from 0.8.X to V9, verified up to 9.120</h3>
 <pre><code class="lang-json">{
-"compatibility": {
-  "minimum": "0.8.6", // Can't be installed before 0.8.6
-  "verified": "9.120", // Verified compatible up to build 9.120
-  "maximum": 9 // Can't be installed after V9
-}
-}
-</code></pre>
+  "compatibility": {
+    "minimum": "0.8.6", // Can't be installed before 0.8.6
+    "verified": "9.120", // Verified compatible up to build 9.120
+    "maximum": 9 // Can't be installed after V9
+  }
+}</code></pre>
 <h2 class="border" id="migration-3-dependencies-and-systems-to-relationships-">Migration 3: dependencies and systems to relationships</h2>
 <p>Our previous <code>dependencies</code> field is treated as a "hard dependency", but we want to expand in the future to things like optional dependencies. The new <code>relationships</code> field offers us a framework to do this, and offered us a chance to improve how we define System relationships as well.</p>
 <p>While we were doing this, we took advantage of the new <code>Compatibility</code> field to add more clarity to how a Package relates to another Package.</p>
@@ -90,38 +85,36 @@ game.modules.get("1000-fish").migrateManifest({v9Compatible: true});
 <div class="before">
 <h3>V9</h3>
 <pre><code class="lang-json">{
-"systems": [ "dnd5e", "archmage" ],
-"dependencies": [{
-  "name": "_chatcommands",
-  "type": "module",
-  "manifest": "https://github.com/League-of-Foundry-Developers/Chat-Commands-Lib/releases/download/1.2.0/module.json",
-  "version": "1.2.0"
-}]
-}
-</code></pre>
+  "systems": [ "dnd5e", "archmage" ],
+  "dependencies": [{
+    "name": "_chatcommands",
+    "type": "module",
+    "manifest": "https://github.com/League-of-Foundry-Developers/Chat-Commands-Lib/releases/download/1.2.0/module.json",
+    "version": "1.2.0"
+  }]
+}</code></pre>
 </div>
 <div class="after">
 <h3>V10</h3>
 <pre><code class="lang-json">{
-"relationships": {
-  "systems": [{
-    "id": "archmage",
-    "type": "system",
-    "manifest": "https://gitlab.com/asacolips-projects/foundry-mods/archmage/-/raw/1.5.0/system.json",
-    "compatibility": {
-    "verified": "1.5.0"
-  }],
-  "requires": [{
-    "id": "_chatcommands",
-    "type": "module",
-    "manifest": "https://github.com/League-of-Foundry-Developers/Chat-Commands-Lib/releases/download/1.2.0/module.json",
-    "compatibility": {
-    "verified": "1.2.0"
+  "relationships": {
+    "systems": [{
+      "id": "archmage",
+      "type": "system",
+      "manifest": "https://gitlab.com/asacolips-projects/foundry-mods/archmage/-/raw/1.5.0/system.json",
+      "compatibility": {
+      "verified": "1.5.0"
+    }],
+    "requires": [{
+      "id": "_chatcommands",
+      "type": "module",
+      "manifest": "https://github.com/League-of-Foundry-Developers/Chat-Commands-Lib/releases/download/1.2.0/module.json",
+      "compatibility": {
+      "verified": "1.2.0"
+    }
+    }]
   }
-  }]
-  }
-}
-</code></pre>
+}</code></pre>
 </div>
 </section>
 <h3 id="how-package-relationships-install">How Package Relationships install</h3>
@@ -137,62 +130,62 @@ game.modules.get("1000-fish").migrateManifest({v9Compatible: true});
 <p>Alternatively, you can leave behind the critical fields needed by V9 - <code>name</code> and, if your package is only compatible in V10, <code>minimumCoreVersion</code></p>
 <h2 class="border" id="example-full-manifest">Example Full Manifest</h2>
 <pre><code class="lang-json">{
-"id": "vue-encounter-builder",
-"version": "1.0.0",
-"compatibility": {
-  "minimum": "0.7.7",
-  "verified": "0.8.9",
-  "maximum": "9"
+  "id": "vue-encounter-builder",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "0.7.7",
+    "verified": "0.8.9",
+    "maximum": "9"
   },
-"authors": [{
-  "name": "Cody Swendrowski",
-  "url": "https://swendrowski.us",
-  "email": "cody@swendrowski.us",
-  "discord": "cswendrowski#9701"
+  "authors": [{
+    "name": "Cody Swendrowski",
+    "url": "https://swendrowski.us",
+    "email": "cody@swendrowski.us",
+    "discord": "cswendrowski#9701"
   }],
-"relationships": {
-  "systems": [{
-    "id": "toolkit13",
-    "manifest": "https://github.com/Mageflame/Toolkit13/releases/download/latest/system.json",
-    "compatibility": {
-    "minimum": "1.11.0",
-    "verified": "1.14.0",
-    "maximum": "1.15.0"
-    }
+  "relationships": {
+    "systems": [{
+      "id": "toolkit13",
+      "manifest": "https://github.com/Mageflame/Toolkit13/releases/download/latest/system.json",
+      "compatibility": {
+      "minimum": "1.11.0",
+      "verified": "1.14.0",
+      "maximum": "1.15.0"
+      }
   }],
-"requires": [{
-  "id": "dlopen",
-  "type": "module",
-  "manifest": "https://raw.githubusercontent.com/ForgeVTT/fvtt-module-dlopen/master/module.json",
-    "compatibility": {
-    "minimum": "1.2.0",
-    "verified": "1.4.0",
-    "maximum": "2.0.0"
-    }
-    },
-  {
-    "id": "vueport",
+  "requires": [{
+    "id": "dlopen",
     "type": "module",
-    "manifest": "https://raw.githubusercontent.com/ForgeVTT/fvtt-module-vueport/master/module.json"
-    }]
-  },
-"esmodules": [
-  "/scripts/dugeonmoon.js"
-],
-"styles": [
-  "/css/dugeonmoon.css"
-],
-"languages": [{
-  "lang": "en",
-  "name": "English",
-  "path": "languages/en.json",
-  "title": "🌑 Dungeon Moon Encounter Builder",
-  "description": "A fair encounter builder for Foundry"
+    "manifest": "https://raw.githubusercontent.com/ForgeVTT/fvtt-module-dlopen/master/module.json",
+      "compatibility": {
+        "minimum": "1.2.0",
+        "verified": "1.4.0",
+        "maximum": "2.0.0"
+      }
+    },
+    {
+      "id": "vueport",
+      "type": "module",
+      "manifest": "https://raw.githubusercontent.com/ForgeVTT/fvtt-module-vueport/master/module.json"
+      }]
+    },
+  "esmodules": [
+    "/scripts/dugeonmoon.js"
+  ],
+  "styles": [
+    "/css/dugeonmoon.css"
+  ],
+  "languages": [{
+    "lang": "en",
+    "name": "English",
+    "path": "languages/en.json",
+    "title": "🌑 Dungeon Moon Encounter Builder",
+    "description": "A fair encounter builder for Foundry"
   }
 ],
-"url": "https://github.com/cswendrowski/FoundryVTT-Encounter-Builder",
-"update": "https://github.com/cswendrowski/FoundryVTT-Encounter-Builder/releases/latest/module.json",
-"download": "https://github.com/cswendrowski/FoundryVTT-Encounter-Builder/releases/download/1.0.0/module.zip"
+  "url": "https://github.com/cswendrowski/FoundryVTT-Encounter-Builder",
+  "update": "https://github.com/cswendrowski/FoundryVTT-Encounter-Builder/releases/latest/module.json",
+  "download": "https://github.com/cswendrowski/FoundryVTT-Encounter-Builder/releases/download/1.0.0/module.zip"
 }</code></pre>
 <h2 class="border" id="related-links">Related Issues</h2>
 <ul>
