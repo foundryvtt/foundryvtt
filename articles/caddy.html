@@ -61,37 +61,43 @@
 
 <p>Caddy will come with a default configuration that will set it up as a simple web server. You'll need to update that configuration to use it as a reverse proxy.</p>
 
-<p class="note warning">Make sure to update the references to <code>your.hostname.com</code> in the
-    configuration. Without a proper hostname, Caddy will fail to automatically install an SSL
-    certificate from Let's Encrypt. If you don't have your own domain, you can use the
-    dynamic hostname assigned by your hosting provider.</p>
+<p class="note warning">Make sure to update the references to <code>your.hostname.com</code> in the configuration. Without a proper hostname, Caddy will fail to automatically install an SSL certificate from Let's Encrypt. If you don't have your own domain, you can use the dynamic hostname assigned by your hosting provider.</p>
 
-<pre><code class="language-bash"># This replaces the existing content in /etc/caddy/Caddyfile
+<section class="collapsible">
+    <header class="collapsible-header">Caddy Hostname Configuration</header>
+    <div class="collapsible-content">
+        <pre><code class="language-bash"># This replaces the existing content in /etc/caddy/Caddyfile
 
-# A CONFIG SECTION FOR YOUR HOSTNAME
-your.hostname.com {
-    # PROXY ALL REQUEST TO PORT 30000
-    reverse_proxy localhost:30000
-}
-
-# Refer to the Caddy docs for more information:
-# https://caddyserver.com/docs/caddyfile
-</code></pre>
-
+        # A CONFIG SECTION FOR YOUR HOSTNAME
+        your.hostname.com {
+            # PROXY ALL REQUEST TO PORT 30000
+            reverse_proxy localhost:30000
+        }
+        
+        # Refer to the Caddy docs for more information:
+        # https://caddyserver.com/docs/caddyfile
+        </code></pre>
+        </div>
+    </section>
 
 <p>Once you have configured Caddy, there are some configurations for Foundry Virtual Tabletop in the @Article[configuration] article you will also want to apply. Set the following options in your Foundry VTT<code>{userData}/Config/options.json</code> file which will instruct Foundry that the server is running with a proxy server in front of it on port 443.</p>
 <p class="note info">Please be aware that if your Foundry VTT location is hosted at a subfolder location, such as <code>mysite.com/foundryvtt</code>, you will need to define a routePrefix as outlined in the @Article[configuration] article.</p>
-<pre><code class="language-json">"hostname": "your.hostname.com",
-"routePrefix": null,
-"sslCert": null,
-"sslKey": null,
-"port": 30000,
-"proxyPort": 443,
-"proxySSL": true
-</code></pre>
+<section class="collapsible">
+    <header class="collapsible-header">Foundry VTT options.json Configuration</header>
+    <div class="collapsible-content">
+        <pre><code class="language-json">"hostname": "your.hostname.com",
+        "routePrefix": null,
+        "sslCert": null,
+        "sslKey": null,
+        "port": 30000,
+        "proxyPort": 443,
+        "proxySSL": true
+        </code></pre></div>
+    </section>
+
 <p>Once you have configured your reverse proxy, you will want to restart the proxy instance as well as your Foundry VTT instance to ensure that the new settings are active.</p>
 
-<h2 id="administration" class="border">Step 4 &mdash; Caddy Administration</h2>
+<h2 id="administration" class="border">Step 4 - Caddy Administration</h2>
 <p>You can use the <code>service</code> utility to easily manage your Caddy server.</p>
 
 <pre><code class="language-bash"># Check Status
