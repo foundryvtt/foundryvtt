@@ -1,9 +1,8 @@
 <p><a href="https://httpd.apache.org/" title="Apache Web Server" title="_blank">Apache</a> is a popular web server which you may consider using as a proxy server in front of Foundry Virtual Tabletop. There are a number of advantages to using a proxy server like Apache like using a subdomain, using an external port that is different than your Foundry VTT port, stronger access controls, and faster serving of static files. This article provides a basic overview of using Apache with Foundry Virtual Tabletop. There are <em>many advanced options</em> which are not covered here.</p>
 
 <p class="note info">Please note that using a proxy server like Apache, while advantageous for dedicated web hosts, is absolutely not required in order to use Foundry Virtual Tabletop.</p>
-<hr/>
 
-<h3 id="install">Step 1 - Install Apache</h3>
+<h2 id="install" class="border">Step 1 - Install Apache</h2>
 
 <p>Start by installing Apache for your Linux distribution. Some common examples are provided below, but consult the <a href="http://httpd.apache.org/docs/2.4/install.html" title="Apache documentation" target="_blank">Apache documentation</a> for your Linux flavor.</p>
 
@@ -22,9 +21,8 @@ sudo yum -y install httpd
 <pre><code class="language-bash">sudo yum update -y
 sudo yum -y install httpd
 </code></pre>
-<hr/>
 
-<h3 id="configure">Step 2 - Configure Apache</h3>
+<h2 id="configure" class="border">Step 2 - Configure Apache</h2>
 <p>Apache requires a configuration file which defines how the server functions. A functional starting point to begin testing Apache is the following configuration which does not use SSL certificates (we can enable those later). For the purposes of this example we assume that Foundry Virtual Tabletop is running from <code>/home/ec2-user/foundryvtt</code>, but your application installation path may be different, you should adjust the configuration file accordingly.</p>
 
 <p class="note warning">Make sure to update the references to <code>your.hostname</code> in the configuration.</p>
@@ -60,9 +58,8 @@ LimitRequestBody 104857600 # 100MB upload
 "proxyPort": 80
 </code></pre>
 <p>Once you have configured your reverse proxy, you will want to restart the proxy instance as well as your Foundry VTT instance to ensure that the new settings are active.</p>
-<hr/>
 
-<h3 id="control">Step 3 - Start, Stop, and Restart Apache</h3>
+<h2 id="control" class="border">Step 3 - Start, Stop, and Restart Apache</h2>
 <p>You can use the <code>systemctl</code> utility to easily manage your Apache server.</p>
 
 <pre><code class="language-bash"># For Ubuntu and Debian
@@ -75,10 +72,9 @@ sudo systemctl start httpd
 sudo systemctl stop httpd
 sudo systemctl restart httpd
 </code></pre>
-<hr/>
 
-<h3 id="ssl">Step 4 - Add SSL Certificates (Optional)</h3>
-<p>For more advanced usage you can add SSL Certificates for added security. Start by creating SSL Certificates, we recommend <a href="https://certbot.eff.org/instructions" title="Certbot SSL Certificates Instructions" target="_blank">using Certbot</a>. Once your certificates are created, your Apache configuration file will be updated to use port 443 and the SSL certificates you have created.</p>
+<h2 id="ssl" class="border">Step 4 - Add SSL Certificates (Optional)</h2>
+<p>For more advanced usage you can add SSL Certificates for added security. Start by creating SSL Certificates, we recommend <a href="https://certbot.eff.org/instructions" title="Certbot SSL Certificates Instructions" target="_blank">using Certbot</a>, for which our @Article[ssl] article can offer some assistance. Once your certificates are created, your Apache configuration file will be updated to use port 443 and the SSL certificates you have created.</p>
 
 <p class="note warning">Make sure to update the references to <code>your.hostname</code> in the configuration.</p>
 
