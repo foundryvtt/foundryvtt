@@ -26,37 +26,48 @@ sudo yum -y install httpd
 <p>Apache requires a configuration file which defines how the server functions. A functional starting point to begin testing Apache is the following configuration which does not use SSL certificates (we can enable those later). For the purposes of this example we assume that Foundry Virtual Tabletop is running from <code>/home/ec2-user/foundryvtt</code>, but your application installation path may be different, you should adjust the configuration file accordingly.</p>
 
 <p class="note warning">Make sure to update the references to <code>your.hostname</code> in the configuration.</p>
-
-<pre><code class="language-bash"># Apache .conf for reverse proxy of Foundry Virtual Tabletop.
-# Requires mod_proxy mod_proxy_http mod_proxy_wstunnel for WebSocket support.
-# For Ubuntu and Debian this goes in /etc/apache2/apache2.conf
-# For Amazon Linux, CentOS, and RHEL this goes in /etc/httpd/conf/httpd.conf
-
-&lt;VirtualHost *:80&gt;
-    ServerName              your.hostname.com
-
-    # Proxy Server Configuration
-    ProxyPreserveHost       On
-    ProxyPass "/socket.io/" "ws://localhost:30000/socket.io/"
-    ProxyPass /             http://localhost:30000/
-    ProxyPassReverse /      http://localhost:30000/
-&lt;/VirtualHost&gt;
-# Increase the maximum upload limit Apache will allow
-&lt;Location&gt;
-LimitRequestBody 104857600 # 100MB upload
-&lt;/Location&gt;
-</code></pre>
-
+<section class="collapsible"> 
+    <header class="collapsible-header">Apache .conf Hostname Configuration</header> 
+    <div class="collapsible-content">
+        <pre><code class="language-bash"># Apache .conf for reverse proxy of Foundry Virtual Tabletop.
+        # Requires mod_proxy mod_proxy_http mod_proxy_wstunnel for WebSocket support.
+        # For Ubuntu and Debian this goes in /etc/apache2/apache2.conf
+        # For Amazon Linux, CentOS, and RHEL this goes in /etc/httpd/conf/httpd.conf
+        
+        &lt;VirtualHost *:80&gt;
+            ServerName              your.hostname.com
+        
+            # Proxy Server Configuration
+            ProxyPreserveHost       On
+            ProxyPass "/socket.io/" "ws://localhost:30000/socket.io/"
+            ProxyPass /             http://localhost:30000/
+            ProxyPassReverse /      http://localhost:30000/
+        &lt;/VirtualHost&gt;
+        # Increase the maximum upload limit Apache will allow
+        &lt;Location&gt;
+        LimitRequestBody 104857600 # 100MB upload
+        &lt;/Location&gt;
+        </code></pre>
+        </div> 
+</section>
 
 <p>Once you have configured Apache, there are some configurations for Foundry Virtual Tabletop in the @Article[configuration] article you will also want to apply. Set the following options in your Foundry VTT <code>{userData}/Config/options.json</code> file which will instruct Foundry that the server is running with a proxy server in front of it on port 80.</p>
 <p class="note info">Please be aware that if your Foundry VTT location is hosted at a subfolder location, such as <code>mysite.com/foundryvtt</code>, you will need to define a routePrefix as outlined in the @Article[configuration] article.</p>
-<pre><code class="language-json">"hostname": "your.hostname.com",
-"routePrefix": null,
-"sslCert": null,
-"sslKey": null,
-"port": 30000,
-"proxyPort": 80
-</code></pre>
+
+<section class="collapsible"> 
+    <header class="collapsible-header">Foundry VTT options.json Configuration</header> 
+    <div class="collapsible-content">
+        <pre><code class="language-json">"hostname": "your.hostname.com",
+        "routePrefix": null,
+        "sslCert": null,
+        "sslKey": null,
+        "port": 30000,
+        "proxyPort": 80
+        </code></pre>
+        </div> 
+</section>
+
+
 <p>Once you have configured your reverse proxy, you will want to restart the proxy instance as well as your Foundry VTT instance to ensure that the new settings are active.</p>
 
 <h2 id="control" class="border">Step 3 - Start, Stop, and Restart Apache</h2>
@@ -77,35 +88,44 @@ sudo systemctl restart httpd
 <p>For more advanced usage you can add SSL Certificates for added security. Start by creating SSL Certificates, we recommend <a href="https://certbot.eff.org/instructions" title="Certbot SSL Certificates Instructions" target="_blank">using Certbot</a>, for which our @Article[ssl] article can offer some assistance. Once your certificates are created, your Apache configuration file will be updated to use port 443 and the SSL certificates you have created.</p>
 
 <p class="note warning">Make sure to update the references to <code>your.hostname</code> in the configuration.</p>
-
-<pre><code class="language-bash"># Apache .conf for reverse proxy of Foundry Virtual Tabletop.
-# Requires mod_proxy mod_proxy_http mod_proxy_wstunnel for WebSocket support.
-# For Ubuntu and Debian this goes in /etc/apache2/apache2.conf
-# For Amazon Linux, Centos, and RedHat this goes in /etc/httpd/conf/httpd.conf
-
-&lt;VirtualHost *:443&gt;
-    ServerName              your.hostname.com
-
-    # SSL Configuration
-    SSLCertificateKeyFile   "/etc/letsencrypt/live/your.hostname.com/privkey.pem"
-    SSLCertificateFile      "/etc/letsencrypt/live/your.hostname.com/fullchain.pem"
-    Include                 /etc/letsencrypt/options-ssl-apache.conf
-
-    # Proxy Server Configuration
-    ProxyPreserveHost       On
-    ProxyPass "/socket.io/" "ws://localhost:30000/socket.io/"
-    ProxyPass /             http://localhost:30000/
-    ProxyPassReverse /      http://localhost:30000/
-&lt;/VirtualHost&gt;
-</code></pre>
+<section class="collapsible"> 
+    <header class="collapsible-header">Apache .conf SSL Configuration</header> 
+    <div class="collapsible-content">
+        <pre><code class="language-bash"># Apache .conf for reverse proxy of Foundry Virtual Tabletop.
+            # Requires mod_proxy mod_proxy_http mod_proxy_wstunnel for WebSocket support.
+            # For Ubuntu and Debian this goes in /etc/apache2/apache2.conf
+            # For Amazon Linux, Centos, and RedHat this goes in /etc/httpd/conf/httpd.conf
+            
+            &lt;VirtualHost *:443&gt;
+                ServerName              your.hostname.com
+            
+                # SSL Configuration
+                SSLCertificateKeyFile   "/etc/letsencrypt/live/your.hostname.com/privkey.pem"
+                SSLCertificateFile      "/etc/letsencrypt/live/your.hostname.com/fullchain.pem"
+                Include                 /etc/letsencrypt/options-ssl-apache.conf
+            
+                # Proxy Server Configuration
+                ProxyPreserveHost       On
+                ProxyPass "/socket.io/" "ws://localhost:30000/socket.io/"
+                ProxyPass /             http://localhost:30000/
+                ProxyPassReverse /      http://localhost:30000/
+            &lt;/VirtualHost&gt;
+            </code></pre>
+        </div> 
+</section>
 
 <p>Once you have edited the Apache configuration to include your SSL certificates, be sure to do a configuration test before restarting your server. Lastly, there are some additional configuration options for Foundry Virtual Tabletop you will also want to apply. Set the following options in your Foundry VTT <code>{userData}/Config/options.json</code> file which will instruct Foundry that the server is running with a proxy server in front of it on port 443.</p>
 
-<pre><code class="language-json">"hostname": "your.hostname.com",
-"routePrefix": null,
-"sslCert": null,
-"sslKey": null,
-"port": 30000,
-"proxyPort": 443,
-"proxySSL": true
-</code></pre>
+<section class="collapsible"> 
+    <header class="collapsible-header">Foundry VTT options.json SSL Configuration</header> 
+    <div class="collapsible-content">
+        <pre><code class="language-json">"hostname": "your.hostname.com",
+            "routePrefix": null,
+            "sslCert": null,
+            "sslKey": null,
+            "port": 30000,
+            "proxyPort": 443,
+            "proxySSL": true
+            </code></pre>
+        </div> 
+</section>
