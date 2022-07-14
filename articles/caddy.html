@@ -5,7 +5,7 @@
     dedicated web hosts, is absolutely not required in order to use Foundry Virtual Tabletop.</p>
 <hr/>
 
-<h3>Step 1 - Create your Virtual Host</h3>
+<h2 id="vhost" class="border">Step 1 - Create your Virtual Host</h2>
 
 <p>While setting up a virtual server to host Foundry is outside the scope of this tutorial, a few helpful pointers will be included. There are quite a few inexpensive hosting providers available such as:</p>
 
@@ -22,35 +22,44 @@
     you can follow to get your instance created and setup.</p>
 <hr/>
 
-<h3 id="install">Step 2 - Install Caddy</h3>
+<h2 id="install" class="border">Step 2 - Install Caddy</h2>
 
 <p><a href="https://caddyserver.com">Caddy</a> is a web server, similar to Nginx or Apache. However it focuses more on being able to easily setup an HTTPS Proxy. Recently version 2 of Caddy was released and so you will likely want to use that version. You can find instructions for installing it on the more popular distributions below. If you're using a something different, please follow the Caddy <a href="https://caddyserver.com/docs/download" target="_blank">install guide</a>.</p>
 
-<p class="note warning">This guide assumes a basic level of familiarity with the Linux operating
-    system and how to interface with it. If you are brand new to Linux we recommend starting with
-    a beginner's tutorial to the Linux command line before proceeding.</p>
+<p class="note warning">This guide assumes a basic level of familiarity with the Linux operating system and how to interface with it. If you are brand new to Linux we recommend starting with a beginner's tutorial to the Linux command line before proceeding.</p>
 
-<h4>Ubuntu or Debian</h4>
-<pre><code class="language-bash">$ sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https
-$ curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo apt-key add -
-$ curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee -a /etc/apt/sources.list.d/caddy-stable.list
-$ sudo apt update
-$ sudo apt install caddy</code></pre>
+<section class="collapsible">
+    <header class="collapsible-header">Ubuntu or Debian</header>
+    <div class="collapsible-content">
+        <pre><code class="language-bash">$ sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https
+        $ curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo apt-key add -
+        $ curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee -a /etc/apt/sources.list.d/caddy-stable.list
+        $ sudo apt update
+        $ sudo apt install caddy</code></pre>
+        </div>
+    </section>
 
+<section class="collapsible">
+    <header class="collapsible-header">Fedora, Red Hat or CentOS 8</header>
+    <div class="collapsible-content">
+        <pre><code class="language-bash">$ dnf install 'dnf-command(copr)'
+        $ dnf copr enable @caddy/caddy
+        $ dnf install caddy
+        </code></pre>            
+    </div>
+    </section>
 <h4>Fedora, Red Hat or CentOS 8</h4>
-<pre><code class="language-bash">$ dnf install 'dnf-command(copr)'
-$ dnf copr enable @caddy/caddy
-$ dnf install caddy
-</code></pre>
+<section class="collapsible">
+    <header class="collapsible-header">Red Hat or CentOS 7</header>
+    <div class="collapsible-content">
+        <pre><code class="language-bash">$ yum install yum-plugin-copr
+        $ yum copr enable @caddy/caddy
+        $ yum install caddy
+        </code></pre>
+        </div>
+    </section>
 
-<h4>Red Hat or CentOS 7</h4>
-<pre><code class="language-bash">$ yum install yum-plugin-copr
-$ yum copr enable @caddy/caddy
-$ yum install caddy
-</code></pre>
-<hr/>
-
-<h3 id="configure">Step 3 - Configure Caddy</h3>
+<h2 id="configure" class="border">Step 3 - Configure Caddy</h2>
 
 <p>Caddy will come with a default configuration that will set it up as a simple web server. You'll need to update that configuration to use it as a reverse proxy.</p>
 
@@ -86,7 +95,7 @@ your.hostname.com {
 <p>Once you have configured your reverse proxy, you will want to restart the proxy instance as well as your Foundry VTT instance to ensure that the new settings are active.</p>
 <hr/>
 
-<h3 id="administration">Step 4 &mdash; Caddy Administration</h3>
+<h2 id="administration" class="border">Step 4 &mdash; Caddy Administration</h2>
 <p>You can use the <code>service</code> utility to easily manage your Caddy server.</p>
 
 <pre><code class="language-bash"># Check Status
