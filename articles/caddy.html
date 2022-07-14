@@ -3,7 +3,6 @@
 
 <p class="note info">Please note that using a proxy server like Caddy, while advantageous for
     dedicated web hosts, is absolutely not required in order to use Foundry Virtual Tabletop.</p>
-<hr/>
 
 <h2 id="vhost" class="border">Step 1 - Create your Virtual Host</h2>
 
@@ -20,7 +19,6 @@
     processing happens within the client's browser, so the typical $5/month (or lower) plan should be plenty. If you went with Linode, here is a
     <a href="https://www.linode.com/docs/getting-started/" target="_blank">tutorial</a>
     you can follow to get your instance created and setup.</p>
-<hr/>
 
 <h2 id="install" class="border">Step 2 - Install Caddy</h2>
 
@@ -80,7 +78,6 @@ your.hostname.com {
 # https://caddyserver.com/docs/caddyfile
 </code></pre>
 
-<hr/>
 
 <p>Once you have configured Caddy, there are some configurations for Foundry Virtual Tabletop in the @Article[configuration] article you will also want to apply. Set the following options in your Foundry VTT<code>{userData}/Config/options.json</code> file which will instruct Foundry that the server is running with a proxy server in front of it on port 443.</p>
 <p class="note info">Please be aware that if your Foundry VTT location is hosted at a subfolder location, such as <code>mysite.com/foundryvtt</code>, you will need to define a routePrefix as outlined in the @Article[configuration] article.</p>
@@ -93,7 +90,6 @@ your.hostname.com {
 "proxySSL": true
 </code></pre>
 <p>Once you have configured your reverse proxy, you will want to restart the proxy instance as well as your Foundry VTT instance to ensure that the new settings are active.</p>
-<hr/>
 
 <h2 id="administration" class="border">Step 4 &mdash; Caddy Administration</h2>
 <p>You can use the <code>service</code> utility to easily manage your Caddy server.</p>
@@ -110,6 +106,5 @@ sudo service caddy stop
 # Restart Caddy
 sudo service caddy restart
 </code></pre>
-<hr/>
 
 <p>If you have followed these steps you should now be running an SSL reverse proxy redirecting traffic to Foundry VTT, enjoy!</p>
