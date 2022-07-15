@@ -5,66 +5,92 @@
 <p>Start by installing Nginx for your Linux distribution. Some common examples are provided below, but consult the <a title="Nginx documentation" href="https://www.nginx.com/resources/wiki/start/topics/tutorials/install/" target="_blank" rel="nofollow noopener">Nginx documentation</a> for your Linux flavor.</p>
 <p class="note warning">This guide assumes a basic level of familiarity with the Linux operating system and how to interface with it. If you are brand new to Linux we recommend starting with a beginner's tutorial to the Linux command line before proceeding.</p>
 
-<h4>Ubuntu or Debian</h4>
-<pre><code class="language-bash">sudo apt-get update
-sudo apt-get install nginx
-</code></pre>
-<h4>Red Hat or CentOS</h4>
-<pre><code class="language-bash">sudo yum update -y
-sudo yum install nginx
-</code></pre>
-<h4>Amazon Linux 2</h4>
-<pre><code class="language-bash">sudo yum update -y
-sudo amazon-linux-extras install nginx1 -y
-</code></pre>
-<hr />
+<section class="collapsible">
+    <header class="collapsible-header">Ubuntu or Debian</header>
+    <div class="collapsible-content">
+        <pre><code class="language-bash">sudo apt-get update
+        sudo apt-get install nginx
+        </code></pre>
+    </div>
+</section>
+
+<section class="collapsible">
+    <header class="collapsible-header">Red Hat or CentOS</header>
+    <div class="collapsible-content">
+        <pre><code class="language-bash">sudo yum update -y
+        sudo yum install nginx
+        </code></pre>
+    </div>
+</section>
+
+<section class="collapsible">
+    <header class="collapsible-header">Amazon Linux 2</header>
+    <div class="collapsible-content">
+        <pre><code class="language-bash">sudo yum update -y
+        sudo amazon-linux-extras install nginx1 -y
+        </code></pre>
+        </div>
+    </section>
+
 <h2 class="border" id="configure">Step 2 - Configure Nginx</h2>
 <p>Nginx requires a configuration file which defines how the server functions. A functional starting point to begin testing Nginx is the following configuration which does not use SSL certificates (we can enable those later). For the purposes of this example we assume that Foundry Virtual Tabletop is running from <code>/home/ec2-user/foundryvtt</code>, but your application installation path may be different, you should adjust the configuration file accordingly.</p>
 <p class="note warning">Make sure to update the references to <code>your.hostname.com</code> in the configuration.</p>
-<pre><code class="language-bash"># This goes in a file within /etc/nginx/sites-available/. By convention,
-# the filename would be either "your.domain.com" or "foundryvtt", but it
-# really does not matter as long as it's unique and descriptive for you.
+<section class="collapsible">
+    <header class="collapsible-header">Nginx Host Configuration</header>
+    <div class="collapsible-content">
+        <pre><code class="language-bash"># This goes in a file within /etc/nginx/sites-available/. By convention,
+        # the filename would be either "your.domain.com" or "foundryvtt", but it
+        # really does not matter as long as it's unique and descriptive for you.
+        
+        # Define Server
+        server {
+        
+            # Enter your fully qualified domain name or leave blank
+            server_name             your.hostname.com;
+        
+            # Listen on port 80 without SSL certificates
+            listen                  80;
+        
+            # Sets the Max Upload size to 300 MB
+            client_max_body_size 300M;
+        
+            # Proxy Requests to Foundry VTT
+            location / {
+        
+                # Set proxy headers
+                proxy_set_header Host $host;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+        
+                # These are important to support WebSockets
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "Upgrade";
+        
+                # Make sure to set your Foundry VTT port number
+                proxy_pass http://localhost:30000;
+            }
+        }
+        </code></pre>
+    </div>
+    </section>
 
-# Define Server
-server {
-
-    # Enter your fully qualified domain name or leave blank
-    server_name             your.hostname.com;
-
-    # Listen on port 80 without SSL certificates
-    listen                  80;
-
-    # Sets the Max Upload size to 300 MB
-    client_max_body_size 300M;
-
-    # Proxy Requests to Foundry VTT
-    location / {
-
-        # Set proxy headers
-        proxy_set_header Host $host;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-
-        # These are important to support WebSockets
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "Upgrade";
-
-        # Make sure to set your Foundry VTT port number
-        proxy_pass http://localhost:30000;
-    }
-}
-</code></pre>
 <p>Once you have configured Nginx, there are some configurations for Foundry Virtual Tabletop in the @Article[configuration] article you will also want to apply. Set the following options in your Foundry VTT <code>{userData}/Config/options.json</code> file which will instruct Foundry that the server is running with a proxy server in front of it on port 80.</p>
 <p class="note warn"> This is where you should update any port-forwarding or access control rules to allow connection to your server on the ports you are allowing through NGINX. For more information please see: @Article[port-forwarding]</p>
 </p>
 <p class="note info">Please be aware that if your Foundry VTT location is hosted at a subfolder location, such as <code>mysite.com/foundryvtt</code>, you will need to define a routePrefix as outlined in the @Article[configuration] article.</p>
-<pre><code class="language-json">"hostname": "your.hostname.com",
-"routePrefix": null,
-"sslCert": null,
-"sslKey": null,
-"port": 30000,
-"proxyPort": 80
-</code></pre>
+<section class="collapsible">
+    <header class="collapsible-header">Foundry VTT options.json Configuration</header>
+    <div class="collapsible-content">
+        <pre><code class="language-json">"hostname": "your.hostname.com",
+        "routePrefix": null,
+        "sslCert": null,
+        "sslKey": null,
+        "port": 30000,
+        "proxyPort": 80
+        </code></pre>
+    </div>
+    </section>
+
 <p>Once you have configured your reverse proxy, you will want to restart the proxy instance as well as your Foundry VTT instance to ensure that the new settings are active.</p>
 <hr />
 <h2 class="border" id="control">Step 3 - Start, Stop, and Restart Nginx</h2>
@@ -86,62 +112,73 @@ sudo service nginx restart
 </code></pre>
 <hr />
 <h2 class="border" id="ssl">Step 4 - Add SSL Certificates (Optional)</h2>
-<p>For more advanced usage you can add SSL Certificates for added security. Start by creating SSL Certificates, we recommend <a title="Certbot SSL Certificates Instructions" href="https://certbot.eff.org/instructions" target="_blank" rel="nofollow noopener">using Certbot</a>. Once your certificates are created, your Nginx configuration file will be updated to use port 443 and the SSL certificates you have created.</p>
+<p>For more advanced usage you can add SSL Certificates for added security. Start by creating SSL Certificates, we recommend <a href="https://certbot.eff.org/instructions" title="Certbot SSL Certificates Instructions" target="_blank">using Certbot</a>, for which our @Article[ssl] article can offer some assistance. Once your certificates are created, your Nginx configuration file will be updated to use port 443 and the SSL certificates you have created.</p>
 <p class="note warning">Make sure to update the references to <code>your.hostname.com</code> in the configuration.</p>
-<pre><code class="language-bash"># This goes in a file within /etc/nginx/sites-available/. By convention,
-# the filename would be either "your.domain.com" or "foundryvtt", but it
-# really does not matter as long as it's unique and descriptive for you.
+<section class="collapsible">
+    <header class="collapsible-header">Nginx SSL Configuration</header>
+    <div class="collapsible-content">
+        <pre><code class="language-bash"># This goes in a file within /etc/nginx/sites-available/. By convention,
+        # the filename would be either "your.domain.com" or "foundryvtt", but it
+        # really does not matter as long as it's unique and descriptive for you.
+        
+        # Define Server
+        server {
+        
+            # Enter your fully qualified domain name or leave blank
+            server_name             your.hostname.com;
+        
+            # Listen on port 443 using SSL certificates
+            listen                  443 ssl;
+            ssl_certificate         "/etc/letsencrypt/live/your.hostname.com/fullchain.pem";
+            ssl_certificate_key     "/etc/letsencrypt/live/your.hostname.com/privkey.pem";
+        
+            # Sets the Max Upload size to 300 MB
+            client_max_body_size 300M;
+        
+            # Proxy Requests to Foundry VTT
+            location / {
+        
+                # Set proxy headers
+                proxy_set_header Host $host;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+        
+                # These are important to support WebSockets
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "Upgrade";
+        
+                # Make sure to set your Foundry VTT port number
+                proxy_pass http://localhost:30000;
+            }
+        }
+        
+        # Optional, but recommend. Redirects all HTTP requests to HTTPS for you
+        server {
+            if ($host = your.hostname.com) {
+                return 301 https://$host$request_uri;
+            }
+        
+            listen 80;
+            listen [::]:80;
+        
+            server_name your.hostname.com;
+            return 404;
+        }
+        </code></pre>
+    </div>
+</section>
 
-# Define Server
-server {
-
-    # Enter your fully qualified domain name or leave blank
-    server_name             your.hostname.com;
-
-    # Listen on port 443 using SSL certificates
-    listen                  443 ssl;
-    ssl_certificate         "/etc/letsencrypt/live/your.hostname.com/fullchain.pem";
-    ssl_certificate_key     "/etc/letsencrypt/live/your.hostname.com/privkey.pem";
-
-    # Sets the Max Upload size to 300 MB
-    client_max_body_size 300M;
-
-    # Proxy Requests to Foundry VTT
-    location / {
-
-        # Set proxy headers
-        proxy_set_header Host $host;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-
-        # These are important to support WebSockets
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "Upgrade";
-
-        # Make sure to set your Foundry VTT port number
-        proxy_pass http://localhost:30000;
-    }
-}
-
-# Optional, but recommend. Redirects all HTTP requests to HTTPS for you
-server {
-    if ($host = your.hostname.com) {
-        return 301 https://$host$request_uri;
-    }
-
-    listen 80;
-	listen [::]:80;
-
-    server_name your.hostname.com;
-    return 404;
-}
-</code></pre>
 <p>Once you have edited the Nginx configuration to include your SSL certificates, be sure to do a configuration test before restarting your server. Lastly, there are some additional configuration options for Foundry Virtual Tabletop you will also want to apply. Set the following options in your Foundry VTT <code>{userData}/Config/options.json</code> file which will instruct Foundry that the server is running with a proxy server in front of it on port 443.</p>
-<pre><code class="language-json">"hostname": "your.hostname.com",
-"routePrefix": null,
-"sslCert": null,
-"sslKey": null,
-"port": 30000,
-"proxyPort": 443,
-"proxySSL": true
-</code></pre>
+<section class="collapsible">
+    <header class="collapsible-header">Foundry VTT options.json SSL Configuration</header>
+    <div class="collapsible-content">
+        <pre><code class="language-json">"hostname": "your.hostname.com",
+        "routePrefix": null,
+        "sslCert": null,
+        "sslKey": null,
+        "port": 30000,
+        "proxyPort": 443,
+        "proxySSL": true
+        </code></pre>
+    </div>
+</section>
