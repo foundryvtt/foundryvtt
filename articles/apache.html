@@ -7,21 +7,29 @@
 <p>Start by installing Apache for your Linux distribution. Some common examples are provided below, but consult the <a href="http://httpd.apache.org/docs/2.4/install.html" title="Apache documentation" target="_blank">Apache documentation</a> for your Linux flavor.</p>
 
 <p class="note warning">This guide assumes a basic level of familiarity with the Linux operating system and how to interface with it. If you are brand new to Linux we recommend starting with a beginner's tutorial to the Linux command line before proceeding.</p>
-
-<h4>Ubuntu or Debian</h4>
-<pre><code class="language-bash">sudo apt install apache2
-</code></pre>
-
-<h4>Red Hat or CentOS</h4>
-<pre><code class="language-bash">sudo yum update -y
-sudo yum -y install httpd
-</code></pre>
-
-<h4>Amazon Linux 2</h4>
-<pre><code class="language-bash">sudo yum update -y
-sudo yum -y install httpd
-</code></pre>
-
+<section class="collapsible">
+    <header class="collapsible-header">Ubuntu or Debian</header>
+    <div class="collapsible-content">
+        <pre><code class="language-bash">sudo apt install apache2
+        </code></pre>
+    </div>
+</section>
+<section class="collapsible">
+    <header class="collapsible-header">Red Hat or CentOS</header>
+    <div class="collapsible-content">
+        <pre><code class="language-bash">sudo yum update -y
+        sudo yum -y install httpd
+        </code></pre>
+    </div>
+</section>
+<section class="collapsible">
+    <header class="collapsible-header">Amazon Linux 2</header>
+    <div class="collapsible-content">
+        <pre><code class="language-bash">sudo yum update -y
+        sudo yum -y install httpd
+        </code></pre>
+    </div>
+</section>
 <h2 id="configure" class="border">Step 2 - Configure Apache</h2>
 <p>Apache requires a configuration file which defines how the server functions. A functional starting point to begin testing Apache is the following configuration which does not use SSL certificates (we can enable those later). For the purposes of this example we assume that Foundry Virtual Tabletop is running from <code>/home/ec2-user/foundryvtt</code>, but your application installation path may be different, you should adjust the configuration file accordingly.</p>
 
