@@ -1,0 +1,62 @@
+<p>A new @APIV10[classes/client.FontConfig] <code>Application</code> has been added in version 10 to allow Gamemasters to configure custom fonts to use in their world. In order to provide the necessary functionality for this feature, the old <code>CONFIG.fontFamilies</code> configuration variable has been deprecated in favor of an expanded <code>CONFIG.fontDefinitions</code> configuration.</p>
+
+<h2 id="declaring-fonts" class="border">Declaring Fonts Programmatically</h2>
+Previously, additional font families were added to the <code>CONFIG.fontFamilies</code> array, and it was up to the package in question to load the actual font files that provided these fonts. When configuring <code>CONFIG.fontDefinitions</code>, the core API will take care of loading fonts for you, using the <a href="https://developer.mozilla.org/en-US/docs/Web/API/FontFace">FontFace</a> API.
+
+<h3>Anatomy of a Font Definition</h3>
+<p>The <code>CONFIG.fontDefinitions</code> object holds font family definitions keyed by the font family name. Each definition has two properties:</p>
+
+<ul>
+    <li><code>editor</code> controls whether this font family is available for users to select in the UI, either in the rich text editor, or for notes and drawings.</li>
+    <li><code>fonts</code> contains the actual configuration for loading the font with the <a href="https://developer.mozilla.org/en-US/docs/Web/API/FontFace">FontFace</a> API.</li>
+</ul>
+
+<h3>Configuring an OS-provided Font</h3>
+<p>A font definition entry that doesn't specify any font definitions will be considered provided by the individual user's OS.</p>
+
+<pre><code class="lang-js">CONFIG.fontDefinitions["Calibri"] = {
+  editor: true,
+  fonts: []
+};</code></pre>
+
+<h3>Configuring a Font Family</h3>
+<p>A single font definition entry may contain multiple fonts, each pointing to one or more URLs. If the font family has a different file for the bold and italic versions of the font, each of them should be included as part of the same definition.</p>
+
+<pre><code class="lang-js">CONFIG.fontDefinitions["Roboto"] = {
+  editor: true,
+  fonts: [
+    {urls: ["assets/fonts/Roboto.woff2"]},
+    {urls: ["assets/fonts/RobotoBold.woff2"], weight: 700},
+    {urls: ["assets/fonts/RobotoItalic.woff2"], style: "italic"}
+  ]
+};</code></pre>
+
+<h3>Fallback URLs</h3>
+<p>Multiple URLs may be provided as part of the same font definition. The URLs are tried in-order, with the first one to successfully load being used.</p>
+
+<pre><code class="lang-js">CONFIG.fontDefinitions["Roboto"] = {
+  editor: true,
+  fonts: [
+    {
+      urls: [
+        "assets/fonts/Roboto.woff2",
+        "https://fonts.gstatic.com/s/roboto/v30/Roboto.woff2"
+      ]
+    }
+  ]
+};</code></pre>
+
+<h3>Loading Fonts</h3>
+<p>Font definitions added to <code>CONFIG.fontDefinitions</code> before the <code>setup</code> hook will be automatically loaded as part of world initialization. Font definitions may be loaded ad-hoc after the <code>setup</code> hook by invoking <code>FontConfig.loadFont</code>. Note that if there are drawings on the active scene that use a custom font that has not been loaded in the <code>setup</code> hook, the behavior is undefined.</p>
+
+<pre><code class="lang-js">FontConfig.loadFont("Roboto", {
+  editor: true,
+  fonts: [{urls: "assets/fonts/Roboto.woff2"}]
+});</code></pre>
+
+<h3>Checking Font Availability</h3>
+<p>Checking if a font definition has successfully loaded and is available to users via the UI can be done by invoking <code>FontConfig.getAvailableFonts()</code>, which will return an array of loaded font families.</p>
+
+<p>More nuanced checks, such as determining if the bold weight of a particular font family is available specifically, or checking if a font family is available in the world in general, and not necessarily available to users via the UI, can be done with the general <a href="https://developer.mozilla.org/en-US/docs/Web/API/FontFaceSet">FontFaceSet</a> API.</p>
+
+<pre><code class="lang-js">document.fonts.check("bold 1rem Roboto");</code></pre>
