@@ -131,10 +131,10 @@
   // infrastructure.
 
   // You may append additional plugins to the editor before it is created:
-  plugins.push(MyProseMirrorPlugin.build());
+  plugins.myPlugin = MyProseMirrorPlugin.build();
 
-  // You may swap out the default menu plugin with your own plugin or a ProseMirrorMenu with different options.
-  options.menuPlugin = ProseMirror.ProseMirrorMenu.build(mySchema);
+  // Or swap out a default plugin with your own plugin or one with different options.
+  plugins.menu = ProseMirror.ProseMirrorMenu.build(mySchema);
 
   // You may swap out the editor state with different content or a ProseMirror document that uses a different schema.
   const parser = ProseMirror.DOMParser.fromSchema(mySchema);
