@@ -16,11 +16,19 @@ body:
       value: "A bug happened!"
     validations:
       required: true
+  - type: checkboxes
+    id: app-type
+    attributes:
+      label: What ways of accessing Foundry can you encounter this issue in?
+      options:
+        - Native App (Electron)
+        - Chrome
+        - Firefox
   - type: textarea
     id: repro-steps
     attributes:
       label: Reproduction Steps
-      description: Keep them simple, include screenshots as needed
+      description: Keep them simple, include screenshots as needed. Note what System(s) you tested in, if relevant.
       placeholder: To encounter the bug, first open up...
       value: "Step 1:"
     validations:
@@ -44,7 +52,7 @@ body:
     id: checkboxes
     attributes:
       label: Bug Checklist
-    options:
-      - label: The issue occurs while all Modules are disabled
+      options:
+        - label: The issue occurs while all Modules are disabled
     validations:
       required: true
