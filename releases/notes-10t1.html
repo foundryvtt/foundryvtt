@@ -36,8 +36,10 @@
         <li>Journal pages now provide a more clear UI appearance as to which group of pages and their subheaders are "active". The "table of contents" for the set of active pages is now displayed rather than a single active page. <a href="https://github.com/foundryvtt/foundryvtt/issues/7406" target="_blank">(7406)</a></li>
         <li>Journal table of contents generation now uses a somewhat more dynamic approach to detection, including <code>h1</code> elements as well. However, it is recommended that for the purposes of accessibility, Journal pages should refrain from defining an H1, as the 'page title' should be considered the <code>h1</code> for semantic purposes. <a href="https://github.com/foundryvtt/foundryvtt/issues/7438" target="_blank">(7438)</a></li>
         <li>The "Download" and "Print" options for the PDF Viewer provided by Journal Pages of the "PDF" type have been disabled. <a href="https://github.com/foundryvtt/foundryvtt/issues/7416" target="_blank">(7416)</a></li>
-        <li>When creating a document the name field is now pre-populated with a semi-unique name of "documentType #" to support more rapid creation of documents. <a href="https://github.com/foundryvtt/foundryvtt/issues/7562">(7562)</a></li>
+        <li>When creating a document without a name, it is now pre-populated with a semi-unique name of "documentType #" to support more rapid creation of documents. <a href="https://github.com/foundryvtt/foundryvtt/issues/7562">(7562)</a></li>
         <li>Foundry will now attempt to improve the default resolution scaling setting by guessing whether the user has a retina display and, if so, reducing the resolution by half in order to improve performance. <a href="https://github.com/foundryvtt/foundryvtt/issues/6879" target="_blank">(6879)</a></li>
+        <li><code>select</code> and <code>option</code> elements now inherit <code>font-family</code> from their parents. <a href="https://github.com/foundryvtt/foundryvtt/issues/6443" target="_blank">(6443)</a></li>
+        <li>Added a <code>requiresReload</code> configuration option when registering a setting to indicate that the user should be prompted to reload the application when changing this setting. Added <code>SettingsConfig.reloadConfirm</code> that can be used to prompt the user for this. <a href="https://github.com/foundryvtt/foundryvtt/issues/6472" target="_blank">(6472)</a></li>
     </ul>
     <h3 id="features-canvas" class="category-header">The Game Canvas</h3>
     <ul>
@@ -53,6 +55,10 @@
         <li>A number of control interface icon elements now have alt-text provided to improve accessibility for screen readers. <a href="https://github.com/foundryvtt/foundryvtt/issues/5386" target="_blank">(5386)</a></li>
         <li>The players list and pause-indicator elements now use more semantic HTML, improving accessibility for screen readers. <a href="https://github.com/foundryvtt/foundryvtt/issues/5502" target="_blank">(5502)</a></li>
         <li>Users may now use the hotkey <code>shift + c</code> to focus the chat input. <a href="https://github.com/foundryvtt/foundryvtt/issues/6283" target="_blank">(6283)</a></li>
+    </ul>
+    <h3 id="features-other" class="category-header">Other Changes</h3>
+    <ul>
+        <li>Added the <code>protocol</code> option to the <code>options.json</code> configuration file to control which IP version is used when the application starts up. <a href="https://github.com/foundryvtt/foundryvtt/issues/6506" target="_blank">(6506)</a></li>
     </ul>
 </section>
 <section id="api">
@@ -73,6 +79,10 @@
         <li>The <code>CanvasColorManager#initialize</code> function now supports additional configuration parameters to temporarily override the appearance of a Scene. <a href="https://github.com/foundryvtt/foundryvtt/issues/7509" target="_blank">(7509)</a></li>
         <li><code>Tile#containsPixel</code> now contains an optional <code>alphaThreshold</code> parameter and, additionally, the new public method <code>getPixelAlpha()</code> has been introduced. <a href="https://github.com/foundryvtt/foundryvtt/issues/7516" target="_blank">(7516)</a></li>
     </ul>
+    <h3 id="api-other" class="category-header">Other Changes</h3>
+    <ul>
+        <li>Added <code>foundry.utils.debouncedReload</code> utility that can be used to globally debounce an application reload across different modules and systems. <a href="https://github.com/foundryvtt/foundryvtt/issues/6626" target="_blank">(6626)</a></li>
+    </ul>
 </section>
 <section id="bugs">
 <h2 class="section-header border">Bug Fixes</h2>
@@ -84,6 +94,7 @@
         <li>Journal Entry applications should no longer fail to properly render after being restored from a minimized state. <a href="https://github.com/foundryvtt/foundryvtt/issues/7505" target="_blank">(7505)</a></li>
         <li>Loading a world without any scenes active should no longer result in an error related to <code>configureColors</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/7539" target="_blank">(7539)</a></li>
         <li>Creating a scene in a world that has no active scene should properly activate that scene once again. <a href="https://github.com/foundryvtt/foundryvtt/issues/7540" target="_blank">(7540)</a></li>
+        <li>Updating a document's ID should now be possible so long as it was <code>null</code> before the update. <a href="https://github.com/foundryvtt/foundryvtt/issues/7571" target="_blank">(7571)</a></li>
     </ul>
     <h3 id="bugs-apps" class="category-header">Applications and User Interface</h3>
     <ul>
