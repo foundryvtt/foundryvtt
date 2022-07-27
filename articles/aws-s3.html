@@ -38,7 +38,10 @@
 <p>Before you can store files in S3, you need to configure a bucket to work with.</p>
 
 <p>Take care how you name your S3 Bucket, the bucket name can only contain lowercase letters, numbers, and dashes and must be globally unique across all AWS regions and accounts. Do not use <code>.</code> in the name as it will cause issues with HTTPS certificates, more info is provided here: <a title="AWS S3 VirtualHosting" href="http://docs.aws.amazon.com/AmazonS3/latest/dev/VirtualHosting.html" target="_blank" rel="nofollow noopener">AWS S3 VirtualHosting</a>.</p>
-<p></p>
+
+<section class="collapsible">
+    <header class="collapsible-header" id="certbot-linux">Using AWS S3 to Create a Bucket</header>
+<div class="collapsible-content">
 <ol>
     <li>Click Services in the upper left hand corner.</li>
     <li>Under the "Storage" heading, choose "S3"</li>
@@ -49,7 +52,8 @@
     <li>On the Buckets dashboard of the S3 Console, select your bucket and click the "Copy ARN" button. </li>
     <li>Paste your ARN into a notepad, you will need it to complete JSON configuration files later.</li>
 </ol>
-
+</div>
+</section>
 <p class="note warning">Foundry VTT presently requires buckets to be public in order to function. You should not upload anything to these buckets which may be private or confidential as they will be accessible to anyone with the link.</p>
 
 <h3>Configuring a Bucket Policy</h3>
@@ -71,8 +75,7 @@
 
 <h3 id="cors">Enabling Cross-Origin Resource Sharing (CORS)</h3>
 <p>In order to use assets out of your S3 bucket from Foundry VTT you will need to set a CORS policy. To do this, navigate to the <strong>Permissions</strong> tab on the S3 bucket management panel. Under the <strong>Cross-origin resource sharing (CORS)</strong> section apply the following policy:</p>
-<pre><code class="language-json">
-[
+<pre><code class="language-json">[
     {
         "AllowedOrigins": ["*"],
         "AllowedHeaders": ["*"],
@@ -99,9 +102,10 @@
     <li>Click next and skip the tags section to reach "Review", where you will assign this policy an easy-to-find name such as FVTT-s3-access</li>
     <li>Click "Create Policy"</li>
 </ol>
-<p>Example S3 Access Policy</p>
-<pre><code class="language-json">
-{
+<section class="collapsible">
+    <header class="collapsible-header" id="certbot-linux">Example S3 Access Policy</header>
+<div class="collapsible-content">
+<pre><code class="language-json">{
     "Version": "2012-10-17",
     "Statement": [
         {
@@ -128,6 +132,9 @@
     ]
 }
 </code></pre>
+</div>
+</section>
+
 <p class="note info">Be sure to replace "(YOUR_ARN_HERE)" with the ARN you copied previously. </p>
 <p>This policy allows the AWS user to:</p>
 <ul>
@@ -137,7 +144,7 @@
 </ul>
 <p>Your policy can be modified to allow access to a different set of buckets depending on your use case and needs.</p>
 
-<h4 id="access">Allowing User Access</h4>
+<h3 id="access">Allowing User Access</h4>
 <p>If you wish for your players or co-GMs to be able to access the contents of your S3 buckets through FVTT, simply configuring access to the file browser and to allow uploads should be sufficient assuming you have configured the bucket permissions in accordance with the above configuration.</p>
 <p>The permission controls on your AWS bucket are used to restrict the ability to upload content only. To use uploaded content in a game session, all players must have access to read the files in your bucket. You can either accomplish this by making your entire bucket public access (as we have done above), specifically assigning a public-read ACL to each uploaded key (Uploading using Foundry VTT does this automatically assuming you have configured the policies as above), or by specifically authorizing individual IP addresses of your players for the bucket (advanced, requiring knowledge of your users IP addresses).</p>
 
