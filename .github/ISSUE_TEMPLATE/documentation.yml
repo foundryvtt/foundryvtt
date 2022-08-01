@@ -1,0 +1,53 @@
+name: Documentation errors & requests
+description: Let us know about typos and goofs in our site, documentation or API documentation blocks
+labels: ["documentation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to report a mistake or discrepancy with the core Foundry software site,
+        documentation, or code documentation comments.
+  - type: dropdown
+    id: course-where
+    attributes:
+      label: Where did you find it, or where does it belong for requests?
+      options: 
+       - Main Foundry site (not package listings)
+       - V10 API Documentation (https://foundryvtt.com/api/v10/)
+       - V9 API Documentation (https://foundryvtt.com/api/)
+       - Code documentation comments (foundry.js)
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        Any issues with the content on pages for packages should be addressed to the authors
+        of said packages, even for premium content. For premium content managed directly by
+        the Foundry team, [which are all listed here][1], issues should be [submitted here][2].
+        For all other packages, please see the page for the package in question and look for
+        either the project URL (found after the description, but right before the version list)
+        or for a support link in the description.
+
+        [1]: https://github.com/foundryvtt/foundryvtt-premium-content/blob/main/README.md
+        [2]: https://github.com/foundryvtt/foundryvtt-premium-content/issues
+  - type: input
+    id: fine-where
+    attributes:
+      label: What page or file needs a look at?
+      description: For existing documentation, paste the URL or file path of a script so we can see it.
+      placeholder: https://foundryvtt.com/[...] resource/app/scripts/[...]
+  - type: input
+    id: version
+    attributes:
+      label: What core version are you reporting this for?
+      description:  For the API code documentation comments in scripts. Include, at minimum, the build number
+      placeholder: Version 10 Testing 1 (build 274)
+      value: "Version 10 Testing 1 (build 274)"
+  - type: textarea
+    id: whats-wrong
+    attributes:
+      label: What is wrong, in your opinion?
+      description: Also tell us, what did you expect to see or for something to be?
+      placeholder: Tell us what you see!
+    validations:
+      required: true
