@@ -1,8 +1,7 @@
 <p>This page provides an overview and tutorial of the basic steps required to create an entire Game System from scratch as a module which can be used for your homebrew games or shared with other players.</p>
 <p>As an example of a fairly feature-complete game system implementation - please feel free to examine the D&amp;D5e system which has open source code: <a href="https://github.com/foundryvtt/dnd5e" target="_blank" rel="nofollow noopener">https://github.com/foundryvtt/dnd5e</a></p>
-<hr />
 
-<h2 id="foreword">Before you Begin</h2>
+<h2 class="border" id="foreword">Before you Begin</h2>
 <p>Game system development in Foundry Virtual Tabletop is both rewarding and challenging. If you are considering this process, we encourage you to consider the following advice:</p>
 <ul>
 	<li>Building a game system in FVTT requires a few skills: at least some basic knowledge of JavaScript, HTML, and CSS are required. You do not need to be an expert web developer, but understanding the basics of these languages is critical.</li>
@@ -10,35 +9,34 @@
 	<li>Make progress one piece at a time. A game system is comprised of many component parts both within and outside of Foundry VTT. We recommend starting with the data model in the <code>template.json</code> file - but don't worry about adding every attribute at first - you can always expand the data model later. Consider starting with a simple model which captures the minimum and most important pieces of Actor or Item data. Breaking your system down into smaller pieces will make the construction process easier and less overwhelming.</li>
 	<li>Consider using the "Simple Worldbuilding" system as a stop-gap while your own system is still under development. This will allow you and your players to enjoy using the Virtual Tabletop while you work on completing your own system. When the time comes, the data for your World can be moved to your completed system.</li>
 </ul>
-<hr />
 
-<h2 id="structure">System File Structure</h2>
+<h3 id="structure">System File Structure</h3>
 <p>Each game system is a subdirectory within the <code>{userData}/Data/systems</code> path of your Foundry Virtual Tabletop user data location. When developing a new system, we recommend creating your git repository directly within this location for ease of development and testing. Within this directory there are two required files: <code>system.json</code> and <code>template.json</code> which are each explained below. You are free to use your own naming conventions for subdirectories and files within your game system, but we encourage you to use lower-case hyphen-separated file and folder names as a best practice.</p>
-<p>A standard example file structure for a minimal system might look like this:</p><pre><code class="language-plaintext">{userData}/Data/systems/mysystem/
-    system.json
-    template.json
-    scripts/
-        system-script.js
-        system-module.mjs
-    styles/
-        system-styles.css
-    packs/
-        monsters.db
-        items.db
-	lang/
-	    en.json
-</code></pre>
+<p>A standard example file structure for a minimal system might look like this:</p>
+<pre><code class="language-plaintext">{userData}/Data/systems/mysystem/
+system.json
+template.json
+scripts/
+	system-script.js
+	system-module.mjs
+styles/
+	system-styles.css
+packs/
+	monsters.db
+	items.db
+lang/
+	en.json</code></pre>
 <p>There are three ways to share a created system with others:</p>
 <ol>
 	<li><strong>Manual Install</strong>: You may package the system directory directly into a .zip file which users can extract within their own systems folder.</li>
 	<li><strong>Manifest Install</strong>: Instead of transacting the .zip file directly, you can host that file in a publicly accessible location and provide users with the URL to the system manifest file, which can automate the installation process.</li>
 	<li><strong>Foundry Package Browser</strong>: You can also configure your system to appear within the in-app system browser which will allow Foundry VTT users to install your system with a single click. This requires the package to be submitted to our <a href="https://foundryvtt.com/packages/submit" title="Submit new Game System" target="_blank">website listing</a>.</li>
 </ol>
-<hr />
 
-<h2 id="manifest">The System Manifest</h2>
-<p>Each game system must include a <code>system.json</code> file which provides the system specification. This file is required and must be included at the root level of your system folder. The system folder itself must match the <code>"name"</code> attribute designated within the specification file. For example, if we create a game system with the name <code>mysystem</code>, then we would create the file <code>{userData}/Data/systems/mysystem/system.json</code>.</p> <pre><code class="language-json">{
-  "name": "mysystem",
+<h2 class="border" id="manifest">The System Manifest</h2>
+<p>Each game system must include a <code>system.json</code> file which provides the system specification. This file is required and must be included at the root level of your system folder. The system folder itself must match the <code>"id"</code> attribute designated within the specification file. For example, if we create a game system with the name <code>mysystem</code>, then we would create the file <code>{userData}/Data/systems/mysystem/system.json</code>.</p>
+<pre><code class="language-json">{
+  "id": "mysystem",
   "title": "Minimal World Building",
   "description": "Many details here.",
   "version": "1.0.0",
@@ -69,7 +67,7 @@
       "type": "Item"
     }
   ],
-  "languages": [
+"languages": [
     {
       "lang": "en",
       "name": "English",
@@ -85,171 +83,196 @@
   "url": "https://your/hosted/system/repo/",
   "manifest": "https://your/hosted/system/repo/system.json",
   "download": "https://your/packaged/download/archive.zip"
-}
-</code></pre>
+}</code></pre>
+<section class="collapsible">
+<header id="requirements" class="collapsible-header">Required Manifest Attributes</header>
+<div class="collapsible-content">
 <dl>
-	<dt>name</dt>
-	<dd>
-		<p>Choose a unique system identifier. This should be an all lower-case string with no special characters. This name must align with the name of the parent directory within which you create the system.</p>
-	</dd>
-	<dt>title</dt>
-	<dd>
-		<p>Provide a human readable title for the game system which is displayed when selecting from available systems in the World creation menu.</p>
-	</dd>
-	<dt>description</dt>
-	<dd>
-		<p>This field can contain a more lengthy description of the game system. This text will be used to display help or contact information about your system and is also a good place to include any special licensing or attribution information that you need to distribute.</p>
-	</dd>
-	<dt>version</dt>
-	<dd>
-		<p>The system version number can be a number or a string depending on what versioning scheme you prefer to use. You should always increment the system version number if you make changes to the Data Template which is described below. When the system version is changed, the platform will automatically migrate all content to match the new Data Template schema.</p>
-	</dd>
-	<dt>author</dt>
-	<dd>
-		<p>Provide your name as the system creator. This field can be any string if you wish to include an email address or other contact information also.</p>
-	</dd>
-	<dt>minimumCoreVersion</dt>
-	<dd>
-		<p>Specify the minimum Foundry VTT version which is required in order for this system to function properly.</p>
-	</dd>
-	<dt>scripts</dt>
-	<dd>
-		<p>You can designate JavaScript files which should be included in the game session whenever this System is being used. Each listed script path should be relative to the system root directory. All scripts which exist will be automatically included in the game session and loaded in their listed order. As a best practice, I recommend serving system scripts out of a subdirectory named <code>scripts</code>, but this is not required.</p>
-	</dd>
-	<dt>esmodules</dt>
-	<dd>
-		<p>In addition to including traditional JavaScript script files, you may also include JS files which use the newer ES6 modules specification. These files are identified separately in the system manifest so they may be correctly loaded as a module rather than a script.</p>
-	</dd>
-	<dt>styles</dt>
-	<dd>
-		<p>You can designate CSS files which should be included in the game session whenever this System is being used. Each listed stylesheet path should be relative to the system root directory. All stylesheets which exist will be automatically included in the game session and loaded in their listed order. As a best practice, I recommend serving stylesheets out of a subdirectory named <code>styles</code>, but this is not required.</p>
-	</dd>
-	<dt>packs</dt>
-	<dd>
-		<p>Game systems may come bundled with Compendium packs which add pre-generated content for Actors, Items, or other supported Document types. Compendium packs are defined as objects which have their own internal metadata. For each included compendium. These options are listed below:</p>
-		<dl>
-	        <dt>name</dt>
-			<dd>
-				<p>The compendium pack name - this should be a unique lower-case string with no special characters.</p>
-			</dd>
-	        <dt>label</dt>
-			<dd>
-				<p>The compendium pack label - this should be a human readable string label which is displayed in the Compendium sidebar in-game.</p>
-			</dd>
-	        <dt>system</dt>
-			<dd>
-				<p>Since you are creating compendium content specifically for your system, be sure to reference that the content inside each compendium pack requires the system by providing the system name that you chose.</p>
-			</dd>
-	        <dt>module</dt>
-			<dd>
-				<p>The module attribute of each compendium pack designates which content module provided the pack, since this pack is coming from the system itself we can once again provide the system name.</p>
-			</dd>
-	        <dt>path</dt>
-			<dd>
-				<p>The path for each compendium pack should designate a database file with the <code>.db</code> extension. As a best practice, I recommend placing these database files within the <code>packs</code> subdirectory. You do not need to create these files yourself. If a system includes a compendium pack, the database file for that pack will be created automatically when the system is loaded, if it does not already exist.</p>
-			</dd>
-	        <dt>type</dt>
-			<dd>
-				<p>Each compendium pack must designate a specific Document type that it contains. Valid documents include <code>Actor</code>, <code>Item</code>, or <code>Scene</code>.</p>
-			</dd>
-		</dl>
-  </dd>
-  <dt>dependencies</dt>
-	<dd>
-    <p>Systems can require other systems, modules, or worlds be installed to allow their use. If a module has been installed with dependencies, but its dependencies are missing, it cannot be enabled. Dependencies are defined as an array of objects containing the following data:</p>
-    <dl>
-      <dt>name</dt>
-			<dd>
-				<p>Dependency entries require the name attribute. If only a name is provided, additional details about the module will be discovered from the Foundry VTT website listing.</p>
-      </dd>
-      <dt>type</dt>
-			<dd>
-				<p>The type attribute instructs FVTT that the dependency may be on a different type of module. By default dependencies are assumed to be module, so if you want to depend on a system or world you should be explicit.</p>
-			</dd>
-	        <dt>manifest</dt>
-			<dd>
-				<p>The manifest attribute provides an explicit manifest url to be used for downloading the dependency. If a manifest is not provided, the dependency package must exist in the Foundry website directory.</p>
-      </dd>
-    </dl>
-
-    <p>Example structure here:</p> <pre><code class="language-json">
-	"dependencies": [
-	{
-	  "name": "dice-so-nice",
-	  "manifest": "https://gitlab.com/riccisi/foundryvtt-dice-so-nice/raw/2.0.3/module/module.json",
-	},
-	{
-	  "name": "dnd5e",
-	  "type": "system"
-	},
-	{
-	  "name": "kobold-cauldron",
-	  "type": "world"
-	},
-	{
-	  "name": "betternpcsheet5e"
-	}
-  ]
-</code></pre> </dd> 
-	<dt>languages</dt>
-	<dd>
-		<p>The game system may designate an array of languages specifications that it supports by default. Each element in the languages array is an object which defines the language tag, label, and path to its localization file. The elements of a language object are the following:</p>
-		<dl>
-	        <dt>lang</dt>
-			<dd>
-				<p>The official 2-character language code in lower-case letters, for example "en".</p>
-			</dd>
-	        <dt>name</dt>
-			<dd>
-				<p>The formal and readable name for the language, for example "English".</p>
-			</dd>
-	        <dt>path</dt>
-			<dd>
-				<p>Path to a JSON file relative to the system directory where language translation strings are provided.</p>
-			</dd>
-		</dl>
-	</dd>
-	<dt>socket</dt>
-	<dd>
-		<p>A system may request for a specialized socket namespace to be provided. If set to <code>true</code>, a socket event will be handled by the server with the name <code>system.${id}</code>, in this example case <code>system.mysystem</code> which transacts a arbitrary data object by broadcasting that data to all connected clients. This allows the system to have a reserved channel for messaging events which are needed to coordinate actions across multiple connected clients.</p>
-	</dd>
-	<dt>initiative</dt>
-	<dd>
-		<p>Not every game system uses the concept of initiative, but this field provides the default dice rolling formula that can be used to determine the turn order of Tokens within the combat tracker.</p>
-	</dd>
-	<dt>gridDistance</dt>
-	<dd>
-		<p>This field designates the default amount of distance that a single grid space should typically represent under this game system. This value configures the default value used when a new Scene is created, but can always be changed for each Scene independently.</p>
-	</dd>
-	<dt>gridUnits</dt>
-	<dd>
-		<p>This field designates the standard unit of measure used to describe distances under this game system. This defines the default value used when new a new Scene is created, but can always be changed for each Scene independently.</p>
-	</dd>
-	<dt>primaryTokenAttribute</dt>
-	<dd>
-		<p>An attribute path within the system data model that points to an object that contains both a <code>value</code> and <code>max</code> key. The prototype Token for each Actor created in this system will automatically have this resource assigned as it's primary bar. Omit this key or set it to <code>null</code> for no default attribute.</p>
-	</dd>
-	<dt>secondaryTokenAttribute</dt>
-	<dd>
-		<p>An attribute path within the system data model that points to an object that contains both a <code>value</code> and <code>max</code> key. The prototype Token for each Actor created in this system will automatically have this resource assigned as it's secondary bar. Omit this key or set it to <code>null</code> for no default attribute.</p>
-	</dd>
-	<dt>url</dt>
-	<dd>
-		<p>A public URL that links to the repository or documentation pages for the game system. This link will be displayed for users to allow them to find more information about your system.</p>
-	</dd>
-	<dt>manifest</dt>
-	<dd>
-		<p>A stable URL that describes the latest release version of your system manifest file. This URL is used for automatic system installation in the Foundry VTT setup screen. This manifest URL is consulted during the system update check to see whether a new system version is available for download. It is important that this address remain stable, otherwise updates will not be detected.</p>
-	</dd>
-	<dt>download</dt>
-	<dd>
-		<p>A public URL that provides a zip archive of your system. The archive at this URL is retrieved during the automated system installation or update process.</p>
-	</dd>
+<dt>id</dt>
+<dd>
+	<p>Choose a unique system identifier. This should be an all lower-case string with no special characters. This name must align with the name of the parent directory within which you create the system.</p>
+</dd>
+<dt>title</dt>
+<dd>
+	<p>Provide a human readable title for the game system which is displayed when selecting from available systems in the World creation menu.</p>
+</dd>
+<dt>description</dt>
+<dd>
+	<p>This field can contain a more lengthy description of the game system. This text will be used to display help or contact information about your system and is also a good place to include any special licensing or attribution information that you need to distribute.</p>
+</dd>
+<dt>version</dt>
+<dd>
+	<p>The system version number can be a number or a string depending on what versioning scheme you prefer to use. You should always increment the system version number if you make changes to the Data Template which is described below. When the system version is changed, the platform will automatically migrate all content to match the new Data Template schema.</p>
+</dd>
 </dl>
-<p>You can learn more about the fields supported in a package manifest file on the <a href="https://foundryvtt.com/api/alpha/PackageData.html" title="Package Data API Documentation" target="_blank">PackageData</a> and <a href="https://foundryvtt.com/api/alpha/SystemData.html" title="System Data API Documentation" target="_blank">SystemData</a> API documentation pages.</p>
-<hr />
+</div>
+</section>
+<section class="collapsible">
+	<header id="options" class="collapsible-header">Optional Manifest Attributes</header>
+	<div class="collapsible-content">
+<dl>
+<dt>compatibility</dt>
+<dd>
+<p>the compatibility field is an object key for capturing the sub-fields which defines the limits of your module's compatibility based on Foundry Virtual Tabletop version. It contains the following subfields:</p>
+<dl>
+	<dt>minimum</dt>
+	<dd>The module will not function for versions earlier than this.</dd>
+	<dt>verified</dt>
+	<dd>The module has been verified to be compatible up to this version.</dd>
+	<dt>maximum</dt>
+	<dd>The module will not function for newer versions than this.</dd>
+</dl>
+</dd>
+<pre code="language-json"><code>"compatibility": {
+	"minimum": 9,
+	"verified": "10"
+	"maximum": "10"
+	}</code></pre>
+<dt>authors</dt>
+<dd>
+	<p>Provide your name as the system creator. This field can be any string if you wish to include an email address or other contact information also.</p>
+</dd>
+<dt>scripts</dt>
+<dd>
+	<p>You can designate JavaScript files which should be included in the game session whenever this System is being used. Each listed script path should be relative to the system root directory. All scripts which exist will be automatically included in the game session and loaded in their listed order. As a best practice, we recommend serving system scripts out of a subdirectory named <code>scripts</code>, but this is not required.</p>
+</dd>
+<dt>esmodules</dt>
+<dd>
+	<p>In addition to including traditional JavaScript script files, you may also include JS files which use the newer ES6 modules specification. These files are identified separately in the system manifest so they may be correctly loaded as a module rather than a script.</p>
+</dd>
+<dt>styles</dt>
+<dd>
+	<p>You can designate CSS files which should be included in the game session whenever this System is being used. Each listed stylesheet path should be relative to the system root directory. All stylesheets which exist will be automatically included in the game session and loaded in their listed order. As a best practice, we recommend serving stylesheets out of a subdirectory named <code>styles</code>, but this is not required.</p>
+</dd>
+<dt>packs</dt>
+<dd>
+	<p>Game systems may come bundled with Compendium packs which add pre-generated content for Actors, Items, or other supported Document types. Compendium packs are defined as objects which have their own internal metadata. For each included compendium. These options are listed below:</p>
+	<dl>
+		<dt>name</dt>
+		<dd>
+			<p>The compendium pack name - this should be a unique lower-case string with no special characters.</p>
+		</dd>
+		<dt>label</dt>
+		<dd>
+			<p>The compendium pack label - this should be a human readable string label which is displayed in the Compendium sidebar in-game.</p>
+		</dd>
+		<dt>system</dt>
+		<dd>
+			<p>Since you are creating compendium content specifically for your system, be sure to reference that the content inside each compendium pack requires the system by providing the system name that you chose.</p>
+		</dd>
+		<dt>module</dt>
+		<dd>
+			<p>The module attribute of each compendium pack designates which content module provided the pack, since this pack is coming from the system itself we can once again provide the system name.</p>
+		</dd>
+		<dt>path</dt>
+		<dd>
+			<p>The path for each compendium pack should designate a database file with the <code>.db</code> extension. As a best practice, we recommend placing these database files within the <code>packs</code> subdirectory. You do not need to create these files yourself. If a system includes a compendium pack, the database file for that pack will be created automatically when the system is loaded, if it does not already exist.</p>
+		</dd>
+		<dt>type</dt>
+		<dd>
+			<p>Each compendium pack must designate a specific Document type that it contains. Valid documents include <code>Actor</code>, <code>Item</code>, or <code>Scene</code>.</p>
+		</dd>
+	</dl>
+</dd>
+<dt>relationships</dt>
+<dd>
+<p>Systems can require other modules, systems, or worlds be installed to allow their use. If a module has been installed with dependencies, but its dependencies are missing, it cannot be enabled. Dependencies within relationships are defined as an array of objects containing the following data:</p>
+<dl>
+<dt>id</dt>
+<dd>
+<p>Dependency entries require the <code>id</code> attribute. If only an <code>id</code> is provided, additional details about the module will be discovered from the Foundry VTT website listing.</p>
+</dd>
+<dt>type</dt>
+<dd>
+<p>The type attribute instructs FVTT that the dependency may be on a different type of package. By default dependencies are assumed to be a module, so if you want to depend on a system or world you should be explicit.</p>
+</dd>
+<dt>manifest</dt>
+<dd>
+<p>The manifest attribute provides an explicit manifest url to be used for downloading the dependency. If a manifest is not provided, the dependency package must exist in the Foundry website directory.</p>
+</dd>
+<dt>compatibility</dt>
+<dd>As above, the compatibility of a dependency can be defined, ensuring that the dependency will not be installed if it does not meet the defined requirements.. </dd>
+</dl>
+<p>Example relationships structure:</p>
+<pre><code class="language-json">"relationships": {
+  "systems": [{
+    "id": "archmage",
+    "type": "system",
+    "manifest": "https://gitlab.com/asacolips-projects/foundry-mods/archmage/-/raw/1.5.0/system.json",
+    "compatibility": {
+      "verified": "1.5.0"
+    }
+  }],
+  "requires": [{
+    "id": "_chatcommands",
+    "type": "module",
+    "manifest": "https://github.com/League-of-Foundry-Developers/Chat-Commands-Lib/releases/download/1.2.0/module.json",
+    "compatibility": {
+      "verified": "1.2.0"
+    }
+  }]
+}</code></pre>
+</dd>
+<dt>languages</dt>
+<dd>
+	<p>The game system may designate an array of languages specifications that it supports by default. Each element in the languages array is an object which defines the language tag, label, and path to its localization file. The elements of a language object are the following:</p>
+	<dl>
+		<dt>lang</dt>
+		<dd>
+			<p>The official 2-character language code in lower-case letters, for example "en".</p>
+		</dd>
+		<dt>name</dt>
+		<dd>
+			<p>The formal and readable name for the language, for example "English".</p>
+		</dd>
+		<dt>path</dt>
+		<dd>
+			<p>Path to a JSON file relative to the system directory where language translation strings are provided.</p>
+		</dd>
+	</dl>
+</dd>
+<dt>socket</dt>
+<dd>
+	<p>A system may request for a specialized socket namespace to be provided. If set to <code>true</code>, a socket event will be handled by the server with the name <code>system.${id}</code>, in this example case <code>system.mysystem</code> which transacts a arbitrary data object by broadcasting that data to all connected clients. This allows the system to have a reserved channel for messaging events which are needed to coordinate actions across multiple connected clients.</p>
+</dd>
+<dt>initiative</dt>
+<dd>
+	<p>Not every game system uses the concept of initiative, but this field provides the default dice rolling formula that can be used to determine the turn order of Tokens within the combat tracker.</p>
+</dd>
+<dt>gridDistance</dt>
+<dd>
+	<p>This field designates the default amount of distance that a single grid space should typically represent under this game system. This value configures the default value used when a new Scene is created, but can always be changed for each Scene independently.</p>
+</dd>
+<dt>gridUnits</dt>
+<dd>
+	<p>This field designates the standard unit of measure used to describe distances under this game system. This defines the default value used when new a new Scene is created, but can always be changed for each Scene independently.</p>
+</dd>
+<dt>primaryTokenAttribute</dt>
+<dd>
+	<p>An attribute path within the system data model that points to an object that contains both a <code>value</code> and <code>max</code> key. The prototype Token for each Actor created in this system will automatically have this resource assigned as it's primary bar. Omit this key or set it to <code>null</code> for no default attribute.</p>
+</dd>
+<dt>secondaryTokenAttribute</dt>
+<dd>
+	<p>An attribute path within the system data model that points to an object that contains both a <code>value</code> and <code>max</code> key. The prototype Token for each Actor created in this system will automatically have this resource assigned as it's secondary bar. Omit this key or set it to <code>null</code> for no default attribute.</p>
+</dd>
+<dt>url</dt>
+<dd>
+	<p>A public URL that links to the repository or documentation pages for the game system. This link will be displayed for users to allow them to find more information about your system.</p>
+</dd>
+<dt>manifest</dt>
+<dd>
+	<p>A stable URL that describes the latest release version of your system manifest file. This URL is used for automatic system installation in the Foundry VTT setup screen. This manifest URL is consulted during the system update check to see whether a new system version is available for download. It is important that this address remain stable, otherwise updates will not be detected.</p>
+</dd>
+<dt>download</dt>
+<dd>
+	<p>A public URL that provides a zip archive of your system. The archive at this URL is retrieved during the automated system installation or update process.</p>
+</dd>
+</dl>
+</div>
+</section>
 
-<h2 id="data">The Data Template</h2>
+<p>You can learn more about the fields supported in a package manifest file on the <a href="https://foundryvtt.com/api/alpha/PackageData.html" title="Package Data API Documentation" target="_blank">PackageData</a> and <a href="https://foundryvtt.com/api/alpha/SystemData.html" title="System Data API Documentation" target="_blank">SystemData</a> API documentation pages.</p>
+<h2 class="border" id="data">The Data Template</h2>
 <p>In addition to the System Specification file described above, each game system must include a Data Template file named <code>template.json</code> at the root-level of the system folder. For example, if we create a game system with the name <code>mysystem</code>, then we would create and include the file <code>{userData}/Data/systems/mysystem/template.json</code>.</p>
 <p>The data template defines a data model which is used by Actor and Item documents within this game system. Normally, Documents in Foundry Virtual Tabletop have strictly define data schema - but the system template.json file allows for game systems to extend that schema to contain additional system-specific data attributes.</p>
 <p>The basic structure of the data template provides top-level objects which define schema for each of the <code>Actor</code> and <code>Item</code> document types. Within a single document block, the following keys are supported:</p>
@@ -263,6 +286,9 @@
 </dl>
 <p>Fields within the data model may have any of the primitive types of <code>string</code>, <code>number</code>, or <code>boolean</code>, or provide an inner <code>Array</code> or <code>Object</code> structure. The provided value defines both the default value for new documents as well as the data type for the field. here is no limitation on the depth or structure of the template - however we encourage logical grouping of similarly themed attributes within named objects as this tends to help with organization and maintainability.</p>
 <p>The following provides an example <code>template.json</code> file which uses these tools to define a system template that includes three Actor types: hero, pawn, and villain - as well as two Item types: weapon, and spell. Note how certain templates like "resources" are included for each Actor type, while certain actor types have additional attributes which only apply to that type.</p>
+<section class="collapsible">
+    <header class="collapsible-header">Example template.json</header>
+    <div class="collapsible-content">
 <pre><code class="language-json">{
 "Actor": {
   "types": ["hero", "pawn", "villain"],
@@ -319,17 +345,17 @@
     "cost": 2
   }
 }
-}
-</code></pre>
-
-<h4 id="resources">Resource Attributes</h4>
+}</code></pre>
+</div>
+</section>
+<h3 id="resources">Resource Attributes</h3>
 <p>Specific attributes will be recognized by the game system as a "resource" if (and only if) they contain keys which define a <code>value</code> and a <code>max</code>. In the above example, health, power, and goodness would be detected as eligible resources for hero type characters.</p>
 
-<h4 id="model">How the Data Model is Applied</h4>
-<p>When a new Document is created in a game using this system, it will automatically have it's own internal data populated to conform to the schema defined in the system template. For example, when using this system, if I were to execute the following code:</p> <pre><code class="language-javascript">const item = await Item.create({name: "Test Weapon", type: "weapon"});
+<h3 id="model">How the Data Model is Applied</h3>
+<p>When a new Document is created in a game using this system, it will automatically have it's own internal data populated to conform to the schema defined in the system template. For example, when using this system, if we were to execute the following code:</p> <pre><code class="language-javascript">const item = await Item.create({name: "Test Weapon", type: "weapon"});
 console.log(item.data); // The created item data structure
 </code></pre>
-<p>I would observe that the item was created and assigned an ID, and the <code>data</code> contained within the item matches the expected contents defined by my game system template.</p> <pre><code class="language-json">{
+<p>We would observe that the item was created and assigned an ID, and the <code>data</code> contained within the item matches the expected contents defined by my game system template.</p> <pre><code class="language-json">{
   "_id": "e6c7US1VK2cqejVJ",
   "name": "Test Weapon",
   "permission": {
@@ -342,9 +368,8 @@ console.log(item.data); // The created item data structure
   "flags": {},
   "type": "weapon",
   "img": "icons/svg/sword.svg"
-}
-</code></pre>
+}</code></pre>
 
-<h3 id="migration">Data Model Migrations</h3>
+<h2 class="border" id="migration">Data Model Migrations</h2>
 <p>Often, during the course of system development, changes to the template data structure are needed. In such cases, if you increment the <code>version</code> number in your system manifest file any existing Actors or Items will be automatically migrated to the latest template data specification when a World that uses the system is next loaded. During this migration process - any newly added data attributes will be added to existing documents, however old attributes which are no longer required by the template are not removed in case that data needs to be migrated.</p>
 <p>To apply additional migration rules, the recommended approach is to provide client side logic which detects whether a migration and uses the client side API to facilitate additional changes.</p>
