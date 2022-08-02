@@ -1,0 +1,127 @@
+<p>In version 10 there has been a fundamental change to the <code>JournalEntry</code> Document. Instead of content being stored in the Document itself, it now contains a collection of <code>JournalEntryPage</code> Documents which can each contain content in various formats.</p>
+
+<h3>Migrations</h3>
+<p>All existing journal entries that are opened in version 10 will be automatically migrated to the new page structure. Entries will be given a new page with the same title as the parent entry, either a <code>text</code> page or an <code>image</code> page, depending on the content of the entry. Entries that have both text and an image will have the image page title prefixed by "Figure:".</p>
+
+<p>All formatting and content will be preserved, there should be no change to how the content looks except that it now appears in the new multi-page enabled journal UI.</p>
+
+<h2 id="data-model" class="border">Data Model</h2>
+<p>The <code>content</code> and <code>img</code> fields have been removed from the <code>JournalEntry</code> data model. At time of writing, the <code>JournalEntryPage</code> data model is the following:</p>
+
+<pre><code class="lang-js">{
+  _id: new fields.DocumentIdField(),
+  name: new fields.StringField({required: true, blank: false}),
+  type: new fields.StringField({required: true, initial: "text", choices: () => this.TYPES}),
+  image: new fields.SchemaField({
+    caption: new fields.StringField({required: false, initial: undefined})
+  }),
+  text: new fields.SchemaField({
+    content: new fields.HTMLField({required: false, initial: undefined}),
+    markdown: new fields.StringField({required: false, initial: undefined}),
+    format: new fields.NumberField({
+      initial: CONST.JOURNAL_ENTRY_PAGE_FORMATS.HTML,
+      choices: Object.values(CONST.JOURNAL_ENTRY_PAGE_FORMATS)
+    })
+  }),
+  video: new fields.SchemaField({
+    loop: new fields.BooleanField({required: false, initial: undefined}),
+    autoplay: new fields.BooleanField({required: false, initial: undefined}),
+    volume: new fields.AlphaField({required: true, step: 0.01, initial: .5}),
+    timestamp: new fields.NumberField({required: false, min: 0, initial: undefined}),
+    width: new fields.NumberField({required: false, positive: true, integer: true, initial: undefined}),
+    height: new fields.NumberField({required: false, positive: true, integer: true, initial: undefined})
+  }),
+  src: new fields.StringField({required: false, blank: false, nullable: true, initial: null}),
+  system: new fields.SystemDataField(this),
+  sort: new fields.IntegerSortField(),
+  ownership: new fields.DocumentOwnershipField({initial: {default: CONST.DOCUMENT_OWNERSHIP_LEVELS.INHERIT}}),
+  flags: new fields.ObjectField()
+}</code></pre>
+
+<p>Like <code>Actors</code> or <code>Items</code>, <code>JournalEntryPages</code> may have different <code>types</code>, with each type storing and displaying its data in a different way. Systems are able to add their own types to the standard ones provided by the core API, and modules may register custom sheets to provide additional or differing functionality to the default.</p>
+
+<h3>Adapting Existing Code</h3>
+<p>Existing code that interfaces with <code>JournalEntry</code> Documents will need to be updated. A deprecation path is in place until version 12 such that existing code should continue to work (emitting a warning).</p>
+
+<h4>Updating an Entry's Image</h4>
+<section class="flexrow code-migration">
+    <div class="before">
+        <h4>Version 9 (Before)</h4>
+        <pre><code class="lang-js">entry.update({img: "image.webp"});</code></pre>
+    </div>
+    <div class="after">
+        <h4>Version 10 (After)</h4>
+        <pre><code class="lang-js">// If this is a new entry:
+entry.createEmbeddedDocuments("JournalEntryPage", [{
+  name: "Image Page",
+  type: "image",
+  src: "image.webp"
+}]);
+
+// If this is an existing entry, find the migrated image page
+// first:
+const page = entry.pages.find(p => p.type === "image");
+page?.update({src: "image.webp"});</code></pre>
+    </div>
+</section>
+
+<h4>Updating an Entry's Content</h4>
+<section class="flexrow code-migration">
+    <div class="before">
+        <h4>Version 9 (Before)</h4>
+        <pre><code class="lang-js">entry.update({content: "&lt;p&gt;Lorem ipsum dolor...&lt;/p&gt;"});</code></pre>
+    </div>
+    <div class="after">
+        <h4>Version 10 (After)</h4>
+        <pre><code class="lang-js">// If this is a new entry:
+entry.createEmbeddedDocuments("JournalEntryPage", [{
+  name: "Text Page",
+  type: "text",
+  text: {
+    content: "&lt;p&gt;Lorem ipsum dolor...&lt;/p&gt;",
+    format: CONST.JOURNAL_ENTRY_PAGE_FORMATS.HTML
+  }
+}]);
+
+// If this is an existing entry, find the migrated text page
+// first:
+const page = entry.pages.find(p => p.type === "text");
+page?.update({content: "&lt;p&gt;Lorem ipsum dolor...&lt;/p&gt;"});</code></pre>
+    </div>
+</section>
+
+<h3>Consolidating a Folder of Journal Entries</h3>
+<p>In version 9, a common way to organize content was to place multiple journal entries inside a folder. Now that a single journal entry may contain multiple pages, it may be desirable to consolidate that content into a single journal entry instead. The following script provides a way to do that.</p>
+
+<pre><code class="lang-js">const folderName = "A Folder"; // Change this.
+  const folder = game.folders.find(f => {
+    return (f.name === folderName) && (f.type === "JournalEntry");
+  });
+  if ( !folder ) return;
+  const sort = folder.sorting === "m"
+    ? SidebarDirectory._sortStandard
+    : SidebarDirectory._sortAlphabetical;
+  const contents = folder.contents.sort(sort);
+  const pages = contents.flatMap((entry, i) => {
+    const pages = [];
+    // Preserve sort order in the folder.
+    let sort = (i + 1) * 200_000;
+    const textPage = entry.pages.find(p => p.type === "text")?.toObject();
+    const imagePage = entry.pages.find(p => p.type === "image")?.toObject();
+    if ( textPage ) {
+      textPage.title.show = true;
+      textPage.sort = sort;
+      pages.push(textPage);
+      sort -= 100_000;
+    }
+    if ( imagePage ) {
+      imagePage.sort = sort;
+      pages.push(imagePage);
+    }
+    return pages;
+  });
+  JournalEntry.implementation.create({
+    pages,
+    name: folder.name,
+    folder: folder.folder?.id
+  });</code></pre>

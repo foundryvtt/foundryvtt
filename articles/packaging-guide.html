@@ -15,7 +15,7 @@
 <p>First, in your module's folder locate the <code>module.json</code> file in the <code>FoundryVTT/modules/my-content-module</code> folder and edit it. Any text editor will work for this task. The first block of text contains the majority of the identity of your module, and needs to be changed to represent it.</p>
 <p>If you need help finding your user data please refer to the @Article[configuration] article.</p>
 <dl>
-    <dt>"name": "my-content-module",</dt>
+    <dt>"id": "my-content-module",</dt>
     <dd><p>This is the unique name for your module, it must be an all lower-case string with no special characters and should use hyphens (not underscores or space).</p> 
     <p class="note warning">Note: Make sure that you rename the <code>modules/my-content-module</code> folder to exactly match the name you put here!</p></dd>
     
@@ -26,19 +26,14 @@
     <dd><p>This field contains a lengthy description of the module. This can be used to describe the functionality, list content contained within, or provide any other information you feel is important. This field can contain HTML to structure and style your text.</p></dd>
     
     <dt>"version": "1.0.0",</dt>
-    <dd><p>This is the version number of your module. We recommend using the <a title="Semantic Versioning" href="https://semver.org/" target="_blank" rel="nofollow noopener">Semantic Versioning</a> schema but this is not strictly required. When making changes to your module, incrementing the version number in your manifest file is used to signal to users that an update is available.</p></dd>
+    <dd><p>This is the version number of your module. Please see our @Article[versioning] article for more information on verison numbering options!</p></dd>
     
-    <dt>"author": "Me",</dt>
+    <dt>"authors": [{"name": "Me", "email":"me@myemail.com", "discord":"@me#1234"}],</dt>
     <dd><p>That's you! Or it might be the creator who you are making this module for. Provide a name, discord handle, or email, or all of the above for the module author.</p></dd>
     
-    <dt>"minimumCoreVersion": "0.8.6",</dt>
-    <dd><p>This specifies the minimum Foundry Virtual Tabletop version which is <strong>required</strong> in order for this module to function properly. We default this to 0.8.6. which is the current baseline stable release of the software at the time of this article's creation. If a user has a core FVTT version which is older than the specified minimum core version, the module will not be able to be installed unless the user first updates the core software.</p></dd>
-    
-    <dt>"compatibleCoreVersion": "9.235",</dt>
-    <dd><p>This specifies the latest Foundry Virtual Tabletop version that the module will function with. If a user is using a core FVTT version which is more recent than the specified compatible core version, the module can be installed and used but will display a warning that it may not function properly. This can and should be changed whenever your module gets updated to support a newer version of the software.</p>
-    <p class="note info"><strong>Note:</strong> For V9 and beyond the versioning scheme changed. For example the last stable release in V8 was '0.8.9' but releases in V9 and beyond will use a format like '9.235'. If your module is compatible with all versions in the V9 series of updates you can make the compatibleCoreVersion '9'. To support only up to a specific build you can use the full build number like '9.235'.</p>
-    </dd>
-    </dl>
+    <dt>"compatibility": {"minimum":"10"},</dt>
+    <dd><p>This specifies the minimum Foundry Virtual Tabletop version which is <strong>required</strong> in order for this module to function properly. We default this to 10. which is the current baseline stable release of the software at the time of this article's creation. If a user has a core FVTT version which is older than the specified minimum core version, the module will not be able to be installed unless the user first updates the core software.</p></dd>
+</dl>
 
 <h2 class="border">Step 2: Asset Staging</h2>
 <p>The next step is to create all of the folders necessary to contain your module, place your files, and make sure they are properly named. The folder you want to work out of is <code>FoundryVTT/modules/your-module-name</code> which will be where Foundry looks for your assets when your module is loaded. By placing these files into your module folders before you put together the content and compendia you will save yourself time and headaches down the line.</p>

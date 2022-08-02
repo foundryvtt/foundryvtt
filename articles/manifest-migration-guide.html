@@ -1,0 +1,199 @@
+<p>We have overhauled the Manifest definition to reduce user errors and allow for more powerful definitions. With the new <code>relationships</code> field, we have a powerful framework for future relationship types.</p>
+<h2 class="border" id="deprecation-period">Deprecation Period: V13</h2>
+<p>The new Version 10 manifest represents a slight restructuring of the existing manifest fields, including changes to support the new relationships schema.</p>
+<p>These deprecation period for these changes will last until V13.</p>
+<h2 class="border">Automated Migration API</h2>
+<p>Looking to migrate quickly and automatically? While on the Setup page, you can execute an API in console to automatically write the migrated Manifest to disk, then commit it.</p>
+<pre><code class="lang-js">// Only valid on Setup screen
+
+// You use a multi-track release workflow that has a v10-only track and want to commit to /v10/manifest.json
+game.modules.get("1000-fish").migrateManifest();
+
+// You use a single-track release workflow and want to commit to /latest/manifest.json
+game.modules.get("1000-fish").migrateManifest({v9Compatible: true});
+</code></pre>
+<h2 class="border" id="migration-1-name-to-id">Migration 1: name to id</h2>
+<p>A common user mistake was to treat the <code>name</code> field as a human-readable field, rather than as a unique machine-readable one. We have clarified this by renaming it <code>id</code>.</p>
+<section class="flexrow code-migration">
+<div class="before">
+<h3>V9</h3>
+<pre><code class="lang-json">{
+  "name": "1000-fish",
+  "title": "1000 Fish"
+}
+</code></pre>
+</div>
+<div class="after">
+<h3>V10</h3>
+<pre><code class="lang-json">{
+  "id": "1000-fish",
+  "title": "1000 Fish"
+}</code></pre>
+</div>
+</section>
+<h2 class="border" id="migration-2-compatibility">Migration 2: compatibility</h2>
+<p>The current way of denoting compatibility was fairly mixed - core compatibility used <code>minimumCoreVersion</code> and <code>compatibleCoreVersion</code>, and we supported an unclear <code>minimumSystemVersion</code> as well for Packages that relied on a single System.</p>
+<p>We have consolidated this concept into a single <code>Compatibility</code> field that is used top level for denoting Core compatibility, and in <code>relationships.systems</code> (more on that later) for denoting related Package compatibility. While we were here, we also added a <code>maximum</code></p>
+<ul>
+<li><code>minimum</code>: The Package will not function before this version</li>
+<li><code>verified</code>: Verified compatible up to this version</li>
+<li><code>maximum</code>: The Package will not function after this version</li>
+</ul>
+<p>As a refresher, when defining Core compatibility, the following forms are valid:</p>
+<ul>
+<li>Generation: A single digit indicates "entire generation", such as <code>9</code>. "I am compatible with all of generation 9"</li>
+<li>Build: A double indicates "specific build", such as <code>9.120</code>. "I am compatible up to build 9.120"</li>
+</ul>
+<section class="flexrow code-migration">
+<div class="before">
+<h3>V9</h3>
+<pre><code class="lang-json">{
+  "minimumCoreVersion": 9,
+  "compatibleCoreVersion": "9.120"
+}</code></pre>
+</div>
+<div class="after">
+<h3>V10</h3>
+<pre><code class="lang-json">{
+  "compatibility": {
+    "minimum": 9,
+    "verified": "9.120"
+  }
+}</code></pre>
+</div>
+</section>
+<h3 id="example-1-compatible-with-only-v9">Example 1: Compatible with only V9</h3>
+<pre><code class="lang-json">{
+  "compatibility": {
+    "minimum": 9, // Can't be installed before V9
+    "verified": 9, // Verified compatible with all of V9
+    "maximum": 9 // Can't be installed after V9
+  }
+}</code></pre>
+<h3 id="example-2-compatible-from-0-8-x-to-v9-verified-up-to-9-120">Example 2: Compatible from 0.8.X to V9, verified up to 9.120</h3>
+<pre><code class="lang-json">{
+  "compatibility": {
+    "minimum": "0.8.6", // Can't be installed before 0.8.6
+    "verified": "9.120", // Verified compatible up to build 9.120
+    "maximum": 9 // Can't be installed after V9
+  }
+}</code></pre>
+<h2 class="border" id="migration-3-dependencies-and-systems-to-relationships-">Migration 3: dependencies and systems to relationships</h2>
+<p>Our previous <code>dependencies</code> field is treated as a "hard dependency", but we want to expand in the future to things like optional dependencies. The new <code>relationships</code> field offers us a framework to do this, and offered us a chance to improve how we define System relationships as well.</p>
+<p>While we were doing this, we took advantage of the new <code>Compatibility</code> field to add more clarity to how a Package relates to another Package.</p>
+<section class="flexrow code-migration">
+<div class="before">
+<h3>V9</h3>
+<pre><code class="lang-json">{
+  "systems": [ "dnd5e", "archmage" ],
+  "dependencies": [{
+    "name": "_chatcommands",
+    "type": "module",
+    "manifest": "https://github.com/League-of-Foundry-Developers/Chat-Commands-Lib/releases/download/1.2.0/module.json",
+    "version": "1.2.0"
+  }]
+}</code></pre>
+</div>
+<div class="after">
+<h3>V10</h3>
+<pre><code class="lang-json">{
+  "relationships": {
+    "systems": [{
+      "id": "archmage",
+      "type": "system",
+      "manifest": "https://gitlab.com/asacolips-projects/foundry-mods/archmage/-/raw/1.5.0/system.json",
+      "compatibility": {
+      "verified": "1.5.0"
+    }],
+    "requires": [{
+      "id": "_chatcommands",
+      "type": "module",
+      "manifest": "https://github.com/League-of-Foundry-Developers/Chat-Commands-Lib/releases/download/1.2.0/module.json",
+      "compatibility": {
+      "verified": "1.2.0"
+    }
+    }]
+  }
+}</code></pre>
+</div>
+</section>
+<h3 id="how-package-relationships-install">How Package Relationships install</h3>
+<p>When a Package is installed, Foundry checks to see if the related Packages are installed. If they are not installed:</p>
+<ul>
+<li>A lookup is done on the <code>type</code> and <code>id</code> to find that Package listing, and it is installed.</li>
+<li>If the Package does not exist in the listing, then the <code>manifest</code> field is used to install the Package.</li>
+<li>As of V10, a Package will only install if the `compatibility` of the dependency is met.</li>
+</ul>
+<h2 class="border" id="staying-v9-compatible">Staying V9 Compatible</h2>
+<p>A Package manifest is a bit different than code when migrating - if your Package exists in V9, then the manifest that is located at the <code>manifest</code> field for a V9 package, such as <code>/latest/manifest.json</code>, will need to retain V9 compatibility.</p>
+<p>The easiest way to do this is to just do nothing - V10 will automigrate this format, then when you make a V11 package you can swap to the V10 format by default.</p>
+<p>Alternatively, you can leave behind the critical fields needed by V9 - <code>name</code> and, if your package is only compatible in V10, <code>minimumCoreVersion</code></p>
+<h2 class="border" id="example-full-manifest">Example Full Manifest</h2>
+<pre><code class="lang-json">{
+  "id": "vue-encounter-builder",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "0.7.7",
+    "verified": "0.8.9",
+    "maximum": "9"
+  },
+  "authors": [{
+    "name": "Cody Swendrowski",
+    "url": "https://swendrowski.us",
+    "email": "cody@swendrowski.us",
+    "discord": "cswendrowski#9701"
+  }],
+  "relationships": {
+    "systems": [{
+      "id": "toolkit13",
+      "manifest": "https://github.com/Mageflame/Toolkit13/releases/download/latest/system.json",
+      "compatibility": {
+      "minimum": "1.11.0",
+      "verified": "1.14.0",
+      "maximum": "1.15.0"
+      }
+  }],
+  "requires": [{
+    "id": "dlopen",
+    "type": "module",
+    "manifest": "https://raw.githubusercontent.com/ForgeVTT/fvtt-module-dlopen/master/module.json",
+      "compatibility": {
+        "minimum": "1.2.0",
+        "verified": "1.4.0",
+        "maximum": "2.0.0"
+      }
+    },
+    {
+      "id": "vueport",
+      "type": "module",
+      "manifest": "https://raw.githubusercontent.com/ForgeVTT/fvtt-module-vueport/master/module.json"
+      }]
+    },
+  "esmodules": [
+    "/scripts/dugeonmoon.js"
+  ],
+  "styles": [
+    "/css/dugeonmoon.css"
+  ],
+  "languages": [{
+    "lang": "en",
+    "name": "English",
+    "path": "languages/en.json",
+    "title": "🌑 Dungeon Moon Encounter Builder",
+    "description": "A fair encounter builder for Foundry"
+  }
+],
+  "url": "https://github.com/cswendrowski/FoundryVTT-Encounter-Builder",
+  "update": "https://github.com/cswendrowski/FoundryVTT-Encounter-Builder/releases/latest/module.json",
+  "download": "https://github.com/cswendrowski/FoundryVTT-Encounter-Builder/releases/download/1.0.0/module.zip"
+}</code></pre>
+<h2 class="border" id="related-links">Related Issues</h2>
+<ul>
+<li><a title="6504" href="https://github.com/foundryvtt/foundryvtt/issues/6504" target="_&quot;blank&quot;/">6504</a></li>
+<li><a title="7009" href="https://github.com/foundryvtt/foundryvtt/issues/7009" target="_&quot;blank&quot;/">7009</a></li>
+<li><a title="7010" href="https://github.com/foundryvtt/foundryvtt/issues/7010" target="_&quot;blank&quot;/">7010</a></li>
+<li><a title="7011" href="https://github.com/foundryvtt/foundryvtt/issues/7011" target="_&quot;blank&quot;/">7011</a></li>
+<li><a title="7075" href="https://github.com/foundryvtt/foundryvtt/issues/7075" target="_&quot;blank&quot;/">7075</a></li>
+<li><a title="6666" href="https://github.com/foundryvtt/foundryvtt/issues/6666" target="_&quot;blank&quot;/">6666</a></li>
+<li><a title="7474" href="https://github.com/foundryvtt/foundryvtt/issues/7474" target="_&quot;blank&quot;/">7474</a></li>
+</ul>

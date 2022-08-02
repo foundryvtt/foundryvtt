@@ -1,0 +1,57 @@
+name: Bug Report
+description: File a bug report
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to report an issue with the core Foundry software
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Also tell us, what did you expect to happen?
+      placeholder: Tell us what you see!
+    validations:
+      required: true
+  - type: checkboxes
+    id: app-type
+    attributes:
+      label: What ways of accessing Foundry can you encounter this issue in?
+      options:
+        - label: Native App (Electron)
+        - label: Chrome
+        - label: Firefox
+        - label: Safari
+        - label: Other
+  - type: textarea
+    id: repro-steps
+    attributes:
+      label: Reproduction Steps
+      description: Keep them simple, include screenshots as needed. Note what System(s) you tested in, if relevant.
+      placeholder: To encounter the bug, first open up...
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: What core version are you reporting this for?
+      description: Include, at minimum, the build number
+      placeholder: Version 10 Testing 1 (build 274)
+      value: "Version 10 Testing 1 (build 274)"
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: shell
+  - type: checkboxes
+    id: checkboxes
+    attributes:
+      label: Bug Checklist
+      options:
+        - label: The issue occurs while all Modules are disabled
+    validations:
+      required: true

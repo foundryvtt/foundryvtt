@@ -1,0 +1,158 @@
+<p>The <code>TextEditor</code> singleton has undergone some changes to support the addition of several new features:</p>
+<ul>
+    <li><a href="#enrichHTML">Asynchronous Enrichment</a></li>
+    <li><a href="#uuidLinks">UUID Content Links</a></li>
+    <li><a href="#ProseMirror">ProseMirror Editor</a></li>
+</ul>
+
+<h2 id="enrichHTML" class="border">Ansynchronous Enrichment</h2>
+<p><code>TextEditor.enrichHTML</code> now supports an <code>async</code> parameter to control how it evaluates content links and inline rolls. In v10, this parameter defaults to <code>false</code>, matching the v9 behaviour. Starting with v11, the default will become <code>true</code>, but it will still be possible for callers to supply <code>false</code> if necessary. In v12 the parameter will be removed and <code>enrichHTML</code> will always evaluate asynchronously.</p>
+
+<p>A corollary to this change is that the <code>editor</code> Handlebars helper has also been modified to expect pre-enriched content. It will continue to behave as before, accepting and enriching content provided via the legacy invocation until the deprecation period has passed in v12.</p>
+
+<section class="flexrow code-migration">
+    <div class="before">
+        <h4>Version 9 (Before)</h4>
+        <pre><code>{{editor
+    content=data.details.biography.value
+    target="data.details.biography.value"
+    button=true
+    owner=owner
+    editable=editable
+    rollData=rollData
+}}</code></pre>
+    </div>
+    <div class="after">
+        <h4>Version 10 (After)</h4>
+        <pre><code>{{editor
+    enrichedBiography
+    target="system.details.biography.value"
+    button=true
+    editable=editable
+}}</code></pre>
+    </div>
+</section>
+
+<p>Systems that were previously relying on the <code>editor</code> helper to enrich content for their sheets should move that operation to the <code>getData</code> method which is able to execute asynchronously.</p>
+
+<pre><code class="lang-js">async getData(options) {
+  const data = await super.getData(options);
+  data.enrichedBiography = await TextEditor.enrichHTML(this.object.system.details.biography.value, {async: true});
+  return data;
+}</code></pre>
+
+<h2 id="uuidLinks" class="border">UUID Content Links</h2>
+<p>The content linking system pre-dates the addition of Document UUIDs. In order to improve standardization around Document UUIDs, a new content link format has been implemented.</p>
+
+<section class="flexrow code-migration">
+    <div class="before">
+        <h4>Version 9 (Before)</h4>
+        <pre><code>@Actor[xCr2shRoWsl76mV6]{Name}
+@Compendium[dnd5e.heroes.kfzBL0q1Y7LgGs2x]{Name}</code></pre>
+    </div>
+    <div class="after">
+        <h4>Version 10 (After)</h4>
+        <pre><code>@UUID[Actor.xCr2shRoWsl76mV6]{Name}
+@UUID[Compendium.dnd5e.heroes.kfzBL0q1Y7LgGs2x]{Name}</code></pre>
+    </div>
+</section>
+
+<p>Legacy content links will continue to be supported though the core API will no longer produce them. The new content link format supports all Document types and relative UUIDs, unlike the legacy format. When being enriched in an asynchronous context, the new content link format is also able to link to Embedded Documents belonging to a Document inside a Compendium, e.g.:</p>
+<pre><code>@UUID[Compendium.dnd5e.heroes.kfzBL0q1Y7LgGs2x.Item.3Y12TEquZ0Vahjp4]{Item}</code></pre>
+
+<h3>Drag Data</h3>
+<p>Related to the standardization of UUIDs, the core API now always produces consistent <code>DragData</code> in any context where a Document is being dragged, instead of a custom format for each operation.</p>
+
+<pre><code class="lang-js">// A Document with a UUID.
+{
+  type: "Actor",
+  uuid: "Actor.xCr2shRoWsl76mV6"
+}
+
+// A Document without a UUID (either temporary, or a cloned and modified Document)
+{
+  type: "Actor",
+  data: {
+    name: "Name",
+    type: "character",
+    // ...
+  }
+}</code></pre>
+
+<p>To align with this standard, systems and modules should produce <code>DragData</code> that conforms to the above structure. Calling <code>Document#toDragData</code> will handle this for you.</p>
+
+<p><code>DragData</code> received by the core API will be passed to <code>ClientDocumentMixin.fromDropData</code>. This method will prioritize the <code>data</code> field if it exists, and construct a Document from it, otherwise it will retrieve the Document from the <code>uuid</code> field. The <code>importWorld</code> option has been deprecated&mdash;Documents dropped from a Compendium that need to be imported into the world should be created with the normal Document creation API.</p>
+
+<h2 id="ProseMirror" class="border">ProseMirror Editor</h2>
+<p>A new rich text editor based on the ProseMirror framework with collaborative editing and auto-save features is available as an alternative to the existing TinyMCE editor. The ProseMirror editor is still being actively developed and does not yet offer feature parity with TinyMCE at time of writing.</p>
+
+<p>Users wishing to use this new editor for editing journal pages may do so by selecting the new 'ProseMirror' sheet. Systems and modules who wish to use this editor in their own sheets can do so by overriding the <code>FormApplication#activateEditor</code> method and passing the new <code>engine</code> parameter to <code>TextEditor.create</code>.</p>
+
+<pre><code class="lang-js">async activateEditor(name, options={}, initialContent="") {
+  const editor = this.editors[name];
+  options.engine = "prosemirror";
+  options.menuPlugin = ProseMirror.ProseMirrorMenu.build(ProseMirror.defaultSchema, {sheet: this});
+  // The following options are required to enable collaborative editing.
+  options.document = this;
+  options.fieldName = name;
+  options.collaborate = true;
+  return editor.prosemirror = await TextEditor.create(options, initialContent);
+}</code></pre>
+
+<h3>The ProseMirror API</h3>
+<p>Outside of a <code>FormApplication</code> context, the @APIV10[classes/client.ProseMirrorEditor] class is available to create standalone ProseMirror editor instances.</p>
+
+<pre><code class="lang-js">ProseMirrorEditor.create(
+  target,       // The HTML element that the editor will be mounted to.
+  content,      // The initial editor content as a string.
+  {
+    plugins,    // Plugins to include with the editor.
+    menuPlugin, // A reference to the menu plugin.
+    // The following are required for a collaborative editor.
+    document,   // The Document whose content is being edited.
+    fieldName,  // The field within the Document that is being edited.
+    collaborate: true
+  }
+);</code></pre>
+
+<p>Some of the default ProseMirror plugins supplied by the core API expect a particular HTML structure for the editor to be injected into. Developers wishing to leverage these default plugins will need to ensure the <code>target</code> element they provide conforms to the following:</p>
+
+<pre><code class="lang-html">&lt;div class=&quot;editor&quot;&gt;
+    &lt;div class=&quot;editor-content&quot;&gt;
+        &lt;!-- Target the 'editor-content' element --&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+<h3>Hook</h3>
+<p>The <code>createProseMirrorEditor</code> hook is fired whenever a ProseMirror editor is created.</p>
+
+<pre><code class="lang-js">Hooks.on("createProseMirrorEditor", (uuid, plugins, options) => {
+  // The UUID uniquely identifies this ProseMirror editor and is used as part of the collaborative editing
+  // infrastructure.
+
+  // You may append additional plugins to the editor before it is created:
+  plugins.myPlugin = MyProseMirrorPlugin.build();
+
+  // Or swap out a default plugin with your own plugin or one with different options.
+  plugins.menu = ProseMirror.ProseMirrorMenu.build(mySchema);
+
+  // You may swap out the editor state with different content or a ProseMirror document that uses a different schema.
+  const parser = ProseMirror.DOMParser.fromSchema(mySchema);
+  options.state = ProseMirror.EditorState.create({doc: parser.parse(content)});
+});</code></pre>
+
+<h2 id="related-issues" class="border">Related Issues</h2>
+<p>This migration guide provides an overview of the migration steps related to the following issues:</p>
+<ul>
+    <li>@Issue[7117]</li>
+    <li>@Issue[3146]</li>
+    <li>@Issue[6581]</li>
+    <li>@Issue[6166]</li>
+    <li>@Issue[7003]</li>
+    <li>@Issue[6990]</li>
+    <li>@Issue[5364]</li>
+    <li>@Issue[7134]</li>
+    <li>@Issue[6680]</li>
+    <li>@Issue[6723]</li>
+    <li>@Issue[6832]</li>
+</ul>
