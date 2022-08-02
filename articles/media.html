@@ -26,7 +26,7 @@
     <br />An example of this would be <code>fortress_of_doom(30x25-3000x2500-gridless).jpeg</code> which is not inherently wrong, but should be shortened to just <code>fortress_of_doom.jpeg</code> since that extra information is not necessary.</li>
 
 <li><strong>Don't use potentially disruptive or special characters in filenames or folders.
-    <br /></strong>It's best to stick to universally readable characters to avoid potentially breaking file paths or creating errors within Foundry VTT when reading filenames. This includes spaces (as above), characters specific to non-english keyboards, and the following characters: <code>a-z, A-Z, 0-9, . - _ ~ * ' ( ) ; : @ &amp; = + $ , / ? % # [ ]</code></li>
+    <br /></strong>It's best to stick to universally readable characters to avoid potentially breaking file paths or creating errors within Foundry VTT when reading filenames. This includes spaces (as above), characters specific to non-English keyboards, and the following characters: <code>* . " / \ [ ] : ; | , &amp; = + $ ? % # </code></li>
 </ol>
         
 <h4>Token File Naming Conventions</h4>
@@ -72,14 +72,14 @@
 <p>For transparent video assets, such as animated tiles or tokens, .webm will generally provide the best experience as it is high quality with a small file size. For animated assets (maps, tiles, and backgrounds) .webm, .mp4, and .m4v are recommended.</p>
 
 <h4 id="video-quality">Video Quality</h4>
-<p>While Foundry does not restrict the file size a Scene can use, but it is important to keep in mind that a scene must be distributed to all connected players and, potentially, the GM as well. As a guideline, Foundry loosely recommends trying to keep video map file sizes in the vicinity of 50mb or less, to allow for adequate distribution. However, larger filesizes can be mitigated by users of Foundry through use of integrated support for S3, use of the preload feature, or if host and clients all have sufficient data transfer rates.</p>
-<p>Generally speaking, webm is recommended for non-transparent map scenes and transparent tiles or tokens. The filesize differences between mp4, m4v, and webm provide a significant gain without quality reduction.</p>
+<p>While Foundry does not restrict the file size a Scene can use, but it is important to keep in mind that a scene must be distributed to all connected players and, potentially, the GM as well. As a guideline, Foundry loosely recommends trying to keep video map file sizes in the vicinity of 50mb or less, to allow for adequate distribution. However, larger file sizes can be mitigated by users of Foundry through use of integrated support for S3, use of the preload feature, or if host and clients all have sufficient data transfer rates.</p>
+<p>Generally speaking, webm is recommended for non-transparent map scenes and transparent tiles or tokens. The file size differences between mp4, m4v, and webm provide a significant gain without quality reduction.</p>
 
 <p>Video files should ideally be rendered at approximately 30fps or less.</p> 
-<p>If your video includes audio, you can reduce impact on filesize by shipping the audio as a separate file to be triggered by Foundry's audio framework. For more on audio assets, see the associated section below.</p>
+<p>If your video includes audio, you can reduce impact on file size by shipping the audio as a separate file to be triggered by Foundry's audio framework. For more on audio assets, see the associated section below.</p>
 
 <h4>Video Codec and Bitrate</h4>
-<p> Foundry recommends codecs and bitrates optimized for online streaming. Variable Bit Rate (VBR) files rendered in h264 are usually the most performant while keeping quality high. If you are going to render the video in constrained or constant bitrate instead, consider a dual pass from a codec like libx264 at 2-5Mb/s. Quality percentage should be kept at 60-80% to reduce visual artefacting.</p>
+<p> Foundry recommends codecs and bitrates optimized for online streaming. Variable Bit Rate (VBR) files rendered in h264 are usually the most performant while keeping quality high. If you are going to render the video in constrained or constant bitrate instead, consider a dual pass from a codec like libx264 at 2-5Mb/s. Quality percentage should be kept at 60-80% to reduce visual artefacts.</p>
 
 <h3 id="tokens">Token Specific Considerations</h3>
 <p>When designing Token assets for use in foundry it is best to take into account overall file size and quality. Tokens should be provided in a format that supports transparency (webp or png), should be square in dimensions, and facing south.</p>
@@ -119,9 +119,9 @@ Foundry VTT has support for a wide variety of ways to use audio assets. You can 
 
 <dl>
     <dt>OGG</dt>
-    <dd>The overall best format for audio for the purpose of streaming online, an average OGG file will have similar filesize to a 128kbps MP3 file, but with clearer quality. Additionally, OGG comes with the added bonus of being able to loop cleanly in audio players that support the perfect looping of audio. Many tools and DAWs can natively export to this format as well, making it easy to create OGG files. However, Safari does not fully support OGG files.</dd>
+    <dd>The overall best format for audio for the purpose of streaming online, an average OGG file will have similar file size to a 128kbps MP3 file, but with clearer quality. Additionally, OGG comes with the added bonus of being able to loop cleanly in audio players that support the perfect looping of audio. Many tools and DAWs can natively export to this format as well, making it easy to create OGG files. However, Safari does not fully support OGG files.</dd>
     <dt>MP3</dt>
-    <dd>Provides a fairly solid tradeoff between audio quality and filesize, but is not as efficient with its compression as OGG and will not loop cleanly. Just about any device capable of playing sound files will be able to play MP3s. MP3 encoders such as LAME sometimes have a higher risk of developing artifacts or quantization errors in converted files, but is overall a safe choice.</dd>
+    <dd>Provides a fairly solid tradeoff between audio quality and file size, but is not as efficient with its compression as OGG and will not loop cleanly. Just about any device capable of playing sound files will be able to play MP3s. MP3 encoders such as LAME sometimes have a higher risk of developing artifacts or quantization errors in converted files, but is overall a safe choice.</dd>
     <dt>FLAC</dt>
     <dd>A lossless audio format, with manageable file sizes. FLAC files loop cleanly, and do not experience the quality drop normally seen in compression. However, FLAC files tend to have a larger bitrate than standard mp3 files. FLACs can still be useful, particularly for samples that more easily suffer a drop in quality when compressed, or on connections where bandwidth is not an issue (such as servers hosted over LAN).</dd>
     <dt>WEBM</dt>
