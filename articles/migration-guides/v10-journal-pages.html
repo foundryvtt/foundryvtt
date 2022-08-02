@@ -1,7 +1,7 @@
 <p>In version 10 there has been a fundamental change to the <code>JournalEntry</code> Document. Instead of content being stored in the Document itself, it now contains a collection of <code>JournalEntryPage</code> Documents which can each contain content in various formats.</p>
 
 <h3>Migrations</h3>
-<p>All existing journal entries that are opened in version 10 will be automatically migrated to the new page structure. Entries that contained an image will be given an image page titled <code>{Name} Image</code>, and entries that had text content will be given a text page titled <code>{Name} Text</code>. Entries with both will have both pages created.</p>
+<p>All existing journal entries that are opened in version 10 will be automatically migrated to the new page structure. Entries will be given a new page with the same title as the parent entry, either a <code>text</code> page or an <code>image</code> page, depending on the content of the entry. Entries that have both text and an image will have the image page title prefixed by "Figure:".</p>
 
 <p>All formatting and content will be preserved, there should be no change to how the content looks except that it now appears in the new multi-page enabled journal UI.</p>
 
@@ -89,3 +89,39 @@ const page = entry.pages.find(p => p.type === "text");
 page?.update({content: "&lt;p&gt;Lorem ipsum dolor...&gt;/p&lt;"});</code></pre>
     </div>
 </section>
+
+<h3>Consolidating a Folder of Journal Entries</h3>
+<p>In version 9, a common way to organize content was to place multiple journal entries inside a folder. Now that a single journal entry may contain multiple pages, it may be desirable to consolidate that content into a single journal entry instead. The following script provides a way to do that.</p>
+
+<pre><code class="lang-js">const folderName = "A Folder"; // Change this.
+  const folder = game.folders.find(f => {
+    return (f.name === folderName) && (f.type === "JournalEntry");
+  });
+  if ( !folder ) return;
+  const sort = folder.sorting === "m"
+    ? SidebarDirectory._sortStandard
+    : SidebarDirectory._sortAlphabetical;
+  const contents = folder.contents.sort(sort);
+  const pages = contents.flatMap((entry, i) => {
+    const pages = [];
+    // Preserve sort order in the folder.
+    let sort = (i + 1) * 200_000;
+    const textPage = entry.pages.find(p => p.type === "text")?.toObject();
+    const imagePage = entry.pages.find(p => p.type === "image")?.toObject();
+    if ( textPage ) {
+      textPage.title.show = true;
+      textPage.sort = sort;
+      pages.push(textPage);
+      sort -= 100_000;
+    }
+    if ( imagePage ) {
+      imagePage.sort = sort;
+      pages.push(imagePage);
+    }
+    return pages;
+  });
+  JournalEntry.implementation.create({
+    pages,
+    name: folder.name,
+    folder: folder.folder?.id
+  });</code></pre>
