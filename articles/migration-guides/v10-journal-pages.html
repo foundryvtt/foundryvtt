@@ -94,34 +94,34 @@ page?.update({content: "&lt;p&gt;Lorem ipsum dolor...&lt;/p&gt;"});</code></pre>
 <p>In version 9, a common way to organize content was to place multiple journal entries inside a folder. Now that a single journal entry may contain multiple pages, it may be desirable to consolidate that content into a single journal entry instead. The following script provides a way to do that.</p>
 
 <pre><code class="lang-js">const folderName = "A Folder"; // Change this.
-  const folder = game.folders.find(f => {
-    return (f.name === folderName) && (f.type === "JournalEntry");
-  });
-  if ( !folder ) return;
-  const sort = folder.sorting === "m"
-    ? SidebarDirectory._sortStandard
-    : SidebarDirectory._sortAlphabetical;
-  const contents = folder.contents.sort(sort);
-  const pages = contents.flatMap((entry, i) => {
-    const pages = [];
-    // Preserve sort order in the folder.
-    let sort = (i + 1) * 200_000;
-    const textPage = entry.pages.find(p => p.type === "text")?.toObject();
-    const imagePage = entry.pages.find(p => p.type === "image")?.toObject();
-    if ( textPage ) {
-      textPage.title.show = true;
-      textPage.sort = sort;
-      pages.push(textPage);
-      sort -= 100_000;
-    }
-    if ( imagePage ) {
-      imagePage.sort = sort;
-      pages.push(imagePage);
-    }
-    return pages;
-  });
-  JournalEntry.implementation.create({
-    pages,
-    name: folder.name,
-    folder: folder.folder?.id
-  });</code></pre>
+const folder = game.folders.find(f => {
+  return (f.name === folderName) && (f.type === "JournalEntry");
+});
+if ( !folder ) return;
+const sort = folder.sorting === "m"
+  ? SidebarDirectory._sortStandard
+  : SidebarDirectory._sortAlphabetical;
+const contents = folder.contents.sort(sort);
+const pages = contents.flatMap((entry, i) => {
+  const pages = [];
+  // Preserve sort order in the folder.
+  let sort = (i + 1) * 200_000;
+  const textPage = entry.pages.find(p => p.type === "text")?.toObject();
+  const imagePage = entry.pages.find(p => p.type === "image")?.toObject();
+  if ( textPage ) {
+    textPage.title.show = true;
+    textPage.sort = sort;
+    pages.push(textPage);
+    sort -= 100_000;
+  }
+  if ( imagePage ) {
+    imagePage.sort = sort;
+    pages.push(imagePage);
+  }
+  return pages;
+});
+JournalEntry.implementation.create({
+  pages,
+  name: folder.name,
+  folder: folder.folder?.id
+});</code></pre>
