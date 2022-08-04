@@ -1,21 +1,6 @@
 <h2>Overview</h2>
-<p>Foundry Virtual Tabletop features a number of configurable settings which are accessed by clicking the <strong>Configure Settings</strong> button in the <strong>Settings Sidebar</strong> tab. Settings allow you to customise your FVTT experience and the way you interact with the software.</p>
-<ul>
-  <li><strong>Core Settings</strong> change particular features of the software's behavior in the current world.</li>
-  <li><strong>System Settings</strong> change aspects of the game system you are currently using. Options here depend on what the system allows you to change.</li>
-  <li><strong>Module Settings</strong> change particular settings and customise functionality as provided by currently active add-on modules.</li>
-  </ul>
-
-<p class="note info">Note that these settings differ from the @Article[configuration] settings which are controlled by the server host.</p>
-
-<h4 id="scopes">Setting Scopes</h4>
-<p>Setting Scopes are configured by the Foundry VTT API and determine if a setting affects all users, or only the user who has made the change. Setting scopes fall under Client and World.</p>
-<ul>
-<li><strong>Client Settings</strong> are saved in the browser. As a consequence, client settings will apply to all Worlds that are accessed from the same device using the same browser. <strong>Maximum Framerate</strong> is an example of a client setting. Any user, regardless of permission, can modify their own client-level settings.</li>
-<li><strong>World Settings</strong> which are stored in the server-side database for the World. As a consequence, world settings only apply to a single World but are common to all Users within that World. Whether Chat Bubbles are enabled is an example of a world-level setting. By default, only a Gamemaster or User with the "Assistant Gamemaster" role can modify world-level settings.</li>
-</ul>
-<h4>Saving Your Settings</h4>
-<p>Changes to these game settings are only applied when the <strong>Save Changes</strong> button is clicked and some changes may require the browser to automatically refresh in order to take effect. All settings can be reset back to their default values by clicking the<strong>Reset Defaults</strong> button.</p>
+<p>Foundry Virtual Tabletop features a number of configurable settings which are accessed by clicking the <i class="fas fa-cogs"> </i> <strong>Configure Settings</strong> button found inside the Game Settings tab (<i class="fas fa-cogs"> </i> on the sidebar). The settings here allow you to customize your FVTT experience and the way you interact with the software.</p>
+<p class="note info">Please note that these settings differ from the @Article[configuration] settings, which are controlled by the server host.</p>
 
 <h2 id="settings-tab" class="border">The Settings Tab</h2>
 <figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_70/screen/the-settings-tab-2021-12-16.webp" alt="The Settings tab">@Image[279]</a>
@@ -23,100 +8,169 @@
 </figure>
 <p>The settings tab contains useful information about your Foundry VTT setup and lets you make changes to its configuration. Let's take a look at each section.</p>
 
-<h3>General Information</h3>
+<h4>General Information</h4>
 <p>This section provides some details about your Foundry VTT instance like its version and build number as well as the installed version of your game system. When there's an update available for your system you'll also see an '!' icon. Lastly, you can see how many modules are active in your world.</p>
 
-<h3>Game Settings</h3>
-<p>This section contains configuration options for this game world's settings, details, modules, and users.</p>
-
 <dl>
-  <dt>Configure Settings</dt>
-  <dd>This buttons opens the core settings menu. For a breakdown of these options click <a href="#core">here</a>.</dd>
-  <dt>Configure Controls</dt>
+  <dt>Configure Settings (<i class="fas fa-cogs"> </i>)</dt>
+  <dd>This buttons opens the core settings menu. For a breakdown of these options see below.</dd>
+  <dt>Configure Controls (<i class="fas fa-gamepad"></i>)</dt>
   <dd>This button opens the control reference where you can see all of the keyboard shortcuts Foundry uses and customize them to your preference.</dd>
-  <dt>Manage Modules</dt>
+  <dt>Manage Modules (<i class="fas fa-cube"> </i>)</dt>
   <dd>This button opens the module management menu where you can activate or deactivate modules by checking or unchecking them.</dd>
-  <dt>Edit World</dt>
+  <dt>Edit World (<i class="fas fa-globe"></i>)</dt>
   <dd>This button opens the edit world menu where you can update your world's title, background image, next session date, and world description.</dd>
-  <dt>User Management</dt>
+  <dt>User Management (<i class="fas fa-users"> </i>)</dt>
   <dd>This button brings you to the user management screen where you can add or delete users and set their user role. For more information check out the @Article[users] guide.</dd>
+  <dt>Tour Management (<i class="fas fa-person-hiking"> </i>)</dt>
+  <dd>This button brings you to the tour management screen where you can see, play, resume or reset all available tours in the world. For more information check out the @Article[tours] guide.</dd>
 </dl>
 
 <h3>Help and Documentation</h3>
 <p>This section provides useful links for support information and to learn about how Foundry works.</p>
 <dl>
-  <dt>Support</dt>
+  <dt>Support (<i class="fas fa-hands-helping"> </i>)</dt>
   <dd>This button opens a support details window that contains links to our official Discord and contact form for support. It also includes useful information that can help narrow down problems quickly.</dd>
-  <dt>View Documentation</dt>
+  <dt>View Documentation (<i class="fas fa-book"> </i>)</dt>
   <dd>This button opens a window containing the <a href="https://foundryvtt.com/kb">Foundry VTT Knowledge Base</a>.</dd>
-  <dt>Community Wiki Pages</dt>
+  <dt>Community Wiki Pages (<i class="fas fa-landmark"> </i>)</dt>
   <dd>This button opens a window containing the <a href="https://foundryvtt.wiki/">community wiki</a> for Foundry VTT.</dd>
 </dl>
 
 <h3>Game Access</h3>
 <p>This section lets you invite players to your game and leave your world.</p>
 <dl>
-  <dt>Invitation Links</dt>
+  <dt>Invitation Links (<i class="fas fa-wifi"> </i>)</dt>
   <dd>This buttons opens the game invitation links window and gives you a local network link for people on the same network as you (e.g. people living together) and an internet link for people who are on different networks (e.g. living in different locations). It also tells you whether ports in your network that Foundry needs are open. If they're closed take a look at the @Article[port-forwarding] guide.</dd>
-  <dt>Log Out</dt>
+  <dt>Log Out (<i class="fas fa-door-closed"> </i>)</dt>
   <dd>This button will log you out of the world and return you to the Join World screen.</dd>
-  <dt>Return to Setup</dt>
+  <dt>Return to Setup (<i class="fas fa-home"> </i>)</dt>
   <dd>This button will close the current game world and return Foundry to the setup screen.</dd>
 </dl>
 
-<h2 id="core" class="border">Core Software Settings</h2>
-<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_70/screen/foundry-vtt-settings-panel-2021-12-15.webp" alt="Core Game Settings Configuration">@Image[278]</a>
-  <figcaption>The Core Settings menu as seen by a gamemaster.</figcaption>
+<h3>Configure Settings Window</h3>
+<figure class="right">@Image[400]
+  <figcaption>
+The three tabs available in the Configure Settings window.
+  </figcaption>
 </figure>
+
+<p>The Configure Settings window has three tabs which contain configuration options specific to that part of the software. From here users can customize how certain aspects of the software, game systems and add-on modules behave.</p>
+<p>These settings may work on a per-world basis, or be applied universally to the client being used to access the game. This is called Setting Scope, and is explained in the Core Settings Tab section below.</p>
+<p>The available settings tabs are:</p>
+<dl>
+    <dt>Core Settings (<i class="fas fa-dice-d20"> </i>)</dt>
+    <dd>This menu allows you to modify the core software's behavior in the current world. The options available in this panel are detailed below.</dd>
+  
+    <dt>System Settings (<i class="fas fa-cogs"> </i>)</dt>
+    <dd>This menu allows you to change aspects of the game system you are currently using. Options listed here will vary depending on what the system allows you to change, and cannot be documented here.</dd>
+
+    <dt>Module Settings (<i class="fas fa-plug"> </i>)</dt>
+    <dd>This menu allows you to set or customize aspects of currently active add-on modules. Options listed here will vary depending on what options the module author has decided to include.</dd>
+  </dl>
+
+<section class="collapsible">
+  <header class="collapsible-header">Core Settings Tab</header>
+  <div class="collapsible-content">
+<figure class="right">@Image[278]</a>
+  <figcaption>The <strong>Core Settings</strong> menu contains configuration options that affect the software as a whole.</figcaption>
+</figure>
+
+<h4 id="scopes">Setting Scopes</h4>
+<p>Setting Scopes determine if a setting affects all users, or only the user who has made the change. There are two scopes a setting can have: Client or World.</p>
+<ul>
+<li><strong>Client Settings</strong> are saved in the browser and apply to all Worlds that are accessed from the same device using the same browser. Maximum Framerate and Performance Modes are examples of a client setting. Any user, regardless of permission, can modify their own client-level settings.</li>
+<li><strong>World Settings</strong> are stored in the server-side database for the World, only apply to that single World but are common to all Users within it. By default, only a Gamemaster or User with the "Assistant Gamemaster" role can modify world-level settings.</li>
+</ul>
+<h4>Saving Your Settings</h4>
+
+<p>Changes to these game settings are only applied when the <i class="fas fa-save"> </i> <strong>Save Changes</strong> button is clicked, and some changes may require the browser to automatically refresh in order to take effect. All settings can be reset back to their default values by clicking the <i class="fas fa-arrow-rotate-left"> </i> <strong>Reset Defaults</strong> button.</p>
 
 <p>The following configurable settings are supported by the core Foundry Virtual Tabletop software on the "Core Settings" tab.</p>
 
 <dl>
-  <dt>Configure Permissions</dt>
+  <dt>Configure Permissions (<i class="fas fa-user-lock"> </i>)</dt>
   <dd><strong>[World]</strong> Open a separate configuration menu to customize permission controls for different User roles. See the section specific to Permission Configuration below for more details.</dd>
-  <dt>Configure Audio/Video</dt>
+  
+  <dt>Configure Audio/Video (<i class="fas fa-headset"> </i>)</dt>
   <dd><strong>[Client]</strong> Foundry Virtual Tabletop supports optional configuration of Audio/Video chat integration using WebRTC. This button opens a separate dialog window for configuration of this feature. See the @Article[audio-video] guide for more details on the settings contained here.</dd>
-  <dt>Default Token Configuration</dt>
+  
+  <dt>Default Token Configuration (<i class="fas fa-user"> </i>)</dt>
   <dd><strong>[World]</strong> This button opens a separate configuration menu that allows you to customize the default settings that all tokens should have. For details on what the various options affect see the @Article[tokens] article.</dd>
+  
+  <dt>Additional Fonts (<i class="fas fa-font"> </i>)</dt>
+  <dd><strong>[World]</strong> This button opens a separate configuration menu that allows you to customize what additional font types are available for use in journals. For details on what the various options affect see the @Article[journal] article.</dd>
+
   <dt>Disable Game Canvas</dt>
-  <dd><strong>[Client]</strong> This option, when toggled, disables the game cavas that allows for the rendering of scenes but still allows the remaining functionality of Foundry Virtual Tabletop to fully function. This is setting designed to allow for individual users with less capable computer hardware to still interact with the other aspects of Foundry Virtual Tabletop without the additional hardware requirements that the WebGL canvas involve.</dd>
+  <dd><strong>[Client]</strong> This option, when toggled, disables the game canvas that allows for the rendering of scenes but still allows the remaining functionality of Foundry Virtual Tabletop to fully function. This is setting designed to allow for individual users with less capable computer hardware to still interact with the other aspects of Foundry Virtual Tabletop without the additional hardware requirements that the WebGL canvas involve.</dd>
+  
   <dt>Language Preference</dt>
   <dd><strong>[Client]</strong> Select a supported language which you would like to use for Foundry Virtual Tabletop. English is supported by default and other languages may be installed as Modules. If a translation module is installed any languages which it defines will appear as an option in this dropdown list.</dd>
+  
   <dt>Enable Chat Bubbles</dt>
   <dd><strong>[Client]</strong> If this setting is enabled, in-character chat messages which originate from an Actor who has a Token on the active Scene will display a chat bubble above the position of that Token for all players.</dd>
+  
   <dt>Pan to Token Speaker</dt>
   <dd><strong>[Client]</strong> If this setting is enabled, and Enable Chat Bubbles is also enabled, when a Token chat bubble is displayed the camera position of the Scene will automatically pan to the location of the speaking Token.</dd>
+  
   <dt>Scrolling Status Text</dt>
   <dd><strong>[Client]</strong> When this setting is enabled, scrolling text may appear above tokens or other canvas objects when they're changed. For example: a token who has been dealt five points of damage would show a floating '-5' before fading away.</dd>
+  
+  <dt>Disable Pixel Resolution Scaling</dt>
+  <dd><strong>[Client]</strong> When this setting is enabled the software will automatically scale the canvas resolution to the pixel density of the display device. This results in a reduction in visual quality but an improvement in application performance for pixel high-density displays such as very large or super high resolution monitors.</dd>
+
   <dt>Left-Click to Release Objects</dt>
-  <dd><strong>[Client]</strong> When set, this object allows you to release objects (deselect) on the canvas by using a single left click anywhere on the canvas, rather than the default behaviour of requiring a click-and-drag in empty space.</dd>
+  <dd><strong>[Client]</strong> When set, this object allows you to release objects (deselect) on the canvas by using a single left click anywhere on the canvas, rather than the default behavior of requiring a click-and-drag in empty space.</dd>
+  
   <dt>Performance Mode</dt>
   <dd><strong>[Client]</strong> This setting controls Foundry's rendering quality and can change how well the application performs on different types of hardware. More powerful systems can select high or maximum and lower-end machines can opt for low or medium.</dd>
+  
   <dt>Maximum Framerate</dt>
   <dd><strong>[Client]</strong> Set a maximum framerate at which the Foundry Virtual Tabletop canvas will be rendered. By default the canvas renders at 60fps, but setting a lower maximum value may be helpful to limit the resource consumption of the Foundry application on less powerful machines.</dd>
+  
   <dt>Show FPS Meter</dt>
   <dd><strong>[Client]</strong> When this setting is enabled, a framerate meter will be displayed in the bottom-right of the canvas that shows how many frames per second the canvas is rendering.</dd>
+  
   <dt>Font Size</dt>
   <dd><strong>[Client]</strong> This setting allows you to globally enlarge or reduce the font size in the application.</dd>
+  
   <dt>Token Drag Vision</dt>
   <dd><strong>[World]</strong> When enabled, vision and lighting for a Token is previewed in real time during a left-click drag, allowing your players to preview what their token would be able to see when moved.</dd>
+  
   <dt>Token Vision Animation</dt>
   <dd><strong>[Client]</strong> When disabled, tokens will only update their vision when they arrive at the destination of their movement, rather than as they move. Disabling this setting may offer improved performance for machines with lower-end hardware.</dd>
+  
   <dt>Light Source Animation</dt>
   <dd><strong>[Client]</strong> This setting controls whether or not light source animations render. Disabling this setting can help performance for lower-end machines.</dd>
+  
   <dt>Zoomed Texture Antialiasing</dt>
   <dd><strong>[Client]</strong> By default, FVTT uses mipmap antialiasing on sprite textures such as tiles or tokens at lower levels of zoom, if disabled, textures will appear sharper when zoomed out but can look pixelated.</dd>
+
+  <dt>Editor Autosave Frequency</dt>
+  <dd><strong>[Client]</strong> This determines the interval in seconds before the ProseMirror text editor automatically saves changes made to a text entry.</dd>
+
+  <dt>Combat Theme</dt>
+  <dd><strong>[Client]</strong> This setting allows you to select one of multiple premade combat themes which are randomized sound effects that play when a combat encounter begins, when your turn is next in the combat order, and when your turn begins. Selecting "None" disables this feature entirely. Additional combat themes can be added via add-on modules.</dd>
+
   <dt>Animate Roll Tables</dt>
   <dd><strong>[World]</strong> If this setting is enabled, Roll Tables will display a roulette-style animation when results are drawn and the Table Configuration sheet is currently open.</dd>
+  
   <dt>Cone Template Type</dt>
   <dd><strong>[World]</strong> Choose which template measurement style should be used for cones. Flat cones will draw a straight line between the two outer rays while rounded cones will include a radial arc based on the angle of the cone.</dd>
 </dl>
-<h2 id="permissions" class="border">Permission Configuration</h2>
-<p>Clicking on the <strong>Permission Configuration</strong> button of the settings menu allows the customization of specific permissions which can be assigned or removed from different User roles.</p>
+</div>
+</section>
+
+<section class="collapsible">
+  <header class="collapsible-header">Permission Configuration</header>
+  <div class="collapsible-content">
+
+    <p>Clicking on the <strong>Permission Configuration</strong> button of the settings menu allows the customization of specific permissions which can be assigned or removed from different User roles.</p>
 
 <p class="note info">Visit the @Article[users] documentation to learn more about User roles and what they represent.</p>
 
 <p>Each Permission can be assigned to a set of Roles which are able to perform that permission. Some permissions cannot be revoked for a Gamemaster role while others can be disabled even for Gamemaster users. The image below shows the Permission Configuration form and the list which follows describes each permission capability.</p>
+<p>Changes to Permission Configuration are only applied when the <strong>Save Configuration</strong> button is clicked and some changes may require the browser to automatically refresh in order to take effect. All settings can be reset back to their default values by clicking the <strong>Reset Defaults</strong> button.</p>
 
 <figure class="right">@Image[36] 
   <figcaption>The Permission Configuration submenu allows for fine-tuned customization of the permissions allowed to each User role.</figcaption>
@@ -134,6 +188,9 @@
 
     <dt>Create Journal Entries</dt>
     <dd>Allow players with this role to create new Journal Entries in the Journal sidebar.</dd>
+
+    <dt>Create Map Notes</dt>
+    <dd>Allow players with this role to create new map notes on the game canvas.</dd>
 
     <dt>Create Measured Template</dt>
     <dd>Allow players with this role to create templates for area-of-effect measurement.</dd>
@@ -174,17 +231,19 @@
     <dt>Whisper Private Messages</dt>
     <dd>Allow players with this role whisper private messages that the Game Master cannot see.</dd>
 </dl>
-
-<p>Changes to Permission Configuration are only applied when the <strong>Save Configuration</strong> button is clicked and some changes may require the browser to automatically refresh in order to take effect. All settings can be reset back to their default values by clicking the <strong>Reset Defaults</strong> button.</p>
+</div>
+</section>
 
 <h2 id="settingsapi" class="border">API References</h2>
-<p>Module and system developers have the capability to register their own settings and settings menus using the Foundry API. This involves working with the "ClientSettings" API (although this also manages world settings) to register settings and settings menus. Some examples are provided below, but see the API documentation for more detail.</p>
-
+<p>To programmatically define game settings of any type see the following API documentation:</p>
 <ul>
 	<li>The @API[ClientSettings,The ClientSettings Manager] Manager</li>
 </ul>
-
-<h4>Defining a Game Setting</h4>
+<section class="collapsible">
+  <header class="collapsible-header">Defining Settings</header>
+  <div class="collapsible-content">
+    <p>Module and system developers have the capability to register their own settings and settings menus using the Foundry API. This involves working with the "ClientSettings" API (although this also manages world settings) to register settings and settings menus. Some examples are provided below, but see the API documentation for more detail.</p>
+    <h4>Defining a Game Setting</h4>
 <pre><code class="language-js">// Define a new setting which can be stored and retrieved
 game.settings.register("myModule", "mySetting", {
   name: "Register a Module Setting with Choices",
@@ -219,3 +278,5 @@ game.settings.get("myModule", "mySetting");
 // Assign a new setting value
 game.settings.set("myModule", "mySetting", "b");
 </code></pre>
+</div>
+</section>

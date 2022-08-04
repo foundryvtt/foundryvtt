@@ -1,25 +1,95 @@
 <h2>Overview</h2>
-<p>One of the most fundamental documents within Foundry Virtual Tabletop is the Actor. Actors are the protagonists, allies, monsters, antagonists, and persons within the World that you create. The game System being used has control to define the exact types of actors which are relevant for its gameplay, but for most tabletop roleplaying systems these actors will represent the characters which the player Users impersonate and the foes they encounter. This article will detail the features of actors, how to create them, and configure them.</p>
+<p>One of the most fundamental documents within Foundry Virtual Tabletop is the Actor, as they are the protagonists, allies, monsters, antagonists, and persons within the World that you create.</p>
+<p>The game System being used has control to define the exact types of actors which are relevant for its gameplay, but for most tabletop roleplaying systems these actors will represent the characters which the player Users impersonate and the foes they encounter.</p>
+<p>This article will detail the features of actors, how to create them, and configure them.</p>
 
-<h4>Folders</h4>
-<p>This directory can contain folders to organize your world's actors. For details on how to create and use them please see the @Article[folders] article.</p>
-
-<h2 class="border" id="creation">Actor Creation and Configuration</h2>
-<p>To create a new Actor, visit the Actors Directory in the sidebar by clicking on the icon that looks like a group of people (<i class="fas fa-users"> </i>). At the top of this tab you can use the <strong><i class="fas fa-user"> </i> Create Actor</strong> button to open the actor creation dialog.</p>
-<p>Actor configuration is handled through the Actor Sheet which is opened by left clicking on an Actor entry in the sidebar directory or by double-clicking on a token within a Scene. The Actor Sheet itself is usually a system-specific implementation, so the details of what can be configured at an Actor level will vary by game system.</p>
-<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/example-actor-sheet-2020-02-13.png" alt="Example Actor Sheet">@Image[3]</a>
-<figcaption>An example Actor Sheet, taken from the implementation of the DND5e game system.</figcaption>
+<h2 class="border">The Actor Directory</h2>
+<figure class="right">@Image[401]
+<figcaption>The Gamemaster's view of the Actor Directory sidebar.</figcaption>
 </figure>
-<h3 id="token">Prototype Token</h3>
-<p>The Prototype Token Configuration sheet controls and customizes how an Actor is represented within a Scene. Each Actor has a default (prototype) token configuration which defines a template for that Token when it is placed. Once a Token is actually placed, it is an independent copy which can be configured differently from the Actor's prototype.</p>
-<p>To modify the default token configuration for an Actor, you may either:</p>
-<ol>
-<li>Click the <strong> Configure Token </strong> button in the header of an Actor sheet.</li>
-<li>Edit the configuration for an existing Token and, while having that configured token selected, click <strong> Assign Token </strong> in the header of the Actor sheet.</li>
-</ol>
-<p>To modify a Token which has already been placed within the Scene, double right-click the token to access the Token Configuration menu.</p>
+
+<p>Actors in Foundry can be viewed, created, and managed in the Actors Directory sidebar. Like the Scenes, Items, and Journal Entries directories, this directory can contain folders to organize your world's actors. Only a Gamemaster or Assistant-level user can change or move folders, but any players with at least Limited permissions on an actor can see the actor and the folder(s) containing it in the Directory. The specifics of this sheet depends on the system being used.</p>
+
+<h4>Sidebar Elements</h4>
+<dl>
+	<dt>Create Actor (<i class="fas fa-actor"> </i>)</dt>
+	<dd>This button creates a new actor with the name given. If you do not name the actor it will be automatically named "New Actor" with a number appended to it.</dd>
+	
+	<dt>Create Folder (<i class="fas fa-folder"> </i>)</dt>
+	<dd>This creates a new folder. For details on how to create and use them please see the @Article[folders] article.</dd>
+	
+	<dt>Search Items (<i class="fas fa-search"> </i>)</dt>
+	<dd>This searches for and lists any actors whose names match the given string of text entered into the search bar.</dd>
+	
+	<dt>Collapse All Folders (<i class="fas fa-sort-amount-up"> </i>)</dt>
+	<dd>This collapses all folders, showing only the top-level folders and any actors not sorted into a folder.</dd>
+</dl>
+
+<h3>Creating and Editing Actors</h3>
+<p>To create a new Actor, click the <strong><i class="fas fa-user"> </i> Create Actor</strong> button, this will create a dialog box prompting you to name your item. Depending on the system you are using, it may also give you the option to determine the type of actor you are creating, such as a player character, NPC or Vehicle. Once you have named your item and selected its type (if necessary), click Create New Actor.</p>
+<p>This will add your actor to the directory sidebar, and open its sheet for you to edit and fill out. The options you have available on this actor sheet depends entirely on the game system you are using. Once you are done editing your actor you can close the window, the changes will be automatically saved.</p>
+
+<h4>Default Sheet Configuration</h4>
+<p>The Actor Sheet button (<i class="fas fa-cog"> </i>) allows you to set which sheet template you want to use for the current actor, or all actors of the same type. Actor sheets can change how the actor's data is displayed and what can be edited.</p>
+<p>Most systems will include one sheet template for all actors of a single type (characters, npcs, vehicles, etc.) but some may add extra versions. Add-on modules may provide additional options as well.</p>
+
+<h4>Prototype Token Configuration</h4>
+<p>The Prototype Token button (<i class="fas fa-user-circle"> </i>) controls the basic token configuration options which all actors have. These settings create a template for that Token when it is placed into a scene. Once a Token is actually placed it becomes an independent copy which can be configured differently from the Actor's prototype, though placed actors can be linked back to their original through an option found in this configuration panel.</p>
 <p>For more information on configuring Tokens, please refer to the @Article[tokens] article.</p>
-<h3 id="permissions">Actor Permission Levels</h3>
+
+<section class="collapsible">
+	<header class="collapsible-header">Importing Pre-configured Actors</header>
+	<div class="collapsible-content">
+<p>When a new World is first created, the Actors Directory will initially be empty. Though actors can be created fairly quickly from scratch, it may be desirable to import actors from pre-configured sources. This can be done in one of two ways: by importing actors from a compendium pack, or by importing actor data directly from an external JSON file.</p>
+
+<h4 id="compendium">Importing from Compendium</h4>
+<p>An actor can be imported from a compendium by either dragging the actor from the compendium into the Actors Directory, or by right-clicking the actor in the compendium and selecting "Import". For more information on compendia and how to use them, see the @Article[compendium] article.</p>
+
+<h4 id="json">Importing from JSON files</h4>
+<p>If you have exported actors that you would like to bring into a game world you can do so by loading the actor info directly from a JSON file. This can be accomplished by right-clicking an actor in the Directory and selecting "Import Data." This will open a file browser that allows you to select the desired JSON file to import. Once selected the JSON file's data overwrite the existing actor you imported the data into.</p>
+<p>You can export an actor's data by right-clicking an actor in the Directory and selecting the "Export Data" option. This will prompt you to save a JSON file with the actor data in it.</p>
+</div>
+</section>
+
+<section class="collapsible">
+	<header class="collapsible-header">Actor Context Menu Options</header>
+	<div class="collapsible-content">
+<figure class="right">@Image[402]
+<figcaption>The Gamemaster's context menu for an actor is accessed by right-clicking the actor in the actor directory.</figcaption>
+</figure>
+<p>All actors in the Actor Directory can be right-clicked to open up a context menu which allows for additional actions used to manipulate actors.</p>
+
+<dl>
+	<dt>View Actor Artwork (<i class="fas fa-image"> </i>)</dt>
+	<dd>Views the actor's artwork in new window. This is the unique art for the character shown on their character sheet and in the sidebar.</dd>
+
+	<dt>View Token Artwork (<i class="fas fa-image"> </i>)</dt>
+	<dd>Views the actor's token artwork in new window. This is the unique artwork shown when the actor is present on the game canvas.</dd>
+
+	<dt>Clear Folder (<i class="fas fa-folder"> </i>)</dt>
+	<dd>Removes the actor from all folders, placing it at the top level of the actor directory.</dd>
+
+	<dt>Delete (<i class="fas fa-trash"> </i>)</dt>
+	<dd>Deletes the actor, after accepting a confirmation prompt.</dd>
+
+	<dt>Duplicate (<i class="fas fa-copy"> </i>)</dt>
+	<dd>Creates a copy of the actor in the directory.</dd>
+
+	<dt>Configure Permission (<i class="fas fa-lock"> </i>)</dt>
+	<dd>Configure the permission levels of the actor, allowing players of your choice to view or modify the actor in the directory.</dd>
+
+	<dt>Export Data (<i class="fas fa-file-export"> </i>)</dt>
+	<dd>Exports the actor's data as a JSON file on your computer.</dd>
+
+	<dt>Import Data (<i class="fas fa-file-import"> </i>)</dt>
+	<dd>Imports data into the right-clicked actor from a JSON file on your computer.</dd>
+</dl>
+	</div>
+</section>
+
+<section class="collapsible">
+	<header class="collapsible-header">Actor Permission Levels</header>
+	<div class="collapsible-content">
 <p>Each Actor can have permissions configured at an individual User level. Actor permissions control which User or Users may see or edit that Actor, or impersonate its Token. To modify the permissions configured for an Actor, right-click on the Actor entry in the sidebar and select the Permissions option.</p>
 <p>A single permission level may be assigned to all users at once, or individually user-by-user. A permission given to a specific User will override the level of permission given to all Users.</p>
 <ul>
@@ -28,6 +98,9 @@
 <li><strong>Observer.</strong>&nbsp;The User is able to see the Actor's entry in the sidebar directory and open its character sheet. The User is also able to see through the Token's perspective on the active Scene, but not control that Token.</li>
 <li><strong>Owner.</strong>&nbsp;The User has full control over the actor and can open and edit their Actor sheet as well as control and see from the perspective of their Token.</li>
 </ul>
+</div>
+</section>
+
 <h2 class="border" id="api">API References</h2>
 <p>To interact with Actors programmatically, consider using the following API concepts:</p>
 <ul>
