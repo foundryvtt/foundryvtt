@@ -60,7 +60,7 @@
 <p class="note info">Note: You do not need to complete all of these in full before beginning your project. You should begin working on your project while taking these courses.</p>
 <h4>Introductory JavaScript</h4>
 <ul>
-    <li><a href="https://www.freecodecamp.org/news/learn-javascript-free-js-courses-for-beginners/#learn-javascript-full-course-for-beginners" target="_blank">(Codecademy) Learn JavaScript - Introduction to Modern JavaScript</a></li>
+    <li><a href="https://www.freecodecamp.org/news/learn-javascript-free-js-courses-for-beginners/#learn-javascript-full-course-for-beginners" target="_blank">(freeCodeCamp) Learn JavaScript - Introduction to Modern JavaScript</a></li>
     <li><a href="https://www.freecodecamp.org/news/learn-javascript-free-js-courses-for-beginners/#learn-javascript-full-course-for-beginners" target="_blank">(freeCodeCamp) Learn JavaScript – Full Course for Beginners</a></li>
     <li><a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript" target="_blank" rel="nofollow noopener">(MDN Web Docs) JavaScript - Dynamic client-side scripting</a></li>
 </ul>
@@ -141,23 +141,7 @@ alpha1 -> alpha2 -> beta1 -> stable1
 <blockquote>For a very simple analogy, imagine working in a large office and your coworker Bill asks you to go grab his lunch from the breakroom refridgerator. Upon arriving, you find five lunch bags labeled "Bill's Lunch" and discover that there are far more people named Bill in your office than you expected. Not knowing which one is the correct Lunch, you grab the first one and bring it back, where you and Bill discover it is not his. If Bill had written his full name on the lunch bag instead of just his first name, identifying the correct one to return with would have been far less confusing.</blockquote>
 <p>Correctly namespacing your code is important to prevent confusion. This will likely be detailed more thoroughly by whichever JavaScript or CSS course you choose to undertake.</p>
 <h3>Namespacing for Javascript</h3>
-<p>While it is more important to correctly Namespace your code for script-based JS than ES6 Module JS, your JavaScript Functions should ideally be named in way that makes it unique. Foundry VTT takes steps to try to mitigate Namespace issues with its packages, but conflicts can happen.</p> 
-<p>If two packages using "script" declarations instead of ES6 Modules both define a function:</p>
-<pre>
-<code>
-    function foo() {
-        console.log("I DO SOMETHING!")
-    }
-</code>
-</pre>
-</pre>
-<code>
-    function foo() {
-        console.log("I ALSO DO SOMETHING!")
-    }
-</code>
-</pre>
-<p>Only one of these functions will be able to be read by Foundry VTT- as the software will not know which of these is the correct one the user is looking for.</p>
+<p>While it is more important to correctly Namespace your code for script-based JS than ES6 Module JS, your JavaScript Functions should ideally be named in way that makes it unique. Foundry VTT takes steps to try to mitigate Namespace issues with its packages, but conflicts can happen. Two packages using "script" declarations instead of ES6 Modules may both define functions in the global scope which can collide and overwrite each other.</p>
 <h3 id="css">Namespacing for CSS</h3>
 <p>The importance of proper namespacing for CSS definitions is far greater. CSS considers two important factors when applying styles to HTML, the <strong>most recently loaded</strong> definition and the <strong>most specific</strong> definition. Using a CSS class definition which isn't specific enough will likely result in your CSS rules applying to an entire part of the program, or cause overlap with other packages. To prevent any unexpected confusion of CSS rules, please adhere to the following best practices:</p>
 <h4>Use Specific Class and ID Names in HTML</h4>
@@ -240,7 +224,7 @@ alpha1 -> alpha2 -> beta1 -> stable1
 <ul>
     <li><a href="https://foundryvtt.com/api/index.html#documents-and-data" target="_blank">Documents and Data</a> - An explanation of the data model FVTT uses for storing its Documents</li>
     <li><a href="https://foundryvtt.com/api/index.html#the-game-canvas" target="_blank">The Game Canvas</a> - Everything that occurs on the canvas layer, where tokens, scene backgrounds, lighting, walls and more are rendered by the PixiJS library. </li>
-    <li><a href="https://foundryvtt.com/api/index.html#dice-rolling" target="_blank">Dice Rolling</a> - Everything that occurs on the canvas layer, where tokens, scene backgrounds, lighting, walls and more are rendered by the PixiJS library. </li>
+    <li><a href="https://foundryvtt.com/api/index.html#dice-rolling" target="_blank">Dice Rolling</a> - Data structures and functions related to dice rolling including syntax for expressions, evaluation and persistence, and custom rolling modifiers or mechanics.</li>
 </ul>
 
 <h2 class="border">Using Handlebars</h2>
@@ -275,8 +259,3 @@ alpha1 -> alpha2 -> beta1 -> stable1
 <dt>{{eq}}, {{ne}}, {{lt}}, {{gt}}, {{lte}}, {{gte}}</dt>
 <dd>Logical operation helpers that check if something is equal to, not equal to, less than, greater than, less than or equal to, greater than or equal to.</dd>
 </dl>
-<ul>
-    <li><a href="https://foundryvtt.com/api/index.html#documents-and-data" target="_blank">Documents and Data</a> - An explanation of the data model FVTT uses for storing its Documents</li>
-    <li><a href="https://foundryvtt.com/api/index.html#the-game-canvas" target="_blank">The Game Canvas</a> - Everything that occurs on the canvas layer, where tokens, scene backgrounds, lighting, walls and more are rendered by the PixiJS library. </li>
-    <li><a href="https://foundryvtt.com/api/index.html#dice-rolling" target="_blank">Dice Rolling</a> - Everything that occurs on the canvas layer, where tokens, scene backgrounds, lighting, walls and more are rendered by the PixiJS library. </li>
-</ul>
