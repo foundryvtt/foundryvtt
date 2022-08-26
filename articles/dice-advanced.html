@@ -1,52 +1,44 @@
 <h2>Overview</h2>
-<p>This article covers more complex dice concepts such as parenthetical expressions, evaluating pools of dice, complex data paths in rolls, and the dice rolling API. For an introduction to simple dice concepts see the @Article[dice] articles. For a comprehensive list of dice modifiers see the @Article[dice-modifiers] article.</p>
-
-<p>Foundry Virtual Tabletop provides a comprehensive chat interface for delivering dice rolling expressions and formulae. Through use of paranthetical statements, dice pools, and variables it is possible to construct very complex formulae to be used for rolling dice.</p>
+<p>This article covers complex dice concepts such as parenthetical expressions, evaluating pools of dice, complex data paths in rolls, and the dice rolling API. For an introduction to simple dice concepts see the @Article[dice] articles. For a comprehensive list of dice modifiers see the @Article[dice-modifiers] article.</p>
 
 <h2 class="border">Parenthetical Expressions and Dice Pools</h2>
-<p>When a roll command includes Parenthesis ( ) and curly braces { }, Foundry VTT interprets these as instructions to handle the roll in particular ways. These expressions are evaluated first before all other elements of a roll formula.</p>
+<p>When a roll command includes Parenthesis ( ) and curly braces { }, Foundry VTT interprets these as instructions to handle the roll in particular ways. These expressions are evaluated first before other elements of the roll formula.</p>
+
 <h3 id="parenthesis">Parentheses</h3>
 <p>The contents of a parenthetical expression are always evaluated before the outer portion. This allows for options where the number, faces, or modifiers of a dice roll are themselves dynamic in some way. Using parenthetical expressions can allow you to roll a variable number of dice based on a data attribute or an inner dice roll. Parenthetical expressions can also be used in conjunction with roll modifiers to allow checking a roll against a particular value. For example to count the number of successes relative to some target attribute or opposed dice roll.</p>
-<section class="collapsible">
-    <header class="collapsible-header">Parenthesis Usage Examples</header>
-    <div class="collapsible-content">
-        <p>Roll a single die with a number of sides randomly determined by a d20 roll.</p>
-        <pre><code class="language-plaintext">/roll 1d(1d20)</code></pre>
-        <p>Roll between two and eight d8.</p>
-        <pre><code class="language-plaintext">/roll (2d4)d8</code></pre>
-        <p>Roll a number of dice equal to the results of one roll of a 20-sided die multiplied by two, with a number of sides between 1 and 10.</p>
-        <pre><code class="language-plaintext">/roll (1d20*2)d(1d10)</code></pre>
-        <p>Count the number of success based on the selected token's &lsquo;power' attribute.</p>
-        <pre><code class="language-plaintext">/roll 3d12cs&lt;=(@attributes.power)</code></pre>
-        <p>Get the margin of success based on an opposed roll of 4d6.</p>
-        <pre><code class="language-plaintext">/roll 3d12ms&gt;(4d6)</code></pre>                
-    </div>
-</section>
+<h4>Examples</h4>
+<p>Roll a single die with a number of sides randomly determined by a d20 roll.</p>
+<pre><code class="language-plaintext">/roll 1d(1d20)</code></pre>
+<p>Roll between two and eight d8.</p>
+<pre><code class="language-plaintext">/roll (2d4)d8</code></pre>
+<p>Roll a number of dice equal to the results of one roll of a 20-sided die multiplied by two, with a number of sides between 1 and 10.</p>
+<pre><code class="language-plaintext">/roll (1d20*2)d(1d10)</code></pre>
+<p>Count the number of success based on the selected token's &lsquo;power' attribute.</p>
+<pre><code class="language-plaintext">/roll 3d12cs&lt;=(@attributes.power)</code></pre>
+<p>Get the margin of success based on an opposed roll of 4d6.</p>
+<pre><code class="language-plaintext">/roll 3d12ms&gt;(4d6)</code></pre>
 
 <h2 id="pools" class="border">Dice Pools</h2>
 <p>Dice Pools allow you to evaluate a set of dice rolls and combine or choose certain results from the pool as the final total. This allows you to keep, combine, or count results across multiple rolled formulae. Dice pools are defined using comma separated roll terms within brackets.</p>
-<section class="collapsible">
-    <header class="collapsible-header">Dice Pool Usage Examples</header>
-    <div class="collapsible-content">
-        <p>Roll 4d6, 3d8, and 2d10, keep only the highest result.</p>
-        <pre><code class="language-plaintext">/roll {4d6, 3d8, 2d10}kh</code></pre>
-        <p>Roll one twenty sided die and the result can only be 10 or higher.</p>
-        <pre><code class="language-plaintext">/roll {1d20, 10}kh # </code></pre>
-        <p><em>DND 5e - Reliable Talent</em>: compare a die roll against a fixed number (10), selecting the higher of the two for the result. This can be accomplished with an enclosed die roll using the keep highest modifier. Roll one twenty-sided die, and use the higher of its result or the number 10, and add 5 to it.</p>
-        <pre><code class="language-plaintext">/r {1d20,10}kh + 5</code></pre>
-        <p><em>DND5e - Character Creation</em>: roll a pool of ability scores when creating your character.</p>
-        <pre><code class="language-plaintext">/roll {4d6kh3, 4d6kh3, 4d6kh3, 4d6kh3, 4d6kh3, 4d6kh3} # Character Ability Scores</code></pre>
-        <p>Roll 6d6, 5d8, 4d10, 3d12 and count how many resolve to greater than 15.</p>
-        <pre><code class="language-plaintext">/roll {6d6, 5d8, 4d10, 3d12}cs>15</code></pre>
-        <p><em>SWADE - Wild Die</em>: roll one eight-sided die and one six-sided die, both of which will roll additional dice of the same size if they roll their maximum value. Use the highest result of rolls.</p>
-        <pre><code class="language-plaintext">/roll {1d8x, 1d6x}kh</code></pre>        
-    </div>
-</section>
+<h4>Examples</h4>
+<p>Roll 4d6, 3d8, and 2d10, keep only the highest result.</p>
+<pre><code class="language-plaintext">/roll {4d6, 3d8, 2d10}kh</code></pre>
+<p>Roll one twenty sided die and the result can only be 10 or higher.</p>
+<pre><code class="language-plaintext">/roll {1d20, 10}kh # </code></pre>
+<p><em>DND 5e - Reliable Talent</em>: compare a die roll against a fixed number (10), selecting the higher of the two for the result. This can be accomplished with an enclosed die roll using the keep highest modifier. Roll one twenty-sided die, and use the higher of its result or the number 10, and add 5 to it.</p>
+<pre><code class="language-plaintext">/r {1d20,10}kh + 5</code></pre>
+<p><em>DND5e - Character Creation</em>: roll a pool of ability scores when creating your character.</p>
+<pre><code class="language-plaintext">/roll {4d6kh3, 4d6kh3, 4d6kh3, 4d6kh3, 4d6kh3, 4d6kh3} # Character Ability Scores</code></pre>
+<p>Roll 6d6, 5d8, 4d10, 3d12 and count how many resolve to greater than 15.</p>
+<pre><code class="language-plaintext">/roll {6d6, 5d8, 4d10, 3d12}cs>15</code></pre>
+<p><em>SWADE - Wild Die</em>: roll one eight-sided die and one six-sided die, both of which will roll additional dice of the same size if they roll their maximum value. Use the highest result of rolls.</p>
+<pre><code class="language-plaintext">/roll {1d8x, 1d6x}kh</code></pre>
 
 <h2 id="data" class="border">Data Paths as Variables</h2>
-<p>Foundry VTT stores important values in the data for each Document, regardless of its type. These data paths can be called within rolls in order to provide complex functionality and references to a selected character's statistics and modifiers.</p>
+<p>Foundry VTT stores important values in the data for each Document, regardless of its type. These data paths can be called within rolls in order to provide complex functionality and references to a selected character's statistics and
+    modifiers.</p>
 
-<h3>Understanding The Structure of Roll Data</h3>
+<h4>Understanding The Structure of Roll Data</h4>
 <p>Each game system has its own particular Data Paths which it defines. There are two ways to resolve what these data paths are which can be used via the Developer Tools console. The first method explores the evaluated roll-data object for a specific Actor.</p>
 <pre><code class="language-javascript">const actor = game.actors.getName("My Character Name");
 console.log(actor.getRollData());
@@ -55,31 +47,23 @@ console.log(actor.getRollData());
 <pre><code class="language-javascript">game.system.model.Actor.&lt;type of actor&gt;</code></pre>
 <p>If used correctly, either of these commands will output a clickable list of the object data stored on every character which can be conveniently referenced with rolls using <code>@the.path.to.data</code>.</p>
 
-<section class="collapsible">
-    <header class="collapsible-header">Using Data Paths as Variables</header>
-    <div class="collapsible-content">
-        <p>Once you know the structure of an actor, you can use them as part of any roll formula. When a roll formula resolves a data path variable, it automatically gets the data from the <strong>currently controlled token first</strong>, and if no token is controlled, gathers the data from whichever Actor has been chosen in the "Select Character" section of player configuration.</p>
-        <p>Data path variables can take the place of any number in any part of a roll formula.</p>
-        <p>For example in the dnd5e Game System, by rolling <code>/roll 1d20 + @abilities.cha.mod</code> you would perform a check of your selected token's Charisma modifier.</p>                
-    </div>
-</section>
+<h4>Using Data Paths as Variables</h4>
+<p>Once you know the structure of an actor, you can use them as part of any roll formula. When a roll formula resolves a data path variable, it automatically gets the data from the <strong>currently controlled token first</strong>, and if no token is controlled, gathers the data from whichever Actor has been chosen in the "Select Character" section of player configuration.</p>
+<p>Data path variables can take the place of any number in any part of a roll formula.</p>
+<p>For example in this screenshot from the dnd5e system, by rolling <code>/roll 1d20 + @abilities.cha.mod</code> you would perform a check of your selected token's Charisma modifier.</p>
 
 <h2 id="js" class="border">Including Math Functions</h2>
-<p>One of the benefits of Foundry VTT's robust API is that it exposes all of its dice rolling functions to the benefits of the JavaScript Math methods. For more about these methods, see
+<p>One of the benefits of Foundry VTT's robust API is that it exposes all of its dice rolling functions to the benefits of the JavaScript Math methods. For more about these methods, see here:
     <a title="Math Expressions" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math" target="_blank" rel="nofollow noopener">Math Expressions</a>. This allows users to leverage complex mathematical functions in their dice rolls.</p>
-    <section class="collapsible">
-        <header class="collapsible-header">Math Function Examples</header>
-        <div class="collapsible-content">
-            <p>Return the largest integer less than or equal to the result of a roll of 1d12 divided by 3.</p>
-            <pre><code class="language-plaintext">/r floor(1d12/3)</code></pre>
-            <p>Return the smallest integer greater than or equal to the result of a roll of 1d12 divided by 3.</p>
-            <pre><code class="language-plaintext">/r ceil(1d12/3)</code></pre>
-            <p>Return the value of a roll of 1d12 divided by 3, rounded to the nearest integer in either direction.</p>
-            <pre><code class="language-plaintext">/r round(1d12/3)</code></pre>
-            <p>Return the absolute value of a roll where the result could be either positive or negative.</p>
-            <pre><code class="language-plaintext">/r abs(5d6 - 20)</code></pre>                        
-        </div>
-    </section>
+<h4>Examples</h4>
+<p>Return the largest integer less than or equal to the result of a roll of 1d12 divided by 3.</p>
+<pre><code class="language-plaintext">/r floor(1d12/3)</code></pre>
+<p>Return the smallest integer greater than or equal to the result of a roll of 1d12 divided by 3.</p>
+<pre><code class="language-plaintext">/r ceil(1d12/3)</code></pre>
+<p>Return the value of a roll of 1d12 divided by 3, rounded to the nearest integer in either direction.</p>
+<pre><code class="language-plaintext">/r round(1d12/3)</code></pre>
+<p>Return the absolute value of a roll where the result could be either positive or negative.</p>
+<pre><code class="language-plaintext">/r abs(5d6 - 20)</code></pre>
 
 <h4 id="advanced">Mersenne Twister PRNG</h4>
 <strong>How does Foundry Virtual Tabletop handle randomization?</strong>
