@@ -1,9 +1,14 @@
 <h2>Overview</h2>
+<p class="note info">This article has been updated to include details for Version 10, and may not be accurate to previous versions.</p>
 <p>Foundry Virtual Tabletop includes built-in technology to allow for audio/video (A/V) conferencing between all of the players in your game. The WebRTC framework used is called <em>simple-peer</em>, and relies on direct peer-to-peer connections to establish audio and video conferencing, and leverages the inherent infrastructure in Foundry VTT to do so.</p>
 <p>This article will cover the steps necessary to set up A/V integration using a self-signed certification, the A/V Configuration menu and its various options and a technical explanation of A/V integration for users interested in a more detailed understanding of the system.</p>
 <p>Video conferencing can consume a significant amount of bandwidth. If your upload speed is relatively low, you may wish to consider alternate services for video conferencing while running your games. This can be understandably inconvenient if the purpose of getting Foundry VTT was to contain your video and audio chat and have it display as an overlay- use of third party relay servers can help mitigate some of the network usage, but the best option if you have insufficient upload speed to support video conferencing is to host Foundry VTT through a third party service.</p>
+
 <p class="note warning">Configuring SSL is an advanced feature of Foundry VTT and requires technical configuration.</p>
+
 <h2 class="border">Enabling A/V Chat Integration</h2>
+<div class="columns">
+  <div class="column" style="flex:2">
 <p>In order to set up A/V Chat Integration, you will need to figrest configure SSL for your hosted server. There are a variety of ways to do so which we outline here: @Article[ssl] article. SSL certification is a requirement for A/V Chat Integration due to limitations imposed by browsers in order to protect the security and privacy of their users.</p>
 <p class="info note">When using a self-signed certificate, most browsers will warn users that they are entering an unsecured site when they visit it for the first time and periodically after that. Users may need to used advanced configuration to allow their browsers to accept self-signed certificates, and will need to click on the "Advanced" button and then "Proceed" after reloading the site to accept the certificate.</p>
 <p>Once you have configured your SSL certificates and are connected via HTTPS, Foundry VTT will allow you to enable and configure A/V Chat Integration.</p>
@@ -34,10 +39,7 @@
 <p>For details on the configuration of the <strong>Server</strong> tab of A/V Configuration, please see discussion of relay servers below.</p>
 </div>
 </section>
-<h2 class="border">The A/V Chat Dock</h2>
-<figure class="right">@Image[410]
-  <figcaption>The Audio/Video Chat Dock showing the layout for four players.</figcaption>
-</figure>
+<h3>The A/V Chat Dock</h3>
 <p>The Audio Video Chat Integration dock appears on the left-hand side when A/V Chat Integration is enabled. This sidebar contains a simple transparent background and contains individual frames for each player's camera or avatar, and each frame will light up when each player speaks. The Dock can be easily collapsed, reducing the width and minimizing the frames to a smaller, circular view. </p>
 <p>The A/V Chat Dock contains a number of controls which can be used to change particular features of how Audio or Video chat will operate on a per-user basis.</p>
 <dl>
@@ -58,7 +60,11 @@
   <dt><i class="fas fa-cog"> </i> Configure Settings</dt>
   <dd>This shortcut will bring you directly to the Audio/Video chat settings window.</dd>
 </dl>
-
+</div>
+<figure class="right">@Image[410]
+  <figcaption>The Audio/Video Chat Dock showing the layout for four players.</figcaption>
+</figure>
+</div>
 
 <h2 id="built-in" class="border">How A/V Integration Works</h2>
 <figure class="right">@Image[137]
