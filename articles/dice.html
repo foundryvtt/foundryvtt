@@ -23,44 +23,56 @@
 </dl>
 <p>A roll that is made in private (such as a Private GM Roll, Blind GM Roll, or Self Roll) may be revealed to the other users by right-clicking and choosing <strong>Reveal to Everyone</strong>. Public rolls, and rolls that have been revealed to everyone can be hidden again by the same method, instead choosing the <strong>Make Private</strong> option.</p>
 
-<h3 id="simplerolls">Simple Roll Commands</h3>
-<p>A dice roll can be made by entering the <code>/roll</code> (or <code>/r</code>) <strong>chat command</strong> followed by some simple syntax to identify the number of dice, and which type of die you wish to roll. This roll command uses whichever <strong>Default Roll Mode</strong> is currently set by the user.</p>
-<p class="note info">All of the example rolls on this page may be pasted directly into Foundry VTT exactly as they are, including commented text which will label the roll explaining what it does.</p>
-<pre><code class="language-plaintext">/r {number of dice}d{faces}</code></pre>
-<pre><code class="language-plaintext">/r 5d20 # Rolls five twenty-sided dice, generating random numbers from 1 to 20, and outputting the sum of all rolls.</code></pre>
-
-<h4>Expanding Rolls</h4>
+<h3>Expanding Rolls</h3>
 <p>Once a roll has been made and appears in the chat log, users can click on that message to expand the results, showing the individual dice rolls that determined its outcome. Clicking the chat message a second time collapses the results again.</p>
 
-<h2 id="simplemath" class="border">Using Simple Math with Rolls</h2>
-<p>Most dice rolls result in a number that is the sum of any dice rolled, and simple math modifiers can be used to increase or decrease this result after rolls are made.</p>
-<ul>
-    <li><code>+</code> adds the number that follows it to the sum of the roll.</li>
-    <li><code>-</code> subtracts the number that follows it from the sum of the roll.</li>
-    <li><code>*</code> multiplies the sum of the roll by the number given.</li>
-    <li><code>/</code> divides the sum of the roll by the number given.</li>
-</ul>
-<pre><code class="language-plaintext"> /roll {number}d{faces}{math}{number}d{faces}</code></pre>
-<p>Roll one ten-sided die and add to it the result of rolling a single four-sided die.</p>
-<pre><code class="language-plaintext">/roll 1d10 + 1d4 + 4</code></pre>
-<p>Roll one twenty-sided die, divide the number by 2, then add 10 to the result.</p>
-<pre><code class="language-plaintext">/roll 1d20 / 2 + 10 </code></pre>
-<p>Roll a one hundred-sided die, multiply that number by 2, then divide it by the result of rolling a four-sided die.</p>
-<pre><code class="language-plaintext">/roll 1d100 * 2 / 1d4</code></pre>
-<p>Roll one twenty-sided die, and divide it by 3.</p>
-<pre><code class="language-plaintext">/roll 1d20 / 3</code></pre>
+<h2 id="roll-commands">Roll Commands</h2>
+<section id="simplerolls" class="collapsible">
+    <header class="collapsible-header">Simple Roll Commands</header>
+    <div class="collapsible-content">
+        <p>A dice roll can be made by entering the <code>/roll</code> (or <code>/r</code>) <strong>chat command</strong> followed by some simple syntax to identify the number of dice, and which type of die you wish to roll. This roll command uses whichever <strong>Default Roll Mode</strong> is currently set by the user.</p>
+        <p class="note info">All of the example rolls on this page may be pasted directly into Foundry VTT exactly as they are, including commented text which will label the roll explaining what it does.</p>
+        <pre><code class="language-plaintext">/r {number of dice}d{faces}</code></pre>
+        <pre><code class="language-plaintext">/r 5d20 #Rolls five twenty-sided dice, generating random numbers from 1 to 20, and outputting the sum of all rolls.</code></pre>                
+    </div>
+</section>
 
-<h4>Adding Additional Dice</h4>
-<p>Using simple math, users can also add additional dice of different sizes to a roll. The above simple math expressions to determine how they are meant to interact. Math expressions can also be used to combine rolls of different dice types and add them together.</p>
-<pre><code class="language-plaintext"> /roll {number}d{faces}{math}{number}d{faces}</code></pre>
-<p>Roll one ten-sided die and add to it the result of rolling a single four-sided die.</p>
-<pre><code class="language-plaintext">/roll 1d10 + 1d4 + 4</code></pre>
-<p>Roll one twenty-sided die, divide the number by 2, then add 10 to the result.</p>
-<pre><code class="language-plaintext">/roll 1d20 / 2 + 10</code></pre>
-<p>Roll a one hundred-sided die, multiply that number by 2, then divide it by the result of a four-sided die.</p>
-<pre><code class="language-plaintext">/roll 1d100 * 2 / 1d4</code></pre>
-<p><em>DnD 3.5e, Pathfinder - Critical Hit Multiplier:</em> roll one eight-sided die, add 4 to the result, then multiply it by 2.</p>
-<pre><code class="language-plaintext">/r (1d8+4) * 2</code></pre>
+<section id="simplemath" class="collapsible">
+    <header class="collapsible-header">Using Simple Math with Roll Commands</header>
+    <div class="collapsible-content">
+        <p>Most dice rolls result in a number that is the sum of any dice rolled, and simple math modifiers can be used to increase or decrease this result after rolls are made.</p>
+        <ul>
+            <li><code>+</code> adds the number that follows it to the sum of the roll.</li>
+            <li><code>-</code> subtracts the number that follows it from the sum of the roll.</li>
+            <li><code>*</code> multiplies the sum of the roll by the number given.</li>
+            <li><code>/</code> divides the sum of the roll by the number given.</li>
+        </ul>
+        <pre><code class="language-plaintext"> /roll {number}d{faces}{math}{number}d{faces}</code></pre>
+        <p>Roll one ten-sided die and add to it the result of rolling a single four-sided die.</p>
+        <pre><code class="language-plaintext">/roll 1d10 + 1d4 + 4</code></pre>
+        <p>Roll one twenty-sided die, divide the number by 2, then add 10 to the result.</p>
+        <pre><code class="language-plaintext">/roll 1d20 / 2 + 10 </code></pre>
+        <p>Roll a one hundred-sided die, multiply that number by 2, then divide it by the result of rolling a four-sided die.</p>
+        <pre><code class="language-plaintext">/roll 1d100 * 2 / 1d4</code></pre>
+        <p>Roll one twenty-sided die, and divide it by 3.</p>
+        <pre><code class="language-plaintext">/roll 1d20 / 3</code></pre>                
+    </div>
+</section>
+<section class="collapsible">
+    <header class="collapsible-header">Adding Additional Dice</header>
+    <div class="collapsible-content">
+        <p>Using simple math, users can also add additional dice of different sizes to a roll. The above simple math expressions to determine how they are meant to interact. Math expressions can also be used to combine rolls of different dice types and add them together.</p>
+        <pre><code class="language-plaintext"> /roll {number}d{faces}{math}{number}d{faces}</code></pre>
+        <p>Roll one ten-sided die and add to it the result of rolling a single four-sided die.</p>
+        <pre><code class="language-plaintext">/roll 1d10 + 1d4 + 4</code></pre>
+        <p>Roll one twenty-sided die, divide the number by 2, then add 10 to the result.</p>
+        <pre><code class="language-plaintext">/roll 1d20 / 2 + 10</code></pre>
+        <p>Roll a one hundred-sided die, multiply that number by 2, then divide it by the result of a four-sided die.</p>
+        <pre><code class="language-plaintext">/roll 1d100 * 2 / 1d4</code></pre>
+        <p><em>DnD 3.5e, Pathfinder - Critical Hit Multiplier:</em> roll one eight-sided die, add 4 to the result, then multiply it by 2.</p>
+        <pre><code class="language-plaintext">/r (1d8+4) * 2</code></pre>                
+    </div>
+</section>
 
 <h2 id="describingrolls" class="border">Describing Rolls</h2>
 <figure class="right">@Image[100]
@@ -71,13 +83,13 @@
 <p>Example: roll a 20-sided die, adding 2 to the result. Includ some text to describe the roll.</p>
 <pre><code class="language-plaintext">/r 1d20 + 2 # This is my roll!</code></pre>
 
-<h4>Describing Dice</h4>
+<h3>Describing Dice</h3>
 <p>In addition to whole rolls, individual rolls inside multiple roll commands can be commented to specify what the roll is for. This is most useful in games where one or more types of die combine to deliver a total amount of damage.</p>
 <pre><code class="language-plaintext">/roll {roll}[desired text for roll]</code></pre>
 <p>Roll two six-sided dice with the tag of "slashing damage" followed by one eight-sided die with the tag of "fire damage."</p>
 <pre><code class="language-plaintext">/roll 2d6[slashing damage]+1d8[fire damage]</code></pre>
 
-<h4>Describing Inline Rolls</h4>
+<h3>Describing Inline Rolls</h3>
 <p>Inline rolls can be described by adding text after the inline roll surrounded by brackets as such: </p>
 <pre><code class="language-plaintext">[inline roll formula]{inline roll label}</code></pre>
 <p>If a deferred role is labeled, but has no flavor text in the formula otherwise, the label is included in the resulting roll as flavor text.</p>
@@ -91,7 +103,7 @@
 <p>These rolls are processed and the result of the roll is placed in the chat message. This is useful for including simple rolls inside of descriptive actions.</p>
 <pre><code class="language-plaintext">The boulders drop onto the player character, dealing [[2d12]] bludgeoning damage.</code></pre>
 
-<h4>Deferred Inline Rolls</h4>
+<h3>Deferred Inline Rolls</h3>
 <figure class="center">@Image[108]
     <figcaption>Immediate and Deferred Inline Rolls demonstrated in a Journal Entry</figcaption>
 </figure>
