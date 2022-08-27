@@ -1,0 +1,89 @@
+<h2>Overview</h2>
+<p>Foundry Virtual Tabletop provides a convenient system for applying changes to characters (@Article[actors]) based on certain effects, equipment, spells, or other special traits that might give temporary benefits or downsides. This provides Game Systems and Add-on Modules with the ability to create, modify, and distribute their own prefab conditions that users can use to shape how these effects apply to characters in their specific games.</p>
+<p>This page provides an overview of Active Effects, their function, and how to find data structures you can use active effects to modify, and how to import items from compendiums or json files.</p>
+<dl>
+    <dt>Object Data Paths</dt>
+    <dd>This article is going to refer to Data Paths a lot when talking about how to create Active Effects. All of the data stored on a character is stored in an Object, Data Paths are used to tell the Active Effects system where to find the data it will modify. Data paths are presented in a simple 'dot notation', case-sensitive words separated by <code>.</code> such as <code>data.attributes.ac.bonus</code></dd>
+</dl>
+
+<h2 class="border">How Active Effects Change Actors</h2>
+<p>In order to understand how Active Effects work, it's important to first understand the way that Foundry Virtual Tabletop stores data for Actors. Character sheets store a wide variety of different data, and while it's certainly easy to change a 10 to an 11 on a particular character attribute, when games involve a lot of temporary effects it's easy to forget what the original number was after you've changed it.</p>
+<p>For the purposes of this article, it's easiest to imagine that Foundry VTT stores a second copy of the data for each character. When an Active Effect is applied, the <strong>original</strong> data is unchanged. Instead, the change is applied to a copy of the Actor which is presented to the user. By preserving the original data in this way, when a character loses a magical item or a temporary effect they can have the active effect removed- at which point their original data is restored. This convenient process allows for one or more active effects to be stored on an actor and toggled on or off as needed without making permanent changes.</p>
+<p>Active effects can apply to an Actor from one of three sources.</p>
+<dl>
+    <dt>Actor-Level Active Effects</dt>
+    <dd>The most basic active effects are stored on an Actor itself, and in most cases they can be modified directly from a character sheet. Most game systems which use Active Effects have a section on their character sheets reserved for the express purpose of creating and managing active effects at the Actor level. A good example of this would be a situation where perhaps your character has a bonus to their movement speed while they are driving their car.</dd>
+    <dt>Condition-Level Active Effects</dt>
+    <dd>Many game systems use Conditions (commonly referred to as status effects) to apply active effects for very temporary bonuses or penalties. These are most often defined at a System level and are applied to an actor via the Token HUD, by right-clicking and choosing the appropriate Condition (or status effect). Often, these active effects will have a pre-defined duration and will be automatically toggled off when they expire.</dd>
+    <dt>Item-Level Active Effects</dt>
+    <dd>When an Item which contains an Active Effect is dropped onto an Actor sheet, it will usually transfer the effect to its actor. This allows for a character to have a magical item that increases their attributes, such as a belt that increases their Brawn by 2- or a cursed knife that reduces their dexterity by 2.</dd>
+</dl>
+<section class="collapsible">
+    <header class="collapsible-header">Change Modes</header>
+    <div class="collapsible-content">
+        <p>Active effects support changing the data of actors in a variety of ways, including some which might be provided specifically by Game Systems or Add-on Modules. The available options for Change Modes are:</p>
+        <dl>
+            <dt>Add</dt>
+            <dd>Adds the provided value to a number. This can be used to both add and subtract from a particular value by specifying `+1` or `-1` as the value to add.</dd>
+            <dt>Multiply</dt>
+            <dd>Multiplies the defined attribute by the numeric value in the Effect Value field.  </dd>
+            <dt>Override</dt>
+            <dd>Replaces the defined attribute with the value provided in the Effect Value field.</dd>
+            <dt>Downgrade</dt>
+            <dd>Reduces the defined attribute only in cases where the current value of that attribute would be greater than value specified in the Effect Value field.</dd>
+            <dt>Upgrade</dt>
+            <dd>Increases the defined attribute only in cases where the current value of that attribute would be less than value specified in the Effect Value field.</dd>
+            <dt>Custom</dt>
+            <dd>The Custom change mode applies logic defined by a game system or add-on module.</dd>
+        </dl>                
+    </div>
+</section>
+
+<h2 class="border">Creating Active Effects</h2>
+<p class="note warning">Some game systems, such as Pathfinder Second Edition, actively prevent users from creating Active Effects in favour of their own custom effects implementation.</p>
+<p>Due to reliance on data paths, Active Effect creation can seem daunting for those who might just be getting started with a game system, but learning to use them is something that is easy to master with a few tools in your toolbox. The most important thing to do before trying to get started is to make sure that your game system provides a way to manage Active Effects. Beyond the system telling you that Active Effects are supported on their package page- the simplest way to know if they are is to check Actor and Item sheets to see if there is a tab called "Effects".</p>
+
+<section class="collapsible">
+    <header class="collapsible-header">Finding Data Paths</header>
+    <div class="collapsible-content">
+        <figure class="right">@Image[409]
+            <figcaption>An example of an expanded data model for an Actor, showing where how to locate and assign data paths for use as Attribute Keys.</figcaption>
+        </figure>
+        <p>Identifying the pieces of data that Active Effects can modify within your game system can seem a little tricky at first, because it does involve using the Developer Tools (<code>F12</code> or <code>CMD+Shift+I</code> for macOS). However, this is a simple command that will show you all the paths that can potentially be changed.</p>
+        <p>The first step is finding out what types of Actors or Items you have available that you might want to modify. </p>
+        <ol>
+            <li>Open your Developer Tools (<code>F12</code> or <code>CMD+Shift+I</code>).</li>
+            <li>Click the "Console" tab.</li>
+            <li>At the bottom, in the console prompt, paste <code>game.system.model.Actor</code> or <code>game.system.model.Item</type></code> and press the Enter key.</type></li>
+            <li>A list of types of Actors or Items will be displayed based on which command you used, compressed to a single line that you can click to expand. </li>
+        </ol>
+        <p>Once you know what kind of actor you want to change, you can get the list of modifiable traits for that actor type using the same process, but instead of simply using <code>Object.keys(foundry.utils.flattenObject(game.system.model.Actor.ACTORTYPEHERE))</code> you'll add an additional piece of data- the type of actor you want the information for. For example, if you are using the dnd5e game system and wish to find the data paths for a player character, you would use <code>Object.keys(foundry.utils.flattenObject(game.system.model.Actor.character))</code>.</p>
+        <p>The output of this gives you a very simplified, expandable list of datapaths which may be modified by your system.</p>
+    </div>
+</section>
+
+<section class="collapsible">
+    <header class="collapsible-header">Creating an Active Effect From an Actor Sheet or Item Sheet</header>
+    <div class="collapsible-content">
+        <p>Once you have identified the data paths you want to modify, you can create an Active Effect by accessing the 'effects' tab of your character's Actor sheet. The process for creating an Active Effect is the same regardless of whether you are creating the effect on an Actor or on an Item.</p>
+        <ol>
+            <li>Open the Actor or Item sheet you wish to modify.</li>
+            <li>Optional: if this is an Item, decide if the effect should transfer to an actor or not. By default, the checkbox for Transfer Effect to Actor is checked.</li>
+            <li>Click the "Effects" tab.</li>
+            <li>Click the "+" button to add a new Attribute Key.</li>
+            <li>Fill out the small form that appears. The most important field is "Attribute Key", where you will place the data path you found (such as <code>system.attributes.ac.bonus</code>). The Change Mode determines how the Effect Value that you choose will be applied.</li>
+            <li>Click "Submit Changes".</li>
+            <li>Confirm the change applied to your actor by checking their character sheet!</li>
+        </ol>
+        <p>Once you have created an Active Effect, it will appear in the list of Active Effects on the Actor or Item sheet. You can usually toggle the effect on or off by clicking the toggle next to the effect's name.</p>
+    </div>
+</section>
+
+<h3>Effects With Multiple Changes</h3>
+<p>It isn't uncommon for magic items or special equipment to modify more than one aspect of a character. The Active Effects system allows for defining effects which change multiple values at different data paths. When creating an effect as above, you can repeat steps 4-6 as necessary to make multiple changes inside the same effect.</p>
+<h2 class="border">API References</h2>
+<p>To interact with Active Effects documents programmatically, you will primarily use the following API concepts:</p>
+<ul>
+<li>@API[ActiveEffect, The ActiveEffect Document]</li>
+<li>@API[ActiveEffectConfig, The ActiveEffectConfig Application]</li>
+</ul>
