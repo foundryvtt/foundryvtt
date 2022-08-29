@@ -1,42 +1,7 @@
-<!-- Reworked Version based on feedback 
-- Restructure
-Overview
-Before you begin
---Most common pitfalls 
-----firewall
-----Double-router
-----VPN
-----windows public/private
-
-Diagnosing the problem
---Explainer paragragh about important details to gather
-----Has the connection EVER allowed users to connect?
-------if yes, did you set a port forwarding rule, or did it work without any configuration?
---------Direct to port forwarding configuration section if yes, direct to upnp section if no
-------If no, direct to CGNAT test
-
-Troubleshooting Steps
-This is where you'd subsection your individual fixes and tests.
-
-My connection is still closed
-This section is fine
-
-Feel free to keep the "My connection..." approach for naming the different troubleshooting steps, such as "My Connection Worked Without Port Forwarding"
-"I Already Configured a Port Forwarding Rule"
-Etc.
-
--->
-
 <h2 class="border">Overview</h2>
 <p>This article covers common reasons for Foundry VTT to report your connection as closed or players failing to connect. Foundry VTT sends data back and forth between your computer and your players' computers. Firewalls, antivirus software, misconfigured network settings, or even technology used by your internet service provider (ISP) can all interfere with this.</p> 
 
 <h2 class="border">Before You Begin</h2>
-<!-- Before you begin
---Most common pitfalls 
-----firewall
-----Double-router
-----VPN
-----windows public/private -->
 <p>Often times a closed connection is caused by a few common problems or scenarios. Fortunately these are easy to check for and correct. Check the following before continuing to the next section of the guide.</p>
 <ul>
     <li>Firewall: Check that your firewall is set to allow incoming and outgoing connections on port 30000. If you're using Windows' built-in firewall, Windows Defender, you can add a rule following the directions in the <a href="/article/port-forwarding/">Port Forwarding</a> article. If you are using a 3rd party firewall or one that comes as part of an antivirus package, you will need to consult their documentation for allowing Foundry VTT through it.</li>
@@ -54,7 +19,8 @@ Etc.
             <li>Under 'Network Profile,' click the radio button next to 'Private.'</li>
             <li>Open Foundry VTT and launch your world.</li>
         </ol>
-                </div>
+        </div>
+    </section>
 <p>If your World still reports a closed connection or your players are unable to connect, proceed to the next section: Diagnosing the Problem.</p>
 
 <h2 class="border">Diagnosing the Problem</h2>
@@ -65,24 +31,27 @@ Etc.
     <header class="collapsible-header">Yes, My Players Could Connect Before</header>
         <div class="collapsible-content">  
 <p>If your players could connect before then the solution is typically a few simple steps. These steps depend on whether or not you had to set up a port forwarding rule, or if your players could connect without one.</p>
+</div>
+</section>
 
 <h4>My Players Needed Me to Port Forward</h4>
 <p>You most likely need to update your port forwarding rule with your computer's current local IP address. Proceed to the section titled "My Connection Required Port Forwarding" below.</p>
 
 <h4>My Players Could Connect Without Port Forwarding</h4>
 <p>If your players could connect without port forwarding, then Foundry VTT was able to create a port forwarding rule automatically using Universal Plug n Play (UPnP). Proceed to the section titled "My Connection Worked Without Port Forwarding" below.</p>
-        </div>
 <section class="collapsible">
     <header class="collapsible-header">No, My Players Could Not Connect Before</header>
          <div class="collapsible-content">  
 <p>The first thing to do is check if you're able to self host. Proceed to the section titled "Testing For CGNAT."</p>
          </div>
+         </section>
 
 <section class="collapsible">
     <header class="collapsible-header">My Internet Service is Cellular or Satelite Based</header>
         <div class="collapsible-content">  
 <p>These services utilize CGNAT and you will be unable to self host. Proceed to "My Players Still Can't Connect" for more information.</p>
 </div>
+</section>
 
 
 <h2 class="border">My Connection Worked Without Port Forwarding</h2>
@@ -115,6 +84,7 @@ Etc.
         <h4>Update Port Forwarding Rule</h4>
         <p>Access your router following the steps listed in the <a href="/article/port-forwarding/">Port Forwarding</a> article and navigate to your port forwarding rule. Change the destination or target address to your comuter's new local IP address. Check to see if Foundry VTT reports your connection as 'Closed." </p> 
         </div>
+        </section>
 
 <h2 class="border">My Connection is Still Closed</h2>
 <p>If your connection is still closed, there are several possible reasons. ISP software, such as Xfinity's Advanced Security, may be blocking connections. Your ISP may also use technology that interferes with port forwarding.</p>
@@ -145,3 +115,4 @@ If you are an Xfinity customer, your ISP deploys a tool known as Advanced Securi
     <li>Note: Multiple routers on a network will show up on the CGNAT test. If you have more than one router, a WiFi extender, or a mesh network, you will need to determine the IP address for the most upstream device and start there.</li>
 </ol>
 </div>
+</section>
