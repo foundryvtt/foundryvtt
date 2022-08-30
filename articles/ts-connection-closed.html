@@ -1,29 +1,60 @@
-<!-- Initial Draft. Read over in WDTA and make changes as necessary. -->
-<!-- Overview, brief description -->
 <h2 class="border">Overview</h2>
 <p>This article covers common reasons for Foundry VTT to report your connection as closed or players failing to connect. Foundry VTT sends data back and forth between your computer and your players' computers. Firewalls, antivirus software, misconfigured network settings, or even technology used by your internet service provider (ISP) can all interfere with this.</p> 
 
 <h2 class="border">Before You Begin</h2>
-<p>Firewalls, antivirus software, network settings, and use of virtual private networks (VPNs) are all common reasons for a closed connection. Fortunately all of these are easy to check for and correct before continuing to the more advanced steps of this guide.</p>
+<p>Often times a closed connection is caused by a few common problems or scenarios. Fortunately these are easy to check for and correct. Check the following before continuing to the next section of the guide.</p>
 <ul>
     <li>Firewall: Check that your firewall is set to allow incoming and outgoing connections on port 30000. If you're using Windows' built-in firewall, Windows Defender, you can add a rule following the directions in the <a href="/article/port-forwarding/">Port Forwarding</a> article. If you are using a 3rd party firewall or one that comes as part of an antivirus package, you will need to consult their documentation for allowing Foundry VTT through it.</li>
+    <li>Multiple Routers: If you have more than one router on your network, a WiFi extender, or mesh network, you'll need to take extra steps to open your connection to players. Downstream routers should be set to Bridge Mode or have port forwarding rules to pass traffic along to your computer. See @Article[port-forwarding] for more information.</li>
     <li>Virtual Private Network (VPN) Use: If you have a VPN installed, confirm that it's disabled. Most VPNs do not allow port forwarding through their services. Furthermore, they function as a black box when trying to determine the cause of a closed connection.</li>
-    <li>Network Configuration on Windows: Check that your network profile in Windows is set to 'Private.'</li>
+    <li>Windows Network Profile: Check that your network profile in Windows is set to 'Private' and not 'Public.' Windows blocks incoming connections on Public networks.</li>
 </ul>
-    <section class="collapsible">
-    <header class="collapsible-header">Check or Change Windows Network Designation</header>
+ <section class="collapsible">
+    <header class="collapsible-header">Switch Network to Private</header>
         <div class="collapsible-content"> 
-            <p>Windows 10 designates networks as either Private or Public networks. If a network is set to Public, Windows restricts incoming connections. A Private designated network will allow incoming connections with a valid firewall rule. As such Foundry VTT requires your network be set to Private. To check or change your network designation:</p>
+            <p>Windows 10 designates networks as either Private or Public networks. If a network is set to Public, Windows restricts incoming connections. A Private network will allow incoming connections with a valid firewall rule. As such Foundry VTT requires your network be set to Private. To check or change your network designation:</p>
         <ol>   
             <li>Press your Windows key, type "Network Status", and press enter.</li>
             <li>Click the 'Properties' button under the network you're currently using.</li>
-            <li>Under 'Network Profile,' ensure that your network is set to 'Private.'</li>
-            <li>If your network was set to 'Public' before, open Foundry VTT and launch your world.</li>
+            <li>Under 'Network Profile,' click the radio button next to 'Private.'</li>
+            <li>Open Foundry VTT and launch your world.</li>
         </ol>
-        <p>If your world still reports a closed connection or players are unable to connect, proceed to either "Connections Worked Before Without".</p>
         </div>
+    </section>
+<p>If your World still reports a closed connection or your players are unable to connect, proceed to the next section: Diagnosing the Problem.</p>
 
-<h2 class="border">Connections Worked Without Port Forwarding</h2>
+<h2 class="border">Diagnosing the Problem</h2>
+<p>If your connection is still closed, there's a few important questions that will determine the next steps. To proceed you'll need to know if your players could connect to you before, whether that required a port forwarding rule for your players to connect, and if your internet service is cellular or satelite based (eg StarLink, Mobile Data Hotspot, etc).</p>
+
+<h3>Could Your Players Connect Before?</h3>
+<section class="collapsible">
+    <header class="collapsible-header">Yes, My Players Could Connect Before</header>
+        <div class="collapsible-content">  
+<p>If your players could connect before then the solution is typically a few simple steps. These steps depend on whether or not you had to set up a port forwarding rule, or if your players could connect without one.</p>
+</div>
+</section>
+
+<h4>My Players Needed Me to Port Forward</h4>
+<p>You most likely need to update your port forwarding rule with your computer's current local IP address. Proceed to the section titled "My Connection Required Port Forwarding" below.</p>
+
+<h4>My Players Could Connect Without Port Forwarding</h4>
+<p>If your players could connect without port forwarding, then Foundry VTT was able to create a port forwarding rule automatically using Universal Plug n Play (UPnP). Proceed to the section titled "My Connection Worked Without Port Forwarding" below.</p>
+<section class="collapsible">
+    <header class="collapsible-header">No, My Players Could Not Connect Before</header>
+         <div class="collapsible-content">  
+<p>The first thing to do is check if you're able to self host. Proceed to the section titled "Testing For CGNAT."</p>
+         </div>
+         </section>
+
+<section class="collapsible">
+    <header class="collapsible-header">My Internet Service is Cellular or Satelite Based</header>
+        <div class="collapsible-content">  
+<p>These services utilize CGNAT and you will be unable to self host. Proceed to "My Players Still Can't Connect" for more information.</p>
+</div>
+</section>
+
+
+<h2 class="border">My Connection Worked Without Port Forwarding</h2>
 <p>If you did not need to set up a port forwarding rule for your players to connect, then Foundry VTT successfully used Universal Plug and Play (UPnP) to handle this step for you. Since then your router may have changed your computer's local IP address without updating the UPnP rule. To clear the old rule and create a new one, you will need to give your router a cold reboot.</p>
 <section class="collapsible">
     <header class="collapsible-header">Clear Router's UPnP Cache With a Cold Reboot</header>
@@ -37,11 +68,9 @@
     </ol>
     </div>
 </section>
-
 <p>If your connection does not open after a couple minutes, you may need to manually set up a port forwarding rule. The <a href="/article/port-forwarding/">Port Forwarding</a> article contains instructions for setting up a port forwarding rule for Foundry VTT.</p>
 
-
-<h2 class="border">Connections Required a Port Forwarding Rule</h2>
+<h2 class="border">My Connection Required Port Forwarding</h2>
 <p>You may recall when you set up your port forwarding rule that your computer has a local IP address assigned by your router. Most routers will change these addresses without warning, and without updating old rules. Thus the most frequent cause of your connection being closed is that your computer's local IP address was changed. </p>
 <section class="collapsible">
     <header class="collapsible-header">Find Your Computer's Local IP Address and Update Port Forwarding Rule</header>
@@ -49,17 +78,41 @@
             <h4>Determine Your Local IP Address</h4>
             <ul>
             <li>Windows: Open a command prompt by pressing your Windows key and entering "cmd". Enter <code>ipconfig</code>. The entry next to 'IPv4 Address' is your device's local IP address.</li>
-            <li>MacOS: Open a terminal window. If you are on a wireless network, enter <code>ipconfig getifaddr en0</code>. If you connect to your network with a physical cable, use the command <code>ipconfig getifaddr en1</code>.</li>
-            <li>Linux: Open a terminal window and enter <code>hostname -l</code> to display your local IP address.</li> 
+            <li>MacOS: Click on the Apple menu and select 'System Preferences.' Then click on the 'Network' option on the side menu. The main window will then show you your IP address. If you connect over WiFi, be sure to select the WiFi network option on the side menu after selecting 'Network.'</li>
+            <li>Linux: Open a terminal window and enter <code>hostname -i</code> to display your local IP address.</li> 
             </ul>               
         <h4>Update Port Forwarding Rule</h4>
         <p>Access your router following the steps listed in the <a href="/article/port-forwarding/">Port Forwarding</a> article and navigate to your port forwarding rule. Change the destination or target address to your comuter's new local IP address. Check to see if Foundry VTT reports your connection as 'Closed." </p> 
         </div>
+        </section>
 
 <h2 class="border">My Connection is Still Closed</h2>
 <p>If your connection is still closed, there are several possible reasons. ISP software, such as Xfinity's Advanced Security, may be blocking connections. Your ISP may also use technology that interferes with port forwarding.</p>
 <h3>Comcast/Xfinity Advanced Security</h3>
 If you are an Xfinity customer, your ISP deploys a tool known as Advanced Security. When enabled, this blocks incoming connections even if you've set up a valid port forwarding rule. More information can be found on the Xfinity website <a href="https://www.xfinity.com/support/articles/using-xfinity-xfi-advanced-security">here</a>.
-<h3>CGNAT and DS-Lite Infrastructure</h3>
-<p>Carrier Grade Network Address Translation (CGNAT) and Dual-Stack Lite (DS-Lite) are two common technologies used by ISPs around the world that effectively act as multiple, inaccessible routers in front of your own. If this is the case, you will not be able to self-host unless your ISP is willing and able to take you off that technology. The <a href="/article/hosting/">Hosting Options Guide</a> contains information on your other hosting options.</p>
-<p>Further troubleshooting, including checking for the presence of CGNAT or DS-Lite, requires direct assistance. Please <a href="/contact-us/" target="_blank" rel="nofollow noopener">contact us</a> or join our <a href="https://discord.gg/foundryvtt" target="_blank" rel="nofollow noopener">Discord community</a> for live support.</p>
+<h3>CGNAT</h3>
+<p>Carrier Grade Network Address Translation (CGNAT) is a common technology used by ISPs around the world that effectively act as multiple, inaccessible routers in front of your own. If this is the case, you will not be able to self-host unless your ISP is willing and able to take you off that technology. The <a href="/article/hosting/">Hosting Options Guide</a> contains information on your other hosting options. To test for the presence of CGNAT, please proceed down to the section titled "Testing for CGNAT."</p>
+<p>Further troubleshooting requires direct assistance. Please <a href="/contact-us/" target="_blank" rel="nofollow noopener">contact us</a> or join our <a href="https://discord.gg/foundryvtt" target="_blank" rel="nofollow noopener">Discord community</a> for live support.</p>
+
+
+<section class="collapsible">
+    <header class="collapsible-header">Testing for CGNAT</header>
+        <div class="collapsible-content">   
+<p>Testing for CGNAT requires we trace the route your computer takes to connect to the internet. If the route includes private or CGNAT range IP addresses immediately after your router's IP address, you are behind CGNAT. These ranges are:</p>
+<ul>
+    <li>10.0.0.0 - 10.255.255.255</li>
+<li>172.16.0.0 - 172.31.255.255</li>
+ <li>192.168.0.0 - 192.168.255.255</li>
+ <li>100.64.0.0 - 100.127.255.255</li>
+</ul>
+<p>If traffic goes from your router to a non-private or non-CGNAT range address, you are not behind CGNAT and will be able to self-host.</p>
+<ol>
+    <li>Windows: Open a PowerShell window by pressing your Windows Key. Copy and paste the following command in: <code>tracert -h 5 (curl https://ifconfig.me/ip -UseBasicParsing); tracert 8.8.8.8</code>, and press 'Enter.'</li>
+    <li>MacOS/Linux: Open a Terminal window. Copy and paste the following command in: <code>traceroute -m 5 $(curl -4 ifconfig.io); traceroute 8.8.8.8</code></li> then press 'Enter.'
+    <li>Two tests will run. After you see "Trace complete" a second time, the tests have finished.</li>
+    <li>If there are multiple entries for the first test, your test is positive for CGNAT. Proceed to the section titled "My Connection is Still Closed" for more information.</li>
+    <li>If the first test only has one entry, proceed to the second test and check the second entry. If the IP address matches one of the entries above, you are behind CGNAT. If you see "Request timed out," it's highly likely that you're behind CGNAT.</li>
+    <li>Note: Multiple routers on a network will show up on the CGNAT test. If you have more than one router, a WiFi extender, or a mesh network, you will need to determine the IP address for the most upstream device and start there.</li>
+</ol>
+</div>
+</section>

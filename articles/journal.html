@@ -1,84 +1,162 @@
 <h2>Overview</h2>
-<p>Journal Entries provide a method for GMs to present and maintain hand-outs for their players. Entries are edited using a rich text editor (with HTML support gated behind a convenient 'source' button in the editor). Journal entries can be displayed to all players at the touch of a button, and conveniently "pinned" to the grid in any scene to allow for quick access to that entry.</p>
+<p class="note info">This article has been updated to include details for Version 10, and may not be accurate to previous versions.</p>
+<p>Journal Entries provide a method for GMs to organize and maintain hand-outs for their players by providing separate and individual 'pages' which can be displayed individually to users. Journal Entry Pages are edited using a rich text editor (with raw HTML support gated behind a convenient 'source' button in the editor).</p>
 <p>This article will familiarize you with creating and editing journal entries, changing their views, adjusting their permission levels, and creating dynamic links to documents.</p>
-<h4>Folders</h4>
-<p>This directory can contain folders to organize your world's journals. For details on how to create and use them please see the @Article[folders] article.</p>
-<h2 class="border">The Journal Entries Directory</h2>
-<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/journals-directory-2021-01-28.jpg" alt="FVTT UI Map">@Image[147]</a>
-<figcaption>The Journals Directory contains your world's collected journal entries.</figcaption>
+<h2 class="border">Using Journal Entries</h2>
+
+<div class="columns">
+    <div class="column" style="flex:2">
+<p>When thinking about Journal entries, it is best to imagine each entry as a small subset of a larger piece of information. As Folders store Documents (including Journal Entries), Journal Entries store Pages, with each one acting as a separate unit of related information. Journal Entry Pages can be one of a variety of types:</p>
+<dl>
+    <dt>Text</dt>
+    <dd>Text pages are the most common type of Journal Entry Page, and are used to store and display text-based information. Editing Text pages is done primarily using a rich text editor, with support for editing the raw HTML available for power users.</dd>
+    <dt>Image</dt>
+    <dd>Image pages are used to provide specific image hand-outs, allowing you to showcase a particular picture in a way that can be shown to one or more players in a convenient way. Image pages can be uploaded and stored in the Foundry VTT user data folder, or linked to an external image URL (if the host of the remote image supports external linking).</dd>
+    <dt>Video</dt>
+    <dd>Video pages can be used to play a specific video for one or more users. Video files can be uploaded from your computer, or pages can instead link to an external video URL. Popular streaming services such as YouTube are supported by default.</dd>
+    <dt>PDF</dt>
+    <dd>PDF pages allow for displaying wholly separate PDF documents. PDF documents can be uploaded from your computer, or linked to an external PDF URL. A word of caution, however: PDF Pages were not designed with form-fillable PDFs in mind and attempting to use and edit PDF forms may have undesired or unpredictable results. </dd>
+</dl>
+<section class="collapsible">
+    <header class="collapsible-header">Creating Journal Entries</header>
+    <div class="collapsible-content">
+<p>Creating a new Journal Entry is simple and requires only a few button presses:</p>
+    <ol>
+        <li>Navigate to the Journal Sidebar tab (<i class="fas fa-book-open"> </i>).</li>
+        <li>Click the <i class="fas fa-book-open"> </i> Create Journal Entry button in the top right corner of the Journal Directory.</li>
+        <li>Enter a name for your Journal Entry in the dialog that appears.</li>
+        <li>Click the <i class="fas fa-check"> </i> Create   New Journal Entry button to create your Journal Entry.</li>
+    </ol>
+    <p>Once created, your new Journal Entry will open, allowing you to add pages, change the Journal Entry's name, or show the entry to others.</p>
+    </div>
+</section>
+<section class="collapsible">
+    <header class="collapsible-header">Creating Pages</header>
+    <div class="collapsible-content">
+        <p>Once you have created a Journal Entry, you can create pages of any of the above types within that entry. Pages are designed to be used to break your content up into logical and easy to use sections. To create a page:</p>
+        <ol>
+            <li>From within an open Journal Entry, click the <i class="fa-solid fa-file-circle-plus"> </i> Add Page button.</li>
+            <li>In the dialog that appears, name your Page</li>
+            <li>Choose the type of page you wish to create from the dropdown menu.</li>
+            <li>Click the <i class="fas fa-check"> </i> Create New Page button.</li>
+        </ol>
+        <p>Once created, your new page will open in an editing mode, allowing you to edit the content or define links and settings for that Page as required. </p>
+    </div>
+</section>
+</div>
+<figure class="right">@Image[414]</a>
+    <figcaption>The Journal Entry Application provides a convenient way to organize the stories of your world.</figcaption>
 </figure>
-<p>Journal entries are created and managed from the Journal Entries sidebar.</p>
-<h4 id="pins">Creating Map Notes from Journal Entries</h4>
-<p>A Journal Entry can be 'pinned' to any scene, generating a Map Note that connects to that Journal Entry simply by dragging the entry from the sidebar to the location you would like to place a Map Note. The visibility of these map notes is based on the entry's configured permissions, which are discussed later in this article.</p>
-<p>For a greater explanation of this feature, and how it can be used you can also refer to the <a title="Map Notes" href="https://foundryvtt.com/article/map-notes/" target="_blank" rel="nofollow noopener">Map Notes</a> article.</p>
-<h3>Creating Journal Entries</h3>
-<p>To create a new journal entry, click the Create Entry, this will open a dialog where you'll name the entry. If you have created folders in your journals directory, you can select the folder it should be placed in, if you like.</p>
-<p>Once you've named the journal entry and clicked Create New Journal Entry you'll be presented with the blank edit window for that entry.</p>
-<p>From this point you can begin filling it out as you see fit!</p>
-<h2 class="border">The Journal Editor</h2>
-<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/a-journal-entry-2020-05-22.png" alt="A Journal Entry">@Image[42]</a>
-<figcaption>An example Journal Entry in Text mode.</figcaption>
+</div>
+<h3>Additional Journal Entry Features</h3>
+<p>Journal Entries also support a few key features which are useful to be aware of:</p>
+<h4 id="pins">Map Notes</h4>
+<p>Journal Entries and their Pages can be 'pinned' to any Scene, generating a Map Note that will display the associated page or whole entry when clicked.</p>
+<p>For a greater explanation of this feature, and how it can be used, please refer to @Article[map-notes].</p>
+<h4>Multipage View</h4>
+<p>Journal Entries support displaying all the pages the Entry may contain in a single view for convenient ease of reading across multiple pages of varying types. To toggle this view, simply click <i class="fa-solid fa-note"> </i> in the Journal Entry sidebar and the display will switch between multi-page viewing and single-page viewing.</p>
+<h4 id="show">Showing Journal Entries and Pages to Players</h4>
+<p>Journal entries and their pages may be shown to specific players, or all players. If you wish to show a page to one or more players, simply click "Show Players" from the heading menu for any Journal Entry. By default, show players assumes you wish to show all players the journal entry, but you can selectively choose individual players who will receive it. Once you have selected the players to show, clicking the button Show Players will confirm and display that page for the players you selected, bringing it to the forefront of their screen. If you are in Multipage view, you can show individual pages by right-clicking the specific page in the Journal Sidebar and choosing "Show Players" instead.</p>
+
+<h2 class="border">The Page Editor</h2>
+<figure class="right">@Image[42]
+<figcaption>A Journal Entry Page Editor in Text mode.</figcaption>
 </figure>
-<p>Journal Entries may have both a Text View and an Image View, which can be switched between by clicking the "Text" or "Image" buttons on the top menu of the Journal Entry.</p>
-<p>Text View is the default mode of all newly created journal entries, and includes the text editor. The GM or Owner can make numerous changes to the way the text is formatted using the menus at the head of the editor while in editing mode.</p>
-<p>Image View mode provides the GM or Owner to select an image using the Filepicker, and places the selected image in a shadow box. A journal entry that has an image and no text will automatically open in image view.</p>
+<p>Text Pages have a variety of options for editing which can be configured by clicking <i class="fas fa-cog"> </i> Sheet in the editor window. This will provide you with a dialog allowing you to toggle between any of the following editor options:</p>
+<dl>
+    <dt>Default Text Page Sheet</dt>
+    <dd>The default editor uses Prosemirror, a versatile editor which provides a robust visual editing experience while also providing features like collaborative editing and auto-saving of entries.</dd>
+    <dt>Markdown</dt>
+    <dd>For those familiar with Markdown, the Markdown editing sheet provides access to use shorthand codes compatible with Markdown, such as using # to denote header and ** to denote bold.</dd>
+    <dt>TinyMCE</dt>
+    <dd>The previous editor used under Version 9 of Foundry VTT. While this editor is still supported, it is being phased out and should no longer be relied on.</dd>
+</dl>
+<section class="collapsible">
+    <header class="collapsible-header">Title Controls</header>
+    <div class="collapsible-content">
+        <p>Journal entries offer two specific controls which affect how they are displayed to users. The upper right side of every page editor provides a toggle for whether or not title of that page will be displayed in the single-page view of a Journal Entry. Additionally, the Level dropdown configures how much the page is indented in the table of contents listing of the Journal Sidebar</p>
+    </div>
+</section>
+<h3>Text Page Features</h3>
+<p>Text Pages support a variety of features many users have come to expect from the average text editor, including formatting options for headers, bold, italic, underline, strikethrough, and more. There are also some special features supported by Foundry VTT: </p>
+<h4>Collaborative Editing</h4>
+<p>The Prosemirror text editor provides ability for multiple users to edit the same Text Page at the same time. Changes made by all users will be updated in realtime for other users within the same Page, and any one user issuing a save command saves the current work of all users.</p>
+<h4>Automatic Saving</h4>
+<p>Journal entry pages automatically save on a timed interval (every 60 seconds by default). The rate at which data is automatically saved can be adjusted within the settings menu, accessible by clicking <i class="fas fa-cogs"> </i> Configure Settings from the <i class="fas fa-cogs"> </i>Settings sidebar tab.</p>
 <h4>Secret Text</h4>
-<p>Foundry adds a custom formatting called Secret to text entries which will only be visible to the GM or Owner of the Journal Entry. You can create a Secret by selecting "Custom" and then "Secret" from the Paragraph formatting menu. If text is selected when you choose 'secret' it will change the selected text to Secret.</p>
+<p>Foundry VTT adds a custom formatting called Secret to text entries which will only be visible to the GM or Owner of the Journal Entry. You can create a Secret by selecting "Block" and then "Secret" from the Paragraph formatting menu. If text is selected when you choose 'secret' it will change the selected text to Secret. Secret text blocks can be toggled as visible to players by clicking the 'reveal' button, allowing players to see the content of the text if they are presently viewing the Page. </p>
 <h4>Journal Source Code</h4>
-<p>In addition to the formatting option available through TinyMCE, using the "Source Code" option from the formatting menu will allow you to edit the HTML of the journal entry directly, opening access to HTML tags and a vast array of custom styling.</p>
+<p>In addition to the formatting options available through Prosemirror, using the "Source HTML" option from the formatting menu will allow you to edit the HTML of a Page directly, opening access to HTML tags and a vast array of custom styling.</p>
 <h4>Linking Documents</h4>
-<p>The editor allows you to link to other types of documents in the rich text editor, including actors, item, journal entries, rollable tables and scenes. For more information on this, consult the <a href="#links" target="_blank" rel="nofollow noopener">Dynamic Document Links</a> section later in this article.</p>
-<h3 id="show">Showing Journal Entries to Players</h3>
-<p>Journal entries may be shown to all players regardless of their permission to access the journal, simply click "Show Players" from the heading menu for any Journal Entry.</p>
-<p>Clicking the Show Players button while in Text View will show all players with sufficient permissions the text content of the journal entry.</p>
-<p>Clicking the Show Players button while in Image View will show all players with sufficient permissions the selected image.</p>
+<p>The Page Editor allows you to link to other types of Documents in the rich text editor. For more information on this, consult the <a href="#links" target="_blank" rel="nofollow noopener">Dynamic Document Links</a> section later in this article.</p>
 <h2 class="border">Journal Context Menu Options</h2>
+<div class="columns">
+    <div class="column" style="flex:2">
+<p>You can right click any journal entry in the journals directory to open the context menu. This menu provides a list of useful actions that allow you to manipulate the chosen entry in various ways. </p>
+<section class="collapsible">
+    <header class="collapsible-header">Journal Entry Context Menu Options</header>
+    <div class="collapsible-content">
+        <dl>
+            <dt>Clear Folder</dt>
+            <dd>Removes the Journal Entry from all folders, placing it at the top level of the Journal Entries directory.</dd>
+            <dt>Delete</dt>
+            <dd>Deletes the Journal Entry, after accepting a confirmation prompt.</dd>
+            <dt>Duplicate</dt>
+            <dd>Creates a copy of the Journal Entry in the directory.</dd>
+            <dt>Configure Permission</dt>
+            <dd>Configure the permission levels of the Journal Entry, allowing players of your choice to view or modify the Journal Entry in the directory.</dd>
+            <dt>Export Data</dt>
+            <dd>Exports the Journal Entry's data as a JSON file on your computer.</dd>
+            <dt>Import Data</dt>
+            <dd>Imports data into the Journal Entry from a JSON file on your computer.</dd>
+            </dl>            
+    </div>
+    <h3>Journal Permission Levels</h3>
+    <p>As with all other Documents, Journal Entries have levels of Permissions that when assigned allow them to view and edit those entries at differing levels. The levels of permission are:</p>
+    <dl>
+    <dt>None (default for non-creator)</dt>
+    <dd>The user has no permission to view or edit a Journal Entry by default.</dd>
+    <dt>Limited</dt>
+    <dd>The user may see the map pin for this Journal Entry but will not see it in the sidebar. Double-clicking the map note pin will allow the Journal Entry Image to be displayed, but not the text.</dd>
+    <dt>Observer</dt>
+    <dd>The user may see the map pin for this Journal Entry as well as the Journal Entry in the sidebar, and may open the actual journal by clicking on the pin or its entry in the sidebar. In addition, the user may toggle between Image view and Text view for that journal entry.</dd>
+    <dt>Owner (default for creator)</dt>
+    <dd>The user may see the map pin and sidebar entry for this journal, and when the window is open may edit and change any features of that Journal Entry.</dd>
+    </dl>
+</section>
+</div>
 <figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/journals-directory-2021-01-28.jpg" alt="FVTT Journal Entry Context Menu">@Image[148]</a>
-<figcaption>The context menu provides a selection of useful actions related to manipulating existing journals.</figcaption>
-</figure>
-<p>You can right click any journal entry in the journals directory to open the context menu. This menu provides a list of useful actions that allow you to manipulate the chosen entry in various ways. The specific options are as follows:</p>
-<dl>
-<dt>Clear Folder</dt>
-<dd>Removes the Journal Entry from all folders, placing it at the top level of the Journal Entries directory.</dd>
-<dt>Delete</dt>
-<dd>Deletes the Journal Entry, after accepting a confirmation prompt.</dd>
-<dt>Duplicate</dt>
-<dd>Creates a copy of the Journal Entry in the directory.</dd>
-<dt>Configure Permission</dt>
-<dd>Configure the permission levels of the Journal Entry, allowing players of your choice to view or modify the Journal Entry in the directory.</dd>
-<dt>Export Data</dt>
-<dd>Exports the Journal Entry's data as a JSON file on your computer.</dd>
-<dt>Import Data</dt>
-<dd>Imports data into the Journal Entry from a JSON file on your computer.</dd>
-</dl>
-<h3>Journal Permission Levels</h3>
-<p>As with all other Documents, Journal Entries have levels of Permissions that when assigned allow them to view and edit those entries at differing levels. The levels of permission are:</p>
-<dl>
-<dt>None (default for non-creator)</dt>
-<dd>The user has no permission to view or edit a Journal Entry by default.</dd>
-<dt>Limited</dt>
-<dd>The user may see the map pin for this Journal Entry but will not see it in the sidebar. Double-clicking the map note pin will allow the Journal Entry Image to be displayed, but not the text.</dd>
-<dt>Observer</dt>
-<dd>The user may see the map pin for this Journal Entry as well as the Journal Entry in the sidebar, and may open the actual journal by clicking on the pin or its entry in the sidebar. In addition, the user may toggle between Image view and Text view for that journal entry.</dd>
-<dt>Owner (default for creator)</dt>
-<dd>The user may see the map pin and sidebar entry for this journal, and when the window is open may edit and change any features of that Journal Entry.</dd>
-</dl>
+    <figcaption>The context menu provides a selection of useful actions related to manipulating existing journals.</figcaption>
+    </figure>
+</div>    
 <h2 id="links" class="border">Dynamic Document Links</h2>
-<p>Though not exclusive to Journal Entries, Foundry supports linking to other types of Documents from within its rich text editor system. Actors, Items, Journal Entries, and Rollable Tables may be linked to dynamically by dragging and dropping a document from the sidebar into an open editor.</p>
-<p>The syntax to create a dynamic link is as follows:</p>
+<p>Though not exclusive to Journal Entries, Foundry VTT supports linking to other types of Documents from within its rich text editor system. Actors, Items, Journal Entries, and Rollable Tables and more may be linked to dynamically by dragging and dropping a document from the sidebar into an open editor. If you have text selected when dropping your document into the editor, the selected text will be used as the label for the link.</p>
+<section class="collapsible">
+    <header class="collapsible-header">Creating a Dynamic Link Manually</header>    
+    <div class="collapsible-content">
+        <p>In addition to creating dymanic links by dragging and dropping content into an open editor, it is possible to create a manual link to a specific document if you know the ID or the name of the document. Wherever possible, it is best to use the ID of a document rather than the name, as the ID is a more reliable point of reference.</p>
+        <p>Getting the ID of a document:</p>
+        <ol>
+            <li>Open a Document (such as an Actor) you wish to reference.</li>
+            <li>Click the <i class="fa-solid fa-passport"> </i> icon located next to the Document's name in the header bar to copy the ID to your clipboard.</li>
+            <li>This ID can now be pasted wherever you like using Ctrl+V (CMD+V for macOS)</li>
+        </ol>
+        <p>The syntax to create a dynamic link is as follows:</p>
 <pre><code>@DocumentType[Document Name]
-@DocumentType[Document ID]{Custom Text}
-</code></pre>
+@DocumentType[Document ID]{Custom Text Label}</code></pre>
 <p>For example:</p>
 <pre><code>@Actor[Locke]
-@Actor[Pt1jPTgVWdJ6QYIA]{Locke}
-</code></pre>
-<p>This allows a GM to quickly link numerous journal entries to one another and, if the user viewing the Journal Entry has permission to view the linked document, clicking on the link will open the linked document in another sub-window of Foundry.</p>
-<h4>Dragging and Dropping Documents</h4>
-<p>In addition to the above method, you can drag and drop any actor, item, scene roll table or other journal entry into an open journal entry that's being edited. This will create a link to the item in question, which can be clicked to open when the journal entry is being viewed in its saved form. This is useful for creating hub entries that can help direct readers to other articles or reference other aspects of the game world. Readers may need specific permissions for the document links, however, or else the items in question won't be fully visible to them.&nbsp;</p>
-<h3 id="scene">Scene Notes</h3>
-<p>Scenes may be configured to provide easy access to a Journal Entry containing notes for that scene for the GM's convenient reference. To do so, from the scene configuration menu choose the Journal Entry you wish to associate with your scene from the Journal Notes dropdown menu.</p>
-<p>These notes can be accessed quickly by right clicking the Scene Name in the Navigation Menu and choosing "Scene Notes."</p>
+@Actor[Pt1jPTgVWdJ6QYIA]{Locke}</code></pre>
+        <h4>UUIDs</h4>
+        <p>A more robust link can be created by using the UUID format which is commonly used when dragging and dropping entries. The format below can be used, providing even more reliable linking.</p>
+        <pre><code>@UUID[DocumentType.ID]{Custom Text Label}</code></pre>
+        <p>For example:</p>
+        <pre><code>@UUID[Actor.VXbvLWzJkGYkMc63]{Akra (Dragonborn Cleric)}</code></pre>                
+    </div>
+</section>
+<p>This allows a GM to quickly link numerous journal entries to one another and, if the user viewing the Journal Entry has permission to view the linked document, clicking on the link will open the linked document in another window.</p>
+<h3>Linking to Headers</h3>
+<p>A specific feature of Journal Entry Pages is the ability to provide a link to a specific header within a journal entry. These links can only be created by dragging and dropping the specific header of a Page from the Journal Entry sidebar into another rich text field. Doing so generates a dynamic link which, when clicked, will automatically open that Journal Entry to the specified header. This feature is particularly useful if you have long journal entries, such as session notes, and wish to link to a specific subsection in a way that will scroll users to view it specifically.</p>
 <h2 class="border">API References</h2>
 <p>To interact with Journal Entry documents programmatically, you will primarily use the following API concepts:</p>
 <ul>

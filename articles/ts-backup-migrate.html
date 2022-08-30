@@ -1,33 +1,33 @@
-<!-- TODO: Potentially Reword based on feedback -->
 <!-- Overview -->
 <h2 class="border">Overview</h2>
-<p>This article will guide you through the process of backing up your User Data and migrating to a new version of Foundry Virtual Tabletop or your Game System. We recommend making regular backups of your User Data, and especially before migrating your World or updating Foundry Virtual Tabletop.</p>
+<!-- Encounter Library Backup Video -->
+<figure class="right"><iframe width="1280" height="360" src="https://www.youtube.com/embed/OmbxMmqNNXU" title="Quick Tip: How To Back Up Foundry on Windows, Mac, and Linux" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></figure>
+
+<p>Foundry VTT stores your User Data in a separate directory than the core software. This directory, known as your User Data Directory, contains the User Data and configuration settings used by Foundry VTT.</p>
+
+<p>This article will guide you through the process of backing up your User Data and migrating to a new version of Foundry Virtual Tabletop or your Game System. We recommend making regular backups of your User Data, and especially before moving your User Data or updating Foundry Virtual Tabletop.</p>
 <p>This article will introduce you to the following concepts:</p>
 <dl>
     <dt>Data Backup</dt>
     <dd>A copy of your Foundry VTT User Data, used in case of data loss or to return to an older version of Foundry Virtual Tabletop after migrating.</dd>
-    <dt>Migration</dt>
-    <dd>An automatic, irreversible process that updates your World's data to new version of Foundry Virtual Tabletop or your game system.</dd> 
     <dt>Data Sync Service</dt>
-    <dd>A backup service that automatically backs up and replaces existing files. <strong>These services are incompatible with Foundry Virtual Tabletop and will cause irreversible data loss!</strong> See below for more information.</dd>
+    <dd>A backup service that automatically backs up and replaces existing files. These services are incompatible with Foundry Virtual Tabletop and will cause irreversible data loss! See below for more information.</dd>
 </dl>
 <!-- Warning about synchronized backup services -->
 <h3>Danger of Data Sync Backup Services</h3>
-<p>Data sync services such as those offered by Dropbox, Google Drive, and Microsoft OneDrive, are not compatible with Foundry VTT. Foundry VTT makes frequent changes to your World's database files while running. A data sync service will inevitably copy these databases mid-operation, then restore them to this state later on. This leads to database corruption and irreversible data loss. <strong>Never use a data sync service with Foundry VTT! You WILL permanently lose your work!</strong></p>
+<p>Data sync services such as those offered by Dropbox, Google Drive, and Microsoft OneDrive, are not compatible with Foundry VTT. Foundry VTT makes frequent changes to your World's database files while running. A data sync service will inevitably copy these databases mid-operation, then restore them to this state later on. This leads to database corruption and irreversible data loss. Never use a data sync service with Foundry VTT! You will permanently lose your work.</p>
 
 <!-- Backing Up -->
 <h2 class="border">Backing Up Your User Data</h2>
-<p>Foundry VTT stores your User Data in a separate directory than the core software. This directory, known as your User Data Directory, contains several folders used by Foundry. Only the <b>Data</b> and <b>Config</b> folders need to be backed up.</p>
 
 <!-- OS Specific Backups - Win, Mac, Linux -->
-<!-- TODO: Pictures, at least for Linux. Potentially reformat how the commands are presented -->
 <section class="collapsible">
     <header class="collapsible-header">Backing Up on Windows</header>
     <div class="collapsible-content">
         <ol> 
             <li>Launch Foundry Virtual Tabletop and right-click its icon in the taskbar. Click on 'Browse User Data.'</li>
             <li>Close Foundry by clicking the X in the top right corner. It should no longer show in the task bar.</li>
-            <li>Copy the <b>Data</b> <b>Config</b> folders to another location on your PC.</li>
+            <li>Copy the 'Data', 'Config', and 'Logs' folders to another location on your PC.</li>
         </ol>
     </div>
 </section>
@@ -68,15 +68,57 @@
     <li>Linux - Use the steps from the previous section to find the path to your User Data. Copy the .tar.gz file to there and navigate to the directory using <code>cd /path/to/userdata/here</code>. Then enter the command <code>tar -xvf foundry-backup.tar.gz</code>, replacing "foundry-backup" with your archive name.</li>
 </ul>
 <p>After doing this, launch Foundry Virtual Tabletop as normal.</p>
-<!-- Migrating Your World -->
-<!-- TODO: Add image of migration dialog box-->
-<h2 class="border">Migrating Your User Data</h2>
-<p>New versions of Foundry VTT and Game Systems bring changes to how data is defined and stored. When an update occurs and a World is launched, Foundry VTT will automatically convert the existing data to work with these changes. This is known as Migration. <strong>Migrating a world is a one-way process. Once World Migration has begun, it is impossible for the World to work with older versions of Foundry. Always back up your User Data before migrating!</strong></p>
-<p>Migrating your world data requires just a few steps:</p>
-<ol>
-    <li>Launch Foundry VTT and navigate to the Worlds screen.</li>
-    <li>Find the world you intend to migrate and click 'Edit World.'</li>
-    <li>Tick the box next to "Launch in safe configuration," then click 'Save.' For more information on launching in safe configuration, see @Article[launch-safe-configuration].</li>
-    <li>Click 'Launch World'. A window will open and inform you that your World will migrate its data. <strong>If you have not made a backup, it is strongly suggested that you exit Foundry and make one before you proceed.</strong> To begin migration, click on 'Begin Migration.'</li>
-    <li>Log into your World as normal. Foundry VTT will display a message indicating that data migration has begun. A message will pop up when migration is complete.</li>
-    </ol>
+
+<h2 class="border">Moving Your User Data</h2>
+<p>Moving your User Data to a new location requires just a few simple steps. Before you do so, you should first perform a complete backup of your User Data folder.</p>
+<section class="collapsible">
+    <header class="collapsible-header">Move Your User Data on Windows</header>
+        <div class="collapsible-content"> 
+            <ol>
+            <li>Launch Foundry VTT and right-click its icon in the taskbar. Click on 'Browse User Data.'</li>
+            <li>Close Foundry VTT. Open a new file browser window and navigate to where you wish to move your data to. Create a new folder.</li>
+            <li>Copy the 'Data', 'Config', and 'Logs' folders to this new location. Keep this window open. We will refer to this location as the "old location."</li>
+            <li>Launch Foundry VTT and navigate to the Configuration screen.</li>
+            <li>Under 'User Data Path', enter the path to your new User Data location. Click on 'Save Configuration.' Foundry VTT will shut down.</li>
+            <li>Re-Launch Foundry VTT and check if your worlds are present. If they're not, double check the path you set in the Configuration screen.</li>
+            <li>If your worlds are present, shut down Foundry VTT. Temporarily move the 'Data', 'Config', and 'Logs' folders from the old location to another folder.</li>
+            <li>Launch Foundry VTT again. If your worlds are present, you have successfully moved your User Data to a new location.</li>
+            </ol>
+            <p>If your worlds do not show up after completing these steps, double check that the assigned User Data Path is correct and that the folders in this location are not empty.</p>  
+                </div>
+   </section>
+   
+<section class="collapsible">
+    <header class="collapsible-header">Move Your User Data on MacOS</header>
+        <div class="collapsible-content"> 
+            <ol>  
+            <li>Open Foundry VTT. Navigate to the 'Configuration' screen. Copy the filepath from the field next to 'User Data Path.'</li>
+            <li>Close Foundry VTT. Open Finder, click the 'Go' menu, choose 'Go to folder...', and paste in the path you copied.</li>
+            <li>Copy the 'Data', 'Config', and 'Logs' folders to this new location. Keep this window open. We will refer to this location as the "old location."</li>
+            <li>Launch Foundry VTT and navigate to the Configuration screen.</li>
+            <li>Under 'User Data Path', enter the path to your new User Data location. Click on 'Save Configuration.' Foundry VTT will shut down.</li>
+            <li>Re-Launch Foundry VTT and check if your worlds are present. If they're not, double check the path you set in the 'Configuration' screen.</li>
+            <li>If your worlds are present, shut down Foundry VTT. Temporarily move the 'Data', 'Config', and 'Logs' folders from the old location to another folder.</li>
+            <li>Launch Foundry VTT again. If your worlds are present, you have successfully moved your User Data to a new location.</li>
+            </ol>
+            <p>If your worlds do not show up after completing these steps, double check that the assigned User Data Path is correct and that the folders in this location are not empty.</p>  
+                </div>
+            </section>
+
+ <section class="collapsible">
+    <header class="collapsible-header">Move Your User Data on Linux</header>
+        <div class="collapsible-content"> 
+            <ol>  
+            <li>Open Foundry VTT. Navigate to the 'Configuration' screen. Copy the filepath from the field next to 'User Data Path.'</li>
+            <li>Close Foundry VTT and open a file browser window enter in the path you copied.</li>
+            <li>Copy the 'Data', 'Config', and 'Logs' folders to this new location. Keep this window open. We will refer to this location as the "old location."</li>
+            <li>Launch Foundry VTT and navigate to the Configuration screen.</li>
+            <li>Under 'User Data Path', enter the path to your new User Data location. Click on 'Save Configuration.' Foundry VTT will shut down.</li>
+            <li>Re-Launch Foundry VTT and check if your worlds are present. If they're not, double check the path you set in the Configuration screen.</li>
+            <li>If your worlds are present, shut down Foundry VTT. Temporarily move the 'Data', 'Config', and 'Logs' folders from the old location to another folder.</li>
+            <li>Launch Foundry VTT again. If your worlds are present, you have successfully moved your User Data to a new location.</li>
+            </ol>
+            <p>If your worlds do not show up after completing these steps, double check that the assigned User Data Path is correct and that the folders in this location are not empty.</p>  
+                </div>
+            </section>
+                       
