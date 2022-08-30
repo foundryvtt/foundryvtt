@@ -3,22 +3,22 @@
 <p>This article will familiarize you with the two methods of placing tiles into scenes, and how to manipulate and configure them once placed.</p>
 
 <h2 class="border">Tile Controls</h2>
-<p>The tile layer tools have the following options available:</p>
-<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/tiles-control-palette-2021-01-21.jpg">@Image[39]</a>
+<figure class="right">@Image[39]
 <figcaption>Tile Controls</figcaption>
 </figure>
+<p>The Tile Controls panel can be opened by clicking on the stacked cubes icon (<i class="far fa-cubes"> </i>) on the left-hand side of the user interface. This opens the tool palette, and allows you to draw new tiles or manipulate existing tiles segments.</p>
 <dl>
-<dt>Select Tiles</dt>
-<dd>This tool allows you to select tiles to directly manipulate them. While a tile is selected you can hold down the shift or control keys and use your mouse wheel to rotate it. You can also click and drag it around the scene.</dd>
-<dt>Place Tile</dt>
-<dd>This tool allows you to draw out a rectangle then opens a dialog to let you select the specific artwork you want to place inside the confines of the rectangle.</dd>
-<dt>Tile Browser</dt>
-<dd>This tool opens a file browser for your instance of Foundry VTT which shows you all of the available images that foundry can use as map tiles. You can click and drag any image found in this browser to the current scene, placing it into the map. The tiles default to their full resolution, but can be resized after being placed.</dd>
-<dt>Foreground Layer Toggle</dt>
-<dd>Introduced in the 0.8.x. update series with the overhead tile system, this button toggles between the background and foreground on the @Article[canvas-layers], allowing you to clearly see and interact with any overhead tiles currently in the scene while toggled on. When leaving the canvas layer this toggle is turned off automatically.</dd>
+<dt>Select Tiles (<i class="far fa-expand"> </i>)</dt>
+    <dd>This tool allows you to select tiles to be moved, edited, or resized. While a tile is selected you can hold down the shift or control keys and use your mouse wheel to rotate it. You can also click and drag it around the scene.</dd>
+<dt>Place Tile (<i class="fas fa-cube"> </i>)</dt>
+    <dd>This tool allows you to draw out a rectangle then opens a dialog to let you select the specific artwork you want to place inside the confines of the rectangle.</dd>
+<dt>Open Tile Browser (<i class="far fa-folder"> </i>)</dt>
+    <dd>This tool opens the @Article[file-picker] which allows you to browse images in your user data folders. You can click and drag any image in this browser to the canvas, which places that image as a tile.</dd>
+<dt>Toggle Foreground Layer (<i class="far fa-home"> </i>)</dt>
+    <dd>This button switches between editing foreground and background tiles. When on, you can only select and edit overhead tiles, when off you can only select and edit background tiles. This toggle also determines what layer all newly created tiles are placed on. This toggle defaults to off when a scene is loaded.</dd>
 </dl>
 
-<h3>Placing Tiles</h3>
+<h2 class="border">Placing Tiles</h2>
 <figure class="right"><a title="See Larger Image" href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/tile-sprites-placing-tiles-2021-01-21.webp" target="_blank" rel="nofollow noopener">@Image[139]</a>
 <figcaption>A demonstration of the two ways you can place tiles with the tile tools. (Click to enlarge)</figcaption>
 </figure>
@@ -30,12 +30,70 @@
 <dd>by clicking the folder icon in the tool palette you will be shown a File Picker where you can drag and drop image assets onto the Scene to create Tiles.</dd>
 </dl>
 
-<h2 class="border">The Tile HUD</h2>
-<p>There are additional options for configuring the Tile in the HUD which is accessed on a single right-click.</p>
-<figure class="right"><a title="See Larger Image" href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/the-tile-hud-2020-05-21.png" target="_blank" rel="nofollow noopener">@Image[41]</a>
+<p>Once a tile has been created in a scene, they can be moved and resized at will with the Select Tiles tool (<i class="far fa-expand"> </i>). You can also edit existing tiles by double clicking on them, which opens the tile configuration panel. This configuration panel allows you to modify the appearance, dimensions, and positioning of the tile, as well as enabling options that allow it to function as an overhead tile with special occlusion modes.</p>
+
+<section class="collapsible">
+    <header class="collapsible-header">Tile Configuration</header>
+    <div class="collapsible-content">
+<p>Once a Tile is created, you can configure all the details of the Tile by double-clicking on the Tile. Once any changes to the Tile have been made, click the "Update Tile" button to confirm your changes. The tile configuration options are described below:</p>
+<figure class="right">@Image[40]
+<figcaption>The Tile configuration sheet is accessed by double-clicking on a Tile and can customize the display and position of the Tile.</figcaption>
+</figure>
+<h3>Basic</h3>
+<dl>
+    <dt>Tile Sprite</dt>
+    <dd>The image or video file path of the displayed tile. Note that Tiles can be either static images or videos. If using Video tiles, the <code>.webm</code> format is recommended to support transparency (if needed).</dd>
+    <dt>X/Y-Position</dt>
+    <dd>The x-coordinate (horizontal) location and y-coordinate (vertical) location of the tile. These are set automatically when the tile is initially placed or moved, and uses the top-left corner of the Tile to determine the coordinates of the tile as a whole.</dd>
+    <dt>Z-Index</dt>
+    <dd>The sorting place for the tile among other tiles on that layer, with higher Z-Index numbers being drawn overtop tiles with lower numbers. This can be used to manually sort tiles and how they are layered atop each other.</dd>
+    <dt>Width/Height</dt>
+    <dd>The horizontal width and vertical height of the tile on the canvas. These are automatically set when the tile is placed or when it is resized, but can also be manually edited to fine tune the dimensions of the image.</dd>
+    <dt>Rotation</dt>
+    <dd>The rotation of the Tile, in degrees. You can directly edit this field, or quickly rotate a tile placed in a scene by holding down Shift or Control and using the W-A-S-D keys, the arrow keys, or the mouse wheel. When used with the mouse wheel, Control offers smaller increments of rotation than the Shift key, allowing for finer adjustments.</dd>
+    <dt>Tile Opacity</dt>
+    <dd>The opacity of the tile from 0 (transparent) to 1 (fully opaque). With this slider you can directly affect the default level of transparency the tile has on the canvas, which is good for tiles such as dirt, cracks, damage, and similar overlay tiles that might be too intense or stark at full opacity.</dd>
+    <dt>Tint Color</dt>
+    <dd>The color overlay on a tile represented in hex color code. The color is set to multiply over the art of the tile, which means that the darker the color is the more it will darken the tile. In this case black (#000000) will turn the tile entirely black, while white (#ffffff) will not affect the appearance of the tile at all.</dd>
+</dl>
+<h3>Overhead</h3>
+<p>The overhead tab of the tile configuration menu tab allows you to configure how a tile interacts with the canvas as an overhead tile.</p>
+<p class="note">Please be aware that token occlusion for overhead tiles does not update during a token's movement.</p>
+<dl>
+    <dt>Is Overhead?</dt>
+    <dd>Toggles if the tile is to be treated as an overhead tile. When on the tile cannot be modified while the Foreground Layer toggle is off in the Tile Layer tool sidebar. Overhead tiles are rendered above background tiles in the @Article[canvas-layers]. Overhead tiles are automatically hidden when actors move under them.</dd>
+    <dt>Is Roof?</dt>
+    <dd>Toggles if the tile is to be treated as a roof tile, which render above light sources and blocks weather effects on the map for any tokens under it.</dd>
+    <dt>Occlusion Mode</dt>
+    <dd>The occlusion mode determines how the overhead tile interacts with actor tokens on the canvas.</dd>
+        <br><strong>None</strong> turns off occlusion, making the tile never fade while tokens are under it. 
+        <br><strong>Fade</strong> causes the whole tile to fade when an actor token moves under it. This is the default setting when toggling overhead on.
+        <br><strong>Radial</strong> causes the tile to reveal the background in the vicinity of an actor token under it. The radius is determined by the token's size.
+        <br><strong>Vision</strong> causes the tile to be partially revealed based on the vision of the actor, which does not need to be under the tile to see what's beneath it. This is useful for rooves on buildings where players could see through a window or door, viewing only a portion of what is obscured by the roof itself.
+    <dt>Occlusion Alpha</dt>
+    <dd>The occlusion alpha setting determines what level of opacity the overhead tile should maintain even when an actor token is under it. The setting ranges from 0 (transparent) to 1 (fully opaque). This setting defaults to 0, meaning that all overhead tiles fully vanish when an actor token moves under them.</dd>
+</dl>
+
+<h3>Animation</h3>
+The animation tab of the tile configuration menu allows you to configure how a video tile behaves on the canvas.
+<dl>
+    <dt>Loop Video</dt>
+    <dd>This toggle determines if the video should automatically start again after playing its last frame of animation.</dd>
+    <dt>Auto-Play Video</dt>
+    <dd>This toggle determines if the video should automatically start playback when the scene loads, or if it should wait for the play button to be pressed on the token HUD.</dd>
+    <dt>Video Volume</dt>
+    <dd>This slider determines the volume of video tiles that have sound. By default all tiles start with a volume setting of 0 (muted) to prevent unwanted audio playback.</dd>
+</dl>
+</div>
+</section>
+
+<section class="collapsible">
+    <header class="collapsible-header">Tile Hud</header>
+    <div class="collapsible-content">
+<figure class="right">@Image[41]
 <figcaption>The Tile HUD is accessed with a single right-click.</figcaption>
 </figure>
-<p>The buttons in the Tile HUD are, from top-to-bottom:</p>
+<p>Various quick-actions are available for tiles through the Tile in the HUD, which is accessed on a single right-click on an already selected tile.</p>
 <dl>
 <dt>Toggle Visibility</dt>
 <dd>Toggle the visibility state of the Tile, turning it from hidden to visible (or vice-versa).</dd>
@@ -46,57 +104,9 @@
 <dt>Send to Back</dt>
 <dd>Send the Tile to the back of the Tiles Layer, displaying it below other nearby Tiles. This will set the tile's Z-Index to one less than the lowest z-index tile in the scene. If the tile is already at the back of the layer, this will decrement the Z-Index of the tile by 1 each it's clicked.</dd>
 </dl>
+</div>
+</section>
 
-<h2 class="border">Tile Configuration</h2>
-<p>Once a Tile is created, you can configure all the details of the Tile by double-clicking on the Tile. Once any changes to the Tile have been made, click the "Update Tile" button to confirm your changes. The tile configuration options are described below:</p>
-<figure class="right"><a title="See Larger Image" href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/tile-configuration-2020-05-21.png" target="_blank" rel="nofollow noopener">@Image[40]</a>
-<figcaption>The Tile configuration sheet is accessed by double-clicking on a Tile and can customize the display and position of the Tile.</figcaption>
-</figure>
-<h4>Tab: Basic</h4>
-<dl>
-    <dt>Tile Sprite</dt>
-    <dd>The image or video file path of the displayed tile. Note that Tiles can be either static images or videos. If using Video tiles, the <code>.webm</code> format is recommended to support transparency (if needed).</dd>
-    <dt>X-Position</dt>
-    <dd>The x-coordinate location of the top-left corner of the Tile.</dd>
-    <dt>Y-Position</dt>
-    <dd>The y-coordinate location of the top-left corner of the Tile.</dd>
-    <dt>Z-Index</dt>
-    <dd>The sorting place for the tile among other tiles on that layer, with higher Z-Index numbers being drawn overtop tiles with lower numbers. This can be used to manually sort tiles and how they are layered atop each other.</dd>
-    <dt>Width</dt>
-    <dd>The horizontal width of the desired Tile display.</dd>
-    <dt>Height</dt>
-    <dd>The vertical height of the desired Tile display.</dd>
-    <dt>Rotation</dt>
-    <dd>The rotation of the Tile, in degrees. You can directly edit this field, or quickly rotate a tile placed in a scene by holding down Shift or Control and using the W-A-S-D keys, the arrow keys, or the mousewheel. When used with the mousewheel, Control offers smaller increments of rotation than the Shift key, allowing for finer adjustments.</dd>
-    <dt>Tile Opacity</dt>
-    <dd>The opacity of the tile from 0 (transparent) to 1 (fully opaque). With this slider you can directly affect the default level of transparency the tile has on the canvas, which is good for tiles such as dirt, cracks, damage, and similar overlay tiles that might be too intense or stark at full opacity.</dd>
-    <dt>Tint Color</dt>
-    <dd>The color overlay on a tile represented in hex color code. The color is set to multiply over the art of the tile, which means that the darker the color is the more it will darken the tile. In this case black (#000000) will turn the tile entirely black while white (#ffffff) will not affect the appearance of the tile at all.</dd>
-</dl>
-<h4>Tab: Overhead</h4>
-The overhead tab of the tile configuration menu tab allows you to configure how a tile interacts with the canvas as an overhead tile.
-<dl>
-    <dt>Is Overhead?</dt>
-    <dd>Toggles if the tile is to be treated as an overhead tile. When on the tile cannot be modified while the Foreground Layer toggle is off in the Tile Layer tool sidebar. Overhead tiles are rendered above background tiles in the @Article[canvas-layers]. Overhead tiles are automatically hidden when actors move under them.</dd>
-    <dt>Occlusion Mode</dt>
-    <dd>The occlusion mode determines how the overhead tile interacts with actor tokens on the canvas.
-        <br><strong>None</strong> turns off occlusion, making the tile never fade while tokens are under it. 
-        <br><strong>Fade</strong> causes the whole tile to fade when an actor token moves under it. This is the default setting when toggling overhead on.
-        <br><strong>Roof</strong> causes the tile to render above light sources and blocks weather effects on the map for any tokens under it.
-        <br><strong>Radial</strong> causes the tile to reveal the background in the vicinity of an actor token under it. The radius is determined by the token's size.
-    <dt>Occlusion Alpha</dt>
-    <dd>The occlusion alpha setting determines what level of opacity the overhead tile should maintain even when an actor token is under it. The setting ranges from 0 (transparent) to 1 (fully opaque). This setting defaults to 0, meaning that all overhead tiles fully vanish when an actor token moves under them.</dd>
-</dl>
-<h4>Tab: Animation</h4>
-The animation tab of the tile configuration menu allows you to configure how a video tile behaves on the canvas.
-<dl>
-    <dt>Loop Video</dt>
-    <dd>This toggle determines if the video should automatically start again after playing its last frame of animation.</dd>
-    <dt>Autoplay Video</dt>
-    <dd>This toggle determines if the video should automatically start playback when the scene loads, or if it should wait for the play button to be pressed on the token hud.</dd>
-    <dt>Video Volume</dt>
-    <dd>This slider determines the volume of video tiles that have sound. By default all tiles start with a volume setting of 0 (muted) to prevent unwanted audio playback.</dd>
-</dl>
 <h2 class="border">API References</h2>
 <p>To interact with Tiles programmatically, consider using the following API concepts:</p>
 <ul>

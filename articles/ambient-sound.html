@@ -1,5 +1,5 @@
 <h2>Overview</h2>
-<p>Foundry Virtual Tabletop allows for local ambient sound effects which are activated when a player-controlled Token is moved into its area of effect. This can be useful for environmental features like a waterfall or a crackling campfire which your players will be able to hear when their Tokens are nearby.</p>
+<p>Foundry Virtual Tabletop allows for local ambient sound effects which are audible when player-controlled Tokens move into its area of effect. This can be useful for environmental features like a waterfall or a crackling campfire which your players will be able to hear when their Tokens are nearby.</p>
 
 <figure>
 	<video width="100%" controls>
@@ -8,18 +8,43 @@
 	<figcaption>Create an Ambient Sound using a left-mouse drag workflow on the Sounds Layer.</figcaption>
 </figure>
 
-<p>Ambient Sounds are created by navigating to the Sounds layer of the active Scene by clicking on the musical notes icon in the Scene control palette. While on the Sounds layer, you can create a new Sound by using a left-click and drag workflow to expand the area of effect (you can change it later). Once you are done dragging the Sound Configuration form will appear. You must select a sound file to play in order to complete the creation. The Sound Configuration shown in the following figure and its configuration options are explained below:</p>
+<h2 id="wallcontrols" class="border">Sound Controls</h2>
+<figure class="right">@Image[413]
+<figcaption>Sound Controls Tool Palette</figcaption>
+</figure>
+<p>The Sound Controls panel can be opened by clicking on the music note icon (<i class="far fa-music"> </i>) on the left-hand side of the user interface. This opens the tool palette, and displays all existing sound emitters on the current scene and their areas (if there are any) allowing you to create new sound emitters or manipulate existing wall segments.</p>
+<dl>
+<dt>Draw Ambient Sound (<i class="far fa-volume-up"> </i>)</dt>
+    <dd>This tool allows you to create a new ambient sound emitting by clicking on a point in the current scene then dragging out the desired radius for that sound.</dd>
+<dt>Preview Sound (<i class="fas fa-headphones"> </i>)</dt>
+    <dd>This toggle allows you to use your cursor as a simulated player token, listening to any sounds placed in the current scene.</dd>
+<dt>Clear Sounds (<i class="fas fa-trash"> </i>)</dt>
+    <dd>This button clears all existing sound sources on the scene.</dd>
+</dl>
 
-<h2 class="border" id="ambientconfigure">Ambient Sound Configuration</h2>
+<h2 class="border">Creating Sounds</h2>
+<p>Ambient Sounds are created by using the Draw Ambient Sound tool (<i class="far fa-volume-up"> </i>). With this tool selected left-click where you want the sound source to be, then drag out the radius for the sound. This will open the Sound Configuration window which allows you to configure the sound that will be played. The Sound Configuration shown in the following figure and its configuration options are explained below.</p>
+<p>Once configured, the chosen sound will loop endlessly for any controlled tokens in the sound area.</p>
+<p class="info">Please note that you must select a sound file to play in order to complete the creation, if you close the configuration window without specifying a sound file, it will cancel creation of the ambient sound.</p>
+<p>For information on what file types can be used and how audio assets should be encoded, see the @Article[media] article.</p>
+
+<h4>Muting Placed Sounds</h4>
+<p>Once an Ambient Sound has been created, you can mute/un-mute it by right-clicking on the icon for the emission point when on the Sounds Layer.</p>
+
+<h4>Previewing Placed Sounds</h4>
+<p>Once an Ambient Sound has been created, you can toggle the preview audio feature from the Sounds Layer tool bar. While this is toggled your mouse cursor will be treated as an actor on the canvas, allowing you to hear sounds based on where it is in the scene. This is useful for quickly checking how a scene would sound based on current ambient sound placement and settings. Please note that this toggle remains even if you switch to a new layer.</p>
+
+<h4>Modifying Placed Sounds</h4>
+<p>After an Ambient Sound has been created, you can edit it later by double clicking on its control icon that is visible when on the Sounds Layer. To move the position of an existing Ambient Sound you can click and drag its icon to move it. You may also use <code>CTRL+C</code> and <code>CTRL+V</code> commands to copy and paste sounds.</p>
+<p>Players can control the volume level of playing Ambient Sounds using the global Ambient slider in the Playlists tab of the Sidebar.</p>
+
+<section class="collapsible">
+	<header class="collapsible-header">Ambient Sound Configuration</header>
+	<div class="collapsible-content">
 <figure class="right">@Image[29]
 	<figcaption>The ambient sound configuration screen, shown when first creating an ambient sound, or by double-clicking an existing sound.</figcaption>
 	</figure>
-
 <dl>
-    <dt>Sound Type</dt>
-	<dd>
-		<p>Configure the type of sound emitted by this source. Ambient Sounds can either be <strong>local</strong> which are blocked by any Walls which inhibit perception or <strong>global</strong> which are always audible within their area regardless of the presence of Walls.</p>
-	</dd>
     <dt>Audio Source</dt>
 	<dd>
         <p>You must choose a path to a valid sound file which plays when Tokens are within the area of effect. Ambient Sounds always repeat on loop, so it is recommended to use a format like .webm, .wav, or .ogg which allows for seamless looping, but other audio file formats are also supported.</p>
@@ -36,6 +61,10 @@
 	<dd>
 		<p>This option specifies that the volume of the Ambient Sound should automatically reduce as Tokens are further from its origin (but still within the area) and increase in volume when Tokens are closer to the origin of the sound. If this option is disabled, the volume level of the Ambient Sound will be the same everywhere within the affected area.</p>
 	</dd>
+	<dt>Constrained by Walls</dt>
+	<dd>
+		<p>This toggle determines whether the sound's radius should be impacted by walls. When on, sounds will not pass through walls which aren't configured to allow sound through them. For more on creating and configuring walls see the @Article[walls] article.</p>
+	</dd>
     <dt>Maximum Volume</dt>
 	<dd>
 		<p>This slider configures the maximum volume level of the Ambient Sound at its point of origin (if easing is applied) or throughout the area (if no easing).</p>
@@ -45,14 +74,8 @@
 		<p>These fields configure the darkness levels in which the Ambient Sound plays. The default setting of between 0 and 1 results in a sound that is always playing.</p>
 	</dd>
 </dl>
-<h2 class="border" id="modifying">Modifying Placed Sounds</h2>
-<p>After an Ambient Sound has been created, you can edit it later by double clicking on its control icon that is visible when on the Sounds Layer. To move the position of an existing Ambient Sound you can click and drag its icon to move it. You may also use <code>CTRL+C</code> and <code>CTRL+V</code> commands to copy and paste sounds.</p>
-<p>Players can control the volume level of playing Ambient Sounds using the global Ambient slider in the Playlists tab of the Sidebar.</p>
-<p>Note that Ambient Sounds always loop if a Token is within their area of effect. If you are interested in one-time audio effects which play at a certain time that will be handled by the Event Trigger system, a post-release feature that is not yet added.</p>
-<h4>Muting Placed Sounds</h4>
-<p>Once an Ambient Sound has been created, you can mute/un-mute it by right-clicking on the icon for the emission point when on the Sounds Layer.</p>
-<h4>Previewing Placed Sounds</h4>
-<p>Once an Ambient Sound has been created, you can toggle the preview audio feature from the Sounds Layer tool bar. While this is toggled your mouse cursor will be treated as an actor on the canvas, allowing you to hear sounds based on where it is in the scene. This is useful for quickly checking how a scene would sound based on current ambient sound placement and settings. Please note that this toggle remains even if you switch to a new layer.</p>
+</div>
+</section>
 
 <h2 class="border" id="api">API References</h2>
 <p>To interact with Ambient Sound objects programmatically, you will primarily use the following API concepts:</p>

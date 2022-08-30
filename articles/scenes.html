@@ -7,51 +7,116 @@
 </figure>
 <p>Scenes are created and managed from the Scene Directory sidebar.</p>
 
-<h4>Folders</h4>
-<p>This directory can contain folders to organize your world's scenes. For details on how to create and use them please see the @Article[folders] article.</p>
+<h4>Sidebar Elements</h4>
+<dl>
+	<dt>Create Scene (<i class="fas fa-map"> </i>)</dt>
+	<dd>This button creates a new scene with the name given. If you do not name the scene will be automatically named "New Scene" with a number appended to it.</dd>
+	
+	<dt>Create Folder (<i class="fas fa-folder"> </i>)</dt>
+	<dd>This creates a new folder. For details on how to create and use them please see the @Article[folders] article.</dd>
+	
+	<dt>Search Scenes (<i class="fas fa-search"> </i>)</dt>
+	<dd>This searches for and lists any scenes whose names match the given string of text entered into the search bar.</dd>
+	
+	<dt>Collapse All Folders (<i class="fas fa-sort-amount-up"> </i>)</dt>
+	<dd>This collapses all folders, showing only the top-level folders and any scenes not sorted into a folder.</dd>
+</dl>
 
-<h3>Creating New Scenes</h3>
-<p>To create a new Scene click <strong>Create New Scene</strong>, you'll be prompted to give the scene a name. Once you've named your scene you will see the Configure Scene dialog, which allows you to set all of the specific details about your scene from the artwork used to its dimensions, and grid scale.</p>
-<p>Scenes default to an empty canvas area with a gray background, light gray grid, and basic vision settings. A scene created from the default settings can be edited easily to become whatever sort of scene is needed by reopening the scene configuration window from the scene sidebar, or by right clicking the scene in the upper navigation bar and selecting configure scene.</p>
+<h3 id="owned">Creating New Scenes</h3>
+<p>To create a new scene, click the <i class="fas fa-map"> </i> <strong>Create Scene</strong> button in the Scene Directory sidebar. This will create a dialog box prompting you to name your scene. Once you have named your scene click Create New Scene. This will add your scene to the directory sidebar, and open the configuration window for you to edit and fill out.</p>
+<p>Once you are done editing your scene click "Save Changes" to make them final. All created scenes can be found in the Scenes Directory and can edited, viewed or activated as needed.</p>
+<p>To edit a scene after you've created it, navigate to the Scenes Directory and click on the name of the scene you want to edit, this will reopen the configuration window directly.</p>
+<p>You can also edit an existing scene by right-clicking on the scene and selecting the <i class="fas fa-cogs"> </i> <strong>Configure</strong> option. This context menu is accessible from either in the top navigation bar or in the sidebar on the right. For more on the right-click context menu options, see the section below.</p>
+<p></p>
+
+<section class="collapsible">
+	<header class="collapsible-header">Importing Pre-configured Scenes</header>
+	<div class="collapsible-content">
+<p>When a new World is first created, the Scenes Directory will initially be empty. Though scenes can be created fairly quickly from scratch, it may be desirable to import scenes from pre-configured sources. This can be done in one of two ways: by importing scenes from a compendium pack, or by importing scenes data directly from an external JSON file.</p>
+
+<h4 id="compendium">Importing from Compendium</h4>
+<p>A scene can be imported from a compendium by either dragging the scenes from the compendium into the Scenes Directory, or by right-clicking the scene in the compendium and selecting "Import." For more information on compendia and how to use them, see the @Article[compendium] article.</p>
+
+<h4 id="json">Importing from JSON files</h4>
+<p>If you have exported scenes that you would like to bring into a game world you can do so by loading the scene info directly from a JSON file. This can be accomplished by right-clicking any scene in the Directory and selecting "Import Data." This will open a file browser that allows you to select the desired JSON file to import. Once selected the JSON file's data overwrite the existing scene you imported the data into.</p>
+<p>You can export an scene's data by right-clicking a scene in the Directory and selecting the "Export Data" option. This will prompt you to save a JSON file with the scene data in it.</p>
+</div>
+</section>
 
 <h2 id="scene-configuration" class="border">Scene Configuration</h2>
 <p>The Scene configuration menu allows you to customize the structure and appearance of each area within your world. This configuration is displayed automatically when a new Scene is created, but can always be accessed by left-clicking on the Scene in the sidebar directory, or by right clicking on the Scene in the top navigation bar and selecting <strong>Configure</strong>.</p>
 <p>The scene configuration menu is broken up into four sections: Basic settings, Grid settings, Lighting settings, and Ambience settings.</p>
 
-<h3 id="Scene-Basic">Basic Settings</h3>
+<section class="collapsible">
+	<header class="collapsible-header">Basic Settings (<i class="fas fa-image"> </i>)</header>
+	<div class="collapsible-content">
 <figure class="right">@Image[292]
 	<figcaption>The basic scene settings tab contains many important options that determine fundamental aspects of the scene itself.</figcaption>
 	</figure>
 <p>The Basic setting tab contains all of the most commonly used and fundamental settings for how a scene is configured.</p>
-<ul>
-	<li><strong>Scene Name</strong>: The title of the scene that will appear in the Scenes directory in the sidebar and in the Scene navigation bar at the top of the screen.</li>
-	<li><strong>Permissions</strong>: Scenes may be kept as "GM Only" in which case players will not be able to access them unless a Gamemaster user activates the scene or uses the 'pull to scene' function on a player. If accessibility is set to All Players, then players may choose to view the scene themselves if it is available in the navigation bar. The Toggle Navigation feature when turned on will ensure that the scene will appear in the Navigation bar at the top of the screen. When toggled off the scene will not be shown in the Navigation bar. Scenes in the Navigation bar can be quickly hidden by right-clicking their name and clicking the "toggle navigation" option. This can only be done on scenes that are not currently active. </li>
-	<li><strong>Navigation Name</strong>: This is an alternate name you can set which shows in the Navigation bar when the scene appears there. This can be different from the scene name which appears in the scene directory.</li>
-	<li><strong>Background Image</strong>: The file path or web address of the background image you wish to use for your scene. The icon to the right of the field will open a File Picker that helps you to locate images within your public directory. This image determine's the scene's dimensions, though that can be changed in another tab. The icon beside the filepath field (<i class="fas fa-file-import"> </i>) opens the file picker, allowing you to select a file available to foundry, or upload a new one.</li>
-	<li><strong>Foreground Image</strong>: The file path or web address of the foreground image you wish to use for your scene. The image must be the same size as the background, and will be resized to fit automatically if it's not. This image appears overtop the scene as a whole similar to an overhead tile with no occlusion. You can read more about foreground layers in the @Article[canvas-layers] article. The icon beside the filepath field (<i class="fas fa-file-import"> </i>) opens the file picker, allowing you to select a file available to foundry, or upload a new one.</li>
-	<li><strong>Background Color (#999999)</strong>: This allows you to set the color of the background behind the scene. You can supply a color hex code or use the color picker to set the color. All newly created scenes start with a medium gray color of #999999.</li>
-	<li>Initial View Position: This allows you to set the coordinates of an initial camera position which all users will see when the scene is first activated. Users who have a token in the Scene will instead begin their view centered on their Token location. You can use the crop icon (<i class="fas fa-crop-alt"> </i>) to automatically capture your current view of the scene as the new Initial View Position, which will overwrite any previous setting there.</li>
-</ul>
+<dl>
+	<dt>Scene Name</dt>
+	<dd>The title of the scene that will appear in the Scenes directory in the sidebar and in the Scene navigation bar at the top of the screen.</dd>
+	
+	<dt>Permissions</dt>
+	<dd>Scenes may be kept as "GM Only" in which case players will not be able to access them unless a Gamemaster user activates the scene or uses the 'pull to scene' function on a player. If accessibility is set to All Players, then players may choose to view the scene themselves if it is available in the navigation bar.<p>The Toggle Navigation feature when turned on will ensure that the scene will appear in the Navigation bar at the top of the screen. When toggled off the scene will not be shown in the Navigation bar. Scenes in the Navigation bar can be quickly hidden by right-clicking their name and clicking the "toggle navigation" option. This can only be done on scenes that are not currently active.</p></dd>
+	
+	<dt>Navigation Name</dt>
+	<dd>This is an alternate name you can set which shows in the Navigation bar when the scene appears there. This can be different from the scene name which appears in the scene directory.</dd>
+	
+	<dt>Background Image</dt>
+	<dd>The file path or web address of the background image you wish to use for your scene. The icon to the right of the field will open a File Picker that helps you to locate images within your public directory. This image determine's the scene's dimensions, though that can be changed in another tab. The icon beside the filepath field (<i class="fas fa-file-import"> </i>) opens the file picker, allowing you to select a file available to foundry, or upload a new one.</dd>
+	
+	<dt>Foreground Image</dt>
+	<dd>The file path or web address of the foreground image you wish to use for your scene. The image must be the same size as the background, and will be resized to fit automatically if it's not. This image appears overtop the scene as a whole similar to an overhead tile with no occlusion. You can read more about foreground layers in the @Article[canvas-layers] article. The icon beside the filepath field (<i class="fas fa-file-import"> </i>) opens the file picker, allowing you to select a file available to foundry, or upload a new one.</dd>
+	
+	<dt>Background Color (#999999)</dt>
+	<dd>This allows you to set the color of the background behind the scene. You can supply a color hex code or use the color picker to set the color. All newly created scenes start with a medium gray color of #999999.</dd>
+	
+	<dt>Foreground Elevation</dt>
+	<dd>This sets an elevation in distance units which is used to determine the height of the foreground image and any overhead tiles in the scene. Actors will be considered above these elements of the scene if their token height surpasses the numbered entered.</dd>
 
-<h3 id="Scene-Grid">Grid Settings</h3>
+	<dt>Initial View Position</dt>
+	<dd>This allows you to set the coordinates of an initial camera position which all users will see when the scene is first activated. Users who have a token in the Scene will instead begin their view centered on their Token location. You can use the crop icon (<i class="fas fa-crop-alt"> </i>) to automatically capture your current view of the scene as the new Initial View Position, which will overwrite any previous setting there.</dd>
+</dl>
+</div>
+</section>
+
+<section class="collapsible">
+	<header class="collapsible-header">Grid Settings (<i class="fas fa-ruler"> </i>)</header>
+	<div class="collapsible-content">
 <figure class="right">@Image[293]
 	<figcaption>The grid section of the scene configuration screen allows you to tune to appearance and nature of the map grid.</figcaption>
 	</figure>
 <p>This configuration section is used to modify the grid type and alignment which is displayed as an overlay atop the Scene. Even if you are using a map that has a pre-drawn grid it is important to configure this section because the Foundry grid dictates the positions where Tokens are placed, how distance is measured, or how Measured Templates identify target spaces.</p>
 
-<ul>
-	<li><strong>Grid Type</strong>: This dropdown list allows you to select one of the available grid types in the software. All newly created scenes default to square grids, but additional choices include Gridless, and Hexagonal in different orientation styles. The grid types are detailed below this list. You can also use the icon to the left of the grid type dropdown (<i class="fas fa-ruler-combined"> </i>) to open the Grid Configuration Tool, which allows for the fine tuning of various grid options found in this list in real time.</li>
-	<li><strong>Grid Size (pixels)</strong>: The number of pixels which represent a single grid space. Foundry's default is 100 pixel squares, and has a minimum of 50px squares. Most maps use grid sizes of 70, 100, 140, or 200 pixels per square.
-	<p class="note warning"><strong>Note:</strong> Changing the grid size of a map may change the alignment of walls, lights, notes, and tiles. It is recommended you decide on grid size and set it before you begin adding details to the scene to avoid having to do additional work.</p>
-	</li>
-	<li><strong>Image Dimensions (pixels)</strong>: This allows you to set the the rendered width and height of your scene in pixels. The application will figure out both automatically when you select a new scene background image, but you can override these dimensions using the fields provided. If you want to undo your changes to a scene's dimensions, simply clear both fields manually and save the scene, the application will automatically detect the dimensions and reset them to match the image.</li>
-	<li><strong>Padding Percentage</strong>: This determines the size of the border region around the background image based on a percentage of the total scene dimensions. This padding space treats everything as unlit and hidden unless lights and an actor with vision is in that padding area. The padding otherwise functions as normal map space and is intended to be used for staging tokens and tiles waiting to see use, or as extra side-rooms or hidden spaces.
-	<p class="note warning"><strong>Note:</strong> When editing a scene's padding after a scene is created Foundry will attempt to keep placed tokens and tiles in the padding space if its area is reduced, but the change in overall scene dimension will displace walls, lights, tokens, tiles, and notes. It is advised that you not change a scene's padding once you begin detailing a scene unless you're willing to rework any out of place assets.</p></li>
-	<li><strong>Offset Background (pixels, X & Y)</strong>: These fields allow you to shift the background image horizontally or vertically by a number of pixels to better line up pre-drawn grid lines. Positive numbers shift the image to the right or down, negative numbers shift the image to the left or up.</li>
-	<li><strong>Grid Scale</strong>: This determines the unit of measure that each square of space represents in this map. For battle maps this may be on the order of feet or meters, for a large region map each individual grid space could represent miles or kilometers. You may put whatever string value you wish in this field, it is only used for tooltip displays when measuring. All newly created maps will default to whatever grid scale the system determines.</li>
-	<li><strong>Grid Color (#000000)</strong>: This allows you to set the color of the grid that is projected over the scene. You can supply a color hex code or use the color picker to set the color. All newly created scenes start with a black color of #000000.</li>
-	<li><strong>Grid Opacity</strong>: This allows you to customize the transparency of the grid. Higher opacity results in a less transparent grid, and vice versa. If you set this slider all the way to zero (left) the grid will not be visible at all. All newly created scenes begin with a Grid Opacity of 0.2 by default.</li>
-</ul>
+<dl>
+	<dt>Grid Type</dt>
+	<dd>This dropdown list allows you to select one of the available grid types in the software. All newly created scenes default to square grids, but additional choices include Gridless, and Hexagonal in different orientation styles. The grid types are detailed below this list. You can also use the icon to the left of the grid type dropdown (<i class="fas fa-ruler-combined"> </i>) to open the Grid Configuration Tool, which allows for the fine tuning of various grid options found in this list in real time.</dd>
+
+	<dt>Grid Size (pixels)</dt>
+	<dd>The number of pixels which represent a single grid space. Foundry's default is 100 pixel squares, and has a minimum of 50px squares. Most maps use grid sizes of 70, 100, 140, or 200 pixels per square.
+	<p class="note warning"><strong>Note:</strong> Changing the grid size of a map may change the alignment of walls, lights, notes, and tiles. It is recommended you decide on grid size and set it before you begin adding details to the scene to avoid having to do additional work.</p></dd>
+
+	<dt>Image Dimensions (pixels)</dt>
+	<dd>This allows you to set the the rendered width and height of your scene in pixels. The application will figure out both automatically when you select a new scene background image, but you can override these dimensions using the fields provided. If you want to undo your changes to a scene's dimensions, simply clear both fields manually and save the scene, the application will automatically detect the dimensions and reset them to match the image.</dd>
+
+	<dt>Padding Percentage</dt> 
+	<dd>This determines the size of the border region around the background image based on a percentage of the total scene dimensions. This padding space treats everything as unlit and hidden unless lights and an actor with vision is in that padding area. The padding otherwise functions as normal map space and is intended to be used for staging tokens and tiles waiting to see use, or as extra side-rooms or hidden spaces.
+	<p class="note warning"><strong>Note:</strong> When editing a scene's padding after a scene is created Foundry will attempt to keep placed tokens and tiles in the padding space if its area is reduced, but the change in overall scene dimension will displace walls, lights, tokens, tiles, and notes. It is advised that you not change a scene's padding once you begin detailing a scene unless you're willing to rework any out of place assets.</p>	</dd>
+
+	<dt>Offset Background (pixels, X & Y)</dt>
+	<dd>These fields allow you to shift the background image horizontally or vertically by a number of pixels to better line up pre-drawn grid lines. Positive numbers shift the image to the right or down, negative numbers shift the image to the left or up.</dd>
+
+	<dt>Grid Scale</dt>
+	<dd>This determines the unit of measure that each square of space represents in this map. For battle maps this may be on the order of feet or meters, for a large region map each individual grid space could represent miles or kilometers. You may put whatever string value you wish in this field, it is only used for tooltip displays when measuring. All newly created maps will default to whatever grid scale the system determines.</dd>
+
+	<dt>Grid Color (#000000)</dt>
+	<dd>This allows you to set the color of the grid that is projected over the scene. You can supply a color hex code or use the color picker to set the color. All newly created scenes start with a black color of #000000.</dd>
+
+	<dt>Grid Opacity</dt>
+	<dd>This allows you to customize the transparency of the grid. Higher opacity results in a less transparent grid, and vice versa. If you set this slider all the way to zero (left) the grid will not be visible at all. All newly created scenes begin with a Grid Opacity of 0.2 by default.</dd>
+	</dl>
 
 <h4>Grid Types</h4>
 <p>Foundry Virtual Tabletop supports multiple grid types which can be configured on a per-Scene basis. The following options are supported:</p>
@@ -77,70 +142,122 @@
 
 <h4>Determining Existing Grid Sizes in Images</h4>
 <p>As not all pre-gridded maps may include their grid scale and will require you to guess or otherwise determine their intended grid scale. It is possible to get a fairly accurate grids scale by examining the dimensions of the intended background image and counting the number of grid spaces and dividing the width and height by the number of vertical and horizontal squares present. For example, a map with a pre-drawn square grid which has 22 grid spaces in width and 18 grid spaces in height with dimensions of 3080px by 2520px will have an intended grid size for this map is 140px per square.</p>
+</div>
+</section>
 
-<h3 id="Scene-Lighting">Lighting Settings</h3>
+<section class="collapsible">
+	<header class="collapsible-header">Lighting Settings (<i class="fas fa-lightbulb"> </i>)</header>
+	<div class="collapsible-content">
 <figure class="right">@Image[294]
 	<figcaption>The vision and lighting section of the scene configuration screen allows you to tune what tokens see on the grid.</figcaption>
 	</figure>
-<ul>
-	<li><strong>Token Vision</strong>: If this setting is enabled, visibility of the scene will require ownership of a Token which is placed in the scene and has a vision setting. If this setting is disabled, players will be able to see a scene even if they do not have a token present.</li>
-	<li><strong>Fog Exploration</strong>: If this setting is enabled, fog-of-war exploration will be tracked on a per-User basis and stored to the database as the Scene is explored. If this setting is disabled, fog exploration does not occur and instead Tokens are limited to only what they can currently see.</li>
-	<li><strong>Unrestricted Vision Range</strong>: If this setting is enabled, tokens with vision toggled on will be able to see everything within their line-of-sight. If the setting is disabled, tokens with vision will have what they can see restricted to only locations that are lit by a light source of some kind. In both cases walls will continue to obstruct vision as expected. This setting will have no effect if Token Vision is disabled for the scene or if the token does not have vision toggled.</li>
-	<li><strong>Darkness Level</strong>: This controls a day/night transition for the Scene where a darkness level of zero corresponds to full daylight and a darkness level of one corresponds to the strongest level of darkness. This also applies a blue color grade to the scene to simulate the color shift present at night. Note that setting a Darkness Level has no effect on Unrestricted Vision Distance if it is toggled on.</li>
-	<li><strong>Vision Limitation Threshold</strong>: When this option it toggled on the slider determines the darkness level required for Foundry to automatically disable Unrestricted Vision (see above). When the darkness level meets or exceeds the value set Unrestricted Vision Range will be automatically disable, and reenable if the darkness level falls below the threshold.</li>
-</ul>
+<dl>
+	<dt>Token Vision</dt>
+	<dd>If this setting is enabled, visibility of the scene will require ownership of a Token which is placed in the scene and has a vision setting. If this setting is disabled, players will be able to see a scene even if they do not have a token present.</dd>
 
-<h3 id="Scene-Ambience">Ambience Settings</h3>
+	<dt>Fog Exploration</dt>
+	<dd>If this setting is enabled, fog-of-war exploration will be tracked on a per-User basis and stored to the database as the Scene is explored. If this setting is disabled, fog exploration does not occur and instead Tokens are limited to only what they can currently see.</dd>
+	
+	<dt>Fog of War Image</dt>
+	<dd>Determines what image should be drawn in the areas of a scene that have not been explored.</dd>
+
+	<dt>Fog of War Unexplored Color</dt>
+	<dd>Set a solid color which is added as a tint to parts of the maps which are unexplored.</dd>
+
+	<dt>Fog of War Explored Color</dt>
+	<dd>Set a solid color which is added as a tint to parts of the maps which have been explored. Sections of the scene being actively viewed by a token are not tinted for that token but instead appear normally.</dd>
+
+	<dt>Global Illumination</dt>
+	<dd>If this setting is enabled, tokens with vision toggled on will be able to see everything within their line-of-sight as thought it were brightly lit. If the setting is disabled, tokens with vision will have what they can see restricted to only locations that are lit by a light source of some kind. In both cases walls will continue to obstruct vision as expected. This setting will have no effect if Token Vision is disabled for the scene or if the token does not have vision toggled.</dd>
+
+	<dt>Darkness Level</dt>
+	<dd>This controls a day/night transition for the Scene where a darkness level of zero corresponds to full daylight and a darkness level of one corresponds to the strongest level of darkness. This also applies a blue color grade to the scene to simulate the color shift present at night. Note that setting a Darkness Level has no effect on GLobal Illumination if it is toggled on.</dd>
+
+	<dt>Global Illumination Threshold</dt>
+	<dd>When this option it toggled on the slider determines the darkness level required for Foundry to automatically disable Global Illumination (see above). When the darkness level meets or exceeds the value set Unrestricted Vision Range will be automatically disable, and reenable if the darkness level falls below the threshold.</dd>
+</dl>
+</div>
+</section>
+
+<section class="collapsible">
+	<header class="collapsible-header">Ambience Settings (<i class="fas fa-cloud-sun"> </i>)</header>
+	<div class="collapsible-content">
 <figure class="right">@Image[295]
 	<figcaption>The ambience and atmosphere section of the scene configuration screen allows you to keep notes, set music, and weather effects.</figcaption>
 	</figure>
-<ul>
-	<li><strong>Journal Entry</strong>: An existing Journal Entry which is linked to this Scene as a set of notes which can be conveniently accessed through the context menu from the navigation or sidebar.</li>
-	<li><strong>Scene Playlist</strong>: With the dropdown menu you can select one of your world's @Article[playlists] which will begin automatically playing when this Scene is activated.</li>
-	<li><strong>Playlist Sound</strong>: If a playlist has been selected for the scene, this dropdown list will let you select a specific sound from that playlist which will start playback when this scene is activated.</li>
-	<li><strong>Weather Effect</strong>: Define an available ambient weather effect which should be applied to this Scene.</li>
-</ul>
+<dl>
+	<dt>Journal Entry</dt>
+	<dd>An existing Journal which is linked to this Scene as a set of notes which can be conveniently accessed through the context menu from the navigation or sidebar.</dd>
 
-<h2 id="context" class="border">Scene Context Options</h2>
+	<dt>Journal Page</dt>
+	<dd>If a journal has been selected for the scene, this dropdown list will let you select a specific page from that journal.</dd>
+
+	<dt>Scene Playlist</dt>
+	<dd>With the dropdown menu you can select one of your world's @Article[playlists] which will begin automatically playing when this Scene is activated.</dd>
+
+	<dt>Playlist Sound</dt>
+	<dd>If a playlist has been selected for the scene, this dropdown list will let you select a specific sound from that playlist which will start playback when this scene is activated.</dd>
+
+	<dt>Weather Effect</dt>
+	<dd>Define an available ambient weather effect which should be applied to this Scene.</dd>
+</dl>
+</div>
+</section>
+
+<section class="collapsible">
+	<header class="collapsible-header">Scene Context Menu Options (<i class="fas fa-mouse-pointer"> </i>) </header>
+	<div class="collapsible-content">
 <p>Scenes which are displayed in the Navigation bar will appear at the top of the screen. The navigation bar is intended to act similarly to "bookmarks" for commonly used Scenes which are expected to be used during the game session. You may have many more Scenes in your World than you wish to keep in the Navigation bar at any given time. Remember that players can access Scenes in the navigation bar also if they are not set to <strong>GM Only</strong>.</p>
 <h3>Navigation Bar Context Menu</h3>
 <figure class="right">@Image[37]
 <figcaption>Scenes in the Navigation Bar have context menu options available on right-click.</figcaption>
 </figure>
 <dl>
-<dt>Activate</dt>
+<dt>Activate (<i class="fas fa-bullseye"> </i>)</dt>
 <dd>Set a Scene as active, immediately loading and pulling all Users to the Scene.</dd>
-<dt>Configure</dt>
+<dt>Configure (<i class="fas fa-cogs"> </i>)</dt>
 <dd>Open the Scene Configuration sheet.</dd>
-<dt>Preload Scene</dt>
+<dt>Preload Scene (<i class="fas fa-download"></i></dt>
 <dd>Request that all connected Users begin loading the image and video assets needed to display this Scene in the background.</dd>
-<dt>Toggle Navigation</dt>
+<dt>Toggle Navigation (<i class="fas fa-compass"> </i>)</dt>
 <dd>Remove the Scene from the Navigation bar if it is not active.</dd>
 </dl>
 
-<h3>Scenes Sidebar Context Menu</h3>
-<p>All Scenes, including those not displayed in the Navigation Bar, are available in the Scenes sidebar directory which is denoted by a tri-fold map icon. Each Scene in the sidebar has additional context menu options available.</p>
+<h3>Scenes Sidebar Context Menu </h3>
+<p>All Scenes, including those not displayed in the Navigation Bar, are available in the Scenes sidebar directory which is denoted by a tri-fold map icon (<i class="fas fa-map"> </i>). Each Scene in the sidebar has additional context menu options available.</p>
 <figure class="right">@Image[38]
 <figcaption>Scenes in the scene sidebar listing have context menu options available on right-click.</figcaption>
 </figure>
 <dl>
-<dt>Activate</dt>
+<dt>View Scene (<i class="fas fa-eye"> </i>)</dt>
+<dd>Loads the scene only for you, without activating it and pulling users to it.</dd>
+
+<dt>Activate (<i class="fas fa-bullseye"> </i>)</dt>
 <dd>Set a Scene as active, adding it to the Navigation Bar and immediately loading and pulling all Users to the Scene.</dd>
-<dt>Configure</dt>
+
+<dt>Configure (<i class="fas fa-cogs"> </i>)</dt>
 <dd>Open the Scene Configuration sheet.</dd>
-<dt>Toggle Navigation</dt>
+
+<dt>Toggle Navigation (<i class="fas fa-compass"> </i>)</dt>
 <dd>Add or remove the Scene from the Navigation bar if it is not active.</dd>
-<dt>Regenerate Thumbnail Image</dt>
+
+<dt>Regenerate Thumbnail Image (<i class="fas fa-image"> </i>)</dt>
 <dd>Rebuild a thumbnail image for the Scene background which is displayed as a preview in the Sidebar.</dd>
-<dt>Delete</dt>
-<dd>Permanently delete the Scene, you will be prompted to confirm your choice if you click this option.</dd>
-<dt>Duplicate</dt>
-<dd>Copy this Scene and all its contained data to create a new Scene which can be independently configured.</dd>
-<dt>Export Data</dt>
-<dd>Save the contents of the Scene to a JSON file which can be saved on your own computer.</dd>
-<dt>Import Data</dt>
-<dd>Load stored data for a Scene from a file on your computer, updating the Scene with the stored settings.</dd>
+
+<dt>Delete (<i class="fas fa-trash"> </i>)</dt>
+<dd>Deletes the item, after accepting a confirmation prompt.</dd>
+
+<dt>Duplicate (<i class="fas fa-copy"> </i>)</dt>
+<dd>Creates a copy of the item in the directory.</dd>
+
+<dt>Export Data (<i class="fas fa-file-export"> </i>)</dt>
+<dd>Exports the item's data as a JSON file on your computer.</dd>
+
+<dt>Import Data (<i class="fas fa-file-import"> </i>)</dt>
+<dd>Imports data into the right-clicked item from a JSON file on your computer.</dd>
 </dl>
+</div>
+</section>
 
 <h2 class="border">API References</h2>
 <p>To interact with Scenes programmatically, you will primarily use the following API concepts:</p>
