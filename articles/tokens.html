@@ -3,7 +3,24 @@
 <p>A <strong>Token</strong> is a placed object which visually represents @Article[actors] on the game Canvas. The Token displays the Actor's position, appearance, rotation, vision configuration, status effects, and more. Each Token is specific to @Article[scenes] in which it exists.</p>
 <p>This article will familiarize you with the various options available to the tokens, and how to manipulate them. It will also detail the difference between a prototype and placed token, and how the token wildcard system works.</p>
 
-<h2 id="tokentypes" class="border">Prototype vs. Placed Tokens</h2>
+<h2 id="tokencontrols" class="border">Token Controls</h2>
+<figure class="right">@Image[417]
+<figcaption>Token Controls Tool Palette.</figcaption>
+</figure>
+<p>The Token Controls panel is the default tool which is opened when loading into a scene. It is represented with a user icon (<i class="far fa-user-alt"> </i>) on the left-hand side of the user interface. This opens the tool palette, and provides tools manipulate tokens you have control over.</p>
+<p>Users can also place @Article[pings] on the canvas while this tool is selected.</p>
+<dl>
+<dt>Select Tokens (<i class="far fa-expand"> </i>)</dt>
+    <dd>This tool allows you to select one or more tokens on the current scene. While you can select multiple tokens, you can only manipulate tokens you have control over. For more on this see @Article[users].</dd>
+<dt>Select Targets (<i class="fas fa-bullseye"> </i>)</dt>
+    <dd>This tool allows you to target tokens on the current scene buy left-clicking on a token. This places an indicator on the token. You can shift-click multiple tokens to target additional tokens. Additionally, you can click and drag to create a bounding box which targets all tokens inside its area. </dd>
+<dt>Measure Distance (<i class="far fa-ruler"> </i>)</dt>
+    <dd>This tool functions as a ruler allowing you to measure distances between two points. You can click and drag anywhere on the canvas and a ruler showing the distance from that point to your cursor's current location will be drawn, and indicates the total distance in map grid units. Using control + click allows you to create a chained ruler with each click placing a new waypoint in the total distance measured.<p>If the origin point of a ruler is a token you have control over you can press space to case the token to move to the end of the ruler.</p></dd>
+</dl>
+
+<section class="collapsible">
+    <header class="collapsible-header">Prototype vs. Placed Tokens</header>
+    <div class="collapsible-content">
 <p>An important concept to understand when working with Tokens is the difference between a <strong>Prototype Token</strong> and a <strong>Placed Token</strong>.</p>
 
 <h3 id="prototype">Prototype Tokens</h3>
@@ -16,6 +33,8 @@
 <figure>@Image[155]
 <figcaption>Prototype token configuration (orange outline) versus placed token configuration (purple outline) differs slightly in terms of available options.</figcaption>
 </figure>
+</div>
+</section>
 
 <h2 id="options" class="border">Token Configuration Options</h2>
 <p class="note warning">If you have granted your players permission to modify their own token settings, the preview of changes to Vision settings may reveal more of the scene canvas than you wish. This permission is disabled by default, allowing only trusted players and higher to configure token settings.</p>
@@ -143,7 +162,7 @@
 <p>If a token does not have Vision enabled, but a Scene has been configured to require Token Vision (required by default), users who only have access to that Token will receive a warning that they do not control any tokens with ability to see the scene.</p>
 <p><strong>Tokens with Shared Vision:</strong> If a User has permission to control more than one token with vision, when no Token is controlled, the vision displayed will be the union of vision across all Tokens. If a User has a single Token controlled, their vision will be only what is visible to that one Token, and any other tokens will have their vision hidden.</p>
 <h3>How Vision Works</h3>
-<p>When a token is placed on a scene, it will automatically be assigned a vision configuration based on the Vision Mode and Detection Modes that it has. Vision Modes control the <u>apperance</u> of of a token's vision, while Detection Modes determine the mechanics of <u>what</u> a token can see. By default, a token which has Vision Enabled can only see based on existing light sources and will not be able to detect the presence of any other tokens which are not already illuminated in some way.</p>
+<p>When a token is placed on a scene, it will automatically be assigned a vision configuration based on the Vision Mode and Detection Modes that it has. Vision Modes control the <u>appearance</u> of of a token's vision, while Detection Modes determine the mechanics of <u>what</u> a token can see. By default, a token which has Vision Enabled can only see based on existing light sources and will not be able to detect the presence of any other tokens which are not already illuminated in some way.</p>
 <p>In order to understand how Vision and Detection Modes affect what a Token can see, it is important to first understand what the settings on the Vision tab of the Token Configuration mean. The Vision tab is broken down into three sections:</p>
 <ul>
 <li><strong>Basic Configuration</strong> - Controls how a token should see in a Scene.</li>
@@ -211,11 +230,11 @@
             <dt>Vision Color</dt>
             <dd>A color that should be applied as a tint to this token's vision.</dd>
             <dt>Attenuation</dt>
-            <dd>How gradually the Vision Mode's visual effect should fade. A higher value fades the eedges of the token's vision more drastically.</dd>
+            <dd>How gradually the Vision Mode's visual effect should fade. A higher value fades the edges of the token's vision more drastically.</dd>
             <dt>Vision Brightness</dt>
             <dd>Controls the level of brightness a sight mode applies to a token's vision, good for situations where a token represents a character who might be used to living underground experiencing the daylight for the first time, or a character who has experienced some damage to their ability to see. </dd>
             <dt>Saturation</dt>
-            <dd>How much color is present in a token's vision, lower values become monochrome, while higher values become more vivid and provide more vibrant colours.</dd>
+            <dd>How much color is present in a token's vision, lower values become monochrome, while higher values become more vivid and provide more vibrant colors.</dd>
             <dt>Contrast</dt>
             <dd>How sharply colors contrast against one another. Low contrast values add a somewhat foggy appearance to all colors and their blending, while higher values make colors stand out more sharply compared to one another.</dd>
         </dl>        
