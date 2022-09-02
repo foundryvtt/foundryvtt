@@ -19,7 +19,7 @@
             <li>Under 'Network Profile,' click the radio button next to 'Private.'</li>
             <li>Open Foundry VTT and launch your world.</li>
         </ol>
-        </div>
+                </div>
     </section>
 <p>If your World still reports a closed connection or your players are unable to connect, proceed to the next section: Diagnosing the Problem.</p>
 
@@ -31,20 +31,19 @@
     <header class="collapsible-header">Yes, My Players Could Connect Before</header>
         <div class="collapsible-content">  
 <p>If your players could connect before then the solution is typically a few simple steps. These steps depend on whether or not you had to set up a port forwarding rule, or if your players could connect without one.</p>
-</div>
-</section>
 
 <h4>My Players Needed Me to Port Forward</h4>
 <p>You most likely need to update your port forwarding rule with your computer's current local IP address. Proceed to the section titled "My Connection Required Port Forwarding" below.</p>
 
 <h4>My Players Could Connect Without Port Forwarding</h4>
 <p>If your players could connect without port forwarding, then Foundry VTT was able to create a port forwarding rule automatically using Universal Plug n Play (UPnP). Proceed to the section titled "My Connection Worked Without Port Forwarding" below.</p>
+        </div>
+        </section>
 <section class="collapsible">
     <header class="collapsible-header">No, My Players Could Not Connect Before</header>
          <div class="collapsible-content">  
 <p>The first thing to do is check if you're able to self host. Proceed to the section titled "Testing For CGNAT."</p>
          </div>
-         </section>
 
 <section class="collapsible">
     <header class="collapsible-header">My Internet Service is Cellular or Satelite Based</header>
@@ -84,7 +83,7 @@
         <h4>Update Port Forwarding Rule</h4>
         <p>Access your router following the steps listed in the <a href="/article/port-forwarding/">Port Forwarding</a> article and navigate to your port forwarding rule. Change the destination or target address to your comuter's new local IP address. Check to see if Foundry VTT reports your connection as 'Closed." </p> 
         </div>
-        </section>
+</section>
 
 <h2 class="border">My Connection is Still Closed</h2>
 <p>If your connection is still closed, there are several possible reasons. ISP software, such as Xfinity's Advanced Security, may be blocking connections. Your ISP may also use technology that interferes with port forwarding.</p>
@@ -110,8 +109,8 @@ If you are an Xfinity customer, your ISP deploys a tool known as Advanced Securi
     <li>Windows: Open a PowerShell window by pressing your Windows Key. Copy and paste the following command in: <code>tracert -h 5 (curl https://ifconfig.me/ip -UseBasicParsing); tracert 8.8.8.8</code>, and press 'Enter.'</li>
     <li>MacOS/Linux: Open a Terminal window. Copy and paste the following command in: <code>traceroute -m 5 $(curl -4 ifconfig.io); traceroute 8.8.8.8</code></li> then press 'Enter.'
     <li>Two tests will run. After you see "Trace complete" a second time, the tests have finished.</li>
-    <li>If there are multiple entries for the first test, your test is positive for CGNAT. Proceed to the section titled "My Connection is Still Closed" for more information.</li>
-    <li>If the first test only has one entry, proceed to the second test and check the second entry. If the IP address matches one of the entries above, you are behind CGNAT. If you see "Request timed out," it's highly likely that you're behind CGNAT.</li>
+    <li>If any IP addresses from the above list are in the first trace, your test is positive for CGNAT. Proceed to the section titled "My Connection is Still Closed" for more information.</li>
+    <li>If the first test only has one entry, proceed to the second test and check the second entry. If the IP address falls in the ranges of the list above, you are behind CGNAT. If you see "Request timed out," it's highly likely that you're behind CGNAT.</li>
     <li>Note: Multiple routers on a network will show up on the CGNAT test. If you have more than one router, a WiFi extender, or a mesh network, you will need to determine the IP address for the most upstream device and start there.</li>
 </ol>
 </div>
