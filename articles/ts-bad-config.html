@@ -1,0 +1,119 @@
+<!-- Introduction -->
+<h2 class="border">Overview</h2>
+<p>This article covers common signs of and instructions to correct a bad configuration for Foundry Virtual Tabletop. You will need access to your User Data directory to complete these steps. First we will go over common signs of and how to diagnose a bad configuration. After finding the most likely issue, we will then go over how to correct the issue.</p> 
+<!-- Signs of Bad Configuration -->
+
+<section class="collapsible">
+    <header class="collapsible-header">I Am Using HTTPS, a Reverse Proxy, or an Amazon S3 Bucket</header>
+<div class="collapsible-content">
+    <p>You may recall that when you set up one or more of the above services, you needed to manually configure your 'options.json'. One of the steps involved in diagnosing and resolving a bad configuration is to have Foundry VTT generate a new 'options.json' file with default configuration, which will not include the changes you made. After going through the troubleshooting process, you may need to re-add these to your configuration. Refer to the relevant guide below for more information when you're done:</p>
+    <ul>
+        <li>@Article[caddy]</li>
+        <li>@Article[nginx]</li>
+        <li>@Article[apache]</li>
+        <li>@Article[aws-s3]</li>
+        <li>@Article[ssl]</li>
+    </ul> 
+</div>
+</section>
+
+<h2 class = "border">Diagnose A Bad Configuration</h2>
+<p>Signs of a bad configuration include, but are not limited to:</p>
+<ul>
+    <li>Foundry VTT crashes on launch.</li>
+    <li>SSL errors when connecting to Foundry VTT via web browser.</li>
+    <li>S3 File Integration Is Not Working.</li>
+    <li>options.json has been manually edited and Foundry VTT won't launch.</li>
+</ul>
+<p>To determine the cause of these issues and whether it's a configuration error, we will start with using the command line to launch Foundry VTT. The instructions below will guide you through this process.</p>
+
+<h3>Use the Command Line to Diagnose Issues</h3>
+<p>Starting Foundry VTT using the command line provides valuable information that wouldn't be shown when launching via the standalone application. Follow the steps relevant to your operating system:</p>
+<ul>
+    <li>Windows: Navigate to Foundry VTT's core installation folder, usually <code>C:\Program Files\Foundry Virtual Tabletop</code>. Shift + Right Click, then select 'Open PowerShell Window Here'. Copy the following command, and then paste it into PowerShell: <code>& '.\Foundry Virtual Tabletop.exe'</code>. Then, press 'Enter.'</li>
+    <li>MacOS: Open Terminal and enter the command: <code>open Foundry Virtual Tabletop</code></li>
+    <li>Linux: Launch Foundry VTT from the terminal using the command <code>node foundry/resources/app/main.js --dataPath=&lt;path-to-user-data&gt;</code>, replacing <code>&lt;path-to-user-data&gt;</code> with the path to your User Data directory.</li>
+</ul>
+<p>Foundry VTT will display its current configuration and any errors that may occur. Proceed to "Resolving A Bad Connection" below.</p>
+
+
+<h3>Reset Foundry VTT'S Configuration</h3>
+<p>Another quick method of determining if you have a bad configuration is to have Foundry VTT generate a new one with default parameters. While this won't give the same level of information as launching via command line, it will help confirm whether a configuration issue exists.</p>
+<ol>
+    <li>Close out of Foundry VTT if running, and navigate to your User Data directory</li>
+    <li>Open the folder titled 'Config' and rename the file titled "options.json" to "old-options.json".</li>
+    <li>Launch Foundry VTT, preferably via command line so that any errors are visible.</li>
+</ol>
+
+
+<h2 class="border">Resolving A Bad Configuration</h2>
+<p>Your next steps depend on what information was reported from the command line and whether renaming "options.json" solves your errors. If your or your players' browser reports SSL errors when trying to connect, it is likely you have misconfigured your SSL or reverse proxy settings. If the below steps do not resolve the error, proceed to "I Do Not Have Command Line Errors."</p>
+<h3>My Foundry VTT Errors Mentioned:</h3>
+
+<section class="collapsible">
+    <header class="collapsible-header">"Foundry VTT cannot start in this directory which is already locked by another process"</header>
+        <div class="collapsible-content">  
+                <p>This typically happens when Foundry VTT does not shut down correctly, such as in a power outage or software crash. Foundry VTT locks the directory when it's running so that two instances can't use the same Data directory. To fix this, navigate to your user data directory and delete 'options.json.lock', then attempt to launch Foundry VTT. </p>
+                </div>
+</section>
+<section class="collapsible">
+    <header class="collapsible-header">"Unexpected Token in..."</header>
+        <div class="collapsible-content">  
+               <p>This error indicates that one of the JSON files in the Config directory is misconfigured. Refer to the section titled "Start Foundry VTT With Default Configuration" above to reset Foundry VTT's configuration file.</p>
+
+               <h4>I Have an AWS S3 Configuration File</h4>
+                <p>Temporarily rename 'aws.json' to another name, eg 'old-aws.json'. and attempt to launch Foundry VTT via command line. If 'aws.json' was misconfigured, Foundry VTT should now close and report an error stating that 'aws.json' does not exist. See @Article[aws-s3] for more information on how to create a new 'aws.json'.</p> 
+                </div>
+</section>
+
+<section class="collapsible">
+    <header class="collapsible-header">"ServerConfiguration Model Validation Errors - [ServerConfiguration.awsConfig]"</header>
+    <div class="collapsible-content">
+        <p>This error indicates that either the filepath given for your 'aws.json' is incorrect in 'options.json', or that the file does not exist. See @Article[aws-s3] for instructions to create a new working 'aws.json'.</p>
+        <p><b>Note:</b> If you renamed 'aws.json' while following the testing steps from "Unexpected Token in JSON", this error is expected. See "Unexpected Token In..." for more information.</p>
+    </div>
+</section>
+
+<h4>"Unable to Start Express server/Address Already In Use" Errors</h4>
+<p>This error is displayed when another program is already using the port Foundry VTT is set to use. By default this will be port 30000. Finding the program causing this port conflict will require finding its Process ID (PID) via command line and then finding the name attached to that PID. As with launching Foundry VTT with the command line, no prior knowledge is needed. The relevant commands and instructions on what to look for are provided. After determining the program at fault, you may close it, configure it to use a different port, or change Foundry VTT's port.</p>
+<section class="collapsible">
+    <header class="collapsible-header">Find Port Conflict on Windows</header>
+        <div class="collapsible-content">  
+                <ol>
+                    <li>Press your Windows key, type "powershell", and press enter. A PowerShell window should open. Copy and paste the following command in: <code>netstat -ano | findstr 30000</code>. Press Enter. If you are using a port other than 30000, replace "30000" with the relevant port.</li>
+                    <li>PowerShell will list any applications listening on port 30000. At the far end of each entry will be a number. This is the Process ID (PID).</li>
+                    <li>Open Task Manager by pressing Ctrl + Shift + Escape. If the option for 'More Details' appears on the bottom, click on that to display all of Task Manager.</li>
+                    <li>Click the 'Details' tab, then the 'PID' column to sort the processes by process ID.</li>
+                    <li>Scroll down until you find the PID that matches what was reported in PowerShell. The name of the process will be shown on the left. This will be the name of the program that is using the same port as Foundry VTT.</li>
+                </ol>
+                </div>
+</section>
+
+<section class="collapsible">
+    <header class="collapsible-header">Find Port Conflict on MacOS</header>
+        <div class="collapsible-content">  
+            
+                <ol>
+                    <li>Open Terminal. Copy and paste the following command: <code>sudo lsof -i :30000</code>. If you are using a port other than 30000, replace <code>30000</code> with the relevant port.</li>
+                    <li>Terminal will list any applications listening on port 30000. The output begin with <code>node 12345 ...</code> The number after the word 'node', eg "12345," is the Process ID (PID)</li>
+                    <li>To find the name of the process, copy and paste the following command into Terminal, replacing &lt;PID&gt; with the PID you found in the previous step: <code>ps -Ao user,pid,command | grep -v grep | grep &lt;PID&gt;</code>. The last value displayed is the name of the process.</li>
+                </ol>
+                </div>
+</section>
+
+<section class="collapsible">
+    <header class="collapsible-header">Find Port Conflict on Linux</header>
+        <div class="collapsible-content">  
+            
+                <ol>
+                <li>Open a terminal window and enter the command <code>sudo ss -lptn 'sport = :30000'</code>. If you are using a port other than 30000, replace "30000" with the relevant port.</li>
+                <li>Under the Process column, you will see <code>users:(("&lt;process-name&gt;",...))</code>. <code>&lt;process-name&gt;</code> is the name of the process that is listening on port 30000.</li>
+                </ol>
+                </div>
+</section>
+
+<h2 class="border">I Do Not Have Command Line Errors</h2>
+<p>Some rare configuration issues may not display any errors and still allow Foundry VTT to launch. If your invitation link begins with <code>https:</code> and not <code>http:</code>, continue to the next section. If you are experiencing issues with S3 hosted content not appearing, please refer to @Article[aws-s3] for more information and examples of correct configurations. Finally, you may reach out to </p>
+
+<h3>HTTPS/SSL Do Not Work</h3>
+<p>Foundry VTT may not display an error on the command line when there's a misconfiguration in its SSL certificate settings. If you or your players receive errors when connecting to Foundry VTT using a web browser and they mention SSL or HTTPS in them, it's likely that something was misconfigured. The section titled "I Am Using HTTPS, a Reverse Proxy, or an Amazon S3 Bucket" at the beginning of this article has more information.</p>
