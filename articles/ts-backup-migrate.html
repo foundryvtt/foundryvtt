@@ -3,16 +3,9 @@
 <!-- Encounter Library Backup Video -->
 <figure class="right"><iframe width="1280" height="360" src="https://www.youtube.com/embed/OmbxMmqNNXU" title="Quick Tip: How To Back Up Foundry on Windows, Mac, and Linux" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></figure>
 
-<p>Foundry VTT stores your User Data in a separate directory than the core software. This directory, known as your User Data Directory, contains the User Data and configuration settings used by Foundry VTT.</p>
+<p>Foundry VTT stores your User Data in a separate directory than the core software. This directory contains worlds, assets, modules, and configuration settings used by Foundry VTT.</p>
 
-<p>This article will guide you through the process of backing up your User Data and migrating to a new version of Foundry Virtual Tabletop or your Game System. We recommend making regular backups of your User Data, and especially before moving your User Data or updating Foundry Virtual Tabletop.</p>
-<p>This article will introduce you to the following concepts:</p>
-<dl>
-    <dt>Data Backup</dt>
-    <dd>A copy of your Foundry VTT User Data, used in case of data loss or to return to an older version of Foundry Virtual Tabletop after migrating.</dd>
-    <dt>Data Sync Service</dt>
-    <dd>A backup service that automatically backs up and replaces existing files. These services are incompatible with Foundry Virtual Tabletop and will cause irreversible data loss! See below for more information.</dd>
-</dl>
+<p>This article will guide you through the process of backing up your User Data and migrating to a new version of Foundry Virtual Tabletop or your Game System. We recommend making regular backups, especially before moving your data or updating Foundry Virtual Tabletop.</p>
 <!-- Warning about synchronized backup services -->
 <h3>Danger of Data Sync Backup Services</h3>
 <p>Data sync services such as those offered by Dropbox, Google Drive, and Microsoft OneDrive, are not compatible with Foundry VTT. Foundry VTT makes frequent changes to your World's database files while running. A data sync service will inevitably copy these databases mid-operation, then restore them to this state later on. This leads to database corruption and irreversible data loss. Never use a data sync service with Foundry VTT! You will permanently lose your work.</p>
@@ -25,8 +18,8 @@
     <header class="collapsible-header">Backing Up on Windows</header>
     <div class="collapsible-content">
         <ol> 
-            <li>Launch Foundry Virtual Tabletop and right-click its icon in the taskbar. Click on 'Browse User Data.'</li>
-            <li>Close Foundry by clicking the X in the top right corner. It should no longer show in the task bar.</li>
+            <li>Launch Foundry VTT and right-click its icon in the taskbar. Click on 'Browse User Data.'</li>
+            <li>Close Foundry VTT by clicking the X in the top right corner. It should no longer show in the task bar.</li>
             <li>Copy the 'Data', 'Config', and 'Logs' folders to another location on your PC.</li>
         </ol>
     </div>
@@ -36,9 +29,9 @@
     <header class="collapsible-header">Backing Up On MacOS</header>
     <div class="collapsible-content">
         <ol>
-            <li>Launch Foundry Virtual Tabletop and navigate to the Configuration screen.</li>  
+            <li>Launch Foundry VTT and navigate to the Configuration screen.</li>  
             <li>Copy the filepath from 'User Data Path'.</li>
-            <li>Close out of Foundry by going to Foundry Virtual Tabletop in the top bar and selecting 'Quit.'</li>
+            <li>Close out of Foundry VTT by going to 'Foundry Virtual Tabletop' in the top bar and selecting 'Quit.'</li>
             <li>Open 'Finder'.</li>
             <li>From the top menu bar, select 'Go' and then 'Go to Folder...'. Or, press Shift+Command+G</li> 
             <li>Paste in the filepath copied from the Configuration Screen and press Return.</li>
@@ -51,9 +44,9 @@
     <header class="collapsible-header">Backing Up On Linux</header>
         <div class="collapsible-content"> 
             <ol>
-                <li>Launch Foundry Virtual Tabletop and navigate to the Configuration screen.</li>
+                <li>Launch Foundry VTT and navigate to the Configuration screen.</li>
                 <li>Copy the filepath from 'User Data Path'.</li>
-                <li>Close Foundry. If you're using a process manager, check that Foundry's process is no longer running.</li>
+                <li>Close Foundry VTT. If you're using a process manager to run Foundry VTT, check that its process is no longer running.</li>
                 <li>Open a terminal and navigate to your User Data folder by entering <code>cd &lt;/path/to/userdata/here&gt;</code>, pasting the copied path from before in place of <code>&lt;/path/to/userdata/here&gt;</code>.</li>
                 <li>Create a compressed archive by entering <code>tar -czvf foundry-backup.tar.gz Data Config</code> then pressing 'Enter.'</li>
                 <li>After the archive has finished, move it to another location. You can do this in the terminal using the <code>mv</code> command, eg <code>mv -v foundry-backup.tar.gz ~/foundry-backups</code>.</li>
@@ -62,7 +55,7 @@
                 </div>
             </section>
  <h2 class="border">Restoring Your User Data</h2>
- <p>Restoring your User Data is as simple as closing Foundry and replacing the existing content in your User Data folder with the content from your backups. <b>Always check that your backup contains your User Data before overwriting or deleting any content from your User Data folder.</b></p>
+ <p>Restoring your data is as simple as closing Foundry VTT and replacing the Data, Config, and Logs directories with your backed up data. <b>Always check that your backup contains your data before overwriting or deleting any existing content.</b></p>
 <ul>
     <li>Windows and MacOS - Use the steps from the previous section to navigate to your User Data folder. Replace its contents with your backup.</li>
     <li>Linux - Use the steps from the previous section to find the path to your User Data. Copy the .tar.gz file to there and navigate to the directory using <code>cd /path/to/userdata/here</code>. Then enter the command <code>tar -xvf foundry-backup.tar.gz</code>, replacing "foundry-backup" with your archive name.</li>
@@ -70,7 +63,7 @@
 <p>After doing this, launch Foundry Virtual Tabletop as normal.</p>
 
 <h2 class="border">Moving Your User Data</h2>
-<p>Moving your User Data to a new location requires just a few simple steps. Before you do so, you should first perform a complete backup of your User Data folder.</p>
+<p>Moving your User Data to a new location requires just a few simple steps. Before you do so, you should first perform a complete backup of your existing data.</p>
 <section class="collapsible">
     <header class="collapsible-header">Move Your User Data on Windows</header>
         <div class="collapsible-content"> 
