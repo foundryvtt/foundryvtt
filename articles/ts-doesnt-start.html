@@ -1,0 +1,82 @@
+<!-- Doesn't Start
+
+Overview
+- Introduction to causes, inform user of what the steps will be
+
+Before You Begin
+- Temporarily Disable AV Software
+- Attempt to access via browser @ http://localhost:30000
+
+External Software
+- AV or Firewall Software
+
+Program Running
+- Check if Foundry is Already Running
+-- Collapsible: Check on Windows
+-- Collapsible: Check on MacOS
+-- Collapsible: Check on Linux?
+
+Config Errors
+- Quick review of config issues
+- Link to Bad Config article
+
+Reinstall Foundry VTT
+- Backup reminder and link to article
+- Instructions to reinstall Foundry VTT
+
+Foundry VTT Still Won't Start
+- Blurb with Contact Us and  -->
+<!-- Overview -->
+<h2 class="border">Overview</h2>
+<p>This article covers common reasons why Foundry Virtual Tabletop may not start, and the steps to correct them. Often times disabling antivirus software and ensuring Foundry VTT isn't already running are enough to resolve this issue, but additional steps are provided if they do not. </p>
+
+<!-- Before you begin -->
+<h2 class="border">Before You Begin</h2><!-- TODO: Reorder --> 
+<p>Before we start troubleshooting, it's important that we ensure any antivirus software isn't interfering with Foundry VTT. Overzealous protections may prevent JavaScript, a core part of Foundry VTT, from running on your computer. If you use any 3rd party antivirus software such as McAffee, Norton, Avast, or others, temporarily disable it. Then check if Foundry VTT will start. If it does not, proceed to the next section.</p>
+
+<h2 class="border">Check for Common Reasons Foundry VTT Won't start</h2>
+<p>There are several common reasons for Foundry VTT not to start, which we will check here. These include first checking if Foundry VTT already running in the background and then checking if a directory lock exists.</p>
+
+<section class="collapsible">
+    <header class="collapsible-header">Check for and Close any Foundry VTT Processes</header>
+        <div class="collapsible-content">  
+<dl>
+<dt>Windows</dt>
+<dd>Press Ctrl + Shift + Escape to open Task Manager. If the option for 'More Details' appears on the bottom, click on that to display all of Task Manager's options. Click the 'Processes' tab and check that 'Foundry Virtual Tabletop' is not listed anywhere. If it is, click on it and select 'End Task.'
+</dd>
+<dt>MacOS</dt>
+<dd>Press Command + Space to open Spotlight. Search for "Activity Monitor" and then press Return. Activity Monitor will start. Search for "Foundry Virtual Tabletop". If Foundry VTT is running, it will be displayed there. Click on 'Foundry Virtual Tabletop', then the 'X' button in the top left hand corner. A window will open asking if you want to quit Foundry Virtual Tabletop. Click on 'Force Quit.</dd>
+<dt>Linux</dt>
+<dd>
+    <ul>
+    <li>I'm Using PM2 - Enter <code>pm2 stop foundry</code> into a terminal to end Foundry VTT's process.</li>
+  <li>If you start Foundry VTT directly from the terminal, you will need to end the Node process itself. <b>This guide assumes that Foundry VTT is the only Node process running.</b> Enter <code>pidof node</code> in the terminal to output Node's process ID. Then enter <code>kill &lt;PID&gt;</code>, replacing &lt;PID&gt; with Node's process ID.</li></dd>
+    </ul>
+</dl>         
+ </div>
+</section> 
+
+<p>The next step is to ensure that your user data directory isn't being locked. Be sure that you have completed the above steps, as this step requires that no Foundry VTT process is running in the background.</p>
+<section class="collapsible">
+    <header class="collapsible-header">Check for and Remove Directory Lock</header>
+        <div class="collapsible-content">  
+            <p>When Foundry VTT startes, it creates a folder named "options.json.lock" in your Config folder. This is known as a directory lock and prevents other Foundry VTT instances from using the same user data. Foundry VTT will then remove this lock when it closes. If Foundry VTT crashes though, it may not be able to remove this folder. Foundry VTT will fail to start if it sees a directory lock already in place.</p>
+            <p>Navigate to Foundry VTT's Config directory. The default locations are:</p>
+            <ul>
+                <li>Windows: <code>%appdata/FoundryVTT/Config</code></li>
+                <li>MacOS: <code>~/Library/Application Support/FoundryVTT/Config</code></li>
+                <li>Linux: <code>/home/$USER/.local/share/FoundryVTT/Config</code>, <code>/home/$USER/FoundryVTT</code>, or <code>/local/FoundryVTT</code>.</li>
+            </ul>
+           <p>Look for a folder named <code>options.json.lock</code>. If it's present, delete it.</p> 
+                </div>
+</section>
+<p>After completing these steps, check if Foundry VTT will start correctly. If it does not, proceed to the next section.</p>
+
+<h2 class="border">Foundry VTT Still Won't Start</h2>
+<p>There are several other reasons for Foundry VTT to not start. While not as common as the previously covered errors, they still may be at fault.</p>
+<h3>Configuration Errors</h3>
+<p>Foundry VTT will fail to start if there are issues with its configuration. These include an improperly modified options.json file and another program using the same port as Foundry VTT. The steps to diagnose and resolve these errors are explained in detail in @Article[ts-bad-config].</p>
+<h3>Back Up User Data & Reinstall Foundry VTT</h3>
+<p>If Foundry VTT continues to not start, you may need to reinstall it. Back up your User Data following the instructions in @Article[ts-backup-migrate]. Then, uninstall Foundry VTT.Navigate to <a href="/me/licenses/">your Purchased Licenses</a> page, select the appropriate Stable release of Foundry VTT for your operating system, and install it.</p>
+<h3>The Above Steps Did Not Resolve the Issue</h3>
+<p>Finally, if Foundry VTT will not start after reinstalling, we strongly suggest you <a href="/contact-us/" target="_blank" rel="nofollow noopener">contact us</a> or join our <a href="https://discord.gg/foundryvtt" target="_blank" rel="nofollow noopener">Discord community</a> for live support.</p>
