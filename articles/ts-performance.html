@@ -1,74 +1,45 @@
-<!-- Overview
-- Point out issues are usually client side
-Before You Begin
-- Things troubleshooting can't resolve
--- Poor Hardware
--- Poor host internet
-I have A Low Framerate and Choppy Animation
-- Blurb covering frequent and simple causes
--- Collapsible - Check Settings
--- Collapsible - Hardware Acceleration, check and either instructions laid out or a link to the gray/black screen article
--- Collapsible -  Too Many Walls or Lights
-
-Foundry VTT Responds Slowly
-- Blurb covering frequent and simple causes
--- Collapsible: Slow Internet, instructions on how to check player and host speeds
--h3 Modules 
--- Blurb about modules adding extra latency
---- Collapsible with instructions on disabling modules, then enabling half at a time to rule out possibilities
-
-I Still Have Poor Performance
-- Instructions to use Contact Us and Discord server invitation for more involved troubleshooting -->
-<!-- Overview -->
 <h2 class="border">Overview</h2>
-<p>This article explains common reasons for poor performance in Foundry VTT, such as a low framerate or delayed actions, and steps to resolve them. These include client side settings, browser settings, and even network and module issues.</p>
-
-<!-- Before you Begin -->
+<p>This article explains some common reasons for poor performance in Foundry VTT, such as a low framerate or delayed actions, and the steps required to resolve those issues. Each case can be different, so these steps are not a one-size-fits-all solution and cover the client side settings, browser settings, and even network or module settings that can help correct for performance issues.</p>
 <h2 class="border">Before You Begin</h2>
-<p>Before you proceed with troubleshooting, it's best to determine if your performance issues relate to your hardware or network issues.</p>
-<h3>Hardware Related</h3>
-<ul>
-    <li>Low FPS</li>
-    <li>Choppy animations</li>
-    <li>Serious graphics delays</li>
-</ul>
-<p>These may be accompanied by a warning about WebGL or Hardware Acceleration.</p>
-
-<h3>Network Related</h3>
-<ul>
-    <li>Delayed responses from Foundry VTT - Eg rolls take several seconds to happen</li>
-    <li>Foundry VTT times out or requires you to refresh often</li>
-    <li>Long load times</li>
-</ul>
-
-<p>If your issues match or are similar to the first category, proceed to "I Have A Low Framerate or Choppy Animation." Otherwise, proceed to "Foundry VTT Responds or Loads Slowly."</p>
-
-<h2 class="border">I Have A Low Framerate or Choppy Animation</h2>
-<p>When you log onto Foundry VTT, the host computer, whether self-hosted or cloud-hosted, only sends data to clients. Each player's computer renders all graphics itself based on each player's settings. Changing settings to accommodate your hardware, ensuring that hardware acceleration is enabled, and using less walls and lights on Scenes can all help improve performance.</p> 
-
-<section class="collapsible">
-    <header class="collapsible-header">Change Settings for Better Performance</header>
-        <div class="collapsible-content">  
-            <p>There are several settings in the Core Settings window that, if set incorrectly, can cause poor performance on lower end computers.</p>
-            <ul>
-                <li>Performance Mode - If your Performance Mode is set to High or Maximum, change it to Low or Medium.</li>
-                <li>Maximum Framerate - Set this to 30 FPS to improve performance on low end computers. Set it higher to raise your framerate on higher end computers.</li>
-                <li>Token Drag Vision - Disable this if you experience poor performance when moving your Token.</li>
-                <li>Light Source Animation - Disable this if you experience poor performance in scenes with animated Lights.</li>
-            </ul> 
-        </div>
-</section>
-
-<section class="collapsible">
-    <header class="collapsible-header">Too Many Lights, Walls, or Animations</header>
-    <div class="collapsible-content">
-        <p>Too many lights, walls, or animations on a scene can severely hinder performance. If performance improves on an empty scene or one with less lights, walls, or animations, then this is likely the cause of the performance issues. @Article[content-creation-guide] has instructions on laying walls and lights with better performance in mind.<!-- TODO: Reword? Add suggestions?--> </p>
+<p>Before you proceed with troubleshooting, it's best to determine if your performance issues relate to your hardware or network issues. Foundry Virtual Tabletop relies on client-side rendering for graphical elements, which means each user (player, GM, or otherwise) should meet the @Article[requirements].</p>
+<section class="flexrow code-migration">
+    <div class="before">
+        <h3>Hardware Related Performance Issues</h3>
+        <ul>
+            <li>Low FPS - identified by enabling "Show FPS Meter" in <i class="fas fa-cogs"> </i> Configure Settings</li>
+            <li>'Choppy' animations</li>
+            <li>Serious graphical delays or visual artifacting</li>
+            <li>May be accompanied by a warning about WebGL or Hardware Acceleration.</li>
+        </ul>
+    </div>
+    <div class="after">
+        <h3>Network Related Performance Issues</h3>
+        <ul>
+            <li>Delayed responses from Foundry VTT - such as chat messages taking a long time to appear in the chat window</li>
+            <li>Foundry VTT times out or requires you to refresh frequently</li>
+            <li>Excessively long load times - greater than 1 minute</li>
+            <li>may be accompanied by a warning about being disconnected and attempting to reconnect.</li>
+        </ul>
     </div>
 </section>
-
-<h3>Hardware Acceleration Is Disabled</h3>
-<p>Hardware acceleration allows Foundry VTT to use the appropriate hardware on your computer to draw Scenes, calculate vision, and do everything else graphics related. If disabled, this will lead to serious performance issues. The steps to enable hardware acceleration are outlined below, including special steps to take on Windows.</p>
-
+<section class="collapsible">
+    <header class="collapsible-header">A Simple Test: Is it a Networking Issue?</header>
+        <div class="collapsible-content">  
+            <p>A simple way to test if you're experiencing issues as a result of network performance is to disable the features of Foundry VTT that depend on graphics processing. From <i class="fas fa-cogs"> </i> Configure Settings </p>
+        <ol>   
+            <li>From the sidebar Configuration Menu, choose <i class="fas fa-cogs"> </i> Configure Settings.</li>
+            <li>Identify the setting "Disable Game Canvas" and enable it.</li>
+            <li>Choose "Save Changes".</li>
+            <li>Try opening Actor sheets, Items, Journals, rolling, typing in chat. </li>
+            <li>If everything seems very responsive, it is likely a <a href="#framerate">Framerate Issue</a>. If you are experiencing delays in any of those actions, you are experiencing a <a href="#network">Network Issue</a>.</li>
+        </ol>
+        </div>
+    </section>
+<p>If your issues match or are similar to the first category, proceed to <a href="#framerate">"Framerate Issues"</a>, otherwise, proceed to <a href="#network">"Network Issues"</a>.</p>
+<h2 class="border" id="framerate">Framerate Issues</h2>
+<p>The hosted Foundry VTT server only sends data to clients and does not handle rendering for graphics or other lighting. Each user's computer, whether a player or a GM, renders all graphics based on client-side settings. Ensuring that hardware acceleration is enabled, optimizing your graphical settings for your hardware, and using less walls and lights on Scenes can all help improve performance.</p> 
+<h3>Hardware Acceleration</h3>
+<p>Framerate issues for Foundry VTT most commonly result from disabled Hardware Acceleration. Foundry VTT requires hardware Acceleration and use of the client's graphics processing unit (GPU) to render its visuals, so if hardware acceleration is disabled or Foundry VTT cannot access the GPU, poor framerates and degraded performance are the immediate result. The steps to enable hardware acceleration are outlined below, including special steps to take on Windows.</p>
 <section class="collapsible">
     <header class="collapsible-header">Chrome Hardware Acceleration</header>
         <div class="collapsible-content">  
@@ -81,19 +52,22 @@ I Still Have Poor Performance
             <li>Close out of all Chrome windows and relaunch Chrome.</li>
         </ol>
         </div>
+    </section>
 <section class="collapsible">
     <header class="collapsible-header">Firefox Hardware Acceleration</header>
         <div class="collapsible-content"> 
         <ol>
             <li>Open Firefox and enter <code>about:config</code>. If a warning page shows, click <strong>Accept the Risk and Continue</strong>. Enabling Hardware Acceleration for Foundry VTT will not compromise your security.</li>
-            <li>Search for <code>layers.acceleration.force-enabled</code> in the top search bar</li>
+            <li>Search for <code>layers.acceleration.force-enabled</code> in the search bar</li>
             <li>Click the two arrows on the right hand side. The bottom of the search results should say <strong>True</strong></li>
             <li>Close out of all Firefox windows and relaunch Firefox.</li>
         </ol>
         </div>
+</section>
  <section class="collapsible">
-    <header class="collapsible-header">Enable Hardware Acceleration in the standalone Foundry VTT Application</header>
+    <header class="collapsible-header">Enable Hardware Acceleration in the Foundry VTT Application</header>
         <div class="collapsible-content">  
+        <p>This process can be somewhat more tricky depending on OS. For MacOS or Linux it requires running the program via terminal. For windows, it requires creating or modifying a shortcut to the Foundry VTT executable.</p>
         <ul>
             <li>MacOS: Open a terminal and enter <code>open -a FoundryVTT --args ignore-gpu-blocklist</code> </li>
             <li>Linux: Open a terminal in your Foundry VTT installation directory and enter <code>./foundryvtt --ignore-gpu-blocklist</code></li>
@@ -104,14 +78,15 @@ I Still Have Poor Performance
                 <li>Navigate to to your Foundry VTT installation folder.</li>
                 <li>Right click on 'foundryvtt.exe', and click 'Create Shortcut.'</li>
                 <li>click the shortcut and select 'Properties.'</li>
-                <li>In the 'Target' field, add a space and enter <code>--ignore-gpu-blocklist</code>. The field should look similar to <code>"C:\...\FoundryVTT.exe" --ignore-gpu-blocklist</code>, where "..." is the path to your Foundry VTT installation folder. Note that the addition is outside of the quotes. </li>
+                <li>In the 'Target' field, add a space at the end, outside the quotes, and enter <code>--ignore-gpu-blocklist</code>. The field should look similar to <code>"C:\...\FoundryVTT.exe" --ignore-gpu-blocklist</code>, where "..." is the path to your Foundry VTT installation folder. It is important that the addition of the launch flag is placed outside of the quotes, as if not it will not work. </li>
                 <li>Press 'OK', and then use this shortcut to launch Foundry VTT from now on.</li>
         </ol>
         </div>
+</section>  
  <section class="collapsible">
     <header class="collapsible-header">Prevent Windows from Overriding Hardware Acceleration Settings</header>
         <div class="collapsible-content">  
-        <p>If Foundry VTT still warns that Hardware Acceleration is disabled, Windows may be overriding your browser's settings. This usually happens on notebook PCs with a dedicated GPU. The following steps explain how to check for and correct this.</p>
+        <p>Some Windows-based Notebook PCs and Desktops which have more than one GPU may still fail to use the correct GPU after these settings have changed. This is particularly common in Notebook PCs with a dedicated NVIDIA or AMD GPU. If Foundry VTT still warns that Hardware Acceleration is disabled, Windows may be overriding your browser's settings. </p>
             <ol>
                 <li>Press your Windows key, type "Settings", and press 'Enter.'</li>
                 <li>Click on 'Display' on the lefthand side, then scroll down and click on 'Graphics Settings.'</li>
@@ -121,19 +96,26 @@ I Still Have Poor Performance
                 <li>Click 'Save.'</li>
             </ol> 
     </div>
-    </section>
-<h2 class="border">Foundry VTT Responds or Loads Slowly</h2>
-<p>Slow response times are typically caused by network or module issues. If it takes a long time to load the World when a player logs onto Foundry VTT, excess sidebar data and asset sizes are the most common culprit.</p>
-<section class="collapsible">
-    <header class="collapsible-header">Slow Host Internet</header>
-        <div class="collapsible-content">  
-            <p>Foundry VTT requires the hosting computer to have at least 12 Mbps upload speed, and players at least 6 Mbps download speed. You can verify your upload or download speeds using a speedtest website such as <a href="https://speedtest.net" target="_blank" rel="nofollow noopener">Speedtest.net</a>. If your upload speed is less than 12 Mbps, self-hosting Foundry VTT will prove difficult. @Article[hosting] lists both free and paid alternatives to self-hosting that may be available to you.</p>
-        </div>
 </section>
+<h3>Optimize Settings for Performance</h3>
+    <p>Foundry Virtual Tabletop attempts to detect the best performance options for your hardware when you join a world. If these settings were based on misdetected information, you can modify these settings from <i class="fas fa-cogs"> </i> Configure Settings .</p>
+        <ul>
+            <li><strong>Pixel Ratio Resolution Scaling</strong> - For computers with very large monitors with high pixel density, such as Macs with Retina displays, disabling this may result in drastically improved performance at a cost of visual quality.</li>
+            <li><strong>Performance Mode</strong> - Controls several optimization features. If you expereince performance issues while set to High or Maximum performance, changing this setting to Low or Medium may result in improved performance.</li>
+            <li><strong>Maximum Framerate</strong> - If you are using a low-end computer, changing this to 30 FPS or less may reduce the amount of strain on your GPU. </li>
+            <li><strong>Token Drag Vision</strong> - Disable this if you experience poor performance when moving Tokens with vision.</li>
+            <li><strong>Light Source Animation</strong> - Disable this if you experience poor performance in scenes with animated Lights.</li>
+        </ul> 
+<h3>Excessive Lighting, Walling, or Animations</header>
+    <p>Too many lights, walls, or animations on a Scene can severely impact performance. If performance improves on an empty scene or one with less lights, walls, or light animations, then this is likely the cause of the performance issues. @Article[content-creation-guide] has instructions on laying walls and lights with better performance in mind. As a general rule, try not to exceed 500 walls or 50 lights per Scene. This should help keep your Scenes friendly for even the most low-performance computers. </p>
+<h2 class="border" id="network">Network Issues</h2>
+<p>Slow response times in data transfer typically result from a slow or degraded network connection, but in rare cases can result from overuse of Add-on Modules. If it takes a long time to load the World when a player logs onto Foundry VTT, excess sidebar data and asset sizes are the most common culprit.</p>
+    <h3>Slow Host Internet</header>
+        <p>Foundry VTT requires the hosting computer to have at least 12 Mbps upload speed, and players at least 6 Mbps download speed. You can verify your upload or download speeds using a speedtest website such as <a href="https://speedtest.net" target="_blank" rel="nofollow noopener">Speedtest.net</a>. If your upload speed is less than 12 Mbps, self-hosting Foundry VTT will prove difficult. @Article[hosting] lists both free and paid alternatives to self-hosting that may be available to you.</p>
 <h3>Module Related Issues</h3>
-<p>While modules are a popular feature of Foundry VTT, module conflicts or using too many may cause performance issues. The easiest way to determine if modules are the culrpit is to disable them all by launching your world in safe configuration. For instructions on how to do this, see @Article[launch-safe-configuration]. If Foundry VTT begins working normally, it's most likely a module causing issues.</p>
+<p>While Add-on Modules are a popular feature of Foundry VTT, module conflicts or overuse can cause performance issues. The easiest way to determine if modules are the culrpit is to disable them all by launching your world in safe configuration. For instructions on how to do this, see @Article[launch-safe-configuration]. If Foundry VTT begins working normally, it's most likely that one or more modules are the source of your frustration.</p>
 <section class="collapsible">
-    <header class="collapsible-header">Narrow Down the Module at Fault</header>
+    <header class="collapsible-header">Identifying the Responsible Module</header>
     <div class="collapsible-content">
         <p>Finding the module at fault for your performance issues may seem like a daunting task if you have dozens or hundreds of modules. Fortunately there's a quick method to narrow down the offending module compared to enabling and disabling one by one. You will divide your modules into two groups, and then further divide these groups in half depending on if the issue returns or not.</p>
        <ul>
@@ -141,15 +123,14 @@ I Still Have Poor Performance
         <li>If the performance issue returns: the module at fault is in this group. Enable half of this group, and check again.</li> 
         <li>If the performance issue does not return: the module at fault is in the other group of modules. Enable that group and check again.</li>
        </ul> 
-       <p>Repeat this process until only one module remains. This will be the module at fault.</p>
+       <p>Repeat this process, continually subdividing your group of modules until only one module remains. This will be the module at fault.</p>
     </div>
 </section>
-
-<h3>Too Many Actors, Scenes, Etc</h3>
-<p>Scenes, Actors, Items, etc, are all sent to each device that logs into the World. If your world contains hundreds or thousands of these, it will cause significant delays on load. We suggest keeping whatever is not needed for your current session in Compendiums. For more information on Compendiums and how to use them, see @Article[compendium].</p>
-
+<h3>Excessive "World Level" Data</h3>
+<p>Any Documents which you actively store in the sidebar as readily accessible, including all of the Scenes, Actors, Items, Journals, and more, are all sent to each device that logs into the World when they connect. If your world contains hundreds or thousands of Documents, it will cause significant loading delays. We strongly recommend keeping whatever creatures, items, and data not needed for your current session (or next few sessions) in Compendium Packs. For more information on compendia and how to use them, see @Article[compendium].</p>
 <h3>Large File Sizes</h3>
-<p>Images such as the Scene background, foreground, and tiles, are all sent to each player when a Scene is activated. Large image file sizes sizes greatly increase the amount of data that must be sent and thus increase loading itmes. If possible, use compressed image formats like WebP or WebM for Scene and Tile images.</p>
-
+<p>Images such as the Scene background, foreground, token images and tiles are all sent to each player when a Scene is activated. Large image file sizes greatly increase the amount of data that must be sent and thus increase loading itmes. Wherever possible, use compressed image formats like WebP or WebM for Scene and Tile images. WebP images at 80-90% compression tend to produce low filesize images without sacrificing image quality in a noticeable way.</p>
+<h3>Excessive Chat Messages</h3>
+<p>The Foundry VTT chat log can grow pretty large over several sessions and may result in network performance issues. You can backup the current chat log by clicking <i class="fas fa-save"></i> which will export it as a simple text file for later reference. After which, you can click the <i class="fas fa-trash"></i> to clear the chat log of all previous messages, further reducing the amount of data that must be loaded for users when they connect. </p>
 <h2 class="border">I Still Have Performance Issues</h2>
 <p>If your issues continue to occur after going through the above steps then we may need to provide direct assistance. Please <a href="/contact-us/" target="_blank" rel="nofollow noopener">contact us</a> or join our <a href="https://discord.gg/foundryvtt" target="_blank" rel="nofollow noopener">Discord community</a> for live support.</p>
