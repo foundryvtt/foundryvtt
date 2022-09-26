@@ -1,0 +1,165 @@
+<!-- Common Errors for Foundry VTT
+
+In Game Errors
+- Scene width not greater than "0"
+- HW Acceleration Not Enabled
+- Canvas Drawing Failed - Module related usually
+- Game Canvas Disabled
+- Failed to Fetch
+- Canvas drawing failed
+
+Out of World Toasts
+- Critical errors encounted with X packages
+- Compat warning
+- EPERM/Permissions Errors
+- Did not provide valid manifest file/Did not provide manifest data
+-- Try again later
+-- Manually Install
+-- Contact module or system author
+
+Command line errors
+- Port Conflict
+- Directory or file does not exist
+- User data directory does not exist -->
+
+<!-- Overview -->
+<h2 class="border">Overview</h2>
+<p>This article covers the most common errors you may encounter when using Foundry Virtual Tabletop. Many errors are resolved with just one or two steps. If you encounter an error not listed here, you may require direct assistance. Information for this can be found at the end of the article.</p>
+
+<!-- Before you Begin -->
+<h2 class="border">Before You Begin</h2>
+<p>Foundry VTT displays most errors as a banner at the top of the screen as well as in the developer console. Some errors, however, won't be shown here, but instead just in the console. For this reason we suggest you check the console for errors when something fails to work.</p> 
+<ul>
+    <li>Chrome/Edge: Press 'F12' or 'Ctrl + Shift + J' on Windows, or 'Opt + Cmd + J' on MacOS .</li>
+    <li>Firefox: Press 'F12' or 'Ctrl + Shift + I' on Windows, or 'Opt + Cmd + I' on MacOS.</li>
+</ul>
+In both cases, check that the 'Console' tab has been selected.
+<h3>Errors vs Warnings</h3>
+<p>Foundry VTT may show both warnings and errors. Warnings indicate that something is being done incorrectly. Most warnings thus are specific to Game System and Add-on Module developers and can be safely ignored. Errors however indicate that something has failed to work properly. This article covers several warnings that are relevant to end users, but otherwise focuses on errors. To tell whether something is a warning or an error:</p>
+<ul>
+    <li>Errors: Appear as red text in the console, may show a red warning message at the top of your screen.</li>
+    <li>Warnings: Appear as yellow text in the console, may show a yellow warning message at the top of your screen.</li>
+</ul>
+
+<h2 class="border">Setup Screen Errors</h2>
+<p>The following errors may display when Foundry VTT starts or before launching a world.</p>
+<!-- Critical Errors Encountered with X Packages -->
+<section class="collapsible">
+    <header class="collapsible-header">Critical Errors Encountered With Installed Packages</header>
+        <div class="collapsible-content">  
+            <ul>
+                <li><b>Cause:</b> Modules not updated for your current version of Foundry VTT.</li>
+                <li><b>Solution:</b> Update all modules on the Add-On modules screen. If the error persists, you may need to remove the modules listed in the console.</li>
+            </ul>
+                </div>
+</section>
+<!-- EPERM Errors -->
+<section class="collapsible">
+    <header class="collapsible-header">Errors starting with "EPERM" when launching a world</header>
+        <div class="collapsible-content">  
+                
+            <ul>
+                <li><b>Cause:</b> Your user data directory was made with elevated permissions. Running Foundry VTT as Administrator in Windows or using <code>sudo</code> in Linux, or using <code>sudo</code> when manually creating a directory for your user data, will cause this.</li>
+           <!-- TODO: Finish, confirm if necessary -->     <li><b>Solution:</b> The solution for this differs based on what operating system the server is using, see below for more information.</li>
+            </ul>
+            <h4>Windows</h4>
+           <ol>
+            <li>Navigate to the 'Configuration' page and copy the path next to 'User Data Path.'</li>
+            <li>Close out of Foundry VTT.</li>
+            <li>Open PowerShell as an Administrator by pressing your Windows key, typing in "PowerShell", and selecting 'Run As Administrator.'</li>
+            <li>Navigate to your user data directory by entering <code>cd &lt;user data path&gt;</code>, pasting in your copied user data path in place of <code>&lt;user data path&gt;</code>.</li>
+            <li>Copy and paste in the following command, and press 'Enter': <code>icacls * /T /Q /C /RESET;  takeown /R /F *</code>.</li>
+           <li>Launch Foundry VTT and check if the error persists.</li>
+           </ol> 
+
+           <h4>Linux</h4>
+           <ol>
+            <li>Navigate to the 'Configuration' page and copy the path next to 'User Data Path.'</li>
+            <li>Close out of Foundry VTT.</li>
+            <li>Enter <code>sudo chown -R &lt;user&gt;:&lt;group&gt; folder/</code>, replacing <code>&lt;user&gt;</code> <code>&lt;group&gt;</code> with your user and group names. Enter <code>whoami</code> to determine your user name, your group will usually be the same name.</li>
+           </ol>
+
+</div>
+</section>
+
+<!-- Module or System Update Errors -->
+<section class="collapsible">
+    <header class="collapsible-header">"... did not provide a valid manifest file" when updating modules</header>
+        <div class="collapsible-content">  
+                
+            <ul>
+                <li><b>Cause:</b> This error can have several causes, including upstream issues with where the module is hosted, or broken module files.</li>
+                <li><b>Solution:</b> If the error is due to hosting issues, they may resolve themselves after a few minutes. Otherwise, we suggest you reach out to the module author for whichever module has returned this error.</li>
+            </ul>
+</div>
+</section>
+
+
+<section class="collapsible">
+    <header class="collapsible-header">Cannot create a string longer than 0x1ffffffe8 characters</header>
+        <div class="collapsible-content">  
+                
+            <ul>
+                <li><b>Cause:</b> This error occurs when a database has been bloated, usually from a module.</li>
+                <li><b>Solution:</b> Fixing this error requires direct assistance. Please <a href="/contact-us/" target="_blank" rel="nofollow noopener">contact us</a> or join our <a href="https://discord.gg/foundryvtt" target="_blank" rel="nofollow noopener">Discord community</a> for live support.</li>
+            </ul>
+</div>
+</section>
+
+<h2 class="border">In-World Errors</h2>
+<p>This section covers errors you may see when a World is launched, such as during a game.</p>
+
+<section class="collapsible">
+    <header class="collapsible-header">Scene Width "0" is not a non-negative integer</header>
+        <div class="collapsible-content">  
+           <ul>
+            <li><b>Cause:</b> Broken or misconfigured scene was activated, including Scenes created with an importer module.</li>
+            <li><b>Solution:</b> Delete and remake the Scene in question.</li>
+           </ul> 
+                </div>
+</section>
+<section class="collapsible">
+    <header class="collapsible-header">Warnings Related to Hardware Acceleration or "WebGL: CONTEXT_LOST_WEBGL"</header>
+        <div class="collapsible-content">  
+           <ul>
+            <li><b>Cause:</b> Your browser or Foundry Virtual Tabletop client does not have hardware acceleration enabled. This may co-occur with a gray screen.</li>
+            <li><b>Solution:</b> Enable Hardware Acceleration following the instructions found in @Article[black-gray-screen].</li>
+           </ul> 
+                </div>
+</section>
+<!-- Game Canvas Disabled - Necessary? -->
+<section class="collapsible">
+    <header class="collapsible-header">Game Canvas Disabled</header>
+        <div class="collapsible-content">  
+           <ul>
+            <li><b>Cause:</b> 'Disable Game Canvas' has been checked in Configure Settings.</li>
+            <li><b>Solution:</b> Open Configure Settings and untick the box next to 'Disable Game Canvas.'</li>
+           </ul> 
+                </div>
+</section>
+<!-- Canvas Drawing Failed -->
+<section class="collapsible">
+    <header class="collapsible-header">Canvas Drawing Failed...</header>
+        <div class="collapsible-content">  
+           <ul>
+            <li><b>Cause:</b> Something, usually a Module or Game System, is preventing Foundry VTT from building the game canvas.</li>
+            <li><b>Solution:</b> Disable all modules by launching the World in safe configuration, see @Article[launch-safe-configuration].</li>
+           </ul> 
+                </div>
+</section>
+<!-- Failed to Fetch -->
+<section class="collapsible">
+    <header class="collapsible-header">The requested texture could not be loaded: Failed to fetch</header>
+        <div class="collapsible-content"> 
+           
+            <li><b>Cause:</b> A Chromium based browser (Chrome, Edge, Opera) that prevents files from being downloaded and cached if you have less than 4 GB of free space on your boot drive. This is the C drive for Windows, /dev/sda1 on Linux, and Macintosh HD on MacOS. This is specific to the computer experiencing the issue, not the server host.</li>
+            <li><b>Solution:</b> Freeing up more than 4 GB of free space on your boot drive will resolve this.</li> 
+                </div>
+</section>
+
+<h2 class="border">My Error Isn't Listed Here or is Still Showing</h2>
+<h3>Command Line Errors</h3>
+<p>Should Foundry VTT fail to start when launched from the command line, it will output relevant errors to the console it was launched in. These errors all relate to a bad configuration file, and are covered in detail in @Article[ts-bad-config].</p>
+
+<h3>Other Errors and Further Support</h3>
+<p>This article covers errors most commonly seen when using Foundry VTT but is not an exhaustive list. If you don't see your error here, or attempts to resolve the error have not worked, please <a href="/contact-us/" target="_blank" rel="nofollow noopener">contact us</a> or join our <a href="https://discord.gg/foundryvtt" target="_blank" rel="nofollow noopener">Discord community</a> for live support.</p>
