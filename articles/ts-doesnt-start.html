@@ -28,18 +28,20 @@ Foundry VTT Still Won't Start
 - Blurb with Contact Us and  -->
 <!-- Overview -->
 <h2 class="border">Overview</h2>
-<p>This article covers common reasons why Foundry Virtual Tabletop may not start, and the steps to correct them. Often times disabling antivirus software and ensuring Foundry VTT isn't already running are enough to resolve this issue, but additional steps are provided if they do not. </p>
+<p>This article covers common reasons why Foundry Virtual Tabletop may not start, and the steps to correct them. Often times disabling anti-virus software and ensuring Foundry VTT isn't already running are enough to resolve this issue, but additional steps are provided if they do not. </p>
 
 <!-- Before you begin -->
 <h2 class="border">Before You Begin</h2><!-- TODO: Reorder --> 
-<p>Before we start troubleshooting, it's important that we ensure any antivirus software isn't interfering with Foundry VTT. Overzealous protections may prevent JavaScript, a core part of Foundry VTT, from running on your computer. If you use any 3rd party antivirus software such as McAffee, Norton, Avast, or others, temporarily disable it. Then check if Foundry VTT will start. If it does not, proceed to the next section.</p>
-
-<h2 class="border">Check for Common Reasons Foundry VTT Won't start</h2>
-<p>There are several common reasons for Foundry VTT not to start, which we will check here. These include first checking if Foundry VTT already running in the background and then checking if a directory lock exists.</p>
+<p class="note info">Often when Foundry VTT fails to start it is closed before the processs can announce a visible error message. To begin troubleshooting by checking for error messages, please see @Article[common-errors].</p>
+<p>Before we start troubleshooting, it's important that we ensure any anti-virus software isn't interfering with Foundry VTT. Overzealous protections may prevent JavaScript, a core part of Foundry VTT, from running on your computer, and certain anti-virus programs have had false-positive activations with Foundry VTT in the past. </p>
+<p>If you use any third-party anti-virus software such as McAffee, Norton, Avast, or others, temporarily disable it and check if Foundry VTT will start. If the program runs correctly, you will need to whitelist your Foundry VTT application folder within your anti-virus software in order to allow the program to run. </p>
+<h2 class="border">Common Causes</h2>
+<p>Two specific causes are the most common reason for Foundry VTT failing to start. To prevent data corruption, Foundry VTT uses a 'lock file' to prevent other copies of Foundry VTT writing data to files that are being read by an already running copy- this lock file prevents secondary copies of Foundry VTT from launching. Secondarily, it is not possible for more than one server application to use the same network port, so if Foundry VTT determines that the port it is assigned to use is already in use it will fail to launch.</p>
 
 <section class="collapsible">
-    <header class="collapsible-header">Check for and Close any Foundry VTT Processes</header>
+    <header class="collapsible-header">Closing Foundry VTT Processes</header>
         <div class="collapsible-content">  
+            <p>The first step to ensuring another copy of Foundry VTT isn't running is to check the process list for your operating system.</p>
 <dl>
 <dt>Windows</dt>
 <dd>Press Ctrl + Shift + Escape to open Task Manager. If the option for 'More Details' appears on the bottom, click on that to display all of Task Manager's options. Click the 'Processes' tab and check that 'Foundry Virtual Tabletop' is not listed anywhere. If it is, click on it and select 'End Task.'
