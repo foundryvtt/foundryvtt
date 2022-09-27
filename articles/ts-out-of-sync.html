@@ -1,67 +1,52 @@
-<!-- Overview -->
+
 <h2 class="border">Overview</h2>
-<p>This article covers common reasons for players being out of sync with the Foundry VTT host. Typically this happens when something interferes with a player's connection to the host. Signs of this include:
-    <ul>
-        <li>Changes to Actors, Items, or Journal Entries not saving</li>
-        <li>Token movement reverting</li>
-        <li>Disconnections</li>
-        <li>Foundry VTT Doesn't Respond</li>
-    </ul>
-</p>
-<!-- Overview: Signs of out of sync -->
+<p>When what one user sees does not match what another sees within Foundry Virtual Tabletop, such as token positions not being accurate, this usually results from users being desynchronized.</p>
+<p>This article addresses the common causes for users being out of sync with the Foundry VTT host. Typically this happens when something interferes with a player's connection to the host. Signs of sync issues include:</p>
+<ul>
+    <li>Changes to Actors, Items, or Journal Entries are not visible to the player</li>
+    <li>Token positions do not update for one or more players</li>
+    <li>Users regularly receive notifications that they have been disconnected from the server</li>
+    <li>Users complain about frequently needing to refresh</li>
+</ul>
 
-<!-- Before you begin
---Ctrl + F5 refresh -->
 <h2 class="border">Before You Begin</h2>
-<p>Pressing 'Ctrl' + 'F5' is usually enough to at least temporarily resolve the above issues. Sometimes the cause of these issues is difficult to pin down, especially if it only affects your players. Asking a player to connect and help test can help speed up the troubleshooting process.</p>
+<p>The causes of desync issues are almost entirely client-based, though some networking issues can result in this problem from the host side it is most commonly resolved by users understanding what causes the desync and opting into some best-practices to address the problem. In rare cases, overuse of Add-on Modules can be the cause of of desynchronization issues. Sometimes the cause of these issues is difficult to pin down, especially if it only affects your players. Asking a player to connect and help test can help speed up the troubleshooting process.</p>
+<p>Pressing 'Ctrl' + 'F5' (CMD + F5 for macOS) is usually sufficient to temporarily resolve desynchronization issues, but if it is a persistent and recurring problem it can be resolved with a little troubleshooting. </p>
 
-<!-- Module Errors
-    -- Disable all
-    -- Search for culprit
--->
-<h2 class="border">Module Overload</h2>
-<p>While add-on modules are a popular feature of Foundry Virtual Tabletop, using too many at once can lead to delays and the desync issues described above.</p>
-<ol>
-    <li>Disable all modules by launching your World in Safe Configuration. See @Article[launch-safe-configuration] for instructions.</li>
-    <li>Check if the error persists.</li>
-    <li>If it does: Proceed to the next section.</li>
-    <li>If it does not: One or more modules are causing Foundry VTT to desync from player clients. See the collapsible below for instructions on finding the module at fault.</li>
-</ol>
+<h2 class="border">Common Causes</h2>
+<p>There are a few potential causes of desync issues. Modern browsers use features which can sometimes cause delays in processing in the interest of conserving battery power or ram usage, network issues can sometimes stall passing of websocket data between users, users may be using VPNs to connect to your server which can interfere with websocket data transfer, and in rare cases overuse of Add-on Modules can result in data desyncronization. However, desynchronization most commonly results from your users switching to another tab during the game, resulting in the browser placing Foundry VTT in an 'idle' state.</p>
 
-<section class="collapsible">
-    <header class="collapsible-header">Narrow Down the Module at Fault</header>
-    <div class="collapsible-content">
-        <p>Finding the module at fault for your performance issues may seem like a daunting task if you have dozens or hundreds of modules. Fortunately there's a quick method to narrow down the offending module compared to enabling and disabling one by one. You will divide your modules into two groups, and then further divide these groups in half depending on if the issue returns or not.</p>
-       <ul>
-        <li>Enable half of your modules.</li>
-        <li>If the issue returns: the module at fault is in this group. Enable half of this group, and check again.</li> 
-        <li>If the issue does not return: the module at fault is in the other group of modules. Enable that group and check again.</li>
-       </ul> 
-       <p>Repeat this process until only one module remains. This will be the module at fault.</p>
-    </div>
-</section>
+<h3>Browser Idling</h3>
+<p>Chromium-based browsers such as Google Chrome and Microsoft Edge use a feature called "Tab Freezing" which will automatically suspend processing of any tab that is in the 'background' or not focused by a user, placing it in an idle state. This feature disrupts the connection between player and host, as the tab will not respond to socket-requests, and when the user returns they will only receive the last few updates, leading to visible desync. </p>
+<p>To prevent this, users should keep their Foundry VTT tab active during the game, whether by keeping it as the only tab open in a separate window or by not switching to other tabs for long periods.</p>
 
-<h2 class="border">Browser and Network Settings</h2>
-<p>Browsers and network settings are two other causes for players desyncing with Foundry VTT.</p>
+<p>Some browser extensions can also cause desync errors. Try connecting to Foundry VTT using an Incognito window or using another supported browser without extensions to confirm a browser extension is responsible, and wherever possible try to reduce the number of browser extensions in use. We are unable to provide insight into which specific browser extension may be responsible for this issue.</p>
 
-<h3>Browser Settings and Extensions</h3>
-<p>Chromium based browsers such as Google Chrome and Microsoft Edge will automatically set unused or unfocused tabs to an idle state. This disrupts the connection between player and host. Players should keep active the tab that Foundry VTT is running in, or return to it after viewing other tabs.</p>
-<p>Browser extensions can also cause desync errors. Try connecting to Foundry VTT using an Incognito window or using another supported browser without extensions.</p>
-
-<h3>Network Related Causes</h3>
+<h3>Network Issues</h3>
+<p>Whether your players are on an unreliable or slow internet connection, using a VPN, or your server setup is not quite correctly configured, the root cause is the same: websocket packets are not being correctly handled, resulting in users not receiving updates as expected.</p>
 <p>Automated port forwarding through UPnP or misconfigured network settings can also cause desync issues.</p>
+<h4>Users connecting through a VPN</h4>
+<p>If your players are using a VPN service to connect to your game, they may experience interruptions (however brief) in their connection, or their VPN may not allow data transfer through the WebSocket protocol. Ask your players to connect without use of a VPN to see if the matter improves.</p>
 
-<h4>I Am Self Hosting But Didn't Need to Port Forward</h4>
+<h4>Faulty UPnP</h4>
 <p>Foundry VTT attempts to make an automatic port forwarding rule in your browser using a framework called Universal Plug and Play (UPnP). Generally if this works then connections are fine. Sometimes however UPnP can cause connection issues. To fix this we suggest you set up port forwarding manually. See @Article[port-forwarding] for instructions on how to do this. Restarting your router by unplugging its power for 30 seconds may provide a temporary resolution if port forwarding is not feasible at the current time.</p>
 
-<h4>I Am Using a Reverse Proxy or SSL</h4>
-<p>Check that your reverse proxy and Foundry VTT's SSL settings are configured properly. Guides for doing this with Caddy, Nginx, Apache, and SSL setup, are below.</p>
+<h4>Incorrectly Configured Reverse-Proxy</h4>
+<p>In rare cases, configuration of a reverse-proxy server can be the cause of websocket issues. To be sure this isn't the cause, please check that your reverse-proxy is configured correctly:</p>
 <ul>
     <li>@Article[caddy]</li>
     <li>@Article[nginx]</li>
     <li>@Article[apache]</li> 
-    <li>@Article[ssl]</li>
 </ul>
+
+<h3>Module Overload</h3>
+<p>While add-on modules are a popular feature of Foundry Virtual Tabletop, using too many at once can lead to delays and desynchronization, especially in cases where multiple modules are attempting to update data at the same time. If you are using multiple modules that affect the same data (usually token modules), these conflicts can exacerbate user disconnections and desyncs.</p>
+<ol>
+    <li>Disable all modules by launching your World in Safe Configuration. See @Article[launch-safe-configuration] for instructions.</li>
+    <li>Run your game session for a period of at least 30 minutes, asking your players to report when they experience a desynchronization.</li>
+    <li>If multiple desynchronizations occur, modules are probably not responsible for this issue.</li>
+    <li>If desynchronizations stop occurring, see <a href="https://foundryvtt.com/article/performance-issues/#modules">Module Performance Issues</a>.</li>
+</ol>
 
 <h2 class="border">I Am Still Experiencing Desync Issues</h2>
 <p>Further troubleshooting will require direct assistance. <a href="/contact-us/" target="_blank" rel="nofollow noopener">contact us</a> or join our <a href="https://discord.gg/foundryvtt" target="_blank" rel="nofollow noopener">Discord community</a> for live support.</p>
