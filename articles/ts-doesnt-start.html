@@ -26,6 +26,7 @@ Reinstall Foundry VTT
 
 Foundry VTT Still Won't Start
 - Blurb with Contact Us and  -->
+
 <!-- Overview -->
 <h2 class="border">Overview</h2>
 <p>This article covers common reasons why Foundry Virtual Tabletop may not start, and the steps to correct them. Often times disabling anti-virus software and ensuring Foundry VTT isn't already running are enough to resolve this issue, but additional steps are provided if they do not. </p>
@@ -42,19 +43,36 @@ Foundry VTT Still Won't Start
     <header class="collapsible-header">Closing Foundry VTT Processes</header>
         <div class="collapsible-content">  
             <p>The first step to ensuring another copy of Foundry VTT isn't running is to check the process list for your operating system.</p>
-<dl>
-<dt>Windows</dt>
-<dd>Press Ctrl + Shift + Escape to open Task Manager. If the option for 'More Details' appears on the bottom, click on that to display all of Task Manager's options. Click the 'Processes' tab and check that 'Foundry Virtual Tabletop' is not listed anywhere. If it is, click on it and select 'End Task.'
-</dd>
-<dt>MacOS</dt>
-<dd>Press Command + Space to open Spotlight. Search for "Activity Monitor" and then press Return. Activity Monitor will start. Search for "Foundry Virtual Tabletop". If Foundry VTT is running, it will be displayed there. Click on 'Foundry Virtual Tabletop', then the 'X' button in the top left hand corner. A window will open asking if you want to quit Foundry Virtual Tabletop. Click on 'Force Quit.</dd>
-<dt>Linux</dt>
-<dd>
-    <ul>
-    <li>I'm Using PM2 - Enter <code>pm2 stop foundry</code> into a terminal to end Foundry VTT's process.</li>
-  <li>If you start Foundry VTT directly from the terminal, you will need to end the Node process itself. <b>This guide assumes that Foundry VTT is the only Node process running.</b> Enter <code>pidof node</code> in the terminal to output Node's process ID. Then enter <code>kill &lt;PID&gt;</code>, replacing &lt;PID&gt; with Node's process ID.</li></dd>
-    </ul>
-</dl>         
+
+<h3>Windows</h3>
+<ol>
+    <li>Press Ctrl + Shift + Escape to open Task Manager.</li>
+    <li>If the option for 'More Details' appears on the bottom, click on that to display all of Task Manager's options.</li>
+    <li>Click the 'Processes' tab and check that 'Foundry Virtual Tabletop' is not listed anywhere.</li>
+    <li>If it is, click on it and select 'End Task.'</li>
+</ol>
+
+
+<h3>MacOS</h3>
+<ol>
+   <li>Press Command + Space to open Spotlight.</li> 
+   <li>Search for "Activity Monitor" and then press Return. Activity Monitor will start.</li> 
+   <li>Search for "Foundry Virtual Tabletop". If Foundry VTT is running, it will be displayed there.</li>
+   <li>Click on 'Foundry Virtual Tabletop', then the 'X' button in the top left hand corner.</li>
+   <li>A window will open asking if you want to quit Foundry Virtual Tabletop. Click on 'Force Quit.</li>
+</ol>
+
+<h3>Linux</h3>
+<ol>
+    <li>Enter <code>pidof foundryvtt</code> in the terminal to output Foundry VTT's process ID.</li>
+    <li>Enter <code>kill &lt;PID&gt;</code>, replacing &lt;PID&gt; with Foundry VTT's process ID.</li>
+</ol> 
+
+<h3>Node</h3>
+<p>Use the steps for your operating system from above, but look for a process named "node" or "NodeJS".</p>
+<h4>I'm Using PM2 to run Foundry</h4>
+<p>Enter <code>pm2 stop foundry</code> into a terminal to end Foundry VTT's process.
+ 
  </div>
 </section> 
 
@@ -62,7 +80,7 @@ Foundry VTT Still Won't Start
 <section class="collapsible">
     <header class="collapsible-header">Check for and Remove Directory Lock</header>
         <div class="collapsible-content">  
-            <p>When Foundry VTT startes, it creates a folder named "options.json.lock" in your Config folder. This is known as a directory lock and prevents other Foundry VTT instances from using the same user data. Foundry VTT will then remove this lock when it closes. If Foundry VTT crashes though, it may not be able to remove this folder. Foundry VTT will fail to start if it sees a directory lock already in place.</p>
+            <p>When Foundry VTT starts, it creates a folder named "options.json.lock" in your Config folder. This is known as a directory lock and prevents other Foundry VTT instances from using the same user data. Foundry VTT will then remove this lock when it closes. If Foundry VTT crashes though, it may not be able to remove this folder. Foundry VTT will fail to start if it sees a directory lock already in place.</p>
             <p>Navigate to Foundry VTT's Config directory. The default locations are:</p>
             <ul>
                 <li>Windows: <code>%appdata/FoundryVTT/Config</code></li>
@@ -72,9 +90,7 @@ Foundry VTT Still Won't Start
            <p>Look for a folder named <code>options.json.lock</code>. If it's present, delete it.</p> 
                 </div>
 </section>
-<p>After completing these steps, check if Foundry VTT will start correctly. If it does not, proceed to the next section.</p>
 
-<h2 class="border">Foundry VTT Still Won't Start</h2>
 <p>There are several other reasons for Foundry VTT to not start. While not as common as the previously covered errors, they still may be at fault.</p>
 <h3>Configuration Errors</h3>
 <p>Foundry VTT will fail to start if there are issues with its configuration. These include an improperly modified options.json file and another program using the same port as Foundry VTT. The steps to diagnose and resolve these errors are explained in detail in @Article[ts-bad-config].</p>
