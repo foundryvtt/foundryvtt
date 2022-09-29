@@ -1,33 +1,129 @@
-<!-- First draft, intended to be ripped apart with feedback -->
-<!-- For consistency's sake, this borrows the "contact us" blurb from troubleshooting.html -->
-<h2>Overview</h2>
-<p>This article covers troubleshooting steps for common issues in Foundry. After completing each step, check your world to see if the issue remains. If the issue is still there after you've completed all the Basic Troubleshooting steps, we strongly recommend that you <a href="/contact-us/" target="_blank" rel="nofollow noopener">contact us</a> or join our <a href="https://discord.gg/foundryvtt" target="_blank" rel="nofollow noopener">Discord community</a> for live support.</p> </p>
+<h2 class="border">Overview</h2>
+<p>This guide covers common troubleshooting issues as well as general troubleshooting steps.</p> It's important to first determine what the possible cause of the issue is. Not all steps will apply to each case. You should update your Game Systems and Add-on Modules before starting this process, then check if that fixed the issue you are facing.</p>
 
-<h2 class="border">Troubleshooting Steps</h2>
-<h3>Basic Troubleshooting</h3>
+
+<h2 class="border">Startup and Setup Screen Issues</h2>
+<section class="collapsible">
+    <header class="collapsible-header">Foundry VTT Does Not Start</header>
+        <div class="collapsible-content">  
+<p>Several different factors can cause Foundry VTT to not start. @Article[ts-doesnt-start] covers solutions to these in detail, including Foundry VTT not starting at all or failing to fully load.</p>
+                </div>
+</section>
+
+<!-- Reset Admin Password -->
+<section class="collapsible">
+    <header class="collapsible-header">I Want to Reset Admin or World Passwords</header>
+        <div class="collapsible-content">  
+            <h4>Reset My Admin Password</h4>
+            <p>Resetting your admin password requires navigating to your User Data directory and deleting a specific file. @Article[reset-admin-password] contains more information and steps to do so.</p>
+            <h4>Reset World Passwords</h4>
+            <p>Resetting the passwords to a World requires only a few steps. They are detailed in @Article[reset-user-passwords].</p>
+                </div>
+</section>
+
+<!-- Module or Systems Won't Update  -->
+<section class="collapsible">
+    <header class="collapsible-header">My Modules or Game Systems Won't Update</header>
+        <div class="collapsible-content">  
+            <p>There are a few reasons that would prevent Add-on Modules or Game Systems from updating:</p>
+            <ul>
+                <li><strong>Host Issues:</strong> Modules and Game Systems are hosted by various providers. If a provider is facing technical issues or heavy traffic, it may refuse your connection. Try waiting a few minutes and trying again. If you're using a VPN, try disabling it and trying again.</li>
+                <li><strong>Bad Manifest:</strong> This is an issue with one of the module or system's files. We suggest reaching out to the author of the Module or Game System for assistance.</li>
+                <li><strong>No Update Available for Your Version of Foundry VTT:</strong> If a module or system author has only created updates for a newer major version of Foundry VTT, then it will fail to update. The module or system will still work the same as before. If you wish to upgrade Foundry VTT and use the latest module release, <strong>first back up your User Data</strong> following the steps at @Article[user-data-backup].</li>
+                <li><strong>Permissions Issue:</strong> If an error starting with "EPERM" appeared when you tried to update, you will need to change the permissions level of your User Data folder. This process depends on your operating system. A step-by-step guide is available in @Article[ts-common-errors].</li>
+            </ul>
+                </div>
+</section>
+<section class="collapsible">
+    <header class="collapsible-header">My World Won't Launch</header>
+        <div class="collapsible-content">  
+            <p>Worlds not launching typically come down to database or permissions errors. A red error banner should appear at the top of the screen indicating what the specific error is. @Article[ts-common-errors] explains these errors and their solutions in more detail.</p> 
+           </div>
+</section>
+
+
+<h2 class="border">Connection Issues</h2>
+<p>Foundry VTT needs a clear path to accept incoming connections. A closed connection or players being unable to connect is usually due to something preventing traffic from reaching Foundry VTT on your computer. Once you've determined the possible source, the article @Article[ts-connection-closed] contains further instructions on identifying and resolving network related issues.</p>
+<section class="collapsible">
+    <header class="collapsible-header">Determine Source of Connection Issues</header>
+        <div class="collapsible-content">
+            <h4>Local Connectivity Test</h4> 
+            <p>Using another device on the same network as your computer, such as a laptop or phone on WiFi, attempt to connect to Foundry VTT using the <b>Local Network</b> invitation link. If Foundry VTT does not load, something on your computer is preventing incoming connections. Typically this happens if you have a firewall active without an exception for Foundry VTT, antivirus software, or network settings on Windows. See @Article[port-forwarding] for more information on creating a firewall rule. If you are using antivirus software, temporarily disable it and try connecting again. If you're able to connect, refer to its documentation for steps to add an exception for Foundry VTT.</p>
+            <h4>Local Connections Work</h4>
+            <p>If Foundry VTT loads with the local connectivity test but reports your connection is closed, or your players are still unable to connect, then the issue will either be related to port forwarding or ISP technology known as CGNAT. See @Article[port-forwarding] for instructions on how to set up port forwarding and check that existing rules are working properly. @Article[ts-connection-closed] contains further instructions on troubleshooting a closed connection, including testing for CGNAT.</p> 
+            <h4>I'm Using a VPN</h4>
+            <p>VPNs add extra layers of routers and servers between you and your players. Unfortunately they also act as black boxes that are inaccessible for troubleshooting. We advise disabling your VPN when hosting Foundry Virtual Tabletop.</p>
+                </div>
+</section>
+
+
+<h2 class="border">General Troubleshooting Steps</h2>
+<p>Troubleshooting other issues is a fairly straightforward process. These include disabling all modules, checking the console for errors, and narrowing down possible causes for the issue.</p>
+<p>Disable all modules by launching your world in safe configuration. @Article[launch-safe-configuration] contains the steps for this process. If this fixes the problem, the issue was module related. Re-enable your modules in small batches, checking each time if the issue persists, to quickly determine the module at fault. The developer console may indicate which module is at fault too.
+<h3>My Issue Is Still There After Disabling Modules</h3>
+<p>The next step is to check the developer console for error messages. This involves opening your browser's Developer Tools, navigating to its Console tab, and then looking for messages in red text. Warnings in yellow can usually be ignored, most issues will show as errors. Checking for errors will help guide troubleshooting and identify the culprit. @Article[ts-common-errors] contains a list of the most common errors you may see, as well as steps to resolve them.
+<ul>
+    <li><strong>Chrome/Edge:</strong> Press 'F12' or 'Ctrl + Shift + J' on Windows, or 'Opt + Cmd + J' on MacOS .</li>
+    <li><strong>Firefox:</strong> Press 'F12' or 'Ctrl + Shift + I' on Windows, or 'Opt + Cmd + I' on MacOS.</li>
+</ul>
+
+<section class="collapsible">
+    <header class="collapsible-header">Warnings vs Errors</header>
+        <div class="collapsible-content">  
+            <p>Foundry VTT may show both warnings and errors. Warnings indicate that something is being done incorrectly. Most warnings thus are specific to Game System and Add-on Module developers and can be safely ignored. Errors however indicate that something has failed to work properly. This article covers several warnings that are relevant to end users, but otherwise focuses on errors.</p>
+<p class="note error">This is an Error Message. Note the encircled '!' and red background color. Errors will appear as red text in the developer console.</p>
+<p class="note warning">This is a Warning Message. Note the triangle symbol at the left and yellow background color.</p>
+                </div>
+</section>
+<h3>Rule Out Browser Related Issues</h3>
+<section class="collapsible">
+    <header class="collapsible-header">I Am Self-Hosting</header>
+        <div class="collapsible-content">  
 <ol>
-
-    <li>Refresh and Clear Browser Cache: With the world loaded, hold down 'Ctrl'/'Cmd'and press 'F5' to refresh Foundry.</li>
-    
-    <li> Launch World in Safe Configuration: While modules are a popular feature of Foundry, conflicts between them or outdated modules can lead to unexpected problems. Launching your world in Safe Configuration is the fastest and easiest way to check if modules are the cause of your problem. To do this, navigate to the Worlds screen and find the world with issues. Press 'Edit World' and then check 'Launch in Safe Configuration'. When you launch the world, Foundry will disable all modules, deactivate all scenes, and stop playing all tracks. To save time, please do not re-enable any modules until you are finished troubleshooting. </li>
-    
-    <li>Restart Foundry: If you're using the standalone Foundry application, close out of Foundry entirely. Then launch Foundry again. Load the world and check if the issue remains. If you're using a <a href="/article/partnerships/">Hosting Partner</a>, follow their steps to restart Foundry.</li>
-
-    <li>Update Systems and Modules: Return to Setup and navigate to the Game Systems screen. Press the 'Update All' button to update your game systems to their latest version.</li>
-    
-    <li>Use an Incognito Window or Different Browser: Sometimes unsupported browsers or certain browser extensions interfere with Foundry. Connect to your Foundry instance in an incognito/private tab, or a different browser. If you're using the standalone Foundry application, go to <a href="http://localhost:30000">http://localhost:30000</a> in your web browser to directly connect to Foundry.</li>
-
-    <li>Reinstall Game System: Return to Setup and navigate to the Game Systems screen. Find the game system your world uses, eg 'DnD5e', then click on 'Uninstall.' Click 'Yes' when the warning prompt comes up. After the game game system is uninstalled, click 'Install System', navigate to the relevant system, and click 'Install.' Then load the world and check if the issue continues.</li>
- 
-    <li>Update Foundry: Finally, if the issue still isn't resolved, check that Foundry is up to date with the latest <strong>Stable</strong> build. Navigate to the Administration screen and check that you're using the <strong>Stable</strong> release channel. <b>Do not upgrade to a Prototype, Development, or Testing version!</b> Press "Check for Updates", and then "Download" if an update exists.
+    <li>Launch Foundry VTT as normal.</li>
+    <li>Open an incognito or private tab in a web browser and go to <code>http://localhost:30000</code> to connect to Foundry VTT.</li>
+    <li><strong>The Issue Does Not Persist:</strong> The cause of the issue is likely a problem with browser extensions or the standalone Foundry VTT application. You can use Foundry VTT normally by accessing it via web browser.</li>
+    <li><strong>The Issue Persists:</strong> The issue is likely not browser related. Proceed to the next section.</li>
+</ol>
+                </div>
+</section>
+<section class="collapsible">
+    <header class="collapsible-header">I Use a Remote Host</header>
+        <div class="collapsible-content">  
+                <li>Connect to Foundry VTT as normal using either a private browser window, or a browser you don't commonly use.</li>
+                <li><strong>The Issue Does Not Persist:</strong> A browser extension may be interfering with Foundry VTT, or you're using an unsupported browser. Foundry VTT supports Chrome, Edge, Opera (not Opera GX), and Firefox.</li>
+                <li><strong>The Issue Persists:</strong> The issue is likely not browser related. Proceed to the next section.</li>
+                </div>
+</section>
+<h3>Rule Out World, System, or Foundry VTT Specific Issues</h3>
+<p>If the issue persists after disabling all modules, the next step will be determining if it's an issue with the World itself, the Game System, or with Foundry VTT. Update After each step, check for errors in the developer console. Do not enable any modules during this process.</p>
+<ol>
+    <li>Return to Setup and create a new World with the same game system.</li>
+    <li>Launch this World and attempt to reproduce the issue.</li>
+    <li><strong>The Issue Does Not Persist:</strong> The cause of the issue is related to something in the World itself.</li>
+    <li><strong>The issue Persists:</strong> Create a new World in a different Game System. Attempt to reproduce the issue again. If it persists, the issue is likely a problem with Foundry VTT itself. If not, the issue is with the system you're using in the affected World.</li>
 </ol>
 
-<h3>Advanced Troubleshooting</h3>
-<p>If the above steps do not resolve the issue then we strongly recommend you <a href="/contact-us/" target="_blank" rel="nofollow noopener">contact us</a> or join our <a href="https://discord.gg/foundryvtt" target="_blank" rel="nofollow noopener">Discord community</a> for live support. We may ask that you perform a few more troubleshooting steps to help find the cause of the issue. They are described below for your reference.</p>
+<section class="collapsible">
+    <header class="collapsible-header">Resolving World, Game System, or Foundry VTT Issues</header>
+        <div class="collapsible-content">  
 <ul>
-    <li>Check Another Scene: Check that all your modules are disabled and then create a new scene. Check if the issue continues in this scene, or if it's isolated to specific scene(s).</li>
-    <li>Check Another World: Create a new world with the same game system and do not activate any modules. Check in that world if the issue continues. This helps to rule out possible issues with your game world.</li>
-    <li>Try A Different Game System: Click on 'Return to Setup' if your world is active. Create a new world with a different game system. Check if the issue continues to happen in this world. Similar to checking another world and scene, this helps rule out an issue with your game system.</li>
-    <li>Check the Console: Press F12 to open up the Developer Tools panel. Select the tab titled 'Console' and check for any error messages in red text. If there are any, get a screenshot or copy and paste them into a text file.</li>
-    <li>Check for Errors: You may be asked to provide or check Foundry's error log. To find the error log, navigate to your <a href="/article/user-data/">User Data</a> folder, then open the Logs directory. The error log is named 'error.txt'.</li>
+    <li><strong>World Issues:</strong> Check the console for errors. If any exist, check if they're listed in the @Article[ts-common-errors] article.</li>
+    <li><strong>Game System Issues:</strong> Update the relevant Game System on the Game Systems page, or click "Update All." Check again if the error persists. If it does, check the console for errors and refer to @Article[ts-common-errors].</li>
+    <li><strong>Foundry VTT Specific Issues:</strong> Navigate to the Updates page and note what version of Foundry VTT is listed under 'Current Version.' Backup your User Data following the steps from @Article[user-data-backup]. Uninstall Foundry VTT, then download and install either the same version you had installed, or the latest stable version for your major version of Foundry VTT, from your <a href="https://www.foundryvtt.com/me/licenses">Purchased Licenses</a> page.</li>
 </ul>
+                </div>
+</section>
+
+
+<h3>Other Troubleshooting Steps</h3>
+<p>The list below covers other problems you may encounter and their solutions.</p>
+<ul>
+    <li>Foundry VTT Shows a Black or Gray Screen - @Article[black-gray-screen].</li>
+    <li>Low Frame Rate, Laggy Animation, Poor Performance - @Article[ts-performance].</li>
+    <li>Frequent Disconnects, Token Movement Reverting, Changes Not Saving - @Article[ts-out-of-sync].</li>
+    <li>Backing Up or Moving User Data - @Article[user-data-backup].</li>
+</ul>
+
+
+<p>Finally, if the troubleshooting process hasn't worked to resolve the issue at hand, please <a href="/contact-us/" target="_blank" rel="nofollow noopener">contact us</a> or join our <a href="https://discord.gg/foundryvtt" target="_blank" rel="nofollow noopener">Discord community</a> for live support.</p>
