@@ -1,8 +1,7 @@
-<p>While it is not possible to share <strong>exact</strong> hardware requirements for the software as the performance of the application depends heavily on the type of content and features that are used within a World, it is possible to provide some recommendations and basic requirements for a bare-minimum usage. </p>
-<hr/>
+<p>While it is not possible to share <strong>exact</strong> hardware requirements for the software as the performance of the application depends heavily on the type of content and features that are used within a World, it is possible to provide some recommendations and basic requirements for a bare-minimum usage.</p>
 
-<h2 id="client-required">Client(player or GM) Minimum Requirements</h2>
-
+<h2 id="client" class="border">Client Requirements</h2>
+<h3>Minimum Specifications</h3>
 <ul>
 	<li>Relatively modern computer running Windows 10 or 11, macOS Big Sur (or newer), or Linux operating systems, with support for 64-bit architecture.</li>
 	<li>An integrated GPU to enable hardware acceleration.</li>
@@ -11,8 +10,7 @@
     <li>A modern web browser like Chrome, Firefox, Opera, or Edge with hardware acceleration enabled. (Safari is not a supported browser at this time).</li>
 </ul>
 
-<h2 id="client-recommended">Client(player or GM) Recommended Specifications</h2>
-
+<h3>Recommended Specifications</h3>
 <ul>
 	<li>Relatively modern computer running Windows 10 or 11, macOS Big Sur (or newer), or Linux operating systems with support for 64-bit architecture.</li>
 	<li>A dedicated GPU which supports WebGL 2.0.</li>
@@ -22,26 +20,26 @@
     <li>Chrome or a Chromium-based browser provides an experience closest to the FVTT desktop application.</li>
 </ul>
 
-<h3 id="hosting">Hosting Requirements</h3>
+<h2 id="hosting" class="border">Hosting Requirements</h2>
 <p>There are three main modes to host a Foundry server: <strong>Self-Hosted</strong>, <strong>Cloud Hosted</strong>, and <strong>Partner Hosted</strong>.  Partner Hosted offloads the responsibility of server hardware to the hosting partner, so it needs no list of requirements here.</p>
 
-<h2 id="self-hosted">Self-hosted Minimum Requirements</h2>
-<p>Everything listed for client minimum requirements above, and:</p>
-    <ul>
-        <li>An internet service provider which allows port-forwarding via IPv4, and which does not use Carrier Grade Network Address Translation (CG NAT).</li>
-        <li>A router configured to port-forward incoming connections to your PC.</li>
-        <li>Your operating system's firewall configured to allow connections on the port FVTT is using.</li>
-        <li>An internet upload speed of at least 1.5MB/s (12mbps)* is recommended since the host needs to transfer image, video, or audio assets to connected players. For hosts with slow upload speeds, <strong>serving your media files from a cloud storage location (for example: using @Article[aws-s3]) will avoid this limitation.</strong></li>
-        <li>*-Through careful optimization of assets and use of S3, FVTT can be hosted on speeds as low as 6mbps but may experience extremely slow initial loading times.</li>
-    </ul>
-    <p>note: If your ISP provides an IPv6 address and your players can connect via IPv6 (confirmed via <a href="https://test-ipv6.com/">this link</a>) there is a high possibility you do not need to set-up port forwarding, and your players will be able to connect to you via IPv6 instead, negating the need for Port-Forwarding.</p>
-    
-<h2 id="dedicated-server">Dedicated Server Minimum Requirements</h2>
-    <ul>
-        <li>at least 1 vCPU (2 recommended)</li>
-        <li>At least 1GB storage space.</li>
-        <li>1 GB RAM (2GB recommended)</li>
-        <li>Firewall and security settings (dependent on host) configured to allow connections on the port required.</li>
-    </ul>
-    <p class="note warning">The amount of memory required by the server process depends on the amount of data included in the game system and modules that are active within your world. Larger systems or worlds that use more content-intensive modules will require more RAM.</p>
-<hr/>
+<h3 id="self-hosted">Self-hosted Minimum Specifications</h3>
+<p>Self-hosted requires the above specifications for running the Foundry VTT client and also:</p>
+<ul>
+    <li>An internet service provider which allows port-forwarding via IPv4, and which does not use Carrier Grade Network Address Translation (CG NAT).</li>
+    <li>A router configured to port-forward incoming connections to your PC.</li>
+    <li>Your operating system's firewall configured to allow connections on the port FVTT is using.</li>
+    <li>An internet upload speed of at least 1.5MB/s (12mbps)* is recommended since the host needs to transfer image, video, or audio assets to connected players. For hosts with slow upload speeds, <strong>serving your media files from a cloud storage location (for example: using @Article[aws-s3]) will avoid this limitation.</strong></li>
+    <li>*-Through careful optimization of assets and use of S3, FVTT can be hosted on speeds as low as 6mbps but may experience extremely slow initial loading times.</li>
+</ul>
+<p class="note">If your ISP provides an IPv6 address and your players can connect via IPv6 (confirmed via <a href="https://test-ipv6.com/">this link</a>) there is a high possibility you do not need to set-up port forwarding, and your players will be able to connect to you via IPv6 instead, negating the need for Port-Forwarding.</p>
+
+<h3 id="dedicated-server">Dedicated Server Minimum Requirements</h3>
+<p>Dedicated servers require less system resources because they do not run a client. Dedicated servers should have the following minimum requirements:</p>
+<ul>
+    <li>at least 1 vCPU (2 recommended)</li>
+    <li>At least 1GB storage space.</li>
+    <li>2 GB RAM (4GB recommended)</li>
+    <li>Firewall and security settings (dependent on host) configured to allow connections on the port required.</li>
+</ul>
+<p class="note">The amount of memory required by the server process depends on the amount of data included in the game system and modules that are active within your world. Larger systems or worlds that use more content-intensive modules will require more RAM.</p>
