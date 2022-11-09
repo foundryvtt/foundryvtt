@@ -5,7 +5,7 @@
 <p>This section details the recommended method of naming and organizing your files. Proper organization, file naming, and formatting will ensure Foundry works as smoothly as possible, reduce the risk of issues or losing files, and potentially improve your own workflow efficiency.</p>
 
 <h3>Folder Structure</h3>
-<p>It is recommended by the Foundry VTT creator Atropos that you organize by the thematic purpose for different assets:</p>
+<p>It is recommended that you organize your folders by the thematic purpose for different assets:</p>
     <ul>
         <li><code>/artwork</code> for art included in journals, items, or handouts</li>
         <li><code>/audio</code> for sound files</li>
@@ -17,17 +17,15 @@
 <h3>File Naming</h3>
 <p>Since Foundry VTT is a web server, it adheres to file naming conventions expected for a web server, and thus the file structure and filenames of your assets should be standardized accordingly. The most common things are:</p>
 
-<ol>
-<li><strong>Don't include spaces in filenames or folders.
-    <br /></strong>For example: <code>/my awesome content/maps/fortress of doom.jpeg</code> should be avoided. Spaces should either be removed, or replaced with dashes (-) and underscores (_) instead. So the file and folder above would become: <code>/maps/my-awesome-content/fortress_of_doom.jpeg</code></li>
-
-<li><strong>Avoid unnecessary metadata in filenames.
-    <br /></strong>It is common for content creators to include metadata in their file names in order to make the images they're distributing to users easier to identify when there are variations.
-    <br />An example of this would be <code>fortress_of_doom(30x25-3000x2500-gridless).jpeg</code> which is not inherently wrong, but should be shortened to just <code>fortress_of_doom.jpeg</code> since that extra information is not necessary.</li>
-
-<li><strong>Don't use potentially disruptive or special characters in filenames or folders.
-    <br /></strong>It's best to stick to universally readable characters to avoid potentially breaking file paths or creating errors within Foundry VTT when reading filenames. This includes spaces (as above), characters specific to non-English keyboards, and the following characters: <code>* . " / \ [ ] : ; | , &amp; = + $ ? % # </code></li>
-</ol>
+<dl>
+    <dt>Don't include spaces in filenames or folders.</dt>
+    <dd></strong>For example: <code>/my awesome content/maps/fortress of doom.jpeg</code> should be avoided. Spaces should either be removed, or replaced with dashes (-) and underscores (_) instead. So the file and folder above would become: <code>/maps/my-awesome-content/fortress_of_doom.jpeg</code></dd>
+    <dt>Avoid unnecessary metadata in filenames.</dt>
+    <dd>It is common for content creators to include metadata in their file names in order to make the images they're distributing to users easier to identify when there are variations.
+        <br />An example of this would be <code>fortress_of_doom(30x25-3000x2500-gridless).jpeg</code> which is not inherently wrong, but should be shortened to just <code>fortress_of_doom.jpeg</code> since that extra information is not necessary.</dd>
+    <dt>Don't use potentially disruptive or special characters in filenames or folders.</dt>
+    <dd>It's best to stick to universally readable characters to avoid potentially breaking file paths or creating errors within Foundry VTT when reading filenames. This includes spaces (as above), characters specific to non-English keyboards, and the following characters: <code>* . " / \ [ ] : ; | , &amp; = + $ ? % # </code></dd>
+</dl>
         
 <h4>Token File Naming Conventions</h4>
 <p>If providing multiple varieties of the same base token, file naming conventions should allow all tokens to begin with the same file prefix. This should generally be the creature name, major variations, then minor variation.</p>
@@ -42,6 +40,9 @@
 
 <h3>Image File Formats</h3>
 <p>Foundry supports the following formats for image files: <code>.avif, .jpg, .jpeg, .png, .svg, .webp</code>. The recommendations change slightly whether you're creating Tokens, Tiles, or Maps for Scenes.</p>
+<section class="collapsible">
+    <header class="collapsible-header">Image Format Breakdown</header>
+    <div class="collapsible-content">
 <dl>
     <dt>WebP</dt>
     <dd>
@@ -66,6 +67,30 @@
         <p>JPEG files are great for large images as they generally have a small file size, but this comes at the cost of heavy, lossy compression methods that create visual artifacts, making images appear grainy. JPEG files are best used for medium sized images that don't need extreme image fidelity, or won't be see constantly by players. Using JPEG for scene backgrounds is generally better than PNGs in terms of file size, but the compression will severely impact the clarity of the image.</p>
     </dd>
 </dl>
+</div>
+</section>
+
+<h3 id="tokens">Token Assets</h3>
+<p>When designing Token assets for use in foundry it is best to take into account overall file size and quality. Tokens should be provided in a format that supports transparency (webp or png), should be square in dimensions, and facing south.</p>
+
+<h4>Token Dimensions</h4>
+<p>The resolution of Tokens created for use in Foundry is between 200px and 400px square for a medium or large sized creature. 400x400(px) has become somewhat of an industry standard for token creation. When zooming in on a token, it is desirable to get a higher resolution detail than you obtain with the battle-map itself. Foundry allows zoom up to 3x, so a token which has a resolution of 3 times the grid size of the battle-map will still demonstrate visible quality.</p>
+
+<h4>Token Orientation</h4>
+<p>Foundry VTT uses a firm assumption that token artwork is facing "south" in its natural orientation. If you have Tokens which are not southward-facing in the original images it is recommended to rotate the token images to have the tokens face south. Alternatively your users can utilize the <strong>mirror vertical</strong> checkbox in the token configuration to flip a northward facing token to be southward facing.</p>
+
+<p>Avoid creating tokens which are facing diagonally, as there is no way in the Foundry application to correct for this initial orientation. For example, tokens which are drawn to face South-East or South-West as this will look unintuitive when those tokens are combined with rotation in Foundry VTT.</p>
+
+<h3 id="maps">Scene Assets</h3>
+<p>Foundry is extremely friendly to map creators wishing to package their content for distribution. The following are important guidelines to consider when creating maps for use in Foundry VTT.</p>
+
+<p>1. <strong>Carefully align the grid for your map.</strong></p>
+<ul>
+    <li>Foundry assumes the grid starts from the top-left corner of the image.</li>
+    <li>The grid should be fully flush with the edges of the image itself with no excess padding.</li>
+    <li>The map should depict a whole number of grid spaces with no partial squares. For example a scene of 20 x 20 squares at 100px grid scale should have a map image of 2000x2000(px).</li>
+</ul>
+<p>2. <strong>Exclude the visible grid from your final map image.</strong> While it is important that your map image be <em>aligned with a grid</em>, it is also preferable to not include that pre-rendered grid in the image itself. This allows users to better customize the map within Foundry by applying a different grid type, using it for gridless play, changing the grid color, or making other adjustments which the VTT can provide.</p>
 
 <h3 id="video-assets">Video and Animation Assets</h3>
 <p>Foundry VTT supports three key filetypes when it comes to video assets for use: .webm, .mp4, and .m4v are supported</p>
@@ -81,28 +106,6 @@
 <h4>Video Codec and Bitrate</h4>
 <p> Foundry recommends codecs and bitrates optimized for online streaming. Variable Bit Rate (VBR) files rendered in h264 are usually the most performant while keeping quality high. If you are going to render the video in constrained or constant bitrate instead, consider a dual pass from a codec like libx264 at 2-5Mb/s. Quality percentage should be kept at 60-80% to reduce visual artefacts.</p>
 
-<h3 id="tokens">Token Specific Considerations</h3>
-<p>When designing Token assets for use in foundry it is best to take into account overall file size and quality. Tokens should be provided in a format that supports transparency (webp or png), should be square in dimensions, and facing south.</p>
-
-<h4>Token Dimensions</h4>
-<p>The resolution of Tokens created for use in Foundry is between 200px and 400px square for a medium or large sized creature. 400x400(px) has become somewhat of an industry standard for token creation. When zooming in on a token, it is desirable to get a higher resolution detail than you obtain with the battle-map itself. Foundry allows zoom up to 3x, so a token which has a resolution of 3 times the grid size of the battle-map will still demonstrate visible quality.</p>
-
-<h4>Token Orientation</h4>
-<p>Foundry VTT uses a firm assumption that token artwork is facing "south" in its natural orientation. If you have Tokens which are not southward-facing in the original images it is recommended to rotate the token images to have the tokens face south. Alternatively your users can utilize the <strong>mirror vertical</strong> checkbox in the token configuration to flip a northward facing token to be southward facing.</p>
-
-<p>Avoid creating tokens which are facing diagonally, as there is no way in the Foundry application to correct for this initial orientation. For example, tokens which are drawn to face South-East or South-West as this will look unintuitive when those tokens are combined with rotation in Foundry VTT.</p>
-
-<h3 id="maps">Maps</h3>
-<p>Foundry is extremely friendly to map creators wishing to package their content for distribution. The following are important guidelines to consider when creating maps for use in Foundry VTT.</p>
-
-<p>1. <strong>Carefully align the grid for your map.</strong></p>
-<ul>
-    <li>Foundry assumes the grid starts from the top-left corner of the image.</li>
-    <li>The grid should be fully flush with the edges of the image itself with no excess padding.</li>
-    <li>The map should depict a whole number of grid spaces with no partial squares. For example a scene of 20 x 20 squares at 100px grid scale should have a map image of 2000x2000(px).</li>
-</ul>
-<p>2. <strong>Exclude the visible grid from your final map image.</strong> While it is important that your map image be <em>aligned with a grid</em>, it is also preferable to not include that pre-rendered grid in the image itself. This allows users to better customize the map within Foundry by applying a different grid type, using it for gridless play, changing the grid color, or making other adjustments which the VTT can provide.</p>
-
 <h2 class="border" id="audio-assets">Audio Assets</h2>
 Foundry VTT has support for a wide variety of ways to use audio assets. You can read more about them in the @Article[ambient-sound] and @Article[playlists] articles in the knowledge base. This article specifically focuses on optimizing assets and the best practices for handling audio files.
 
@@ -116,7 +119,9 @@ Foundry VTT has support for a wide variety of ways to use audio assets. You can 
 <p>Foundry currently supports OGG, MP3, FLAC, WAV, and WEBM file formats for audio playback. Choice of audio format is also an important consideration since compression style can affect the quality of the audio in major or minor ways. Reverb, cymbals, other drum samples, and certain pads or crisp-sounding instruments often suffer the most from audio compression, so results may vary from sample to sample. Some codecs are better at exporting particular sounds, voices, or even genres of music. Your choice of format and codec may also be limited by which tools or digital audio workstation (DAW) you are using.</p>
     
 <p>The supported audio formats for Foundry are listed below, with the general advantages and disadvantages of using each.</p>
-
+<section class="collapsible">
+    <header class="collapsible-header">Audio Format Breakdown</header>
+    <div class="collapsible-content">
 <dl>
     <dt>OGG</dt>
     <dd>The overall best format for audio for the purpose of streaming online, an average OGG file will have similar file size to a 128kbps MP3 file, but with clearer quality. Additionally, OGG comes with the added bonus of being able to loop cleanly in audio players that support the perfect looping of audio. Many tools and DAWs can natively export to this format as well, making it easy to create OGG files. However, Safari does not fully support OGG files.</dd>
@@ -129,6 +134,8 @@ Foundry VTT has support for a wide variety of ways to use audio assets. You can 
     <dt>WAV</dt>
     <dd>WAV files are largely a poor choice for streaming online - uncompressed WAV files play the sound in its intended, perfectly-crisp quality, but can be an order of magnitude larger in size than compressed formats. This drawback alone almost always outweighs the nigh-unnoticeable difference in playback quality for most listeners.</dd>
 </dl>
+</div>
+</section>
 
 <h4>Converting Audio</h4>
 <p>Audio programs (such as Audacity) are available freely online that allow for exporting audio in various formats, under various codecs. The aforementioned program Audacity supports exporting to WAV, and OGG, with free plugins online to add support for exporting to MP3, FLAC, and other file formats.</p>
