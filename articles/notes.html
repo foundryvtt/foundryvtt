@@ -1,5 +1,4 @@
 <h2>Overview</h2>
-<p class="note info">This article has been updated to include details for Version 10, and may not be accurate to previous versions.</p>
 <p>Tabletop roleplaying games often require note-taking for specific objects in a scene, or landmarks on a map. Foundry Virtual Tabletop supports the creation of Map Notes that you can easily place on a Scene, allowing gamemasters and their players to easily reference notes they've made. This article will familiarize you with the process of creating map notes, editing existing map notes, and how permissions for Journal Entry Pages determine visibility of map notes.</p>
 
 <h2 class="border">The Journal Notes Layer (<i class="fas fa-bookmark"> </i> )</h2>
@@ -18,8 +17,19 @@
     <dt>Clear Notes (<i class="fas fa-trash"> </i>)</dt>
     <dd>this button deletes all currently placed notes from the Scene, permanently, with a prompt to confirm.</dd>
 </dl>
-<h2 class="border">Creating Map Notes</h2>
-<p>Map notes can be created by a gamemaster or assistant GM or, in cases where @Article[permissions]{Permissions} have been granted, even players. This can be done using the Create Map Note button from the Journal Notes layer, or by dragging and dropping a Journal Entry or Journal Entry page from the sidebar tab to anywhere on a Scene.</p>
+
+<h3 id="view">Map Note Visibility</h3>
+<p>Map Notes are not always visible - depending on a user's settings, they may only appear while the Journal Notes button is selected in the scene control toolbar. If you wish to see available map notes on the scene at all times, simply click on the Journal Notes button (bookmark icon) in the scene control toolbar, and click Toggle Notes Display (<i class="fas fa-map-pin"> </i>). Once enabled, notes will remain visible on every layer. This setting is<em>per user</em>- each player is able to toggle the visibility of Map Notes for themselves.</p>
+<h4>Visible Note Indicator</h4>
+<p>When an actor in a scene can see a map note, the map note icon (<i class="fas fa-bookmark"> </i>) will change to indicate this with a small purple flag. For gamemasters, this occurs when any actor in the scene can see a map note, while for players it is only active when an actor they control can see a map note.</p>
+<h4>Global Visibility</h4> 
+<p>By default, Map Notes are obscured by Fog on scenes with Fog Exploration and will only appear when they are within the field of vision for a controlled Token. Setting the Globally Visible toggle in the configuration window for a Map Note elevates that note so that it is visible regardless of Token vision settings.</p>
+<h4>Permission-based Visibility</h4>
+<p>For Map Notes that are linked to a Journal Entry or Journal Entry Page, visibility is determined by the permission level configured on the Journal Entry or Page. If a player has "Limited" permissions, they will be able to see the position of the Map Note and its assigned label, but they will not be able to open it. For Image Pages, journal entries may still be opened by users with a Limited. If a Map Note has no Journal Entry associated with it, the note will be visible to all users currently viewing the scene.</p>
+<p>If you right-click on a Journal Entry in the sidebar, you can conveniently "Jump to Pin" to pan the canvas to its placed Note location.</p>
+
+<h3>Creating Map Notes</h3>
+<p>Map notes can be created by a gamemaster or assistant GM or, in cases where @Article[users] have been have been configured to allow it. This can be done using the Create Map Note button from the Journal Notes layer, or by dragging and dropping a Journal Entry or Journal Entry page from the sidebar tab to anywhere on a Scene.</p>
 <section class="collapsible">
     <header class="collapsible-header">Creating a Map Note from the Journal Notes layer</header>
     <div class="collapsible-content">
@@ -35,12 +45,11 @@
 <section class="collapsible">
     <header class="collapsible-header">Creating a Map Note from an existing Journal</header>
     <div class="collapsible-content">
-    <figure class="right">
-        <a title="See Larger Image" href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/map-note-config-2020-10-02.webp" target="_blank" rel="nofollow noopener">@Image[92]</a>
+    <figure class="right">@Image[92]
         <figcaption>An example Map Note and its Map Note Configuration dialog.</figcaption>
     </figure>
     <ol>
-        <li>Create a <a title="Journal Entries" href="../journal/" target="_blank" rel="nofollow noopener">Journal Entry</a> in the Journal Entries sidebar.</li>
+        <li>Create a @Article[journal] in the Journal Entries sidebar.</li>
         <li>If you wish to create a link to the complete Journal Entry, drag your newly created journal entry from the sidebar onto the scene.</li>
         <li>If you wish to create a link to a specific Journal Entry Page, drag the page from the Table of Contents sidebar within an open Journal Entry onto your scene.</li>
         <li>Once you drop the Journal Entry or Page onto the scene, a dialog window should appear which will allow you to configure the note before it is placed.</li>
@@ -48,17 +57,7 @@
     </div>
 </section>
 
-<h2 class="border" id="view">Map Note Visibility</h2>
-<p>Map Notes are not always visible - depending on a user's settings, they may only appear while the Journal Notes button is selected in the scene control toolbar. If you wish to see available map notes on the scene at all times, simply click on the Journal Notes button (bookmark icon) in the scene control toolbar, and click Toggle Notes Display (<i class="fas fa-map-pin"> </i>). Once enabled, notes will remain visible on every layer. This setting is<em>per user</em>- each player is able to toggle the visibility of Map Notes for themselves.</p>
-<h3>Global Visibility</h3> 
-<p>By default, Map Notes are obscured by Fog on scenes with Fog Exploration and will only appear when they are within the field of vision for a controlled Token. Setting the Globally Visible toggle in the configuration window for a Map Note elevates that note so that it is visible regardless of Token vision settings.</p>
-<h3>Permission-based Visibility</h3>
-<p>For Map Notes that are linked to a Journal Entry or Journal Entry Page, visibility is determined by the permission level configured on the Journal Entry or Page. If a player has "Limited" permissions, they will be able to see the position of the Map Note and its assigned label, but they will not be able to open it. For Image Pages, journal entries may still be opened by users with a Limited. If a Map Note has no Journal Entry associated with it, the note will be visible to all users currently viewing the scene.</p>
-<p>If you right-click on a Journal Entry in the sidebar, you can conveniently "Jump to Pin" to pan the canvas to its placed Note location.</p>
-<h4 id="delete">Deleting Notes</h4>
-<p>A Map Note can be deleted from a Scene by a Gamemaster by mousing over the note and pressing the Delete key. Alternatively, all Map Notes on the current scene can be deleted by clicking the Map Notes button (bookmark icon) in the scene control toolbar, and clicking "Clear Notes" (trash can icon).</p>
-<p>Deleting a placed object like a Map Note will not delete the Journal Entry that it refers to.</p>
-<h2 class="border">Configuring Notes</h2>
+<h3>Configuring Notes</h3>
 <p>After you place a Map Note you may configure it in accordance with the options listed below. You can change or modify these settings again at any time by double right-clicking on the map note icon. Map Notes can be re-configured to point to a different journal entry or page after its creation as well.</p>
 
 <section class="collapsible">
@@ -73,13 +72,13 @@
 <dt>Page</dt>
 <dd>A specific page within a Journal Entry assigned to the Map Note. Double clicking the Map Note will bring up the Journal Entry and jump to that specific Page.</dd>
 <dt>Text Label</dt>
-<dd>The label the Map Note will display when moused over. If left empty, the label will default to the name of the Journal Entry.</dd>
+<dd>The label the Map Note will display when hovered over by your mouse cursor. If left empty, the label will default to the name of the Journal Entry.</dd>
 <dt>X/Y-Coordinate</dt>
 <dd>The coordinates for the Map Note on the scene. It is worth noting The Map Note can still be dragged and relocated after placing, making these fields more suitable for fine-tuning the placement of pins.</dd>
 <dt>Entry Icon</dt>
 <dd>The display icon for the Map Note.</dd>
 <dt>Custom Icon</dt>
-<dd>If you wish to use a specific icon not included in the entry icon list, you can define the path to it here.</dd>
+<dd>If the "custom" option is selected as the entry icon, you can use this field to specify an image not included in the entry icon list.</dd>
 <dt>Icon Size</dt>
 <dd>The size of a Map Note's icon on the Scene. This is equal to the length of one side of the icon, in pixels.</dd>
 <dt>Icon Tint</dt>
@@ -95,6 +94,11 @@
 </dl>
 </div>
 </section>
+
+<h3 id="delete">Deleting Notes</h3>
+<p>A Map Note can be deleted from a Scene by a Gamemaster by hovering your mouse cursor over the note and pressing the Delete key. Alternatively, all Map Notes on the current scene can be deleted by clicking the Map Notes button (bookmark icon) in the scene control toolbar, and clicking "Clear Notes" (trash can icon).</p>
+<p>Deleting a placed object like a Map Note will not delete the Journal Entry that it refers to.</p>
+
 <h2 class="border">API References</h2>
 <p>To interact with Map Note objects programmatically, you will primarily use the following API concepts:</p>
 <ul>
