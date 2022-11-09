@@ -14,7 +14,7 @@
         <li><code>/maps</code> for map backgrounds used in scenes</li>
     </ul>
 
-<h3>File Naming</h3>
+<h3>File Naming Conventions</h3>
 <p>Since Foundry VTT is a web server, it adheres to file naming conventions expected for a web server, and thus the file structure and filenames of your assets should be standardized accordingly. The most common things are:</p>
 
 <dl>
@@ -27,13 +27,17 @@
     <dd>It's best to stick to universally readable characters to avoid potentially breaking file paths or creating errors within Foundry VTT when reading filenames. This includes spaces (as above), characters specific to non-English keyboards, and the following characters: <code>* . " / \ [ ] : ; | , &amp; = + $ ? % # </code></dd>
 </dl>
         
-<h4>Token File Naming Conventions</h4>
+<section class="collapsible">
+    <header class="collapsible-header">Token Wildcard Naming Conventions</header>
+    <div class="collapsible-content">
 <p>If providing multiple varieties of the same base token, file naming conventions should allow all tokens to begin with the same file prefix. This should generally be the creature name, major variations, then minor variation.</p>
             
 <p>Example:</p>
 <p><code>red-guard.png, blue-guard.png, green-sword-guard.png, green-guard-spear.png</code></p>
 <p>Should be: <code>guard-red.png, guard-blue.png, guard-green-sword.png, guard-green-spear.png</code></p>
 <p>This way, Foundry wildcard token paths can easily use <code>guard-*.png</code> to get a guard of any of the major colors available (red, blue or green) or <code>guard-green-*.png</code> to get a green guard with a random weapon (a sword or spear in this case).</p>
+</div>
+</section>
 
 <h2 class="border" id="art-assets">Art Assets</h2>
 <p>Generating image assets for Foundry carries with it some best practices which can help to optimize your content for distribution. </p>
@@ -71,32 +75,42 @@
 </section>
 
 <h3 id="tokens">Token Assets</h3>
-<p>When designing Token assets for use in foundry it is best to take into account overall file size and quality. Tokens should be provided in a format that supports transparency (webp or png), should be square in dimensions, and facing south.</p>
+<p>When designing Token assets for use in foundry it is best to consider size, quality, and image orientation. Unless making portrait-style or "pog" style tokens, overhead tokens should be provided in a format that supports transparency (webp or png), should be square in pixel dimensions, and facing directly south. The reasoning is explained in detail below.</p>
 
-<h4>Token Dimensions</h4>
+<section class="collapsible">
+    <header class="collapsible-header">Token Size & Orientation</header>
+    <div class="collapsible-content">
 <p>The resolution of Tokens created for use in Foundry is between 200px and 400px square for a medium or large sized creature. 400x400(px) has become somewhat of an industry standard for token creation. When zooming in on a token, it is desirable to get a higher resolution detail than you obtain with the battle-map itself. Foundry allows zoom up to 3x, so a token which has a resolution of 3 times the grid size of the battle-map will still demonstrate visible quality.</p>
 
 <h4>Token Orientation</h4>
 <p>Foundry VTT uses a firm assumption that token artwork is facing "south" in its natural orientation. If you have Tokens which are not southward-facing in the original images it is recommended to rotate the token images to have the tokens face south. Alternatively your users can utilize the <strong>mirror vertical</strong> checkbox in the token configuration to flip a northward facing token to be southward facing.</p>
 
 <p>Avoid creating tokens which are facing diagonally, as there is no way in the Foundry application to correct for this initial orientation. For example, tokens which are drawn to face South-East or South-West as this will look unintuitive when those tokens are combined with rotation in Foundry VTT.</p>
+</div>
+</section>
 
-<h3 id="maps">Scene Assets</h3>
-<p>Foundry is extremely friendly to map creators wishing to package their content for distribution. The following are important guidelines to consider when creating maps for use in Foundry VTT.</p>
+<h3 id="maps">Scene/Map Assets</h3>
+<p>Foundry is extremely friendly to map creators wishing to package their content for distribution. The following are important guidelines to consider when creating maps for use in Foundry VTT:</p>
 
-<p>1. <strong>Carefully align the grid for your map.</strong></p>
-<ul>
-    <li>Foundry assumes the grid starts from the top-left corner of the image.</li>
-    <li>The grid should be fully flush with the edges of the image itself with no excess padding.</li>
-    <li>The map should depict a whole number of grid spaces with no partial squares. For example a scene of 20 x 20 squares at 100px grid scale should have a map image of 2000x2000(px).</li>
-</ul>
-<p>2. <strong>Exclude the visible grid from your final map image.</strong> While it is important that your map image be <em>aligned with a grid</em>, it is also preferable to not include that pre-rendered grid in the image itself. This allows users to better customize the map within Foundry by applying a different grid type, using it for gridless play, changing the grid color, or making other adjustments which the VTT can provide.</p>
+<section class="collapsible">
+    <header class="collapsible-header">Scene Background Guidance</header>
+    <div class="collapsible-content">
+<dl>
+    <dt>Carefully align the grid for your map.</dt>
+    <dd>Foundry assumes the grid starts from the top-left corner of the image. The grid should be fully flush with the edges of the image itself with no gaps or overrun. The easiest way to achieve this is to make sure the map depicts a whole number of grid spaces with no partial squares. For example a scene of 20 x 20 squares at 100px grid scale should have a map image of 2000x2000(px). Note that Foundry assumes the grid starts from the top-left corner of the image, so take this into account when laying out your map art.</dd>
+    <dt>Exclude the visible grid from your final map image.</dt>
+    <dd>While it is important that your map image be <em>aligned with a grid</em>, it is also preferable to not include that pre-rendered grid in the image itself. This allows users to better customize the map within Foundry by applying a different grid type, using it for gridless play, changing the grid color, or making other adjustments which the VTT can provide.</dd>
+</dl>
+</div>
+</section>
 
 <h3 id="video-assets">Video and Animation Assets</h3>
 <p>Foundry VTT supports three key filetypes when it comes to video assets for use: .webm, .mp4, and .m4v are supported</p>
 <p>For transparent video assets, such as animated tiles or tokens, .webm will generally provide the best experience as it is high quality with a small file size. For animated assets (maps, tiles, and backgrounds) .webm, .mp4, and .m4v are recommended.</p>
 
-<h4 id="video-quality">Video Quality</h4>
+<section class="collapsible">
+    <header class="collapsible-header">Quality & Bitrate Considerations</header>
+    <div class="collapsible-content">
 <p>While Foundry does not restrict the file size a Scene can use, but it is important to keep in mind that a scene must be distributed to all connected players and, potentially, the GM as well. As a guideline, Foundry loosely recommends trying to keep video map file sizes in the vicinity of 50mb or less, to allow for adequate distribution. However, larger file sizes can be mitigated by users of Foundry through use of integrated support for S3, use of the preload feature, or if host and clients all have sufficient data transfer rates.</p>
 <p>Generally speaking, webm is recommended for non-transparent map scenes and transparent tiles or tokens. The file size differences between mp4, m4v, and webm provide a significant gain without quality reduction.</p>
 
@@ -105,15 +119,21 @@
 
 <h4>Video Codec and Bitrate</h4>
 <p> Foundry recommends codecs and bitrates optimized for online streaming. Variable Bit Rate (VBR) files rendered in h264 are usually the most performant while keeping quality high. If you are going to render the video in constrained or constant bitrate instead, consider a dual pass from a codec like libx264 at 2-5Mb/s. Quality percentage should be kept at 60-80% to reduce visual artefacts.</p>
+</div>
+</section>
 
 <h2 class="border" id="audio-assets">Audio Assets</h2>
 Foundry VTT has support for a wide variety of ways to use audio assets. You can read more about them in the @Article[ambient-sound] and @Article[playlists] articles in the knowledge base. This article specifically focuses on optimizing assets and the best practices for handling audio files.
 
-<h4>Optimal Bitrate</h4>
+<section class="collapsible">
+    <header class="collapsible-header">Bitrate Considerations</header>
+    <div class="collapsible-content">
 <p>Particularly for streaming audio, file bitrate will generally be the most important factor in determining the smoothness and quality of an audio file played in Foundry.</p>
 
 <p>A high bitrate provides higher-quality samples, but will be a bigger file that may not stream as quickly as the file is intended to play, and a low bitrate sample will be easier to stream over an internet connection, but may sound noticeably compressed, or have an overall lower quality.</p>
 <p><strong>Overall, 128kbps is the minimum audio quality recommended for use in Foundry, with 192kbps being the suggested maximum.</strong> 128kbps provides the most optimal tradeoff between audio quality and smaller file sizes. Using higher bitrate samples than 192kbps will not provide a noticeable change in quality to most players.</p>
+</div>
+</section>
 
 <h3 id="audio-formats">Audio Formats</h3>
 <p>Foundry currently supports OGG, MP3, FLAC, WAV, and WEBM file formats for audio playback. Choice of audio format is also an important consideration since compression style can affect the quality of the audio in major or minor ways. Reverb, cymbals, other drum samples, and certain pads or crisp-sounding instruments often suffer the most from audio compression, so results may vary from sample to sample. Some codecs are better at exporting particular sounds, voices, or even genres of music. Your choice of format and codec may also be limited by which tools or digital audio workstation (DAW) you are using.</p>
