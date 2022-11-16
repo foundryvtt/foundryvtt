@@ -57,7 +57,8 @@
             <li>At the bottom, in the console prompt, paste <code>game.system.model.Actor</code> or <code>game.system.model.Item</type></code> and press the Enter key.</type></li>
             <li>A list of types of Actors or Items will be displayed based on which command you used, compressed to a single line that you can click to expand. </li>
         </ol>
-        <p>Once you know what kind of actor you want to change, you can get the list of modifiable traits for that actor type using the same process, but instead of simply using <code>Object.keys(foundry.utils.flattenObject(game.system.model.Actor.ACTORTYPEHERE))</code> you'll add an additional piece of data- the type of actor you want the information for. For example, if you are using the dnd5e game system and wish to find the data paths for a player character, you would use <code>Object.keys(foundry.utils.flattenObject(game.system.model.Actor.character))</code>.</p>
+        <p>Once you know what kind of actor you want to change, you can get the list of modifiable traits for that actor type using a similar process, but instead of simply using <code>Object.keys(foundry.utils.flattenObject(game.system.model.Actor.ACTORTYPEHERE))</code>, replacing "ACTORTYPEHERE" with your chosen actor type, such as 'character'. </p>
+        <p>For example, if you are using the dnd5e game system and wish to find the data paths for a player character, you would use <code>Object.keys(foundry.utils.flattenObject(game.system.model.Actor.character))</code>.</p>
         <p>The output of this gives you a very simplified, expandable list of datapaths which may be modified by your system.</p>
     </div>
 </section>
@@ -65,6 +66,9 @@
 <section class="collapsible">
     <header class="collapsible-header">Creating an Active Effect From an Actor Sheet or Item Sheet</header>
     <div class="collapsible-content">
+        <figure class="right">@Image[455]
+            <figcaption>An example of a functional Active Effect from the dnd5e game system.</figcaption>
+        </figure>
         <p>Once you have identified the data paths you want to modify, you can create an Active Effect by accessing the 'effects' tab of your character's Actor sheet. The process for creating an Active Effect is the same regardless of whether you are creating the effect on an Actor or on an Item.</p>
         <ol>
             <li>Open the Actor or Item sheet you wish to modify.</li>
@@ -84,6 +88,6 @@
 <h2 class="border">API References</h2>
 <p>To interact with Active Effects documents programmatically, you will primarily use the following API concepts:</p>
 <ul>
-<li>@API[ActiveEffect, The ActiveEffect Document]</li>
-<li>@API[ActiveEffectConfig, The ActiveEffectConfig Application]</li>
+<li>@API[classes/client.ActiveEffect, The ActiveEffect Document]</li>
+<li>@API[classes/client.ActiveEffectConfig, The ActiveEffectConfig Application]</li>
 </ul>
