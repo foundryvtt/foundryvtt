@@ -1,0 +1,62 @@
+<header id="update-header">
+    <h2 class="border" id="update-title">Foundry Virtual Tabletop - Version 10 Stable Build 284 Release Notes</h2>
+    <figure id="update-banner">
+        <img alt="Release Notes for Foundry Virtual Tabletop Version 10 Stable Build 284" src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/v10-stable-release-banner-2022-08-31.png" title="Foundry VTT - Version 10 Stable Build 284 Release Notes"/>
+        <figcaption>Welcome to the Foundry Virtual Tabletop Version 10 Stable Build 284 update notes</figcaption>
+    </figure>
+</header>
+
+<section id="update-overview">
+    <p>After the first stable release of Version 10 yesterday, we have collected feedback and bug reports from the community to put together a patch that fixes a handful of notable issues which should make transitioning to Version 10 even easier! If you would like to see more of the changes that went into V10, be sure to check out the Stable release's <a href="https://foundryvtt.com/releases/10.283" rel="nofollow">notes</a> including our <a href="https://www.youtube.com/watch?v=yX2TM22D3Mc" rel="nofollow" target="_blank">What's New in V10</a> video.</p>
+    <p class="note warning"><strong>WARNING:</strong> While this is categorized as a stable release there is always a possibility of unexpected bugs or compatibility issues. As with any time you update the core software, be sure to perform a complete backup of your user data to minimize any risk of data loss.</p>
+</section>
+
+<section id="update-themes">
+    <h2 class="section-header border">Update Highlights</h2>
+    <p>This release is exclusively bug fixes designed to make Version 10 Stable's release even more solid. If you were experiencing issues with installing or updating some packages, importing journal entries, or a number of other issues this update will hopefully resolve them for you.</p>
+</section>
+
+<section id="features">
+<h2 class="section-header border">New Features</h2>
+    <h3 class="category-header" id="features-apps">Applications and User Interface</h3>
+    <ul>
+        <li>The default OS styling for the search input cancel button has been improved. <a href="https://github.com/foundryvtt/foundryvtt/issues/8039" rel="nofollow" target="_blank">(8039)</a></li>
+    </ul>
+</section>
+<section id="bugs">
+<h2 class="section-header border">Bug Fixes</h2>
+    <h3 class="category-header" id="bugs-docs">Documents and Data</h3>
+    <ul>
+        <li>Importing Journal Entries should now import their content as well. <a href="https://github.com/foundryvtt/foundryvtt/issues/7966" rel="nofollow" target="_blank">(7966)</a></li>
+        <li>Scene Notes should now be properly accessible via the sidebar context menu. <a href="https://github.com/foundryvtt/foundryvtt/issues/8025" rel="nofollow" target="_blank">(8025)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-apps">Applications and User Interface</h3>
+    <ul>
+        <li>Fixed an issue where the AV panels would not correctly reclaim space when hidden in the top/bottom configurations. <a href="https://github.com/foundryvtt/foundryvtt/issues/8026" rel="nofollow" target="_blank">(8026)</a></li>
+        <li>The search filter event handling has been changed to use an <code>input</code> event which also works for clearing the field. <a href="https://github.com/foundryvtt/foundryvtt/issues/8028" rel="nofollow" target="_blank">(8028)</a></li>
+        <li>The <span class="reference">Player List</span> context menu should no longer appear behind the AV panel when docked to the bottom of the screen. <a href="https://github.com/foundryvtt/foundryvtt/issues/8032" rel="nofollow" target="_blank">(8032)</a></li>
+        <li>The Module Management UI now only shows active modules to players. <a href="https://github.com/foundryvtt/foundryvtt/issues/8034" rel="nofollow" target="_blank">(8034)</a></li>
+        <li>The "Door State" field of the <code>WallConfig</code> sheet should no longer be incorrectly disabled when the Wall is a Door. <a href="https://github.com/foundryvtt/foundryvtt/issues/8040" rel="nofollow" target="_blank">(8040)</a></li>
+        <li>Detection Modes should now be configurable on a Prototype Token. <a href="https://github.com/foundryvtt/foundryvtt/issues/8016" rel="nofollow" target="_blank">(8016)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-packages">Package Development</h3>
+    <ul>
+        <li>Files referenced in the <code>world.json</code> should once again be correctly loaded. <a href="https://github.com/foundryvtt/foundryvtt/issues/8017" rel="nofollow" target="_blank">(8017)</a></li>
+        <li>Newly created worlds should now have the appropriate compatibility metadata which will allow them to be auto-launched. <a href="https://github.com/foundryvtt/foundryvtt/issues/8033" rel="nofollow" target="_blank">(8033)</a></li>
+        <li>Corrected an issue where Packages which designate multi-generational compatibility were still reported as a compatibility risk. <a href="https://github.com/foundryvtt/foundryvtt/issues/8035" rel="nofollow" target="_blank">(8035)</a></li>
+        <li>The automatic Package manifest migration for Systems has been corrected to properly migrate them to the <code>relationships.systems</code> field. <a href="https://github.com/foundryvtt/foundryvtt/issues/8037" rel="nofollow" target="_blank">(8037)</a></li>
+        <li>The automatic Package manifest migration should now handle cases where the "authors" field was a single string. <a href="https://github.com/foundryvtt/foundryvtt/issues/8045" rel="nofollow" target="_blank">(8045)</a></li>
+        <li>Package installation failures should now provide clearer errors for why installation failed in their toast notification and in the console. <a href="https://github.com/foundryvtt/foundryvtt/issues/8046" rel="nofollow" target="_blank">(8046)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-i18n">Localization and Accessibility</h3>
+    <ul>
+        <li>The Document names in the <span class="reference">Create Compendium</span> dialog dropdown are now localized. <a href="https://github.com/foundryvtt/foundryvtt/issues/8036" rel="nofollow" target="_blank">(8036)</a></li>
+        <li>Localization strings provided by tours should now correctly be added to the base English dictionary rather than the localized dictionary. <a href="https://github.com/foundryvtt/foundryvtt/issues/8041" rel="nofollow" target="_blank">(8041)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-other">Other Changes</h3>
+    <ul>
+        <li>Secret blocks should once again retain any additional classes they may have been given when saved. <a href="https://github.com/foundryvtt/foundryvtt/issues/8014" rel="nofollow" target="_blank">(8014)</a></li>
+        <li>The <span class="reference">Assign Token</span> feature in the Prototype Token window should no longer throw an error. <a href="https://github.com/foundryvtt/foundryvtt/issues/8018" rel="nofollow" target="_blank">(8018)</a></li>
+        <li>Fixed a bug where new markdown sheets would not save contents that were pasted in for the first time. <a href="https://github.com/foundryvtt/foundryvtt/issues/8031" rel="nofollow" target="_blank">(8031)</a></li>
+    </ul>
+</section>

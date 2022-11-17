@@ -5,6 +5,8 @@
 
 <p>All formatting and content will be preserved, there should be no change to how the content looks except that it now appears in the new multi-page enabled journal UI.</p>
 
+<p>Journal entries inside world-level compendia will also be automatically migrated. Journal entries inside module compendia will need to be migrated by the owner of the compendium. This can be accomplished by calling <code>pack.migrate()</code>.</p>
+
 <h2 id="data-model" class="border">Data Model</h2>
 <p>The <code>content</code> and <code>img</code> fields have been removed from the <code>JournalEntry</code> data model. At time of writing, the <code>JournalEntryPage</code> data model is the following:</p>
 
@@ -94,34 +96,34 @@ page?.update({content: "&lt;p&gt;Lorem ipsum dolor...&lt;/p&gt;"});</code></pre>
 <p>In version 9, a common way to organize content was to place multiple journal entries inside a folder. Now that a single journal entry may contain multiple pages, it may be desirable to consolidate that content into a single journal entry instead. The following script provides a way to do that.</p>
 
 <pre><code class="lang-js">const folderName = "A Folder"; // Change this.
-  const folder = game.folders.find(f => {
-    return (f.name === folderName) && (f.type === "JournalEntry");
-  });
-  if ( !folder ) return;
-  const sort = folder.sorting === "m"
-    ? SidebarDirectory._sortStandard
-    : SidebarDirectory._sortAlphabetical;
-  const contents = folder.contents.sort(sort);
-  const pages = contents.flatMap((entry, i) => {
-    const pages = [];
-    // Preserve sort order in the folder.
-    let sort = (i + 1) * 200_000;
-    const textPage = entry.pages.find(p => p.type === "text")?.toObject();
-    const imagePage = entry.pages.find(p => p.type === "image")?.toObject();
-    if ( textPage ) {
-      textPage.title.show = true;
-      textPage.sort = sort;
-      pages.push(textPage);
-      sort -= 100_000;
-    }
-    if ( imagePage ) {
-      imagePage.sort = sort;
-      pages.push(imagePage);
-    }
-    return pages;
-  });
-  JournalEntry.implementation.create({
-    pages,
-    name: folder.name,
-    folder: folder.folder?.id
-  });</code></pre>
+const folder = game.folders.find(f => {
+  return (f.name === folderName) && (f.type === "JournalEntry");
+});
+if ( !folder ) return;
+const sort = folder.sorting === "m"
+  ? SidebarDirectory._sortStandard
+  : SidebarDirectory._sortAlphabetical;
+const contents = folder.contents.sort(sort);
+const pages = contents.flatMap((entry, i) => {
+  const pages = [];
+  // Preserve sort order in the folder.
+  let sort = (i + 1) * 200_000;
+  const textPage = entry.pages.find(p => p.type === "text")?.toObject();
+  const imagePage = entry.pages.find(p => p.type === "image")?.toObject();
+  if ( textPage ) {
+    textPage.title.show = true;
+    textPage.sort = sort;
+    pages.push(textPage);
+    sort -= 100_000;
+  }
+  if ( imagePage ) {
+    imagePage.sort = sort;
+    pages.push(imagePage);
+  }
+  return pages;
+});
+JournalEntry.implementation.create({
+  pages,
+  name: folder.name,
+  folder: folder.folder?.id
+});</code></pre>
