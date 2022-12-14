@@ -1,103 +1,123 @@
 <h2 id="types">Overview</h2>
-<p>The <strong>Token</strong> is a placed object which visually represents @Article[actors] on the game Canvas. The Token displays the Actor's position, appearance, rotation, vision configuration, status effects, and more. Each Token is specific to @Article[scenes] in which it exists.</p>
-<p>This document will familiarize you with the various options available to the tokens, and how to manipulate them. It will also detail the difference between a prototype and placed token, and how the token wildcard system works.</p>
+<p class="note info">This article has been updated to include details for Version 10, and may not be accurate to previous versions.</p>
+<p>A <strong>Token</strong> is a placed object which visually represents @Article[actors] on the game Canvas. The Token displays the Actor's position, appearance, rotation, vision configuration, status effects, and more. Each Token is specific to @Article[scenes] in which it exists.</p>
+<p>This article will familiarize you with the various options available to the tokens, and how to manipulate them. It will also detail the difference between a prototype and placed token, and how the token wildcard system works.</p>
+
+<h2 id="tokencontrols" class="border">Token Controls</h2>
+<figure class="right">@Image[417]
+<figcaption>Token Controls Tool Palette.</figcaption>
+</figure>
+<p>The Token Controls panel is the default tool which is opened when loading into a scene. It is represented with a user icon (<i class="far fa-user-alt"> </i>) on the left-hand side of the user interface. This opens the tool palette, and provides tools manipulate tokens you have control over.</p>
+<p>Users can also place @Article[pings] on the canvas while this tool is selected.</p>
+<dl>
+<dt>Select Tokens (<i class="far fa-expand"> </i>)</dt>
+    <dd>This tool allows you to select one or more tokens on the current scene. While you can select multiple tokens, you can only manipulate tokens you have control over. For more on this see @Article[users].</dd>
+<dt>Select Targets (<i class="fas fa-bullseye"> </i>)</dt>
+    <dd>This tool allows you to target tokens on the current scene buy left-clicking on a token. This places an indicator on the token. You can shift-click multiple tokens to target additional tokens. Additionally, you can click and drag to create a bounding box which targets all tokens inside its area. </dd>
+<dt>Measure Distance (<i class="far fa-ruler"> </i>)</dt>
+    <dd>This tool functions as a ruler allowing you to measure distances between two points. You can click and drag anywhere on the canvas and a ruler showing the distance from that point to your cursor's current location will be drawn, and indicates the total distance in map grid units. Using control + click allows you to create a chained ruler with each click placing a new waypoint in the total distance measured.<p>If the origin point of a ruler is a token you have control over you can press space to case the token to move to the end of the ruler.</p></dd>
+</dl>
+
+<h3>Using Tokens</h3>
+<h4>Selecting Tokens</h4>
+<p>To select a token, click on it. By default, this keeps that token selected until you deselect it, which is done by pressing the escape key. If you turned on the Left-Click to Release Objects function in the @Article[settings] menu, you can instead click anywhere on the game canvas to deselect whatever token or tokens you have selected.</p> 
+<p>To select multiple tokens, you can also use the multi-select tool to draw a box around multiple tokens at once, or hold down shift while clicking tokens to select more than one. While multiple tokens are selected you can move, rotate, hide, target, or manipulate them in other ways as one.</p>
+<h4>Moving Tokens</h4>
+<p>To move a token placed in a scene, you can use the arrow keys (or WASD keys) to move it one space at a time in the direction pressed, or click and drag the token to the desired location, which causes it to move in a straight line to the location where the token was dropped. Refer to @Article[controls] for a full listing of all hotkeys and how to configure them in Foundry Virtual Tabletop.</p>
+<h4>Configuring Tokens</h4>
+<p>To configure a token placed in a scene, double click on it, or right click on it to pull up the Token Action HUD, and select the configure token option. The options found in this configuration panel are explained below.</p>
+
+<section class="collapsible">
+    <header class="collapsible-header">Prototype vs. Placed Tokens</header>
+    <div class="collapsible-content">
+<p>An important concept to understand when working with Tokens is the difference between a <strong>Prototype Token</strong> and a <strong>Placed Token</strong>.</p>
+
+<h3 id="prototype">Prototype Tokens</h3>
+<p>Prototype Tokens allow you to configure a 'preset' for that Actor's tokens which will be used whenever a new token is placed.</p>
+<p>A Prototype Token stores the configuration of a Token for a particular Actor before that Token has been placed onto the game canvas. The prototype defines the default setup that a newly created Token starts with. To configure the Prototype Token for an Actor, open the Actor Sheet and click the <strong>Prototype Token</strong> button in the top bar.</p>
+
+<h3 id="placed">Placed Tokens</h3>
+<p>Once a Token is placed, it becomes its own independent copy of the prototype. For example - a Prototype Token for a player character could be configured to have a certain vision distance - but when that Token is placed into a Scene that has different lighting conditions, the placed copy of the Token could be changed to increase or decrease visibility for that scene. To configure a placed Token, right click on the Token to display the Token HUD and click the gear icon to open that Token's configuration sheet, or double right-click the token.</p>
+
+<figure>@Image[155]
+<figcaption>Prototype token configuration (orange outline) versus placed token configuration (purple outline) differs slightly in terms of available options.</figcaption>
+</figure>
+</div>
+</section>
 
 <h2 id="options" class="border">Token Configuration Options</h2>
-<p>The Token Configuration sheet features a large number of options spread out across five different tabs, each tab allowing you to modify certain aspects of the token. The options of each tab and their effects are explained in the following sections of this article.</p>
-<p>Note that modifying these traits on a placed token will change them for only that token in the scene. To make changes to all future tokens placed from an actor, the prototype token must be configured first. The difference between placed and prototype tokens is explained <a href="#tokentypes" target="_blank" rel="nofollow noopener">here</a> in this article.</p>
+<p class="note warning">If you have granted your players permission to modify their own token settings, the preview of changes to Vision settings may reveal more of the scene canvas than you wish. This permission is disabled by default, allowing only trusted players and higher to configure token settings.</p>
+<p>The Token Configuration sheet features a large number of options spread out across five different tabs, each tab allowing you to modify certain aspects of the token. </p>
 
-<h4>Identity Tab</h4>
-<figure class="right">@Image[4]
-<figcaption>This tab controls what actor data is associate with the token.</figcaption>
-</figure>
-<ul>
-    <li><strong>Token Name</strong>: This determines the name which is shown for the token. When a new actor is created this defaults to whatever name that actor was given, but it can be changed to be different from the name.</li>
-    <li><strong>Display Name</strong>: Configure the level of visibility for the token's nameplate.</li>
-        <ul>
-            <li>Never Displayed - The nameplate is not displayed at all.</li>
-            <li>When Controlled - The nameplate is displayed when the Token is currently controlled</li>
-            <li>Hovered by Owner - The nameplate is displayed when the token is hovered over by a User who owns the token's Actor</li>
-            <li>Hovered by Anyone - The nameplate is displayed when the token is hovered over by any User</li>
-            <li>Always for Owner - The nameplate is displayed at all times to any User who owns the token's Actor</li>
-            <li>Always for Everyone - The nameplate is displayed at all times to every User</li>
-        </ul>
-        <li><strong>Represented Actor</strong>: Specify which Actor in the world defines the Actor data which used by the Token. The dropdown list of options is drawn from the available actors in the game world.</li>
-        <li><strong>Link Actor Data</strong>: When enabled, changes to the resource pools either on the base Actor or on the Token itself will reflect in the other location. These changes apply to all linked tokens in all scenes, and is best used for unique or named characters. It's not recommended to link actor data for generic creatures or types of character (such as bandits). When data is not linked, each Token will have independent resources pools and turn order tracking.</li>
-        <li><strong>Coordinates (Pixels)</strong>: (Placed Tokens Only) The current horizontal X position and vertical Y position of the Token in a Scene. Directly editing these fields on a token placed in a scene will change the token's position, these fields are automatically set when the token is placed into a scene or moved during play.</li>
-        <li><strong>Elevation (Distance)</strong>: The Token's current elevation in grid units distance which is displayed visually above the Token. This is used to indicate whether certain Tokens are flying or burrowing at an altitude that differs from what is standard for the Scene. Editing this on a prototype token has no effect, as the token starts at 0 elevation when placed into a scene.</li>
-        <li><strong>Rotation (Degrees)</strong>: The Token's current direction of facing in degrees. Rotation of zero (the default) corresponds to a southward facing as this is the most commonly used convention for Token artwork. Editing this field on a prototype token determines the default rotation in degrees when it's placed into a scene. Tokens in a scene can also be rotated by holding down Shift and using the W-A-S-D keys, the arrow keys, or the mouse wheel. You can also hold down Control when using the mouse wheel to get smaller increments of rotation to more finely control a token's orientation.</li>
-        <li><strong>Lock Rotation</strong>: If this setting is enabled the token cannot be rotated. This setting is typically ideal for portrait style tokens where the artwork orientation is more ideally fixed.</li>
-        <li><strong>Token Disposition</strong>: Sets the color of the border shown around a Token when it's selected or hovered over with a mouse cursor. Disposition is used to differentiate enemies from allies during combat encounters. Neutral tokens have yellow borders, friendly tokens have teal borders, and hostile tokens have red borders.</li>
-</ul>
+<section class="collapsible">
+    <header class="collapsible-header">The Identity Tab</header>
+    <div class="collapsible-content">
+        <figure class="right">@Image[4]
+            <figcaption>This tab controls what actor data is associate with the token.</figcaption>
+        </figure>
+        <p>The Identity tab controls what actor data is associated with the token and what others can see of that identifying information. This includes the actor's name, image, and more.</p>
+        <dl>
+            <dt>Token Name</dt>
+            <dd>This determines the name which is shown for the token. When a new actor is created this defaults to whatever name that actor was given, but it can be changed to be different from the name.</dd>
+            <dt>Display Name</dt>
+            <dd><p>Configure the level of visibility for the token's nameplate.</p>
+                <ul>
+                    <li>Never Displayed - The nameplate is not displayed at all.</li>
+                    <li>When Controlled - The nameplate is displayed when the Token is currently controlled</li>
+                    <li>Hovered by Owner - The nameplate is displayed when the token is hovered over by a User who owns the token's Actor</li>
+                    <li>Hovered by Anyone - The nameplate is displayed when the token is hovered over by any User</li>
+                    <li>Always for Owner - The nameplate is displayed at all times to any User who owns the token's Actor</li>
+                    <li>Always for Everyone - The nameplate is displayed at all times to every User</li>
+            
+                </ul>
+            </dd>
+            <dt>Represented Actor</dt>
+            <dd>Specify which Actor from the Actors Sidebar tab defines the data which should be used by the Token. The dropdown list of options is drawn from the available actors in the game world.</dd>
+            <dt>Link Actor Data</dt>
+            <dd>When enabled, changes to the resource pools either on the base Actor or on the Token itself will reflect in the other location. These changes apply to all linked tokens in all scenes, and is best used for unique or named characters. It's not recommended to link actor data for generic creatures or types of character (such as bandits). When data is not linked, each Token will have independent resources pools and turn order tracking.</li>
+            <dt>Coordinates (Pixels)</dt>
+            <dd>(Placed Tokens Only) The current horizontal X position and vertical Y position of the Token in a Scene. Directly editing these fields on a token placed in a scene will change the token's position, these fields are automatically set when the token is placed into a scene or moved during play.</li>
+            <dt>Elevation (Distance)</dt>
+            <dd>The Token's current elevation in grid units distance which is displayed visually above the Token. This is used to indicate whether certain Tokens are flying or burrowing at an altitude that differs from what is standard for the Scene. Editing this on a prototype token has no effect, as the token starts at 0 elevation when placed into a scene. An elevation below 0 will place the token below the background of the scene, useful for indicating that a token is burrowed.</li>
+            <dt>Rotation (Degrees)</dt>
+            <dd>The Token's current direction of facing in degrees. Rotation of zero (the default) corresponds to a southward facing as this is the most commonly used convention for Token artwork. Editing this field on a prototype token determines the default rotation in degrees when it's placed into a scene. Tokens in a scene can also be rotated by holding down Shift and using the W-A-S-D keys, the arrow keys, or the mouse wheel. You can also hold down Control when using the mouse wheel to get smaller increments of rotation to more finely control a token's orientation.</li>
+            <dt>Lock Rotation</dt>
+            <dd>If this setting is enabled the token cannot be rotated. This setting is ideal for portrait style tokens where the artwork orientation is fixed and not expected to change.</li>
+            <dt>Token Disposition</dt>
+            <dd>Sets the color of the border shown around a Token when it's selected or hovered over with a mouse cursor. Disposition is used to differentiate enemies from allies during combat encounters. Neutral tokens have yellow borders, friendly tokens have teal borders, and hostile tokens have red borders.</li>
+            
+        </dl>
+    </div>
+</section>
+<section class="collapsible">
+    <header class="collapsible-header">The Appearance Tab</header>
+    <div class="collapsible-content">
+        <figure class="right">@Image[46]
+            <figcaption>This tab controls the art used for the token and how it appears.</figcaption>
+            </figure>
+        <p>The Appearance tab controls both the art a token uses to represent its actor, as well as how that art is displayed for users, such as dimensions, scale, and tint..</p>
+            <dl>
+                <dt>Image Path</dt>
+                <dd>The file path to the artwork that is used for the Token. This file must be in the <code>$UserData/Data/</code> directory or a publicly accessible web location.</dd>
+                <dt>Randomize Wildcard Images (Prototype Tokens Only)</dt>
+                <dd>If checked, the provided Token Image Path is treated as a wildcard pattern that is matched against multiple existing files. When a wildcard Token is configured, each time that Token is placed an image is randomly chosen from the matching set. Note that this can only be configured on prototype tokens. Once a token is placed in a scene the image used is set, it must then be changed manually by editing the in-scene token. For a more detailed explanation of this feature, see the dedicated section later in this article. Please see below for more information on using image wildcards.</dd>
+                <dt>Alternate Actor Tokens (Placed Wildcard Tokens Only)</dt> 
+                <dd>If Randomize Wildcard Images is checked on a prototype token, this dropdown list appears in the token config window for the placed actor. This list provides all available images which matched the wildcard you entered and allows you to quickly select a specific image you want to use for that actor.</dd>
+                <dt>Dimensions (Grid Units)</dt> 
+                <dd>The number of grid units this token occupies. A token which uses a single grid square would have a width and height of 1.</dd>
+                <dt>Scale (Ratio)</dt> 
+                <dd>A scaling ratio for the size of the Token's artwork. The token base size in grid units is unaffected by this value, but the visual size of the artwork is relative to that size and will change with scale. Numbers greater than 1 result in larger token artwork while numbers less than 1 result in smaller token artwork.</dd>
+                <dt>Mirror Image</dt> 
+                <dd>This option provides two check boxes which determine if the token artwork is flipped horizontally or vertically, based on which boxes are checked.</dd>
+                <dt>Tint Color</dt> 
+                <dd>This applies a hex color tint to the token's artwork as an overlay, and can either be entered directly or chosen using a color picker.</dd>
+                <dt>Token Opacity</dt>
+                <dd>This sets the opacity of the token's artwork. This can be used to make a token semi-transparent, or to make it completely invisible. This is useful for tokens which might be sneaking, but which you still wish the players to be able to see.</dd>
+            </dl>
+    </div>
+</section>
 
-<h4>Appearance Tab</h4>
-<figure class="right">@Image[46]
-<figcaption>This tab controls the art used for the token and how it appears.</figcaption>
-</figure>
-<ul>
-    <li><strong>Token Image Path</strong>: The file path to the artwork that is used for the Token. This file must be in the <code>$UserData/Data/</code> directory or a publicly accessible web location.</li>
-    <li><strong>Randomize Wildcard Images</strong>: (Prototype Tokens Only) If checked, the provided Token Image Path is treated as a wildcard pattern that is matched against multiple existing files. When a wildcard Token is configured, each time that Token is placed an image is randomly chosen from the matching set. Note that this can only be configured on prototype tokens. Once a token is placed in a scene the image used is set, it must then be changed manually by editing the in-scene token. For a more detailed explanation of this feature, see the dedicated section later in this article. Please see below for more information on using image wildcards.</li>
-    <li><strong>Alternate Actor Tokens</strong>: (Placed Tokens Only) If Randomize Wildcard Images is checked on a prototype token, this dropdown list appears in the token config window for the placed actor. This list provides all available images which matched the wildcard you entered and allows you to quickly select a specific image you want to use for that actor.</li>
-    <li><strong>Dimensions (Grid Units)</strong>: The number of grid units this token occupies. A token which uses a single grid square would have a width and height of 1.</li>
-    <li><strong>Scale (Ratio)</strong>: A scaling ratio for the size of the Token's artwork. The token base size in grid units is unaffected by this value, but the visual size of the artwork is relative to that size and will change with scale. Numbers greater than 1 result in larger token artwork while numbers less than 1 result in smaller token artwork.</li>
-    <li><strong>Mirror Image:</strong>: This option provides two check boxes which determine if the token artwork is flipped horizontally or vertically, based on which boxes are checked.</li>
-    <li><strong>Tint</strong>: This applies a hex color tint to the token's artwork as an overlay, and can either be entered directly or chosen using a color picker.</li>
-</ul>
-
-<h4>Vision Tab</h4>
-<figure class="right">@Image[48]
-<figcaption>This tab allows you to control a token's vision.</figcaption>
-</figure>
-<ul>
-    <li><strong>Has Vision</strong>: This checkbox denotes whether the Token should be treated as a source of vision. If this is enabled, when the Token is controlled dynamic vision will be computed from the perspective of the Token. If this is disabled, the Token will not be a source of vision and no vision computations will occur as a result of controlling it. This setting, and other settings in the vision section, will only be used within a Scene which has vision enabled.</li>
-    <li><strong>Vision Radius (Grid Units)</strong>: Sets the radius with which the Token can see. The Dim field acts as though their vision range is a dim light only they can see, while the Bright field provides a vision radius with which the Token can see as if in bright light conditions. Please note that both settings are radii with respect to the token location as the origin, so typically the Bright Vision radius should be a smaller number than the Dim Vision setting.</li>
-    <li><strong>Vision Angle (Degrees)</strong>: An angle of vision between zero and 360 degrees (the default) which represents the allowed field of view for this token. The computed angle of vision aligns to the direction of facing controlled by the rotation attribute.</li>
-</ul>
-
-<p><strong>Tokens with Shared Vision:</strong> If a User has permission to more than one token with vision, when no Token is controlled, the vision displayed will be the union of vision across all Tokens. If a User has a single Token controlled, their vision will be only what is visible to that one Token, and any other tokens will have their vision hidden.</p>
-
-<h4>Lighting Tab</h4>
-<figure class="right">@Image[47]
-<figcaption>This tab allows you to manipulate a token's light emission.</figcaption>
-</figure>
-
-<p>This tab is broken down into three sub-tabs which determine the appearance and reach of the token's light emission. The settings here are identical to those found in the ambient lighting tools, please refer to @Article[lighting] for an in-depth explanation of the various options available.</p>
-
-<h3>Resources Tab</h3>
-<figure class="right">@Image[49]
-<figcaption>This tab determines what attributes from the actor sheet are tracked on the token.</figcaption>
-</figure>
-<ul>
-    <li><strong>Display Bars</strong>: Configure the level of visibility for the token's resource bars. The following options are supported:</li>
-    <ul>
-        <li> <p>Never Displayed - Resource bars will not be shown</p> </li>
-        <li> <p>When Controlled - Resource bars are displayed when the Token is currently controlled.</p> </li>
-        <li> <p>Hovered by Owner - Resource bars are displayed to any User that owns the token's Actor when they hover their cursor over the token.</p> </li>
-        <li> <p>Hovered by Anyone - Resource bars are displayed to any User that overs their cursor over the token.</p> </li>
-        <li> <p>Always for Owner - Resource bars are displayed at all times, and visible to the Actor's owner.</p> </li>
-        <li> <p>Always for Everyone - Resource bars are displayed at all times, and visible to all Users.</p> </li>
-    </ul>
-    <li><strong>Bar 1 Attribute</strong>: Select the attribute from the Actor's available data fields which should be displayed using the Token's primary resource bar.</li>
-    <li><strong>Bar 1 Data</strong>: These fields are displayed for reference purposes only - you cannot configure the value of resource bars within the Token configuration as those are controlled by the Actor which the Token represents.</li>
-    <li><strong>Bar 2 Attribute</strong>: Select the attribute from the Actor's available data fields which should be displayed using the Token's secondary resource bar.</li>
-    <li><strong>Bar 2 Data</strong>: These fields are displayed for reference purposes only - you cannot configure the value of resource bars within the Token configuration as those are controlled by the Actor which the Token represents.</li>
-</ul>
-
-<h3>The Token HUD</h3>
-<figure class="right">@Image[146]
-<figcaption>The token HUD (Head-Up Display) allows you to make quick adjustments to a token's status on the fly.</figcaption>
-</figure>
-<p>Once a character has been placed onto the canvas as a token, a number of quick actions become available through the Token Head-Up Display that can be viewed by right clicking on a token at any time. The specific functions are detailed below.</p>
-<ul>
-    <li><strong>Resource Bars</strong>: If configured via the resource table, these bars provide a visual representation of resource attributes. The system will govern what resources can be tracked and modified.</li>
-    <li><strong>Resource Bar Inputs</strong>: Are used to change the value of the displayed resource bars. Clicking on the input and then adding a positive or negative number allows you to quickly increase or decrease the number presented.</li>
-    <li><strong>Status Effects</strong>: This allows you to assign status effects to the token, which appear as small icons overlaid on the token art in the upper left corner. The specific art of the status effects are defined by whichever Game System is currently in use. Right clicking an icon creates a large overlay that covers the majority of the token. Tokens can only have one large overlay at a time.</li>
-    <li><strong>Elevation</strong>: This provides a simple height indicator label that will appear above a token to indicate their current elevation in the measurement that the map is configured to use. This does not affect token vision at this time. Using positive and negative numbers in this field allows a user to quickly adjust the number instead of directly editing the elevation number.</li>
-    <li><strong>Target</strong>: This allows a user to toggle a targeting indicator on the token.</li>
-    <li><strong>Toggle Combat</strong>: If there is an active combat, clicking this button will place the token in the combat tracker. Clicking it a second time will remove the token from combat. When this is done, the token's initiative score (if it had one) is not retained.</li>
-</ul>
-
-<h3 id="wildcards">Wildcard Token Images</h3>
+<h4 id="wildcards">About Wildcard Token Images</h4>
 <p>Wildcard tokens provide a way for GMs to manage use of a single actor representing a diverse group of characters that all have the same attributes, or which do not necessarily require a fully linked actor sheet. To configure Wildcard Tokens, access the token configuration menu and on the appearance tab, tick the Randomize Wildcard Images toggle. Then configure the image path to use wildcards.</p>
 
 <p>The path to the folder containing the images you wish to have the token draw from. This should be set to something such as: <code><strong>/your/path/here/*</strong></code> for all images in the folder or <strong><code>/your/path/here/*.png</code></strong> for all files of the <code>.png</code> format in the folder.</p>
@@ -106,18 +126,158 @@
 
 <p>After placing a token that has the Randomize Wildcard Image option set, you can change the token from a convenient list of other tokens in that folder. To do so, right click the token you wish to change and on the image tab simply select a different image from the Alternate Actor Tokens selection menu.</p>
 
-<h2 id="tokentypes" class="border">Prototype vs. Placed Tokens</h2>
-<p class="note info">An important concept to understand when working with Tokens is the difference between a <strong>Prototype Token</strong> and a placed <strong>Token</strong>.</p>
+<h3>The Vision Tab</h3>
+<p>Token Vision is one of the most notable features of Foundry VTT, and is detailed more thoroughly below.</p>
 
-<h4 id="prototype">Prototype Tokens</h4>
-<p>A Prototype Token is the configuration of a Token for a particular Actor before that Token has been placed onto the game canvas. The prototype defines the default setup that a newly created Token starts with. To configure the Prototype Token for an Actor, open the Actor Sheet and click the <strong>Prototype Token</strong> button in the top bar.</p>
+<h3>The Lighting Tab</h3>
+<p>This tab is broken down into three sub-tabs which determine the appearance and reach of the token's light emission. The settings here are identical to those found in the ambient lighting tools, please refer to @Article[lighting] for an in-depth explanation of the various options available.</p>
 
-<h4 id="placed">Placed Tokens</h4>
-<p>Once a Token is placed, it becomes its own independent copy of the prototype. For example - a Prototype Token for a player character could be configured to have a certain vision distance - but when that Token is placed into a Scene that has different lighting conditions, the placed copy of the Token could be changed to increase or decrease visibility for that scene. To configure a placed Token, right click on the Token to display the Token HUD and click the gear icon to open that Token's configuration sheet, or double right-click the token.</p>
+<section class="collapsible">
+    <header class="collapsible-header">The Resources Tab</header>
+    <div class="collapsible-content">
+        <figure class="right">@Image[49]
+            <figcaption>This tab determines what attributes from the actor sheet are tracked on the token.</figcaption>
+            </figure>
+            <dl>
+                <dt>Display Bars</dt>
+                <dd><p>Configure the level of visibility for the token's resource bars. The following options are supported:</p>
+                <ul>
+                    <li><p>Never Displayed - Resource bars will not be shown</p> </li>
+                    <li><p>When Controlled - Resource bars are displayed when the Token is currently controlled.</p> </li>
+                    <li><p>Hovered by Owner - Resource bars are displayed to any User that owns the token's Actor when they hover their cursor over the token.</p> </li>
+                    <li><p>Hovered by Anyone - Resource bars are displayed to any User that overs their cursor over the token.</p> </li>
+                    <li><p>Always for Owner - Resource bars are displayed at all times, and visible to the Actor's owner.</p> </li>
+                    <li><p>Always for Everyone - Resource bars are displayed at all times, and visible to all Users.</p> </li>
+                </ul>
+            </dd>
+                <dt>Bar 1 Attribute</dt>
+                <dd>Select the attribute from the Actor's available data fields which should be displayed using the Token's primary resource bar.</dd>
+                <dt>Bar 1 Data</dt>
+                <dd>These fields are displayed for reference purposes only - you cannot configure the value of resource bars within the Token configuration as those are controlled by the Actor which the Token represents.</li>
+                <dt>Bar 2 Attribute</dt>
+                <dd>Select the attribute from the Actor's available data fields which should be displayed using the Token's secondary resource bar.</li>
+                <dt>Bar 2 Data</dt>
+                <dd>These fields are displayed for reference purposes only - you cannot configure the value of resource bars within the Token configuration as those are controlled by the Actor which the Token represents.</li>
+            </dl>        
+    </div>
+</section>
 
-<figure>@Image[155]
-<figcaption>Prototype token configuration (orange outline) versus placed token configuration (purple outline) differs slightly in terms of available options.</figcaption>
-</figure>
+<h2 class="border" id="token-vision">Token Vision</h2>
+<figure class="right">@Image[48]
+    <figcaption>This tab allows you to control a token's vision settings.</figcaption>
+    </figure>
+
+<p>The most commonly used feature of Tokens is the ability to allow players to explore and experience a scene while only being able to see what their token should be able to perceive. Tokens support a variety of vision configuration options which which define how it can see a scene within the game world.</p>
+<p>If a token does not have Vision enabled, but a Scene has been configured to require Token Vision (required by default), users who only have access to that Token will receive a warning that they do not control any tokens with ability to see the scene.</p>
+<p><strong>Tokens with Shared Vision:</strong> If a User has permission to control more than one token with vision, when no Token is controlled, the vision displayed will be the union of vision across all Tokens. If a User has a single Token controlled, their vision will be only what is visible to that one Token, and any other tokens will have their vision hidden.</p>
+<h3>How Vision Works</h3>
+<p>When a token is placed on a scene, it will automatically be assigned a vision configuration based on the Vision Mode and Detection Modes that it has. Vision Modes control the <u>appearance</u> of of a token's vision, while Detection Modes determine the mechanics of <u>what</u> a token can see. By default, a token which has Vision Enabled can only see based on existing light sources and will not be able to detect the presence of any other tokens which are not already illuminated in some way.</p>
+<p>In order to understand how Vision and Detection Modes affect what a Token can see, it is important to first understand what the settings on the Vision tab of the Token Configuration mean. The Vision tab is broken down into three sections:</p>
+<ul>
+<li><strong>Basic Configuration</strong> - Controls how a token should see in a Scene.</li>
+<li><strong>Detection Modes</strong> - Control what a Token should be able to detect in a Scene. Detection Modes like Basic Sight, Feel Tremor, See Invisibility and more.</li>
+<li><strong>Advanced Options</strong> - Provide options for making fine-tuning tweaks to the appearance of a Token's vision.</li>
+</ul>
+<section class="collapsible">
+    <header class="collapsible-header">Vision: Basic Configuration</header>
+    <div class="collapsible-content">
+        <p>The Basic Configuration tab can be used to configure facets of how a Token views the canvas and its surroundings.</p>
+        <dt>Vision Enabled</dt>
+        <dd>This toggle determines whether or not a Token has ability to see in scenes which have the Token Vision requirement enabled. When enabled, This Token renders a vision polygon when placed on the canvas and has limitations placed upon what it can see based on its Vision and Detection Modes. It is recommended to leave this unchecked for characters such as NPCS which are only used by the Gamemaster to more easily see the rest of the scene when a Token is selected.</dd>
+        <dt>Vision Range</dt>
+        <dd>This value is used to determine the distance a Token can see without the aid of any additional light. To use an analogy: the average human being would have this set to 0, as in a cave completely devoid of any light sources we would be unable to see anything.</dd>
+        <dt>Vision Angle</dt>
+        <dd>This controls the angle of a token's vision, by default tokens see in 360 degrees, but in some games it may be necessary to reduce this angle for tactical reasons.</dd>
+        <dt>Vision Mode</dt>
+        <dd>In some cases, users may wish to apply a visual effect to a token's vision polygon. This dropdown provides a list of system-agnostic visual effects to modify how the vision of a particular token may appear. For example, if you have a token representing an animal which can only see in black and white, but can see the same distance in darkness as not. You would configure a Vision Range and provide the token with the Vision Mode "Monochromatic". There are several default vision modes available:</dd>
+        <ul>
+            <li>Basic Vision - The standard, default vision mode appearance which does not alter a token's vision.</li>
+            <li>Darkvision - In areas where no light source exists, the token's vision is desaturated and does not display color. Areas which contain light sources show colors as expected.</li>
+            <li>Monochromatic - Regardless of light source, this token will not be able to see colors.</li>
+            <li>Tremorsense - A visual effect similar to a radar sweep, which pulses and visually obscures the scene's background but preserves details such as fog exploration and wall placement.</li>
+            <li>Light Amplification - A visual effect similar to night-vision goggles. Light sources within range are amplified in their brightness, and areas within darkness are visibly raised. By default, this vision mode is colored green but its color can be changed via the Advanced Options subtab. </li>            
+        </ul>
+    </div>
+</section>
+
+<section class="collapsible">
+    <header class="collapsible-header">Vision: Detection Modes</header>
+    <div class="collapsible-content">
+        <figure class="right">@Image[415]
+            <figcaption>This tab allows you to control a token's vision.</figcaption>
+            </figure>
+        
+        <p>The detection modes tab controls what a Token should be able to detect in a Scene. Each Token can have have multiple Detection Modes like Basic Sight, Feel Tremor, See Invisibility and more. A Detection Mode can be added by pressing the <span class="reference">+</span> in the top-right of the tab.</p>
+        <dl>
+            <dt>Detection Mode</dt>
+            <dd>The Detection Mode that you want to configure. The Basic Sight detection mode defaults to match your token's configured vision range, and if not reconfigured will always show other tokens whenever they are illuminated in some way, whether that be from light sources or as a result of the configured token's vision range. Detection modes which "See" require line of sight and will not detect tokens through walls, while detection modes which "sense" ignore the presence of walls.</dd>
+            <dt>Range</dt>
+            <dd>The distance a Token should be able to Detect other tokens within the Scene.</dd>
+            <dt>Enabled</dt>
+            <dd>Whether this Detection Mode should currently be active and applied to the token's vision polygon.</dd>
+        </dl>        
+        <p>There are a few different types of detection mode supported by default:</p>
+        <ul>
+            <li>Basic Sight - Used to override the default basic sight settings.</li>
+            <li>See Invisibility - Depends upon line of sight and will not reveal tokens through walls. Allows a token to see other tokens that have been set with the "Invisible" condition.</li>
+            <li>Sense Invisibility - Does not depend on line of sight and will reveal tokens through walls. Allows the token to see other tokens that have been set with the "Invisible" condition. </li>
+            <li>Feel Tremor - allows the token to sense all other tokens at their elevation. Tokens which have an elevation greater than the scene's height are presumed to be floating or flying and will not appear on this token's vision.</li>
+            <li>See All - Depends upon line of sight and will not reveal tokens through walls. Allows the token can see all other tokens regardless of available light.</li>
+            <li>Sense All - Does not depend on line of sight and will reveal tokens through walls. Allows the token to see all other tokens regardless of available light.</li>
+        </ul>
+    </div>
+</section>
+<section class="collapsible">
+    <header class="collapsible-header">Vision: Advanced Options</header>
+    <div class="collapsible-content">
+        <figure class="right">@Image[416]
+            <figcaption>This tab allows you to control a token's vision.</figcaption>
+            </figure>
+        
+        <p>The Advanced Options subtab provide a few options which allow you to tweak how a token's vision should appear for users of that token. Note that changing a Vision Mode will overwrite these settings with preset configurations for their values. For example: changing the Sight Mode to Darkvision will always overwrite the attenuation and saturation values to 0.</p>
+        <dl>
+            <dt>Vision Color</dt>
+            <dd>A color that should be applied as a tint to this token's vision.</dd>
+            <dt>Attenuation</dt>
+            <dd>How gradually the Vision Mode's visual effect should fade. A higher value fades the edges of the token's vision more drastically.</dd>
+            <dt>Vision Brightness</dt>
+            <dd>Controls the level of brightness a sight mode applies to a token's vision, good for situations where a token represents a character who might be used to living underground experiencing the daylight for the first time, or a character who has experienced some damage to their ability to see. </dd>
+            <dt>Saturation</dt>
+            <dd>How much color is present in a token's vision, lower values become monochrome, while higher values become more vivid and provide more vibrant colors.</dd>
+            <dt>Contrast</dt>
+            <dd>How sharply colors contrast against one another. Low contrast values add a somewhat foggy appearance to all colors and their blending, while higher values make colors stand out more sharply compared to one another.</dd>
+        </dl>        
+    </div>
+</section>
+
+<h2 class="border">The Token HUD</h2>
+
+<p>Once an actor has been placed onto the canvas as a token, a number of quick actions become available through the Token Head-Up Display that can be viewed by right clicking on a token at any time.</p>
+
+<section class="collapsible">
+    <header class="collapsible-header">Token Hud Options</header>
+    <div class="collapsible-content">
+        <figure class="right">@Image[146]
+            <figcaption>The token HUD (Head-Up Display) allows you to make quick adjustments to a token's status on the fly.</figcaption>
+            </figure>
+            <p>The Token Action Hud provides quick access to the following options:</p>
+        <dl>
+            <dt>Resource Bars</dt>
+            <dd>If configured via the resource table, these bars provide a visual representation of resource attributes. The system will govern what resources can be tracked and modified.</dd>
+            <dt>Resource Bar Inputs</dt>
+            <dd>Are used to change the value of the displayed resource bars. Clicking on the input and then adding a positive or negative number allows you to quickly increase or decrease the number presented.</dd>
+            <dt>Status Effects</dt>
+            <dd>This allows you to assign status effects to the token, which appear as small icons overlaid on the token art in the upper left corner. The specific art of the status effects are defined by whichever Game System is currently in use. Right clicking an icon creates a large overlay that covers the majority of the token. Tokens can only have one large overlay at a time.</dd>
+            <dt>Elevation</dt>
+            <dd>This provides a simple height indicator label that will appear above a token to indicate their current elevation in the measurement that the map is configured to use. This does not affect token vision at this time. Using positive and negative numbers in this field allows a user to quickly adjust the number instead of directly editing the elevation number.</dd>
+            <dt>Target</dt>
+            <dd>This allows a user to toggle a targeting indicator on the token.</dd>
+            <dt>Toggle Combat</dt>
+            <dd>If there is an active combat, clicking this button will place the token in the combat tracker. Clicking it a second time will remove the token from combat. When this is done, the token's initiative score (if it had one) is not retained.</dd>
+        </dl>
+    </div>
+</section>
+
 
 <h2 id="api" class="border">API References</h2>
 <p>To interact with Tokens programmatically, consider using the following API concepts:</p>
