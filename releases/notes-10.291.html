@@ -1,0 +1,106 @@
+<header id="update-header">
+    <h2 class="border" id="update-title">Foundry Virtual Tabletop - Version 10 Patch 6 Release Notes</h2>
+    <figure id="update-banner">
+        <img alt="Release Notes for Foundry Virtual Tabletop Version 10.291" src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_70/screen/v10-stable-patch-4-banner-2022-10-06.webp" title="Foundry VTT - Version  Release Notes"/>
+        <figcaption>Welcome to the Foundry Virtual Tabletop update notes</figcaption>
+    </figure>
+</header>
+
+<section id="update-overview">
+    <p>Our dedicated developers have continued to toil away in the code forges, making Foundry V10 better with every hammer of their mechanical keyboards. This update continues our focus on bug fixes and response to community feedback and issue reporting, with several changes fixing minor user experience issues and UI bugs that cropped up and were reported. Our thanks once again goes out to the community, your diligence in finding and reporting issues has a huge impact, and we are thankful for your efforts in helping us bug hunt each release!</p>
+    <p class="note warning"><strong>WARNING:</strong> While this is categorized as a stable release there is always a possibility of unexpected bugs or compatibility issues. As with any time you update the core software, be sure to perform a complete backup of your user data to minimize any risk of data loss.</p>
+</section>
+
+<section id="update-themes">
+    <h2 class="section-header border">Update Highlights</h2>
+    <p>This update primarily focuses on fixing minor user experience hitches and canvas oddities, as well as resolving a few issues developers have found on the code side. This runs the gamut from correcting how overhead tile bounds and occlusion is handled, to making sure token scales are uniform in prototype and placed examples, and making sure that the text editor doesn't reset headers when clearing formatting. As always, we recommend checking the full list of fixes below for a detailed breakdown of what was changed in this update!</p>
+</section>
+
+<section id="features">
+<h2 class="section-header border">New Features</h2>
+    <h3 class="category-header" id="features-architecture">Architecture and Infrastructure</h3>
+    <ul>
+        <li>The <code>editorAutosaveMins</code> setting was storing its value in seconds, and as such has been changed to <code>editorAutosaveSecs</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/8504" rel="nofollow" target="_blank">(8504)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-apps">Applications and User Interface</h3>
+    <ul>
+        <li>External IP detection now presents a more clear error message in cases where it fails to determine the external IP. <a href="https://github.com/foundryvtt/foundryvtt/issues/6654" rel="nofollow" target="_blank">(6654)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-canvas">The Game Canvas</h3>
+    <ul>
+        <li>Having no background image set for a Scene should no longer add an invisible white canvas overlay. <a href="https://github.com/foundryvtt/foundryvtt/issues/8405" rel="nofollow" target="_blank">(8405)</a></li>
+    </ul>
+</section>
+<section id="bugs">
+<h2 class="section-header border">Bug Fixes</h2>
+    <h3 class="category-header" id="bugs-docs">Documents and Data</h3>
+    <ul>
+        <li>An issue which caused Active Effect duration to not be correctly prepared until first refresh has been resolved and active effect duration data should now be present as expected. <a href="https://github.com/foundryvtt/foundryvtt/issues/8159" rel="nofollow" target="_blank">(8159)</a></li>
+        <li>Server-side auto-saving for Journals should no longer cause the client to not update its state correctly. <a href="https://github.com/foundryvtt/foundryvtt/issues/8461" rel="nofollow" target="_blank">(8461)</a></li>
+        <li><code>Document#update</code> should now process updates to Documents which fail validation as expected, allowing invalid Documents to be updated into valid ones. <a href="https://github.com/foundryvtt/foundryvtt/issues/8495" rel="nofollow" target="_blank">(8495)</a></li>
+        <li>Toggling the edit lock for a compendium should now update the title of the open compendium to reflect the status of the lock toggle. <a href="https://github.com/foundryvtt/foundryvtt/issues/8516" rel="nofollow" target="_blank">(8516)</a></li>
+        <li>Dragging an embedded item onto a roll table no longer produces a null content link if you subsequently roll the table. <a href="https://github.com/foundryvtt/foundryvtt/issues/8533" rel="nofollow" target="_blank">(8533)</a></li>
+        <li>Calling <code>getInvalid</code> on a document ID no longer causes changes to the Collection's source data. <a href="https://github.com/foundryvtt/foundryvtt/issues/8535" rel="nofollow" target="_blank">(8535)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-apps">Applications and User Interface</h3>
+    <ul>
+        <li>OnUp events for keybindings are now emulated to fire correctly when clicking into certain elements such as input boxes to prevent cases where certain keys may be incorrectly detected as held down when they are not. <a href="https://github.com/foundryvtt/foundryvtt/issues/6978" rel="nofollow" target="_blank">(6978)</a></li>
+        <li>Shift + Mouse Wheel should once again rotate canvas objects under macOS. <a href="https://github.com/foundryvtt/foundryvtt/issues/8111" rel="nofollow" target="_blank">(8111)</a></li>
+        <li>An issue with a CSS style for Paragraph elements should no longer cause cases where the paragraph elements would overlap one another. <a href="https://github.com/foundryvtt/foundryvtt/issues/8246" rel="nofollow" target="_blank">(8246)</a></li>
+        <li>The scrollbar for the Chat Log should no longer be misaligned in cases where images were posted to a <code>ChatMessage</code> without an explicit height. <a href="https://github.com/foundryvtt/foundryvtt/issues/8329" rel="nofollow" target="_blank">(8329)</a></li>
+        <li>To prevent cases where OS-level overrides would result in closing the window rather than panning, the pan keybindings have been removed from the hotkeys CTRL+WASD. <a href="https://github.com/foundryvtt/foundryvtt/issues/8440" rel="nofollow" target="_blank">(8440)</a></li>
+        <li>Audio/Video chat integration should now correctly detect and use cameras in macOS provided permission has been granted. <a href="https://github.com/foundryvtt/foundryvtt/issues/8472" rel="nofollow" target="_blank">(8472)</a></li>
+        <li>Replacing the title attribute of Applications which have been set to popOut should no longer result in uncaught errors. <a href="https://github.com/foundryvtt/foundryvtt/issues/8506" rel="nofollow" target="_blank">(8506)</a></li>
+        <li>Tiles in a layer not currently active (such as overhead or underfoot) should no longer longer be interactable when you are not on the appropriate layer. <a href="https://github.com/foundryvtt/foundryvtt/issues/8509" rel="nofollow" target="_blank">(8509)</a></li>
+        <li>Disabling and re-enabling a camera for Audio Video Chat Integration should no longer cause the chat window to scroll to the top. <a href="https://github.com/foundryvtt/foundryvtt/issues/8523" rel="nofollow" target="_blank">(8523)</a></li>
+        <li>Clearing Selected Targets with Left-Click Release should once again broadcast that change to other users. <a href="https://github.com/foundryvtt/foundryvtt/issues/8530" rel="nofollow" target="_blank">(8530)</a></li>
+        <li>Fixed an issue where attempting to update a combatant of a token with an animated texture would fail. <a href="https://github.com/foundryvtt/foundryvtt/issues/8537" rel="nofollow" target="_blank">(8537)</a></li>
+        <li>The folder context menu in the Scene tab no longer incorrectly includes an option for changing ownership permission levels. <a href="https://github.com/foundryvtt/foundryvtt/issues/8549" rel="nofollow" target="_blank">(8549)</a></li>
+        <li><code>SoundSource#radius</code> should now contain its radius value as expected. <a href="https://github.com/foundryvtt/foundryvtt/issues/8558" rel="nofollow" target="_blank">(8558)</a></li>
+        <li>The sidebar collapse/expand arrow now switches direction again depending on the collapsed state. <a href="https://github.com/foundryvtt/foundryvtt/issues/8563" rel="nofollow" target="_blank">(8563)</a></li>
+        <li>Corrected an issue where sound name from audio filename was inconsistent between single track import vs bulk playlist import. Playlist single sound create now uses <code>AudioHelper.getDefaultSoundName</code> to retain desired consistency. <a href="https://github.com/foundryvtt/foundryvtt/issues/8566" rel="nofollow" target="_blank">(8566)</a></li>
+        <li>Regenerating a scene thumbnail via the context menu option now shows the updated thumbnail without needing a refresh. <a href="https://github.com/foundryvtt/foundryvtt/issues/8577" rel="nofollow" target="_blank">(8577)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-canvas">The Game Canvas</h3>
+    <ul>
+        <li>Creating a temporary Item on a synthetic Token Actor should no longer create a persisted Item. <a href="https://github.com/foundryvtt/foundryvtt/issues/8416" rel="nofollow" target="_blank">(8416)</a></li>
+        <li>The logic used for interpolating texture depth in <code>InverseOcclusionSamplerShader</code> has been simplified to improve handling for cases where multiple roof tiles may overlap. <a href="https://github.com/foundryvtt/foundryvtt/issues/8490" rel="nofollow" target="_blank">(8490)</a></li>
+        <li><code>DetectionMode#_testRange</code> now returns <code>false</code> if the range is set to zero. <a href="https://github.com/foundryvtt/foundryvtt/issues/8505" rel="nofollow" target="_blank">(8505)</a></li>
+        <li>Rendering for the Darkvision vision mode has been improved to better handle cases where multiple tokens are selected. <a href="https://github.com/foundryvtt/foundryvtt/issues/8507" rel="nofollow" target="_blank">(8507)</a></li>
+        <li>Initial load of a map with a Background Image should now correctly apply the correct scale to tokens. <a href="https://github.com/foundryvtt/foundryvtt/issues/8520" rel="nofollow" target="_blank">(8520)</a></li>
+        <li>Tiles should once again be able to be placed overlapping the outer scene boundary on the top and left borders. <a href="https://github.com/foundryvtt/foundryvtt/issues/8521" rel="nofollow" target="_blank">(8521)</a></li>
+        <li>Vision Mode coloration should now re-render when updated, rather than requiring the token to be re-selected to see updates to a Vision Mode. <a href="https://github.com/foundryvtt/foundryvtt/issues/8527" rel="nofollow" target="_blank">(8527)</a></li>
+        <li><code>PlaceablesLayer._draw</code> should now restore visibility of objects automatically rather than requiring a secondary call to activate or deactivate. <a href="https://github.com/foundryvtt/foundryvtt/issues/8528" rel="nofollow" target="_blank">(8528)</a></li>
+        <li>Token size scaling is now consistent between prototype and placed tokens. <a href="https://github.com/foundryvtt/foundryvtt/issues/8539" rel="nofollow" target="_blank">(8539)</a></li>
+        <li>The <code>FogManager</code> should no longer leak memory. <a href="https://github.com/foundryvtt/foundryvtt/issues/8543" rel="nofollow" target="_blank">(8543)</a></li>
+        <li>Vision Based Overhead Tiles no longer use radial occlusion on tokens with no vision while there is an active light source nearby. <a href="https://github.com/foundryvtt/foundryvtt/issues/8546" rel="nofollow" target="_blank">(8546)</a></li>
+        <li>Bounds calculation of rotated and scaled tiles and drawings have been corrected to ensure they function as intended. <a href="https://github.com/foundryvtt/foundryvtt/issues/8559" rel="nofollow" target="_blank">(8559)</a></li>
+        <li>Fixed an issue with <code>Tile#getPixelAlpha</code> returning incorrect results for tiles with a scaled texture. <a href="https://github.com/foundryvtt/foundryvtt/issues/8560" rel="nofollow" target="_blank">(8560)</a></li>
+        <li><code>VisionSource#sourceType</code> now displays <code>"sight"</code> as expected. <a href="https://github.com/foundryvtt/foundryvtt/issues/8562" rel="nofollow" target="_blank">(8562)</a></li>
+        <li><code>Token#setTarget</code> should no longer broadcast released targets if <code>groupSelection</code> is set true. <a href="https://github.com/foundryvtt/foundryvtt/issues/8531" rel="nofollow" target="_blank">(8531)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-packages">Package Development</h3>
+    <ul>
+        <li>Updating Game Systems should no longer show a compatibility warning in cases where the system is verified as compatible. <a href="https://github.com/foundryvtt/foundryvtt/issues/8251" rel="nofollow" target="_blank">(8251)</a></li>
+        <li>Creating a new World should now correctly add an initial Version value to the World.JSON file to prevent cases where worlds would be marked as not compatible with the current software version. <a href="https://github.com/foundryvtt/foundryvtt/issues/8515" rel="nofollow" target="_blank">(8515)</a></li>
+        <li>Protected packages no longer attempt to sidegrade. <a href="https://github.com/foundryvtt/foundryvtt/issues/8551" rel="nofollow" target="_blank">(8551)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-other">Other Changes</h3>
+    <ul>
+        <li>Canvas layer classes can now be extended without negatively impacting the Hooks for those layers. <a href="https://github.com/foundryvtt/foundryvtt/issues/8129" rel="nofollow" target="_blank">(8129)</a></li>
+        <li>ProseMirror should now set its content to an empty value if it has no content. <a href="https://github.com/foundryvtt/foundryvtt/issues/8309" rel="nofollow" target="_blank">(8309)</a></li>
+        <li>Updating an Actor while its prototype token configuration is open should no longer cause the update to be lost when the dialog is closed. <a href="https://github.com/foundryvtt/foundryvtt/issues/8368" rel="nofollow" target="_blank">(8368)</a></li>
+        <li>ProseMirror should no longer throw errors in cases where invalid formatted rich-text data is pasted into Items and synthetic Actors. <a href="https://github.com/foundryvtt/foundryvtt/issues/8429" rel="nofollow" target="_blank">(8429)</a></li>
+        <li>Creating an editor without a button now correctly respects the editable flag. <a href="https://github.com/foundryvtt/foundryvtt/issues/8534" rel="nofollow" target="_blank">(8534)</a></li>
+        <li>Clear Formatting when header text is selected no longer resets the header to Heading 1. <a href="https://github.com/foundryvtt/foundryvtt/issues/8536" rel="nofollow" target="_blank">(8536)</a></li>
+        <li>Fixed an issue where images could not be centered in the ProseMirror editor. <a href="https://github.com/foundryvtt/foundryvtt/issues/8540" rel="nofollow" target="_blank">(8540)</a></li>
+        <li>The <code>inplace</code> option of <code>mergeObject</code> should now function as expected even if the object contains dot-notation keys. <a href="https://github.com/foundryvtt/foundryvtt/issues/8545" rel="nofollow" target="_blank">(8545)</a></li>
+    </ul>
+</section>
+<section id="documentation">
+<h2 class="section-header border">Documentation Improvements</h2>
+    <h3 class="category-header" id="documentation-other">Other Changes</h3>
+    <ul>
+        <li>Our documentation previously indicated that it was possible to select multiple map notes while on the map notes layer, which was incorrect. The documentation has been adjusted to reflect this. <a href="https://github.com/foundryvtt/foundryvtt/issues/8415" rel="nofollow" target="_blank">(8415)</a></li>
+    </ul>
+</section>
