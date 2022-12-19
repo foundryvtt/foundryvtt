@@ -1,41 +1,34 @@
 <h2>Overview</h2>
+<p class="note info">This article has been updated to include details for Version 10, and may not be accurate to previous versions.</p>
 <p>Foundry Virtual Tabletop includes built-in technology to allow for audio/video (A/V) conferencing between all of the players in your game. The WebRTC framework used is called <em>simple-peer</em>, and relies on direct peer-to-peer connections to establish audio and video conferencing, and leverages the inherent infrastructure in Foundry VTT to do so.</p>
 <p>This article will cover the steps necessary to set up A/V integration using a self-signed certification, the A/V Configuration menu and its various options and a technical explanation of A/V integration for users interested in a more detailed understanding of the system.</p>
 <p>Video conferencing can consume a significant amount of bandwidth. If your upload speed is relatively low, you may wish to consider alternate services for video conferencing while running your games. This can be understandably inconvenient if the purpose of getting Foundry VTT was to contain your video and audio chat and have it display as an overlay- use of third party relay servers can help mitigate some of the network usage, but the best option if you have insufficient upload speed to support video conferencing is to host Foundry VTT through a third party service.</p>
-<h2 class="border">Enabling A/V Chat Integration</h2>
-<p>The fastest way to set up Audio/Video integration is via a self-signed SSL certificate. Creating your own SSL certificate is easy and more secure than not having an SSL certificate, but is not the most secure option available. This setup will serve most users well without issue, but an optional, more complex, higher security route is available via the @Article[ssl] article.</p>
-<h3>Step 1: Creating a Self-Signed Certificate</h3>
-<ol>
-  <li>Go to:&nbsp;<a href="https://selfsigned.org/" target="_blank" rel="nofollow noopener">https://selfsigned.org/</a></li>
-  <li>Enter <strong>localhost</strong> as the server name, and click generate.</li>
-  <li>Download the certificate (<code>localhost.pem</code>) and key files (<code>localhost.key</code>), saving them somewhere you can easily find them.</li>
-</ol>
-<h3>Action 2: Configure Foundry VTT to use this certificate</h3>
-<ol>
-  <li>Copy the certificate and the private key files you downloaded to your Foundry VTT's <code>Config</code> directory.</li>
-  <ul>
-    <li>On Windows and MacOS you can access this folder easily by right-clicking on Foundry VTT in your task bar or dock, selecting 'Browse User Data', and opening the <code>Config</code> folder.</li>
-  </ul>
-  <li>Enter their file names in the <strong>SSL Certificate</strong> (<code>localhost.pem</code>) and <strong>SSL Private Key</strong> (<code>localhost.key</code>) fields in the Configuration menu from within Foundry VTT.</li>
-</ol>
-<h3>Action 3: Enable A/V integration in Foundry VTT</h3>
-<ol>
-  <li>From the Audio/Video Configuration menu within a loaded game world select the Audio/Video Conferencing Mode you want to use, and click Save Changes.</li>
-</ol>
-<p class="info note">When using a self-signed certificate, most browsers will warn users that they are entering an unsecured site when they visit it for the first time and periodically after that. Users may need to used advanced configuration to allow their browsers to accept self-signed certificates, and will need to click on the "Advanced" button and then "Proceed" after reloading the site to accept the certificate.</p>
 
-<h2 class="border">A/V Configuration</h2>
-<figure class="right">@Image[136]
-  <figcaption>The Audio/Video Configuration application.</figcaption>
-</figure>
-<p>From within the Foundry app, the <strong>AV Configuration</strong> panel is accessible from the <strong>Settings</strong> sidebar within your active World. This allows you to customize the A/V broadcast mode (including enabling or disabling it), configure a custom signaling or relay server, and designate your preferred webcam and microphone hardware. If no microphone or webcam appear in this list, the most likely cause is that the devices are already in use by another program. Refreshing the screen (<strong>ctrl+f5</strong>) after you have released the devices from other programs using them should resolve this.</p>
+<p class="note warning">Configuring SSL is an advanced feature of Foundry VTT and requires technical configuration.</p>
+
+<h2 class="border">Enabling A/V Chat Integration</h2>
+<div class="columns">
+  <div class="column" style="flex:2">
+<p>In order to set up A/V Chat Integration, you will need to figrest configure SSL for your hosted server. There are a variety of ways to do so which we outline here: @Article[ssl] article. SSL certification is a requirement for A/V Chat Integration due to limitations imposed by browsers in order to protect the security and privacy of their users.</p>
+<p class="info note">When using a self-signed certificate, most browsers will warn users that they are entering an unsecured site when they visit it for the first time and periodically after that. Users may need to used advanced configuration to allow their browsers to accept self-signed certificates, and will need to click on the "Advanced" button and then "Proceed" after reloading the site to accept the certificate.</p>
+<p>Once you have configured your SSL certificates and are connected via HTTPS, Foundry VTT will allow you to enable and configure A/V Chat Integration.</p>
+<h2 class="border">Configuring Audio/Video Chat Integration</h2>
+<p>The <strong>AV Configuration</strong> application is accessible from the <strong>Configure Settings</strong> button on the Game Settings Sidebar tab (<i class="fas fa-cogs"> </i>). This window allows you to customize the A/V broadcast mode (including enabling or disabling A/V integration), designate your preferred webcam and microphone hardware, and even configure a custom relay server. If no microphone or webcam appear in this list, the most likely cause is that the devices are already in use by another program or your browser has not been granted permission to access them.</p>
+<section class="collapsible">
+  <header class="collapsible-header">Audio/Video Configuration</header>
+  <div class="collapsible-content">
+    <figure class="right">@Image[136]
+      <figcaption>The Audio/Video Configuration application.</figcaption>
+    </figure>
 <dl>
   <dt>Audio/Video Conferencing Mode</dt>
   <dd>Used to select whether you wish to disable A/V, transmit audio only, video only, or use both audio and video conferencing.</dd>
   <dt>Voice Broadcasting Mode</dt>
-  <dd>The method by which your microphone activates to transmit audio. If always enabled, the microphone will continually broadcast. Voice activation will activate the microphone only when it crosses a threshold of volume. Push to talk uses the assigned push-to-talk hotkey to trigger microphone activation while it is held down.</dd>
-  <dt>Push-to-Talk/Mute key:</dt>
-  <dd>Assign the keyboard key to be used to trigger Push to Talk. To assign a key, simply click into the input field and then press the keyboard key you wish to use. By default this is assigned to the backtick key: `</dd>
+  <dd>The method by which your microphone activates to transmit audio. If always enabled, the microphone will continually broadcast. Voice activation will activate the microphone only when it crosses a threshold of volume. Push to talk uses the assigned push-to-talk hotkey to trigger microphone activation while it is held down. The push to talk key can be changed using @Article[keybinds].</dd>
+  <dt>Nameplates</dt>
+  <dd>When enabled, the names of all players in the scene will be displayed below their avatars. This option can be configured to display the player name only, character name only, or to alternate between both.</dd>
+  <dt>Use Player Border Colors</dt>
+  <dd>When enabled, the border color will use the a user's designated color as a gradient for their nameplate, making it more clear which user is which.</dd>
   <dt>Video Capture Device</dt>
   <dd>A list of available devices which can be used as a video source for video conferencing, choose your camera or video source here. If this list is empty or reads "Unknown Device", you may need to grant permission to use the camera for your browser, or to verify that no other programs are currently using the capture device.</dd>
   <dt>Audio Capture Device</dt>
@@ -43,7 +36,35 @@
   <dt>Audio Output Device</dt>
   <dd>A list of available devices which FVTT should send audio-video to. By default, this is 'Default Device' which uses whichever device your OS uses as a primary sound output, but you can choose a specific output if you wish to output to headphones but not speakers, for example. (Please note that Firefox users will not see this option unless they have set <code>media.setsinkid.enabled</code> to true in their <code>about:config</code>).</dd>
 </dl>
-<p>For details on the configuration of the<strong> Server</strong> tab of A/V Configuration, please see discussion of relay and signaling servers below.</p>
+<p>For details on the configuration of the <strong>Server</strong> tab of A/V Configuration, please see discussion of relay servers below.</p>
+</div>
+</section>
+<h3>The A/V Chat Dock</h3>
+<p>The Audio Video Chat Integration dock appears on the left-hand side when A/V Chat Integration is enabled. This sidebar contains a simple transparent background and contains individual frames for each player's camera or avatar, and each frame will light up when each player speaks. The Dock can be easily collapsed, reducing the width and minimizing the frames to a smaller, circular view. </p>
+<p>The A/V Chat Dock contains a number of controls which can be used to change particular features of how Audio or Video chat will operate on a per-user basis.</p>
+<dl>
+  <dt><i class="fas fa-external-link-alt"> </i> Pop out</dt>
+  <dd>Hovering over a player frame will display a button which when clicked will pop the frame out into the general canvas area, allowing you to reposition chat windows as necessary.</dd>
+  <dt><i class="far fa-fw fa-caret-square-left"> </i> Minimize Dock</dt>
+  <dd>Toggles the width of the A/V Chat Dock, so that it occupies less horizontal space, it also reduces the chat frames to a smaller, circular view.</dd>
+  <dt><i class="far fa-fw fa-rotate-270 fa-caret-square-left"> </i> Hide Players List</dt>
+  <dd>Hides or displays the list of players in the A/V Chat Dock, providing more vertical space for chat frames.</dd>
+  <dt><i class="fas fa-fw fa-microphone"> </i> Mute/Unmute Your Audio</dt>
+  <dd>Controls whether your microphone is muted, preventing you from transmitting audio to other users.</dd>
+  <dt><i class="fas fa-fw fa-camera-web-slash"> </i> Enable/Disable Your Video</dt>
+  <dd>Enable or disable your camera, preventing you from transmitting video to other users.</dd>
+  <dt><i class="fas fa-fw fa-volume-up"> </i> Mute/Unmute Others' Audio</dt>
+  <dd>Controls whether or not you can hear other users, when muted this will you from hearing their audio as if their microphones have been muted.</dd>
+  <dt><i class="fas fa-fw fa-video"> </i> Enable/Disable Receiving Video</dt>
+  <dd>Clicking this button will hide the display of other , preventing you from hearing their audio as if they have all muted their microphones.</dd>
+  <dt><i class="fas fa-cog"> </i> Configure Settings</dt>
+  <dd>This shortcut will bring you directly to the Audio/Video chat settings window.</dd>
+</dl>
+</div>
+<figure class="right">@Image[410]
+  <figcaption>The Audio/Video Chat Dock showing the layout for four players.</figcaption>
+</figure>
+</div>
 
 <h2 id="built-in" class="border">How A/V Integration Works</h2>
 <figure class="right">@Image[137]
@@ -66,6 +87,13 @@ WebRTC (Web Real-Time Communication) is an open-source project geared toward ena
 <ol>
   <li>The <a title="Jitsi RTC Module" href="https://github.com/luvolondon/fvtt-module-jitsiwebrtc" target="_blank" rel="nofollow noopener">Jitsi WebRTC</a> module.</li>
   <li>The excellent <a title="Jitsi Server Setup Instructions" href="https://www.vtta.io/articles/installing-a-self-hosted-jitsi-server" target="_blank" rel="nofollow noopener">Jitsi Server Setup Instructions</a> created by community member Solfolango.</li>
+</ol>
+
+<h2 class="border" id="livekit">Using a LiveKit Server</h2>
+<p>LiveKit is a free, open-source audio-video server software designed to allow you to easily build live audio or video experiences. Thanks to community developer Bekit, a <a href="https://foundryvtt.com/packages/avclient-livekit" target="_blank">LiveKit</a> Add-on Module is available which replaces the base functionality of Foundry VTT's A/V Chat Integration with an alternate relay server which can be used in cases where the server host may not have sufficient bandwidth to support A/V Chat. This is a newer alternative to Jitsi, but like Jitsi requires a third-party server to function. Please see the following resources for more information about using Livekit:</p>
+<ol>
+  <li>The <a title="LiveKit AVClient Module" href="https://github.com/luvolondon/fvtt-module-jitsiwebrtc" target="_blank" rel="nofollow noopener">LiveKit AVClient</a> module.</li>
+  <li>The excellent <a title="LiveKit Server Setup Instructions" href="https://foundryvtt.com/packages/avclient-livekit/#user-content-running-your-own-livekit-server" target="_blank" rel="nofollow noopener">Resources for Setting up Your Own LiveKit Server</a> provided by Bekit.</li>
 </ol>
 
 <h2 class="border">API References</h2>

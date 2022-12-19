@@ -21,11 +21,14 @@
 <h3 id="nowplaying">Currently Playing Track</h3>
 <p>If a track is playing, it will be indicated here along with how much of the track has played, and the track's current volume, which you can adjust on the fly. The currently playing area also allows you to quickly toggle if the track should repeat, as well as provides controls to pause and stop the track directly. Pausing a track will not remove it from the currently playing bar, but stopping the track will.</p>
 <p>If no track is being played this part of the interface will be hidden.</p>
+<p>Changing the volume of a track that is currently playing will change the volume for all users. If you want to adjust the volume for this and all other audio tracks just for you, use the global volume controls.</p>
 
 <h3 id="createplaylist">Creating Playlists</h3>
 <p>In order to play audio tracks on demand, or as a sequence, they must be first added to a playlist. A playlist can contain multiple sounds, and the same sound can be in multiple playlists.</p>
 <p>Click the "Create Playlist" button at the top of the Playlist Directory sidebar to create a playlist. From there, a prompt will appear, allowing you to enter the name of the playlist. Once you have named your playlist the configuration window will appear, allowing you to set additional details about the playlist. This step is optional, but the following settings can be configured:</p>
-
+<section class="collapsible">
+    <header class="collapsible-header">Playlist Configuration Details</header>
+    <div class="collapsible-content">
 <dl>
     <dt>Playlist Name</dt>
     <dd>This is the name of the playlist, and how it will appear on the sound sidebar.</dd>
@@ -38,6 +41,8 @@
     <dt>Bulk Import</dt>
     <dd>This button allows you to select a folder, importing all of the sounds contained within it. This creates a new sound for every valid audio file that Foundry detects in the folder, and gives it a basic name with can be edited after the fact.</dd>
 </dl>
+</div>
+</section>
 
 <h3 id="manage">Managing Playlists</h3>
 <p>Playlists on their own have two buttons which are used to add new sounds and cycle the playback mode used.</p>
@@ -48,16 +53,32 @@
     <dd>Cycles through the various playback modes as described above.</dd>
 </dl>
 
-<h4>Playlist Context Menu</h4>
+<section class="collapsible">
+	<header class="collapsible-header">Playlist Context Menu Options</header>
+	<div class="collapsible-content">
 <p>By right-clicking a playlist you can bring up a context menu with additional options for managing playlists. This context menu has the following options:</p>
-<ul>
-    <li><strong>Edit Playlist:</strong> Allows you to open the playlist configuration window to change any of the playlist details discussed above.</li>
-    <li><strong>Clear Folder:</strong> Move the playlist out of the current folder it's in.</li>
-    <li><strong>Delete:</strong> Delete the playlist and all contained tracks. Warning: This can't be undone, but you will be given a chance to confirm this action.</li>
-    <li><strong>Duplicate:</strong> Make a copy of the playlist and all of its tracks.</li>
-    <li><strong>Export Data:</strong> Opens a file window that allows you to save the playlist data as a .json file which can be imported by Foundry. Note that this does not export the sound files associated with the track, only their file paths. If this track .json is imported to a server that lacks the files none of the tracks will work.</li>
-    <li><strong>Import Data:</strong> Opens a file picker that allows you to select a playlist .json file, importing all of the info and track data contained in it.</li>
-</ul>
+
+<dl>
+	<dt>Edit Playlist (<i class="fas fa-edit"> </i>)</dt>
+	<dd>Allows you to open the playlist configuration window to change any of the playlist details discussed above.</dd>
+
+	<dt>Clear Folder (<i class="fas fa-folder"> </i>)</dt>
+	<dd>Removes the playlist from all folders, placing it at the top level of the Playlists directory.</dd>
+
+	<dt>Delete (<i class="fas fa-trash"> </i>)</dt>
+	<dd>Deletes the playlist and all contained tracks, after accepting a confirmation prompt.</dd>
+
+	<dt>Duplicate (<i class="fas fa-copy"> </i>)</dt>
+	<dd>Creates a copy of the playlist in the directory.</dd>
+
+	<dt>Export Data (<i class="fas fa-file-export"> </i>)</dt>
+	<dd>Exports the playlist's data as a JSON file on your computer.</dd>
+
+	<dt>Import Data (<i class="fas fa-file-import"> </i>)</dt>
+	<dd>Imports data into the right-clicked playlist from a JSON file on your computer.</dd>
+</dl>
+</div>
+</section>
 
 <p class="note info">Normally, only Gamemasters and Assistant users can view and manage playlists, but all players can see the names of playlists when they are played. Take care to keep your playlist and track names spoiler-free!</p>
 
@@ -67,11 +88,14 @@
 </figure>
 
 <p>Once a playlist has been created, individual sounds can be added to it by clicking the "Add Sound" button next to the playlist (notated by a plus sign icon). This will bring up the configuration window allowing you to add the sound to the chosen playlist. Once a sound has been created in a playlist, the playlist can be expanded to manage the individual sound, such as editing the name or sound source, toggling the track to loop when played, or deleting the sound from the playlist.</p>
+<section class="collapsible">
+    <header class="collapsible-header">Track Configuration Details</header>
+    <div class="collapsible-content">
 <dl>
 <dt>Track Name</dt>
 <dd>The name of the sound, as seen in the Playlists Directory. This is the name all players see in the Playlists Directory sidebar while the sound is playing.</dd>
 <dt>Audio Source</dt>
-<dd>The source file for the sound. This can either be a file stored in Foundry directories, or a direct URL link to a sound file online. FVTT supports .flac, .mp3, .wav, and .webm audio files.</dd>
+<dd>The source file for the sound. This can either be a file stored in Foundry directories, or a direct URL link to a sound file online. FVTT supports .flac, .mp3, .wav, .ogg, .webm and .opus audio files. See the audio section of the @Article[media] for more details.</dd>
 <dt>Volume</dt>
 <dd>The volume of the individual sound. The sound's volume is also affected by the Master Playlists volume slider.</dd>
 <dt>Repeat</dt>
@@ -81,14 +105,26 @@
 <dt>Sound Description</dt>
 <dd>This is a text box for writing notes about the sound, such as artist information, thematic notes, or specific usage situations.</dd>
 </dl>
+</div>
+</section>
 
-<h4>Sound Context Menu</h4>
-<p>By right-clicking a playlist you can bring up a context menu with additional options for managing playlists. This context menu has the following options:</p>
-<ul>
-    <li><strong>Edit Sound:</strong> Opens the sound configuration window which allows you edit the traits of a track as noted above.</li>
-    <li><strong>Preload Sound:</strong> Order Foundry to begin loading a sound in preparation of playback. This can reduce delays between a GM playing a track and users hearing it start to play, which is especially useful for very large sound files.</li>
-    <li><strong>Delete:</strong> Delete the sound. <strong>Warning:</strong> This can't be undone, but you will be given a chance to confirm this action.</li>
-</ul>
+<section class="collapsible">
+	<header class="collapsible-header">Track Context Menu Options</header>
+	<div class="collapsible-content">
+<p>By right-clicking a track you can bring up a context menu with additional options for managing tracks. This context menu has the following options:</p>
+
+<dl>
+	<dt>Edit Sound (<i class="fas fa-edit"> </i>)</dt>
+	<dd>Allows you to open the track configuration window to change any of the track details discussed above.</dd>
+
+	<dt>Preload Sound (<i class="fas fa-download"> </i>)</dt>
+	<dd>Order Foundry to begin loading a sound in preparation of playback. This can reduce delays between a GM playing a track and users hearing it start to play, which is especially useful for very large sound files.</dd>
+
+	<dt>Delete Sound (<i class="fas fa-trash"> </i>)</dt>
+	<dd>Deletes the audio track, after accepting a confirmation prompt.</dd>
+</dl>
+</div>
+</section>
 
 <h2 id="playlistapi" class="border">API References</h2>
 <p>To interact with Playlists programmatically, consider using the following API concepts:</p>

@@ -1,0 +1,159 @@
+<h2 class="border">Overview</h2>
+<p>This article covers common signs of, and instructions to correct, an invalid configuration file for Foundry Virtual Tabletop. You will need access to your User Data directory to complete these steps. We'll begin by identifying common signs of an invalid configuration, in order to help diagnose if this is the issue you are experiencing. </p> 
+
+
+<h2 class="border">Diagnosing An Invalid Configuration</h2>
+<p>In general, the first sign of a invalid configuration is that Foundry VTT will not launch, or will provide command-line error messages. An invalid configuration is one of the most common causes of FVTT not launching.</p>
+<p>Signs of a invalid configuration include, but are not limited to:</p>
+<ul>
+    <li>Foundry VTT crashes on launch (with or without error message).</li>
+    <li>SSL errors when connecting to Foundry VTT via web browser.</li>
+    <li>S3 File Integration Is Not Working.</li>
+</ul>
+<h3>Use the Command Line to Diagnose Issues</h3>
+<p>To determine the cause of these issues and whether it's a configuration error, we will start with using the command line to launch Foundry VTT. Starting Foundry VTT using a command prompt or terminal application provides valuable information that is not commonly shown when launching the the standalone electron application as users do not commonly require this information. Follow the steps relevant to your operating system:</p>
+<section class="collapsible">
+    <header class="collapsible-header">(Windows) Launch via Command Prompt</header>
+    <div class="collapsible-content">
+        <li>Open Command Prompt from the start menu.</li>
+        <li>Use the change directory command <code>cd</code> to switch to the location where you installed Foundry VTT, for example: <code>cd "C:\Program Files\Foundry Virtual Tabletop"</code>.</li>
+        <li>Type <code>"Foundry Virtual Tabletop.exe"</code>(quotes included) and press enter to launch the program. </li>
+        <li>Observe the output in the command prompt to see if there are any visible error messages.</li>
+    </div>
+</section>
+<section class="collapsible">
+    <header class="collapsible-header">(macOS) Launch via Terminal</header>
+    <div class="collapsible-content">
+        <li>Open Terminal from Finder (or via another method)</li>
+        <li>Enter the command: <code>open -a FoundryVTT</code>, or if that fails, some versions of Foundry VTT (version 10 and higher) require use of <code>open -a "Foundry Virtual Tabletop"</code> instead.</li>
+        <li>Observe the output in the terminal to see if there are any visible error messages.</li>
+    </div>
+</section>
+<section class="collapsible">
+    <header class="collapsible-header">(Linux) Launch via Terminal</header>
+    <div class="collapsible-content">
+        <li>Open your chosen Terminal application.</li>
+        <li>use the change directory command <code>cd</code> to switch to the location where you unzipped Foundry VTT, for example: <code>cd "~/foundryvtt/</code>.</li>
+        <li>type <code>"./foundryvtt"</code>(quotes included) and press enter to launch the program. </li>
+        <li>Observe the output in the terminal to see if there are any visible error messages.</li>
+    </div>
+</section>
+<section class="collapsible">
+    <header class="collapsible-header">(NodeJS) Launch via Terminal</header>
+    <div class="collapsible-content">
+        <li>Open your chosen Terminal application or via SSH.</li>
+        <li>use the change directory command <code>cd</code> to switch to the location where you unzipped Foundry VTT, for example: <code>cd "~/foundryvtt/</code>.</li>
+        <li>type <code>node resources/app/main.js</code> and press enter to launch the program. </li>
+        <li>Observe the output in the terminal to see if there are any visible error messages.</li>
+    </div>
+</section>
+
+<p>Foundry VTT will display its current configuration and any errors that may occur. If there are error messages displayed, take note of them and check for those error messages in the next section.</p>
+
+<h3>Reset Foundry VTT'S Configuration</h3>
+<p>A quick method of determining if you have an invalid configuration is to have Foundry VTT generate a new one with default parameters. While this won't give the same level of information as launching via command line, it will help confirm whether a configuration issue exists.</p>
+<ol>
+    <li>Close Foundry VTT if it is currently running, and navigate to your User Data directory.</li>
+    <li>Open the folder titled 'Config' and rename the file <code>options.json</code> to <code>old-options.json</code>.</li>
+    <li>Launch Foundry VTT, preferably via command line so that any errors are visible.</li>
+</ol>
+<p>If Foundry VTT launches as expected, your options.json file contained invalid data and should be examined more closely to identify the specific errors and correct them.</p>
+
+<section class="collapsible">
+    <header class="collapsible-header">I Am Using HTTPS, a Reverse Proxy, or S3</header>
+<div class="collapsible-content">
+    <p>You may recall that when you set up one or more of these services, you may have needed to configure your <code>options.json</code>. One of the steps involved in diagnosing and resolving a invalid configuration is to have Foundry VTT generate a new <code>options.json</code> file with default configuration, which will not include the changes you made. After going through the troubleshooting process, you may need to re-add these to your configuration. Refer to the relevant guide below for more information when you're done:</p>
+    <ul>
+        <li>@Article[caddy]</li>
+        <li>@Article[nginx]</li>
+        <li>@Article[apache]</li>
+        <li>@Article[aws-s3]</li>
+        <li>@Article[ssl]</li>
+    </ul> 
+</div>
+</section>
+
+<h2 class="border">Resolving A Invalid Configuration</h2>
+<p>Once you have identified that an invalid configuration is the source of the problem, the next steps depend on the specific issues caused. The following sections contain steps to resolve errors in specific parts of the configuration. If these steps do not resolve your particular issue, please see "I Do Not Have An Error Message" below. </p>
+
+<h3>Launch Errors</h3>
+
+<section class="collapsible">
+    <header class="collapsible-header">"Foundry VTT cannot start in this directory which is already locked by another process"</header>
+        <div class="collapsible-content">  
+                <p>This is typically caused when Foundry VTT does not shut down correctly, such as in a power outage or software crash, or when an automated backup service restores the <code>options.json.lock</code> file. To protect your userdata from unexpected changes, Foundry VTT locks the directory when it's running so that two instances of Foundry VTT do not attempt to access the same data at the same time.</p>
+                <p>To resolve this, navigate to your user data directory and delete the <code>options.json.lock</code> file, then attempt to launch Foundry VTT. </p>
+                </div>
+</section>
+<section class="collapsible">
+    <header class="collapsible-header">"Unexpected Token in..."</header>
+        <div class="collapsible-content">  
+               <p>This error indicates that one of the JSON files in the Config directory is misconfigured. Refer to the section titled "Reset Foundry VTT'S Configuration" above to reset Foundry VTT's configuration file.</p>
+
+               <h4>I Have an S3 Configuration File</h4>
+                <p>Temporarily rename <code>aws.json</code> to another name, for example: <code>old-aws.json</code>. and attempt to launch Foundry VTT via command line. If <code>aws.json</code> was misconfigured, Foundry VTT should now close and report an error stating that <code>aws.json</code> does not exist. See @Article[aws-s3] for more information on how to create a new <code>aws.json</code>.</p> 
+                </div>
+</section>
+
+<section class="collapsible">
+    <header class="collapsible-header">"ServerConfiguration Model Validation Errors - [ServerConfiguration.awsConfig]"</header>
+    <div class="collapsible-content">
+        <p>This error indicates that either the filepath given for your 'aws.json' is incorrect in <code>options.json</code>, or that the file does not exist. See @Article[aws-s3] for instructions to create a new working 'aws.json'.</p>
+        <p><b>Note:</b> If you renamed 'aws.json' while following the testing steps from "Unexpected Token in JSON", this error is expected. See "Unexpected Token In..." for more information.</p>
+    </div>
+</section>
+
+<h3>"Unable to Start Express Server/Address Already In Use"</h3>
+<p>This error is displayed when another program is already using the port Foundry VTT is set to use. By default this is port 30000.</p> 
+<section class="collapsible">
+    <header class="collapsible-header">Changing the Port Used by Foundry VTT</header>
+    <div class="collapsible-content">
+        <p>If Foundry VTT will not open because the port is in use, you can resolve this fairly simply by manually editing the port number provided in <code>options.json</code>. To do so:</p>
+        <ol>
+            <li>Open your Userdata folder and access the <code>Config</code> subfolder.</li>
+            <li>Open your <code>options.json</code> file using any text editor</li>
+            <li>locate the field: <code>"port": 30000,</code>and change the number from 30000 to 30001 (or any other value above 1024 but below 65535). Be sure not to add any or remove any commas or other symbols.</li>
+            <li>Save the file and attempt to launch Foundry VTT.</li>
+        </ol>
+    </div>
+</section>
+<p>If you prefer, you can attempt to identify which program is currently using port 30000. Finding the program causing this port conflict will require finding its Process ID (PID) via command line and then finding the name attached to that PID. The relevant commands and instructions on what to look for are provided below. After determining the program at fault, you may close it, configure it to use a different port, or change Foundry VTT's port as listed above.</p>
+<section class="collapsible">
+    <header class="collapsible-header">Find Port Conflict on Windows</header>
+        <div class="collapsible-content">  
+                <ol>
+                    <li>Press your Windows key, type "powershell", and press enter. A PowerShell window should open. Copy and paste the following command in: <code>netstat -ano | findstr 30000</code>. Press Enter. If you are using a port other than 30000, replace "30000" with the relevant port.</li>
+                    <li>PowerShell will list any applications listening on port 30000. At the far end of each entry will be a number. This is the Process ID (PID).</li>
+                    <li>Open Task Manager by pressing Ctrl + Shift + Escape. If the option for 'More Details' appears on the bottom, click on that to display all of Task Manager.</li>
+                    <li>Click the 'Details' tab, then the 'PID' column to sort the processes by process ID.</li>
+                    <li>Scroll down until you find the PID that matches what was reported in PowerShell. The name of the process will be shown on the left. This will be the name of the program that is using the same port as Foundry VTT.</li>
+                </ol>
+                </div>
+</section>
+
+<section class="collapsible">
+    <header class="collapsible-header">Find Port Conflict on MacOS</header>
+        <div class="collapsible-content">  
+            
+                <ol>
+                    <li>Open Terminal. Copy and paste the following command: <code>sudo lsof -i :30000</code>. If you are using a port other than 30000, replace <code>30000</code> with the relevant port.</li>
+                    <li>Terminal will list any applications listening on port 30000. The output begins with <code>node 12345 ...</code> The number after the word 'node', eg "12345," is the Process ID (PID)</li>
+                    <li>To find the name of the process, copy and paste the following command into Terminal, replacing &lt;PID&gt; with the PID you found in the previous step: <code>ps -Ao user,pid,command | grep -v grep | grep &lt;PID&gt;</code>. The last value displayed is the name of the process.</li>
+                </ol>
+                </div>
+</section>
+
+<section class="collapsible">
+    <header class="collapsible-header">Find Port Conflict on Linux</header>
+        <div class="collapsible-content">  
+            
+                <ol>
+                <li>Open a terminal window and enter the command <code>sudo ss -lptn 'sport = :30000'</code>. If you are using a port other than 30000, replace "30000" with the relevant port.</li>
+                <li>Under the Process column, you will see <code>users:(("&lt;process-name&gt;",...))</code>. <code>&lt;process-name&gt;</code> is the name of the process that is listening on port 30000.</li>
+                </ol>
+                </div>
+</section>
+
+<h2 class="border">Foundry VTT Still Fails to Launch</h2>
+<p>Some rare configuration issues may not display any errors and still not allow Foundry VTT to launch.</p>
+<p>If you don't see your error here, or attempts to resolve the error have not worked, please <a href="/contact-us/" target="_blank" rel="nofollow noopener">contact us</a> or join our <a href="https://discord.gg/foundryvtt" target="_blank" rel="nofollow noopener">Discord community</a> for live support.</p>

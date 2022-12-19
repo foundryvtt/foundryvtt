@@ -2,130 +2,246 @@
 <p>This article covers all of the basics of playing cards, the types of card stacks which can be created by default, and some of the fundamental features that can be used to interact with decks of cards for gameplay. It's important to note that while the implementation of playing cards for Foundry VTT is somewhat basic in its provided functionality, it is designed to allow Game Systems and Modules to customize appearance and functionality to better suit whichever game the cards are being used to play.</p>
 <h4>Folders</h4>
 <p>This directory can contain folders to organize your world's card decks. For details on how to create and use them please see the @Article[folders] article.</p>
-<p>&nbsp;</p>
-<h2 class="border">The Cards Directory</h2>
-<p>Card stacks in Foundry VTT can be viewed, created, and managed from the Cards Directory Sidebar tab. Gamemasters, Assistants, and other players with permissions to view card stacks can do so by clicking on a card stack in the Cards Directory. This opens the Card stack sheet, and displays any cards the stack may contain. This sheet may look drastically different depending on the system being used.</p>
-<figure class="right">
-    @Image[296]
-    <figcaption>The Card Stack Creation Dialog</figcaption>
-</figure>
-<h3>Creating New Card Stacks</h3>
-<p>Whether you're creating a new Deck, a Hand for your players, or a miscellaneous Pile to hold cards which have been discarded or played, the New Card Stack dialog is where to begin. To create a new card stack, click the "Create Card Stack" button in the Cards Directory sidebar. This will create a dialog box prompting you to name your card stack, and to choose what type of stack it represents. By default, the available options are:</p>
-<dl>
-<dt>Deck</dt>
-<dd>A collection composed of playing cards which can be dealt to player hands or drawn from for the purposes of playing card-based games. A deck contains options to create and manage the cards stored within it, as well as additional options for shuffling, dealing, or resetting the deck.</dd>
-<dt>Hand</dt>
-<dd>A collection of playing cards intended to be held by a particular player. Hands contain options to draw cards, or pass them to another hand or pile.</dd>
-<dt>Pile</dt>
-<dd>A collection of playing cards used to represent miscellaneous cards, such as a pile of played cards or ones which have been discarded. Card piles contain options to shuffle cards or pass them to another pile.</dd>
-</dl>
-<p>To edit a Card Stack after you've created it, you need only to navigate to the Cards Directory and click on the stack you want to edit, this will reopen the Card Stack sheet for editing.</p>
-<h4>Preset Config</h4>
-<p>Foundry Virtual Tabletop comes with two pre-configured standard 52-card poker decks, and also includes images (though no pre-configuration) for the jokers if you wish to add them in. When creating a deck, you can select either Poker Deck (Dark) or Poker Deck (Light) to generate a poker deck with those cards ready to play.</p>
-<figure class="right">
-    @Image[297]
-    <figcaption>The Deck interface can be used for managing cards within the deck, dealing, shuffling and more.</figcaption>
-</figure>
-<h3>Adding Cards to Card Stacks</h3>
-<p>If you do not use a preset deck, you will need to create each card in your deck individually. After creating a Deck, you can click the "add" option in the header which will prompt you for the name of the new card, once entered it will also provide you with an editing window for the card, allowing you to set a variety of fields such as the suit, type, value, dimensions, number of faces and their related images, images to use and much more.</p>
-<p>By default, any card which does not have a defined back image will use the back image defined by the deck from which it originates.</p>
-<h3>Importing Card Stacks</h3>
-<p>When a new World is first created, the Items Directory will initially be empty. Though items can be created fairly quickly from scratch, it may be desirable to import items from pre-configured sources.</p>
-<h4>Importing from Compendium</h4>
-<p>A Card Stack can be imported from a compendium by either dragging the Card Stack from the compendium into the Cards Directory, or by right-clicking the Card Stack in the compendium and selecting "Import".</p>
-<h4>Importing from JSON</h4>
-<p>If the system and modules your world uses provide no compendiums, you can still import cards directly from a JSON file. This JSON file is created by right-clicking a card stack in the Directory and selecting "Export Data" to export the JSON data for the existing cards, and imported using the "Import Data" option. Note that importing data from JSON will overwrite the data for the item you are importing onto.</p>
-<figure class="right">
-    @Image[298]
-    <figcaption>The Deal Cards dialog can be used to deal cards to specific players from a Deck.</figcaption>
+<p>This article will detail the features of card stacks, how to create them, and configure them.</p>
+
+<h2 class="border">The Card Stack Directory</h2>
+<figure class="right">@Image[438]
+<figcaption>The Gamemaster's view of the Card Stack Directory sidebar.</figcaption>
 </figure>
 
-<h2 class="border">Playing with Cards</h2>
-<p>Cards can be manipulated in a number of ways, depending on which context you are approaching the cards from. How you interact with cards is determined primarily by what type of Card Stack you are using.</p>
-<h3>Deck</h3>
-<p>If a Card Stack is set to the type "Deck" you may perform any of the following actions from its configuration sheet.</p>
+<p>Card Stacks in Foundry can be viewed, created, and managed in the Card Stacks Directory sidebar. Like the Scenes, Items, and Journal Entries directories, this directory can contain folders to organize your world's card stacks. Only a Gamemaster or Assistant-level user can change or move folders, but any players with at least Limited permissions on an card stack can see the card stack and the folder(s) containing it in the Directory.</p>
+
+<p>Card stacks in Foundry VTT can be viewed, created, and managed from the Cards Directory Sidebar tab. Gamemasters, Assistants, and other players with permissions to view card stacks can do so by clicking on a card stack in the Cards Directory. This opens the Card stack sheet, and displays any cards the stack may contain. This sheet may appear differently from screenshots if the system or a module being used modifies how cards appear and function.</p>
+
+<h4>Sidebar Elements</h4>
 <dl>
-    <dt>Add Card</dt>
-    <dd>Create a new card that will be part of this deck (see Adding Cards above)</dd>
-    <dt>Shuffle</dt>
-    <dd>Re-orders the cards contained within the deck at random so that when they are dealt the cards are no longer in strict numerically-sorted order.</dd>
-    <dt>Deal</dt>
-    <dd>Opens a dialog prompt which asks how many cards to deal, what method to use for drawing cards, which card stacks will receive the cards, and whether they will be dealt face down or not. Pressing Deal in this dialog will pass the number of cards out to each selected card stack, marking each card as Drawn in the Deck.</dd>
-    <dt>Reset</dt>
-    <dd>Returns all drawn cards back to the deck, removing them from any other card stacks which currently contain them, and re-sorts the deck to a pre-shuffled state.</dd>
-    <dt>Save</dt>
-    <dd>Saves any changes made to your card stack's configuration.</dd>   
+	<dt>Create Card Stack (<i class="fas fa-cards"> </i>)</dt>
+	<dd>This button creates a new card stack with the name given. If you do not name the card stack it will be automatically named "New Card Stack" with a number appended to it. You will also need to select the type of card stack you want to create from the list options. Each behaves slightly differently, and are explained below.</dd>
+	
+	<dt>Create Folder (<i class="fas fa-folder"> </i>)</dt>
+	<dd>This creates a new folder. For details on how to create and use them please see the @Article[folders] article.</dd>
+	
+	<dt>Search Items (<i class="fas fa-search"> </i>)</dt>
+	<dd>This searches for and lists any card stacks whose names match the given string of text entered into the search bar.</dd>
+	
+	<dt>Collapse All Folders (<i class="fas fa-sort-amount-up"> </i>)</dt>
+	<dd>This collapses all folders, showing only the top-level folders and any card stacks not sorted into a folder.</dd>
 </dl>
+
+<h3>Creating and Editing Card Stacks</h3>
+<p>To create a new Card Stack, click the <strong><i class="fas fa-cards"> </i> Create Card Stack</strong> button, this will create a dialog box prompting you to name your card stack. You must also determine the type of card stack you are creating, such as a deck, hand, or pile. Once you have named your stack and selected its type, click Create New Card Stack.</p>
+<p>This will add your card stack to the directory sidebar, and open its sheet for you to edit and fill out. Once you are done editing your card stack you can close the window, the changes will be automatically saved. Note that the options you have available on this card stack sheet may be modified by the game system you are using, and may not match the defaults detailed here.</p>
+<h4>Card Stack Types</h4>
+<dl>
+    <dt>Deck</dt>
+    <dd><p>A collection composed of playing cards which can be dealt to drawn from by card hands. A deck contains options to create and manage the cards stored within it, as well as additional options for shuffling, dealing, or resetting the deck.</p></dd>
+    <dt>Hand</dt>
+    <dd>A collection of playing cards intended to be held by a particular player. Hands contain options to draw cards, or pass them to another hand or pile.</dd>
+    <dt>Pile</dt>
+    <dd>A collection of playing cards sourced from decks and hands, such as a pile of played or discarded cards. Card piles contain options to shuffle cards or pass them to another pile.</dd>
+    </dl>
+<h4>Default Sheet Configuration</h4>
+<p>The Card Stack Sheet button (<i class="fas fa-cog"> </i>) allows you to set which sheet template you want to use for the current card stack, or all card stacks of the same type. Card Stack sheets can change how the card stack's data is displayed and what can be edited.</p>
+<p>Most systems will include one sheet template for all card stacks of a single type (deck, hand, pile, etc.) but some may add extra versions. Add-on modules may provide additional options as well.</p>
+
+<section class="collapsible">
+	<header class="collapsible-header">Importing Pre-configured Card Stacks</header>
+	<div class="collapsible-content">
+<p>When a new World is first created, the Card Stacks Directory will initially be empty. Though card stacks can be created fairly quickly from scratch, it may be desirable to import card stacks from pre-configured sources. This can be done in one of two ways: by importing card stacks from a compendium pack, or by importing card stack data directly from an external JSON file.</p>
+
+<h4 id="compendium">Importing from Compendium</h4>
+<p>An card stack can be imported from a compendium by either dragging the card stack from the compendium into the Card Stacks Directory, or by right-clicking the card stack in the compendium and selecting "Import". For more information on compendia and how to use them, see the @Article[compendium] article.</p>
+
+<h4 id="json">Importing from JSON files</h4>
+<p>If you have exported card stacks that you would like to bring into a game world you can do so by loading the card stack info directly from a JSON file. This can be accomplished by right-clicking an card stack in the Directory and selecting "Import Data." This will open a file browser that allows you to select the desired JSON file to import. Once selected the JSON file's data overwrite the existing card stack you imported the data into.</p>
+<p>You can export an card stack's data by right-clicking an card stack in the Directory and selecting the "Export Data" option. This will prompt you to save a JSON file with the card stack data in it.</p>
+</div>
+</section>
+
+<h3>Adding Cards to Card Stacks</h3>
+<p>If you do not use a preset deck, you will need to create each card in your deck individually. After creating a Deck, you can click the "add" option in the header which will prompt you for the name of the new card, once entered it will also provide you with an editing window for the card, allowing you to set a variety of fields such as the suit, type, value, dimensions, number of faces and their related images, images to use and much more.</p>
+<section class="collapsible"><header class="collapsible-header">Card Configuration Options</header>
+	<div class="collapsible-content">
 <figure class="right">
-    @Image[301]
-    <figcaption>The Hand interface can be used for managing cards within a players hand, drawing, playing, or passing cards.</figcaption>
+    @Image[306]
+    <figcaption>The Card Editing screen is used to add new cards to a deck.</figcaption>
 </figure>
+        <dl>
+<h4>Card Details</h4>
+    <dt>Type</dt>
+    <dd>Allows you to select what type of card this should represent. By default there is only a basic playing card, but modules and systems can expand these types.</dd>
+    <dt>Suit</dt>
+    <dd>The name of the suit that this card belongs to. A deck can have any number of suits desired, or none at all.</dd>
+    <dt>Value</dt>
+    <dd>The numerical value of the card. This is part of the base card type.</dd>
+    <dt>Dimensions</dt>
+    <dd>The dimensions of the card and its rotation in degrees. This is not used by default, but can be used by game systems and modules.</dd>
+    <dt>Description</dt>
+    <dd>A text description of the card or its contents.</dd>
+<h4>Card Face</h4>
+    <dt>Face</dt>
+    <dd>This determines the current face being used by the card. Cards can have multiple faces (using the <i class="fas fa-plus"> </i> button to add a new face). Each face has a name, image, and text description.</dd>
+    <dt>Face name</dt>
+    <dd>The alphanumeric name of the face.</dd>
+    <dt>Face Image</dt>
+    <dd>A file path to the face's image file.</dd>
+    <dt>Face Text</dt>
+    <dd>A text description of the card and what its face contains.</dd>
+<h4>Card Back</h4>
+    <dt>Back name</dt>
+    <dd>The alphanumeric name of the face.</dd>
+    <dt>Back Image</dt>
+    <dd>A file path to the back's image file.</dd>
+    <dt>Back Text</dt>
+    <dd>A text description of the card and what its back contains.</dd>
+</dl>
+</div>
+</section>
+<h4>Deck Presets</h4>
+<p>Foundry Virtual Tabletop comes with two pre-configured standard 52-card poker decks, and also includes images for the jokers, though they must be added separately. When creating a deck, you can select either Poker Deck (Dark) or Poker Deck (Light) to generate a poker deck with those cards ready to play.</p>
+<p>Other modules and game systems may add new deck presets which can be used when creating a deck.</p>
+
+<h2 class="border">Using Card Stacks</h2>
+<p>Once a deck of cards has been created, cards can be dealt to hands, drawn from decks by hands, and passed to piles or hands. These actions are shared by most of the </p>
+<h3>Moving Cards</h3>
+<p>Cards can be moved between hands, piles and decks in any of the following ways:</p>
+<dl>
+    <dt><i class="fas fa-share"> </i> Deal</dt>
+    <dd>Opens a dialog prompt which asks how many cards to deal, what method to use for drawing cards, which card stacks will receive the cards, and whether they will be dealt face down or not. Pressing Deal in this dialog will pass the number of cards out to each selected card stack, marking each card as Drawn in the Deck.</dd>
+    <dt><i class="fas fa-chevron-circle-right"> </i> Play</dt>
+    <dd>Each card has a "play" button which, when pressed, will prompt you to select a Card Stack to receive the played card.</dd>
+    <dt><i class="fas fa-plus"> </i> Draw</dt>
+    <dd>Pressing the draw button presents a dialog box which allows selection of the deck to draw from, the number of cards you would like to draw, the mode to use for drawing, and whether to draw the cards face down or not.</dd>
+    <dt><i class="fas fa-share"> </i> Pass</dt>
+    <dd>The pass button allows you to move a number of cards from the pile to a chosen card stack, and its dialog prompt allows you to choose which stack will receive the cards, how many will be moved, the draw mode, and whether they are facedown or not.</dd>
+</dl>
+<section class="collapsible"><header class="collapsible-header">Dealing Cards</header>
+	<div class="collapsible-content">
+        <figure class="right">
+            @Image[298]
+            <figcaption>The Deal Cards dialog can be used to deal cards to specific players from a Deck.</figcaption>
+        </figure>
+<p>Opens a dialog prompt which asks what hands or piles should receive cards, how many cards to deal to the selected recipients, and what method to use for drawing cards. Additionally, you can choose to have cards dealt face down, which causes the card backs to be shown to the recipient instead of the card faces.</p>
+<p>Pressing Deal in this dialog will pass the number of cards out to each selected card stack, marking each card as Drawn in the Deck. You must have at least one recipient for the deal for this action to complete.</p>
+    </div>
+    </section>
+
+<section class="collapsible"><header class="collapsible-header">Drawing and Passing Cards</header>
+	<div class="collapsible-content">
+        <figure class="right">
+            @Image[299]
+            <figcaption>The Pass Cards dialog can be used to pass cards from one Card Stack to any other card stack.</figcaption>
+        </figure>
+<p>Opens a dialog prompt which asks how many cards should be drawn from a deck, or passed to a card stack(or hand), and what draw method to use. Additionally, you can choose to pass or draw cards face down, which displays their back image instead of face images. Pressing Deal in this dialog will pass the number of cards out to each selected card stack.</p>
+<p>One one source or recipient can be chosen at a time when passing cards or drawing cards.</p>
+    </div>
+    </section>
+
+<section class="collapsible"><header class="collapsible-header">Playing Cards</header>
+	<div class="collapsible-content">
 <figure class="right">
     @Image[300]
     <figcaption>The Play Card dialog can be used to play a single card, moving it to a different Card Stack.</figcaption>
 </figure>
-<h3>Hand</h3>
-<p>Card Stacks set to the type "Hand" are given fewer options than a Deck, but provide some of the most common functionality one might expect for playing cards. </p>
+<p>Cards can be played from either Card Piles or Card Hands, allowing them to be passed to new destination which must be another pile or hand in the game world. Cards cannot be played to themselves.</p>
+<p>To play a card click the play card (<i class="fas fa-chevron-circle-right"> </i>) button. This will open the play card dialog, which will display the card's face art and allow you to select the destination of the card, as well as whether that card should be delivered face up, or face down (displaying is back art instead of face).</p>
+</div>
+</section>
+<h4>Draw Mode</h4>
+<p>When cards are drawn, one of three draw modes can be select: Top (first), Bottom (last) or Random.</p>
+<p>The Top draw mode takes the highest cards in the stack list first, in order, while the Bottom draw mode starts with the last card in the list. The random draw mode ignores the order of the cards in the stack being drawn from and randomly selects cards from all available options.</p>
+<h3>Card Stack Actions</h3>
+<p>Each of the different card stack types have different actions available to them in addition to being able to play, pass, deal or draw cards as explained in the above section.</p>
+<section class="collapsible"><header class="collapsible-header">Card Deck Actions</header>
+	<div class="collapsible-content">
+        <p>From the <i class="fas fa-cogs"> </i><strong>Configuration</strong> tab of the deck screen you can set the default back image used for any cards taken from this deck, and set a description of the deck itself.</p>
+        <figure class="right">
+            @Image[297]
+            <figcaption>The Deck interface can be used for managing cards within the deck, dealing, shuffling and more.</figcaption>
+        </figure>
+        <figure class="right">
+            @Image[298]
+            <figcaption>The Deal Cards dialog can be used to deal cards to specific players from a Deck.</figcaption>
+        </figure>
+        <p>If a Card Stack is set to the type "Deck" you may perform any of the following actions from its <i class="fas fa-id-badge"> </i><strong>Cards</strong> tab.</p>
+        <dl>
+            <dt><i class="fas fa-plus"> </i> Add Card</dt>
+            <dd>Located in the upper-right of the card tab, this button allows you to create a new card that will be part of this deck (see Adding Cards above)</dd>
+            <dt><i class="fas fa-random"> </i> Shuffle</dt>
+            <dd>Re-orders the cards contained within the pile at random. This affects the order in which they are drawn when being passed to another stack when using the top or bottom draw methods.</dd>
+            <dt><i class="fas fa-share"> </i> Deal</dt>
+            <dd>Opens a dialog prompt which asks how many cards to deal, what method to use for drawing cards, which card stacks will receive the cards, and whether they will be dealt face down or not. Pressing Deal in this dialog will pass the number of cards out to each selected card stack, marking each card as Drawn in the Deck.</dd>
+            <dt><i class="fas fa-undo"> </i> Reset</dt>
+            <dd>Resetting a pile sends all cards in the pile back to the deck they originated from.</dd>
+            <dt><i class="fas fa-save"> </i> Save</dt>
+            <dd>Saves any changes made to your card stack's configuration.</dd>
+        </dl>
+    </div>
+</section>
+
+<section class="collapsible"><header class="collapsible-header">Card Hand Actions</header>
+	<div class="collapsible-content">
+        <figure class="right">
+            @Image[301]
+            <figcaption>The Hand interface can be used for managing cards within a players hand, drawing, playing, or passing cards.</figcaption>
+        </figure>
+        <p>Card Stacks set to the type "Hand" are allowed to play cards, draw new cards, or pass cards, and are meant to represent a player's hand of usable cards, such as in a poker game.</p>
+        <dl>
+            <dt><i class="fas fa-chevron-circle-right"> </i> Play</dt>
+            <dd>Each card has a "play" button which, when pressed, will prompt you to select a Card Stack to receive the played card.</dd>
+            <dt><i class="fas fa-plus"> </i> Draw</dt>
+            <dd>Pressing the draw button presents a dialog box which allows selection of the deck to draw from, the number of cards you would like to draw, the mode to use for drawing, and whether to draw the cards face down or not.</dd>
+            <dt><i class="fas fa-share"> </i> Pass</dt>
+            <dd>The pass button allows you to move a number of cards from the pile to a chosen card stack, and its dialog prompt allows you to choose which stack will receive the cards, how many will be moved, the draw mode, and whether they are facedown or not.</dd>
+        </dl>
+</div>
+</section>
+
+<section class="collapsible"><header class="collapsible-header">Card Pile Actions</header>
+	<div class="collapsible-content">
+        <figure class="right">
+            @Image[302]
+            <figcaption>The Pile interface can be used for managing cards within a miscellaneous card Pile, shuffling or passing cards.</figcaption>
+        </figure>
+        <p>Card Stacks which are set to the "Pile" type function similar to a deck, and provide the following options for interacting with cards: </p>
 <dl>
-    <dt>Play</dt>
-    <dd>Each card has a "play" button which, when pressed, will prompt you to select a Card Stack to receive the played card (usually a Discard or Played card stack) and will create a Chat Message indicating which card you played.</dd>
-    <dt>Draw</dt>
-    <dd>Pressing the draw button presents a dialog box which allows selection of the deck to draw from, the number of cards you would like to draw, the mode to use for drawing, and whether to draw the cards face down or not.</dd>
-    <dt>Pass</dt>
-    <dd>The pass button allows you to move a number of cards from your hand to a chosen card stack, and its dialog prompt allows you to choose which stack will receive the cards, how many will be moved, the draw mode, and whether they are facedown or not.</dd>
-</dl>
-<figure class="right">
-    @Image[302]
-    <figcaption>The Pile interface can be used for managing cards within a miscellaneous card Pile, shuffling or passing cards.</figcaption>
-</figure>
-<figure class="right">
-    @Image[299]
-    <figcaption>The Pass Cards dialog can be used to pass cards from one Card Stack to any other card stack.</figcaption>
-</figure>
-<h3>Pile</h3>
-<p>Card Stacks which are set to the "Pile" type function similar to a deck, and provide the following options for interacting with cards: </p>
-<dl>
-    <dt>Shuffle</dt>
-    <dd>Re-orders the cards contained within the pile at random so that when they are drawn the cards are no longer in strict numerically-sorted order.</dd>
-    <dt>Pass</dt>
+    <dt><i class="fas fa-chevron-circle-right"> </i> Play</dt>
+    <dd>Each card has a "play" button which, when pressed, will prompt you to select a Card Stack to receive the played card.</dd>
+    <dt><i class="fas fa-random"> </i> Shuffle</dt>
+    <dd>Re-orders the cards contained within the pile at random. This affects the order in which they are drawn when being passed to another stack when using the top or bottom draw methods.</dd>
+    <dt><i class="fas fa-share"> </i> Pass</dt>
     <dd>The pass button allows you to move a number of cards from the pile to a chosen card stack, and its dialog prompt allows you to choose which stack will receive the cards, how many will be moved, the draw mode, and whether they are facedown or not.</dd>
+    <dt><i class="fas fa-undo"> </i> Reset</dt>
+    <dd>Resetting a pile sends all cards in the pile back to the deck they originated from.</dd>
 </dl>
-<h4>Drag and Drop</h4>
-<p>Regardless of which type of card stack you are using, specific cards may be moved between card stacks easily by dragging from one card stack window to another.</p>
-<figure class="right">
-    @Image[306]
-    <figcaption>The Card Editing screen.</figcaption>
+</div>
+</section>
+<section class="collapsible">
+	<header class="collapsible-header">Card Context Menu Options</header>
+	<div class="collapsible-content">
+<figure class="right">@Image[439]
+<figcaption>The Gamemaster's context menu for cards is accessed by right-clicking any card stack (hand, deck or pile) in the card directory.</figcaption>
 </figure>
-<h2 class="border">Card Data</h2>
-<p>Creating a card within a deck provides a default set of data which should be completed for each card. This information is used by almost all functions related to cards by default.</p>
+<p>All card stacks in the Card Directory can be right-clicked to open up a context menu which allows for additional actions used to manipulate stacks.</p>
+
 <dl>
-    <dt>Type</dt>
-    <dd>This will default to base, but if your game system or module provides additional types of cards they will appear here.</dd>
-    <dt>Suit</dt>
-    <dd>A simple text field to be completed if your game places importance on suits or other subcategories of cards.</dd>
-    <dt>Value</dt>
-    <dd>The value of the card, useful for card games that use each card's face value.</dd>
-    <dt>Default Dimensions</dt>
-    <dd>The dimensions and rotation of the card if your game system or module supports placing it on the canvas.</dd>
-    <dt>Description</dt>
-    <dd>Some collectible card games ship special mechanical text or flavor text with their cards, this field is designed expressly to accommodate that use case.</dd>
-    <dt>Faces</dt>
-    <dd>Somewhat unlike the faces of physical cards, cards may have any number of faces rather than just two. Each face must have a name and image, with optional text. </dd>
-    <dt>Back</dt>
-    <dd>A card may only have one back. By default, it will use the deck's defined back image, but if a card itself has a different back image defined it will override the image from the deck.</dd>
+	<dt>Clear Folder (<i class="fas fa-folder"> </i>)</dt>
+	<dd>Removes the card stack from all folders, placing it at the top level of the card directory.</dd>
+
+	<dt>Delete (<i class="fas fa-trash"> </i>)</dt>
+	<dd>Deletes the card stack, after accepting a confirmation prompt.</dd>
+
+	<dt>Duplicate (<i class="fas fa-copy"> </i>)</dt>
+	<dd>Creates a copy of the card stack in the directory. Duplicating stacks is disabled for hands and piles that contain cards, requiring them to be reset first.</dd>
+
+	<dt>Configure Permission (<i class="fas fa-lock"> </i>)</dt>
+	<dd>Configure the permission levels of the card stack, allowing players of your choice to view or modify the card stack in the directory.</dd>
+
+	<dt>Export Data (<i class="fas fa-file-export"> </i>)</dt>
+	<dd>Exports the card stack's data as a JSON file on your computer.</dd>
+
+	<dt>Import Data (<i class="fas fa-file-import"> </i>)</dt>
+	<dd>Imports data into the right-clicked card stack from a JSON file on your computer.</dd>
 </dl>
-<h2 class="border">Cards Context Menu Options</h2>
-<dl>
-<dt>Clear Folder</dt>
-<dd>Removes the Card Stack from all folders, placing it at the top level of the Cards directory.</dd>
-<dt>Delete</dt>
-<dd>Deletes the Card stack and all cards it contains, after accepting a confirmation prompt. Please note: a Card Stack must be reset, returning all cards to a deck, before the Card Stack may be deleted.</dd>
-<dt>Duplicate</dt>
-<dd>Creates a copy of the Card Stack in the directory.</dd>
-<dt>Configure Permission</dt>
-<dd>Configure the permission levels of the Card Stack, allowing players of your choice to view or modify the Card Stack in the directory.</dd>
-<dt>Export Data</dt>
-<dd>Exports the Card Stack data as a JSON file on your computer.</dd>
-<dt>Import Data</dt>
-<dd>Imports data into the Card Stack from a JSON file on your computer.</dd>
-</dl>
+	</div>
+</section>

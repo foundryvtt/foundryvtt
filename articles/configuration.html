@@ -13,8 +13,11 @@
 	<a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_70/screen/configuration-window-for-v9-2021-12-17.webp" alt="The Configuration Tab of the Setup Screen.">@Image[288]</a>
 	<figcaption>An overview of the Foundry VTT Setup menu - Configuration Tab.</figcaption>
 </figure>
-<p>The simplest way to adjust configuration options for Foundry VTT is through the configuration tab found on the Setup menu. Changing values on this tab alters them in the <code>options.json</code> file without having to edit the file directly. This menu contains the most common options you may wish to change and is most commonly used for adjusting the port number used for hosting or the User Data path. Any change made to the Foundry VTT's directives through the Setup menu requires a restart of the program before it will take effect, choosing Save Changes will write the data to <code>options.json</code> and cause Foundry VTT to shut down.</p>
-
+<p>The simplest way to adjust configuration options for Foundry VTT is through the configuration tab found on the Setup menu. Changing values on this tab alters them in the <code>options.json</code> file without having to edit the file directly.</p>
+<p>This menu contains the most common options you may wish to change and is most commonly used for adjusting the port number used for hosting or the User Data path.</p>
+<p>Any change made to the Foundry VTT's directives through the Setup menu requires a restart of the program before it will take effect, choosing Save Changes will write the data to <code>options.json</code> and cause Foundry VTT to shut down.</p>
+<section class="collapsible"><header class="collapsible-header">Configuration Options Detailed</header>
+	<div class="collapsible-content">
 <dl>
 	<dt>Administrator Password</dt>
 	<dd>This is the password used to access the Setup menu, whether at first launch or when clicking Return to Setup from the login screen of a world. This password is encrypted and stored within the <code>admin.txt</code> Config folder in your User Data directory.</dd>
@@ -37,8 +40,54 @@
 	<dt>AWS Configuration Path</dt>
 	<dd>This directive points Foundry VTT toward the <code>aws-s3.json</code> file used when configuring @Article[aws-s3].</dd>
 </dl>
+</div>
+</section>
+<h2 id="application-configuration" class="border">Using Options.json</h2>
+<p>Foundry's behavior can also be customized via editing the <code>options.json</code> file stored in the Config directory within the User Data directory.  The directives take one of three data types:</p>
 
-<h2 id="where-user-data">Where Is My Data Stored?</h2>
+<dl>
+	<dt>String</dt>
+	<dd>Alphanumeric characters enclosed in double-quotes.  Example: <code>"examplestring"</code></dd>
+	<dt>Integer</dt>
+	<dd>Numbers without decimal points or other punctuation.  Example: <code>12345</code></dd>
+	<dt>Boolean</dt>
+	<dd>The values <code>true</code> or <code>false</code>, all lower-case, without punctuation. <code>true</code> enables a given option, <code>false</code> disables it.</dd>
+</dl>
+
+<p>All options can also be set to <code>null</code>, which disables that option.  Do not set a value to null unless you're certain it can be disabled.</p>
+
+<p><strong>Note: JSON is syntax-sensitive, and a malformed options.json file may cause Foundry to not start.</strong></p>
+<p>It is strongly advised that you back up options.json before editing it manually.</p>
+<section class="collapsible"><header class="collapsible-header">Details for options found in options.json</header>
+	<div class="collapsible-content">
+<dl>
+	<dt>port</dt>
+	<dd>Integer -- defines the default port used by the application unless one is explicitly provided using the   --port flag.</dd>
+	<dt>fullscreen</dt>
+	<dd>Boolean -- determines whether to run the Electron application in fullscreen mode.</dd>
+	<dt>dataPath</dt>
+	<dd>String -- you may specify an explicit path to the user data directory which should be used as the source for packages and other content. This option is only used of the command line flag with the same name is not also passed.</dd>
+	<dt>hostname</dt>
+	<dd>String -- a custom hostname to use in place of the host machine's public IP address when displaying the address of the game session. This allows for reverse proxies or DNS servers to modify the public address.</dd>
+	<dt>routePrefix</dt>
+	<dd>String -- a path which is appended to the base hostname to serve Foundry VTT content from a specific namespace. For example setting this to <code>demo</code> will result in data being served from <code>http://x.x.x.x:30000/demo/</code>.</dd>
+	<dt>sslKey</dt>
+	<dd>String -- an absolute or relative path that points towards a SSL key file which is used jointly with the <code>sslCert</code> option to enable SSL and https connections. If both options are provided, the server will start using HTTPS automatically.</dd>
+	<dt>sslCert</dt>
+	<dd>String -- an absolute or relative path that points towards a SSL certificate file which is used jointly with the <code>sslKey</code> option to enable SSL and https connections. If both options are provided, the server will start using HTTPS automatically.</dd>
+	<dt>awsConfig</dt>
+	<dd>String -- an absolute or relative path which points to an optional AWS configuration file in JSON format containing accessKeyId, secretAccessKey, and region properties. This file is used to configure integrated AWS connectivity for S3 assets and backup. For more information, see @Article[aws-s3]</dd>
+	<dt>upnp</dt>
+	<dd>Boolean -- allow Universal Plug and Play to automatically request port forwarding for the Foundry VTT port to your local network address. Default is true.</dd>
+	<dt>proxySSL</dt>
+	<dd>Boolean --  indicates whether the software is running behind a reverse proxy that uses SSL. This allows invitation links and A/V functionality to work as if the Foundry Server had SSL configured directly.</dd>
+	<dt>proxyPort</dt>
+	<dd>Integer -- informs Foundry that the software is running behind a reverse proxy on some other port. This allows the invitation links created to the game to include the correct external port.</dd>
+</dl>
+</div>
+</section>
+
+<h2 class="border" id="where-user-data">Where Is My Data Stored?</h2>
 <p>In order to protect your data, and to comply with operating system expectations, Foundry VTT secures the data for your Game Worlds, Systems, and Add-on Modules in a separate, user-specific folder stored in 
 referred to by Foundry VTT as the User Data folder. </p>
 <p>When Foundry VTT is launched it checks for any directive that might change where to find its User Data folder in the following order:</p>
@@ -58,10 +107,8 @@ referred to by Foundry VTT as the User Data folder. </p>
 /home/$USER/FoundryVTT
 /local/FoundryVTT
 </code></pre>
-<h4>Regarding File Naming Conventions</h4>
-<p>Since Foundry VTT works as a web server, you should be sure to use directory and file names which conform to web file and URL encoding conventions. You should generally avoid using spaces or special characters as these are likely to cause issues when serving your content to other players. See the <a href="https://developers.google.com/maps/documentation/urls/url-encoding" target="_blank" rel="nofollow noopener">Google URL Guidelines</a> for more detail.</p>
 
-<h2 id="userdata" class="border">Managing Your User Data</h2> 
+<h3 class="border">Managing Your User Data</h3>
 <p>Users frequently ask for best practices for managing their existing User Data folders to ensure that they're maintaining good backups of their worlds or in some cases to move their user data to a new location.</p>
 <h3 id="backup">Backing Up Your User Data</h3>
 <p>The easiest way to backup your User Data folder is to simply copy or create a zip file of your User Data folder in entirety. Our partners over at Encounter Library have produced a short video on this which details the process perfectly: <a href="https://www.youtube.com/watch?v=OmbxMmqNNXU">Encounter Library - Backing up your User Data Folder</a> </p>
@@ -74,6 +121,8 @@ referred to by Foundry VTT as the User Data folder. </p>
 	<li>Backup the Data subfolder of your UserData only.</li>
 	<li>Ideally, set the syncing service to only perform the synchronization during a time when you will not be actively using the Foundry VTT software.</li>
 </ul>
+<section class="collapsible"><header class="collapsible-header">Moving Your User Data</header>
+	<div class="collapsible-content">
 <h3 id="migrate">Moving Your User Data</h3>
 The steps for migrating the User Data folder vary slightly depending on which OS you are using, but can be reduced to the following steps (please note that these steps are over-cautious in the interest of protecting your data):
 <ol>
@@ -87,8 +136,10 @@ The steps for migrating the User Data folder vary slightly depending on which OS
 	<li>Close and Relaunch Foundry VTT.</li>
 	<li>If your worlds still appear in this list, you have successfully moved your User Data to a new location and you may delete the copy of the Data folder you moved in step 7.</li>
 </ol>
-
-<h3 class="border">The User Data File Structure</h3>
+</div>
+</section>
+<section class="collapsible"><header class="collapsible-header">User Data File Structure</header>
+	<div class="collapsible-content">
 <p>The user data folder contains the following basic directory and file structure.</p>
 
 <ul class="file-structure">
@@ -114,11 +165,26 @@ The steps for migrating the User Data folder vary slightly depending on which OS
 <p>When using that map image inside Foundry VTT, you can reference it as a web-accessible URL using the path relative to the Data folder</p>
 
 <pre><code class="language-plaintext">worlds/my-world/maps/dungeons/deadly-dungeon-01.jpg</code></pre>
+<h4>Regarding File Naming Conventions</h4>
+<p>Since Foundry VTT works as a web server, you should be sure to use directory and file names which conform to web file and URL encoding conventions. You should generally avoid using spaces or special characters as these are likely to cause issues when serving your content to other players. See the <a href="https://developers.google.com/maps/documentation/urls/url-encoding" target="_blank" rel="nofollow noopener">Google URL Guidelines</a> for more detail.</p>
+</div>
+</section>
 
 <h2 id="command-line" class="border">Using Command Line Flags</h2>
 
 <p>Foundry has four command-line flags that can be passed when the application is run at the command line.  These work with both the packaged Electron executable as well when starting Foundry via Node.js.</p>
+<p>Example usage of the command line syntax to launch the application for various environments are:</p>
 
+<h4>Node.js</h4>
+<pre><code class="language-bash">node main.js --port=30000 --world=myworld --dataPath=/local/data/foundryvtt</code></pre>
+
+<h4>Electron (Windows)</h4>
+<pre><code class="language-bash">FoundryVTT.exe --port=30000 --world=myworld --dataPath=D:\FoundryVTT</code></pre>
+
+<h4>Electron (Linux)</h4>
+<pre><code class="language-bash">foundryvtt --port=30000 --world=myworld --dataPath=/local/data/foundryvtt</code></pre>
+<section class="collapsible"><header class="collapsible-header">Command Line Flag Listing</header>
+	<div class="collapsible-content">
 <dl>
 	<dt><code>--demo</code></dt>
 	<dd>Launching Foundry in demo mode allows you to configure a world which will be automatically launched and reset at a frequency of your choosing. When the world is reset, it is deactivated. The source data for the world is restored to its original state using a provided .zip file, and the next reset is automatically scheduled. Details on configuring demo mode are provided below.</dd>
@@ -135,20 +201,10 @@ The steps for migrating the User Data folder vary slightly depending on which OS
 	<dt><code>--adminKey</code></dt>
 	<dd>Set a default administrator access key for the application which will be required if an admin access key has not been defined. If an admin key has already been set, this option will be ignored.</dd>
 </dl>
-
-<p>Example usage of the command line syntax to launch the application for various environments are:</p>
-
-<h4>Node.js</h4>
-<pre><code class="language-bash">node main.js --port=30000 --world=myworld --dataPath=/local/data/foundryvtt</code></pre>
-
-<h4>Electron (Windows)</h4>
-<pre><code class="language-bash">FoundryVTT.exe --port=30000 --world=myworld --dataPath=D:\FoundryVTT</code></pre>
-
-<h4>Electron (Linux)</h4>
-<pre><code class="language-bash">foundryvtt --port=30000 --world=myworld --dataPath=/local/data/foundryvtt</code></pre>
-<hr/>
-
-<h4>Configuring demo mode</h4>
+</div>
+</section>
+<section class="collapsible"><header class="collapsible-header">Configuring demo mode</header>
+	<div class="collapsible-content">
 You can configure the demo directive of the <code>options.json</code> file used to configure the server in the following way:
 <pre><code class="language-json">	{
 	...,
@@ -168,44 +224,5 @@ You can configure the demo directive of the <code>options.json</code> file used 
 	"resetSeconds": 3600,
   }
 </code></pre>
-
-<h2 id="application-configuration" class="border">Using Options.json</h2>
-<p>Foundry's behavior can also be customized via editing the <code>options.json</code> file stored in the Config directory within the User Data directory.  The directives take one of three data types:</p>
-
-<dl>
-	<dt>String</dt>
-	<dd>Alphanumeric characters enclosed in double-quotes.  Example: <code>"examplestring"</code></dd>
-	<dt>Integer</dt>
-	<dd>Numbers without decimal points or other punctuation.  Example: <code>12345</code></dd>
-	<dt>Boolean</dt>
-	<dd>The values <code>true</code> or <code>false</code>, all lower-case, without punctuation. <code>true</code> enables a given option, <code>false</code> disables it.</dd>
-</dl>
-
-<p>All options can also be set to <code>null</code>, which disables that option.  Do not set a value to null unless you're certain it can be disabled.</p>
-
-<p><strong>Note: JSON is syntax-sensitive, and a malformed options.json file may cause Foundry to not start.</strong>  It is strongly advised that you back up options.json before editing it manually.</p>
-
-<dl>
-	<dt>port</dt>
-	<dd>Integer -- defines the default port used by the application unless one is explicitly provided using the   --port flag.</dd>
-	<dt>fullscreen</dt>
-	<dd>Boolean -- determines whether to run the Electron application in fullscreen mode.</dd>
-	<dt>dataPath</dt>
-	<dd>String -- you may specify an explicit path to the user data directory which should be used as the source for packages and other content. This option is only used of the command line flag with the same name is not also passed.</dd>
-	<dt>hostname</dt>
-	<dd>String -- a custom hostname to use in place of the host machine's public IP address when displaying the address of the game session. This allows for reverse proxies or DNS servers to modify the public address.</dd>
-	<dt>routePrefix</dt>
-	<dd>String -- a path which is appended to the base hostname to serve Foundry VTT content from a specific namespace. For example setting this to <code>demo</code> will result in data being served from <code>http://x.x.x.x:30000/demo/</code>.</dd>
-	<dt>sslKey</dt>
-	<dd>String -- an absolute or relative path that points towards a SSL key file which is used jointly with the <code>sslCert</code> option to enable SSL and https connections. If both options are provided, the server will start using HTTPS automatically.</dd>
-	<dt>sslCert</dt>
-	<dd>String -- an absolute or relative path that points towards a SSL certificate file which is used jointly with the <code>sslKey</code> option to enable SSL and https connections. If both options are provided, the server will start using HTTPS automatically.</dd>
-	<dt>awsConfig</dt>
-	<dd>String -- an absolute or relative path which points to an optional AWS configuration file in JSON format containing accessKeyId, secretAccessKey, and region properties. This file is used to configure integrated AWS connectivity for S3 assets and backup. For more information, see @Article[aws-s3]</dd>
-	<dt>upnp</dt>
-	<dd>Boolean -- allow Universal Plug and Play to automatically request port forwarding for the Foundry VTT port to your local network address. Default is true.</dd>
-	<dt>proxySSL</dt>
-	<dd>Boolean --  indicates whether the software is running behind a reverse proxy that uses SSL. This allows invitation links and A/V functionality to work as if the Foundry Server had SSL configured directly.</dd>
-	<dt>proxyPort</dt>
-	<dd>Integer -- informs Foundry that the software is running behind a reverse proxy on some other port. This allows the invitation links created to the game to include the correct external port.</dd>
-</dl>
+</div>
+</section>

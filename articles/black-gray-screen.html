@@ -1,0 +1,94 @@
+<h2 class="border">Overview</h2>
+<p>This article covers various causes for Foundry VTT displaying your scene as a black or gray box. In many cases, gray or black screens can be fixed with just a few short steps. Not all of the steps listed here apply in all cases. Determine the most likely cause from the options below and begin there.</p>
+
+<h2 class="border">Before You Begin</h2>
+<p>The most common reasons for a black screen in Foundry VTT are module conflicts and extremely large background images. Gray screens usually result from hardware acceleration, low hard drive space, and network issues. Given the wealth of options Foundry VTT offers for lighting and vision, it's also possible that a black screen results from a misconfigured Scene or Token. Fortunately this is quick and easy to check for.</p>
+
+<h3>Scene and Token Settings</h3>
+<p>Scenes and tokens have several settings that work together to display the scene to the player. Start by checking the following:</p>
+       <ul>
+        <li>Scene Settings: Check that the Scene is not zoomed into a black part of the map. If 'Token Vision' is checked in the Scene's Lighting section and 'Global Illumination' is unchecked, tokens will need Lights, or have values set for their vision.</li>
+        <li>Scene Background: If a Scene's background color is set to black and the image fails to load for one of the reasons in the following Gray Screen section, it will appear to be a black box. To rule this out, open the Scene Configuration window, and set the field for 'Background Color' to a color other than black. If the Scene no longer shows a black box, continue to the Gray Screen section of this article.</li>
+        <li>Token Settings: Check that 'Has Vision' is checked under the token's Vision tab. If no Lights are on the scene, tokens with vision need their Dim or Bright vision set to numbers above zero in order to see.</li>
+       </ul> 
+<p>The <a href="/article/scenes">Scenes</a> and <a href="/article/tokens">Tokens</a> contain more information on these and other Scene and Token settings.</p>
+
+<h2 class="border">Foundry VTT Shows a Black Screen</h2>
+<h3>Module Errors</h3>
+<p>Out of date modules or module conflicts can cause a Scene to display a black box instead of loading properly. The fastest way to check this and begin finding the module at fault is to launch your world in Safe Configuration. The article <a href="/article/launch-safe-configuration/">Launch a Foundry Virtual Tabletop World in Safe Configuration</a> explains how.</p>
+
+<h3>Background Image Dimensions Are Very High</h3>
+<p>While Foundry VTT can scale up an image to arbitrarily large sizes, the original size of the image in pixels has a hard limit. If the image used is too wide or too high for your hradware to render, a black screen will result. Usually this limit is around 8,000 pixels in either dimension for older PCs and 16,000 pixels for newer PCs. If you're creating your own maps, consider scaling them down or exporting at a lower resolution, such as 100 pixels per grid square if using a grid. The <a href="/article/content-creation-guide/">Content Creation Style Guide</a> contains more information under "Scenes - Resolution and Uniformity."</p>
+
+<h2 class="border">Foundry VTT Shows a Gray Screen</h2>
+<p>As mentioned above, gray screens usually result from technical issues. The most common of these is Hardware Acceleration being disabled. An incorrect or invalid image path, lack of hard drive space, or network complications can also result in gray screens.</p>
+
+<h3>A Warning Related to Hardware Acceleration Appeared</h3>
+<p>Foundry VTT requires Hardware Acceleration to run properly and smoothly. If this is disabled, you may get a black or gray screen. Enabling Hardware Acceleration usually resolves this.</p>
+<p>Use the relevant set of steps to enable Hardware Acceleration in your browser or the standalone Foundry application. If you're using Windows, you may need to use the last set of steps to prevent Windows from overriding Hardware Acceleration settings.</p>
+
+<!-- TODO?: Image of HW acceleration Warning -->
+
+<section class="collapsible">
+    <header class="collapsible-header">Chrome Hardware Acceleration</header>
+        <div class="collapsible-content">  
+        <ol>   
+            <li>Open Chrome and enter <code>chrome://settings</code> in the location bar at the top of the screen.</li>
+            <li>Click on <strong>System</strong> on the menu on the left.</li>
+            <li>Enable <strong>Use hardware acceleration when available</strong>.</li>
+            <li>Enter <code>chrome://flags</code> in the location bar.</li>
+            <li>Enable <strong>Override software rendering list</strong>.</li>
+            <li>Close out of all Chrome windows and relaunch Chrome.</li>
+        </ol>
+        </div>
+<section class="collapsible">
+    <header class="collapsible-header">Firefox Hardware Acceleration</header>
+        <div class="collapsible-content"> 
+        <ol>
+            <li>Open Firefox and enter <code>about:config</code>. If a warning page shows, click <strong>Accept the Risk and Continue</strong>. Enabling Hardware Acceleration for Foundry VTT will not compromise your security.</li>
+            <li>Search for <code>layers.acceleration.force-enabled</code> in the top search bar</li>
+            <li>Click the two arrows on the right hand side. The bottom of the search results should say <strong>True</strong></li>
+            <li>Close out of all Firefox windows and relaunch Firefox.</li>
+        </ol>
+        </div>
+ <section class="collapsible">
+    <header class="collapsible-header">Enable Hardware Acceleration in the standalone Foundry VTT Application</header>
+        <div class="collapsible-content">  
+        <ul>
+            <li>MacOS: Open a terminal and enter <code>open -a FoundryVTT --args ignore-gpu-blocklist</code> </li>
+            <li>Linux: Open a terminal in your Foundry VTT installation directory and enter <code>./foundryvtt --ignore-gpu-blocklist</code></li>
+         </ul> 
+            
+        <p>Enabling Hardware Acceleration in Windows requires several steps. They are detailed below</p>
+        <ol>
+                <li>Navigate to to your Foundry installation folder.</li>
+                <li>Right click on 'foundryvtt.exe', and click 'Create Shortcut.'</li>
+                <li>click the shortcut and select 'Properties.'</li>
+                <li>In the 'Target' field, add a space and enter <code>--ignore-gpu-blocklist</code>. The field should look similar to <code>"C:\...\FoundryVTT.exe" --ignore-gpu-blocklist</code>, where "..." is the path to your Foundry VTT installation folder. Note that the addition is outside of the quotes. </li>
+                <li>Press 'OK', and then use this shortcut to launch Foundry VTT from now on.</li>
+        </ol>
+        </div>
+ <section class="collapsible">
+    <header class="collapsible-header">Prevent Windows from Overriding Hardware Acceleration Settings</header>
+        <div class="collapsible-content">  
+        <p>If Foundry VTT still warns that Hardware Acceleration is disabled, Windows may be overriding your browser's settings. This usually happens on notebook PCs with a dedicated GPU. The following steps explain how to check for and correct this.</p>
+            <ol>
+                <li>Press your Windows key, type "Settings", and press 'Enter.'</li>
+                <li>Click on 'Display' on the lefthand side, then scroll down and click on 'Graphics Settings.'</li>
+                <li>Select "Classic App" from the drop down menu.</li>
+                <li>Click 'Browse', then find and select your browser or Foundry Virtual Tabletop executable</li>
+                <li>Click the 'Options' button and select the appropriate GPU. Typically this is the "High Performance" option.</li>
+                <li>Click 'Save.'</li>
+            </ol> 
+        
+    </div>
+    </section>
+
+<h3>Missing Background Image or Bad Path</h3>
+<p>If your background image has been renamed or moved, Foundry VTT will display a gray screen or simply the Scene Background Color in place of the scene. To resolve this, check that the Background Image path in the <a href="/article/scenes/">Scene's</a> is correct and that the file exists on your file system.</p>
+
+<h3>Low Hard Drive Space</h3>
+<p>If you have less than 4 GB of free space on your boot drive (C drive for Windows users), Chromium based browsers such as Chrome, Edge, or the one used in the standalone Foundry VTT application, will not load and store images properly. This is accompanied with an error message in the developer console that includes the words "Failed to fetch." Freeing up more than 4 GB of space on your boot drive will resolve this.</p>
+
+ <h3>Network Issues</h3>
+    <p>Network problems between the host server and users are another cause of gray screens. Slow internet speeds, poor quality connections, or even problems with a user or host's internet service provider can lead to gray screens. Reducing how much data needs to be transferred to players by following the <a href="/article/media/">Media Optimization Guide</a> is sometimes enough to resolve this issue. If you're self hosting and your internet upload speed is less than 12 Mbps, consider using a free or premium hosting solution. Details can be found in the <a href="/article/hosting/">Hosting Options Guide</a>.</p>

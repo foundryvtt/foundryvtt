@@ -6,25 +6,41 @@
 	<dt>Document Permissions</dt>
 	<dd>Assigned to each actor, item, journal entry or other document to allow users to access documents. Document permissions control how a specific user may interact with that document.</dd>
 </dl>
-<h2 id="create" class="border">User Creation and Configuration</h2>
-<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/getting-started-user-management-2021-01-13.jpg">@Image[124]</a>
+<h2 id="usermanagement" class="border">User Management</h2>
+<figure class="right">@Image[124]
 	<figcaption>The User Management screen allows you to create, modify, and delete User accounts from your Game World.</figcaption>
 	</figure>
 <p>Users are created within an active Game World, and the set of users is specific to that world. There are no global, cross-world, user accounts within Foundry VTT, each World maintains it's own player list and user-level permission controls.</p>
-<p>To create a new User, click the Game Settings icon (three cogs icon) on the right sidebar, and then click on Configure Players. From here you should see the gamemaster user, and a button that says "Create Additional User." By clicking this button Foundry will create a new generic user slot, usually named "Player 2" or similar.</p>
-<p>You can then rename the user, give them a password, and set their permission level. For the purposes of this guide, players don't need to be assigned a role beyond "Player." Also bear in mind that user passwords are not cryptographically secure, and should not be reused from other important accounts or services you or your players use.</p>
-<p>Once you've set up all your player accounts click "Save and Return" and you'll be returned to your game. Players can now join and log in with the credentials you've given them. Though there's a bit more setup to do before they will be able to play.</p>
+<p>To manage a world's users, click the Game Settings icon (<i class="fas fa-cogs"> </i>) on the right sidebar, and then click on <i class="fas fa-users"> </i> <strong>User Management</strong>. This will take you to the user management screen. From here you can add new users, remove existing users, change passwords, and change roles.</p>
 
-<h3 id="configuration">User Configuration Settings</h3>
-<figure class="right">
-	<a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/player-configuration-2020-02-25.jpg" alt="Player Configuration Sheet">@Image[8]</a>
-	<figcaption>The Player Configuration application allows a player to choose their preferred character and other User-specific settings.</figcaption>
-</figure>
-<p>Once a user account has been created, there are additional configuration options for each User which can be customized by either a GameMaster user or by the player themselves by right-clicking on their name within the <strong>Players List</strong> at the bottom-left corner of the UI.</p>
+<h4>Configuration Elements</h4>
+<dl>
+	<dt>User Name</dt>
+	<dd>Displays the current user's name which is shown in the dropdown list on the game login page and in the players panel.</dd>
 
+	<dt>Password</dt>
+	<dd>Sets the user's password. Newly created users do not start with a password and must be given one.</dd>
 
-<h2 id="roles" class="border">User Roles</h2>
-<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/role-permission-defaults-2021-01-28.jpg">@Image[145]</a>
+	<dt>User Role</dt>
+	<dd>This dropdown allows you to select what role you want the user to have. All newly created users start with the Player role. Roles are detailed further down in this article.</dd>
+
+	<dt>Delete User (<i class="fas fa-trash"> </i>)</dt>
+	<dd>This button deletes the associated user. You will be prompted to confirm deletion when this function is used.</dd>
+
+	<dt>Create Additional User (<i class="fas fa-user-plus"> </i>)</dt>
+	<dd>This creates a generic user in a new slot named "Player" plus a number (i.e. "Player 1") with the default role of Player, which has limited permissions and ability to access tools. New users do not start with a password, though one can be added if desired.</dd>
+
+	<dt>Configure Permissions (<i class="fas fa-cogs"> </i>)</dt>
+	<dd>Opens the User Permission Management screen which determines what each user role can do. This panel is detailed further down in this article.</dd>
+
+	<dt>Save and Return (<i class="fas fa-check"> </i>)</dt>
+	<dd>Saves the User Configuration panel as it currently is, and reloads the world to apply the changes.</dd>
+</dl>
+
+<section class="collapsible">
+	<header class="collapsible-header">User Roles</header>
+	<div class="collapsible-content">
+<figure class="right">@Image[145]
 	<figcaption>The default role permissions for all roles.</figcaption>
 	</figure>
 <p>Each User has a specific <strong>role</strong> which configures their basic permission set of actions they can perform within a Foundry VTT game. The role for each User is configured using the <strong>User Management</strong> page described above. Each of the role levels and their meanings are described below:</p>
@@ -50,22 +66,53 @@
 		<p>A special User who has many of the same in-game controls as a Game Master User, but does not have the ability to perform administrative actions like changing User roles or modifying World-level settings.</p>
 	</dd>
 </dl>
-<h2 class="border">Document Permissions</h2>
-<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/getting-started-actor-permissions-2021-01-13.jpg">@Image[125]</a>
+</div>
+</section>
+
+<section class="collapsible">
+	<header class="collapsible-header">Ownership Configuration (<i class="fas fa-lock"> </i>)</header>
+	<div class="collapsible-content">
+<figure class="right">@Image[125]
 	<figcaption>The Document Permission Configuration window lets you determine who has control of a document and its data.</figcaption>
 	</figure>
-<p>Each document has its own model for permissions which determine what a particularly user is allowed to do with that document. To find out more about how document permissions affect a specific document, you should examine each document article: @Article[actors], @Article[items], @Article[journal], @Article[macros]</p>
-<p>A brief overview of document permissions:</p>
+<p>Actors, Items, Journals, Roll Tables, and Cards can have theses settings changed by right clicking them in the main sidebar directory and choosing (<i class="fas fa-lock"> </i>) <strong>Configure Ownership</strong>. This opens the configuration panel which allows you to set what each world user can do with the document being configured. By default all of the listed document types begin with no ownership settings, and are only visible and editable by gamemaster accounts. The following ownership levels are available:</p>
 <dl>
 	<dt>None</dt>
-	<dd>Restricts this document so that they may not even see this document in the sidebar. </dd>
+	<dd>Restricts the associated document so that it may not be seen by this user.</dd>
+
 	<dt>Limited</dt>
-	<dd>The user may interact with this document in very basic ways, it will generally appear in the sidebar, but the document sheet will generally display only limited information (as defined by the Game System rules).</dd>
+	<dd>Allows the user to interact with the document in basic ways, allowing them to see it in sidebars and see only limited aspects of its contents. The limits of this interaction are defined by the game 
+	system being used.</dd>
+
 	<dt>Observer</dt>
-	<dd>The user has ability to view this document as if they were owner, but it is a read-only access. They may not make any changes.</dd>
+	<dd>Allows the user to view this document as if they were owner, but prevents them from making any changes to it.</dd>
+
 	<dt>Owner</dt>
-	<dd>The user is able to view and make changes to the document as if they were the GM, the only exception is that they may not delete the document.</dd>
+	<dd>Allows the user to view and make changes to the document as its owner. Owned documents cannot be deleted by anyone other than a gamemaster level user.</dd>
 </dl>
+</div>
+</section>
+
+<section class="collapsible">
+	<header class="collapsible-header">User Configuration (<i class="fas fa-male"> </i>)</header>
+	<div class="collapsible-content">
+<figure class="right">@Image[8]
+	<figcaption>The Player Configuration application allows a player to choose their preferred character and other User-specific settings.</figcaption>
+</figure>
+<p>Right clicking on a username in the players list located in the bottom-left of the UI allows you to open the <i class="fas fa-male"> </i> <strong>User Configuration</strong> panel. If you are a user with the player or trusted player role you can only open your own user configuration, but gamemasters and assistant gamemasters can configure any user they want. This user configuration window allows that user to have an actor assigned to them, and determines a few other cosmetic settings.</p>
+<dl>
+	<dt>Player Avatar</dt>
+	<dd>Allows the user to select an optional image that is used in various places around the Foundry VTT user interface.</dd>
+
+	<dt>Player Color</dt>
+	<dd>Allows the user to select what color the dot next to their name is. This also affects the color of their cursor, their drawings, and various other small aspects of the user interface. A color is randomly assigned to each newly created user.</dd>
+
+	<dt>Select Character</dt>
+	<dd>Allows the user to select one of the actors they have permission to control. This associates that actor with them as their default actor. Users can have multiple actors they have control or oversight with, but only one may be their default actor.</dd>
+</dl>
+</div>
+</section>
+
 <h2 class="border">API References</h2>
 <p>To interact with Users programmatically, you will primarily use the following API concepts:</p>
 <ul>

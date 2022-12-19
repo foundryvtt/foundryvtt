@@ -10,7 +10,7 @@
 <figcaption>An example of adding multiple Tokens to a new Combat Encounter, rolling Initiative, and advancing the turn order.</figcaption>
 </figure>
 
-<h3 id="tutorial">Combat Encounters, Step by Step</h3>
+<h3 id="tutorial">Creating Combat Encounters</h3>
 <p>As the Gamemaster, you can follow these steps to quickly create and manage an encounter in FVTT.</p>
 <ol>
 <li>Navigate to the scene where the encounter takes place.</li>
@@ -29,54 +29,95 @@
 <p>More than one encounter can be tracked, and scenes can have multiple encounters being tracked at once, allowing the Gamemaster to manage multiple fights or encounters happening together with their own separate turn orders. The combat tracker UI changes depending on the status of the encounter currently active in the tracker.</p>
 <p>Additionally, the combat tracker can be popped out from the sidebar by right-clicking the fist icon (<i class="fas fa-fist-raised"> </i>) in the sidebar row. This allows users to reposition the combat tracker elsewhere on the screen and also access other sidebar tabs without losing sight of the current encounter and turn order.</p>
 
-<h4>Encounter Controls</h4>
-<ul>
-	<li><strong>Create Encounter</strong> (<i class="fas fa-plus"> </i>): This creates a blank encounter and sets it as the active one. By default all encounters are tied to the scene that's active when it's created. This can be changed by unlinking the combat, switching to a new scene, and linking it using the link combat button explained below.</li>
-	<li><strong>Delete Encounter</strong> (<i class="fas fa-trash"> </i>): This removes the currently active encounter.</li>
-	<li><strong>Previous Encounter</strong> (<i class="fas fa-caret-left"> </i>): This activates the previous encounter in the tracker. This button is only available if there are multiple encounters to track.</li>
-	<li><strong>Next Encounter</strong> (<i class="fas fa-caret-right"> </i>): This activates the next available encounter in the tracker. This button is only available if there are multiple encounters to track.</li>
-	<li><strong>Link Combat</strong> (<i class="fas fa-link"> </i>): By default, all newly created encounters are automatically linked to the currently active scene. This toggle allows for the encounter to be tracked across all scenes. The icon will change to a broken chain (<i class="fas fa-unlink"> </i>) to indicate that the encounter has been unlinked and has no associated scene. Toggling this back on will link the encounter to the currently active scene.</li>
-	<li><strong>Configure Tracker</strong> (<i class="fas fa-cog"> </i>): This will open the tracker configuration panel, allows the gamemaster to select an actor resource to be tracked (such as current hit points), and if defeated combatants should automatically be skipped.</li>
-</ul>
+<section class="collapsible">
+	<header class="collapsible-header">Encounter Controls</header>
+	<div class="collapsible-content">
+<dl>
+	<dt>Create Encounter (<i class="fas fa-plus"> </i>)</dt> 
+	<dd>This creates a blank encounter and sets it as the active one. By default all encounters are tied to the scene that's active when it's created. This can be changed by unlinking the combat, switching to a new scene, and linking it using the link combat button explained below.</dd>
+	<dt>Delete Encounter (<i class="fas fa-trash"> </i>)</dt> 
+	<dd>This removes the currently active encounter.</dd>
+	<dt>Previous Encounter (<i class="fas fa-caret-left"> </i>)</dt> 
+	<dd>This activates the previous encounter in the tracker. This button is only available if there are multiple encounters to track.</dd>
+	<dt>Next Encounter (<i class="fas fa-caret-right"> </i>)</dt> 
+	<dd>This activates the next available encounter in the tracker. This button is only available if there are multiple encounters to track.</dd>
+	<dt>Link Combat (<i class="fas fa-link"> </i>)</dt> 
+	<dd>By default, all newly created encounters are automatically linked to the currently active scene. This toggle allows for the encounter to be tracked across all scenes. The icon will change to a broken chain (<i class="fas fa-unlink"> </i>) to indicate that the encounter has been unlinked and has no associated scene. Toggling this back on will link the encounter to the currently active scene.</dd>
+	<dt>Configure Tracker (<i class="fas fa-cog"> </i>)</dt> 
+	<dd>This will open the tracker configuration panel, allows the gamemaster to select an actor resource to be tracked (such as current hit points), and if defeated combatants should automatically be skipped.</dd>
+</dl>
+</div>
+</section>
 
-<h4>Combatant Controls</h4>
-<ul>
-	<li><strong>Roll Initiative</strong> (<i class="fas fa-dice-d20"> </i>): This button only appears on combatants that have been added to an encounter but have not rolled their initiative. By clicking this button initiative will be rolled based on the formula that the game system uses, and the icon will be replaced with the value rolled.</li>
-	<li><strong>Roll All Combatants</strong> (<i class="fas fa-users"> </i>): This button automatically rolls initiative for all combatants currently in the combat tracker which don't already have an initiative score. If there are no combatants added to the encounter this icon will not appear.</li>
-	<li><strong>Roll All NPCs</strong> (<i class="fas fa-users-cog"> </i>): This button automatically rolls initiative for all combatants currently in the combat tracker which don't already have an initiative score and aren't owned by a User. If there are no combatants added to the encounter this icon will not appear.</li>
-	<li><strong>Reset Initiative</strong> (<i class="fas fa-undo"> </i>): This button will clear all initiative values for all combatants in the tracker that already have an initiative score, allowing for them to be rerolled.</li>
-	<li><strong>Set Hidden</strong> (<i class="fas fa-eye-slash"> </i>): This button hides the combatant in the combat tracker's initiative list. The game master will still be able to see them, and their turn will still be tracked as normal, however.</li>
-	<li><strong>Mark Defeated</strong> (<i class="fas fa-skull"> </i>): This button marks the combatant as being defeated. If the Skip Defeated option is toggle on in the tracker options they will be automatically skipped in the turn order.</li>
-</ul>
+<section class="collapsible">
+	<header class="collapsible-header">Combatant Controls</header>
+	<div class="collapsible-content">
+<dl>
+	<dt>Roll Initiative (<i class="fas fa-dice-d20"> </i>)</dt> 
+	<dd>This button only appears on combatants that have been added to an encounter but have not rolled their initiative. By clicking this button initiative will be rolled based on the formula that the game system uses, and the icon will be replaced with the value rolled.</dd>
+	<dt>Roll All Combatants (<i class="fas fa-users"> </i>)</dt> 
+	<dd>This button automatically rolls initiative for all combatants currently in the combat tracker which don't already have an initiative score. If there are no combatants added to the encounter this icon will not appear.</dd>
+	<dt>Roll All NPCs (<i class="fas fa-users-cog"> </i>)</dt> 
+	<dd>This button automatically rolls initiative for all combatants currently in the combat tracker which don't already have an initiative score and aren't owned by a User. If there are no combatants added to the encounter this icon will not appear.</dd>
+	<dt>Reset Initiative (<i class="fas fa-undo"> </i>)</dt> 
+	<dd>This button will clear all initiative values for all combatants in the tracker that already have an initiative score, allowing for them to be rerolled.</dd>
+	<dt>Set Hidden (<i class="fas fa-eye-slash"> </i>)</dt> 
+	<dd>This button hides the combatant in the combat tracker's initiative list. The game master will still be able to see them, and their turn will still be tracked as normal, however.</dd>
+	<dt>Mark Defeated (<i class="fas fa-skull"> </i>)</dt> 
+	<dd>This button marks the combatant as being defeated. If the Skip Defeated option is toggle on in the tracker options they will be automatically skipped in the turn order.</dd>
+</dl>
+</div>
+</section>
 
-<h4>Round & Turn Controls</h4>
-<ul>
-	<li><strong>Previous Round</strong> (<i class="fas fa-step-backward"> </i>): This button shifts the current round count back by one. This also sets the turn to the last combatant in the turn order.</li>
-	<li><strong>Next Round</strong> (<i class="fas fa-step-forward"> </i>): This button shifts the current round count back by one. This also sets the turn to the first combatant in the turn order.</li>
-	<li><strong>Previous Turn</strong> (<i class="fas fa-arrow-left"> </i>): This button moves up the turn order to the last combatant to have a turn.</li>
-	<li><strong>Next Turn</strong> (<i class="fas fa-arrow-right"> </i>): This button moves down the turn order to the next combatant to have a turn.</li>
-	<li><strong>Begin Combat</strong>: This button turns an encounter into an active combat, and begins tracking round number and turns.</li>
-	<li><strong>End Combat</strong>: This button automatically end round tracking, clears the combat order, and deletes the encounter. A warning will pop up asking for confirmation before the action completes as it cannot be undone.</li>
-	<li><strong>End Turn</strong>: This button is available only to players controlling a token in the combat and who are presently taking their turn. Pressing this button ends their turn and automatically advances the turn tracker to the next combatant.</li>
-</ul>
+<section class="collapsible">
+	<header class="collapsible-header">Round & Turn Controls</header>
+	<div class="collapsible-content">
+<dl>
+	<dt>Previous Round (<i class="fas fa-step-backward"> </i>)</dt> 
+	<dd>This button shifts the current round count back by one. This also sets the turn to the last combatant in the turn order.</dd>
+	<dt>Next Round (<i class="fas fa-step-forward"> </i>)</dt> 
+	<dd>This button shifts the current round count back by one. This also sets the turn to the first combatant in the turn order.</dd>
+	<dt>Previous Turn (<i class="fas fa-arrow-left"> </i>)</dt> 
+	<dd>This button moves up the turn order to the last combatant to have a turn.</dd>
+	<dt>Next Turn (<i class="fas fa-arrow-right"> </i>)</dt> 
+	<dd>This button moves down the turn order to the next combatant to have a turn.</dd>
+	<dt>Begin Combat</dt>
+	<dd>This button turns an encounter into an active combat, and begins tracking round number and turns.</dd>
+	<dt>End Combat</dt>
+	<dd>This button automatically end round tracking, clears the combat order, and deletes the encounter. A warning will pop up asking for confirmation before the action completes as it cannot be undone.</dd>
+	<dt>End Turn</dt>
+	<dd>This button is available only to players controlling a token in the combat and who are presently taking their turn. Pressing this button ends their turn and automatically advances the turn tracker to the next combatant.</dd>
+</dl>
+</div>
+</section>
 
 <h2 class="border" id="combatants">Combatants</h2>
 <p>Encounters are made up by their participants. These participants, known in Foundry as "Combatants", are the actors that take turns with each other in the encounter. You can add a combatant to an encounter by right-clicking a token and clicking the "Toggle Combat State" button, marked by two swords and a shield. If an encounter doesn't exist on the scene, an encounter will be created for the combatant. At this point, a player who controls the combatant can roll for initiative by clicking the Roll Initiative die icon by the combatant in the Combat Tracker.</p>
 
-<h3 id="editing">Editing Combatants</h3>
+<section class="collapsible">
+	<header class="collapsible-header">Editing Combatants</header>
+	<div class="collapsible-content">
 <figure class="right">@Image[283]
 	<figcaption>The Combatant Context Menu</figcaption>
 </figure>
 <p> Right-clicking a combatant in the combat tracker opens a context menu with various quick actions, detailed below.</p>
-<ul>
-	<li><strong>Update Combatant</strong> opens the combatant configuration panel, which is discussed below.</li>
-	<li><strong>Clear Initiative</strong> clears that combatant's initiative score and marks them as eligible to roll for initiative.</li>
-	<li><strong>Re-Roll Initiative</strong> re-rolls the combatant's initiative in the current encounter, replacing the current value with the new roll. If the combatant did not have an initiative value set, this will simply roll initiative for them as normal.</li>
-	<li><strong>Remove Combatant</strong> removes the combatant from the encounter entirely.</li>
-</ul>
+<dl>
+	<dt>Update Combatant</dt> 
+	<dd>Open the combatant configuration panel, which is discussed below.</dd>
+	<dt>Clear Initiative</dt> 
+	<dd>Clear that combatant's initiative score and mark them as eligible to roll for initiative.</dd>
+	<dt>Re-Roll Initiative</dt> 
+	<dd>Re-roll the combatant's initiative in the current encounter, replacing the current value with the new roll. If the combatant did not have an initiative value set, this will simply roll initiative for them as normal.</dd>
+	<dt>Remove Combatant</dt>
+	<dd>Remove the combatant from the encounter entirely.</dd>
+</dl>
+</div>
+</section>
 
-<h4>Combatant Configuration</h4>
-<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/combatant-configuration-menu-2020-10-02.jpg">@Image[93]</a>
+<section class="collapsible">
+	<header class="collapsible-header">Combatant Configuration</header>
+	<div class="collapsible-content">
+<figure class="right">@Image[93]
 	<figcaption>The Combatant Configuration Menu</figcaption>
 </figure>
 <p>Foundry VTT allows the GM to edit combatants that have been entered into a combat tracker, to change the name which is displayed, their initiative position, and even whether their entries are visible to players in the tracker.</p>
@@ -84,9 +125,12 @@
 <li><strong>Represented Actor & Token:</strong> This shows the actor and token which are represented by this combatant. These fields are automatically filled out and cannot be manipulated.</li>
 <li><strong>Displayed Name:</strong> The name that players will see for this combatant.</li>
 <li><strong>Thumbnail Image:</strong> The image used for the combatant in the combat tracker. This defaults to the actor's scene token, but can be changed using this field and the file picker. This change is only represented in the combat tracker itself.</li>
-<li><strong>Initiative Value:</strong> A numerical value to denote when this combatant will take its turn. This is automatically filled when initiative is rolled for the combatant. It can be directly modified to adjust the combatant's place in the turn tracker.</li>
-<li><strong>Status Toggles: These toggles allow the game master to directly set toggles that function identically to the toggles in the main combat tracker. Hidden hides the entry for this combatant in the tracker from players completely, while defeated shows players the combatant as faded out</strong></li>
+<li><strong>Initiative Value</strong>: A numerical value to denote when this combatant will take its turn. This is automatically filled when initiative is rolled for the combatant. It can be directly modified to adjust the combatant's place in the turn tracker.</li>
+<li><strong>Status Toggles:</strong> These toggles allow the game master to directly set toggles that function identically to the toggles in the main combat tracker. Hidden hides the entry for this combatant in the tracker from players completely, while defeated shows players the combatant as faded out.</li>
 </ul>
+</div>
+</section>
+
 <h2 class="border" id="api">API References</h2>
 <p>To interact with Items programmatically, consider using the following API concepts:</p>
 <ul>

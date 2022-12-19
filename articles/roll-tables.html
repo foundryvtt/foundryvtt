@@ -4,63 +4,156 @@
 <h4>Folders</h4>
 <p>This directory can contain folders to organize your world's rollable tables. For details on how to create and use them please see the @Article[folders] article.</p>
 
+<h2 class="border">The Roll Table Directory</h2>
+<figure class="right">@Image[441]
+	<figcaption>The roll table directory sidebar contains all of your existing tables, and allows you to create new ones.</figcaption>
+</figure>
+<p>Roll Tables in Foundry can be viewed, created, and managed in the Roll Tables Directory sidebar. Like the Scenes, Actors, and Journal Entries directories, this directory can contain folders to organize your world's roll tables. Only a Gamemaster or Assistant-level user can change or move folders, but any players with at least Limited permissions on an roll table can see the roll table and the folder(s) containing it in the Roll Tables Directory. The specifics of this sheet depends on the system being used.</p>
+
+<h4>Sidebar Elements</h4>
+<dl>
+	<dt>Create Roll Table (<i class="fas fa-th-list"> </i>)</dt>
+	<dd>This button creates a new roll table with the name given. If you do not name the roll table will be automatically named "New Roll Table" with a number appended to it.</dd>
+	
+	<dt>Create Folder (<i class="fas fa-folder"> </i>)</dt>
+	<dd>This creates a new folder. For details on how to create and use them please see the @Article[folders] article.</dd>
+	
+	<dt>Search Roll Tables (<i class="fas fa-search"> </i>)</dt>
+	<dd>This searches for and lists any roll tables whose names match the given string of text entered into the search bar.</dd>
+	
+	<dt>Collapse All Folders (<i class="fas fa-sort-amount-up"> </i>)</dt>
+	<dd>This collapses all folders, showing only the top-level folders and any roll tables not sorted into a folder.</dd>
+</dl>
+
+<section class="collapsible">
+	<header class="collapsible-header">Roll Table Sidebar Context Menu</header>
+	<div class="collapsible-content">
+<p>All Roll Tables in the sidebar has additional context menu options available via a right-click with the mouse.</p>
+<dl>
+<dt>Delete (<i class="fas fa-trash"> </i>)</dt>
+<dd>Deletes the table, after accepting a confirmation prompt.</dd>
+
+<dt>Duplicate (<i class="fas fa-copy"> </i>)</dt>
+<dd>Creates a copy of the roll table in the directory.</dd>
+
+<dt>Configure Permissions (<i class="fas fa-lock"> </i>)</dt>
+<dd>Opens the permission and ownership configuration panel for this table.</dd>
+
+<dt>Export Data (<i class="fas fa-file-export"> </i>)</dt>
+<dd>Exports the table's data as a JSON file on your computer.</dd>
+
+<dt>Import Data (<i class="fas fa-file-import"> </i>)</dt>
+<dd>Imports data into the right-clicked table from a JSON file on your computer.</dd>
+</dl>
+</div>
+</section>
+
+<h3 id="owned">Creating New Roll Tables</h3>
+<p>To create a new roll table, click the <i class="fas fa-th-list"> </i> <strong>Create Roll Table</strong> button in the Roll Table Directory sidebar. This will create a dialog box prompting you to name your roll table. Once you have named your roll table and selected its type (if necessary), click Create New Roll Table.</p>
+<p>This will add your roll table to the directory sidebar, and open the roll table's sheet for you to edit and fill out. Once you are done editing your roll table, you can close the roll table window. All created roll tables can be found in the Roll Tables Directory.</p>
+<p>To edit an roll table after you've created it, you only need to navigate to the Roll Tables Directory and click on the roll table you want to edit, this will reopen the roll table sheet for editing.</p>
+
+<section class="collapsible">
+	<header class="collapsible-header">Importing Pre-configured Roll Tables</header>
+	<div class="collapsible-content">
+<p>When a new World is first created, the Roll Tables Directory will initially be empty. Though roll tables can be created fairly quickly from scratch, it may be desirable to import roll tables from pre-configured sources. This can be done in one of two ways: by importing roll tables from a compendium pack, or by importing roll table data directly from an external JSON file.</p>
+
+<h4 id="compendium">Importing from Compendium</h4>
+<p>An roll table can be imported from a compendium by either dragging the roll table from the compendium into the Roll Tables Directory, or by right-clicking the roll table in the compendium and selecting "Import". For more information on compendia and how to use them, see the @Article[compendium] article.</p>
+
+<h4 id="json">Importing from JSON files</h4>
+<p>If you have exported roll tables that you would like to bring into a game world you can do so by loading the roll table info directly from a JSON file. This can be accomplished by right-clicking an roll table in the Directory and selecting "Import Data." This will open a file browser that allows you to select the desired JSON file to import. Once selected the JSON file's data overwrite the existing roll table you imported the data into.</p>
+<p>You can export an roll table's data by right-clicking an roll table in the Directory and selecting the "Export Data" option. This will prompt you to save a JSON file with the roll table data in it.</p>
+</div>
+</section>
+
 <h2 id="rolltable" class="border">The Rollable Table Interface</h2>
-<figure class="right"><a href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/rollable-table-configuration-menu-2020-10-02.jpg" alt="Rollable Table Configuration Menu">@Image[95]</a>
+<figure class="right">@Image[95]
 <figcaption>The Roll Table configuration sheet can contain many entries from which one or more can be randomly drawn when the table is rolled!</figcaption>
 </figure>
-<p>New Rollable Tables can be created from the Rollable Tables directory sidebar. Creating a new Rollable Table is as simple as clicking the <strong><i class="fas fa-user"> </i> Create Rollable Table</strong> button located at the top of the sidebar menu. This will prompt you to name the table before creating it. Once the table is created you'll be presented with the table configuration panel.</p>
+<p>Once the table is created you'll be presented with the table configuration panel. This panel holds all of the configuration options, various UI actions, and the types of results that a table can have.</p>
+
+<section class="collapsible">
+	<header class="collapsible-header">Table Configuration Options</header>
+	<div class="collapsible-content">
 <dl>
-<dt>Image</dt>
-<dd>
-<p>The icon to show for your Rollable Table. Click the default (D20) image to change to an image of your choice.</p>
-</dd>
-<dt>Name</dt>
-<dd>
-<p>The name of your Rollable Table.</p>
-</dd>
-<dt>Table Description</dt>
-<dd>
-<p>A descriptive entry if you wish to provide a reminder of the purpose of the table.</p>
-</dd>
-<dt>Roll Table Formula</dt>
-<dd>
-<p>The formula used when pressing the "roll" button on the table, this can simply be "1d#" where # is the number of entries in the table, but it also accepts more advanced formulae.</p>
-</dd>
-<dt>Draw with Replacement</dt>
-<dd>
-<p>If a rollable table is set to draw with replacement, its entries are not used up when rolled. If unchecked, this option will only roll each entry in its table once until reset. This usage is intended for representing physical objects that, once claimed, cannot be claimed again. Such as a chest containing only a few items. Once those items are removed, the chest no longer contains them.</p>
-</dd>
-<dt>Display Roll to Chat</dt>
-<dd>
-<p>This option determines whether or not players are able to see the numeric results of the roll on the table. With the results. Regardless of the state of this option, drawing from a Rollable Table will always generate a chat card for the result.</p>
-</dd>
+	<dt>Image</dt>
+	<dd><p>The icon to show for your Rollable Table. Click the default (D20) image to change to an image of your choice.</p></dd>
+	
+	<dt>Name</dt>
+	<dd><p>The name of your Rollable Table.</p></dd>
+	
+	<dt>Table Description</dt>
+	<dd><p>A descriptive entry if you wish to provide a reminder of the purpose of the table.</p></dd>
+	
+	<dt>Roll Table Formula</dt>
+	<dd><p>The formula used when pressing the "roll" button on the table, this can simply be "1d#" where # is the number of entries in the table, but it also accepts more advanced formulae.</p></dd>
+	
+	<dt>Draw with Replacement?</dt>
+	<dd><p>If a rollable table is set to draw with replacement, its entries are not used up when rolled. If unchecked, this option will only roll each entry in its table once until reset. This usage is intended for representing physical objects that, once claimed, cannot be claimed again. Such as a chest containing only a few items. Once those items are removed, the chest no longer contains them.</p></dd>
+	
+	<dt>Display Roll to Chat?</dt>
+	<dd><p>This option determines whether or not players are able to see the numeric results of the roll on the table. With the results. Regardless of the state of this option, drawing from a Rollable Table will always generate a chat card for the result.</p></dd>
 </dl>
-<h2 id="results" class="border">Table Results</h2>
+</div>
+</section>
+
+<section class="collapsible">
+	<header class="collapsible-header">Table UI Elements</header>
+	<div class="collapsible-content">
+<dl>
+	<dt>Add Result (<i class="fas fa-plus"> </i>)</dt>
+	<dd>Adds a new result to the current list of roll table results.</dd>
+
+	<dt>Normalize Weights (<i class="fas fa-balance-scale"> </i>)</dt>
+	<dd>Sets the roll formula to be a die with a number of sides equal to the number of options available, and automatically sets the weights of all items in the result list.</dd>
+
+	<dt>Toggle Drawn Status (<i class="fas fa-unlock"> </i>/<i class="fas fa-lock"> </i>)</dt>
+	<dd>Updates the table with any new changes that have been made to it.</dd>
+
+	<dt>Delete Result (<i class="fas fa-trash"> </i>)</dt>
+	<dd>Updates the table with any new changes that have been made to it.</dd>
+
+	<dt>Update (<i class="fas fa-save"> </i>)</dt>
+	<dd>Updates the table with any new changes that have been made to it.</dd>
+	
+	<dt>Reset (<i class="fas fa-undo"> </i>)</dt>
+	<dd>Resets the table to its default settings, </dd>
+	
+	<dt>Roll (<i class="fas fa-dice-d20"> </i>)</dt>
+	<dd></dd>
+</dl>
+</div>
+</section>
+
+<section class="collapsible">
+	<header class="collapsible-header">Table Result Configuration</header>
+	<div class="collapsible-content">
+<figure>@Image[64]
+	<figcaption>Each result in the table can be of a different type or have different odds of occurring. Results which have already been drawn are locked unless replacement is allowed.</figcaption>
+	</figure>
 <p>Adding results to the Rollable Table begins with pressing the <strong>+</strong> button. Every result has a number of options that can be configured to provide a highly customizable experience.</p>
-<figure><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/screen/roll-table-results-2020-06-02.jpg" alt="Roll Table Results" />
-<figcaption>Each result in the table can be of a different type or have different odds of occurring. Results which have already been drawn are locked unless replacement is allowed.</figcaption>
-</figure>
+
 <dl>
 <dt>Result Type</dt>
-<dd>
-<p>This dropdown selection input allows you to choose either <strong>Text</strong>, <strong>Document</strong> or <strong>Compendium</strong>. Text allows you to enter plain text or HTML scripted entries which will be output to Chat when they are entered. Documents can be any named document from</p>
-</dd>
+<dd><p>This dropdown selection input allows you to choose either <strong>Text</strong>, <strong>Document</strong> or <strong>Compendium</strong>. Text allows you to enter plain text or HTML scripted entries which will be output to Chat when they are entered. Documents can be any named document from any of the sidebars, including items, actors, other roll tables, and similar.</p></dd>
+
 <dt>Result Details</dt>
-<dd>
-<p>Each type of Result carries with it some specific options. Text allows you to enter plain text or HTML scripted entries which will be output to Chat when they are entered; Text entries can also utilize Foundry's Document Links(@Document[ID]) for advanced functionality. Documents require you to choose which type of document the Rollable Table refers to, with a second box allowing you to type the exact name of the document to be found. Compendium function effectively the same as Document, but you select the compendium from which to find the document's name.</p>
-</dd>
+<dd><p>Each type of Result carries with it some specific options. Text allows you to enter plain text or HTML scripted entries which will be output to Chat when they are entered; Text entries can also utilize Foundry's Document Links(@Document[ID]) for advanced functionality. Documents require you to choose which type of document the Rollable Table refers to, with a second box allowing you to type the exact name of the document to be found. Compendium function effectively the same as Document, but you select the compendium from which to find the document's name.</p></dd>
+
 <dt>Weight</dt>
-<dd>
-<p>Weight determines how many times a particular result is entered into the table. By default, every result has a weight of 1. After you have assigned your weights, pressing the scales icon at the far right of the results header will generate the appropriate Roll Formula for your results.</p>
-</dd>
+<dd><p>Weight determines how many times a particular result is entered into the table. By default, every result has a weight of 1. After you have assigned your weights, pressing the scales icon at the far right of the results header will generate the appropriate Roll Formula for your results.</p></dd>
+
 <dt>Range</dt>
-<dd>
-<p>When a roll is made on the Rollable table, if the number falls anywhere within the range of a result that result is drawn. In a case where two or more results have an overlapping range, all results are considered drawn.</p>
-</dd>
+<dd><p>When a roll is made on the Rollable table, if the number falls anywhere within the range of a result that result is drawn. In a case where two or more results have an overlapping range, all results are considered drawn.</p></dd>
 </dl>
+</div>
+</section>
+
 <h3 id="nesting">Nesting Tables</h3>
 <p>By default, Foundry supports rolling on secondary tables inside a Rollable table. To accomplish this, assign a result to the Document - RollTable type and enter the name of the table.</p>
 <p>If you wish to have the first table indicate that it is rolling on a sub-table, assign a text result before the secondary Rollable Table result to make a declaration, such as "A small chest containing:". Then provide both of these results the same Range.</p>
+
 <h2 id="api" class="border">API References</h2>
 <p>To interact with Rollable Tables programmatically, consider using the following API concepts:</p>
 <ul>

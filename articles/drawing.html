@@ -1,9 +1,32 @@
 <h2 id="types">Overview</h2>
 <p>Drawing tools can be used to allow the GM and users to annotate the map with freehand or shaped drawings. The appearance of drawings can be pre-configured using defaults, or individual drawn shapes may have their appearance changed after they have been placed.</p>
 <p>This article will teach you how to place and edit drawings in a scene.</p>
-<h4 id="permissions">Drawing Tool Permissions</h4>
-<p>By default, players do not have permission to use Drawing tools, while Trusted players and Assistant GMs have access to the drawing tools enabled by default. If you wish to allow or revoke permissions to the drawing tools, you can do so from the "Use Drawing Tools" section of the Permission Configuration in the @Article[settings] menu.</p>
-<h2 class="border">Placing Drawings</h2>
+
+<h2 id="drawingcontrols" class="border">Drawing Controls</h2>
+<figure class="right">@Image[128]
+<figcaption>Drawing Controls Tool Palette</figcaption>
+</figure>
+<p>The drawing Controls panel can be opened by clicking on the pencil icon (<i class="far fa-pencil"> </i>) on the left-hand side of the user interface. This opens the tool palette, and provides you with the tools necessary to create new drawings or manipulate existing ones.</p>
+<dl>
+<dt>Select Walls (<i class="far fa-expand"> </i>)</dt>
+    <dd>This tool allows you to select drawings to be moved, resized or configured.</dd>
+<dt>Draw Rectangle (<i class="fas fa-square"> </i>)</dt>
+    <dd>Used for drawing rectangular and square four-sided shapes.</dd>
+<dt>Draw Circle (<i class="fas fa-circle"> </i>)</dt>
+    <dd>Used for drawing enclosed circular shapes.</dd>
+<dt>Draw Polygon (<i class="fas fa-draw-polygon"> </i>)</dt>
+    <dd>Used for drawing polygonal geometric shapes from straight lines. Right-click removes the last point drawn, double-click to finish drawing.</dd>
+<dt>Draw Freehand (<i class="fas fa-signature"> </i>)</dt>
+    <dd>Used for drawing freehand, as though with a stylus, can be used to create complex rounded shapes. Will continue to draw as long as the left mouse button is pressed.</dd>
+<dt>Draw Text (<i class="fas fa-font"> </i>)</dt>
+    <dd>Used for placing text directly onto the map in order to offer labels or place messages directly on the canvas.</dd>
+<dt>Configure Drawings (<i class="fas fa-cogs"> </i>)</dt>
+    <dd>This opens the default drawing configuration window so that you can set the default appearance of all future drawings you create.</dd>
+<dt>Clear Drawings (<i class="fas fa-trash"> </i>)</dt>
+    <dd>This button clears all existing drawings on the scene which you have ownership of. You will be prompted to confirm your decision when using this tool.</dd>
+</dl>
+
+<h3 class="border">Placing Drawings</h3>
 <p>Placing drawings into a scene is extremely simple, and requires the following steps:</p>
 <ol>
 <li>Select the drawing tool. This is a pencil icon on the left of the Foundry VTT UI.</li>
@@ -11,24 +34,24 @@
 <li>Click and drag out the shape you want (for rectangle, ellipse, and text) or click to place points (for polygon), or click and hold to actively draw (with freehand).</li>
 </ol>
 <p>Once a drawing is created the drawing select tool allows you to select and move the drawing around the scene as you need. You can also right click on the drawing to quickly toggle the drawing's visibility, or to move it forward or backward for the purposes of determining if it sits on top of or below other drawings in the same area.</p>
-<figure class="right"><a title="See Larger Image" href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/drawing-tools-menu-2021-01-19.jpg" target="_blank" rel="nofollow noopener">@Image[128]</a></figure>
-<h3>Drawing Types</h3>
-<dl>
-<dt>Rectangle Drawing Tool</dt>
-<dd>Used for drawing rectangular and square four-sided shapes.</dd>
-<dt>Ellipse Drawing Tool</dt>
-<dd>Used for drawing enclosed circular shapes.</dd>
-<dt>Polygon Drawing Tool</dt>
-<dd>Used for drawing polygonal geometric shapes from straight lines. Right-click removes the last point drawn, double-click to finish drawing.</dd>
-<dt>Freehand Drawing Tool</dt>
-<dd>Used for drawing freehand, as though with a stylus, can be used to create complex rounded shapes. Will continue to draw as long as the left mouse button is pressed.</dd>
-<dt>Text Drawing Tool</dt>
-<dd>Used for placing text directly onto the map in order to offer labels or place messages directly on the canvas.</dd>
-</dl>
+
+<h4>Default Drawing Configuration</h4>
+<figure class="right">@Image[133]
+<figcaption>This is the Default Drawing Configuration screen. From here the appearance of all future drawings can be set.</figcaption>
+</figure>
+<p>The default appearance of drawings may be configured by using the "Configure Drawing" tool. This sets the defaults your drawings will adhere to when placed, and the defaults are specific to each user and their drawing tools.</p>
+<p>The tabs of this menu are identical to the similarly named tabs of the individual drawing configuration menu, therefore you can reference the specific tab explanations above for what they do, and how they affect your drawings.</p>
+
+<h4 id="permissions">Drawing Tool Permissions</h4>
+<p>By default, players do not have permission to use Drawing tools, while Trusted players and Assistant GMs have access to the drawing tools enabled by default. If you wish to allow or revoke permissions to the drawing tools, you can do so from the "Use Drawing Tools" section of the Permission Configuration in the @Article[settings] menu.</p>
+
 <h2 class="border">Configuring Drawings</h2>
-<p>Individual drawings can be modified after their placement by double clicking the drawing with the selection tool. Once the configuration menu is loaded, you will have access to multiple tabs that let you determine the specific appearance of the drawing's various aspects. The available tabs will be explained below.</p>
-<h3>Positioning Tab</h3>
-<figure class="right"><a title="See Larger Image" href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/drawing-tools-position-2021-01-19.jpg" target="_blank" rel="nofollow noopener">@Image[129]</a>
+<p>Individual drawings can be modified after their placement by double clicking the drawing with the selection tool. Once the configuration menu is loaded, you will have access to multiple tabs that let you determine the specific appearance of the drawing's various aspects. The available tabs are be explained below.</p>
+
+<section class="collapsible">
+	<header class="collapsible-header">Positioning Tab (<i class="fas fa-map-marker"> </i>)</header>
+	<div class="collapsible-content">
+<figure class="right">@Image[129]
 <figcaption>These are the Drawing Tools Position Settings.</figcaption>
 </figure>
 <dl>
@@ -41,8 +64,13 @@
 <dt>Z-Sort</dt>
 <dd>Set the "height" of the drawing in a stack of other drawings. The higher the z-sort number, the closer to the top of the stack of images the drawing will be, with the highest z-sort number being the one drawn on top of all other drawings.</dd>
 </dl>
-<h3>Lines Tab</h3>
-<figure class="right"><a title="See Larger Image" href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/drawing-tools-lines-2021-01-19.jpg" target="_blank" rel="nofollow noopener">@Image[130]</a>
+</div>
+</section>
+
+<section class="collapsible">
+	<header class="collapsible-header">Lines Tab (<i class="fas fa-paint-brush"> </i>)</header>
+	<div class="collapsible-content">
+<figure class="right">@Image[130]
 <figcaption>This is the Drawing Tool Lines tab on the Configuration screen.</figcaption>
 </figure>
 <dl>
@@ -55,8 +83,13 @@
 <dt>Smoothing Factor</dt>
 <dd>Foundry will attempt to smooth rough edges of shapes to reduce the number of vertices in freehand drawings. Use this setting to adjust how aggressive the smoothing filter is.</dd>
 </dl>
-<h3>Fill Tab</h3>
-<figure class="right"><a title="See Larger Image" href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/drawing-tools-fill-2021-01-19.jpg" target="_blank" rel="nofollow noopener">@Image[131]</a>
+</div>
+</section>
+
+<section class="collapsible">
+	<header class="collapsible-header">Fill Tab (<i class="fas fa-fill-drip"> </i>)</header>
+	<div class="collapsible-content">
+<figure class="right">@Image[131]
 <figcaption>This is the Drawing Tool Fill tab on the Configuration screen.</figcaption>
 </figure>
 <dl>
@@ -69,8 +102,13 @@
 <dt>Fill Texture</dt>
 <dd>Set the texture to use for filling the inside of a shape. This should ideally be a repeating, tiling png with transparency.</dd>
 </dl>
-<h3>Text Tab</h3>
-<figure class="right"><a title="See Larger Image" href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/drawing-tools-text-2021-01-19.jpg" target="_blank" rel="nofollow noopener">@Image[132]</a>
+</div>
+</section>
+
+<section class="collapsible">
+	<header class="collapsible-header">Text Tab (<i class="fas fa-font"> </i>)</header>
+	<div class="collapsible-content">
+<figure class="right">@Image[132]
 <figcaption>This is the Drawing Tool Text tab on the Configuration screen.</figcaption>
 </figure>
 <dl>
@@ -85,12 +123,9 @@
 <dt>Text Opacity</dt>
 <dd>Set the transparency of text both for text labels and text tool drawings.</dd>
 </dl>
-<h3>Establishing Default Drawing Settings</h3>
-<figure class="right"><a title="See Larger Image" href="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/drawing-tools-default-settings-2021-01-19.jpg" target="_blank" rel="nofollow noopener">@Image[133]</a>
-<figcaption>This is the Drawing Tool Default Settings Configuration screen. From here default appearance of all future drawings can be set.</figcaption>
-</figure>
-<p>The default appearance of drawings may be configured by using the "Configure Drawing" tool. This sets the defaults your drawings will adhere to when placed, and the defaults are specific to each user and their drawing tools.</p>
-<p>The tabs of this menu are identical to the similarly named tabs of the individual drawing configuration menu, therefore you can reference the specific tab explanations above for what they do, and how they affect your drawings.</p>
+</div>
+</section>
+
 <h2 class="border">API References</h2>
 <p>To interact with Drawings programmatically, consider using the following API concepts:</p>
 <ul>
