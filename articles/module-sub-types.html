@@ -1,0 +1,154 @@
+<p class="note warning permanent">This article describes functionality that is part of a prototype release of Foundry Virtual Tabletop and is still subject to change.</p>
+
+<p>As of Foundry Virtual Tabletop Version 11, it is possible for Modules to extend the list of sub-types available to certain Documents in much the same way that Systems can. <code>Actor</code>, <code>Item</code>, <code>JournalEntryPage</code>, <code>Cards</code>, and <code>Card</code> Documents can all have additional sub-types added in this way.</p>
+
+<p>Once a Module declares which sub-types it provides for which Documents, they will subsequently be available for use in the World by users who activate that Module, and will function in the same way that core or System-defined sub-types do, with additional, Module-specific data being available under the Document's <code>system</code> field.</p>
+
+<h2 id="defining-sub-types" class="border">Defining Sub-Types</h2>
+<p>In this section we show an example Module that defines a custom <code>quest</code> <code>JournalEntryPage</code>.</p>
+
+<h3>The Module Manifest</h3>
+<p>The first part of implementing custom sub-types is to include a <code>documentTypes</code> definition in the <code>module.json</code>. This makes the server aware of these custom sub-types so that they are not discarded as invalid Documents.</p>
+
+<pre><code class="lang-json">{
+  "id": "quest-pages",
+  "title": "Quest Pages",
+  "description": "A Module that provides a new quest page type.",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": 11,
+    "verified": 11
+  },
+  "authors": [{"name": "Foundry VTT Knowledge Base"}],
+  "esmodules": ["main.mjs"],
+  "documentTypes": {
+    "JournalEntryPage": {
+      "quest": {
+        "htmlFields": ["description.long", "description.short"],
+        "filePathFields": {
+          "img": ["IMAGE"]
+        }
+      }
+    }
+  }
+}</code></pre>
+
+<p>The <code>documentTypes</code> field is an object of Document types. Those Document type objects then contain further objects with keys that correspond to sub-types that your Module provides. <strong>Note:</strong> The sub-type names are automatically prefixed by your Module's ID in order to make it clear that they are provided by a Module, and to eliminate the possibility of name collisions with other Modules or with core or System-provided sub-types.</p>
+
+<p>The <code>htmlFields</code> and <code>filePathFields</code> are optional, and are related to the data sanitization that your Module might require. They can be omitted entirely if the data your Module uses has no need of sanitization. Here is how the <code>documentTypes</code> field would look in that case:</p>
+
+<pre><code class="lang-json">{
+  "documentTypes": {
+    "JournalEntryPage": {
+      "quest": {}
+    }
+  }
+}</code></pre>
+
+<h4><code>htmlFields</code></h4>
+<p>If your Module stores and renders user-provided HTML content, it must include an <code>htmlFields</code> definition so that the server can appropriately sanitize that HTML content. The value of this field is an array of strings that correspond to the properties under <code>system</code> that must be sanitized. In the example above, that would be <code>system.description.long</code>, and <code>system.description.short</code>.</p>
+
+<h4><code>filePathFields</code></h4>
+<p>If your Module stores media content, it must either include a <code>filePathFields</code> definition, or it must expressly forbid base64-encoded content from be stored in that field. Storing base64-encoded content inside the Document itself unnecessarily bloats the size of the Document and the database it is stored in. Using a <code>filePathFields</code> definition will allow the server to automatically extract the base64-encoded data and save it as a separate file that is accessible in the World.</p>
+
+<p>The value of this field is an object with keys that correspond to the properties under <code>system</code> that should have base64-encoded data extracted from them. The values should be an array of category name strings that correspond to the categories of media that are allowed in that field. See @APIV10[classes/foundry.data.fields.FilePathField,FilePathField] for more information, and <a href="https://foundryvtt.com/api/modules/foundry.CONST.html#FILE_CATEGORIES" target="_blank">FILE_CATEGORIES</a> for the list of available categories.</p>
+
+<h3>DataModel Definitions</h3>
+<p>The second part of implementing custom sub-types is defining <code>DataModel</code>s that will be used to represent the data that the sub-type requires. These will be instantiated under the Document's <code>system</code> property, in much the same way that a system-provided sub-type would have its data represented.</p>
+
+<p>This example will cover a <code>DataModel</code> definition for the custom <code>quest</code> sub-type, but for more detailed information on Data Models themselves, please see <a href="/article/v10-data-model/" target="_blank">this</a> article and view the documentation @APIV10[classes/foundry.abstract.DataModel,here].</p>
+
+<h4>The DataModel</h4>
+<pre><code class="lang-js">class QuestModel extends foundry.abstract.TypeDataModel {
+  static defineSchema() {
+    const fields = foundry.data.fields;
+    return {
+      description: new fields.SchemaField({
+        long: new fields.HTMLField({required: false, blank: true}),
+        short: new fields.HTMLField({required: false, blank: true})
+      }),
+      img: new fields.FilePathField({required: false, categories: ["IMAGE"]}),
+      steps: new fields.ArrayField(new fields.StringField({blank: true}))
+    };
+  }
+
+  prepareDerivedData() {
+    this.nSteps = this.steps.length;
+  }
+}</code></pre>
+
+<p>The <code>TypeDataModel</code> is a special subclass of the base <code>DataModel</code> class and should be used when defining <code>DataModel</code>s that represent type-specific data. See @APIV10[classes/foundry.abstract.TypeDataModel,here] for more information.</p>
+
+<p>Subclasses of <code>TypeDataModel</code> may override the abstract <code>prepareBaseData</code> and <code>prepareDerivedData</code> methods. These methods will be called before those of the base Document, allowing for any type-specific preparation logic to be executed before the more general Document preparation logic runs.</p>
+
+<h4>Registering the DataModel</h4>
+<p>Registering the DataModel can be performed in an <code>init</code> Hook.</p>
+
+<pre><code class="lang-js">Hooks.on("init", () => {
+  Object.assign(CONFIG.JournalEntryPage.dataModels, {
+    "quest-pages.quest": QuestModel
+  });
+});</code></pre>
+
+<p>This example shows how the <code>"quest"</code> type that was defined as part of <code>documentTypes</code> in the Module manifest is automatically prefixed with the Module's ID when made available on the client. The type of <code>"quest-pages.quest"</code> is what will be stored in the <code>type</code> field of any Document that uses this custom sub-type.</p>
+
+<h3>Sheet Definitions</h3>
+<p>When creating a Module-provided custom sub-type, it is commonly required to also provide a special sheet to be used to edit and interact with Documents using the custom sub-type. This is not the focus of this article, but for the sake of completion we will cover a brief example of how to do so here.</p>
+
+<h4>The Sheet Class</h4>
+<pre><code class="lang-js">class QuestSheet extends JournalTextPageSheet {
+  get template() {
+    return `modules/quest-pages/templates/quest-sheet-${this.isEditable ? "edit" : "view"}.html`;
+  }
+
+  async getData(options={}) {
+    const context = await super.getData(options);
+    context.description = {
+      long: await TextEditor.enrichHTML(this.object.system.description.long, {
+        async: true,
+        secrets: this.object.isOwner,
+        relativeTo: this.object
+      }),
+      short: await TextEditor.enrichHTML(this.object.system.description.short, {
+        async: true,
+        secrets: this.object.isOwner,
+        relativeTo: this.object
+      })
+    };
+    return context;
+  }
+}</code></pre>
+
+<h4>Registering the Sheet</h4>
+<p>Registering the Sheet can be performed in an <code>init</code> Hook, or at the top-level module scope, whichever is more convenient.</p>
+<pre><code class="lang-js">Hooks.on("init", () => {
+  DocumentSheetConfig.registerSheet(JournalEntryPage, "quest-pages", QuestSheet, {
+    types: ["quest-pages.quest"]
+  });
+});</code></pre>
+
+<h2 id="using-sub-types" class="border">Using Sub-Types</h2>
+<h3>System Compatibility</h3>
+<p>While the core Foundry VTT API provides this mechanism for Modules to provide their own sub-types, it is still a new feature, and there is no guarantee that existing Systems, which are used to having full control of all available sub-types, will accommodate any given Module's additional sub-types. You might expect errors during data preparation, or when performing certain operations where the System either does not recognise the Document's sub-type, or assumes certain data exists where it does not for your Module's sub-type.</p>
+
+<p>For Actor or Item sub-types, for example, it is recommended that you only attempt to provide support for a single System, and that you update the <code>relationships</code> field of your Module's manifest appropriately to represent this. For Journal Pages, this is less likely to be an issue.</p>
+
+<h3>Module Deactivation</h3>
+<p>When a user deactivates a Module that provides custom sub-types, those sub-types are no longer valid in the World. This means that all Documents that use those sub-types will become invalid, and disappear from view. The core software will provide a suitable warning to a user that wishes to disable a Module that provides sub-types for Documents in their world, but it is still a significant responsibility to provide these sub-types. If your Module's functionality could be provided in a more lightweight and less disruptive way by use of an alternative sheet, and/or with supplementary <code>flags</code> for data, it is recommended that you pursue those options rather than reaching for custom sub-types.</p>
+
+<p>Consider providing functionality by which users may convert any Documents they have that are using sub-types your Module provides into System-provided sub-types, prior to deactivating your Module.</p>
+
+<p>Reactivating the Module will allow any previously-hidden and invalid Documents that were using your Module's sub-types to become visible and interactable again.</p>
+
+<h3>Working with Sub-Types</h3>
+<p>In order to make working with sub-types, and detecting module-provided sub-types more ergonomic, there are a couple of useful API methods available.</p>
+
+<p>Firstly, the <code>modelProvider</code> method can be called on the <code>system</code> <code>DataModel</code>, and will return either a <code>System</code>, or <code>Module</code> instance, depending on which is providing the sub-type used by the Document. If the Document has no sub-type, or the sub-type is provided by the core, it will return <code>null</code>.</p>
+
+<pre><code class="lang-js">// This returns either null, or a System or Module instance.
+doc.system.modelProvider;</code></pre>
+
+<p>Secondly, <code>Document.hasTypeData</code> can be used to determine if a particular Document type is even capable of hosting sub-types.</p>
+
+<pre><code class="lang-js">Actor.hasTypeData; // true
+Playlist.hasTypeData; // false</code></pre>
