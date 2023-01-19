@@ -1,0 +1,215 @@
+<header id="update-header">
+    <h2 id="update-title" class="border">Foundry Virtual Tabletop - Version 11 Prototype 1 Release Notes</h2>
+    <figure id="update-banner">
+        <img src="{BANNER_IMG}" title="Foundry VTT - Version 11 Prototype 1 Release Notes" alt="Release Notes for Foundry Virtual Tabletop Version 11 Prototype 1"/>
+        <figcaption>Welcome to the Foundry Virtual Tabletop update notes for Version 11 Prototype 1</figcaption>
+    </figure>
+</header>
+
+<section id="update-overview">
+    <p class="note warning"> Be certain to carefully back up any critical user data before installing this update.</p>
+    
+    <p>We're extremely excited to share this update with the community. Version 11 Prototype 1 brings a number of new features, bug fixes, and improvements to Foundry Virtual Tabletop and is the first step in our development cycle for Version 11. Our overall goals for Version 11 include new features to strengthen Compendium Packs, improvements to Data Storage including a completely new Database engine to replace NeDB, and broad improvements to UX/UI features with a focus on consistency and stability. Please check out the full list of changes below for a detailed breakdown of what was changed in this update!</p>
+
+    <p class="note warning"><strong>WARNING:</strong>Updates on the Prototype channel provide the implementation of major new features which are likely to introduce unforeseen bugs, breakages to existing game systems or modules, or other problems which will be disruptive to the usage of the software. Do not install this update unless you are doing so for the specific purposes of testing, it is not intended for use in 'live game' scenarios. The purpose of Prototype builds are to allow new experimental features to be tested and to help developers to begin the process of updating packages which are impacted by these changes. If you choose to update to this version you expose yourself to serious risk of having a bad experience. Please take this warning to heart.</p>
+
+</section>
+
+<h2 class="border">Update Highlights</h2>
+<p>This Prototype build contains a wide variety of minor tweaks here and there, and in many places small changes that could have profound benefits. There are so many interesting new features that it was difficult deciding what was most deserving of attention! While there are some obvious big-ticket items, there are so many exciting new features, so before we get into the major highlights here are a few honorable mentions: </p>
+
+<ul>
+    <li>Objects placed on Scenes will now attempt to hold their position when scenes are resized.</li>
+    <li>UI improvements for Playlists and Rollable Tables.</li>
+    <li>A new Support and Issues UI displaying errors and warnings.</li>
+    <li>Overall UI improvements for consistency and clarity.</li>
+    <li>New "Fog" weather effect.</li>
+    <li>and so much more...</li>
+</ul>
+
+<p>Version 11 Prototype 1 carries some pretty big changes to the underlying parts of Foundry VTT. As we look forward to our next prototype build, the major changes highlighted here will be built upon and expanded with further improvements. Small changes aside, we want to highlight some of the more exciting, bigger features this update includes:</p>
+
+<h3>NeDB is Dead, Long Live LevelDB</h3>
+<p>We have anticipated a time when we would need to retire NeDB as our database provider for some time. We&#39;re really excited to report that we have successfully shifted backend database storage to use LevelDB, including support for Sublevels. Here&#39;s the key highlights and benefits:</p>
+<ul>
+<li>Migration of existing DB files is automatic and non-destructive (though any changes made after the migration will only apply to the LevelDB version of the data)</li>
+<li>Improved performance in read/write and embedded document operations</li>
+<li>Sublevels allow for specific changes to be made without having to rewrite entire lines of the DB</li>
+<li>Previous API calls for DB operations should still work as expected (except for specific <code>getDocuments()</code> calls using complex query parameters.)</li>
+</ul>
+
+<h3>Subtypical</h3>
+<p>Want to create a module that makes journal pages for quests? A new type of actor with its own data? Modules can now define subtypes of documents. By defining the <code>documentTypes</code> field in manifests, you can add new document types to the document creation dropdown selector. This mirrors the functionality of defining subtypes of Documents in system template.json files. </p>
+<ul>
+<li>Documents support definition of a universal &quot;base&quot; subtype, and provide fallback sheets for cases where a module providing this data might not be available (whether disabled or otherwise)</li>
+<li>Disabling a module that provides subtypes notifies users that a specific number of documents provided by that module will become unavailable</li>
+</ul>
+
+<h3>Pretty Little Packages</h3>
+<p>We&#39;ve made some pretty awesome changes to package handling. Including new values for the Relationships field in manifests, elevated UI/UX for error handling, and more:</p>
+<ul>
+<li><em>Persistent Storage</em>. Packages may now declare <code>&quot;persistentStorage&quot;: true</code> in manifest JSON files, which will treat any data stored within a &quot;storage&quot; subfolder in the package folder as protected. Any data stored in that folder will not be deleted when the package <strong>updates</strong>. It is important to note here: <strong>uninstalling</strong> a module with <code>persistentStorage</code> will still remove that persistent data. This mechanism exists solely to persist data through updates. </li>
+<li><em>Relationship Improvements</em>. Packages can now define <code>relationships.recommends</code> which serve the function of installing optional, not mandatory, dependencies. Additionally, relationships between packages received some UI updates to show the reason a dependency may be missing or inactive.</li>
+</ul>
+<h3>Harder, Better, Faster, Fogger</h3>
+<p>We&#39;ve been hard at work in the lab testing a variety of fog machines for photorealism and performance and we&#39;ve emerged with some pretty awesome fog of war changes:</p>
+<ul>
+<li>A new optimized texture-based approach for fog of war significantly improves performance of fog of war rendering</li>
+<li>Worker threads are now being used for fog of war rendering</li>
+<li>Significant FPS improvements related to light and fog rendering</li>
+<li>Framework laid for the future of a manual fog-of-war implementation</li>
+</ul>
+<h3>Windows</h3>
+<p>No, not the operating system. We are expanding the capabilities of Walls to allow configuration of proximity-based activation thresholds. This allows walls to be impenetrable at a distance but transparent at close range. We think this is an innovative way to model windows or other apertures for top-down VTT gameplay. Additionally, walls which configure a proximity threshold can cause perception to be attenuated so you perceive further the closer you are to the wall. It's amazing stuff and feels really satisfying to use. Thanks are due to Caewok who worked with our team to workshop and develop this improvement.</p>
+<h3>Electron and Node</h3>
+<p>We&#39;ve updated a lot of dependencies in the core framework, including all the usual suspects such as Pixi, ProseMirror, and more-- but we&#39;ve also updated our Node requirement and Electron as well. Foundry VTT (node-hosted) will now require Node 16 at a minimum (18 recommended), but moreover we have moved to Electron 22 which brings support for &quot;V8&quot; Javascript features under chromium version 108. V11 will require users who rely on the electron client to uninstall and reinstall the client to receive this electron update.  </p>
+
+
+<section id="breaking">
+<h2 class="section-header border">Breaking Changes</h2>
+    <h3 id="breaking-architecture" class="category-header">Architecture and Infrastructure</h3>
+    <ul>
+        <li>Foundry Virtual Tabletop now requires Node.js version 16. <a href="https://github.com/foundryvtt/foundryvtt/issues/8737" target="_blank">(8737)</a></li>
+    </ul>
+    <h3 id="breaking-docs" class="category-header">Documents and Data</h3>
+    <ul>
+        <li>The logic for handling the initial value of <code>StringField</code> now allows for blank, null, or undefined initial values. <a href="https://github.com/foundryvtt/foundryvtt/issues/8740" target="_blank">(8740)</a></li>
+    </ul>
+    <h3 id="breaking-canvas" class="category-header">The Game Canvas</h3>
+    <ul>
+        <li>We have improved the documentation and design of hex grid manipulation methods, including a number of refactors. Please see the github issue for further information. <a href="https://github.com/foundryvtt/foundryvtt/issues/8508" target="_blank">(8508)</a></li>
+    </ul>
+    <h3 id="breaking-other" class="category-header">Other Changes</h3>
+    <ul>
+        <li><code>_canDragDrop</code> should now be checked before binding drop listeners in Applications. <a href="https://github.com/foundryvtt/foundryvtt/issues/8194" target="_blank">(8194)</a></li>
+        <li>The "setup" Hook previously occurred before Documents and Compendium Packs were available within the world. It has been repositioned to be more ideally positioned after document data is available but before UI/Canvas is rendered. <a href="https://github.com/foundryvtt/foundryvtt/issues/8510" target="_blank">(8510)</a></li>
+        <li>The worker framework has received improvements and now supports dynamic script imports and transferable objects. <a href="https://github.com/foundryvtt/foundryvtt/issues/8658" target="_blank">(8658)</a></li>
+    </ul>
+</section>
+<section id="features">
+<h2 class="section-header border">New Features</h2>
+    <h3 id="features-architecture" class="category-header">Architecture and Infrastructure</h3>
+    <ul>
+        <li>The technology used for database persistence has been migrated from <code>NeDB</code> to <code>LevelDB</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/5065" target="_blank">(5065)</a></li>
+        <li>A number of dependency packages have received updates, including Electron 22. <a href="https://github.com/foundryvtt/foundryvtt/issues/8497" target="_blank">(8497)</a></li>
+    </ul>
+    <h3 id="features-docs" class="category-header">Documents and Data</h3>
+    <ul>
+        <li>Resizing a Scene will now attempt to reposition all placed objects within that Scene. Walls, tokens, lights, and more should no longer be displaced by changes to Scene size. <a href="https://github.com/foundryvtt/foundryvtt/issues/8698" target="_blank">(8698)</a></li>
+        <li>The Fog of War framework has received some significant improvements in the form of new high-performance methods for texture extraction and persistence. <a href="https://github.com/foundryvtt/foundryvtt/issues/7231" target="_blank">(7231)</a></li>
+        <li>Rollable Tables now use an inline Prosemirror editor for their Description field. <a href="https://github.com/foundryvtt/foundryvtt/issues/8689" target="_blank">(8689)</a></li>
+        <li>Active Effects now provide a rich Description field for each effect. <a href="https://github.com/foundryvtt/foundryvtt/issues/8731" target="_blank">(8731)</a></li>
+    </ul>
+    <h3 id="features-apps" class="category-header">Applications and User Interface</h3>
+    <ul>
+        <li>A new "Close All Doors" button has been added to the walls menu. Predictably, clicking this button will closes any open doors for the current scene. <a href="https://github.com/foundryvtt/foundryvtt/issues/1437" target="_blank">(1437)</a></li>
+        <li>The Wall Scene Controls icon has been updated to a new icon for visual clarity. <a href="https://github.com/foundryvtt/foundryvtt/issues/2196" target="_blank">(2196)</a></li>
+        <li>The one-way wall direction indicator icon should now be more visible. <a href="https://github.com/foundryvtt/foundryvtt/issues/3244" target="_blank">(3244)</a></li>
+        <li>Rollable Tables can now be rolled from an option in their right-click context menu. <a href="https://github.com/foundryvtt/foundryvtt/issues/5750" target="_blank">(5750)</a></li>
+        <li>Dropping a Rollable Table onto the macro hotbar now generates a macro to roll from the table. <a href="https://github.com/foundryvtt/foundryvtt/issues/5756" target="_blank">(5756)</a></li>
+        <li>If no roll formula has been set for a Rollable Table, it will now automatically set the formula when attempting to roll. <a href="https://github.com/foundryvtt/foundryvtt/issues/7854" target="_blank">(7854)</a></li>
+        <li>The default sheet for a document type can now be configured without first opening a document of that type. <a href="https://github.com/foundryvtt/foundryvtt/issues/8238" target="_blank">(8238)</a></li>
+        <li>The header of a Rollable Table has received a slight UI update and is now more prominent and remains at the top of the table's view for easier use in longer Rollable Tables. <a href="https://github.com/foundryvtt/foundryvtt/issues/8361" target="_blank">(8361)</a></li>
+        <li>The description for the <code>Display Roll to Chat?</code> toggle on Rollable Tables has received an update to its text to offer deeper clarity on its purpose. <a href="https://github.com/foundryvtt/foundryvtt/issues/8526" target="_blank">(8526)</a></li>
+        <li>We have added a minimal, fallback Document Sheet that is rendered for Documents when no sheet has been registered for a specific sub-type. <a href="https://github.com/foundryvtt/foundryvtt/issues/8572" target="_blank">(8572)</a></li>
+        <li>Volume controls for playlists are now a uniform size and no longer change their length based on the duration of the playing audio track. <a href="https://github.com/foundryvtt/foundryvtt/issues/8609" target="_blank">(8609)</a></li>
+        <li>Browser and Client-related warnings and notifications are now accessible via a new Support & Issues tab. <a href="https://github.com/foundryvtt/foundryvtt/issues/8662" target="_blank">(8662)</a></li>
+        <li>The <code>missing</code> class in the Adventure builder has been improved to provide a more visually distinct indicator when a Document is missing in the world. <a href="https://github.com/foundryvtt/foundryvtt/issues/8681" target="_blank">(8681)</a></li>
+        <li>Volume Controls on the playlist tab have received several small UI and UX improvements. <a href="https://github.com/foundryvtt/foundryvtt/issues/8706" target="_blank">(8706)</a></li>
+        <li>Audio Controls now offer a number of tooltips clarifying their use. <a href="https://github.com/foundryvtt/foundryvtt/issues/8709" target="_blank">(8709)</a></li>
+        <li>The chatlog will no longer jump to the newest entry when a user has scrolled up to review chat history. A "Jump to Bottom" button has been added. <a href="https://github.com/foundryvtt/foundryvtt/issues/1408" target="_blank">(1408)</a></li>
+        <li>"The Start of Combat" sound alert should no longer overrun other sound effects provided by Combat Themes. <a href="https://github.com/foundryvtt/foundryvtt/issues/8664" target="_blank">(8664)</a></li>
+        <li>A preview sound button has been added to combat tracker alerts. <a href="https://github.com/foundryvtt/foundryvtt/issues/8665" target="_blank">(8665)</a></li>
+    </ul>
+    <h3 id="features-canvas" class="category-header">The Game Canvas</h3>
+    <ul>
+        <li>Walls have a new preset for Windows, similar to Doors. Windows become active or inactive within a token's field of vision based on proximity. This allows for attenuation where the visible distance through the Window changes with respect to proximity within that threshold. <a href="https://github.com/foundryvtt/foundryvtt/issues/7324" target="_blank">(7324)</a></li>
+        <li>Canvas Windows now include a control icon visually distinct from the Door icon, which can be used for opening and closing them.<a href="https://github.com/foundryvtt/foundryvtt/issues/7324" target="_blank">(5025)</a></li>
+        <li><code>PointSource</code> and <code>LightSource</code> have received several enhancements to address difficulties with programmatic creation of those objects. <a href="https://github.com/foundryvtt/foundryvtt/issues/8561" target="_blank">(8561)</a></li>
+        <li>Fog of War rendering has received significant refactoring to improve rendering and performance. <a href="https://github.com/foundryvtt/foundryvtt/issues/8581" target="_blank">(8581)</a></li>
+        <li>We have added a new shader-based weather effect for Fog. <a href="https://github.com/foundryvtt/foundryvtt/issues/8746" target="_blank">(8746)</a></li>
+        <li>To improve compatibility and correct some driver-based issues related to handling of shaders on some graphics cards, the PRNG function for shaders has been updated. <a href="https://github.com/foundryvtt/foundryvtt/issues/8747" target="_blank">(8747)</a></li>
+    </ul>
+    <h3 id="features-packages" class="category-header">Package Development</h3>
+    <ul>
+        <li>Documents now provide messaging to improve discoverability if they have been rendered invalid as a result of disabling a Module which provided their subtype. <a href="https://github.com/foundryvtt/foundryvtt/issues/8571" target="_blank">(8571)</a></li>
+        <li>Packages now display their verified status and we have downgraded the severity of compatibility warnings for packages that may be unverified for a specific build but are verified within the same generation. <a href="https://github.com/foundryvtt/foundryvtt/issues/8576" target="_blank">(8576)</a></li>
+        <li>Systems which define <code>relationships</code> now have those dependencies enabled and enforced when launching worlds. <a href="https://github.com/foundryvtt/foundryvtt/issues/8588" target="_blank">(8588)</a></li>
+        <li>Packages may now define <code>persistentStorage: true</code> in manifests, allowing the package to be updated without deleting files located within <code>package-id/storage/</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/8590" target="_blank">(8590)</a></li>
+        <li>Package manifests now support <code>relationships.recommends</code>, which can be used for declaring non-mandatory dependencies. <a href="https://github.com/foundryvtt/foundryvtt/issues/8649" target="_blank">(8649)</a></li>
+        <li>Manifests may now declare <code>RelatedPackage.reason</code>, it is intended that developers use this field to offer a human-readable reason for specific package relationships and will be displayed on parts of the package installation and management UI. <a href="https://github.com/foundryvtt/foundryvtt/issues/8650" target="_blank">(8650)</a></li>
+        <li>Package-related warnings and notifications are now displayed on the new Support & Issues tab. <a href="https://github.com/foundryvtt/foundryvtt/issues/8663" target="_blank">(8663)</a></li>
+        <li>The display of relationship tags on the Setup page has been improved, offering clarity on whether a required package is missing and why. <a href="https://github.com/foundryvtt/foundryvtt/issues/8728" target="_blank">(8728)</a></li>
+        <li>The <code>path</code> field can now be omitted from Package manifest compendium declarations, if omitted it will be assumed the packs reside in <code>package-id/packs/</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/8741" target="_blank">(8741)</a></li>
+    </ul>
+    <h3 id="features-i18n" class="category-header">Localization and Accessibility</h3>
+    <ul>
+        <li>Mouse-focused event handlers have been replaced and now use Pointer Events, improving accessibility for screen readers and laying groundwork for future improvements for touch-based devices. <a href="https://github.com/foundryvtt/foundryvtt/issues/5511" target="_blank">(5511)</a></li>
+        <li>Document sub-types have been adjusted to accommodate module provided sub-types. <a href="https://github.com/foundryvtt/foundryvtt/issues/8568" target="_blank">(8568)</a></li>
+        <li>Text labels in a number of Applications have been improved for clarity and consistency. <a href="https://github.com/foundryvtt/foundryvtt/issues/8618" target="_blank">(8618)</a></li>
+    </ul>
+
+</section>
+<section id="api">
+<h2 class="section-header border">API Improvements</h2>
+    <h3 id="api-docs" class="category-header">Documents and Data</h3>
+    <ul>
+        <li><code>systemDataModels</code> has been deprecated in favor of <code>dataModels</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/8569" target="_blank">(8569)</a></li>
+        <li><code>SystemDataField</code> has been deprecated in favor of <code>TypeDataField</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/8570" target="_blank">(8570)</a></li>
+        <li><code>hasSystemData</code> has been deprecated in favor of <code>hasTypeData</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/8603" target="_blank">(8603)</a></li>
+        <li>Validation errors have received some improvements. The validation pipeline now provides more detailed information by propagating a richer object, containing useful methods for inspecting and retrieving the errors. <a href="https://github.com/foundryvtt/foundryvtt/issues/8605" target="_blank">(8605)</a></li>
+        <li>Documents now provide a universal <code>base</code> sub-type that preserves any existing package data <a href="https://github.com/foundryvtt/foundryvtt/issues/8647" target="_blank">(8647)</a></li>
+        <li>If a Document's <code>system</code> field is a <code>DataModel</code>, it can now use its own data preparation methods, which will be called as part of the Document preparation workflow. <a href="https://github.com/foundryvtt/foundryvtt/issues/8708" target="_blank">(8708)</a></li>
+    </ul>
+    <h3 id="api-apps" class="category-header">Applications and User Interface</h3>
+    <ul>
+        <li>Sheet registration now supports <code>canBeDefault</code> as a parameter to control whether it the newly registered sheet can be set as a default for a given Document sub-type. <a href="https://github.com/foundryvtt/foundryvtt/issues/7401" target="_blank">(7401)</a></li>
+        <li>The <code>cssClass</code> paramater of a tooltip can now be set for the hovered element using the <code>data-tooltip-class</code> attribute, allowing for improved localization among other things. <a href="https://github.com/foundryvtt/foundryvtt/issues/8191" target="_blank">(8191)</a></li>
+        <li>Invoking <code>Application#render</code> with <code>force=true</code> now applies <code>focus=true</code> as well, unless explicitly supplied as false. <a href="https://github.com/foundryvtt/foundryvtt/issues/8631" target="_blank">(8631)</a></li>
+        <li>The new <code>Application#_waitForImages</code> method allows subclasses to wait for all images to load before proceeding with some action. <a href="https://github.com/foundryvtt/foundryvtt/issues/8651" target="_blank">(8651)</a></li>
+        <li>DocumentSheet subclasses have been refactored to shift <code>_onEditImage</code> from those subclasses into the base DocumentSheet. <a href="https://github.com/foundryvtt/foundryvtt/issues/8652" target="_blank">(8652)</a></li>
+        <li>Sheet registration now provides a <code>canConfigure</code> parameter that controls whether it is available to be selected by a user as the sheet for a given Document. <a href="https://github.com/foundryvtt/foundryvtt/issues/8668" target="_blank">(8668)</a></li>
+        <li>A new core <code>sheetLock</code> flag has been implemented and can now be set on Documents to prevent their sheet from being changed via the UI. <a href="https://github.com/foundryvtt/foundryvtt/issues/8669" target="_blank">(8669)</a></li>
+        <li>Text alignment for tooltips are now handled via the <code>text-center</code>, <code>text-left</code>, and <code>text-right</code> classes instead of an inline style. <a href="https://github.com/foundryvtt/foundryvtt/issues/8705" target="_blank">(8705)</a></li>
+        <li>The <code>Color</code> class has received some improvements to its real-time performance. <a href="https://github.com/foundryvtt/foundryvtt/issues/8742" target="_blank">(8742)</a></li>
+    </ul>
+    <h3 id="api-canvas" class="category-header">The Game Canvas</h3>
+    <ul>
+        <li>The rain particle emitter has been improved by calibrating the spawn frequency for the particle lifespan, allowing us to introduce some optimizations and minor performance gains. <a href="https://github.com/foundryvtt/foundryvtt/issues/8511" target="_blank">(8511)</a></li>
+        <li>Fog of war texture extraction has been optimized and now uses asynchronous <code>readPixel</code>, and handles compression in a worker thread. <a href="https://github.com/foundryvtt/foundryvtt/issues/8580" target="_blank">(8580)</a></li>
+        <li>The weather framework has been improved and can now handle handle shader-based effects. <a href="https://github.com/foundryvtt/foundryvtt/issues/8666" target="_blank">(8666)</a></li>
+        <li>The as part of improvements to the weather and effects API, support has been added for shader-based and quad-based meshes which are not bound to a texture. <a href="https://github.com/foundryvtt/foundryvtt/issues/8667" target="_blank">(8667)</a></li>
+        <li>The weather framework can now manage multiple effects simultaneously. <a href="https://github.com/foundryvtt/foundryvtt/issues/8674" target="_blank">(8674)</a></li>
+        <li>The Weiler-Atherton algorithm is now used for more efficient intersection and unionization of Polygons with Rectangles or Circles. <a href="https://github.com/foundryvtt/foundryvtt/issues/8749" target="_blank">(8749)</a></li>
+        <li>New geometric utility methods have been implemented to extend the functionality of <code>PIXI.Polygon</code>, <code>PIXI.Circle</code>, and <code>PIXI.Rectangle</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/8748" target="_blank">(8748)</a></li>
+    </ul>
+    <h3 id="api-packages" class="category-header">Package Development</h3>
+    <ul>
+        <li>We added the new <code>documentTypes</code> field to package manifests that can be used to declare the document sub-types that a package provides. <a href="https://github.com/foundryvtt/foundryvtt/issues/8567" target="_blank">(8567)</a></li>
+        <li>Modules may now designate the fields of any sub-type-specific data they provide that require HTML sanitisation on the server-side. <a href="https://github.com/foundryvtt/foundryvtt/issues/8680" target="_blank">(8680)</a></li>
+    </ul>
+    <h3 id="api-i18n" class="category-header">Localization and Accessibility</h3>
+    <ul>
+        <li><code>game.i18n</code> now provides <code>getListFormatter</code>, allowing retrieval of pre-configured list formatters from a centralised location. <a href="https://github.com/foundryvtt/foundryvtt/issues/8632" target="_blank">(8632)</a></li>
+    </ul>
+</section>
+<section id="bugs">
+<h2 class="section-header border">Bug Fixes</h2>
+    <h3 id="bugs-docs" class="category-header">Documents and Data</h3>
+    <ul>
+        <li>We have corrected a bug which caused system-provided <code>DataModel</code> sanitization methods to fail to appropriately apply in cases of Document creation containing Embedded Document data. <a href="https://github.com/foundryvtt/foundryvtt/issues/8713" target="_blank">(8713)</a></li>
+    </ul>
+    <h3 id="bugs-apps" class="category-header">Applications and User Interface</h3>
+    <ul>
+        <li>Tooltips should now appear as expected when hovering over an inner element within a Tooltip. <a href="https://github.com/foundryvtt/foundryvtt/issues/8685" target="_blank">(8685)</a></li>
+    </ul>
+    <h3 id="bugs-canvas" class="category-header">The Game Canvas</h3>
+    <ul>
+        <li>Ambient Sounds should now render their radius on the canvas once again. <a href="https://github.com/foundryvtt/foundryvtt/issues/8697" target="_blank">(8697)</a></li>
+        <li>An issue which caused line of sight testing to fail when tested with a range of 0 and with global illumination activated has been resolved. <a href="https://github.com/foundryvtt/foundryvtt/issues/8752" target="_blank">(8752)</a></li>
+    </ul>
+    <h3 id="bugs-packages" class="category-header">Package Development</h3>
+    <ul>
+        <li>The Module Management configuration application now shows modules even if their <code>compatibility.minimumVersion</code> is not fulfilled, with an indicator that they cannot be enabled and why. <a href="https://github.com/foundryvtt/foundryvtt/issues/8557" target="_blank">(8557)</a></li>
+    </ul>
+</section>
