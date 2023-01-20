@@ -21,6 +21,11 @@
   },
   "authors": [{"name": "Foundry VTT Knowledge Base"}],
   "esmodules": ["main.mjs"],
+  "languages": [{
+    "lang": "en",
+    "name": "English",
+    "path": "en.json"
+  }],
   "documentTypes": {
     "JournalEntryPage": {
       "quest": {
@@ -126,6 +131,14 @@
     types: ["quest-pages.quest"]
   });
 });</code></pre>
+
+<h3>Localizing Sub-Types</h3>
+<p>Once the sub-types have been declared and are available in the World, you will need to provide translation strings to give those types human-readable names in the UI. This is done through the normal inclusion of language files in the <code>module.json</code> (see above). The translation key is then formatted in a specific way to allow the core software to use it in the appropriate places in the UI.</p>
+
+<h4><code>en.json</code></h4>
+<pre><code class="lang-json">{
+  "TYPES.JournalEntryPage.quest-pages.quest": "Quest"
+}</code></pre>
 
 <h2 id="using-sub-types" class="border">Using Sub-Types</h2>
 <h3>System Compatibility</h3>
