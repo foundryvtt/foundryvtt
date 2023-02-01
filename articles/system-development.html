@@ -284,7 +284,7 @@ lang/
 </div>
 </section>
 
-<p>You can learn more about the fields supported in a package manifest file on the <a href="https://foundryvtt.com/api/alpha/PackageData.html" title="Package Data API Documentation" target="_blank">PackageData</a> and <a href="https://foundryvtt.com/api/alpha/SystemData.html" title="System Data API Documentation" target="_blank">SystemData</a> API documentation pages.</p>
+<p>You can learn more about the fields supported in a package manifest file on the <a href="https://foundryvtt.com/api/classes/foundry.packages.BasePackage.html" title="Package Data API Documentation" target="_blank">BasePackage</a> and <a href="https://foundryvtt.com/api/classes/foundry.packages.BaseSystem.html" title="System Data API Documentation" target="_blank">BaseSystem</a> API documentation pages.</p>
 <h2 class="border" id="data">The Data Template</h2>
 <p>In addition to the System Specification file described above, each game system must include a Data Template file named <code>template.json</code> at the root-level of the system folder. For example, if we create a game system with the name <code>mysystem</code>, then we would create and include the file <code>{userData}/Data/systems/mysystem/template.json</code>.</p>
 <p>The data template defines a data model which is used by Actor and Item documents within this game system. Normally, Documents in Foundry Virtual Tabletop have strictly define data schema - but the system template.json file allows for game systems to extend that schema to contain additional system-specific data attributes.</p>
@@ -366,15 +366,15 @@ lang/
 
 <h3 id="model">How the Data Model is Applied</h3>
 <p>When a new Document is created in a game using this system, it will automatically have it's own internal data populated to conform to the schema defined in the system template. For example, when using this system, if we were to execute the following code:</p> <pre><code class="language-javascript">const item = await Item.create({name: "Test Weapon", type: "weapon"});
-console.log(item.data); // The created item data structure
+console.log(item); // The created item data structure
 </code></pre>
-<p>We would observe that the item was created and assigned an ID, and the <code>data</code> contained within the item matches the expected contents defined by my game system template.</p> <pre><code class="language-json">{
+<p>We would observe that the item was created and assigned an ID, and the <code>system</code> field contained within the item matches the expected contents defined by the game system template.</p> <pre><code class="language-json">{
   "_id": "e6c7US1VK2cqejVJ",
   "name": "Test Weapon",
   "permission": {
     "default": 0
   },
-  "data": {
+  "system": {
     "rarity": "Common",
     "damage": 5
   },
