@@ -1,7 +1,7 @@
 <header id="update-header">
     <h2 id="update-title" class="border">Foundry Virtual Tabletop - Version 11 Prototype 1 Release Notes</h2>
     <figure id="update-banner">
-        <img src="{BANNER_IMG}" title="Foundry VTT - Version 11 Prototype 1 Release Notes" alt="Release Notes for Foundry Virtual Tabletop Version 11 Prototype 1"/>
+        <img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_70/screen/version-11-prototype-1-banner-2023-01-19.webp" title="Foundry VTT - Version 11 Prototype 1 Release Notes" alt="Release Notes for Foundry Virtual Tabletop Version 11 Prototype 1"/>
         <figcaption>Welcome to the Foundry Virtual Tabletop update notes for Version 11 Prototype 1</figcaption>
     </figure>
 </header>
@@ -70,6 +70,7 @@
     <h3 id="breaking-architecture" class="category-header">Architecture and Infrastructure</h3>
     <ul>
         <li>Foundry Virtual Tabletop now requires Node.js version 16. <a href="https://github.com/foundryvtt/foundryvtt/issues/8737" target="_blank">(8737)</a></li>
+        <li>We have enacted a number of API deprecations which were slated to go into effect with V11, including changes to <code>Roll.evaluate</code>, and other async changes. <a href="https://github.com/foundryvtt/foundryvtt/issues/8757" target="_blank">(8757)</a></li>
     </ul>
     <h3 id="breaking-docs" class="category-header">Documents and Data</h3>
     <ul>
@@ -92,6 +93,7 @@
     <ul>
         <li>The technology used for database persistence has been migrated from <code>NeDB</code> to <code>LevelDB</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/5065" target="_blank">(5065)</a></li>
         <li>A number of dependency packages have received updates, including Electron 22. <a href="https://github.com/foundryvtt/foundryvtt/issues/8497" target="_blank">(8497)</a></li>
+        <li>Server-side calls to make and remove directories have been modernized to use fs.promises instead.</li>
     </ul>
     <h3 id="features-docs" class="category-header">Documents and Data</h3>
     <ul>
@@ -124,6 +126,7 @@
     <h3 id="features-canvas" class="category-header">The Game Canvas</h3>
     <ul>
         <li>Walls have a new preset for Windows, similar to Doors. Windows become active or inactive within a token's field of vision based on proximity. This allows for attenuation where the visible distance through the Window changes with respect to proximity within that threshold. <a href="https://github.com/foundryvtt/foundryvtt/issues/7324" target="_blank">(7324)</a></li>
+        <li>Wall controls now include a convenient button to make a Window wall with a small sight and light threshold. <a href="https://github.com/foundryvtt/foundryvtt/issues/7324" target="_blank">(7324)</a></li>        
         <li>Canvas Windows now include a control icon visually distinct from the Door icon, which can be used for opening and closing them.<a href="https://github.com/foundryvtt/foundryvtt/issues/7324" target="_blank">(5025)</a></li>
         <li><code>PointSource</code> and <code>LightSource</code> have received several enhancements to address difficulties with programmatic creation of those objects. <a href="https://github.com/foundryvtt/foundryvtt/issues/8561" target="_blank">(8561)</a></li>
         <li>Fog of War rendering has received significant refactoring to improve rendering and performance. <a href="https://github.com/foundryvtt/foundryvtt/issues/8581" target="_blank">(8581)</a></li>
