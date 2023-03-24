@@ -1,0 +1,199 @@
+<header id="update-header">
+    <h2 class="border" id="update-title">Foundry Virtual Tabletop - Version 11 - Development 1 Release Notes</h2>
+    <figure id="update-banner">
+        <img alt="Release Notes for Foundry Virtual Tabletop Version 11 Development 1" src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_70/screen/v11-development-1-release-banner-2023-03-23.webp" title="Foundry VTT - Version 11 - Development 1 Release Notes"/>
+        <figcaption>Welcome to the Foundry Virtual Tabletop V11 Development 1 update notes.</figcaption>
+    </figure>
+</header>
+
+<section id="update-overview">
+    <p class="note warning"> Be certain to carefully back up any critical user data before installing this update.</p>
+    <p>Our previous Prototype 2 release concluded the Prototype phase of our <a href="/article/versioning" rel="nofollow" target="_blank" title="Learn about our development cycle">development cycle</a>. Our focus during the API Development phase involves further refining prototype features and solidifying the API based on feedback from users in our Developer community. If you are a Module or System developer, now is the time to begin testing your packages in Version 11 in order to provide us with feedback and request any API changes that would make your lives easier.</p>
+    <p class="note warning"><strong>WARNING:</strong> Updates on the Development channel are intended for testing and feedback from the development community. While the features and improvements of these updates may be close to a level of stability intended for public testing, they are likely to still include some bugs and incompatibilities which may frustrate you. It is not intended to use these releases for a live game.</p>
+
+    <h2 class="border">Update Highlights</h2>
+    <h3>Tuning the Canvas for Higher Performance</h3>
+    <p>Performance improvements are always on the menu and Atropos and SecretFire have cooked up a number of great improvements for developers and users. Developers get access to <code>PointSource</code>'s elevation levels, improved depth mapping precision, a brand new asset loader courtesy of PIXI's latest version, and the ability to override things like the <code>background</code>, <code>foreground</code>, and <code>fogOverlay</code> of a Scene during initialization. Our non-developer users on the other hand can look forward to performance improvements thanks to a new culling system and general improvements to the efficiency of some common rendering methods.</p>
+
+    <h3>Synthetic Updates, Real Improvements</h3>
+    <p>The work on synthetic token Actors in this release builds on the foundation that was laid in the previous release. Tokens now contain an internal <code>ActorDelta</code> child that behaves as a full embedded Document and can be updated in isolation. The <code>ActorDelta</code> now also contains a special type of collection, the <code>EmbeddedCollectionDelta</code> with bespoke logic to copy only those embedded children from the base Actor that are modified by the token Actor, significantly improving on the old behavior where the entire collection would be copied if any change was made. These changes have fixed some long-standing issues with synthetic token Actors (detailed below), with more on the way next release.</p>
+
+    <h3>Some Like It Hot Reloaded</h3>
+    <p>Another welcome addition that is sure to make developers happy is core support for Hot Reloading. Cody has added the ability to allow Foundry VTT to capture changes to certain files in realtime without having to reload the page. Now changes to your HTML and HBS, JSON used for localization, and CSS files can be seen right away. For those times when you do need to reload we have also improved loading speeds in most circumstances by enabling websocket compression by default. This is changeable using the <code>compressSocket</code> configuration option.</p>
+
+    <h3>Coming Soon: Setup Theme Customization</h3>
+    <p>This work didn't make it into Developer 1 but for Developer 2 we will introduce support for customizing the theme on the Setup page to ensure that everyone can make their Setup screen as unique as their game. You can keep an eye on the following issues to stay up to date: <a href="https://github.com/foundryvtt/foundryvtt/issues/9018" rel="nofollow" target="_blank">9018</a> and <a href="https://github.com/foundryvtt/foundryvtt/issues/9019" rel="nofollow" target="_blank">9019</a>.</p>
+
+    <strong>Known Issues</strong>
+    <ol>
+        <li>There is occasionally a small flicker when moving certain placeables.</li>
+        <li>There is occasionally an issue with drag+drop interactions for the Drawing tools.</li>
+    </ol>
+</section>
+
+<section id="breaking">
+<h2 class="section-header border">Breaking Changes</h2>
+    <h3 class="category-header" id="breaking-architecture">Architecture and Infrastructure</h3>
+    <ul>
+        <li>Updated to V3 of the AWS SDK which requires users to explicitly define which AWS region they want to utilize. <a href="https://github.com/foundryvtt/foundryvtt/issues/8898" rel="nofollow" target="_blank">(8898)</a></li>
+    </ul>
+    <h3 class="category-header" id="breaking-docs">Documents and Data</h3>
+    <ul>
+        <li>Migrated <code>ActiveEffect#label</code> to <code>ActiveEffect#name</code> to standardize with other Document types which provide various methods expecting a <code>name</code> field. <a href="https://github.com/foundryvtt/foundryvtt/issues/9050" rel="nofollow" target="_blank">(9050)</a></li>
+        <li>Adventure import workflows are now public API methods of the Adventure document itself. This allows for programmatic import of Adventure content outside of the context of an <code>AdventureImporter</code> application instance. <a href="https://github.com/foundryvtt/foundryvtt/issues/8750" rel="nofollow" target="_blank">(8750)</a></li>
+    </ul>
+    <h3 class="category-header" id="breaking-canvas">The Game Canvas</h3>
+    <ul>
+        <li>Introduced the <code>RenderFlags</code> class which improves and generalizes the way that Document data changes flow into <code>PlaceableObject#_onUpdate</code> workflows and improves efficiency and maintainability of rendering operations. <a href="https://github.com/foundryvtt/foundryvtt/issues/9026" rel="nofollow" target="_blank">(9026)</a></li>
+    </ul>
+</section>
+<section id="features">
+<h2 class="section-header border">New Features</h2>
+    <h3 class="category-header" id="features-architecture">Architecture and Infrastructure</h3>
+    <ul>
+        <li>Added the <code>compressSocket</code> configuration option to control whether to enable websocket compression. This is <code>true</code> by default. <a href="https://github.com/foundryvtt/foundryvtt/issues/8937" rel="nofollow" target="_blank">(8937)</a></li>
+        <li>Updated the following dependencies: electron, eslint, fs-extra, jquery, jsdom, node-fetch, npm, pixi.js, prosemirror-commands, prosemirror-dropcursor, prosemirror-view, rimraf, rollup, terser, tinymce. <a href="https://github.com/foundryvtt/foundryvtt/issues/9096" rel="nofollow" target="_blank">(9096)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-docs">Documents and Data</h3>
+    <ul>
+        <li>Folders can now be created with a "Compendium" type to enable support for placing Compendium Packs in Folders. <a href="https://github.com/foundryvtt/foundryvtt/issues/9032" rel="nofollow" target="_blank">(9032)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-apps">Applications and User Interface</h3>
+    <ul>
+        <li>Pressing <span class="reference">Return to Setup</span> when other users are connected to the World now presents a warning. <a href="https://github.com/foundryvtt/foundryvtt/issues/8871" rel="nofollow" target="_blank">(8871)</a></li>
+        <li>Added support for creating a list of favorite folders in the FilePicker to quickly access commonly used assets. <a href="https://github.com/foundryvtt/foundryvtt/issues/8998" rel="nofollow" target="_blank">(8998)</a></li>
+        <li>When running <span class="reference">Update All</span> notification toasts are now suppressed since the results of bulk installation will be reported in the update log window. <a href="https://github.com/foundryvtt/foundryvtt/issues/9013" rel="nofollow" target="_blank">(9013)</a></li>
+        <li>Added support for real-time previews of <code>MeasuredTemplate</code> grid highlight spaces during drag template creation. <a href="https://github.com/foundryvtt/foundryvtt/issues/9062" rel="nofollow" target="_blank">(9062)</a></li>
+        <li>Improved how performance mode levels enable/disable blur filters and/or antialiasing. <a href="https://github.com/foundryvtt/foundryvtt/issues/9064" rel="nofollow" target="_blank">(9064)</a></li>
+        <li>The field to change an <code>ActiveEffect</code>'s name is now in the header of the <code>ActiveEffectConfig</code> sheet for consistency with other core-provided Document sheets. <a href="https://github.com/foundryvtt/foundryvtt/issues/9093" rel="nofollow" target="_blank">(9093)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-canvas">The Game Canvas</h3>
+    <ul>
+        <li>Upgraded the "No WebGL 2 support" notification toast from <code>warning</code> to <code>error</code> and changed the message to be more explicit about the graphics errors that will occur. <a href="https://github.com/foundryvtt/foundryvtt/issues/9047" rel="nofollow" target="_blank">(9047)</a></li>
+        <li>Restored blur when using radial and vision occlusion (except radial occlusion with roofs, which is only anti-aliased). <a href="https://github.com/foundryvtt/foundryvtt/issues/7514" rel="nofollow" target="_blank">(7514)</a></li>
+        <li>Improved the reusability of the <code>WeatherOcclusionMaskFilter</code> for additional weather layers by adding support for <code>elevation</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/8994" rel="nofollow" target="_blank">(8994)</a></li>
+        <li>Decoupled Primary Canvas Objects from Document. <a href="https://github.com/foundryvtt/foundryvtt/issues/9022" rel="nofollow" target="_blank">(9022)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-packages">Package Development</h3>
+    <ul>
+        <li>Added a setting in the <code>options.json</code> for enabling Hot Reload which allows updating of certain files without needing to refresh the page. <a href="https://github.com/foundryvtt/foundryvtt/issues/9083" rel="nofollow" target="_blank">(9083)</a></li>
+        <li>Game Systems are now sorted alphabetically by title in the <span class="reference">Create World</span> interface. <a href="https://github.com/foundryvtt/foundryvtt/issues/8979" rel="nofollow" target="_blank">(8979)</a></li>
+        <li>Added a mechanism to allow developers to Hot Reload certain Package assets. <a href="https://github.com/foundryvtt/foundryvtt/issues/9027" rel="nofollow" target="_blank">(9027)</a></li>
+        <li>Freshly created Worlds are now marked as "recently played" and show up first in the list. <a href="https://github.com/foundryvtt/foundryvtt/issues/9058" rel="nofollow" target="_blank">(9058)</a></li>
+        <li>Packages are now immediately sidegraded upon installation if there is one available. <a href="https://github.com/foundryvtt/foundryvtt/issues/8730" rel="nofollow" target="_blank">(8730)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-i18n">Localization and Accessibility</h3>
+    <ul>
+        <li>Improved the clarity of the language for Package filtering by changing it to "Installed" and "Not Installed". <a href="https://github.com/foundryvtt/foundryvtt/issues/8981" rel="nofollow" target="_blank">(8981)</a></li>
+    </ul>
+</section>
+<section id="api">
+<h2 class="section-header border">API Improvements</h2>
+    <h3 class="category-header" id="api-docs">Documents and Data</h3>
+    <ul>
+        <li>Implemented the <code>EmbeddedCollectionDelta</code> which stores only the differences against a base collection. <a href="https://github.com/foundryvtt/foundryvtt/issues/8974" rel="nofollow" target="_blank">(8974)</a></li>
+        <li>Use <code>EmbeddedCollectionDelta</code>s for <code>ActorDelta</code> collections in order to remove the need to copy the base Actor's collection. <a href="https://github.com/foundryvtt/foundryvtt/issues/9095" rel="nofollow" target="_blank">(9095)</a></li>
+    </ul>
+    <h3 class="category-header" id="api-apps">Applications and User Interface</h3>
+    <ul>
+        <li>The canvas right-click pan drag speed can now be configured via the <code>CONFIG.Canvas.dragSpeedModifier</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/8990" rel="nofollow" target="_blank">(8990)</a></li>
+    </ul>
+    <h3 class="category-header" id="api-canvas">The Game Canvas</h3>
+    <ul>
+        <li>Improved how elevation is mapped with Primary Canvas Objects. <a href="https://github.com/foundryvtt/foundryvtt/issues/9045" rel="nofollow" target="_blank">(9045)</a></li>
+        <li>Improved the precision of elevation depth mapping. <a href="https://github.com/foundryvtt/foundryvtt/issues/9046" rel="nofollow" target="_blank">(9046)</a></li>
+        <li>As part of the update to PIXI V7 our custom loader has been replaced with the new PIXI Assets loader. <a href="https://github.com/foundryvtt/foundryvtt/issues/8802" rel="nofollow" target="_blank">(8802)</a></li>
+        <li>When updating an <code>ActiveEffect</code> it is now possible to pass <code>animate: false</code> to suppress the default scrolling status text behavior. <a href="https://github.com/foundryvtt/foundryvtt/issues/8968" rel="nofollow" target="_blank">(8968)</a></li>
+        <li>Culling of light and vision sources is now more efficient. <a href="https://github.com/foundryvtt/foundryvtt/issues/9016" rel="nofollow" target="_blank">(9016)</a></li>
+        <li>Added the ability to override blur options for fog of war during Scene initialization. <a href="https://github.com/foundryvtt/foundryvtt/issues/9039" rel="nofollow" target="_blank">(9039)</a></li>
+        <li>Added the ability to load more sources and change the cache expiration during scene initialization. <a href="https://github.com/foundryvtt/foundryvtt/issues/9040" rel="nofollow" target="_blank">(9040)</a></li>
+        <li>Added the ability to override the <code>background</code>, <code>foreground</code>, and <code>fogOverlay</code> textures during Scene initialization. <a href="https://github.com/foundryvtt/foundryvtt/issues/9041" rel="nofollow" target="_blank">(9041)</a></li>
+    </ul>
+    <h3 class="category-header" id="api-other">Other Changes</h3>
+    <ul>
+        <li><code>prosemirror-state</code> is now available on the global <code>ProseMirror</code> object for downstream API consumers <a href="https://github.com/foundryvtt/foundryvtt/issues/8958" rel="nofollow" target="_blank">(8958)</a></li>
+    </ul>
+</section>
+<section id="bugs">
+<h2 class="section-header border">Bug Fixes</h2>
+    <h3 class="category-header" id="bugs-architecture">Architecture and Infrastructure</h3>
+    <ul>
+        <li>GM users should now always provide an "exact" match to the <code>OWNER</code> level in <code>Document#testUserPermission</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/8962" rel="nofollow" target="_blank">(8962)</a></li>
+        <li>Improved exception handling for UPnP activation so it will gracefully fail when hardware issues are encountered with certain routers. <a href="https://github.com/foundryvtt/foundryvtt/issues/9065" rel="nofollow" target="_blank">(9065)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-docs">Documents and Data</h3>
+    <ul>
+        <li><code>DataModel.migrateData</code> can now be called recursively for models which are not direct children of the root model schema. <a href="https://github.com/foundryvtt/foundryvtt/issues/8763" rel="nofollow" target="_blank">(8763)</a></li>
+        <li>The <code>JournalSheet</code> <code>onRender</code> method should no longer ignore the Journal's mode. <a href="https://github.com/foundryvtt/foundryvtt/issues/8975" rel="nofollow" target="_blank">(8975)</a></li>
+        <li>Exporting to Compendium Packs should work again. <a href="https://github.com/foundryvtt/foundryvtt/issues/8977" rel="nofollow" target="_blank">(8977)</a></li>
+        <li>Fixed the title of the Duplicate Compendium dialog window to be more accurate. <a href="https://github.com/foundryvtt/foundryvtt/issues/9000" rel="nofollow" target="_blank">(9000)</a></li>
+        <li>Fixed an issue that caused Scene thumbnail generation to fail due to a PIXI method becoming async. <a href="https://github.com/foundryvtt/foundryvtt/issues/9001" rel="nofollow" target="_blank">(9001)</a></li>
+        <li>It is no longer possible to create a Compendium with the <code>DocumentType</code> "Folder". <a href="https://github.com/foundryvtt/foundryvtt/issues/9006" rel="nofollow" target="_blank">(9006)</a></li>
+        <li>Re-ordering items inside a Compendium folder should no longer fail with an error. <a href="https://github.com/foundryvtt/foundryvtt/issues/9011" rel="nofollow" target="_blank">(9011)</a></li>
+        <li>Fixed an error which prevented correctly applying sorting to Documents when vended to the client. <a href="https://github.com/foundryvtt/foundryvtt/issues/9020" rel="nofollow" target="_blank">(9020)</a></li>
+        <li>Ensured that <code>Combat#previous</code> is only assigned when some aspect of the turn configuration has changed compared to <code>Combat#current</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/9029" rel="nofollow" target="_blank">(9029)</a></li>
+        <li>Removed a duplicate Combat Theme setting from the core Settings menu. <a href="https://github.com/foundryvtt/foundryvtt/issues/9079" rel="nofollow" target="_blank">(9079)</a></li>
+        <li>Calling <code>updateSource</code> in <code>TokenDocument._preCreate</code> now appropriately modifies transacted creation data for unlinked Tokens. <a href="https://github.com/foundryvtt/foundryvtt/issues/8761" rel="nofollow" target="_blank">(8761)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-apps">Applications and User Interface</h3>
+    <ul>
+        <li>Ensure that applying a status effect overlay can downgrade previous overlays to a classic status icon. <a href="https://github.com/foundryvtt/foundryvtt/issues/8985" rel="nofollow" target="_blank">(8985)</a></li>
+        <li>New Actors created by dragging from a Compendium Pack to the Actors tab now take default Token settings into account. Hold <span class="reference">ALT</span> to ignore default Token settings. <a href="https://github.com/foundryvtt/foundryvtt/issues/8660" rel="nofollow" target="_blank">(8660)</a></li>
+        <li>Hovering over a Token on the canvas should once again change the mouse cursor to a pointer. <a href="https://github.com/foundryvtt/foundryvtt/issues/8986" rel="nofollow" target="_blank">(8986)</a></li>
+        <li>Locking/unlocking a Package now correctly toggles the visibility of the <span class="reference">Update</span> button. <a href="https://github.com/foundryvtt/foundryvtt/issues/9005" rel="nofollow" target="_blank">(9005)</a></li>
+        <li>The Setup screen should no longer fail to render when World compatibility data is missing. <a href="https://github.com/foundryvtt/foundryvtt/issues/9008" rel="nofollow" target="_blank">(9008)</a></li>
+        <li>Fixed several instances of incorrect server-side <code>routePrefix</code> handling including the <span class="reference">Go Back</span> button when no game world is active. <a href="https://github.com/foundryvtt/foundryvtt/issues/9012" rel="nofollow" target="_blank">(9012)</a></li>
+        <li>Searching in the Add-on Modules (or Game System) tabs should once again offer the option to search the Package installer when the item is not found. <a href="https://github.com/foundryvtt/foundryvtt/issues/9014" rel="nofollow" target="_blank">(9014)</a></li>
+        <li>Fixed an issue that prevented  changes to the Performance Mode setting from disabling the blur filter on the <code>CanvasVisionMask</code> if it should. <a href="https://github.com/foundryvtt/foundryvtt/issues/9063" rel="nofollow" target="_blank">(9063)</a></li>
+        <li>The <code>canvas.controls.debug.eventMode</code> is now set to <code>none</code> to maintain canvas interactivity. <a href="https://github.com/foundryvtt/foundryvtt/issues/9072" rel="nofollow" target="_blank">(9072)</a></li>
+        <li>Added back the buttons for creating Folders and Playlists in the <span class="reference">Playlists</span> tab. <a href="https://github.com/foundryvtt/foundryvtt/issues/9082" rel="nofollow" target="_blank">(9082)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-canvas">The Game Canvas</h3>
+    <ul>
+        <li>The <code>createPolygonWithAttenuatedThreshold</code> method now uses the correct radius. <a href="https://github.com/foundryvtt/foundryvtt/issues/9043" rel="nofollow" target="_blank">(9043)</a></li>
+        <li>Added an entry point for the deprecated <code>PointSource#refreshSource</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/9044" rel="nofollow" target="_blank">(9044)</a></li>
+        <li>Passing Embedded Documents inline with other properties in <code>update</code>s on synthetic Actors should no longer replace existing Embedded Documents. <a href="https://github.com/foundryvtt/foundryvtt/issues/8351" rel="nofollow" target="_blank">(8351)</a></li>
+        <li>Keyboard-based hex movement should now occur in the expected direction. <a href="https://github.com/foundryvtt/foundryvtt/issues/8756" rel="nofollow" target="_blank">(8756)</a></li>
+        <li>Toggling the blinded status effect no longer unnecessarily initializes vision. <a href="https://github.com/foundryvtt/foundryvtt/issues/8911" rel="nofollow" target="_blank">(8911)</a></li>
+        <li>Vision should now update correctly if the blind or invisible status effects are suspended. <a href="https://github.com/foundryvtt/foundryvtt/issues/8914" rel="nofollow" target="_blank">(8914)</a></li>
+        <li>Light sources should now be disabled if the vision mode can't see light sources. <a href="https://github.com/foundryvtt/foundryvtt/issues/8919" rel="nofollow" target="_blank">(8919)</a></li>
+        <li>Each <code>CanvasLayer</code> subclass now returns a <code>.name</code> which can be treated as "canonical" for that layer. <a href="https://github.com/foundryvtt/foundryvtt/issues/8921" rel="nofollow" target="_blank">(8921)</a></li>
+        <li>The defaults of the blindness vision mode should now be applied even when the vision source is blinded. <a href="https://github.com/foundryvtt/foundryvtt/issues/8928" rel="nofollow" target="_blank">(8928)</a></li>
+        <li>Fixed a bug when color is shifting into a <code>PointSource</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/8929" rel="nofollow" target="_blank">(8929)</a></li>
+        <li>A resource with a <code>data.max</code> value of 0 no longer results in a <code>Color</code> value of <code>NaN</code> when used in a Token's resource bar. <a href="https://github.com/foundryvtt/foundryvtt/issues/8980" rel="nofollow" target="_blank">(8980)</a></li>
+        <li>Ambient Light sources with <span class="reference">Provides Vision</span> configured should now be visible without line of sight. <a href="https://github.com/foundryvtt/foundryvtt/issues/8982" rel="nofollow" target="_blank">(8982)</a></li>
+        <li>Light sources without an active layer (<code>hasActiveLayer</code>) should no longer reveal tokens. <a href="https://github.com/foundryvtt/foundryvtt/issues/8983" rel="nofollow" target="_blank">(8983)</a></li>
+        <li>The canvas should no longer break after restoration of a lost WebGL context. <a href="https://github.com/foundryvtt/foundryvtt/issues/8989" rel="nofollow" target="_blank">(8989)</a></li>
+        <li>The <code>AbstractBaseMaskFilter</code> no longer creates an array each time that <code>apply</code> is called. <a href="https://github.com/foundryvtt/foundryvtt/issues/8993" rel="nofollow" target="_blank">(8993)</a></li>
+        <li>Improved V10 compatibility by supporting the <code>elevation</code> property in <code>PointSource</code>s. <a href="https://github.com/foundryvtt/foundryvtt/issues/9017" rel="nofollow" target="_blank">(9017)</a></li>
+        <li>Detection filters should now work even with a transparent token mesh. <a href="https://github.com/foundryvtt/foundryvtt/issues/9023" rel="nofollow" target="_blank">(9023)</a></li>
+        <li>Simplified the activation of the detection filters on a token mesh. <a href="https://github.com/foundryvtt/foundryvtt/issues/9024" rel="nofollow" target="_blank">(9024)</a></li>
+        <li>Changing a Token's elevation now updates its <code>PointSource</code>'s elevation as well. <a href="https://github.com/foundryvtt/foundryvtt/issues/9025" rel="nofollow" target="_blank">(9025)</a></li>
+        <li>Hover events are now prevented on preview objects. This fixes a problem for Tokens where <span class="reference">T</span> for target during a Token drag operation would incorrectly attempt to target the preview Token. <a href="https://github.com/foundryvtt/foundryvtt/issues/9028" rel="nofollow" target="_blank">(9028)</a></li>
+        <li>The <code>createPolygonWithAttenuatedThreshold</code> method now uses <code>this</code> instead of selecting the polygon class from <code>polygonBackends</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/9042" rel="nofollow" target="_blank">(9042)</a></li>
+        <li>Improved the inference around expected directional Token movement when the Token isn't snapped to a grid position. <a href="https://github.com/foundryvtt/foundryvtt/issues/9061" rel="nofollow" target="_blank">(9061)</a></li>
+        <li>The <code>WeilerAthertonClipper.combine</code> method now passes <code>clipOpts</code> to <code>WeilerAthertonClipper.testForEnvelopment</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/9074" rel="nofollow" target="_blank">(9074)</a></li>
+        <li>The <code>PointSourcePolygon#isCompleteCircle</code> method no longer fails if the <code>config</code> doesn't have a <code>source</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/9075" rel="nofollow" target="_blank">(9075)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-packages">Package Development</h3>
+    <ul>
+        <li>Fixed an issue that prevented locking Worlds, Systems, or Modules that were not compatible with the current version of Foundry. <a href="https://github.com/foundryvtt/foundryvtt/issues/9004" rel="nofollow" target="_blank">(9004)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-i18n">Localization and Accessibility</h3>
+    <ul>
+        <li>Removed a duplicate "." in <code>SETUP.InstallFailure</code> which caused a localization error. <a href="https://github.com/foundryvtt/foundryvtt/issues/9007" rel="nofollow" target="_blank">(9007)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-other">Other Changes</h3>
+    <ul>
+        <li>World settings of type <code>Array</code> no longer return a nested array. <a href="https://github.com/foundryvtt/foundryvtt/issues/8765" rel="nofollow" target="_blank">(8765)</a></li>
+        <li>Settings are now cast to their configured data type as part of the initialization workflow. This allows the cast value to always be passed to the <code>onChange</code> handler instead of the raw string. <a href="https://github.com/foundryvtt/foundryvtt/issues/8908" rel="nofollow" target="_blank">(8908)</a></li>
+        <li>The texture loader should no longer reload a texture if the previous call to <code>loadTexture</code> of the same resource wasn't awaited. <a href="https://github.com/foundryvtt/foundryvtt/issues/8909" rel="nofollow" target="_blank">(8909)</a></li>
+    </ul>
+</section>
+<section id="documentation">
+<h2 class="section-header border">Documentation Improvements</h2>
+    <h3 class="category-header" id="documentation-other">Other Changes</h3>
+    <ul>
+        <li>Updated the <code>PIXI.Polygon#reverseOrientation</code> documentation to be more accurate. <a href="https://github.com/foundryvtt/foundryvtt/issues/8992" rel="nofollow" target="_blank">(8992)</a></li>
+    </ul>
+</section>
