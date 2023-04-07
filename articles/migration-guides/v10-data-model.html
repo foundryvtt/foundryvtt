@@ -13,11 +13,10 @@
 <h3>Data Schema</h3>
 <p>The foundation of any Data Model is its data schema which defines the set of fields which can belong to the model. As a major enhancement on prior versions, we now have a rich and expressive framework for defining @APIV10[classes/foundry.data.fields.DataField] instances with many helpful @APIV10[modules/foundry.data.fields,field types] provided.</p>
 <p>The <code>static schema</code> for every <code>DataModel</code> class is now defined using these fields, as follows:</p>
-<pre><code class="lang-js">import DataModel from "common/abstract/data.mjs";
-import * as fields from "common/data/fields.mjs";
-
-class MyDataModel extends DataModel {
+<pre><code class="lang-js">
+class MyDataModel extends foundry.abstract.DataModel {
   static defineSchema() {
+    const fields = foundry.data.fields;
     return {
       requiredString: new fields.StringField({required: true, blank: false}),
       positiveInteger: new fields.NumberField({required: true, nullable: false, integer: true, positive: true}),
