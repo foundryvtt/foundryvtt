@@ -1,9 +1,11 @@
+<p class="note info">This article has been updated to include details for Version 11, and may not be accurate to previous versions.</p>
+
 <p>While it is not possible to share <strong>exact</strong> hardware requirements for the software as the performance of the application depends heavily on the type of content and features that are used within a World, it is possible to provide some recommendations and basic requirements for a bare-minimum usage.</p>
 
 <h2 id="client" class="border">Client Requirements</h2>
 <h3>Minimum Specifications</h3>
 <ul>
-	<li>Relatively modern computer running Windows 10 or 11, macOS Big Sur (or newer), or Linux operating systems, with support for 64-bit architecture.</li>
+	<li>Relatively modern computer running Windows 10 or 11, macOS Big Sur (or newer), or Linux operating systems (Ubuntu 22+, Debian 11+, Redhat 9+, Arch) with support for 64-bit architecture.</li>
 	<li>An integrated GPU to enable hardware acceleration.</li>
 	<li>8GB of RAM</li>
 	<li>A monitor no smaller than 1366x768. At this minimum resolution many aspects of the UI will feel cramped.</li>
@@ -37,9 +39,74 @@
 <h3 id="dedicated-server">Dedicated Server Minimum Requirements</h3>
 <p>Dedicated servers require less system resources because they do not run a client. Dedicated servers should have the following minimum requirements:</p>
 <ul>
+    <li>An OS that supports <code>glibc 2.28+</code></li>
+    <li>Ability to run Node 16+, (18 recommended)</li>
     <li>at least 1 vCPU (2 recommended)</li>
     <li>At least 1GB storage space.</li>
     <li>2 GB RAM (4GB recommended)</li>
     <li>Firewall and security settings (dependent on host) configured to allow connections on the port required.</li>
 </ul>
 <p class="note">The amount of memory required by the server process depends on the amount of data included in the game system and modules that are active within your world. Larger systems or worlds that use more content-intensive modules will require more RAM.</p>
+
+<h3 id="cloud-hosted">Raspberry Pi Dedicated Servers</h3>
+<p>Many users repurpose a Raspberry Pi to host their Foundry VTT servers due to the lightweight nature of the Pi operating systems and the ease of reconfiguration. Provided the OS you are using supports Node 16+ and glibc 2.28 or higher, you should be able to run Foundry VTT without issue. Older models may still work, but are not officially supported. As a courtesy, we have provided a workaround below for guidance on how to rebuild our database engine for older, unsupported operating systems. </p>
+<h4>Supported Raspberry Pi Models</h4>
+<ul>
+    <li>Pi 4 Model B</li>
+    <li>Compute Module 4</li>
+    <li>Compute Module 4 Lite</li>
+    <li>Pi Keyboard 400</li>
+</ul>
+
+<section class="collapsible">
+    <header class="collapsible-header">Rebuild LevelDB Using Local glibc</header>
+    <div class="collapsible-content">
+        <p>In upgrading to the new database engine for v11, some devices may experience an error related to an invalid version of glibc. This most notably affects ARM architecture devices, including some models of Raspberry Pi.</p>
+        <ol>
+        <li>1. Shut down your currently hosted Foundry VTT server instance.</li>
+        <li>2. In a terminal, access the folder or directory where your Foundry VTT executable is located.</li>
+        <li>3. Navigate to the <code>resources/app/</code> subdirectory.</li>
+        <li>4. run <code>npm install classic-level --build-from-source</code></li>
+        <li>5. Relaunch your Foundry VTT server following your normal procedure.</li>
+        </ol>
+    </div>
+</section>
+
+<section class="collapsible">
+    <header class="collapsible-header">Unsupported Raspberry Pi Models</header>
+    <div class="collapsible-content">
+        <p>The following models of Raspberry Pi are unsupported and cannot functionally operate as a Foundry VTT server.</p>
+        <ul>
+            <li>Pi Pico</li>
+            <li>Pi Pico W</li>
+            <li>Pi 1 Model A</li>
+            <li>Pi 1 Model A+</li>
+            <li>PI 1 Model B</li>
+            <li>Pi 1 Model B+</li>
+            <li>Compute Module 1</li>
+            <li>Pi Zero v1.2</li>
+            <li>Pi Zero v1.3</li>
+            <li>Pi Zero W</li>
+            <li>Pi 2 Model B v1.1</li>
+        </ul>
+    </div>
+</section>
+<section class="collapsible">
+    <header class="collapsible-header">Below Spec Raspberry Pi Models</header>
+    <p>The following models of Raspberry Pi, while not officially supported, may be able to operate with some fine-tuning and careful configuration.</p>
+    <div class="collapsible-content">
+        <ul>
+            <li>Pi Pico</li>
+            <li>Pi Pico W</li>
+            <li>Pi 1 Model A</li>
+            <li>Pi 1 Model A+</li>
+            <li>PI 1 Model B</li>
+            <li>Pi 1 Model B+</li>
+            <li>Compute Module 1</li>
+            <li>Pi Zero v1.2</li>
+            <li>Pi Zero v1.3</li>
+            <li>Pi Zero W</li>
+            <li>Pi 2 Model B v1.1</li>
+        </ul>
+    </div>
+</section>
