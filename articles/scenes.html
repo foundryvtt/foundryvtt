@@ -1,4 +1,6 @@
 <h2>Overview</h2>
+<p class="note info">This article has been updated to include details for Version 11, and may not be accurate to previous versions.</p>
+
 <p>Scenes represent the areas of a World that the players may explore. Scenes may depict a variety of settings ranging from world or regional maps all the way down to small buildings or dungeons. At each point in time, one Scene is classified as the <strong>active</strong> scene. The same scene is active for all users. For each individual user a different Scene may be treated as the <strong>viewed</strong> scene, which is the area currently rendered on the game canvas for that user.</p>
 
 <h2 id="configuration" class="border">Scenes Directory</h2>
@@ -42,6 +44,9 @@
 <p>You can export an scene's data by right-clicking a scene in the Directory and selecting the "Export Data" option. This will prompt you to save a JSON file with the scene data in it.</p>
 </div>
 </section>
+<h2 id="resize" class="border">Resizing an Existing Scene</h2>
+<p>Sometimes, when setting your scene up with all the lights, walls, tokens and other effects you wish to add, you realise that you would like the map to be more detailed and larger. When you add a higher resolution background image to your scene, you can update the image dimensions to increase the displayed resolution for your players.</p>
+<p>For your convenience, Foundry Virtual Tabletop will attempt to reposition all tokens, tiles, lights, walls, measured templates, ambient sounds, drawings, or any other canvas placeables when the scene dimensions change. Please note that if you make very drastic changes in sizes, you may need to reposition a few placed objects.</p>
 
 <h2 id="scene-configuration" class="border">Scene Configuration</h2>
 <p>The Scene configuration menu allows you to customize the structure and appearance of each area within your world. This configuration is displayed automatically when a new Scene is created, but can always be accessed by left-clicking on the Scene in the sidebar directory, or by right clicking on the Scene in the top navigation bar and selecting <strong>Configure</strong>.</p>
@@ -99,7 +104,10 @@
 	<p class="note warning"><strong>Note:</strong> Changing the grid size of a map may change the alignment of walls, lights, notes, and tiles. It is recommended you decide on grid size and set it before you begin adding details to the scene to avoid having to do additional work.</p></dd>
 
 	<dt>Image Dimensions (pixels)</dt>
-	<dd>This allows you to set the the rendered width and height of your scene in pixels. The application will figure out both automatically when you select a new scene background image, but you can override these dimensions using the fields provided. If you want to undo your changes to a scene's dimensions, simply clear both fields manually and save the scene, the application will automatically detect the dimensions and reset them to match the image.</dd>
+	<dd><p>This allows you to set the the rendered width and height of your scene in pixels. The application will figure out both automatically when you select a new scene background image, but you can override these dimensions using the fields provided. The link button maintains the aspect ratio of your background image. </p>
+	<p>If you want to undo your changes to a scene's dimensions, simply clear both fields manually and save the scene, the application will automatically detect the dimensions and reset them to match the image.</p>
+	</dd>
+	
 
 	<dt>Padding Percentage</dt> 
 	<dd>This determines the size of the border region around the background image based on a percentage of the total scene dimensions. This padding space treats everything as unlit and hidden unless lights and an actor token with vision is in that padding area. The padding otherwise functions as normal map space and is intended to be used for staging tokens and tiles waiting to see use, or as extra side-rooms or hidden spaces.
