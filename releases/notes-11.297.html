@@ -1,0 +1,179 @@
+<header id="update-header">
+    <h2 class="border" id="update-title">Foundry Virtual Tabletop - Version V11 - Testing 2 Release Notes</h2>
+    <figure id="update-banner">
+        <img alt="Release Notes for Foundry Virtual Tabletop Version 11 Testing 2" src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_70/screen/v11testing2banner-2023-05-11.webp" title="Foundry VTT - Version V11 - Testing 2 Release Notes"/>
+        <figcaption>Welcome to the Foundry Virtual Tabletop V11 Testing 2 update notes</figcaption>
+    </figure>
+</header>
+
+<section id="update-overview">
+    <p class="note warning"><strong>WARNING:</strong> Be certain to carefully back up any critical user data before installing this update.</p>
+    <p>We're excited to bring you the second release in the Feature Testing phase of our development cycle. Feature Testing releases are designed to allow power users and those with strong stomachs to experience new features as we grow closer to a stable release for the general public! V11 Testing 2 is focused on correcting bugs and improving the UX and UI of features newly introduced in Version 11, based on feedback from our development community. If you are interested in providing feedback on these early testing builds, now is the time to check them out! Be cautious, however. Testing builds are not intended for use in weekly games or in heavily-modified Worlds.</p>
+    <p class="note warning"><strong>WARNING:</strong> Releases on the Testing channel have the potential to introduce bugs that may be disruptive to play. These features are close to a stable release - but likely to still include some bugs and incompatibilities which may frustrate you. While these releases are intended for testing by the average user, we do not recommend you use them yet in your long running campaigns. We instead ask you try them out in a new World or one-shot with no modules.</p>
+</section>
+
+<h2 class="border">Update Highlights</h2>
+<h3>Perfect Foundry VTT</h3>
+<p>While Foundry VTT may not be perfect, it's a bit closer with the latest addition of Eber to our team! Eber is the creator of great modules like <a href="https://foundryvtt.com/packages/perfect-vision" rel="nofollow" target="_blank">Perfect Vision</a> and <a href="https://foundryvtt.com/packages/advanced-drawing-tools" rel="nofollow" target="_blank">Advanced Drawing Tools</a> and we're very excited to have him on the team. Despite just starting this week he's already jumped into the deep end and has a number of fixes included in this release! We're looking forward to seeing all of the improvements that his geometric and graphical expertise can bring to the team and how it can help us to keep improving performance and adding new features to Foundry VTT.</p>
+
+<h3>What do you hear Starbuck? Nothing but the rain... and doors.</h3>
+<p>We have a number of great canvas improvements in this release including an update to the rain weather effect with better visuals and performance with new options to control the style of rain through the API. We have also included two new light animations ("Siren" and "Revolving") to help you make even more dramatic scenes thanks to SecretFire's Free Project Friday work. It's also now possible to control Walls by clicking on the Wall segment and not just their endpoints. You can give it a shot by clicking on all of your doors and setting them up with some of our 8 brand new door sounds courtesy of Cobalt! There are also a number of other small features like a new Token disposition that prevents a border from being displayed and hidden templates are now rendered with a 50% transparency.</p>
+
+<h3>Folders Full of UI Improvements</h3>
+<p>This release includes a ton of UI improvements across the software. Kim added granular imports to all Adventures, the ability to lock the hotbar to prevent changing the layout, and automatically scrolling to the last selected category when reopening the Settings Configuration app. Cody has continued the work to improve the sidebar with support for Adventures in Folders, duplicating Compendium Packs with their Folder structure intact and a new API for searching Collections.</p>
+
+<section id="breaking">
+<h2 class="section-header border">Breaking Changes</h2>
+    <h3 class="category-header" id="breaking-architecture">Architecture and Infrastructure</h3>
+    <ul>
+        <li>Introduce the new <code>ownership</code> field to Compendium pack manifest data which replaces the V10 <code>private</code> and the earlier V11 prototype <code>visibility</code> field. The ownership field controls which player roles have permission to view and modify each compendium pack and its contained documents. <a href="https://github.com/foundryvtt/foundryvtt/issues/9318" rel="nofollow" target="_blank">(9318)</a></li>
+    </ul>
+</section>
+<section id="features">
+<h2 class="section-header border">New Features</h2>
+    <h3 class="category-header" id="features-architecture">Architecture and Infrastructure</h3>
+    <ul>
+        <li>Added a permission option to allow players to create and manage Card piles and Cards. <a href="https://github.com/foundryvtt/foundryvtt/issues/9359" rel="nofollow" target="_blank">(9359)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-docs">Documents and Data</h3>
+    <ul>
+        <li>Added the ability to place Adventures in Folders. <a href="https://github.com/foundryvtt/foundryvtt/issues/9278" rel="nofollow" target="_blank">(9278)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-apps">Applications and User Interface</h3>
+    <ul>
+        <li>Added the ability to export Documents to Compendium Packs retaining their Folder structure - either single folder or recursive. <a href="https://github.com/foundryvtt/foundryvtt/issues/9335" rel="nofollow" target="_blank">(9335)</a></li>
+        <li>Added a "None" option for Token disposition which prevents a border from being displayed on hover. <a href="https://github.com/foundryvtt/foundryvtt/issues/1320" rel="nofollow" target="_blank">(1320)</a></li>
+        <li>Added the ability to lock the hotbar to avoid accidentally dragging or modifying its layout. <a href="https://github.com/foundryvtt/foundryvtt/issues/1933" rel="nofollow" target="_blank">(1933)</a></li>
+        <li>Hidden templates are now rendered with 50% transparency. <a href="https://github.com/foundryvtt/foundryvtt/issues/7959" rel="nofollow" target="_blank">(7959)</a></li>
+        <li>Pips on a Token are now centered and their position is refreshed when a Token is resized. <a href="https://github.com/foundryvtt/foundryvtt/issues/8586" rel="nofollow" target="_blank">(8586)</a></li>
+        <li>Updated Scene thumbnails to appear with <code>background-size: cover</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/8760" rel="nofollow" target="_blank">(8760)</a></li>
+        <li>The Settings Configuration sidebar now automatically scrolls back to the last selected category when reopened. <a href="https://github.com/foundryvtt/foundryvtt/issues/8892" rel="nofollow" target="_blank">(8892)</a></li>
+        <li>Launching a World now emits a socket event and displays a progress bar. <a href="https://github.com/foundryvtt/foundryvtt/issues/9084" rel="nofollow" target="_blank">(9084)</a></li>
+        <li>Replaced the Compendium Pack <span class="reference">Toggle Visibility</span> context option with a dialog that allows configuring the Pack to have a specific visibility level. <a href="https://github.com/foundryvtt/foundryvtt/issues/9191" rel="nofollow" target="_blank">(9191)</a></li>
+        <li>Improved the display of the ProseMirror menu when wrapping. <a href="https://github.com/foundryvtt/foundryvtt/issues/9286" rel="nofollow" target="_blank">(9286)</a></li>
+        <li>Incorporated the granular import behavior of the <code>PF2EAdventureImporter</code> class we have used in premium content into the core <code>AdventureImporter</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/9337" rel="nofollow" target="_blank">(9337)</a></li>
+        <li>Duplicating Compendium Packs now includes "(Copy)" in the name like duplicated Documents. <a href="https://github.com/foundryvtt/foundryvtt/issues/9338" rel="nofollow" target="_blank">(9338)</a></li>
+        <li>Added the ability to select and manipulate Walls by selecting their line segment. <a href="https://github.com/foundryvtt/foundryvtt/issues/9364" rel="nofollow" target="_blank">(9364)</a></li>
+        <li>When a <code>/macro</code> command fails to find a match an error notification is now displayed. <a href="https://github.com/foundryvtt/foundryvtt/issues/8824" rel="nofollow" target="_blank">(8824)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-canvas">The Game Canvas</h3>
+    <ul>
+        <li>Added two new light animations "Siren" and "Revolving". <a href="https://github.com/foundryvtt/foundryvtt/issues/9328" rel="nofollow" target="_blank">(9328)</a></li>
+        <li>Improved the visuals of the rain weather effect and added the ability to control the rotation, strength, and intensity of rain through the <code>RainShader</code> class. <a href="https://github.com/foundryvtt/foundryvtt/issues/9365" rel="nofollow" target="_blank">(9365)</a></li>
+        <li>Added 6 new sound options for Doors <code>Wood, Heavy</code>, <code>Sliding, Wood</code>, <code>Jail</code>, <code>Stone, Basic</code>, <code>Stone, Rocky</code>, and <code>Stone, Sandy</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/9369" rel="nofollow" target="_blank">(9369)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-packages">Package Development</h3>
+    <ul>
+        <li>Implemented an <span class="reference">Uninstall</span> and <span class="reference">Reinstall</span> option in the error form when a Package has errors that prevent it from being usable. <a href="https://github.com/foundryvtt/foundryvtt/issues/8085" rel="nofollow" target="_blank">(8085)</a></li>
+        <li>Module dependencies are now recursively checked for deeper dependencies. <a href="https://github.com/foundryvtt/foundryvtt/issues/6274" rel="nofollow" target="_blank">(6274)</a></li>
+        <li>Added a server configuration setting for whether to retain (default) or discard (opt-in) migrated NEDB compendium files. <a href="https://github.com/foundryvtt/foundryvtt/issues/9319" rel="nofollow" target="_blank">(9319)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-other">Other Changes</h3>
+    <ul>
+        <li>Added the ability to click on an image and the <span class="reference">image</span> icon in the ProseMirror editor's menu to open an edit dialog to change the image's path. <a href="https://github.com/foundryvtt/foundryvtt/issues/8887" rel="nofollow" target="_blank">(8887)</a></li>
+    </ul>
+</section>
+<section id="api">
+<h2 class="section-header border">API Improvements</h2>
+    <h3 class="category-header" id="api-docs">Documents and Data</h3>
+    <ul>
+        <li>Added a way to get the UUID of a Document inside a Compendium Pack without having to fetch the Document itself. <a href="https://github.com/foundryvtt/foundryvtt/issues/9342" rel="nofollow" target="_blank">(9342)</a></li>
+        <li>Added the <code>angle</code> property to <code>DetectionMode</code> which controls whether the mode is limited to the vision angle. <a href="https://github.com/foundryvtt/foundryvtt/issues/8482" rel="nofollow" target="_blank">(8482)</a></li>
+        <li>Improved the lazy computation of Active Effect duration to better support tracking outside of combat. <a href="https://github.com/foundryvtt/foundryvtt/issues/8691" rel="nofollow" target="_blank">(8691)</a></li>
+        <li>Added support for passing arguments to script Macros through chat messages. <a href="https://github.com/foundryvtt/foundryvtt/issues/9201" rel="nofollow" target="_blank">(9201)</a></li>
+        <li>Renamed the object of additional arguments passed to Macro execution to <code>scope</code> to avoid collision with pre-existing Macros that used the <code>args</code> convention. <a href="https://github.com/foundryvtt/foundryvtt/issues/9230" rel="nofollow" target="_blank">(9230)</a></li>
+    </ul>
+    <h3 class="category-header" id="api-apps">Applications and User Interface</h3>
+    <ul>
+        <li>Added support for icon dropdowns and separators in dropdowns in the <code>ProseMirrorMenu</code> API. <a href="https://github.com/foundryvtt/foundryvtt/issues/9287" rel="nofollow" target="_blank">(9287)</a></li>
+        <li>Improved the <code>playAudio</code> socket event to use our standard server-side event handling framework which allows it to support requesting audio playback only for specific users and handling acknowledgement callback functions. <a href="https://github.com/foundryvtt/foundryvtt/issues/9336" rel="nofollow" target="_blank">(9336)</a></li>
+        <li>User activity data (namely cursor movement) is now emitted using a volatile socket event to prevent unnecessary buffering of non-critical data. <a href="https://github.com/foundryvtt/foundryvtt/issues/9344" rel="nofollow" target="_blank">(9344)</a></li>
+    </ul>
+    <h3 class="category-header" id="api-canvas">The Game Canvas</h3>
+    <ul>
+        <li>Added a hook in <code>Token._onApplyStatusEffect</code> to allow downstream Modules or Systems to support additional special status conditions which require Token handling. <a href="https://github.com/foundryvtt/foundryvtt/issues/9311" rel="nofollow" target="_blank">(9311)</a></li>
+    </ul>
+    <h3 class="category-header" id="api-other">Other Changes</h3>
+    <ul>
+        <li>Added the ability to pass a pre-configured <code>HTMLElement</code> to <code>Tooltip#activate</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/9056" rel="nofollow" target="_blank">(9056)</a></li>
+        <li>Added an API to search and filter Document Collections that is specialized for full text search. <a href="https://github.com/foundryvtt/foundryvtt/issues/9355" rel="nofollow" target="_blank">(9355)</a></li>
+    </ul>
+</section>
+<section id="bugs">
+<h2 class="section-header border">Bug Fixes</h2>
+    <h3 class="category-header" id="bugs-architecture">Architecture and Infrastructure</h3>
+    <ul>
+        <li>An invalid AWS configuration provided in the <code>awsConfig</code> field no longer causes the Foundry VTT process to crash on startup. <a href="https://github.com/foundryvtt/foundryvtt/issues/9322" rel="nofollow" target="_blank">(9322)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-docs">Documents and Data</h3>
+    <ul>
+        <li>Folders defined by <code>packFolders</code> in the <code>module.json</code> are now correctly created without needing to restart the World. <a href="https://github.com/foundryvtt/foundryvtt/issues/9325" rel="nofollow" target="_blank">(9325)</a></li>
+        <li>Duplicating a Compendium Pack with Folders now correctly copies the original Folder structure as well. <a href="https://github.com/foundryvtt/foundryvtt/issues/9333" rel="nofollow" target="_blank">(9333)</a></li>
+        <li>The embedded Document field is no longer included in the diff returned by <code>DataModel.updateSource</code> when its value didn't change. <a href="https://github.com/foundryvtt/foundryvtt/issues/9370" rel="nofollow" target="_blank">(9370)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-apps">Applications and User Interface</h3>
+    <ul>
+        <li>Featured News now always appear on first launch of V11. <a href="https://github.com/foundryvtt/foundryvtt/issues/9367" rel="nofollow" target="_blank">(9367)</a></li>
+        <li>Improved the centering of icons in the left-hand sidebar. <a href="https://github.com/foundryvtt/foundryvtt/issues/8462" rel="nofollow" target="_blank">(8462)</a></li>
+        <li>Removed the <code>color: inherit</code> styling from the sidebar's collapsed Folder state. <a href="https://github.com/foundryvtt/foundryvtt/issues/8538" rel="nofollow" target="_blank">(8538)</a></li>
+        <li>Changing the default sheet of an Actor now closes the sheet and reopens with the new sheet. <a href="https://github.com/foundryvtt/foundryvtt/issues/9080" rel="nofollow" target="_blank">(9080)</a></li>
+        <li>Removed a duplicate <span class="reference">Create Adventure</span> button from the Adventure Compendium Pack app. <a href="https://github.com/foundryvtt/foundryvtt/issues/9279" rel="nofollow" target="_blank">(9279)</a></li>
+        <li>Fixed an issue that caused re-ordering Actors at the top-level of a Compendium Pack to throw an error. <a href="https://github.com/foundryvtt/foundryvtt/issues/9280" rel="nofollow" target="_blank">(9280)</a></li>
+        <li>The World migration window is now correctly vertically centered when scrolled. <a href="https://github.com/foundryvtt/foundryvtt/issues/9315" rel="nofollow" target="_blank">(9315)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-canvas">The Game Canvas</h3>
+    <ul>
+        <li>Photosensitivity mode now also affects detection modes. <a href="https://github.com/foundryvtt/foundryvtt/issues/9108" rel="nofollow" target="_blank">(9108)</a></li>
+        <li>Using a migrated Scene from v10 in v11 with unlinked Tokens no longer causes laggy Token movement. <a href="https://github.com/foundryvtt/foundryvtt/issues/9353" rel="nofollow" target="_blank">(9353)</a></li>
+        <li>Fixed a bug that in rare cases caused point source polygon computation to produce an incorrect result. <a href="https://github.com/foundryvtt/foundryvtt/issues/8052" rel="nofollow" target="_blank">(8052)</a></li>
+        <li>Performance on Scenes with large numbers of tiles is now significantly improved thanks to changes in the Primary Canvas Object framework. <a href="https://github.com/foundryvtt/foundryvtt/issues/8019" rel="nofollow" target="_blank">(8019)</a></li>
+        <li>Fixed an issue that caused the vision polygon to be computed incorrectly when a wall intersected the inner Scene boundary. <a href="https://github.com/foundryvtt/foundryvtt/issues/8607" rel="nofollow" target="_blank">(8607)</a></li>
+        <li><code>VisionMode.vision.background/illumination/coloration.uniforms</code> can now override the corresponding layer uniforms into a <code>VisionSource</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/9285" rel="nofollow" target="_blank">(9285)</a></li>
+        <li>Fixed an issue that prevented Status Effects from being applied to actorless Tokens. <a href="https://github.com/foundryvtt/foundryvtt/issues/9310" rel="nofollow" target="_blank">(9310)</a></li>
+        <li>The texture extractor now checks for hardware compatibility and throws an error if it is not compatible. <a href="https://github.com/foundryvtt/foundryvtt/issues/9314" rel="nofollow" target="_blank">(9314)</a></li>
+        <li>Fixed a bug in <code>foundry.utils.lineCircleIntersection</code> that made the intersection test return no intersection points when one or both of the line segment endpoints were on the circle and the line segment was contained in the circle. <a href="https://github.com/foundryvtt/foundryvtt/issues/9341" rel="nofollow" target="_blank">(9341)</a></li>
+        <li>Tokens no longer ignore their locked rotation state. <a href="https://github.com/foundryvtt/foundryvtt/issues/9345" rel="nofollow" target="_blank">(9345)</a></li>
+        <li>Eliminated unnecessary <code>targetToken</code> hook calls. <a href="https://github.com/foundryvtt/foundryvtt/issues/9349" rel="nofollow" target="_blank">(9349)</a></li>
+        <li>Fixed an error that could occur when an Active Effect on a synthetic Actor outside of the viewed Scene was created, updated, or deleted. <a href="https://github.com/foundryvtt/foundryvtt/issues/9351" rel="nofollow" target="_blank">(9351)</a></li>
+        <li>Tokens without vision range no longer explore the fog of war and the minimum vision radius has been adjusted such that the image of the Token that is the source of vision is completely visible regardless of the token's size. <a href="https://github.com/foundryvtt/foundryvtt/issues/9360" rel="nofollow" target="_blank">(9360)</a></li>
+        <li>One-way Walls now correctly show their directional indicators. <a href="https://github.com/foundryvtt/foundryvtt/issues/9361" rel="nofollow" target="_blank">(9361)</a></li>
+        <li>Selecting multiple Walls and double clicking a node to edit them no longer fails. <a href="https://github.com/foundryvtt/foundryvtt/issues/9362" rel="nofollow" target="_blank">(9362)</a></li>
+        <li>Fixed inconsistencies in the Primary Canvas Object framework by removing the <code>overhead</code> property, extending the <code>OccludableObjectMixin</code> from <code>PrimaryCanvasObjectMixin</code>, and <code>TileMesh</code>, <code>TokenMesh</code>, and <code>TileSprite</code> now extend from <code>OccludableObjectMixin</code> only. <a href="https://github.com/foundryvtt/foundryvtt/issues/9368" rel="nofollow" target="_blank">(9368)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-packages">Package Development</h3>
+    <ul>
+        <li>Fixed an issue where running <span class="reference">Update All</span> could cause incorrect information to be sent to the Update report. <a href="https://github.com/foundryvtt/foundryvtt/issues/9320" rel="nofollow" target="_blank">(9320)</a></li>
+        <li>World migration can no longer trip the request timeout. <a href="https://github.com/foundryvtt/foundryvtt/issues/9350" rel="nofollow" target="_blank">(9350)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-dice">Dice and Cards</h3>
+    <ul>
+        <li><code>PoolTerm.fromRolls</code> now correctly uses <code>_formula</code> instead of <code>formula</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/8661" rel="nofollow" target="_blank">(8661)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-i18n">Localization and Accessibility</h3>
+    <ul>
+        <li>Corrected an accessibility issue that occurred when a checkbox was focused via a keyboard event like pressing Tab. <a href="https://github.com/foundryvtt/foundryvtt/issues/8655" rel="nofollow" target="_blank">(8655)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-other">Other Changes</h3>
+    <ul>
+        <li><code>ActiveEffect#sourceName</code> retrieves the source name synchronously and returns "Unknown" if it's not possible to retrieves it synchronously. <a href="https://github.com/foundryvtt/foundryvtt/issues/9332" rel="nofollow" target="_blank">(9332)</a></li>
+        <li>Fixed <code>InterfaceCanvasGroup#createScrollingText</code> to correctly apply easing to the animation. <a href="https://github.com/foundryvtt/foundryvtt/issues/8851" rel="nofollow" target="_blank">(8851)</a></li>
+        <li>Added a trailing slash to <code>FilePicker.browse</code> calls in S3 folders. <a href="https://github.com/foundryvtt/foundryvtt/issues/8935" rel="nofollow" target="_blank">(8935)</a></li>
+        <li>The <code>activeGM</code> getter now correctly compares strings. <a href="https://github.com/foundryvtt/foundryvtt/issues/9317" rel="nofollow" target="_blank">(9317)</a></li>
+    </ul>
+</section>
+<section id="documentation">
+<h2 class="section-header border">Documentation Improvements</h2>
+    <h3 class="category-header" id="documentation-canvas">The Game Canvas</h3>
+    <ul>
+        <li>Updated the <code>CanvasVisibility#testVisibility</code> documentation to correctly identify the types expected for the parameters. <a href="https://github.com/foundryvtt/foundryvtt/issues/8063" rel="nofollow" target="_blank">(8063)</a></li>
+    </ul>
+    <h3 class="category-header" id="documentation-i18n">Localization and Accessibility</h3>
+    <ul>
+        <li>Improved the naming of "Image Dimensions" to "Scene Dimensions" and updated the hint to be more helpful in the Scene configuration. <a href="https://github.com/foundryvtt/foundryvtt/issues/8961" rel="nofollow" target="_blank">(8961)</a></li>
+    </ul>
+    <h3 class="category-header" id="documentation-other">Other Changes</h3>
+    <ul>
+        <li>The <code>chatMessage</code> hook is now included in the <code>hookEvents</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/9177" rel="nofollow" target="_blank">(9177)</a></li>
+        <li>Improved coverage of Hook events which are not included in the Hooks module of the API docs. <a href="https://github.com/foundryvtt/foundryvtt/issues/9313" rel="nofollow" target="_blank">(9313)</a></li>
+    </ul>
+</section>
