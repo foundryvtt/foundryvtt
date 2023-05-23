@@ -1,18 +1,14 @@
-<p>The Data Model changes made to Documents in version 10 that are described <a href="/article/v10-data-model/" target="_blank">here</a> are not solely for use with the core Documents defined by Foundry VTT, but also empower system developers to define such Data Models in order to represent data specific to their systems.</p>
+<p>The <code>DataModel</code> class provided as <code>foundry.abstract.DataModel</code> is a powerful tool for defining data schema and functionality that is used throughout Foundry Virtual Tabletop. For an overview of this concept please read the introductory article about the <a href="/article/v10-data-model/" target="_blank">Version 10 Data Model</a> which was written when this architecture was first added to Foundry Virtual Tabletop.</p>
 
-<p>Data Models defined in this way receive many of the same benefits as their core API counterparts, including validation on initialization and update, and on-the-fly data migration and coercion. It also allows functionality to be delegated out to these models, reducing the burden on the system's Document implementation to solely house such logic.</p>
+<p>Data Models are not solely for use by core Document types, but also empower system developers to define such Data Models in order to represent data specific to their systems. Data Models defined in this way receive many of the same benefits as their core API counterparts, including validation on initialization and update, and on-the-fly data migration and coercion. It also allows functionality to be delegated out to these models, reducing the burden on the system's Document implementation to solely house such logic.</p>
 
-<h2 id="system-data-model" class="border">System Data Models</h2>
-<p>This section focuses on how to define and implement Data Models for a Game System in Foundry Virtual Tabletop. For more detailed information on Data Models themselves, please see <a href="/article/v10-data-model/" target="_blank">this</a> article and view the documentation @APIV10[classes/foundry.abstract.DataModel,here].</p>
+<p>This article focuses on how to utilize Data Models for a Game System in Foundry Virtual Tabletop. For more detailed information on Data Models themselves please read the above article or refer to the @API[classes/foundry.abstract.DataModel,DataModel] API Documentation.</p>
 
-<h3>Defining a Data Model</h3>
+<h2 id="definition" class="border">Defining a Data Model</h2>
 <p>Data Models themselves are lightweight classes that can be defined very simply. Here we will take an example system template and construct a corresponding Data Model for it.</p>
 
-<section class="flexrow code-migration">
-    <div class="before">
-        <h4>Data Model</h4>
-        <pre><code class="lang-js">class CharacterData extends foundry.abstract.DataModel {
-  static _enableV10Validation = true;
+<h4>Data Model</h4>
+<pre><code class="lang-js">class CharacterData extends foundry.abstract.DataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
@@ -41,62 +37,52 @@
     };
   }
 }</code></pre>
-    </div>
-    <div class="after">
-        <h4>template.json</h4>
-        <pre><code class="lang-json">{
+
+<p class="note info">If developing for <strong>Version 10</strong>, you may wish to include the <code>static _enableV10Validation = true;</code> property on your DataModel class which enables more strict validation of your defined model fields. If developing for Version 11 or later this property is unnecessary.</p>
+
+<p>With the full schema of your DataModel defined, it becomes unnecessary to define the schema using the <code>template.json</code> file. The only fields necessary in that file are to confirm the document types that your system uses, and which fields require additional server-side sanitization as <code>htmlFields</code>, for example:</p>
+
+  <h4>template.json</h4>
+  <pre><code class="lang-json">{
   "Actor": {
     "types": ["character"],
     "htmlFields": ["biography"],
-    "character": {
-      "biography": "",
-      "health": {
-        "value": 10,
-        "min": 0,
-        "max": 10
-      },
-      "proficiencies": {
-        "weapons": [],
-        "skills": []
-      }
-    }
+    "character": {}
   }
 }</code></pre>
-    </div>
-</section>
 
-<h3>Registering a Data Model</h3>
+<h2 id="registration" class="border">Registering a Data Model</h2>
 <p>Once the Data Model is defined, the core API can be made aware of it and will automatically apply the data model to the <code>system</code> field of any registered types.</p>
 
-<p>The following code snippet will register the example <code>CharacterData</code> model with all <code>character</code>-type <code>Actor</code>s.</p>
+<p>The following code snippet will register the example <code>CharacterData</code> model to be automatically applied as the <code>system</code> data for every Actor of the <code>character</code> type.</p>
 <pre><code class="lang-js">Hooks.on("init", () => {
   CONFIG.Actor.systemDataModels.character = CharacterData;
 });</code></pre>
 
-<h3>Migrations</h3>
+<h2 id="migration" class="border">Migrations</h2>
 <p>Migrations and data coercion can be performed before your Data Model is instantiated, allowing legacy data to be converted into a format that the current version of your system understands. Migrations are run when the source data is first retrieved from disk, as well as run on any update deltas before they are applied to the Document.</p>
 <pre><code class="lang-js">class CharacterData extends foundry.abstract.DataModel {
   static defineSchema() {
     // Omitted for brevity.
   }
 
+  /**
+   * Migrate source data from some prior format into a new specification.
+   * The source parameter is either original data retrieved from disk or provided by an update operation.
+   * @inheritDoc
+   */
   static migrateData(source) {
-    // Here, source will either be the raw data retrieved from disk,
-    // or some update delta.
     if ( "weapons" in source ) {
       source.weapons = source.weapons.map(weapon => {
-        if ( weapon === "bmr" ) return "boomerang";
-        return weapon;
+        return weapon === "bmr" ? "boomerang" : weapon;
       });
     }
     return super.migrateData(source);
   }
 }</code></pre>
 
-<h3>Enhancing a Data Model</h3>
-<p>Data Models can have methods added to them that encapsulate logic relevent to the particular system-specific type of Document that they represent. This allows you to move logic out of the Document implementation and house it in a location that is much more specific to its functionality.</p>
-
-<p>The parent Document instance is accessible from within the Data Model's instance methods via <code>this.parent</code>, allowing for more complex interactions and logic.</p>
+<h2 id="enhancement" class="border">Enhancing a Data Model</h2>
+<p>Data Models can have methods added to them that encapsulate logic relevant to the particular system-specific type of Document that they represent. This allows you to move logic out of the Document implementation and house it in a location that is much more specific to its functionality. The parent Document instance is accessible from within the Data Model's instance methods via <code>this.parent</code>, allowing for more complex interactions and logic.</p>
 <pre><code class="lang-js">class CharacterData extends foundry.abstract.DataModel {
   static defineSchema() {
     // Omitted for brevity.
@@ -106,12 +92,17 @@
     // Omitted for brevity.
   }
 
+  /**
+   * Determine whether the character is dead.
+   * @type {boolean}
+   */
   get dead() {
     const invulnerable = CONFIG.specialStatusEffects.INVULNERABLE;
-    if ( this.parent.effects.some(e => e.getFlag("core", "statusId") === invulnerable) ) return false;
+    if ( this.parent.effects.some(e => e.statuses.has("invulnerable") ) return false;
     return this.health.value &lt;= this.health.min;
   }
 }</code></pre>
+<p>The defined <code>dead</code> property could then be accessed on any Actor document of the character type as follows:</p>
 <pre><code class="lang-js">// Determine if a character is dead.
 game.actors.getName("Character").system.dead;
 </code></pre>
