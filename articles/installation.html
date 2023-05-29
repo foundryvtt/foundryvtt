@@ -2,7 +2,7 @@
 <p>Foundry Virtual Tabletop is available cross-platform, so users of Windows, macOS, and various linux distributions can all host servers for their GMs and Players to use conveniently and easily. This article will instruct you on how to download and install of Foundry VTT for your operating system, and warn you of some of the more common pitfalls users face when trying to install for the first time.</p>
 <h2 class="border">Downloading & Installing Foundry VTT</h2>
 <figure>
-	@Image[164] 
+	@Image[164]
 	<figcaption>A step by step guide to finding your license key and most recent download for Foundry VTT.</figcaption>
 </figure>
 <p>To download Foundry Virtual Tabletop you must be a software license owner, if you have purchased a license the links to download the latest stable release of the software are available on your user profile as shown above.</p>
@@ -46,7 +46,7 @@
 <h4>Endless EULA Bug</h4>
 <p class="note info"><strong>Note:</strong> This bug has been fixed as of the 0.8.x series, and only appears in older versions of the Foundry VTT software.</p>
 If you are using Windows and finding that you cannot accept the End User License Agreement to complete activation of Foundry VTT, the most likely cause is that the name of your computer contains an accented character which can trigger some license signing issues. The work around is to rename your PC by following these steps: https://support.microsoft.com/en-us/windows/rename-your-windows-10-pc-750bc75d-8ff8-e99a-b9dc-04dff566ae74
- 
+
 Once the name no longer contains invalid text characters, you can delete your license.json file from %localappdata%\FoundryVTT\Config and you'll be able to re-enter your license key and use the software as expected.
 
 <h2 id="dedicated" class="border">Hosting a Dedicated Server with NodeJS</h2>
@@ -59,7 +59,7 @@ In order to use the NodeJS package it is necessary to install NodeJS for whichev
 <h4 id="redhat">For Red Hat / Amazon Linux package manager</h4> <pre><code class="language bash">sudo yum install -y openssl-devel
 curl --silent --location https://rpm.nodesource.com/setup_14.x | sudo bash -
 sudo yum install -y nodejs</code></pre>
-	
+
 <h4 id="debian">Debian / Ubuntu package manager</h4> <pre><code class="language bash">sudo apt install -y libssl-dev
 curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
 sudo apt install -y nodejs</code></pre>
@@ -71,7 +71,7 @@ sudo apt install -y nodejs</code></pre>
 <p class="info note">Please be aware that the download links provided via the purchased licenses page expire every 5 minutes.</p>
 
 <h3>Extracting and Launching the Server Using NodeJS</h3>
-<p>Now that you have downloaded both the Foundry VTT NodeJS package and installed NodeJS, it's time to extract the zip and create your data directory.</p> 
+<p>Now that you have downloaded both the Foundry VTT NodeJS package and installed NodeJS, it's time to extract the zip and create your data directory.</p>
 <h4 id="dedicated-linux">For Linux</h4>
 <pre><code class="language bash"># Create application and user data directories
 cd $HOME
@@ -88,7 +88,7 @@ node resources/app/main.js --dataPath=$HOME/foundrydata</code></pre>
 
 <h4 id="dedicated-mac">For macOS</h4>
 	<p>Foundry VTT is also supported as a native application on macOS using Electron, however if you wish to host the software using Node.js directly, this is also an option in the macOS environment. Simply visit <a href="https://nodejs.org/en/download/" target="_blank" rel="nofollow noopener">https://nodejs.org/en/download/</a> and download the macOS installer. Node is installed on your system, you can run the server using the instructions in the below section via your Mac terminal.</p>
-	
+
 <pre><code class="language bash"># create a user data directory
 cd $HOME
 mkdir foundrydata
@@ -97,18 +97,17 @@ mkdir foundrydata
 cd ~/Library/Application Support/FoundryVTT
 # Start running the server
 node resources/app/main.js --dataPath=$HOME/foundrydata</code></pre>
-	
+
 <h4 id="dedicated-windows">For Windows</h4>
-<p>Note that you can run a dedicated server from Windows also, for Windows you should download and install node.js from <a href="https://nodejs.org/en/download/" target="_blank" rel="nofollow noopener">https://nodejs.org/en/download/</a>.</p>
-<pre><code class="language bash"># create a user data directory
+<p>You can also run a dedicated server on Windows. You will first need to download and install Node.js from <a href="https://nodejs.org/en/download/" target="_blank" rel="nofollow noopener">https://nodejs.org/en/download/</a>. Once Node.js is installed, you can launch the server process from whichever location you installed the Foundry Virtual Tabletop software using your preferred windows command-line client like the Command Prompt or <a href="https://apps.microsoft.com/store/detail/windows-terminal/9N0DX20HK701" target="_blank">Windows Terminal</a>.</p>
+<pre><code class="language bash"># Make a folder in a location of your choosing to store your Foundry VTT data
 cd %userprofile%
 mkdir foundrydata
-		
-# access the application directory, this can be any folder you unzipped the Node version of FVTT into
-cd C:\Program Files\FoundryVTT\
 
-# Start running the server
+# Launch the Node.js server from the location where you installed the Foundry VTT software
+cd C:\Program Files\FoundryVTT\
 node resources/app/main.js --dataPath=%userprofile%/foundrydata</code></pre>
+
 <p>Now that you are running Foundry VTT via node, open any modern web browser and connect to <a href="http://127.0.0.1:30000">http://127.0.0.1:30000</a> to access your Foundry VTT server.</p>
 <h4>Running FVTT as a Service</h4>
 <p>If you wish to keep the server running perpetually, you can find relevant documentation for maintaining background processes with a package manager such as PM2 <a href="https://pm2.keymetrics.io/docs/usage/quick-start/">here</a>, or otherwise review the relevant documentation for crontab or the equivalent for your operating system.</p>
