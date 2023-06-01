@@ -1,0 +1,170 @@
+<p>The underlying way that unlinked Tokens are represented in the core software has undergone a complete overhaul in Version 11, in order to eliminate a large amount of technical debt that had been burdening it for some time. This article is aimed at Module and System developers that manipulate Tokens and Token data in certain advanced ways, or have previously experienced friction in their codebases and implemented workarounds for unlinked Tokens behaving slightly differently to real Actors.</p>
+
+<p>If your codebase does not manipulate Tokens in any advanced way, or has no special-case code to handle unlinked Tokens, then you can safely skip this migration guide, as the high-level APIs and behaviours have remained the same here.</p>
+
+<p><strong>Glossary of Terms.</strong></p>
+<dl>
+	<dt>Linked Token</dt>
+  <dd>A Token with 'Link Actor Data' checked</dd>
+
+	<dt>Unlinked Token</dt>
+	<dd>A Token with 'Link Actor Data' unchecked</dd>
+
+	<dt>Base Actor</dt>
+	<dd>The Token's 'Represented Actor'</dd>
+
+	<dt>Token Actor</dt>
+	<dt>Synthetic Actor</dt>
+	<dd>An Actor that is created by merging the Base Actor with changes that are specific to the Token</dd>
+</dl>
+
+<h2 id="how-tokens-work" class="border">How Tokens Work</h2>
+<p>The Token Document is an embedded child of the Scene Document. It first-and-foremost represents an interactable object that can be moved around the Scene, and stores information such as its X and Y co-ordinates, and texture information such as URL, scale, and rotation. It does not have to represent an Actor, though it can. The reference to the World Actor that a Token represents (if it represents one), is stored in <code>actorId</code>. Whether the Token is considered 'linked' to that Actor or not, is determined by the <code>actorLink</code> property.</p>
+
+<h3>Linked Tokens</h3>
+<p>Linked Tokens are the simplest case. The Token on the Scene represents the World Actor exactly. Every instance of that Token points to the same World Actor. Double-clicking a Linked Token will bring up that World Actor's sheet.</p>
+
+<h3>Unlinked Tokens</h3>
+<p>Unlinked Tokens represent a variation on a World Actor. They use the World Actor as a template and then change certain parts of it. For example, having a different name, different hit points, or different Items. The Actor that emerges from applying the changes to the Base Actor is called a Synthetic Actor, or Token Actor, because the full Actor Document does not really exist. You cannot retrieve a Token Actor from the Actors sidebar, it exists only as part of the Token.</p>
+
+<p>Every instance of an Unlinked Token has its own, unique Token Actor instance. Double-clicking an Unlinked Token will bring up the Token Actor's sheet.</p>
+
+<h2 id="problem-actor-data" class="border">The Problem with Actor Data</h2>
+<p>In V10 and earlier, the set of changes that an Unlinked Token has made to its Base Actor was stored in the <code>actorData</code> property, which was a plain object. This meant that any change to the Token Actor was ultimately a Token update, and not an Actor update.</p>
+
+<pre><code class="lang-js">token.actor.update({ name: 'Furious Goblin' });
+// Becomes:
+token.update({ actorData: { name: 'Furious Goblin' } });</code></pre>
+
+<p>This meant that any Systems that had overridden <code>Actor#_preUpdate</code> or <code>Actor#_onUpdate</code>, or any System or Module that relied on the <code>preUpdateActor</code> or <code>updateActor</code> hooks would miss these updates entirely, even though they were actually modifying an 'Actor', as far as the tabletop was concerned.</p>
+
+<p>In order to address this, we created an emulation layer that intercepts these <code>actorData</code> updates and fires the appropriate Actor events instead. However, the problem was not solved there, as updates to embedded Items and ActiveEffects also needed to be emulated. Because of this emulation, and because the underlying update was targeting a property of a Document, rather than an actual Document, the abstraction would break down in places, and would not behave like an normal Actor or Item update, forcing System and Module developers to account for and work around these discrepancies.</p>
+
+<p>One particularly problematic result of the emulation layer, was that any change to a Token Actor's Items would result in the entire Item collection being copied into the Token's <code>actorData</code>. This was necessary in order to feasibly emulate the Item events. This resulted in a huge amount of bloat, where a single Scene might have several Tokens, each storing hundreds of duplicated Items in their <code>actorData</code> properties.</p>
+
+<h2 id="actor-deltas" class="border">Actor Deltas</h2>
+<p>With the improved capabilities afforded us by the switch to a different database architecture, we were able to remove the emulation layer almost entirely and institute the ActorDelta Document in its place. The ActorDelta document is a direct child of a Token Document, and resembles an Actor Document very closely. In particular, it has its own embedded Items and ActiveEffects collections. The ActorDelta stores the differences between the Token Actor and the Base Actor, and importantly this includes differences to the embedded collections also.</p>
+
+<p>Updates to Token Actors are considered real Actor updates for all intents and purposes now, and are translated into ActorDelta updates server-side. The same is true for any updates to embedded Items or ActiveEffects (or embedded ActiveEffects on embedded Items). It is difficult to provide specific migration guidance here without being able to know what workarounds may have been in place already. Suffice it to say that these workarounds should no longer be necessary, and if you find that any still are, please make us aware of the details.</p>
+
+<h3>Embedded Collections</h3>
+<p>One place where the behaviour has changed at a high level is with the embedded collections of Token Actors. Previously any update to any embedded Item on a Token Actor would cause the entire collection to be copied to the Token Actor, effectively 'detaching' it from the Base Actor. If you were relying on this behaviour, be aware that is has changed. Creations, deletions, and updates of embedded Items on Token Actors now only affect those Items, and do not impact the rest of the embedded collection at all.</p>
+
+<section class="flexrow code-migration">
+  <div class="before">
+    <h4>Version 10 (Before)</h4>
+    <pre><code class="lang-js">// A Token Actor with three Items.
+// Breastplate, Longsword, Shield.
+token.actor.items.getName('Shield').delete();
+const baseActor = game.actors.get(token.actorId);
+baseActor.items.getName('Breastplate').update({
+  name: 'Magic Breastplate'
+});
+
+// This logs nothing as all the Items on the Token Actor
+// are considered different to the Base Actor's Items
+// after the Shield was deleted.
+console.log(token.actor.items.getName('Magic Breastplate'));</code></pre>
+  </div>
+  <div class="after">
+    <h4>Version 11 (After)</h4>
+    <pre><code class="lang-js">// A Token Actor with three Items.
+// Breastplate, Longsword, Shield.
+token.actor.items.getName('Shield').delete();
+token.baseActor.items.getName('Breastplate').update({
+  name: 'Magic Breastplate'
+});
+
+// This logs the renamed Magic Breastplate, because the
+// Breastplate Item is still considered 'linked' to the
+// one in the Base Actor.
+console.log(token.actor.items.getName('Magic Breastplate'));</code></pre>
+  </div>
+</section>
+
+<p>In the example above, the ActorDelta retains the minimal number of changes that have actually been made to it. So it retains the fact that the Shield was deleted, and therefore its Token Actor will not have a Shield. But since the Breastplate was not changed at all, it is still 'linked' to the Base Actor's Breastplate Item, so any changes to it are reflected in the Token Actor's Breastplate Item too. Whether this behaviour is desirable or not will depend a lot on your use case for Token Actors, however it significantly reduces bloat in the Scene data, so it is the default we have opted for.</p>
+
+<h3>Operations on ActorDeltas</h3>
+<p>In the vast majority of cases, you should not need to ever operate on an ActorDelta Document directly. Any changes that need to be made to a Token Actor should be done via the Token Actor instance itself.</p>
+
+<pre><code class="lang-js">// Don't do this:
+token.delta.update({ name: 'Furious Goblin' });
+
+// Do this instead:
+token.actor.update({ name: 'Furious Goblin' });</code></pre>
+
+<p>For some advanced use cases, you may need to perform operations directly on the ActorDelta, however. For example, you might want to reset some change on the Token Actor and 're-link' it back to following the state of the Base Actor.</p>
+
+<pre><code class="lang-js">// Restore the Token Actor's name
+token.delta.update({ name: null });
+
+// Restore the Token Actor's HP
+token.delta.update({ 'system.attributes.-=hp': null });</code></pre>
+
+<p>You can even restore embedded Documents back to the Base Actor's state with the <code>EmbeddedCollectionDelta#restoreDocument</code> method.</p>
+
+<pre><code class="lang-js">// Change a Token Actor's Item:
+token.actor.items.getName('Breastplate').update({ name: 'Magic Breastplate' });
+// Undo the change:
+const breastplateID = token.baseActor.items.getName('Breastplate');
+token.actor.items.restoreDocument(breastplateID);
+
+// Delete a Token Actor's Item:
+token.actor.items.getName('Shield').delete();
+// Un-delete the Item:
+const shieldID = token.baseActor.items.getName('Shield');
+token.actor.items.restoreDocument(shieldID);</code></pre>
+
+<h3>Direct Actor Data Updates</h3>
+<p>In cases where <code>actorData</code> is supplied directly, such as to create a Token with some differences pre-applied, it is enough to substitute <code>actorData</code> for <code>delta</code> to achieve the same effect:</p>
+
+<section class="flexrow code-migration">
+  <div class="before">
+    <h4>Version 10 (Before)</h4>
+    <pre><code class="lang-js">const createData = {
+  x, y,
+  actorData: { name: 'Furious Goblin' }
+};
+TokenDocument.implementation.create(createData, {
+  parent: canvas.scene
+});</code></pre>
+  </div>
+  <div class="after">
+    <h4>Version 11 (After)</h4>
+    <pre><code class="lang-js">const createData = {
+  x, y,
+  delta: { name: 'Furious Goblin' }
+};
+TokenDocument.implementation.create(createData, {
+  parent: canvas.scene
+});</code></pre>
+  </div>
+</section>
+
+<p>As mentioned before, however, there should be no need to perform direct <em>updates</em> in the majority of cases, and they should instead be performed directly to on Token Actor.</p>
+
+<section class="flexrow code-migration">
+  <div class="before">
+    <h4>Version 10 (Before)</h4>
+    <pre><code class="lang-js">token.update({
+  actorData: {
+    name: 'Furious Goblin',
+    system: { details: { cr: 10 } }
+  }
+});</code></pre>
+  </div>
+  <div class="after">
+    <h4>Version 11 (After)</h4>
+    <pre><code class="lang-js">token.actor.update({
+  name: 'Furious Goblin',
+  system: { details: { cr: 10 } }
+});</code></pre>
+  </div>
+</section>
+
+<p>One exception to this is when performing bulk update operations on many Tokens in a Scene, such as part of a System migration. In those cases, it is better to perform the update directly on the <code>delta</code> property, rather than updating each Token Actor individually:</p>
+
+<pre><code class="lang-js">const updates = scene.tokens.map(token => {
+  return { _id: token.id, delta: { name: 'Furious Hobgoblin' } };
+});
+scene.updateEmbeddedDocuments('Token', updates);</code></pre>
