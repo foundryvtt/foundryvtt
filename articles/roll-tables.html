@@ -4,7 +4,12 @@
 <h4>Folders</h4>
 <p>This directory can contain folders to organize your world's rollable tables. For details on how to create and use them please see the @Article[folders] article.</p>
 
-<h2 class="border">The Roll Table Directory</h2>
+<h2 class="border">Rolling on a Table</h2>
+<p>Many Game Systems and Add-on Modules come pre-configured with Rollable Tables for use during your games. There are a variety of ways to draw results from a Rollable Table quickly. In addition to clicking the Roll Button on an open rollable table, You may drag and drop a rollable table from the sidebar to the macro hotbar to quickly generate a macro which, when clicked, will roll for a result from the table and post it to the chat log. You may also right-click the table and choose the Roll option from the context menu.</p>
+
+
+
+<h2 class="border">The Rollable Table Directory</h2>
 <figure class="right">@Image[441]
 	<figcaption>The roll table directory sidebar contains all of your existing tables, and allows you to create new ones.</figcaption>
 </figure>
@@ -68,9 +73,8 @@
 </section>
 
 <h2 id="rolltable" class="border">The Rollable Table Interface</h2>
-<figure class="right">@Image[95]
-<figcaption>The Roll Table configuration sheet can contain many entries from which one or more can be randomly drawn when the table is rolled!</figcaption>
-</figure>
+<div class="columns">
+	<div class="column">
 <p>Once the table is created you'll be presented with the table configuration panel. This panel holds all of the configuration options, various UI actions, and the types of results that a table can have.</p>
 
 <section class="collapsible">
@@ -92,8 +96,8 @@
 	<dt>Draw with Replacement?</dt>
 	<dd><p>If a rollable table is set to draw with replacement, its entries are not used up when rolled. If unchecked, this option will only roll each entry in its table once until reset. This usage is intended for representing physical objects that, once claimed, cannot be claimed again. Such as a chest containing only a few items. Once those items are removed, the chest no longer contains them.</p></dd>
 	
-	<dt>Display Roll to Chat?</dt>
-	<dd><p>This option determines whether or not players are able to see the numeric results of the roll on the table. With the results. Regardless of the state of this option, drawing from a Rollable Table will always generate a chat card for the result.</p></dd>
+	<dt>Display Roll Formula to Chat?</dt>
+	<dd><p>This option determines whether or not players are able to see the formula that the Rollable Table uses to determine the results of the roll on the table, which can give players some insight into how many results there may be in the table. Regardless of the state of this option, drawing from a Rollable Table will always generate a chat card for the result, this only controls the visibility of the formula used.</p></dd>
 </dl>
 </div>
 </section>
@@ -149,7 +153,12 @@
 </dl>
 </div>
 </section>
-
+</div>
+<figure class="right">@Image[95]
+	<figcaption>The Rollable Table application can contain countless results allowing for one or more to be randomly drawn when the table is rolled!</figcaption>
+	</figure>
+	
+</div>
 <h3 id="nesting">Nesting Tables</h3>
 <p>By default, Foundry supports rolling on secondary tables inside a Rollable table. To accomplish this, assign a result to the Document - RollTable type and enter the name of the table.</p>
 <p>If you wish to have the first table indicate that it is rolling on a sub-table, assign a text result before the secondary Rollable Table result to make a declaration, such as "A small chest containing:". Then provide both of these results the same Range.</p>
