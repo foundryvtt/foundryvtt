@@ -1,0 +1,121 @@
+<p>ActiveEffects have undergone a number of changes in Version 11. Several properties have been renamed in order to make them consistent with other Document types. The way that ActiveEffects manage statuses has also been changed, improving their flexibility. Finally, the way that ActiveEffects on Items are transferred to Actors has undergone a large paradigm shift due to the lifting of certain restrictions around grandchild embedded updates. See <a title="Document Hierarchy Changes" href="/article/v11-document-hierarchy/" target="_blank">here</a> for the general details on those changes, and keep reading this article for the specifics on how they related to ActiveEffect transferral.</p>
+
+<h2 id="name-changes" class="border">Property Name Changes</h2>
+<p>The <code>description</code> field has been added to ActiveEffects. If you add this property during ActiveEffect preparation, or as a getter, it should be removed.</p>
+<p>The <code>label</code> field has been renamed to <code>name</code>. This is to make it more consistent with other Documents, that all use <code>name</code>. A deprecation path is in place for existing code that still uses <code>label</code>.</p>
+<p>The <code>img</code> getter has been added as an alias of the <code>icon</code> field. Eventually <code>icon</code> will be deprecated in favour of <code>img</code>, however we did not get this change made in time for the V11 release, so <code>icon</code> remains the canonical field name. You may update your code to read the <code>img</code> field instead though, ahead of the eventual change.</p>
+
+<h2 id="statuses" class="border">ActiveEffect Statuses</h2>
+<p>The status effects configured in <code>CONFIG.statusEffects</code> have special meaning in a System. Previously, ActiveEffects could apply these statuses to Actors by way of the <code>statusId</code> flag. This only allows for an ActiveEffect to apply a single status condition, however. In Version 11, the <code>statusId</code> flag has now been deprecated, and instead the <code>statuses</code> property has been directly added to the ActiveEffect schema, allowing an ActiveEffect to apply multiple statuses.</p>
+
+<section class="flexrow code-migration">
+  <div class="before">
+    <h4>Version 10 (Before)</h4>
+    <pre><code class="lang-js">// Create a new effect to add the status.
+ActiveEffect.implementation.create({
+  "flags.core.statusId": "prone"
+}, { parent: actor });
+
+// Or add the status to an existing effect.
+effect.setFlag("core", "statusId", "prone");
+
+// Remove the status by deleting the effect.
+effect.delete();
+
+// Or remove the status but keep the effect.
+effect.unsetFlag("core", "statusId");</code></pre>
+  </div>
+  <div class="after">
+    <h4>Version 11 (After)</h4>
+    <pre><code class="lang-js">// Create a new effect to add statuses.
+ActiveEffect.implementation.create({
+  statuses: ["prone", "unconscious"]
+}, { parent: actor });
+
+// Or add the statuses to an existing effect.
+const statuses = effect.statuses;
+["prone", "unconscious"].forEach(statuses.add, statuses);
+effect.update({ statuses: Array.from(statuses) });
+
+// Remove all statuses by deleting the effect.
+effect.delete();
+
+// Or remove a single status.
+statuses.delete("unconscious");
+effect.update({ statuses: Array.from(statuses) });</code></pre>
+  </div>
+</section>
+
+<p>To retrieve the combined list of all statuses that are affecting an Actor, across all of their applicable ActiveEffects, you can use the <code>Actor#statuses</code> property.</p>
+
+<pre><code class="lang-js">const effect = await ActiveEffect.implementation.create({
+  statuses: ["prone", "unconscious"]
+}, { parent: actor });
+console.log(actor.statuses); // Set{"prone", "unconscious"};
+await effect.update({ disabled: true });
+console.log(actor.statuses); // Set{}</code></pre>
+
+<h2 id="transferral" class="border">ActiveEffect Transferral</h2>
+<p>In previous versions of Foundry Virtual Tabletop, it was impossible to directly update a grandchild embedded Document. This meant that directly manipulating an ActiveEffect on an owned Item could not be done in the normal way. In order to work around this, ActiveEffects were given the <code>transfer</code> property which controlled whether they would be transferred to the grandparent Actor in the event their parent Item was ever added to an Actor, and would be deleted if that Item were ever deleted from the Actor. Now that this limitation has been removed (see full details <a title="Document Hierarchy Changes" href="/article/v11-document-hierarchy/" target="_blank">here</a>), it is no longer necessary to have ActiveEffects transferred to their grandparent Actors. They can remain on the Item and still apply their effects to the Actor, while still being enabled or disabled, or otherwise edited in the normal way.</p>
+
+<p>Not transferring the ActiveEffect has a number of benefits: Firstly, it is no longer necessary to use the <code>origin</code> property to keep track of the Item the ActiveEffect was transferred from. This property historically had problems where unlinked Tokens or Actors housed in compendia were concerned. This also frees up the <code>origin</code> to be used exclusively for more useful things, such as whether an effect was applied to one Actor by another Actor.</p>
+
+<p>Another benefit is that there needs to be no special logic around deleting an Item, in order to make sure that any transferred ActiveEffects are appropriately cleaned up. Any Item that is deleted will automatically delete all its children ActiveEffects too. And, of course, there also needs to be no special logic for performing the ActiveEffect creation on the Actor when an Item is added to that Actor.</p>
+
+<p>The <code>transfer</code> field remains, however, and its behaviour depends on the value of the new <code>CONFIG.ActiveEffect.legacyTransferral</code> flag. When this value is <code>true</code> (the default), ActiveEffects will continue to be transferred to their grandparent Actors, and deleted when their parent Items are removed from the Actor. When this value is <code>false</code>, the <code>transfer</code> property will only control whether the ActiveEffect applies its changes to the Actor or not. Whether this flag is <code>true</code> or <code>false</code> should not affect the behaviour of ActiveEffects and how they apply their changes to Actors at all. For this reason, if you are a System developer, it is recommended that you set the <code>legacyTransferral</code> flag to <code>false</code> as soon as you are able to verify that none of your codebase relies on this legacy transferral behaviour.</p>
+
+<h3>Legacy Transferral</h3>
+<pre><code class="lang-js">CONFIG.ActiveEffect.legacyTransferral = true;
+await ActiveEffect.implementation.create({
+  name: 'Name Change',
+  transfer: true,
+  changes: [{
+    key: 'name',
+    value: 'Other Name',
+    mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE
+  }]
+}, { parent: item });
+await Item.create(item.toObject(), { parent: actor });
+
+// Verify the Actor's name has been changed.
+console.log(actor.name); // "Other Name"
+
+// A new ActiveEffect has been created on the Actor now, with its origin pointing to the Item.
+actor.effects.getName('Name Change');</code></pre>
+
+<h3>Non-Legacy Transferral</h3>
+<pre><code class="lang-js">CONFIG.ActiveEffect.legacyTransferral = false;
+await ActiveEffect.implementation.create({
+  name: 'Name Change',
+  transfer: true,
+  changes: [{
+    key: 'name',
+    value: 'Other Name',
+    mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE
+  }]
+}, { parent: item });
+await Item.create(item.toObject(), { parent: actor });
+
+// Verify the Actor's name has been changed.
+console.log(actor.name); // "Other Name"
+
+// No ActiveEffect created on the Actor.
+actor.effects.getName('Name Change'); // undefined</code></pre>
+
+<p>One potential change you may have to accommodate if your System does not use legacy transferral, is retrieving the collection of ActiveEffects that are applying or are capable of applying to a given Actor. With legacy transferral, this is easy, as you only need to check the <code>Actor#effects</code> collection. With non-legacy transferral, each of the Actor's Items must also be checked. To make this more ergonomic and efficient, several additional methods have been added to the Actor class.</p>
+
+<pre><code class="lang-js">// Retrieve an iterator over all effects that can apply to the actor.
+for ( const effect of actor.allApplicableEffects() ) {
+  // The effect might exist on the Actor, or it might exist on one of the Actor's Items.
+  // If it's the latter, then its transfer value will be true.
+}
+
+// Get a list of all the applicable effects.
+const effects = Array.from(actor.allApplicableEffects());
+
+// Get a list of all effects that are actually applied to the actor.
+const applied = actor.appliedEffects();
+
+// Get a list of all effects that are temporarily applied to the actor.
+// Note: This is the same as V10.
+const temporary = actor.temporaryEffects();</code></pre>
