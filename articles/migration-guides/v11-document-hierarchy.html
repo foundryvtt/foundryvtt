@@ -1,0 +1,58 @@
+<p>With the move to the LevelDB database architecture, several limitations imposed on Document hierarchies have been lifted. Previously, it was only feasible to embed child Documents one level deep, and for the vast majority of use cases within the Foundry Virtual Tabletop core software, this was all that was necessary. In the case of Actors, Items, and ActiveEffects, however, this limitation did cause some friction. With the limitation removed, it may pave the way for several other useful hierarchies, but for Version 11, the most immediate impact is with ActiveEffects.</p>
+
+<p>The below diagram illustrates the current Actor hierarchy, with terms that will be used labelled.</p>
+
+<pre>          Actor
+          /   \
+       Item  ActiveEffect &lt;-- Children
+         |
+   ActiveEffect           &lt;-- Grandchildren</pre>
+
+<p>Other terms that may be referred to are:</p>
+<ul>
+  <li><strong>Ancestor.</strong> Any Document that is connected by traversing the tree strictly upward from a given Document is considered an ancestor of that Document.</li>
+  <li><strong>Descendant.</strong> Any Document that is connected by traversing the tree strictly downward from a given Document is considered a descendant of that Document.</li>
+</ul>
+
+<h2 id="hierarchy" class="border">The Hierarchy Property</h2>
+<p>All Document classes now have a <code>hierarchy</code> static property. This hierarchy is constructed by inspecting the Document's DataModel. <code>EmbeddedCollectionField</code>s and <code>EmbeddedDocumentField</code>s are considered <code>hierarchical</code> fields and contribute to a Document's hierarchy. The <code>metadata.embedded</code> property is therefore being slowly phased out in favour of <code>hierarchy</code>.</p>
+
+<p>The <code>hierarchy</code> property is an object whose keys are the <em>collection</em> names, and whose values are the <code>DataField</code> instances that define those collections. It is essentially a subset of the Document's <code>schema</code> that contains only the hierarchical fields. This is different to the structure of <code>metadata.embedded</code>, which maps <em>document</em> names to the collection name. In order to facilitate this change, the <a title="getCollectionName" href="/api/classes/foundry.abstract.Document.html#getCollectionName" target="_blank">getCollectionName</a> static method has been added.</p>
+
+<p>Using the <code>getCollectionName</code> helper, <code>Document#getEmbeddedCollection</code> will work when passed either the document name, or the collection name. It is preferable to use this method, rather than accessing the collection directly, in order to make your code agnostic of whether it has been passed the document name or the collection name.</p>
+
+<pre><code class="lang-js">// Don't do this:
+const collection = actor[collectionName];
+
+// Do this:
+const collection = actor.getEmbeddedCollection(collectionName);
+
+// If you know the name of the collection you want to access, you can still do so directly:
+const items = actor.items; // This is still fine.</code></pre>
+
+<h2 id="updates" class="border">Descendant Updates</h2>
+<p>Historically, it has been impossible to update grandchild embedded Documents directly, that is, retrieving a grandchild Document instance and calling <code>update</code> or <code>delete</code> on it. Achieving this could only be done by updating the parent Item's <code>effects</code> array directly, for example:</p>
+
+<pre><code class="lang-js">const item = actor.items.getName('Shield');
+const effect = item.effects.getName('Special Effect');
+
+// Disable the effect.
+item.update({ effects: [{ _id: effect.id, disabled: true }] });</code></pre>
+
+<p>There are some ongoing issues with the API that will prevent the above from appropriately calling <code>ActiveEffect#_preUpdate</code> or <code>preUpdateActiveEffect</code>, but more than that, it is not very ergonomic, and is awkward to have to use a different pattern in these specific cases rather than using the same API as with other Documents.</p>
+
+<p>In V11, this limitation has been removed, and grandchild Documents can be updated directly, just like any other Document. All CRUD workflow methods and hooks will be called appropriately.</p>
+
+<pre><code class="lang-js">const item = actor.items.getName('Shield');
+const effect = item.effects.getName('Special Effect');
+
+// Disable the effect.
+effect.update({ disabled: true });</code></pre>
+
+<p>With grandchild Documents able to be updated directly, it may be desirable that their ancestors can react to such changes. Previously only the <code>*EmbeddedDocuments</code> methods existed (such as <code>_onUpdateEmbeddedDocuments</code>), which would react only to direct child updates. A new family of methods, <code>*DescendantDocuments</code>, replaces them. As expected, these methods react to any CRUD operation on any descendant Document. If you wish to react only to direct child updates as before, you can do so by checking the <code>parent</code> argument.</p>
+
+<pre><code class="lang-js">_onUpdateDescendantDocuments(parent, collection, documents, data, options, userId) {
+  if ( parent === this ) {
+    // The documents were direct children of this one.
+  }
+}</code></pre>
