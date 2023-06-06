@@ -1,6 +1,6 @@
 <p>The underlying way that unlinked Tokens are represented in the core software has undergone a complete overhaul in Version 11, in order to eliminate a large amount of technical debt that had been burdening it for some time. This article is aimed at Module and System developers that manipulate Tokens and Token data in certain advanced ways, or have previously experienced friction in their codebases and implemented workarounds for unlinked Tokens behaving slightly differently to real Actors.</p>
 
-<p>If your codebase does not manipulate Tokens in any advanced way, or has no special-case code to handle unlinked Tokens, then you can safely skip this migration guide, as the high-level APIs and behaviours have remained the same here.</p>
+<p>If your codebase does not manipulate Tokens in any advanced way, or has no special-case code to handle unlinked Tokens, then you can safely skip this migration guide, as the high-level APIs and behaviors have remained the same here.</p>
 
 <p><strong>Glossary of Terms.</strong></p>
 <dl>
@@ -48,7 +48,7 @@ token.update({ actorData: { name: 'Furious Goblin' } });</code></pre>
 <p>Updates to Token Actors are considered real Actor updates for all intents and purposes now, and are translated into ActorDelta updates server-side. The same is true for any updates to embedded Items or ActiveEffects (or embedded ActiveEffects on embedded Items). It is difficult to provide specific migration guidance here without being able to know what workarounds may have been in place already. Suffice it to say that these workarounds should no longer be necessary, and if you find that any still are, please make us aware of the details.</p>
 
 <h3>Embedded Collections</h3>
-<p>One place where the behaviour has changed at a high level is with the embedded collections of Token Actors. Previously any update to any embedded Item on a Token Actor would cause the entire collection to be copied to the Token Actor, effectively 'detaching' it from the Base Actor. If you were relying on this behaviour, be aware that is has changed. Creations, deletions, and updates of embedded Items on Token Actors now only affect those Items, and do not impact the rest of the embedded collection at all.</p>
+<p>One place where the behavior has changed at a high level is with the embedded collections of Token Actors. Previously any update to any embedded Item on a Token Actor would cause the entire collection to be copied to the Token Actor, effectively 'detaching' it from the Base Actor. If you were relying on this behavior, be aware that is has changed. Creations, deletions, and updates of embedded Items on Token Actors now only affect those Items, and do not impact the rest of the embedded collection at all.</p>
 
 <section class="flexrow code-migration">
   <div class="before">
@@ -82,7 +82,7 @@ console.log(token.actor.items.getName('Magic Breastplate'));</code></pre>
   </div>
 </section>
 
-<p>In the example above, the ActorDelta retains the minimal number of changes that have actually been made to it. So it retains the fact that the Shield was deleted, and therefore its Token Actor will not have a Shield. But since the Breastplate was not changed at all, it is still 'linked' to the Base Actor's Breastplate Item, so any changes to it are reflected in the Token Actor's Breastplate Item too. Whether this behaviour is desirable or not will depend a lot on your use case for Token Actors, however it significantly reduces bloat in the Scene data, so it is the default we have opted for.</p>
+<p>In the example above, the ActorDelta retains the minimal number of changes that have actually been made to it. So it retains the fact that the Shield was deleted, and therefore its Token Actor will not have a Shield. But since the Breastplate was not changed at all, it is still 'linked' to the Base Actor's Breastplate Item, so any changes to it are reflected in the Token Actor's Breastplate Item too. Whether this behavior is desirable or not will depend a lot on your use case for Token Actors, however it significantly reduces bloat in the Scene data, so it is the default we have opted for.</p>
 
 <h3>Operations on ActorDeltas</h3>
 <p>In the vast majority of cases, you should not need to ever operate on an ActorDelta Document directly. Any changes that need to be made to a Token Actor should be done via the Token Actor instance itself.</p>

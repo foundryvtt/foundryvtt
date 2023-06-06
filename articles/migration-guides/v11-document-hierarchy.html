@@ -15,7 +15,7 @@
 </ul>
 
 <h2 id="hierarchy" class="border">The Hierarchy Property</h2>
-<p>All Document classes now have a <code>hierarchy</code> static property. This hierarchy is constructed by inspecting the Document's DataModel. <code>EmbeddedCollectionField</code>s and <code>EmbeddedDocumentField</code>s are considered <code>hierarchical</code> fields and contribute to a Document's hierarchy. The <code>metadata.embedded</code> property is therefore being slowly phased out in favour of <code>hierarchy</code>.</p>
+<p>All Document classes now have a <code>hierarchy</code> static property. This hierarchy is constructed by inspecting the Document's DataModel. <code>EmbeddedCollectionField</code>s and <code>EmbeddedDocumentField</code>s are considered <code>hierarchical</code> fields and contribute to a Document's hierarchy. The <code>metadata.embedded</code> property is therefore being slowly phased out in favor of <code>hierarchy</code>.</p>
 
 <p>The <code>hierarchy</code> property is an object whose keys are the <em>collection</em> names, and whose values are the <code>DataField</code> instances that define those collections. It is essentially a subset of the Document's <code>schema</code> that contains only the hierarchical fields. This is different to the structure of <code>metadata.embedded</code>, which maps <em>document</em> names to the collection name. In order to facilitate this change, the <a title="getCollectionName" href="/api/classes/foundry.abstract.Document.html#getCollectionName" target="_blank">getCollectionName</a> static method has been added.</p>
 
