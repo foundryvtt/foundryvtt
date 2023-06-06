@@ -1,0 +1,77 @@
+<p>With the move to a new underlying database technology in Foundry Virtual Tabletop Version 11, the way that compendium pack data is stored has changed. Previously, all the data for a single pack was stored in a single plain text file with a <code>.db</code> extension, but now each pack exists as its own folder containing several different files, some of which are binary-encoded. This article will provide information on migrating your compendium pack content to the new format, as well as discussing some more advanced tooling like version control and the new Foundry VTT command-line application.</p>
+
+<p><strong>Glossary of Terms.</strong></p>
+<dl>
+  <dt>NeDB</dt>
+  <dd>The old database technology that stored data in <code>.db</code> files.</dd>
+
+  <dt>LevelDB</dt>
+  <dd>The new database technology that stores data in folders.</dd>
+</dl>
+
+<h2 id="v11" class="border">V11 Compatibility</h2>
+<p>If you only want your content to be available in Foundry Virtual Tabletop Version 11 and newer, this is the simplest migration path. First, you will need to update your <code>module.json</code> or <code>system.json</code> and amend the pack definitions to remove the <code>.db</code> extension from the paths.</p>
+
+<section class="flexrow code-migration">
+  <div class="before">
+    <h4>Version 10 (Before)</h4>
+    <pre><code class="lang-json">{
+  "packs": [{
+    "name": "monsters",
+    "label": "Monsters",
+    "system": "some-system",
+    "type": "Actor",
+    "path": "packs/monsters.db"
+  }]
+}</code></pre>
+  </div>
+  <div class="after">
+    <h4>Version 11 (After)</h4>
+    <pre><code class="lang-json">{
+  "packs": [{
+    "name": "monsters",
+    "label": "Monsters",
+    "system": "some-system",
+    "type": "Actor",
+    "path": "packs/monsters"
+  }]
+}</code></pre>
+  </div>
+</section>
+
+<p>Then, you should launch into a World with your package active, and the core software will take care of migrating your pack to the new format for you. Using the example above, you should see that a new <code>packs/monsters</code> folder has been created in your package directory. Check that everything in the World looks correct and that your package's data is there. If anything went wrong, or you need to repeat the migration, you can leave the World, delete the newly-created folders, and have the core software repeat the migration when you re-launch the World.</p>
+
+<p>Once you are happy that everything is in order, shut down the World so that LevelDB is able to compact its data, then your package can be safely packaged-up and distributed. Be sure to delete the leftover NeDB files so that they do not add needless size to your package. If you are using any sort of version control with your package, you will probably need to make some slight adjustments before you commit the new folders. See the section on <a href="#version-control" title="version control">version control</a> further down for more information.</p>
+
+<h2 id="v10" class="border">V10 Compatibility</h2>
+<p>The simplest way to maintain backwards-compatibility and allow your content to be used in Version 10 and earlier, and Version 11 of the software, is to continue using the NeDB files. When your package is loaded into a World by a user in Version 11, these pack files will be automatically migrated for them. Whenever your package updates, the package directory is wiped, and your updated packs will be re-migrated. You should take care to not distribute any of the automatically-migrated LevelDB folders with your package in this case.</p>
+
+<p>When opting to continue using NeDB, however, you must consider how modifications to your pack content will be made, since Version 11 will only modify the LevelDB files. The most straight-forward way to do this, is to use a Version 10 instance of the software to make your modifications. This may not always be possible, however, for various reasons. In those cases, you will need to use some external tools to convert your modified LevelDB files back into NeDB files. We provide a command-line application that can do this, see <a href="#cli" title="command-line application">here</a> for details.</p>
+
+<h2 id="version-control" class="border">Version Control</h2>
+
+<h3>Line Endings</h3>
+<p>Particularly when developing on Windows, you may encounter issues related to auto-conversion of line-endings. Some of the LevelDB files are assumed to be text files, and have <code>LF</code> bytes auto-converted to <code>CRLF</code> bytes when checked-out. Not all version control systems attempt to auto-convert line-endings, so this may require no action on your part. If, however, you receive strange errors about not being able to connect to databases, line-endings could be the cause. We provide guidance here on how to resolve this issue if you are using git. If you are using a different version control system, you will need to find out how to disable automatic line-ending conversion in that particular system.</p>
+
+<p>If you are on Windows, you can disable auto-conversion of line-endings by running this command in your project.</p>
+
+<pre><code>git config --local core.autocrlf false</code></pre>
+
+<p>Be aware that this affects <em>all</em> files in your repository, and you may find that you are subsequently accidentally committing CRLF-delimited files to your repository. A safer, more targeted option, is to instruct git specifically that any packs are binary encoded and to not attempt to auto-convert their line-endings. To do this, place a <code>.gitattributes</code> file in the root of your repository, with the following contents:</p>
+
+<pre><code>packs/** binary</code></pre>
+
+<p>This assumes that your compendium packs are stored in the <code>packs/</code> directory of your repository. If they are stored elsewhere, you should amend the above path. If your packs aren't all stored under the same directory, you can add additional lines, one for each directory. Or if your packs are not stored in a separate directory at all, you can provide the path to the LevelDB folder directly, e.g.:</p>
+
+<pre><code>monsters/** binary
+heroes/** binary</code></pre>
+
+<h3>Repository Size</h3>
+<p>Since the LevelDB files are binary-encoded, git will not attempt to diff them. This means that whenever you commit a change to one of your packs, the entire new state of the pack is stored in your git history, rather than only the diff. Over time this will balloon the size of your repository, particularly if you have very large packs.</p>
+
+<p>One way to address this is by enabling git LFS. This moves large binary files out of your main repository and stores them separately so they can be tracked differently. How to do this will depend on where you host your repositories. GitHub has information on how to configure LFS <a href="https://docs.github.com/en/repositories/working-with-files/managing-large-files" target="_blank" rel="nofollow noopener">here</a>, but most git service providers support LFS. If you host your repositories privately, it is still possible to configure LFS on your own server, but it is beyond the scope of this article.</p>
+
+<p>Another way to address this is to not commit your pack database files to your repository at all. You can store your pack data in some intermediary, human-readable text format in your repository, such as JSON or YAML, and then build a separate archive that contains the LevelDB databases for when your package is installed by the core software. We provide a command-line application that can unpack LevelDB databases into JSON or YAML, suitable for storing in git repositories, and then re-pack them into a LevelDB database for when your package is ready to be distributed.</p>
+
+<h2 id="cli" class="border">Command Line Tool</h2>
+<p>TODO</p>
