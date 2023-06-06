@@ -42,8 +42,8 @@
 
 <p>With the full schema of your DataModel defined, it becomes unnecessary to define the schema using the <code>template.json</code> file. The only fields necessary in that file are to confirm the document types that your system uses, and which fields require additional server-side sanitization as <code>htmlFields</code>, for example:</p>
 
-  <h4>template.json</h4>
-  <pre><code class="lang-json">{
+<h4>template.json</h4>
+<pre><code class="lang-json">{
   "Actor": {
     "types": ["character"],
     "htmlFields": ["biography"],
@@ -106,3 +106,23 @@
 <pre><code class="lang-js">// Determine if a character is dead.
 game.actors.getName("Character").system.dead;
 </code></pre>
+
+<h2 id="resources" class="border">Token Resources</h2>
+<p>When using the System <code>template.json</code>, the properties that can be used for a Token's resource bar are inferred from the template. This works well enough, but it can also include things like derived properties, properties that were intended to be hidden, or otherwise properties that are not suitable or ever useful as a resource bar, making it difficult for a user to locate the actual properties they want.</p>
+
+<p>When using a Data Model for your <code>system</code> data, the core software will no longer attempt to infer which properties can be used as Token resource bars. Instead, you are given full control to tailor this list to whatever makes sense for your System. To do so, you need to modify the <code>CONFIG.Actor.trackableAttributes</code> configuration variable. The below example shows how to configure one resource as a bar attribute, and another as a value attribute.</p>
+
+<pre><code class="lang-js">Hooks.on("init", () => {
+  CONFIG.Actor.trackableAttributes = {
+    character: {
+      bar: ["attributes.hp"],
+      value: ["attributes.ac.value"]
+    }
+  };
+});</code></pre>
+
+<p>For bar attributes, the property supplied must point to some object with both <code>value</code> and <code>max</code> properties, and these properties must both be numbers. For value attributes, the property supplied must simply point to any number. The attributes do not need to exist in your Data Model, they can be properties that are later derived as part of data preparation. If the attribute does not exist in the Data Model or is not a <code>NumericField</code>, then it will not be editable in the Token HUD.</p>
+
+<p>In line with this feature, the signature of <code>TokenDocument.getTrackedAttributes</code> has changed. It will now accept a string value of the <code>type</code> of Actor that the resources should be retrieved for. If the argument is not supplied, and tracked attributes are configured via <code>trackableAttributes</code>, then <code>getTrackedAttributes</code> will return the union of all resources across all configured Actor types. This is useful in cases where the Actor type is not known, such as default token settings.</p>
+
+<p>If your System makes use of Data Models, but you would rather have the core software infer the tracked attributes from your schema, you may opt to not configure any <code>trackableAttributes</code>. Bear in mind that the core API does not know the semantics of any custom <code>DataField</code>s you may be making use of in your Data Model, and so will not be able to inspect it for potential trackable attributes. Additionally, it will be unable to include any properties derived during data preparation, as they will not have corresponding fields in your schema. If you want to tailor the list of trackable attributes in those cases, you must override <code>TokenDocument.getTrackedAttributes</code> yourself. In the majority of cases, we expect that using the <code>trackableAttributes</code> configuration should be a lot simpler.</p>
