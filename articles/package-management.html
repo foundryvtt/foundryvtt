@@ -1,45 +1,79 @@
 <h2 id="package-administration">Overview</h2>
 <p>After your submitted package is approved, you'll get access to a Package Management site as part of the approval process. From this location you can find a list of all of your approved packages, and can manage aspects of the how your Packages are displayed on the Official package list. This article focuses on package versions, however.</p>
+
 <h2 id="package-versions" class="border">Package Versions</h2>
-<p class="info note"><strong>This list does not participate in the process of updating a package. See the How Foundry checks for Package Updates section for more information.</strong></p>
 <p>This section directly populates the list of released versions in the Foundry System &amp; Modules section of the website and informs the package installation UI within Foundry which version to download. There is no limit to how many package versions you can have, and we can leverage this to allow users to backtrack and install a previous version. This also allows us to "un-release" a version if it turns out there's problems with it, rolling back to a previous version.</p>
 <p>Deleting the latest version from this list will prevent new installations from the UI from installing, but will not prevent updates if the manifest url points to a json with a later version.</p>
-<p>All packages submitted to the repository start with one empty version initially. You can click <strong>Add another Package Version</strong> to create a new version to fill out.&nbsp;</p>
+<p>All packages submitted to the repository start with one empty version initially. You can click <strong>Add another Package Version</strong> to create a new version to fill out. </p>
 <p>At the far right of a version row, you can click <strong>Delete </strong>to remove the version on that row. Note: There is confirmation when deleting a version, and no way to undo this. If you delete a version accidentally, you will need to re-add and fill it out again to restore it.</p>
 <p>If a package has no Package Versions present, it will not be available on either the official package list or in the Foundry UI.</p>
-<figure class="right"><img src="https://foundryvtt.wiki/development/guides/releases-and-history/example-package-versions-display.png" alt="Lighting Example" />
+
+<figure class="right">@Image[539]
 <figcaption>An example of how these fields display at the bottom of a module's page.</figcaption>
 </figure>
+
 <dl>
 <dt>Version Number</dt>
 <dd>This is the version number of the package. This should match the version number of the linked module.json. If this increments but the linked manifest json's <code>version</code> field has not incremented, automatic updates will not pick up the change.</dd>
 <dt>Package Manifest URL</dt>
-<dd>This is the url to the <code>module.json</code>&nbsp;for this particular release. This&nbsp;<code>module.json</code>&nbsp;should have a&nbsp;<code>download</code>&nbsp;field that points at a&nbsp;<code>zip</code>&nbsp;of just this release. This is important as it allows a user to go back and download/install a specific version of the module from the history.</dd>
+<dd>This is the url to the <code>module.json</code> for this particular release. This <code>module.json</code> should have a <code>download</code> field that points at a <code>zip</code> of just this release. This is important as it allows a user to go back and download/install a specific version of the module from the history.</dd>
 <dt>Release Notes URL (optional)</dt>
 <dd>A nice-to-have url which points to a release note for this particular release. It could link to a specific heading of a larger release notes file, or to a release-specific page. It's common to include a changelog in the repository's README or to use your source control host's release feature for this.</dd>
 <dt>Required Core Version</dt>
-<dd>This informs the Foundry Package Installer UI which version of the module to offer based on the Core version being used. Example: A package has two versions, one with the "Required Core Version" of&nbsp;<code>0.7.4</code>&nbsp;and one with&nbsp;<code>0.6.6</code>. A Foundry user looking for this package on a&nbsp;<code>0.6.6</code>&nbsp;version of foundry will be served the manifest url which satisfies this requirement. Should match the&nbsp;<code>minimumCoreVersion</code>&nbsp;field in the linked&nbsp;<code>module.json</code>. The minimum required Foundry Core version that this particular release requires to work.</dd>
+<dd>This informs the Foundry Package Installer UI which version of the module to offer based on the Core version being used. Example: A package has two versions, one with the "Required Core Version" of <code>0.7.4</code> and one with <code>0.6.6</code>. A Foundry user looking for this package on a <code>0.6.6</code> version of foundry will be served the manifest url which satisfies this requirement. Should match the <code>minimumCoreVersion</code> field in the linked <code>module.json</code>. The minimum required Foundry Core version that this particular release requires to work.</dd>
 <dt>Compatible Core Version</dt>
-<dd>Should match the&nbsp;<code>compatibleCoreVersion</code>&nbsp;field in the linked&nbsp;<code>module.json</code>. The maximum Foundry Core version you are confident to say that this package works in. Note that nothing stops a user from installing the package on a version of Foundry Core that is higher than this.</dd>
+<dd>Should match the <code>compatibleCoreVersion</code> field in the linked <code>module.json</code>. The maximum Foundry Core version you are confident to say that this package works in. Note that nothing stops a user from installing the package on a version of Foundry Core that is higher than this.</dd>
 <dd>Keep this up to date at all times, especially when breaking changes happen.</dd>
 </dl>
+
+<h2>Package Compatibility</h2>
+<p>Packages can denote compatibility with Foundry VTT core versions using the compatibility field (see @Article[module-development]).</p>
+<p>The <code>minimum</code> and <code>maximum</code> fields are hard enforced by the core software. A package marked <code>minimum: 11</code> and <code>maximum: 11</code> can only be installed and enabled on a Version 11 build of Foundry VTT. It's not possible to install it in V10, nor V12. It will not show up in the list of packages available to install for a V11 user, and if already installed, will flag a red error in the UI and refuse to enable inside of a World.</p>
+
+The <code>verified</code> field meanwhile is used to provide guidance to the user. For example, <code>verified: 11</code> or <code>verified: 11.300</code> does not block usage of the package. The first format is generation-wide, the second is build-specific, but in both cases the following occurs:
+<ol>
+	<li>If the user is on a version that meets the verified version (for generation-wide, any V11 build or older, for build-specific, any build 11.300 or less), it gets the green badge of honor indicating it is verfied as good to go.</li>
+	<li>If the user is on a version that doesn't meet the verified version, but it's the same generation, it gets a neutral no-color badge, neither encouraging nor deterring users away from usage.</li>
+	<li>If it's not even the same generation, it gets a yellow warning badge to warn users that behavior has not been verified, and things may break.</li>
+</ol>
+
+In all of these cases, the package still shows up in the install list (so long as it isn't archived), can be installed, and can be enabled in a World.
+
+<h3>Sidegrading</h3>
+<p>To assist in keeping compatibility up-to-date, we offer a feature called Sidegrading. If a remote manifest and/or the website does not offer a new version, but does offer new metadata, the local installed version of that Package gets sidegraded with the new values. Please see the chart in "0.8.2+ Onward" (below) for easy visual reference of what fields are included, and how they are treated.</p>
+<p>We highly recommend package admins keep their compatibility info updated on the website for best user experience, with the following per-field advice:</p>
+<dl>
+	<dt>minimum:</dt>
+	<dd>We recommend you set this to oldest version that you know the core functionality of your package supports, or at least to the version you first released on.</dd>
+
+	<dt>verified:</dt>
+	<dd>We recommend setting this using a generation-wide format (such as 11) for most usecases, although if you are more cautious, then use the built-specific format (such as 11.300). Keeping this updated, be it via new releases or sidegrading, helps reduce user confusion and complaint.</dd>
+
+	<dt>maximum:</dt> 
+	<dd>For many packages, you'll want to leave this empty unless you know for certain that your package doesn't work with an upcoming Foundry VTT Version, in which case you can mark it in admin and have that info sidegraded to users. For Systems, you may want to consider setting this to the same version you are releasing on until you verify the next Version to prevent users from migrating their Worlds forward with no way back short of a backup.</dd>
+</dl>
+
 <h2 id="how-foundry-installs-packages" class="border">How Foundry installs Packages</h2>
 <p>Foundry's package installation and update process is robust enough to allow automatic update detection and installation, while also allowing users who wish to to install a specific version of a package. Foundry also allows users the freedom to install packages from any source, not just the official list. So it's important to understand exactly how Foundry's client installs packages and checks for updates.</p>
 <p>Setting up a package to make full use of this ability requires a little legwork, but for modules with frequent updates, the rewards are peace of mind.</p>
 <p>Installation is fairly straightforward and can be done in one of two ways.</p>
+
 <h4 id="from-the-ui">From the UI</h4>
 <ol>
 <li>User opens the UI, finds a package to install, clicks "Install."<br />UI is populated from packages submitted and accepted to <a class="is-external-link" href="/packages" target="_blank" rel="nofollow noopener">https://foundryvtt.com/packages</a> with at least one release.</li>
 <li>Foundry fetches the manifest from the latest release with a matching core version as the client that was submitted to the module's <code>foundryvtt.com/admin</code> page and looks for a <code>download</code> url within it.</li>
 <li>Foundry downloads the manifest's <code>download</code> url and checks if it is a zip file. If so, it unzips.</li>
 </ol>
+
 <h4 id="from-a-user-input-manifest-url">From a user-input manifest url</h4>
 <ol>
 <li>User opens the UI and inputs a manifest url, clicks "Install."</li>
 <li>Foundry fetches the manifest json and gets the <code>download</code> url from it.</li>
 <li>Foundry downloads the manifest's <code>download</code> url and checks if it is a zip file. If so, it unzips.</li>
 </ol>
+
 <h2 class="border">How Foundry checks for Package Updates</h2>
+
 <h4 id="before-082">Before 0.8.2</h4>
 <ol>
 <li>User initiates the flow by either clicking on "Check Update" an individual module or the "Update All" button.</li>
@@ -48,6 +82,7 @@
 <li>If Foundry determines that the fetched manifest json has a newer version, it then downloads that manifest's <code>download</code> and checks if it is a zip file. If so, it unzips.</li>
 </ol>
 <p class="note info">The above process has changed as of 0.8.2 to align with the steps below.</p>
+
 <h4 id="h-082"><strong>0.8.2+ Onward</strong></h4>
 <ol>
 <li>User initiates the flow by either clicking on "Check Update" an individual module or the "Update All" button.</li>
@@ -61,8 +96,8 @@
 <figure><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/package-management-metadata-example-2021-04-30.png" alt="An example of the metadata update process." width="66%" height="66%" />
 <figcaption>An example of the metadata update process for a game system.</figcaption>
 </figure>
-<h2 class="border">API&nbsp; References</h2>
+<h2 class="border">API  References</h2>
 <p>The following concept is utilized when Foundry checks for updates:</p>
 <ul>
-<li>Foundry uses its <code>isNewerVersion</code> helper function detailed <a class="is-external-link" href="/api/global.html#isNewerVersion" target="_blank" rel="nofollow noopener">here</a> to compare manifest version strings.</li>
+<li>Foundry uses its <code>isNewerVersion</code> helper function to compare manifest version strings. See: @API[modules/foundry.utils.html#isNewerVersion, isNewerVersion]</li>
 </ul>
