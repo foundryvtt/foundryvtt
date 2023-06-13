@@ -1,0 +1,91 @@
+<header id="update-header">
+    <h2 class="border" id="update-title">Foundry Virtual Tabletop - Version 11 - Stable Release Notes</h2>
+    <figure id="update-banner">
+        @Image[535]
+        <figcaption>Welcome to the Foundry Virtual Tabletop update notes</figcaption>
+    </figure>
+</header>
+
+<section id="update-overview">
+    <p class="note warning"><strong>WARNING:</strong> While this is categorized as a stable release there is always a possibility of unexpected bugs or compatibility issues. As with any time you update the core software, be sure to perform a complete backup of your user data to minimize any risk of data loss.</p>
+    <p>Welcome to the second release of Foundry Virtual Tabletop Version 11. We're extremely pleased to bring this update to our community, containing a wide variety of bug fixes sourced from the feedback and bug reporting channels on our community disccord. Thank you all for submitting your feedback and helping us stay on top of bugs!</p>
+    <p>This update focuses on some post-release cleanup of bugs for Foundry VTT V11 and as such doesn't have much in the way of features for us to highlight. For a complete log of all the features added in V11, please see the notes for our <a href="https://foundryvtt.com/releases/11.299" rel="nofollow" target="_blank">previous release on the stable channel</a>.</p>
+</section>
+
+<section id="features">
+<h2 class="section-header border">New Features</h2>
+    <h3 class="category-header" id="features-apps">Applications and User Interface</h3>
+    <ul>
+        <li>We have expanded the default <code>ActiveEffect</code> configuration window to better accommodate the ProseMirror editor. <a href="https://github.com/foundryvtt/foundryvtt/issues/9484" rel="nofollow" target="_blank">(9484)</a></li>
+        <li>Choosing a setup theme now also applies to the World join screen. <a href="https://github.com/foundryvtt/foundryvtt/issues/9489" rel="nofollow" target="_blank">(9489)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-packages">Package Development</h3>
+    <ul>
+        <li>The list of package relationships for Worlds now correctly lists missing dependencies. <a href="https://github.com/foundryvtt/foundryvtt/issues/9397" rel="nofollow" target="_blank">(9397)</a></li>
+        <li>World validation no longer fails in cases where the <code>Package#authors</code> field contains invalid authors or <code>Package#packs</code> contains invalid packs. Instead, fields which contain invalid or erroneous data are dropped from the listing. <a href="https://github.com/foundryvtt/foundryvtt/issues/9533" rel="nofollow" target="_blank">(9533)</a>, <a href="https://github.com/foundryvtt/foundryvtt/issues/9534" rel="nofollow" target="_blank">(9534)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-i18n">Localization and Accessibility</h3>
+    <ul>The encounter title displayed when no encounter is present now reads 'No Encounters'. <a href="https://github.com/foundryvtt/foundryvtt/issues/9515" rel="nofollow" target="_blank">(9515)</a>
+    </ul>
+</section>
+<section id="api">
+<h2 class="section-header border">API Improvements</h2>
+    <h3 class="category-header" id="api-canvas">The Game Canvas</h3>
+    <ul>
+        <li>A number of API methods which were unnecessarily marked as Private are now marked as Protected instead. <a href="https://github.com/foundryvtt/foundryvtt/issues/9471" rel="nofollow" target="_blank">(9471)</a></li>
+        <li>We resolved an edge-case which could cause NEDB to LevelDB migration to fail under the specific circumstance where an object was passed when an array was expected. <a href="https://github.com/foundryvtt/foundryvtt/issues/9507" rel="nofollow" target="_blank">(9507)</a></li>
+    </ul>
+</section>
+<section id="bugs">
+<h2 class="section-header border">Bug Fixes</h2>
+    <h3 class="category-header" id="bugs-docs">Documents and Data</h3>
+    <ul>
+        <li>Calling <code>super</code> in an overridden <code>AdventureImporter#_prepareImportData</code> or <code>_importContent</code> no longer fails with a thrown error. <a href="https://github.com/foundryvtt/foundryvtt/issues/9474" rel="nofollow" target="_blank">(9474)</a></li>
+        <li>Moving a Rollable Table into a compendium pack no longer incorrectly nullifies table results for cases where the result was a dynamic link. <a href="https://github.com/foundryvtt/foundryvtt/issues/9505" rel="nofollow" target="_blank">(9505)</a></li>
+        <li>Calling <code>Compendium#getIndex</code> with an explicit set of index fields no longer returns incorrectly formed UUIDs. <a href="https://github.com/foundryvtt/foundryvtt/issues/9512" rel="nofollow" target="_blank">(9512)</a></li>
+        <li><code>getCombatantByActor</code> now accepts string arguments instead of incorrectly returning <code>undefined</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/9485" rel="nofollow" target="_blank">(9485)</a></li>
+        <li>The <code>DocumentDirectory#_handleDroppedDocument</code> deprecation no longer loops infinitely over itself, no longer loops infinitely over itself, no longer loops infinitely over itself, no longer.... <a href="https://github.com/foundryvtt/foundryvtt/issues/9517" rel="nofollow" target="_blank">(9517)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-apps">Applications and User Interface</h3>
+    <ul>
+        <li>Project URLs are once again visible in the Setup UI for installed packages. <a href="https://github.com/foundryvtt/foundryvtt/issues/9470" rel="nofollow" target="_blank">(9470)</a></li>
+        <li>The active scene indicator icon is visible again. <a href="https://github.com/foundryvtt/foundryvtt/issues/9493" rel="nofollow" target="_blank">(9493)</a></li>
+        <li>Long compendium names are now appropriately truncated instead of overflowing the width of the sidebar. <a href="https://github.com/foundryvtt/foundryvtt/issues/9498" rel="nofollow" target="_blank">(9498)</a></li>
+        <li>Map note label text no longer renders the note control icon un-clickable. <a href="https://github.com/foundryvtt/foundryvtt/issues/9501" rel="nofollow" target="_blank">(9501)</a></li>
+        <li>The "Left Click to Release Objects" setting no longer prevents left-clicking to target tokens using the target tool. <a href="https://github.com/foundryvtt/foundryvtt/issues/9504" rel="nofollow" target="_blank">(9504)</a></li>
+        <li>Rollable Tables no longer throw an error when the table only contains a single result. <a href="https://github.com/foundryvtt/foundryvtt/issues/9506" rel="nofollow" target="_blank">(9506)</a></li>
+        <li>Closing the Token configuration window no longer fails with an error when viewing a different Scene from the one containing the Token. <a href="https://github.com/foundryvtt/foundryvtt/issues/9525" rel="nofollow" target="_blank">(9525)</a></li>
+        <li>The control bar for Audio Video Chat Integration no longer hidden by default in certain game systems. <a href="https://github.com/foundryvtt/foundryvtt/issues/9525" rel="nofollow" target="_blank">(9525)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-canvas">The Game Canvas</h3>
+    <ul>
+        <li>We have resolved cases where the Scene cache can cause deleted ActorDeltas to not be appropriately re-created server-side. <a href="https://github.com/foundryvtt/foundryvtt/issues/9464" rel="nofollow" target="_blank">(9464)</a></li>
+        <li>Unlinked Token updates no longer cause all <code>ActorDeltas</code> on the same Scene to be incorrectly re-initialised <a href="https://github.com/foundryvtt/foundryvtt/issues/9465" rel="nofollow" target="_blank">(9465)</a></li>
+        <li>ActorDelta collections no longer become out-of-sync with base Actor collections <a href="https://github.com/foundryvtt/foundryvtt/issues/9466" rel="nofollow" target="_blank">(9466)</a></li>
+        <li>The <code>TokenConfig</code> application retrieves derived attributes for non-DataModel systems once again. <a href="https://github.com/foundryvtt/foundryvtt/issues/9472" rel="nofollow" target="_blank">(9472)</a></li>
+        <li>Unlinked Token <code>actorId</code> fields now update correctly if changed during <code>Scene#update</code> or <code>Scene.updateDocuments</code> workflows. <a href="https://github.com/foundryvtt/foundryvtt/issues/9487" rel="nofollow" target="_blank">(9487)</a></li>
+        <li>Players are now able to update the <code>ActorDelta</code> of an unlinked Token if they are the owner of the <code>BaseActor</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/9509" rel="nofollow" target="_blank">(9509)</a></li>
+        <li>Updating Token opacity now functions as expected, resolving a case which incorrectly required other changes for opacity to visibly update. <a href="https://github.com/foundryvtt/foundryvtt/issues/9510" rel="nofollow" target="_blank">(9510)</a></li>
+        <li>The Detection filter from the previous visibility test is now correctly cleared from tokens which have no configured vision or light. <a href="https://github.com/foundryvtt/foundryvtt/issues/9521" rel="nofollow" target="_blank">(9521)</a></li>
+        <li>Making a Token invisible now clears the hover state. <a href="https://github.com/foundryvtt/foundryvtt/issues/9522" rel="nofollow" target="_blank">(9522)</a></li>
+        <li>Toggling the <code>hidden</code> state using <code>animate: false</code> now updates the visibility of the Token as expected. <a href="https://github.com/foundryvtt/foundryvtt/issues/9523" rel="nofollow" target="_blank">(9523)</a></li>
+        <li>Making a Token invisible now correctly animates that change for players. <a href="https://github.com/foundryvtt/foundryvtt/issues/9524" rel="nofollow" target="_blank">(9524)</a>, <a href="https://github.com/foundryvtt/foundryvtt/issues/9528" rel="nofollow" target="_blank">(9528)</a></li>
+        <li>Tokens no longer gain an unexpected level of transparency while the Token configuration window is open. <a href="https://github.com/foundryvtt/foundryvtt/issues/9526" rel="nofollow" target="_blank">(9526)</a></li>
+        <li>When modifying a Token's configuration, the Token preview no longer incorrectly detects the original Token if it has a detection mode set. <a href="https://github.com/foundryvtt/foundryvtt/issues/9527" rel="nofollow" target="_blank">(9527)</a></li>
+        <li><code>Token#setTarget</code> no longer fails with an error if it is called before the Token has been drawn <a href="https://github.com/foundryvtt/foundryvtt/issues/9530" rel="nofollow" target="_blank">(9530)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-packages">Package Development</h3>
+    <ul>
+        <li>Deleting a Game System no longer fails to refresh the setup UI <a href="https://github.com/foundryvtt/foundryvtt/issues/9463" rel="nofollow" target="_blank">(9463)</a></li>
+        <li>The Package Update Log application no longer incorrectly passes the localized text into the HTML element. <a href="https://github.com/foundryvtt/foundryvtt/issues/9478" rel="nofollow" target="_blank">(9478)</a></li>
+        <li>Packages which have multiple authors now have an improved display of those authors. <a href="https://github.com/foundryvtt/foundryvtt/issues/9492" rel="nofollow" target="_blank">(9492)</a></li>
+        <li>Changing update track for a Module will now correctly install future available updates from the new upstream manifest URL. <a href="https://github.com/foundryvtt/foundryvtt/issues/9494" rel="nofollow" target="_blank">(9494)</a></li>
+        <li>The tooltip for package authors now renders the URL correctly in cases where an author has their URL defined. <a href="https://github.com/foundryvtt/foundryvtt/issues/9502" rel="nofollow" target="_blank">(9502)</a></li>
+        <li>The Module Editor no longer incorrectly allows for Systems to be marked as required or recommended, and Modules may not be marked as a System. <a href="https://github.com/foundryvtt/foundryvtt/issues/9537" rel="nofollow" target="_blank">(9537)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-i18n">Localization and Accessibility</h3>
+    <ul>
+        <li>We corrected a missing localization string for <code>CONTROLS.ShiftDrag</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/9469" rel="nofollow" target="_blank">(9469)</a></li>
+        <li>The Prepend Token Adjectives setting no longer fails with an error when a localization language has been set. <a href="https://github.com/foundryvtt/foundryvtt/issues/9496" rel="nofollow" target="_blank">(9496)</a></li>
+    </ul>
+</section>
