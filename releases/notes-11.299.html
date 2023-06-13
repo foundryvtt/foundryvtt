@@ -1,0 +1,187 @@
+<header id="update-header">
+	<h2 class="border" id="update-title">Foundry Virtual Tabletop - Version 11 Stable Release Notes</h2>
+	<figure id="update-banner">
+	    @Image[532]
+	    <figcaption>Welcome to the Foundry Virtual Tabletop update notes for Version 11 Stable Build 299</figcaption>
+	</figure>
+  </header>
+  <p>We are extremely proud to announce the stable-channel release of Version 11, bringing a whole host of new features to Foundry Virtual Tabletop for our users. Version 11 contains hundreds of hours of development work and is a substantial iteration on nearly every aspect of Foundry VTT. Throughout V11 we've focused our efforts on UI improvements for the main setup screen, a complete replacement of our database engine, significant upgrades for the game's canvas rendering engine, and our patreon-voted feature: Compendium Improvements.</p>
+  <p>With development of new features concluding in V11, we're very pleased with the changes that it brings and we hope you'll all enjoy the myriad of improvements we've made. Our next few releases on V11 will target bug fixes, as we prepare for the planning phase for Version 12!</p>
+  <section class="note">
+  <h2 class="border">IMPORTANT: How to Update <u>Safely</u> To a New Version</h2>
+  <p class="note error">This update performs a data migration when worlds are launched which <u>cannot be reversed</u> if you do not backup your data.</p>
+    <ol>
+        <li>Back up your User Data from version 10 This can be done by <a href="https://www.youtube.com/watch?v=OmbxMmqNNXU" rel="nofollow" target="_blank">following this guide</a>.</li>
+        <li>We <em>strongly</em> recommend uninstalling Foundry VTT before installing the update but this is an optional step.</li>
+        <li>Download and install the Version 11 Stable Release (Build 299). You may not update to version 11 using the in-application updater. You must reinstall using a full download from <a href="https://foundryvtt.com/me/licenses" rel="nofollow">the download page</a>.</li>
+        <li>After launching Foundry VTT in v11, take a moment to update your Game Systems and Add-on Modules. Some systems and modules will have a V11 compatible version available, some will not.</li>
+        <li>Launch your World. Be aware that in order to protect your data, all modules will initially be disabled during the first launch of a World in Version 11. A prompt will remind you that this is the last opportunity to save your data if you have not already performed a backup!</li>        
+        <li>Take some time to test your World and make sure everything is in working order before re-enabling any modules. </li>
+        <li>Carefully re-enable a few Modules at a time, choosing ones you view as most essential. Take the time to test your World in-between to make sure nothing has drastically changed.</li>    
+        <li>If everything has gone well, congratulations! Enjoy all the new features Version 11 brings! If you need to revert to V10 you can restore your backup from step 1.</li>
+    </ol>
+</section>
+  <section id="update-overview">
+    <h2 class="border">Update Overview</h2>
+    <p class="note warning"><strong>WARNING:</strong> While this is categorized as a stable release there is always a possibility of unexpected bugs or compatibility issues. As with any time you update the core software, be sure to perform a complete backup of your user data to minimize any risk of data loss.</p>
+  </section>
+  
+
+  <section id="update-highlights">
+	<h2 class="section-header border">Update Highlights</h2>
+    <p>It has been a long and rewarding road as we have worked on V11 and we've managed to pack every inch of it with new features and improvements. Not only have we improved performance in a lot of ways, but we've also totally replaced our database engine and done a complete overhaul for our Setup screen. We have also massively upgraded our sidebar by adding better search and folder support for Compendium Packs, great new features to our Journal system like a visual table editor and support for highlighting text to automatically find relevant links, brand new Wall types and Door sounds, tons of improvements and bug fixes for developers, and so much more. There is such a variety of new functionality that we've decided to break it down into individual categories to help you find the information that most interests you:  </p>
+    <section class="collapsible">
+        <header class="collapsible-header">Leveling Up The Database Engine</header>
+        <div class="collapsible-content">
+            <p>Necessary for improvements to our compendium packs and future stability and architecture improvements, Version 11 introduces LevelDB as a replacement for our previous NeDB database engine. LevelDB uses a similar data infrastructure as our previous database engine, making it easy to slot in as a replacement without requiring our development community to adapt in drastic ways. LevelDB Database files are also binary encoded, allowing for a much more robust data storage method with less likelihood of issues caused by manual editing. Overall, the new Database engine provides:</p>
+            <ul>
+                <li>Improved performance and stability for data storage operations.</li>
+                <li>Ability to make specific granular changes without the need to rewrite an entire entry.</li>
+                <li>Increased speed of bulk database operations.</li>
+                <li>Capability to selectively update "grandchild" embedded documents.</li>
+                <li>Enhanced search features thanks to improved compendium indexing.</li>
+                <li>More room for future improvements in database performance and architecture.</li>
+            </ul>
+            <p>Reworking the database engine also provided some great opportunities for us to refactor some of our more complicated architecture- specifically with regard to Synthetic (unlinked) Tokens. We're pleased to say that thanks to this refactor, operations which alter Synthetic Tokens are much more standardized and in line with data handling for linked Tokens. Long-running issues which made working with unlinked tokens tricky for our development community should now be a thing of the past!   </p>
+            <p>For our users which require ability to directly edit entries in these database files, we are in process of creating a new suite of command-line tools to allow for unpacking, editing, and repacking existing database files.</p>
+            
+        </div>
+    </section>
+	<section class="collapsible">
+        <header class="collapsible-header">User Experience Improvements</header>
+		<div class="collapsible-content">
+			<p>Version 11 brings the first steps in an overhaul of the user interface. We've revitalized our main setup menu and world launch views to provide a more sleek appearance, with streamlined options allowing users to see their worlds, game systems, and add-on modules in a variety of different ways. The new setup menu supports ability to swap between a few new themes we have provided, allowing users to customize the way their setup screen looks. In addition, users can pin their favourite packages to the top of the list for quick and convenient access.</p>
+            <p>We've improved the UI inside launched worlds: using the tooltips framework we first established in Version 10, we've added helpful instructional videos we're calling "Toolclips" to the canvas tools, allowing users to easily see small tutorials on how to use those tools.</p>
+            <p>Last but not least, we touched on a lot of different parts of the in-world UX and UI experience bringing some notable changes: The rich text editor now supports a GUI option to add tables to your Journal entries, and we've added a feature which uses the improved indexing and search features provided by our new database engine to quickly search for selected text, offering related Documents that match so you can quickly link to them when using rich text fields.</p>
+        </div>
+    </section>    
+    <section class="collapsible">
+        <header class="collapsible-header">Folders and Compendium Packs</header>
+        <div class="collapsible-content">
+            <p>For this version, our Patreon subscribers voted that we should prioritize Compendium pack updates. One of our most anticipated and requested features, our publishing partners will be pleased to know that we now support deeper organization of compendia using folders, allowing documents and folders of documents to be dragged and dropped between the sidebar and compendium packs.</p>
+            <p>We've also standardized the UI of the compendium sidebar tab, extending folder support and adding new options for filtering, as well as a clean new UI that adds an image background to each compendium. Users can not only set up folders for their compendiums now, but can also change how their compendiums are sorted. In addition, new options for filtering and managing visibility allow GMs to have a more granular amount of control over which compendium packs are visible.</p>
+        </div>
+    </section>
+
+    <section class="collapsible">
+        <header class="collapsible-header">Developments for Community Developers</header>
+        <div class="collapsible-content">
+            <p>In addition to the usual swath of API improvements and changes that come with every version, we brushed up the tools for our development community during the V11 development cycle, adding some very key new features. The handling of package relationships saw some improvements related to both installation and management of dependencies, we extended the canvas API granting access to a lot of canvas options (such as <code>Pointsource</code> elevation levels) and Modules may now define subtypes of Documents.</p>
+            <p>Additionally, we've made some improvements for module creators in terms of tooling- the new HotReload feature allows you to work on your content without having to constantly reload to see changes. Modules may now define a "persistent storage" folder which will not be erased when the module is updated. We've also extended adventure compendium tooling to allow for users to easily configure granular imports, and the new Module Maker is designed to help addon creators more easily package their modules for distribution.</p>
+        </div>
+    </section>
+    <section class="collapsible">
+        <header class="collapsible-header">Making a Scene: Proximity Walls, Door Sounds, and More!</header>
+        <div class="collapsible-content">
+			<p>We've made a lot of more subtle improvements to scene features and the canvas that might be easy to miss. In some cases these are simple quality-of-life improvements- for example: resizing a scene now also attempts to re-position any Tokens, Templates, Tiles, Light Sources, Walls, Sounds, Notes, and any other canvas objects that have been placed. </p>
+            
+            <p>There've also been some significant optimizations for our canvas. As part of efforts to improve the way the canvas is rendered, we're now using PIXI 7, which has made it possible in conjunction with our new database engine to optimize our fog of war handling even further. Between that and the introduction of Webworkers for some canvas rendering uses, we're proud to say that your scenes should be running faster and smoother than ever before. These improvements benefit not only top-shelf computers, but also those users whose machines are a little more modest.</p>
+            
+            We also introduced a few little perks that people might like; Doors can now have a sound set associated with them, which changes the sound which occurs when they're opened, closed, or locked. In addition, we added new light source animation options:
+            <ul>
+                <li>Siren - A light designed to mimic the rapid rotation of emergency lights, with ability to adjust its angle.</li>
+                <li>Rotation - a tight 180-degree light source created to provide a feeling like the slower rotating of a particular alarm light.</li>
+            </ul>
+            <p>Last, but certainly not least, Version 11 allows us to introduce Proximity Walls- a new wall type which can only be seen through when a token is within a certain range of it. These may also be inverted to allow for walls that can only be seen through if a token is not within that radius. Proximity walls provide a great way to represent windows, small ledges, pits or cover. We feel that this feature really rounds out the existing options for walls, and we hope everyone enjoys making use of them in their games! </p>
+        </div>
+    </section></section>
+
+    <section id="breaking">
+        <h2 class="section-header border">Breaking Changes</h2>
+            <p>There are no breaking changes from <a href="https://foundryvtt.com/releases/11.298" rel="nofollow" target="_blank">V11 Testing 3</a> but there are some important breaking changes to be aware of from V10 to V11. You can find all of those breaking changes here: <a href="https://github.com/orgs/foundryvtt/projects/32/views/9" rel="nofollow" target="_blank">https://github.com/orgs/foundryvtt/projects/32/views/9</a>.</p>
+        </section>
+
+<section id="features">
+<h2 class="section-header border">New Features</h2>
+<section id="release-links">
+    <p>The stable release for Version 11 is the culmination of several months worth of development time and contains all the contents of our previous releases in the V11 series. While we do offer a summary of features below, if you'd like to view the notes for the previous releases, you can view them here:</p>
+    <ul>
+        <li><a href="https://foundryvtt.com/releases/11.292" rel="nofollow" target="_blank">Version 11 - Prototype 1</a></li>
+        <li><a href="https://foundryvtt.com/releases/11.293" rel="nofollow" target="_blank">Version 11 - Prototype 2</a></li>
+        <li><a href="https://foundryvtt.com/releases/11.294" rel="nofollow" target="_blank">Version 11 - Development 1</a></li>
+        <li><a href="https://foundryvtt.com/releases/11.295" rel="nofollow" target="_blank">Version 11 - Development 2</a></li>
+        <li><a href="https://foundryvtt.com/releases/11.296" rel="nofollow" target="_blank">Version 11 - Testing 1</a></li>
+        <li><a href="https://foundryvtt.com/releases/11.297" rel="nofollow" target="_blank">Version 11 - Testing 2</a></li>
+        <li><a href="https://foundryvtt.com/releases/11.298" rel="nofollow" target="_blank">Version 11 - Testing 3</a></li>
+    </ul>
+</section>
+    <h3 class="category-header" id="features-architecture">Architecture and Infrastructure</h3>
+    <ul>
+        <li>Cleaned up the Toolclips implementation to use a rendered template. <a href="https://github.com/foundryvtt/foundryvtt/issues/9415" rel="nofollow" target="_blank">(9415)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-apps">Applications and User Interface</h3>
+    <ul>
+        <li>Re-implemented Setup screen tours to guide new users through the redesigned V11 Setup menu. <a href="https://github.com/foundryvtt/foundryvtt/issues/8940" rel="nofollow" target="_blank">(8940)</a></li>
+        <li>Upgraded the Journal Entry page search with full text search capabilities. <a href="https://github.com/foundryvtt/foundryvtt/issues/9421" rel="nofollow" target="_blank">(9421)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-packages">Package Development</h3>
+    <ul>
+        <li>Clarified the wording used when asking to enable optional dependencies for packages. <a href="https://github.com/foundryvtt/foundryvtt/issues/9420" rel="nofollow" target="_blank">(9420)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-apps">Applications and User Interface</h3>
+    <ul>
+        <li>Added a way to reveal the fog of war for all players. <a href="https://github.com/foundryvtt/foundryvtt/issues/8987" rel="nofollow" target="_blank">(8987)</a></li>
+    </ul>
+</section>
+<section id="api">
+<h2 class="section-header border">API Improvements</h2>
+    <h3 class="category-header" id="api-architecture">Architecture and Infrastructure</h3>
+    <ul>
+        <li>Added <code>Token#externalRadius</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/9458" rel="nofollow" target="_blank">(9458)</a></li>
+    </ul>
+    <h3 class="category-header" id="api-apps">Applications and User Interface</h3>
+    <ul>
+        <li>Added the <code>ActiveEffect#img</code> getter which provides a compatibility layer for the <code>ActiveEffect#icon</code> property that lets Active Effect Documents be used interchangeably with other Documents that expose <code>img</code> as their primary icon. <a href="https://github.com/foundryvtt/foundryvtt/issues/9455" rel="nofollow" target="_blank">(9455)</a></li>
+    </ul>
+    <h3 class="category-header" id="api-other">Other Changes</h3>
+    <ul>
+        <li><code>Game#tooltip</code> is now a configurable property so that systems and modules may reassign it if necessary. <a href="https://github.com/foundryvtt/foundryvtt/issues/9430" rel="nofollow" target="_blank">(9430)</a></li>
+        <li>Expanded the <code>search</code> API to look in embedded Document collections. <a href="https://github.com/foundryvtt/foundryvtt/issues/9441" rel="nofollow" target="_blank">(9441)</a></li>
+        <li><code>ActorDeltas</code> are now lazily loaded to avoid unnecessary work at World load. <a href="https://github.com/foundryvtt/foundryvtt/issues/9461" rel="nofollow" target="_blank">(9461)</a></li>
+        <li>Refactored Scene navigation data preparation to avoid calling <code>toObject</code> unnecessarily. <a href="https://github.com/foundryvtt/foundryvtt/issues/9462" rel="nofollow" target="_blank">(9462)</a></li>
+        <li>Added <code>Notifications.remove</code> and <code>Notifications.clear</code> <a href="https://github.com/foundryvtt/foundryvtt/issues/9456" rel="nofollow" target="_blank">(9456)</a></li>
+    </ul>
+</section>
+<section id="bugs">
+<h2 class="section-header border">Bug Fixes</h2>
+    <h3 class="category-header" id="bugs-docs">Documents and Data</h3>
+    <ul>
+        <li>The <code>renderCompendium</code> hook once again returns the index of entries in a Compendium. <a href="https://github.com/foundryvtt/foundryvtt/issues/9424" rel="nofollow" target="_blank">(9424)</a></li>
+        <li>Fixed a bug where right-clicking a Folder would cause the context menu to open and then immediately close. <a href="https://github.com/foundryvtt/foundryvtt/issues/9427" rel="nofollow" target="_blank">(9427)</a></li>
+        <li>Ensured it is no longer possible to add Folders to locked Compendia. <a href="https://github.com/foundryvtt/foundryvtt/issues/9433" rel="nofollow" target="_blank">(9433)</a></li>
+        <li>Modules should no longer have Pack Folders added to the Compendium Sidebar before activating the module. <a href="https://github.com/foundryvtt/foundryvtt/issues/9436" rel="nofollow" target="_blank">(9436)</a></li>
+        <li>The Compendium Sidebar can no longer incorrectly toggle search to Full Text, which it cannot use. <a href="https://github.com/foundryvtt/foundryvtt/issues/9440" rel="nofollow" target="_blank">(9440)</a></li>
+        <li>Fixed an issue where attempting to create a Rollable Table from the contents of a folder would fail. <a href="https://github.com/foundryvtt/foundryvtt/issues/9442" rel="nofollow" target="_blank">(9442)</a></li>
+        <li>Players with Owner permission on a Compendium should now be able to see the header buttons. <a href="https://github.com/foundryvtt/foundryvtt/issues/9446" rel="nofollow" target="_blank">(9446)</a></li>
+        <li>Corrected a bug with <code>Folder#exportToCompendium</code> failing to correctly export a complex hierarchy of folders. <a href="https://github.com/foundryvtt/foundryvtt/issues/9448" rel="nofollow" target="_blank">(9448)</a></li>
+        <li>When an Actor or Token parameter is explicitly passed to <code>Macro#execute</code> it is now passed as the speaker in the <code>ChatMessage#getSpeaker</code> method. <a href="https://github.com/foundryvtt/foundryvtt/issues/9450" rel="nofollow" target="_blank">(9450)</a></li>
+        <li>Added deprecated descendant Document event stubs to <code>ClientDocument</code> to prevent errors when subclasses attempt to call <code>super</code> on them. <a href="https://github.com/foundryvtt/foundryvtt/issues/9457" rel="nofollow" target="_blank">(9457)</a></li>
+        <li>Changed the <code>ogg</code> video file extension in <code>CONST.VIDEO_FILE_EXTENSIONS</code> to <code>.ogv</code> to resolve the conflict with <code>ogg</code> audio files that use the <code>.ogg</code> extension. <a href="https://github.com/foundryvtt/foundryvtt/issues/9460" rel="nofollow" target="_blank">(9460)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-apps">Applications and User Interface</h3>
+    <ul>
+        <li>Banner images are now centered vertically as intended. <a href="https://github.com/foundryvtt/foundryvtt/issues/9445" rel="nofollow" target="_blank">(9445)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-canvas">The Game Canvas</h3>
+    <ul>
+        <li>Implemented a means to load video textures with <code>PIXI.Assets</code> <a href="https://github.com/foundryvtt/foundryvtt/issues/9147" rel="nofollow" target="_blank">(9147)</a></li>
+        <li>Removed unwanted deprecation warnings that occurred when undoing a Token's movement. <a href="https://github.com/foundryvtt/foundryvtt/issues/9352" rel="nofollow" target="_blank">(9352)</a></li>
+        <li>Fixed an issue where it was possible to break the Walls layer by right-clicking while chaining Walls together. <a href="https://github.com/foundryvtt/foundryvtt/issues/9432" rel="nofollow" target="_blank">(9432)</a></li>
+        <li>The canvas no longer crashes when a source of vision or light is attempted to be dragged outside of the scene bounds. <a href="https://github.com/foundryvtt/foundryvtt/issues/9459" rel="nofollow" target="_blank">(9459)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-packages">Package Development</h3>
+    <ul>
+        <li>Fixed a bug causing migrated World Scenes to get exported to Compendium twice. <a href="https://github.com/foundryvtt/foundryvtt/issues/9429" rel="nofollow" target="_blank">(9429)</a></li>
+        <li>Defining <code>flags.hotReload</code> without optional paths field no longer causes the server to hang. <a href="https://github.com/foundryvtt/foundryvtt/issues/9435" rel="nofollow" target="_blank">(9435)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-i18n">Localization and Accessibility</h3>
+    <ul>
+        <li>Corrected Compendium header buttons failing to localize. <a href="https://github.com/foundryvtt/foundryvtt/issues/9426" rel="nofollow" target="_blank">(9426)</a></li>
+        <li>Found and replaced the missing localization string <code>SETUP.PackageProgressError</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/9444" rel="nofollow" target="_blank">(9444)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-other">Other Changes</h3>
+    <ul>
+        <li>Legacy Compendium links no longer break in <code>fromUuid</code> and instead return <code>undefined</code> as in v10. <a href="https://github.com/foundryvtt/foundryvtt/issues/9428" rel="nofollow" target="_blank">(9428)</a></li>
+        <li>Fixed an error that would occur when logging out on the Setup screen when <code>routePrefix</code> is set. <a href="https://github.com/foundryvtt/foundryvtt/issues/9434" rel="nofollow" target="_blank">(9434)</a></li>
+    </ul>
+</section>
