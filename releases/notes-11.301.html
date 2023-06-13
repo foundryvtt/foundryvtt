@@ -1,0 +1,65 @@
+<header id="update-header">
+    <h2 class="border" id="update-title">Foundry Virtual Tabletop - Version 11 - Stable Patch 2 Release Notes</h2>
+    <figure id="update-banner">
+        @Image[544]
+        <figcaption>Welcome to the Foundry Virtual Tabletop update notes</figcaption>
+    </figure>
+</header>
+
+<section id="update-overview">
+    <p>Welcome to the third release of Foundry Virtual Tabletop Version 11. We're extremely pleased to bring this update to our community, containing a wide variety of bug fixes sourced from the feedback and bug reporting channels on our community disccord. Thank you all for submitting your feedback and helping us stay on top of bugs!</p>
+
+    <p>This update focuses on some post-release cleanup of bugs for Foundry VTT V11 and as such doesn't have much in the way of features for us to highlight. For a complete log of all the features added in V11, please see the notes for our <a href="https://foundryvtt.com/releases/11.299" rel="nofollow" target="_blank">previous release on the stable channel</a>.</p>
+    <p class="note warning"><strong>WARNING:</strong> While this is categorized as a stable release there is always a possibility of unexpected bugs or compatibility issues. As with any time you update the core software, be sure to perform a complete backup of your user data to minimize any risk of data loss.</p>
+</section>
+
+<section id="features">
+<h2 class="section-header border">New Features</h2>
+    <h3 class="category-header" id="features-apps">Applications and User Interface</h3>
+    <ul>
+        <li>Added support for Users specifying their own pronouns which are rendered in the Players list. <a href="https://github.com/foundryvtt/foundryvtt/issues/9591" rel="nofollow" target="_blank">(9591)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-packages">Package Development</h3>
+    <ul>
+        <li>Invalid remote package manifests now show additional details that should make debugging easier. <a href="https://github.com/foundryvtt/foundryvtt/issues/9358" rel="nofollow" target="_blank">(9358)</a></li>
+    </ul>
+</section>
+<section id="bugs">
+<h2 class="section-header border">Bug Fixes</h2>
+    <h3 class="category-header" id="bugs-docs">Documents and Data</h3>
+    <ul>
+        <li>Active Effect status IDs are now correctly migrated to <code>statuses</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/9490" rel="nofollow" target="_blank">(9490)</a></li>
+        <li>Empty Folders from Compendium Packs are no longer pruned on import. <a href="https://github.com/foundryvtt/foundryvtt/issues/9499" rel="nofollow" target="_blank">(9499)</a></li>
+        <li><code>DataModel#clone</code> now creates a clone with the same <code>parent</code> as the original. <a href="https://github.com/foundryvtt/foundryvtt/issues/9592" rel="nofollow" target="_blank">(9592)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-apps">Applications and User Interface</h3>
+    <ul>
+        <li>Prototype Token configurations now correctly retrieve the configured bar values. <a href="https://github.com/foundryvtt/foundryvtt/issues/9551" rel="nofollow" target="_blank">(9551)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-canvas">The Game Canvas</h3>
+    <ul>
+        <li>Adding Tokens with video textures to the Combat Tracker no longer causes the asset loader to fail during world load. <a href="https://github.com/foundryvtt/foundryvtt/issues/9568" rel="nofollow" target="_blank">(9568)</a></li>
+        <li>It is once again possible to drag select Tiles. <a href="https://github.com/foundryvtt/foundryvtt/issues/9586" rel="nofollow" target="_blank">(9586)</a></li>
+        <li><code>OccludableObject#refreshOcclusion</code> no longer calls the <code>refreshTile</code> hooks with an incorrect argument. <a href="https://github.com/foundryvtt/foundryvtt/issues/9589" rel="nofollow" target="_blank">(9589)</a></li>
+        <li>Added synthetic Actor creation back into <code>ActorDelta#_configure</code> to ensure that initialization can complete correctly. <a href="https://github.com/foundryvtt/foundryvtt/issues/9563" rel="nofollow" target="_blank">(9563)</a></li>
+        <li>Closing the Default Token Settings window no longer fails with an error. <a href="https://github.com/foundryvtt/foundryvtt/issues/9571" rel="nofollow" target="_blank">(9571)</a></li>
+        <li>Redrawing and/or refreshing a <code>PlaceableObject</code> while it is still being drawn no longer breaks the object. <a href="https://github.com/foundryvtt/foundryvtt/issues/9576" rel="nofollow" target="_blank">(9576)</a></li>
+        <li>Unpausing a video tile no longer re-randomizes the current playback time. <a href="https://github.com/foundryvtt/foundryvtt/issues/9577" rel="nofollow" target="_blank">(9577)</a></li>
+        <li>Combatants who have their Token configuration window open can now be pinged again. <a href="https://github.com/foundryvtt/foundryvtt/issues/9583" rel="nofollow" target="_blank">(9583)</a></li>
+        <li>Preview sources of <code>Token</code>s and <code>AmbientLight</code>s are no longer removed when vision/lighting is initialized. <a href="https://github.com/foundryvtt/foundryvtt/issues/9584" rel="nofollow" target="_blank">(9584)</a></li>
+        <li>The preview Token of the Token config is now correctly added to <code>TokenLayer#preview</code> and no longer appears in <code>TokenLayer#placeables</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/9585" rel="nofollow" target="_blank">(9585)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-packages">Package Development</h3>
+    <ul>
+        <li>Foundry now respects the order of Folders and Packs that appear in <code>packFolders</code> when manually sorting. <a href="https://github.com/foundryvtt/foundryvtt/issues/9519" rel="nofollow" target="_blank">(9519)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-dice">Dice and Cards</h3>
+    <ul>
+        <li>Reverted <a href="https://github.com/foundryvtt/foundryvtt/issues/8661" rel="nofollow" target="_blank">8661</a> to resolve an issue where <code>Roll.fromTerms</code> failed to parse formulas with parentheses. <a href="https://github.com/foundryvtt/foundryvtt/issues/9554" rel="nofollow" target="_blank">(9554)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-other">Other Changes</h3>
+    <ul>
+        <li><code>Actor#update</code> now returns the correct Document type when the Actor is synthetic. <a href="https://github.com/foundryvtt/foundryvtt/issues/9565" rel="nofollow" target="_blank">(9565)</a></li>
+        <li>The Token light preview now updates correctly. <a href="https://github.com/foundryvtt/foundryvtt/issues/9573" rel="nofollow" target="_blank">(9573)</a></li>
+    </ul>
+</section>
