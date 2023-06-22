@@ -3,7 +3,7 @@
 <p>This page provides an overview of the basic steps required to create a <strong>Module</strong> which can be activated to extend and modify the behavior of Foundry Virtual Tabletop and its game systems. At a conceptual level, think of each Module as a "plug-in" or "add-on" which changes the software behavior in small (or large) ways. Modules can alter the behavior of the core software in several different ways:</p>
 <dl>
   <dt>Content</dt>
-<dd> Modules which add data in the form of compendium packs of Actors, Items, Scenes, Journal Entries, Roll Tables, or Playlists.</dd>
+<dd> Modules which add data in the form of compendium packs of Adventures, Actors, Items, Scenes, Journal Entries, Roll Tables, or Playlists.</dd>
 <dt>Interface</dt>
 <dd> Modules which change the way the UI looks or behaves, changing the aesthetics and user experience of the software.</dd>
 <dt>Functionality</dt>
@@ -48,7 +48,7 @@
     styles/
       roller.css
     packs/
-      rolltables.db
+      rolltables
     lang/
       en.json
 </code></pre>
@@ -64,11 +64,11 @@
     {
     "name": "Atropos"
     }
-    ],
+  ],
   "version": "1.0.0",
   "compatibility": {
-    "minimum": "9",
-    "verified": "10"
+    "minimum": "10",
+    "verified": "11"
   }
 }</code></pre>
 <p>The above manifest file is sufficient for the module to be recognized, displayed, and enabled within Foundry VTT. The module would not <em>do anything</em> because we have not included any content - but this is a good place to start to make sure that your module is recognized by the system before advancing further.</p>
@@ -114,13 +114,13 @@
 </dl>
 </dd>
 <pre code="language-json"><code>"compatibility": {
-    "minimum": 9,
-    "verified": "10"
-    "maximum": "10"
+    "minimum": 10,
+    "verified": "11"
+    "maximum": "11"
   }</code></pre>
 <dt>esmodules</dt>
 <dd>
-  <p>The preferred method for including Javascript with your project. This field allows you to define an array of JS files which use the newer ES6 modules specification. As with <code>scripts</code>>, this should be declared as an array. These files are identified separately in the manifest so they may be correctly loaded as a module rather than a script.</p>
+  <p>The preferred method for including Javascript with your project. This field allows you to define an array of JS files which use the newer ES6 modules specification. As with <code>scripts</code>, this should be declared as an array. These files are identified separately in the manifest so they may be correctly loaded as a module rather than a script.</p>
 </dd>
 <dt>scripts</dt>
 <dd>
@@ -132,17 +132,58 @@
 </dd>
 <dt>packs</dt>
 <dd>
-<p>Modules may come bundled with Compendium packs which include game content for various Document types. Compendium packs are defined as objects which have their own internal metadata structure. For example:</p>
+<p>Modules may come bundled with Compendium packs which include game content for various Document types. Compendium packs are defined as objects which have their own internal metadata structure. The <code>path</code> field is optional and the <code>system</code> field only needs to be filled out for system-specific packs like Actors and Items. For example:</p>
 <pre><code class="language-json">"packs": [
     {
       "name": "pack-name",
       "label": "Pack Title",
       "system": "system-id",
-      "path": "./packs/pack-name.db",
+      "path": "./packs/desired-folder-name",
       "type": "Item"
     }
 ]</code></pre>
 <p class="note warning">Important: As of Version 10, Actor, Item, and Adventure compendium packs MUST define a system field.</p>
+</dd>
+
+<dt>packFolders</dt>
+<p>Compendium Packs can also be organized into Folders in the Compendium tab of the sidebar. You can define what Folders they should be in by default in the <code>module.json</code>.</p>
+<dd>
+  <dl>
+    <dt>name</dt>
+    <dd>The name of the Folder.</dd>
+    <dt>sorting</dt>
+    <dd>How to sort the given Packs. Using <code>m</code> will sort it manually and <code>a</code> will sort alphabetically.</dd>
+    <dt>packs</dt>
+    <dd>The Packs from this Module that should be in this Folder.</dd>
+    <dt>color</dt>
+    <dd>The color of the Folder.</dd>
+    <dt>folders</dt>
+    <dd>An array of Folder objects with the same fields that should be within the parent Folder.</dd>
+  </dl>
+  <pre>
+    <code class="language-json">"packFolders": [
+  {
+    "name": "Classes",
+    "sorting": "m",
+    "packs": ["classes"],
+    "folders": [
+      {
+        "name": "Corebook",
+        "sorting": "a",
+        "color": "#ff0000",
+        "packs": ["barbarian"]
+      },
+      {
+        "name": "13 True Ways",
+        "sorting": "a",
+        "color": "#ff00ff",
+        "packs": ["chaosmage"]
+      }
+    ]
+  }
+]
+    </code>
+  </pre>
 </dd>
 
 <dt>relationships</dt>
@@ -215,7 +256,7 @@
 </dd>
 <dt>socket</dt>
 <dd>
-<p>A module may request for a specialized socket namespace to be provided which allows data messages to be passed between connected clients. If set to <code>true</code>, a socket event will be handled by the server with the event name <code>module.{name}</code>. This event name relays arbitrary data packets between the sending client and all other connected clients. [TODO Example]</p>
+<p>A module may request for a specialized socket namespace to be provided which allows data messages to be passed between connected clients. If set to <code>true</code>, a socket event will be handled by the server with the event name <code>module.{name}</code>. This event name relays arbitrary data packets between the sending client and all other connected clients.</p>
 </dd>
 <dt>url</dt>
 <dd>
@@ -254,17 +295,36 @@
     <p><code>"library": true,</code></p> 
   <p>When omitted the default value of this field is false. It is not necessary to explicitly set this value unless it needs to be true.</p>
 </dd>
+<dt>media</dt>
+<dd>
+  An array of objects composed of a <code>type</code>, <code>url</code>, and <code>thumbnail</code> that can contain art that Foundry uses in places like the Setup screen for a Package's background image. For example:
+  <pre>
+    <code class="language-json hljs">"media": [
+  {
+    "type": "setup",
+    "url": "modules/demon-queen-awakens/scenes/DemonQueenCover.webp",
+    "thumbnail": "modules/demon-queen-awakens/scenes/thumbs/the-valley-of-stone.webp"
+  }
+]
+    </code>
+  </pre>
+</dd>
 </dl>
 </div>
 </section>
 
 <h2 class="border" id="includes">Including JavaScript</h2>
-<p>For many modules which want to expand or modify core software functionality is to include a JavaScript file (or module) which can introduce programmatic behavior into the Foundry VTT environment. An ideal second step once you have populated your module manifest with the required fields is to create a "Hello World" script which is loaded when your module is active. Experiment with adding a script file to the <code>"scripts"</code> attribute of the manifest. Suppose we create the JavaScript file in our example module <code>dice-tray/scripts/roller.js</code>. We would modify the <code>module.json</code> file as follows and the contents of our created JavaScript file will be automatically loaded and parsed by the browser when a game is loaded.</p>
+<p>For modules that want to expand or modify core software functionality you can include a JavaScript file (or ESModule) which can impact how Foundry VTT works. An ideal second step once you have populated your module manifest with the required fields is to create a "Hello World" script which is loaded when your module is active. Experiment with adding a script file to the <code>"scripts"</code> or <code>"esmodules"</code> attribute of the manifest. Suppose we create the JavaScript file in our example module <code>dice-tray/scripts/roller.js</code>. We would modify the <code>module.json</code> file as follows and the contents of our created JavaScript file will be automatically loaded and parsed by the browser when a game is loaded.</p>
 <pre><code class="language-json">"scripts": [
   "scripts/roller.js"
 ]
 </code></pre>
-<p class="note">Note that modules can only affect the game view itself - and not the Setup or Join screens for security reasons.</p>
+<p>or if you're using an ESModule:</p>
+<pre><code class="language-json">"esmodules": [
+  "scripts/roller.js"
+]
+</code></pre>
+<p class="note info">Note that modules can only affect the game view itself - and not the Setup or Join screens for security reasons.</p>
 <p>The example below provides a very simple "Hello World" script which is designed to introduce how scripts are loaded and executed. Open the <strong>Developer Tools</strong> by pressing <code>F12</code> and consult the <strong>Console</strong> tab. Note that in the below example - the statements are logged at different points in time. Depending on what scope of data you need to operate on - you may want to condition execution of module code on certain events (called "hooks") which allow for module logic to interrupt, augment, or replace the default behavior of the VTT platform.</p>
 <pre><code class="language-javascript">console.log("Hello World! This code runs immediately when the file is loaded.");
 
@@ -276,13 +336,19 @@ Hooks.on("ready", function() {
   console.log("This code runs once core initialization is ready and game data is available.");
 });
 </code></pre>
+<h2 class="border">Module Defined Sub-Types</h2>
+<p>As of Foundry Virtual Tabletop Version 11, it is possible for <a href="https://foundryvtt.com/article/module-sub-types/" target="_blank">Modules to extend the list of sub-types</a> available to certain Documents in much the same way that Systems can. <code>Actor</code>, <code>Item</code>, <code>JournalEntryPage</code>, <code>Cards</code>, and <code>Card</code> Documents can all have additional sub-types added in this way.</p>
+
+<p>Once a Module declares which sub-types it provides for which Documents, they will subsequently be available for use in the World by users who activate that Module, and will function in the same way that core or System-defined sub-types do, with additional, Module-specific data being available under the Document's <code>system</code> field.</p>
+
+
 <h2 class="border" id="more">Further Reading</h2>
 <p>As you delve further into the world of module development - the following topics may prove useful for a variety of tasks you wish to perform.</p>
 <ul>
-<li>The @APIV10[classes/foundry.abstract.Document, Document Class Pattern]</li>
-<li>The @APIV10[classes/client.Game, Game Class]</li>
-<li>The @APIV10[classes/client.Application, Application Class]</li>
-<li>The @APIV10[classes/client.FormApplication, FormApplication Class]</li>
-<li>The @APIV10[classes/client.Hooks, Hooks Event Framework]</li>
-<li>The @APIV10[classes/client.Canvas, Canvas Class]</li>
+  <li>The @API[classes/foundry.abstract.Document, Document Class Pattern]</li>
+  <li>The @API[classes/client.Game, Game Class]</li>
+  <li>The @API[classes/client.Application, Application Class]</li>
+  <li>The @API[classes/client.FormApplication, FormApplication Class]</li>
+  <li>The @API[classes/client.Hooks, Hooks Event Framework]</li>
+  <li>The @API[classes/client.Canvas, Canvas Class]</li>
 </ul>
