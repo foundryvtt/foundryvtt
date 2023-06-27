@@ -1,0 +1,128 @@
+<h2>Overview</h2>
+<p>The module maker is a tool for creating modules easily and quickly. These modules can be the basis for more advanced development, or simply to contain compendia to be shared between game worlds easily. For more on what modules are and how to manage them, see @Article[modules]. For more on developing modules with special features see @Article[intro-development].</p>
+
+<h2>Creating a New Module</h2>
+<p>To create a new module, follow these steps:</p>
+<ol>
+	<li>Navigate to the <strong><i class="fa-solid fa-plug"> </i> Add-On Modules</strong> tab in the main menus.</li>
+	<li>Click on the <strong><i class="fa-solid fa-gear-code"> </i> Create Module</strong> button to open the configuration panel.</li>
+	<li>Fill out the module information. Information on these options is provided below.</li>
+	<li>Click the orange <strong><i class="fa-solid fa-gear-code"> </i> Create Module</strong> Create Module button to finish the process.</li>
+	<li>You will receive a message indicating the module has been completed!</li>
+</ol>
+<p>All created modules are stored in your user data folders. For information on where your data is stored see @Article[configuration].</p>
+
+<h4>Editing Modules</h4>
+<p>You can edit any module by right clicking on the module in the Add-on Modules listing and choosing the <strong><i class="fa-solid fa-pen-to-square"> </i> Edit Module</strong> button. This will open the editor and let you change the fields of the module.</p>
+<p>Note that a warning will appear when you attempt to editing an installable module. Edits made to these sorts of modules may break functionality or prevent it from receiving further updates. Proceed with caution. These modules can be uninstalled and reinstalled if needed, which will restore the original settings after you've edited them.</p>
+
+<h2>Module Creation Options</h2>
+<p>When creating a module, there are four tabs of configuration options which need to be filled out. These tabs are: Basic Details, Authors, Compendium Packs, and Relationships. These tabs and their details are explained below.</p>
+
+<h3>Basic Details</h3>
+<p>These details make up your module's manifest, which tells Foundry VTT how to handle the package when it's loaded.</p>
+<section class="collapsible">
+	<header class="collapsible-header">Basic Configuration</header>
+	<div class="collapsible-content">
+<figure class="right">@Image[560]
+	<figcaption>The basic details panel which set the fundamental aspects of the module's manifest.</figcaption>
+</figure>
+<dl>
+	<dt>Package Title</dt>
+	<dd>This is the title of your module which will appear in the Foundry VTT menus, defaults to "My New Module" but can be anything you want.</dd>
+	<dt>Package Identifier</dt>
+	<dd>This is the name of the folder where your module will be created, and and needs to be an alphanumeric string with no special characters except for hypens. This defaults to "my-new-module" but should be similar to the title of your module for easy identification of the folder in the data folders.</dd>
+	<dt>Package Version</dt>
+	<dd>This field allows you to set the initial version of the package. This can be changed later by editing the manifest file inside the module folder.</dd>
+	<dt>Package URL</dt>
+	<dd>This is a URL which links to a website with more information on your module. This field is optional.</dd>
+	<dt>Package Description</dt>
+	<dd>The description should give a summary of the module and its contents or function. The description can be plain text or formatted HTML.</dd>
+</dl>
+
+<h4>Optional: Compatibility</h4>
+<p>This optional section allows you to set the compatible versions of Foundry VTT which the module will function with. Compatibility can be declared by specific build versions such as "11.294" for Foundry V11 build 294, or broadly by generation of the software, like "11" for Foundry V11 as a whole. These compatibility options are used to display compability warning badges to help users determine if a module is likely to work with their version of the software or not.</p>
+<dl>
+	<dt>Minimum Version</dt>
+	<dd>This is generally a specific generation of the software (10, 11, 12, etc.) which is the minimum generation of the software which the module will work with. This defaults to the generation of the software you're using when you create the module (11 for V11 at the time of writing). Users under this version will be given a compatibility warning.</dd>
+	<dt>Verified Version</dt>
+	<dd>The verified version of the module gives a specific, declared Foundry VTT version which the module will work with. Users on a higher version will be considered compatible, while users with a lower version number in the same generation will get a compability warning. </dd>
+	<dt>Maximum Version</dt>
+	<dd>Similar to minimum version, this determines the highest version of the software which this module is expected to work with. Users past this version will receive a comatibility warning.</dd>
+</dl>
+</div>
+</section>
+
+<h3>Authors</h3>
+<p>Authors are an optional part of a module, but highly recommended for proper attribution.</p>
+<p>To add new author to a module, click the <strong><i class="fa-solid fa-user-plus"> </i> Add User</strong> button. This creates a new blank author for you to fill out. You can remove authors by clicking the <strong><i class="fa-solid fa-user-minus"> </i></strong> button in the upper right of the author card.</p>
+
+<section class="collapsible">
+	<header class="collapsible-header">Author Configuration</header>
+	<div class="collapsible-content">
+<figure class="right">@Image[561]
+	<figcaption>The authors panel which allows you to give credit to one or more module contributors.</figcaption>
+</figure>
+<dl>
+	<dt>Author Name</dt>
+	<dd>The name of the author, either their full name, or online handle.</dd>
+	<dt>Discord Unsername</dt>
+	<dd>The author's discord username, provided so that they can be contacted by other members of the Foundry VTT community.</dd>
+	<dt>Email Address</dt>
+	<dd>The author's email address, provided so that they can receive emails from users.</dd>
+	<dt>Website URL</dt>
+	<dd>The author's website address, which can provide more information about them and their work.</dd>
+</dl>
+</div>
+</section>
+
+<h3>Compendium Packs</h3>
+<p>Modules can be used to contain compendia, which are archives of information which can be imported into game worlds. The most common use for modules, especially locally created ones, is to contain this data for use across worlds, or to store it for later reference without having it use up valuable memory better suited to assets actively in use. For more on what compendium packs are and what they are used for, please see @Article[compendium].</p>
+<p>To add a new compendium pack to a module, click the <strong><i class="fa-solid fa-plus"> </i> Add Compendium Pack</strong> button. This will create a blank compendium in the module and allow you to set the details for it. Compendia can be edited along with with all other details of a module. You can remove a compendium pack from a module by clicking the <strong><i class="fa-regular fa-square-minus"> </i> Remove Compendium Pack</strong> button found in the upper right corner of the compendium pack's info panel.</p>
+<p>Note that deleting a compendium with data in it will cause the contained data to be lost as well.</p>
+
+<section class="collapsible">
+	<header class="collapsible-header">Compendium Configuration</header>
+	<div class="collapsible-content">
+<figure class="right">@Image[562]
+	<figcaption>The compendium Packs panel which allows you to add compendia to a module.</figcaption>
+</figure>
+<dl>
+	<dt>Label</dt>
+	<dd>The name of the compendium as it will appear in the compendium pack sidebar inside the game world.</dd>
+	<dt>Name</dt>
+	<dd>The identifier name of the pack which is used internally by the software to keep track of the compendium and its contents. This must be an alphanumeric string, and can contain hyphens. The name of a compendium cannot be changed once the compendium pack has been saved to the module.</dd>
+	<dt>Document Type</dt>
+	<dd>The type of documents that will be contained in the pack. Changing this while the compendium contains documents of a different type will cause that data to be lost.</dd>
+	<dt>Required System</dt>
+	<dd>If your compendium document type is set to Actor, Item, or Adventure, then you must also select a system which these documents are meant to be compatible with. The dropdown list is populated from all of the game systems you have installed.</dd>
+	<dt>Visible to GM Only</dt>
+	<dd>Determines if only the GM can see this compendium, or if all users can look at the compendium pack's contents.</dd>
+</dl>
+</div>
+</section>
+
+<h3>Relationships</h3>
+<p>Relationships are an optional part of modules which determine what other modules are needed for the module to function, or which are known to cause issues with it.</p>
+<p>To add a new relationship to a module, click the <strong><i class="fa-solid fa-plus"> </i> Add Relationship</strong> button. This will create a blank compendium in the module and allow you to set the details for it. Compendia can be edited along with with all other details of a module. You can remove a compendium pack from a module by clicking the <strong><i class="fa-regular fa-square-minus"> </i> Remove Compendium Pack</strong> button found in the upper right corner of the compendium pack's info panel.</p>
+
+<section class="collapsible">
+	<header class="collapsible-header">Relationship Configuration</header>
+	<div class="collapsible-content">
+		<figure class="right">@Image[563]
+			<figcaption>The relationship panel which lets you set which modules are required, recommended, or known to conflict.</figcaption>
+		</figure>
+<dl>
+	<dt>Related Package</dt>
+	<dd>This dropdown list allows you to pick a system of module from any of those installed on your Foundry VTT server.</dd>
+	<dt>Relationship Category</dt>
+	<dd>The relationships type determines how Foundry treats the relationship, and what information it gives to users. 
+		<ul>
+			<li><strong>Required</strong> modules are needed for the module to function, and are prompted to install when the module is installed, and are activated alongside the module in a game world.</li> 
+			<li><strong>Recommended</strong> modules are optional modules which the user will be prompted to install if they choose. </li>
+			<li><strong>Known Conflict</strong> modules are given to warn users of incompatibilities between multiple modules, often because they modify the same parts of the game system, game world, or software.</li>
+		</ul>
+	</dd>
+</dl>
+</div>
+</section>
