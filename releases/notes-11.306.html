@@ -1,0 +1,81 @@
+<header id="update-header">
+    <h2 class="border" id="update-title">Foundry Virtual Tabletop - Version 11 - Stable 6 Release Notes</h2>
+    <figure id="update-banner">
+        <img alt="Release Notes for Foundry Virtual Tabletop Version 11" src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_70/screen/v11-s6-release-banner-2023-07-20.webp" title="Foundry VTT - Version 11 - Stable 6 Release Notes"/>
+        <figcaption>Welcome to the Foundry Virtual Tabletop update notes. <br/><strong>Image Source:</strong> The <a href="https://foundryvtt.com/packages/pirateborg" rel="nofollow" target="_blank">Pirate Borg</a> system and <a href="https://foundryvtt.com/packages/pirate-borg-premium" rel="nofollow" target="_blank">Pirate Borg Premium Content</a> module (<a href="https://foundryvtt.com/packages/pirate-borg-premium-5e" rel="nofollow" target="_blank">also available for DnD5E</a>).</figcaption>
+    </figure>
+</header>
+
+<section id="update-overview">
+    <p class="note warning"><strong>WARNING:</strong> While this is categorized as a stable release there is always a possibility of unexpected bugs or compatibility issues. As with any time you update the core software, be sure to perform a complete backup of your user data to minimize any risk of data loss.</p>
+    <p>Welcome to the sixth stable-channel release of Foundry Virtual Tabletop Version 11. As with most stable releases, this update focused on bug fixes for issues submitted by our users via our community Discord and our GitHub repository. In addition, we have managed to sneak in a few small, non-controversial quality of life features which we hope you will all enjoy. We'd like to extend a huge thanks to our community for their continued submission of bug reports and assistance hunting out potential causes!</p>
+</section>
+
+<section id="features">
+<h2 class="section-header border">New Features</h2>
+    <h3 class="category-header" id="features-apps">Applications and User Interface</h3>
+    <ul>
+        <li>Toolclips for the select tools now describe more things you can do. <a href="https://github.com/foundryvtt/foundryvtt/issues/9580" rel="nofollow" target="_blank">(9580)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-i18n">Localization and Accessibility</h3>
+    <ul>
+        <li>To improve accessibility, added <code>aria-label</code> attributes to tabs and buttons in the UI that lacked text content. <a href="https://github.com/foundryvtt/foundryvtt/issues/9751" rel="nofollow" target="_blank">(9751)</a></li>
+    </ul>
+</section>
+<section id="api">
+<h2 class="section-header border">API Improvements</h2>
+    <h3 class="category-header" id="api-docs">Documents and Data</h3>
+    <ul>
+        <li>Script Macros can now shadow the <code>speaker</code>, <code>actor</code>, <code>token</code>, and <code>character</code> variables. <a href="https://github.com/foundryvtt/foundryvtt/issues/8345" rel="nofollow" target="_blank">(8345)</a></li>
+    </ul>
+    <h3 class="category-header" id="api-other">Other Changes</h3>
+    <ul>
+        <li>Increased the maximum expansion depth of <code>expandObject</code> from 16 to 32. <a href="https://github.com/foundryvtt/foundryvtt/issues/9711" rel="nofollow" target="_blank">(9711)</a></li>
+    </ul>
+</section>
+<section id="bugs">
+<h2 class="section-header border">Bug Fixes</h2>
+    <h3 class="category-header" id="bugs-docs">Documents and Data</h3>
+    <ul>
+        <li>Synthetic Actors on non-active Scenes are now appropriately updated when their base Actor changes. <a href="https://github.com/foundryvtt/foundryvtt/issues/9672" rel="nofollow" target="_blank">(9672)</a></li>
+        <li>Hotbar Macros created by dragging Roll Tables inside Compendia to the hotbar no longer throw an error. <a href="https://github.com/foundryvtt/foundryvtt/issues/9755" rel="nofollow" target="_blank">(9755)</a></li>
+        <li>Fixed an issue with dry run updates of <code>EmbeddedCollectionField</code>s and <code>EmbeddedDocumentField</code>s that prevented Active Effects from importing correctly. <a href="https://github.com/foundryvtt/foundryvtt/issues/9757" rel="nofollow" target="_blank">(9757)</a></li>
+        <li>Parent Document sources and Embedded Collection sources no longer become out of sync when bulk updated. <a href="https://github.com/foundryvtt/foundryvtt/issues/9761" rel="nofollow" target="_blank">(9761)</a></li>
+        <li>Fixed an issue that would sometimes cause Active Effects to be applied twice on load. <a href="https://github.com/foundryvtt/foundryvtt/issues/9768" rel="nofollow" target="_blank">(9768)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-apps">Applications and User Interface</h3>
+    <ul>
+        <li>Pressing the CTRL key after dragging a Token no longer leaves a ghost Token on the Canvas. <a href="https://github.com/foundryvtt/foundryvtt/issues/9685" rel="nofollow" target="_blank">(9685)</a></li>
+        <li>It is now possible to double right-click on Wall segments and not just their endpoints. <a href="https://github.com/foundryvtt/foundryvtt/issues/9758" rel="nofollow" target="_blank">(9758)</a></li>
+        <li>Foundry no longer shows the <span class="reference">Create Entry/Folder</span> buttons in locked Compendia. <a href="https://github.com/foundryvtt/foundryvtt/issues/9793" rel="nofollow" target="_blank">(9793)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-canvas">The Game Canvas</h3>
+    <ul>
+        <li>Adding/removing Detection Modes in the default Token configuration now works as expected. <a href="https://github.com/foundryvtt/foundryvtt/issues/9769" rel="nofollow" target="_blank">(9769)</a></li>
+        <li>Non-recursive Scene updates no longer cause synthetic Actors to be updated with incorrect data which occasionally caused issues with re-importing an Adventure. <a href="https://github.com/foundryvtt/foundryvtt/issues/9760" rel="nofollow" target="_blank">(9760)</a></li>
+        <li>Fixed an issue that occasionally caused loading a Scene to hang if it contained video textures. <a href="https://github.com/foundryvtt/foundryvtt/issues/9765" rel="nofollow" target="_blank">(9765)</a></li>
+        <li>Improved World launch speed on Worlds with lots of legacy Token data. <a href="https://github.com/foundryvtt/foundryvtt/issues/9803" rel="nofollow" target="_blank">(9803)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-packages">Package Development</h3>
+    <ul>
+        <li>Recreating a deleted World no longer throws an error. <a href="https://github.com/foundryvtt/foundryvtt/issues/9323" rel="nofollow" target="_blank">(9323)</a></li>
+        <li>Adding a Game System as a required dependency no longer causes the Module not to load as the non-Module relationships are cleaned. The Module Maker also no longer allows a System to be added as a required dependency. <a href="https://github.com/foundryvtt/foundryvtt/issues/9514" rel="nofollow" target="_blank">(9514)</a></li>
+        <li>Systems with a minimum core version set to a version newer than the installed core version no longer display a misleading error message. <a href="https://github.com/foundryvtt/foundryvtt/issues/9699" rel="nofollow" target="_blank">(9699)</a></li>
+        <li>Fixed an issue that prevented errors that occurred when updating packages from bubbling up. <a href="https://github.com/foundryvtt/foundryvtt/issues/9756" rel="nofollow" target="_blank">(9756)</a></li>
+        <li>Cached template data is now voided when updating a Game System. <a href="https://github.com/foundryvtt/foundryvtt/issues/9763" rel="nofollow" target="_blank">(9763)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-other">Other Changes</h3>
+    <ul>
+        <li>The <code>parseUUID</code> method no longer throws an error if given an invalid UUID that starts with an embedded type. <a href="https://github.com/foundryvtt/foundryvtt/issues/9745" rel="nofollow" target="_blank">(9745)</a></li>
+        <li>Assistant Gamemasters now have permission to rename players. <a href="https://github.com/foundryvtt/foundryvtt/issues/9749" rel="nofollow" target="_blank">(9749)</a></li>
+        <li>Content Link Matching no longer fails when selecting from right to left. <a href="https://github.com/foundryvtt/foundryvtt/issues/9764" rel="nofollow" target="_blank">(9764)</a></li>
+        <li>Bulk Scene updates now correctly load related Documents on updated Tokens. <a href="https://github.com/foundryvtt/foundryvtt/issues/9786" rel="nofollow" target="_blank">(9786)</a></li>
+    </ul>
+</section>
+<section id="documentation">
+<h2 class="section-header border">Documentation Improvements</h2>
+    <h3 class="category-header" id="documentation-other">Other Changes</h3>
+    <ul>
+        <li>Completed a number of V11 Migration Guides. <a href="https://github.com/foundryvtt/foundryvtt/issues/9225" rel="nofollow" target="_blank">(9225)</a></li>
+    </ul>
+</section>
