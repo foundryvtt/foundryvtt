@@ -1,0 +1,83 @@
+<header id="update-header">
+    <h2 class="border" id="update-title">Foundry Virtual Tabletop - Version 11.302 - Stable Release Notes</h2>
+    <figure id="update-banner">
+        <img alt="Release Notes for Foundry Virtual Tabletop Version 11 Build 302" src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/v11-stable-build-302-release-banner-2023-06-16.webp" title="Foundry VTT - Version 11 - Stable Release Notes"/>
+        <figcaption>Welcome to the Foundry Virtual Tabletop V11 Stable (302) update notes</figcaption>
+    </figure>
+</header>
+
+<section id="update-overview">
+    <p class="note warning"><strong>WARNING:</strong> While this is categorized as a stable release there is always a possibility of unexpected bugs or compatibility issues. As with any time you update the core software, be sure to perform a complete backup of your user data to minimize any risk of data loss.</p>
+    <p>Introducing Foundry VTT Version 11 (302), the next iteration in our stable release of V11. This update addresses a number of small, non-breaking feature requests and resolves a wide variety of bugs found in post-release use. This is a smaller update designed to unblock some the development community and resolve some crucial bugs. We'd like to take the opportunity to thank all the users and community developers who have reported these issues as we continue through our maintenance cycle for this version!</p>
+    <p>Additionally, we would like to call attention to our announcement of work beginning on a Foundry VTT version 11.5 which will implement two key new features We are going to work on an iteration of the Foundry VTT software that represents an intermediate update between Version 11 and Version 12, "V11.5", if you will. This update will invest into two features:</p>
+        <ol>
+            <li>Pre-update Compatibility Check</li>
+            <li>Built-in Backups</li>
+        </ol>
+    <p>You can read more about the importance of this work and what we plan to deliver in our <a href="https://foundryvtt.com/article/v12-patreon-vote/" rel="nofollow" target="_blank">Version 12 Patreon Feature Vote article.</a></p>
+</section>
+
+<section id="features">
+<h2 class="section-header border">New Features</h2>
+    <h3 class="category-header" id="features-architecture">Architecture and Infrastructure</h3>
+    <ul>
+        <li>Extended S3 support to allow use of the S3 path-style format. <a href="https://github.com/foundryvtt/foundryvtt/issues/5296" rel="nofollow" target="_blank">(5296)</a></li>
+    </ul>
+</section>
+<section id="api">
+<h2 class="section-header border">API Improvements</h2>
+    <h3 class="category-header" id="api-architecture">Architecture and Infrastructure</h3>
+    <ul>
+        <li>Improved support for Cloudflare R2 by relaxing the requirement for ACL parameters. <a href="https://github.com/foundryvtt/foundryvtt/issues/8288" rel="nofollow" target="_blank">(8288)</a></li>
+        <li>The handlebars template for Toolclips no longer defines a specific path to be used for video file storage. <a href="https://github.com/foundryvtt/foundryvtt/issues/9518" rel="nofollow" target="_blank">(9518)</a></li>
+    </ul>    
+    <h3 class="category-header" id="api-canvas">The Game Canvas</h3>
+    <ul>
+        <li>Extended <code>MeasuredTemplate</code> API, providing new static public methods for handling shapes. <a href="https://github.com/foundryvtt/foundryvtt/issues/9538" rel="nofollow" target="_blank">(9538)</a></li>
+        <li><code>Canvas#_onDragLeftStart</code> now respects <code>CONFIG.Canvas.rulerClass.canMeasure</code> and replaced <code>Ruler.canMeasure</code> references to refer to <code>CONFIG.Canvas.rulerClass.canMeasure</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/9595" rel="nofollow" target="_blank">(9595)</a></li>
+    </ul>
+</section>
+<section id="bugs">
+<h2 class="section-header border">Bug Fixes</h2>
+    <h3 class="category-header" id="bugs-docs">Documents and Data</h3>
+    <ul>
+        <li>The <code>deleteAll</code> function now correctly handles deletion of embedded Documents within compendium packs. <a href="https://github.com/foundryvtt/foundryvtt/issues/9552" rel="nofollow" target="_blank">(9552)</a></li>
+        <li><code>Token#toggleOverlayEffect</code> now functions as expected. <a href="https://github.com/foundryvtt/foundryvtt/issues/9636" rel="nofollow" target="_blank">(9636)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-apps">Applications and User Interface</h3>
+    <ul>
+        <li>Dropping a folder of items onto an actor sheet is now handled as expected. <a href="https://github.com/foundryvtt/foundryvtt/issues/9508" rel="nofollow" target="_blank">(9508)</a></li>
+        <li>Corrected an underlying error in the logic which handled touch gestures for zooming and panning the canvas. <a href="https://github.com/foundryvtt/foundryvtt/issues/9511" rel="nofollow" target="_blank">(9511)</a></li>
+        <li>Corrected the alphabetical sorting of folders in the export content application select box. <a href="https://github.com/foundryvtt/foundryvtt/issues/9604" rel="nofollow" target="_blank">(9604)</a></li>
+        <li>Status effect toggles now use the <code>label</code> attribute instead of the name attribute as expected. <a href="https://github.com/foundryvtt/foundryvtt/issues/9618" rel="nofollow" target="_blank">(9618)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-canvas">The Game Canvas</h3>
+    <ul>
+        <li>Resolved an issue which occasionally caused the Ping activity handler to display a ping at the wrong coordinates. <a href="https://github.com/foundryvtt/foundryvtt/issues/9491" rel="nofollow" target="_blank">(9491)</a></li>
+        <li>Resolved some inconsistencies with the shape of the limited angle token light sources, to ensure thata token is completely illuminated within its external radius. <a href="https://github.com/foundryvtt/foundryvtt/issues/9632" rel="nofollow" target="_blank">(9632)</a></li>
+        <li>Corrected an issue where the attenuation threshold for Walls was not being applied correctly <a href="https://github.com/foundryvtt/foundryvtt/issues/9541" rel="nofollow" target="_blank">(9541)</a></li>
+        <li>Scenes with a Hex grid no longer have an invisible barrier preventing use of keyboard movement to navigate left and up. <a href="https://github.com/foundryvtt/foundryvtt/issues/9555" rel="nofollow" target="_blank">(9555)</a></li>
+        <li>Updating Opacity, Tint, or Occlusion Alpha of a Tile now updates on connected clients as expected <a href="https://github.com/foundryvtt/foundryvtt/issues/9606" rel="nofollow" target="_blank">(9606)</a></li>
+        <li>The occluded state for Tiles is now updated when changing between overhead and underfoot <a href="https://github.com/foundryvtt/foundryvtt/issues/9607" rel="nofollow" target="_blank">(9607)</a></li>
+        <li>Occlusion now updates when a Token is moved using API coordinate updates. <a href="https://github.com/foundryvtt/foundryvtt/issues/9608" rel="nofollow" target="_blank">(9608)</a></li>
+        <li>Updating a Token no longer unnecessarily re-initialises its child <code>ActorDelta</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/9609" rel="nofollow" target="_blank">(9609)</a></li>
+        <li>Improved the safeguards in <code>CONFIG.Actor.trackableAttributes</code> to prevent cases where encountering an undefined actor type could block the <code>TokenConfig</code> application from rendering. <a href="https://github.com/foundryvtt/foundryvtt/issues/9610" rel="nofollow" target="_blank">(9610)</a></li>
+        <li>Right-clicking when measuring with the ruler now immediately updates the ruler to remove the way point. <a href="https://github.com/foundryvtt/foundryvtt/issues/9611" rel="nofollow" target="_blank">(9611)</a></li>
+        <li>Invisible walls below a roof tile no longer block vision after the roof tile has been deleted or toggled hidden. <a href="https://github.com/foundryvtt/foundryvtt/issues/9614" rel="nofollow" target="_blank">(9614)</a></li>
+        <li>To resolve some race conditions with canvas rendering, we have consolidated concurrency management into the <code>FogManager</code> function. <a href="https://github.com/foundryvtt/foundryvtt/issues/9619" rel="nofollow" target="_blank">(9619)</a></li>
+        <li>Append Number to Unlinked Tokens no longer incorrectly applies to Linked Tokens. <a href="https://github.com/foundryvtt/foundryvtt/issues/9634" rel="nofollow" target="_blank">(9634)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-packages">Package Development</h3>
+    <ul>
+        <li>Corrected an edge case issue which caused incorrect rendering of the setup menu when clicking "Update All" on the modules tab. <a href="https://github.com/foundryvtt/foundryvtt/issues/9497" rel="nofollow" target="_blank">(9497)</a></li>
+        <li>The function for creation of <code>packFolders</code> no longer duplicates folders under rare circumstances. <a href="https://github.com/foundryvtt/foundryvtt/issues/9598" rel="nofollow" target="_blank">(9598)</a></li>
+        <li>Resolved a race condition between connecting to a module pack databases and vending world data. <a href="https://github.com/foundryvtt/foundryvtt/issues/9616" rel="nofollow" target="_blank">(9616)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-other">Other Changes</h3>
+    <ul>
+        <li>S3 bucket integration now supports the <code>forcePathStyle</code> setting <a href="https://github.com/foundryvtt/foundryvtt/issues/8630" rel="nofollow" target="_blank">(8630)</a></li>
+        <li>Players may once again use the <code>deleteAll</code> parameter when deleting embedded Documents of a Document they own. <a href="https://github.com/foundryvtt/foundryvtt/issues/9569" rel="nofollow" target="_blank">(9569)</a></li>
+        <li>Corrected an issue which prevented the iteration of S3 buckets. <a href="https://github.com/foundryvtt/foundryvtt/issues/9623" rel="nofollow" target="_blank">(9623)</a></li>
+        <li>Resolved a number of issues related to S3 integration URL paths and the <code>FilePicker</code>, restoring S3 functionality. <a href="https://github.com/foundryvtt/foundryvtt/issues/9624" rel="nofollow" target="_blank">(9624)</a>, <a href="https://github.com/foundryvtt/foundryvtt/issues/9630" rel="nofollow" target="_blank">(9630)</a>, <a href="https://github.com/foundryvtt/foundryvtt/issues/9631" rel="nofollow" target="_blank">(9631)</a></li>
+    </ul>
+</section>
