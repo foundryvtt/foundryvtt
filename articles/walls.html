@@ -3,28 +3,30 @@
 <p>This article uses "walls" to refer to any boundary that prevents vision or movement through it. Walls themselves are typically not visible to players, but impose restrictions on a token's movement, line-of-sight, and sound depending on how each wall is configured. With the Wall Controls toolbar, you can view the Walls layer while viewing a scene.</p>
 
 <h2 id="wallcontrols" class="border">Wall Controls</h2>
-<figure class="right">@Image[412]
+<figure class="right">@Image[580]
 <figcaption>Wall Controls Tool Palette</figcaption>
 </figure>
-<p>The Wall Controls panel can be opened by clicking on the building icon (<i class="far fa-university"> </i>) on the left-hand side of the user interface. This opens the tool palette, and displays all existing walls on the current scene (if there are any) allowing you to draw new walls or manipulate existing wall segments.</p>
+<p>The Wall Controls panel can be opened by clicking on the building icon (<i class="far fa-block-brick"> </i>) on the left-hand side of the user interface. This opens the tool palette and displays all existing walls on the current scene (if there are any), allowing you to draw new walls or manipulate existing wall segments.</p>
 <p><strong>Note</strong>: For detailed information on how the individual wall types work see the "Wall Types" section later in this article.</p>
 <dl>
 <dt>Select Walls (<i class="far fa-expand"> </i>)</dt>
-    <dd>This tool allows you to select walls by clicking and dragging a box on the canvas. Groups of selected walls can be edited together.</dd>
+    <dd>This tool allows you to select walls by clicking and dragging to create a rectangular shape on the canvas. Groups of selected walls can be edited together.</dd>
 <dt>Draw Wall (<i class="fas fa-bars"> </i>)</dt>
-    <dd>The default wall type. Restricts vision, movement, and sound.</dd>
+    <dd>The default wall type. Restricts vision, movement, light, and sound.</dd>
 <dt>Draw Terrain Wall (<i class="far fa-mountain"> </i>)</dt>
-    <dd>Terrain wall types restrict movement and sound but only allows vision to partially pass through.</dd>
+    <dd>Terrain walls block movement but allow vision, light, and sound to partially pass through.</dd>
 <dt>Draw Invisible Wall (<i class="fas fa-eye-slash"> </i>)</dt>
-    <dd>Invisible wall types block movement and sound but do not affect vision.</dd>
+    <dd>Invisible walls block movement but do not affect vision, light, or sound.</dd>
 <dt>Draw Ethereal Wall (<i class="fas fa-mask"> </i>)</dt>
-    <dd>Ethereal wall types block vision and sound but do not block movement.</dd>
+    <dd>Ethereal walls block vision and light but do not block movement or sound.</dd>
 <dt>Draw Door (<i class="fas fa-door-open"> </i>)</dt>
-    <dd>Doors function as default walls, but can be opened, allowing for movement, vision and sound to pass through them.</dd>
+    <dd>Doors function like default walls when they are closed but can be opened. When open, they allow movement, vision, light, and sound to pass through them.</dd>
 <dt>Draw Secret Door (<i class="fas fa-user-secret"> </i>)</dt>
     <dd>Secret doors function as doors, but their interaction button is hidden from non-gamemaster users.</dd>
+<dt>Draw Window Wall (<i class="fas fa-window-frame"> </i>)</dt> 
+    <dd>Window Walls replicate windows by blocking movement but allowing vision for tokens that are very close to them.</dd>
 <dt>Clone Wall (<i class="fas fa-clone"> </i>)</dt>
-    <dd>Cloning walls draws walls with the same configuration settings as the last wall edited or drawn.</dd>
+    <dd>Cloning walls draws walls with the same configuration settings as the last wall that was edited or created.</dd>
 <dt>Force Snap to Grid (<i class="fas fa-plus"> </i>)</dt>
     <dd>This toggle forces walls to snap to the scene's grid lines if the scene uses a square or hex grid type.</dd>
 <dt>Clear Walls (<i class="fas fa-trash"> </i>)</dt>
@@ -32,57 +34,81 @@
 </dl>
 
 <h3>Creating Walls</h3>
-<p>To create a new wall, select a wall type from the Wall Controls palette, then left click and drag from the point where you want the wall to start to the point where you want to wall segment to end.</p>
+<p>To create a new wall, select a wall type from the Wall Controls palette, then left click and drag from the point where you want the wall segment to start to the point where you want to wall to end.</p>
 <h4>Chaining Walls</h4>
 <p>Connected wall segments can easily be created by holding Ctrl (or command, if you are using MacOS) while placing a wall, which creates a new wall from your cursor to the last-placed wall segment, and will continue creating chained walls from all future points create. You can cancel the placement of a wall segment by right-clicking before you place the second point of the wall.</p>
-<p>A wall can be selected by left-clicking on one of its points. Holding the Alt key when selecting a wall point will select all walls directly or indirectly connected to that point. This allows you to move, delete or modify entire structures at once.</p>
+<p>A wall can be selected by left-clicking it. Holding the Alt key when selecting a wall also selects all walls directly connected to one of that wall's endpoints. This allows you to move, delete or modify entire structures at once.</p>
 <h4 id="snapping">Wall Snapping</h4>
-<p>By default the wall tool attempts to snap to an invisible sub-grid on the canvas in order to assist users in linking wall segments together without a gap wherever possible. The precision of this grid is partially adaptive, changing on the size of the grid in use. Maps that have a grid of 50px will have 1/4 precision (and 5 snap points), while grids set to 100px will have 1/8 precision (9 snap points); grids set to 200px would have 1/16 precision (17 snap points).</p>
-<p>In addition, enabling the "Force Grid Snapping" toggle will force the wall segment to snap to the nearest outside point of a grid square.</p>
+<p>By default, the wall tool attempts to snap to an invisible sub-grid on the canvas in order to assist users in linking wall segments together without a gap wherever possible. The precision of this grid is partially adaptive, changing based on the size of the grid in use for the scene:</p> 
+    <ul>
+    <li>50px grids have 1/4 precision (5 snap points per grid unit)</li>
+    <li>100px grids have 1/8 precision (9 snap points per grid unit)</li>
+    <li>200px grids have 1/16 precision (17 snap points per grid unit)</li>
+    </ul>
+<p>If the "Force Grid Snapping" toggle is enabled, wall endpoints are instead forced to snap to the nearest corner of the grid.</p>
+<h4>Cloning Walls</h4>
+<p>This button in the Walls tool palette (<i class="far fa-clone"> </i>) can be used to easily duplicate walls. After clicking the Clone Walls button, drawing new walls creates wall segments that have identical properties and restrictions as the last wall that was created or modified in the scene.</p> 
+<p>For example, if you just configured a wall segment with a custom set of restrictions to be a one-way secret door that doesn't block movement and plays a particular sound when opened, you can use the Clone Walls button to quickly place more identical custom secret doors.</p>
+<h4>Copying and Pasting Walls</h4>
+<p>Alternately, instead of using the Clone Walls tool, you can clone a wall using the copy and past function. Just select any existing wall, copy it (using Ctrl-c or Cmd-C), move the mouse to the destination location, and paste a copy of it (using Ctrl-V or Cmd-V).</p>
 
 <section class="collapsible">
 <header class="collapsible-header">Configuring Walls</header>
 <div class="collapsible-content">
-<figure class="right">@Image[26]
-<figcaption>The Wall Configuration window.</figcaption>
+<figure class="right">@Image[581]
+<figcaption>The Wall Configuration window</figcaption>
 </figure>
-<p>Wall segments can be further configured after they have been placed. Simply double-click on one of the points of a wall to edit the connected wall segment. Both points of the wall will enlarge to indicate which wall segment will be selected. You can double click multiple selected wall segments to edit all of them at once.</p>
-<h4>Movement Restrictions</h4>
+<p>Wall segments can be further configured after they have been placed. Simply double-click a wall to edit it. Both points of the wall will enlarge to indicate which wall segment will be selected. You can double click multiple selected wall segments to edit all of them at once.</p>
+<h4>Movement Restriction</h4>
 <p>Movement restrictions determine whether tokens can move through those walls. Tokens being moved by a gamemaster user ignore movement restrictions if moved via mouse-based movement (dragging and dropping token on a new location).</p>
 <ul>
     <li><strong>None:</strong> Tokens can move freely through the wall segment.</li>
     <li><strong>Normal:</strong> Tokens cannot move past the wall segment.</li>
 </ul>
-
 <h4>Light, Sight & Sound Restriction</h4>
-<p>Walls can have multiple perception restrictions set which affect how light, vision and sound are blocked. These restrictions have identical settings which are:</p> 
+<p>Walls can have multiple independent perception restrictions set which affect how light, sight (vision), and sound are blocked. These restrictions have identical restriction options:</p> 
 <ul>
-    <li><strong>None:</strong> Light, vision and sound passes through the wall unimpeded.</li>
-    <li><strong>Normal:</strong> Light, vision and sound does not pass through the wall segment.</li>
-    <li><strong>Limited:</strong> Light, vision and sound passes through this wall segment, but not past any "Limited" or "Normal" wall segments after it.</li>
+    <li><strong>None:</strong> Light, vision and sound pass through the wall unimpeded.</li>
+    <li><strong>Normal:</strong> Light, vision and sound do not pass through the wall segment.</li>
+    <li><strong>Limited:</strong> Light, vision and sound pass through this wall segment, but not past any "Limited" or "Normal" wall segments after it.</li>
+    <li><strong>Proximity:</strong> Light, vision and sound pass through this wall segment, but only if the source or viewing token is within the defined threshold distance of the wall.</li>
+    <li><strong>Reverse Proximity:</strong> Light, vision and sound pass through this wall segment, but only if the source or viewing token is outside the defined threshold distance of the wall.</li>
 </ul>
 
-<h4>Wall Direction</h4>
-<p>Wall direction determines which side of the wall applies the configured restrictions. Be default walls apply their restrictions to both sides. When a direction is applied to a wall it will have an arrow con laced on it which shows the direction of sight, sound and movement that is restricted.</p>
+<h4>Proximity Threshold Attenuation</h4>
+<p>This checkbox only applies to walls with Proximity or Reverse Proximity restrictions, such as Window Walls.</p>
 <ul>
-    <strong>Both:</strong> Movement and Perception restrictions apply when the wall is viewed from either side.
-    <strong>Left or Right:</strong> Restrictions apply only when the wall is viewed from the selected side.
+    <li><strong>If unchecked:</strong> Walls with Proximity and Reverse Proximity restrictions either fully block vision/light or they apply no restrictions at all, depending on distance.</li>
+    <li><strong>If checked:</strong> Light and vision may be permitted to pass the wall only for a short distance, depending on the source's distance to the wall.</li>
+</ul>
+<u>Attenuation and Proximity</u>
+<p>If attenuation is enabled for a proximity wall and a source of light or vision is barely within the threshold distance of it, the light or vision penetrates only a small distance through the wall because it is mostly "attenuated" by the distance. The closer the source gets to the wall, the light or vision gradually penetrates further through the wall. When the source is directly next to the wall, the source's usual maximum distance is allowed to pass through.</p>
+<u>Attenuation and Reverse Proximity</u>
+<p>Attenuation works similarly with Reverse Proximity, but on the other side of the threshold distance. If attenuation is enabled and the source is barely further away from the wall than the defined threshold distance, partial vision or light is permitted to pass a short distance through the wall. This partial penetration distance gradually increases as the source moves further away from the reverse proximity wall.</p>
+<u>Attenuation and Sound</u>
+<p>Attenuation does not apply to sound because a sound's volume is always determined by how far away the listening token is from the source of the sound. Based on the distance between the sound source and the proximity wall, either the sound is allowed to play through the wall using the normal volume calculation, or the wall blocks the sound fully.</p>
+
+<h4>Wall Direction</h4>
+<p>Wall direction determines which side of the wall applies the configured restrictions. By default, walls apply their restrictions to both sides. When a direction is applied to a wall it will have an arrow icon placed on it which shows the direction that is potentially restricted for sight, sound, and/or movement.</p>
+<ul>
+    <li><strong>Both:</strong> Movement and Perception restrictions apply equally to both sides of the wall.</li>
+    <li><strong>Left or Right:</strong> Restrictions only apply when sight, movement, or sound hits the wall from the selected side.</li>
 </ul>
 
 <h4>Is Door?</h4>
-<p>Determines whether the configured wall segment functions as a door, and what kind of door it is.</p>
+<p>This setting determines whether the configured wall segment functions as a door and whether or not it is a secret door. By changing this setting, a Gamemaster can convert any existing wall segment into a door, or can turn a door into a normal wall segment.</p>
 <ul>
     <li><strong>None:</strong> The wall segment is not a door and cannot be opened/closed. </li>
-    <li><strong>Door:</strong> The segment is a door and, if unlocked, can be opened/closed by any user with the Open and Close Doors permission. </li>
-    <li><strong>Secret:</strong> The segment is a door with no icon visible to Players and or Trusted Players, instead appearing as a normal wall until opened by a Gamemaster.</li>
+    <li><strong>Door:</strong> The segment is a door. If it is unlocked, it can be opened or closed by any user with the Open and Close Doors permission. </li>
+    <li><strong>Secret:</strong> The segment is a door with no icon visible to Players and Trusted Players. To most users, it looks just like a normal wall until it is opened by a Gamemaster.</li>
 </ul>
 
 <h4>Door State</h4>
-<p>If the wall functions as a door, this determines its state. All newly created doors start closed and can be locked by right clicking the interaction icon.</p>
+<p>If the wall functions as a door, this setting determines its state (open, closed, or locked). All newly created doors start closed and can be locked if a Gamemaster right-clicks the interaction icon.</p>
 <ul>
-    <li><strong>Closed:</strong> Any Movement or Perception restrictions apply, and the door can be opened by clicking on its icon.</li>
-    <li><strong>Open:</strong> Tokens can move and look freely through the wall, and the door can be closed by clicking on its icon.</li>
-    <li><strong>Locked:</strong> Any Movement or Perception restrictions apply, and the door cannot be opened until it's unlocked.</li>
+    <li><strong>Closed:</strong> Any wall restrictions to sight, movement, and sound are active. The door can be opened by clicking its icon, removing these restrictions.</li>
+    <li><strong>Open:</strong> Tokens can move, look, and listen through the wall freely. The door can be closed by clicking its icon.</li>
+    <li><strong>Locked:</strong> Any wall restrictions to sight, movement, and sound are active. Additionally, the door cannot be opened until it is unlocked by a gamemaster.</li>
 </ul>
 </div>
 </section>
@@ -90,27 +116,41 @@
 <section class="collapsible">
 	<header class="collapsible-header">Wall Types</header>
 	<div class="collapsible-content">
-<figure class="right">@Image[25]
+<figure class="right">@Image[582]
     <figcaption>Terrain Walls in action. Notice how the entire boulder remains visible, but blocks vision for everything directly behind it.</figcaption>
 </figure>
-<p>The Wall Controls toolbar, when enabled, allows the viewing, modification, and creation of walls. Activating this toolbar also provides quick buttons for a number of common wall types.</p>
+<p>When the Wall Controls toolbar is enabled, a gamemaster can view or modify the existing walls in scenes and create new walls. This toolbar also provides quick buttons to easily create wall segments of a number of common, predefined wall types:</p>
 <h4>Normal Walls</h4>
 <p>The default wall type restricts vision, movement, and sound. These walls are colored yellow on the Walls layer.</p>
 <h4>Terrain Walls</h4>
-<p>These walls prevent token movement, but allow limited vision; a token with vision can see past one terrain wall segment, but not two. These walls are ideal for roofed buildings or terrain features that that can be seen, but obscure objects behind them. Terrain walls are colored green.</p>
+<p>Terrain walls prevent token movement, but allow limited vision. Specifically, a token with vision can see past one terrain wall segment, but not two. These walls are ideal for roofed buildings, large rocks, or other terrain features that can be easily seen but obscure objects behind them. Terrain walls are colored green.</p>
 <h4>Invisible Walls</h4>
-<p>These walls block token movement, but neither vision nor sound. Walls of this type are ideal for windows, or any transparent, but solid obstacle. They are colored cyan on the Walls layer.</p>
+<p>These walls only block token movement. They do not impede vision, light, or sound. Walls of this type are ideal for glass walls, force fields, or any other largely transparent but solid obstacle. They are colored cyan on the Walls layer.</p>
 <h4>Ethereal Walls</h4>
-<p>These walls function opposite to Invisible walls; they block vision and sounds, but tokens can move freely through them. These walls may be useful for dark veils, curtains, or fake walls. They are colored light magenta on the Walls layer.</p>
+<p>Almost the exact opposite to invisible walls, ethereal walls block vision and light, but tokens and sounds freely pass through them. These walls may be useful for dark veils, curtains, or thin fake walls. They are colored light magenta on the Walls layer.</p>
 <h4>Doors</h4>
-<p>Doors are wall segments that can be interacted with to open or close. Doors made with the "Draw Doors" button on the Wall Controls toolbar restrict movement, vision, and sound until opened. A Gamemaster can additionally lock doors by right-clicking them, which will play a "locked" sound when a user attempts to open it. A locked door can be unlocked by a Gamemaster right-clicking the door's icon again. User roles can be configured to allow the opening or closing of unlocked doors via the Permission Configuration window. Doors are colored purple on the walls layer, but if opened will change to a light green. If locked, the door color will change to red on the wall layer.</p>
+<p>Doors are wall segments that users can interact with to open or close. When a wall segment that is a door is closed, it imposes any restrictions it normally would (typically blocking movement, vision, and sound in both directions). While a wall segment that is a door is open, it provides no restrictions at all.</p>
+<p>Using the Permission Configuration window, the GM can control which user roles are allowed to open unlocked doors.</p>
+<p><u>Door Sounds</u></p>
+<p>Optionally, doors can be configured so that a sound plays when they open. A standard set of sounds are included in Foundry so that an appropriate sound can be chosen for each door.</p>
+<p><u>Locked Doors</u></p>
+<p>A Gamemaster can lock any door by right-clicking it. When a non-GM user attempts to open a locked door, a "locked" sound plays and the door remains closed. The Gamemaster can unlock a door by right-clicking the door's icon again.</p>
+<p><u>Door Color Key</u></p>
+<p>When A GM views the Walls layer, wall segments that are doors are color coded according to their properties:</p>
+<ul>
+    <li>Closed doors are colored purple</li>
+    <li>Opened doors are light green</li>
+    <li>Locked doors are red</li>
+    <li>Secret doors (see Secret Doors below) are dark magenta</li>
+    <li>Locked Secret Doors are red, just like normal doors</li>
+</ul>    
 <h4>Secret Doors</h4>
-<p>These function similarly to doors, but the door icon is not visible to most users. A Gamemaster can open secret doors for players. These doors are colored dark magenta on the Walls layer. If locked, the door color will change to red on the wall layer.</p>
-<h4>Cloned Walls</h4>
-<p>Walls created with this tool are identical to the type you just placed or configured in a scene. For example: After placing and configuring a wall to be one-way secret door that doesn't block movement but blocks perception, you can use Clone Walls to quickly place more walls with the same configuration on the map.</p>
+<p>Secret Doors are just like normal doors except they have a different door icon which is deliberately hidden from most users, causing Secret Doors to to look like any other part of the wall. When a player somehow discovers a secret door, the Gamemaster can open it for them or change the Secret Door to a normal door.</p>
+<h4>Window Walls</h4>
+<p>Window walls (sometimes called Proximity Walls) are unique because the amount of vision they permit depends on how close the viewer is to the wall.</p> 
+<p>The closer the viewer is to the Window wall, the better they can see through it. If someone is immediately next to a Window Wall, they can see through it easily, but it may be harder or impossible to see through at further distances. The primary use for this wall is to allow GMs to have realistic "windows" while preserving a bit of the mystery about a room's contents.</p>
 </div>
 </section>
-
 <h2 id="api" class="border">API References</h2>
 <p>To interact with Walls programmatically, consider using the following API concepts:</p>
 <ul>
