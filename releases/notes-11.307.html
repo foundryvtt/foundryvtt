@@ -1,0 +1,68 @@
+<header id="update-header">
+    <h2 class="border" id="update-title">Foundry Virtual Tabletop - Version 11 - Stable 7 Release Notes</h2>
+    <figure id="update-banner">
+        <img alt="Release Notes for Foundry Virtual Tabletop Version 11" src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_70/screen/v11s7-release-banner-2023-08-03.webp" title="Foundry VTT - Version 11 - Stable 7 Release Notes"/>
+        <figcaption>Welcome to the Foundry Virtual Tabletop update notes. <br/><strong>Image Source:</strong> The <a href="https://foundryvtt.com/packages/dsa5" rel="nofollow" target="_blank">Dark Eye</a> game system and the free <a href="https://foundryvtt.com/packages/dsa5-introduction" rel="nofollow" target="_blank">Dark Eye Introduction Adventure</a> module.</figcaption>
+    </figure>
+</header>
+
+<section id="update-overview">
+    <p class="note warning"><strong>WARNING:</strong> While this is categorized as a stable release there is always a possibility of unexpected bugs or compatibility issues. As with any time you update the core software, be sure to perform a complete backup of your user data to minimize any risk of data loss.</p>
+    <p>Welcome to the seventh stable-channel release of Foundry Virtual Tabletop Version 11. As with most stable releases, this update focused on bug fixes for issues submitted by our users via our community Discord and our GitHub repository. In addition, we have managed to sneak in a few small, non-controversial quality of life features which we hope you will all enjoy. We'd like to extend a huge thanks to our community for their continued submission of bug reports and assistance hunting out potential causes!</p>
+</section>
+
+<section id="features">
+<h2 class="section-header border">New Features</h2>
+    <h3 class="category-header" id="features-apps">Applications and User Interface</h3>
+    <ul>
+        <li>Made the Compendium ownership UI explicit about inheriting ownership from lower roles. <a href="https://github.com/foundryvtt/foundryvtt/issues/9860" rel="nofollow" target="_blank">(9860)</a></li>
+    </ul>
+</section>
+<section id="api">
+<h2 class="section-header border">API Improvements</h2>
+    <h3 class="category-header" id="api-i18n">Localization and Accessibility</h3>
+    <ul>
+        <li>Added a configuration variable to set the minimum prefix length for Document index searches. <a href="https://github.com/foundryvtt/foundryvtt/issues/9870" rel="nofollow" target="_blank">(9870)</a></li>
+    </ul>
+    <h3 class="category-header" id="api-other">Other Changes</h3>
+    <ul>
+        <li>Added methods to the Actor and Item Documents which get the default image path for that Document. The FilePicker was also updated to ignore such default icon paths. <a href="https://github.com/foundryvtt/foundryvtt/issues/9832" rel="nofollow" target="_blank">(9832)</a></li>
+    </ul>
+</section>
+<section id="bugs">
+<h2 class="section-header border">Bug Fixes</h2>
+    <h3 class="category-header" id="bugs-docs">Documents and Data</h3>
+    <ul>
+        <li>Script Macros that end in comments now run as expected. <a href="https://github.com/foundryvtt/foundryvtt/issues/9814" rel="nofollow" target="_blank">(9814)</a></li>
+        <li>Exporting a Document to a Compendium Pack no longer incorrectly includes Folder data when <span class="reference">Keep folder structure</span> is not checked. <a href="https://github.com/foundryvtt/foundryvtt/issues/9856" rel="nofollow" target="_blank">(9856)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-apps">Applications and User Interface</h3>
+    <ul>
+        <li>Improved the logic used to identify that a Compendium Pack has - or does not have - ownership overrides. This also provides a way to clear an ownership override, reverting back to a package-defined default via the ownership configuration dialog. <a href="https://github.com/foundryvtt/foundryvtt/issues/9475" rel="nofollow" target="_blank">(9475)</a></li>
+        <li>Added fallback logic to browse other file storages when the preferred one is marked as private. <a href="https://github.com/foundryvtt/foundryvtt/issues/9553" rel="nofollow" target="_blank">(9553)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-canvas">The Game Canvas</h3>
+    <ul>
+        <li>Toggling the visibility of text Drawings now updates as expected for Gamemasters without a refresh. <a href="https://github.com/foundryvtt/foundryvtt/issues/9796" rel="nofollow" target="_blank">(9796)</a></li>
+        <li>Darkvision no longer occasionally renders lights with adaptive luminance in monochrome. <a href="https://github.com/foundryvtt/foundryvtt/issues/9797" rel="nofollow" target="_blank">(9797)</a></li>
+        <li>The <code>Actor#getActiveTokens</code> method no longer includes ephemeral Tokens like drag-preview clones. <a href="https://github.com/foundryvtt/foundryvtt/issues/9817" rel="nofollow" target="_blank">(9817)</a></li>
+        <li>Fixed an issue that caused the hex grid preview to be inaccurate when using the grid configuration tool. <a href="https://github.com/foundryvtt/foundryvtt/issues/9826" rel="nofollow" target="_blank">(9826)</a></li>
+        <li>Roof Tiles no longer flicker when being dragged. <a href="https://github.com/foundryvtt/foundryvtt/issues/9827" rel="nofollow" target="_blank">(9827)</a></li>
+        <li>Templates that have not finished drawing yet no longer break the activation of the Templates layer. <a href="https://github.com/foundryvtt/foundryvtt/issues/9828" rel="nofollow" target="_blank">(9828)</a></li>
+        <li>Added handling for very rare cases where the <code>MouseInteractionManager#handleMouseMove</code> origin was not defined. <a href="https://github.com/foundryvtt/foundryvtt/issues/9834" rel="nofollow" target="_blank">(9834)</a></li>
+        <li>The <code>MeasuredTemplateDocument#author</code> getter now correctly returns author information. <a href="https://github.com/foundryvtt/foundryvtt/issues/9835" rel="nofollow" target="_blank">(9835)</a></li>
+        <li>Fixed an issue in <code>WeilerAthertonClipper.testForEnvelopment</code> that allowed blind Tokens to see beyond their bounds when the Token is touched by Walls with certain configurations. <a href="https://github.com/foundryvtt/foundryvtt/issues/9867" rel="nofollow" target="_blank">(9867)</a></li>
+        <li>Panning to a Map Note no longer throws an error. <a href="https://github.com/foundryvtt/foundryvtt/issues/9869" rel="nofollow" target="_blank">(9869)</a></li>
+        <li>Fixed an issue where the Canvas could crash when an Overhead Tile is redrawn in some circumstances. <a href="https://github.com/foundryvtt/foundryvtt/issues/9878" rel="nofollow" target="_blank">(9878)</a></li>
+        <li>Token nameplate visibility is now updated whenever the Display Name is changed. <a href="https://github.com/foundryvtt/foundryvtt/issues/9881" rel="nofollow" target="_blank">(9881)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-packages">Package Development</h3>
+    <ul>
+        <li>Running <span class="reference">Update All</span> no longer erroneously pulls warnings from Packages that aren't installed. <a href="https://github.com/foundryvtt/foundryvtt/issues/9811" rel="nofollow" target="_blank">(9811)</a></li>
+        <li>Package warnings for Modules that failed to install due to an invalid manifest now have their warnings cleared. <a href="https://github.com/foundryvtt/foundryvtt/issues/9825" rel="nofollow" target="_blank">(9825)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-other">Other Changes</h3>
+    <ul>
+        <li>Dragging a Page's content link now works as expected even when the link is to a Document in a Compendium Pack. <a href="https://github.com/foundryvtt/foundryvtt/issues/9877" rel="nofollow" target="_blank">(9877)</a></li>
+    </ul>
+</section>
