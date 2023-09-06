@@ -1,18 +1,16 @@
 <h2>Overview</h2>
-
 <p>This page provides an overview of the basic steps required to create a <strong>Module</strong> which can be activated to extend and modify the behavior of Foundry Virtual Tabletop and its game systems. At a conceptual level, think of each Module as a "plug-in" or "add-on" which changes the software behavior in small (or large) ways. Modules can alter the behavior of the core software in several different ways:</p>
 <dl>
-  <dt>Content</dt>
-<dd> Modules which add data in the form of compendium packs of Adventures, Actors, Items, Scenes, Journal Entries, Roll Tables, or Playlists.</dd>
+<dt>Content</dt>
+<dd>Modules which add data in the form of compendium packs of Adventures, Actors, Items, Scenes, Journal Entries, Roll Tables, or Playlists.</dd>
 <dt>Interface</dt>
-<dd> Modules which change the way the UI looks or behaves, changing the aesthetics and user experience of the software.</dd>
+<dd>Modules which change the way the UI looks or behaves, changing the aesthetics and user experience of the software.</dd>
 <dt>Functionality</dt>
-<dd> Modules which add entirely new functionalities or features which do not exist in the base software, or modules which change the behavior of core features so they behave differently.</dd>
+<dd>Modules which add entirely new functionalities or features which do not exist in the base software, or modules which change the behavior of core features so they behave differently.</dd>
 <dt>Translation</dt>
-<dd> Modules which add support for translation of text displayed in Foundry VTT into other languages.</dd>
+<dd>Modules which add support for translation of text displayed in Foundry VTT into other languages.</dd>
 </dl>
 <p>Each module could include one or more of these types of modifications, and users can mix-and-match multiple modules (provided they are compatible) to achieve a high degree of customization for their Foundry VTT experience. This page goes into detail about how module development works for developers who are interested in creating their own module content.</p>
-
 <h2 class="border" id="structure">Module File Structure</h2>
 <p>A <strong>Module</strong> is defined as a uniquely-named subfolder folder within <code>{userData}/Data/modules</code> which contains a <strong>manifest</strong> file in JSON format named <code>module.json</code> which defines the module and describes what features it contains. For the purpose of this example, let's create a module named <code>dice-tray</code>. The first step of your module development should be to define the manifest file and ensure that your module is recognized as valid by the Foundry VTT software.</p>
 <p>The bare minimum in order for a module to be recognized by Foundry VTT is a file structure that looks like this:</p>
@@ -53,7 +51,6 @@
       en.json
 </code></pre>
 <p>Remember, apart from the <code>module.json</code> file, you are free to organize your module however you like. These are simply recommendations.</p>
-
 <h2 class="border" id="manifest">The Module Manifest</h2>
 <p>Each module must include a <code>module.json</code> file which defines the module and specifies what content it includes. This file is required and must be included at the root level of your module folder. The <code>"id"</code> attribute in the manifest file must match exactly with the name of the module folder. The manifest file is a JSON document containing an object of keys and values. A very minimal example of a valid <code>module.json</code> file is the following:</p>
 <pre><code class="language-json">{
@@ -72,11 +69,10 @@
   }
 }</code></pre>
 <p>The above manifest file is sufficient for the module to be recognized, displayed, and enabled within Foundry VTT. The module would not <em>do anything</em> because we have not included any content - but this is a good place to start to make sure that your module is recognized by the system before advancing further.</p>
-<p class="note info"><strong>Hint:</strong> JSON files have very specific syntax requirements. Your JSON manifest file must be valid in order for your module to be recognized and loaded. Use the <a title="JSON Lint" href="https://jsonlint.com/" target="_blank" rel="nofollow noopener">JSON Lint</a> tool to validate that your JSON file is correct if you encounter any issues.</p>
+<p class="note info"><strong>Hint:</strong> JSON files have very specific syntax requirements. Your JSON manifest file must be valid in order for your module to be recognized and loaded. Use the <a href="https://jsonlint.com/" rel="nofollow" target="_blank" title="JSON Lint">JSON Lint</a> tool to validate that your JSON file is correct if you encounter any issues.</p>
 <p>The manifest file can include many attributes, some of which are required while others are optional.</p>
-<section class="collapsible">
-  <header id="requirements" class="collapsible-header">Required Manifest Attributes</header>
-  <div class="collapsible-content">
+<section class="collapsible"><header class="collapsible-header" id="requirements">Required Manifest Attributes</header>
+<div class="collapsible-content">
 <dl>
 <dt>id</dt>
 <dd>
@@ -92,35 +88,36 @@
 </dd>
 <dt>version</dt>
 <dd>
-<p>The module version number can be a number or a string which denotes the version of your module. When making changes to your module, incrementing the version number in your manifest file is used to signal to users that an update is available. We discuss some supported options for versioning in the @Article[intro-development] article. </p>
+<p>The module version number can be a number or a string which denotes the version of your module. When making changes to your module, incrementing the version number in your manifest file is used to signal to users that an update is available. We discuss some supported options for versioning in the <a href="/article/intro-development/" rel="nofollow" target="_blank" title="Introduction to Development">Introduction to Development</a> article.</p>
 </dd>
 </dl>
 </div>
 </section>
-<section class="collapsible">
-  <header id="options" class="collapsible-header">Optional Manifest Attributes</header>
-  <div class="collapsible-content">
+<section class="collapsible"><header class="collapsible-header" id="options">Optional Manifest Attributes</header>
+<div class="collapsible-content">
 <dl>
 <dt>compatibility</dt>
 <dd>
 <p>the compatibility field is an object key for capturing the sub-fields which defines the limits of your module's compatibility based on Foundry Virtual Tabletop version. It contains the following subfields:</p>
 <dl>
-  <dt>minimum</dt>
-  <dd>The module will not function for versions earlier than this.</dd>
-  <dt>verified</dt>
-  <dd>The module has been verified to be compatible up to this version.</dd>
-  <dt>maximum</dt>
-  <dd>The module will not function for newer versions than this.</dd>
+<dt>minimum</dt>
+<dd>The module will not function for versions earlier than this.</dd>
+<dt>verified</dt>
+<dd>The module has been verified to be compatible up to this version.</dd>
+<dt>maximum</dt>
+<dd>The module will not function for newer versions than this.</dd>
 </dl>
 </dd>
-<pre code="language-json"><code>"compatibility": {
+</dl>
+<pre><code>"compatibility": {
     "minimum": 10,
-    "verified": "11"
+    "verified": "11",
     "maximum": "11"
   }</code></pre>
+<dl>
 <dt>esmodules</dt>
 <dd>
-  <p>The preferred method for including Javascript with your project. This field allows you to define an array of JS files which use the newer ES6 modules specification. As with <code>scripts</code>, this should be declared as an array. These files are identified separately in the manifest so they may be correctly loaded as a module rather than a script.</p>
+<p>The preferred method for including Javascript with your project. This field allows you to define an array of JS files which use the newer ES6 modules specification. As with <code>scripts</code>, this should be declared as an array. These files are identified separately in the manifest so they may be correctly loaded as a module rather than a script.</p>
 </dd>
 <dt>scripts</dt>
 <dd>
@@ -144,24 +141,24 @@
 ]</code></pre>
 <p class="note warning">Important: As of Version 10, Actor, Item, and Adventure compendium packs MUST define a system field.</p>
 </dd>
-
 <dt>packFolders</dt>
+</dl>
 <p>Compendium Packs can also be organized into Folders in the Compendium tab of the sidebar. You can define what Folders they should be in by default in the <code>module.json</code>.</p>
+<dl>
 <dd>
-  <dl>
-    <dt>name</dt>
-    <dd>The name of the Folder.</dd>
-    <dt>sorting</dt>
-    <dd>How to sort the given Packs. Using <code>m</code> will sort it manually and <code>a</code> will sort alphabetically.</dd>
-    <dt>packs</dt>
-    <dd>The Packs from this Module that should be in this Folder.</dd>
-    <dt>color</dt>
-    <dd>The color of the Folder.</dd>
-    <dt>folders</dt>
-    <dd>An array of Folder objects with the same fields that should be within the parent Folder.</dd>
-  </dl>
-  <pre>
-    <code class="language-json">"packFolders": [
+<dl>
+<dt>name</dt>
+<dd>The name of the Folder.</dd>
+<dt>sorting</dt>
+<dd>How to sort the given Packs. Using <code>m</code> will sort it manually and <code>a</code> will sort alphabetically.</dd>
+<dt>packs</dt>
+<dd>The Packs from this Module that should be in this Folder.</dd>
+<dt>color</dt>
+<dd>The color of the Folder.</dd>
+<dt>folders</dt>
+<dd>An array of Folder objects with the same fields that should be within the parent Folder.</dd>
+</dl>
+<pre><code class="language-json">"packFolders": [
   {
     "name": "Classes",
     "sorting": "m",
@@ -182,10 +179,8 @@
     ]
   }
 ]
-    </code>
-  </pre>
+    </code></pre>
 </dd>
-
 <dt>relationships</dt>
 <dd>
 <p>Modules can require other modules, systems, or worlds be installed to allow their use. If a module has been installed with dependencies, but its dependencies are missing, it cannot be enabled. Dependencies within relationships are defined as an array of objects containing the following data:</p>
@@ -203,7 +198,7 @@
 <p>The manifest attribute provides an explicit manifest url to be used for downloading the dependency. If a manifest is not provided, the dependency package must exist in the Foundry website directory.</p>
 </dd>
 <dt>compatibility</dt>
-<dd>As above, the compatibility of a dependency can be defined, ensuring that the dependency will not be installed if it does not meet the defined requirements.. </dd>
+<dd>As above, the compatibility of a dependency can be defined, ensuring that the dependency will not be installed if it does not meet the defined requirements..</dd>
 </dl>
 <p>Example relationships structure:</p>
 <pre><code class="language-json">"relationships": {
@@ -288,31 +283,24 @@
 </dd>
 <dt>library</dt>
 <dd>
-<p>The library field is a boolean that indicates whether the package is a library intended for other packages to
-  depend on and consume. This field should be true if your package does not present any user-facing features, but
-  rather provides functionality for other packages to utilize and rely upon. Packages with this field set to true
-  may be hidden from third party package lists to avoid confusing users.</p>
-    <p><code>"library": true,</code></p> 
-  <p>When omitted the default value of this field is false. It is not necessary to explicitly set this value unless it needs to be true.</p>
+<p>The library field is a boolean that indicates whether the package is a library intended for other packages to depend on and consume. This field should be true if your package does not present any user-facing features, but rather provides functionality for other packages to utilize and rely upon. Packages with this field set to true may be hidden from third party package lists to avoid confusing users.</p>
+<p><code>"library": true,</code></p>
+<p>When omitted the default value of this field is false. It is not necessary to explicitly set this value unless it needs to be true.</p>
 </dd>
 <dt>media</dt>
-<dd>
-  An array of objects composed of a <code>type</code>, <code>url</code>, and <code>thumbnail</code> that can contain art that Foundry uses in places like the Setup screen for a Package's background image. For example:
-  <pre>
-    <code class="language-json hljs">"media": [
+<dd>An array of objects composed of a <code>type</code>, <code>url</code>, and <code>thumbnail</code> that can contain art that Foundry uses in places like the Setup screen for a Package's background image. For example:
+<pre><code class="language-json hljs">"media": [
   {
     "type": "setup",
     "url": "modules/demon-queen-awakens/scenes/DemonQueenCover.webp",
     "thumbnail": "modules/demon-queen-awakens/scenes/thumbs/the-valley-of-stone.webp"
   }
 ]
-    </code>
-  </pre>
+    </code></pre>
 </dd>
 </dl>
 </div>
 </section>
-
 <h2 class="border" id="includes">Including JavaScript</h2>
 <p>For modules that want to expand or modify core software functionality you can include a JavaScript file (or ESModule) which can impact how Foundry VTT works. An ideal second step once you have populated your module manifest with the required fields is to create a "Hello World" script which is loaded when your module is active. Experiment with adding a script file to the <code>"scripts"</code> or <code>"esmodules"</code> attribute of the manifest. Suppose we create the JavaScript file in our example module <code>dice-tray/scripts/roller.js</code>. We would modify the <code>module.json</code> file as follows and the contents of our created JavaScript file will be automatically loaded and parsed by the browser when a game is loaded.</p>
 <pre><code class="language-json">"scripts": [
@@ -337,20 +325,15 @@ Hooks.on("ready", function() {
 });
 </code></pre>
 <h2 class="border">Module Defined Sub-Types</h2>
-<p>As of Foundry Virtual Tabletop Version 11, it is possible for <a href="https://foundryvtt.com/article/module-sub-types/" target="_blank">Modules to extend the list of sub-types</a> available to certain Documents in much the same way that Systems can. <code>Actor</code>, <code>Item</code>, <code>JournalEntryPage</code>, <code>Cards</code>, and <code>Card</code> Documents can all have additional sub-types added in this way.</p>
-
+<p>As of Foundry Virtual Tabletop Version 11, it is possible for <a href="https://foundryvtt.com/article/module-sub-types/" rel="nofollow" target="_blank">Modules to extend the list of sub-types</a> available to certain Documents in much the same way that Systems can. <code>Actor</code>, <code>Item</code>, <code>JournalEntryPage</code>, <code>Cards</code>, and <code>Card</code> Documents can all have additional sub-types added in this way.</p>
 <p>Once a Module declares which sub-types it provides for which Documents, they will subsequently be available for use in the World by users who activate that Module, and will function in the same way that core or System-defined sub-types do, with additional, Module-specific data being available under the Document's <code>system</code> field.</p>
-
-<h2 id="dbs-with-git">Using Git with Databases in Windows</h2>
-<p>Following the switch to use Classic Level instead of NEDB it's important to use a <code>.gitattributes</code> file that instructs the Windows version of git to treat the databases as binary files or else it will attempt to change line endings and corrupt the files. Place the following in the file: <code>/** binary</code></p>
-
 <h2 class="border" id="more">Further Reading</h2>
 <p>As you delve further into the world of module development - the following topics may prove useful for a variety of tasks you wish to perform.</p>
 <ul>
-  <li>The @API[classes/foundry.abstract.Document, Document Class Pattern]</li>
-  <li>The @API[classes/client.Game, Game Class]</li>
-  <li>The @API[classes/client.Application, Application Class]</li>
-  <li>The @API[classes/client.FormApplication, FormApplication Class]</li>
-  <li>The @API[classes/client.Hooks, Hooks Event Framework]</li>
-  <li>The @API[classes/client.Canvas, Canvas Class]</li>
+<li>The <a href="/api/classes/foundry.abstract.Document.html" rel="nofollow" target="_blank" title=" Document Class Pattern"> Document Class Pattern</a></li>
+<li>The <a href="/api/classes/client.Game.html" rel="nofollow" target="_blank" title=" Game Class"> Game Class</a></li>
+<li>The <a href="/api/classes/client.Application.html" rel="nofollow" target="_blank" title=" Application Class"> Application Class</a></li>
+<li>The <a href="/api/classes/client.FormApplication.html" rel="nofollow" target="_blank" title=" FormApplication Class"> FormApplication Class</a></li>
+<li>The <a href="/api/classes/client.Hooks.html" rel="nofollow" target="_blank" title=" Hooks Event Framework"> Hooks Event Framework</a></li>
+<li>The <a href="/api/classes/client.Canvas.html" rel="nofollow" target="_blank" title=" Canvas Class"> Canvas Class</a></li>
 </ul>
