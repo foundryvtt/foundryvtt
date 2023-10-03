@@ -1,0 +1,89 @@
+<h2>Overview</h2>
+<p>Backing up your user data is an important precaution to take when operating Foundry Virtual Tabletop. Having a recent backup can transform a worst-case scenario into a minor inconvenience.</p>
+<p>With the release of Foundry VTT Version 11.311, there are now three different ways to backup your Foundry VTT data:</p>
+<figure class="right"><img class="noborder" height="200px" src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_70/screen/backup-bear-2023-06-16.webp" width="200px"/>
+	<figcaption>Backing up your Foundry VTT data is important!</figcaption>
+</figure>
+<dl>
+    <dt>Package Backups</dt>
+        <dd>Quickly back up an individual package (such as your game World) by right-clicking it.</dd>
+    <dt>Snapshots</dt>
+        <dd>Take a snapshot to easily back up all your installed Worlds, Modules, and Systems at once.</dd>
+    <dt><a href="https://foundryvtt.com/article/user-data-backup/" rel="nofollow" target="_blank">Manual Backups</a></dt>
+        <dd>Manually copy Foundry VTT Data files to back them up.</dd>
+</dl>
+<p>Generally, you should take an individual backup of your current game worlds before or after making important changes. For example, you might want to take a backup of your world after manually adding many journal entries, after a session, or before you update your game system.</p><p>Taking a full snapshot is recommended before updating to a new generation of Foundry VTT (for example, from V11 to V12).</p>
+<p class="note warning">Backing up Foundry VTT data can consume a significant amount of drive space because it will copy any media files present in the package's folder as well as all the data. Take snapshots sparingly and use the <a href="#managebackups" rel="nofollow" target="_blank">Manage Backups</a> tool to keep an eye on how much storage space you are using with your backups.</p>
+<p class="note info">Note: Some of our Hosting Partners may have alternate backup methods available to their customers. If you are using Foundry VTT version 11.311 or higher and you do not see the functionality described in this article, please refer to the website or discord server for your hosting provider to find more information about the best way to back up your Foundry VTT data.</p>
+<h2 class="border" id="howtobackup">Performing a Backup</h2>
+<figure class="right" style="max-width: 250px;"><img alt="Automatic Individual Backup Prompt" src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_681/screen/automatic-individual-backup-prompt-2023-09-28.webp"/>
+    <figcaption>An Automatic Backup Prompt</figcaption>
+</figure>
+<p>It is important to know that backups performed from the setup screen ONLY take the contents of package directories (such as modules, systems, and worlds) into account and will not store data contained within other folders. If you wish to backup your assets in addition to packages, it is best to perform a manual backup. Backups can be performed using either the built-in backup tools outlined above or the tools provided by your hosting service (if applicable), but you can still back up your Foundry VTT data the old-fashioned way by manually copying files. The <a href="/article/user-data-backup/" rel="nofollow" target="_blank" title="Troubleshooting: Backing Up and Moving Your User Data">Troubleshooting: Backing Up and Moving Your User Data</a> article contains step-by-step instructions for backing up your user data manually.</p>
+<p>By default, Foundry VTT will automatically offer to perform a backup during times when it might be a good idea to perform backups. In most cases, all that you need to do to create a backup is to leave the checkbox marked.</p>
+        <h3 id="individualbackup">Creating a Package Backup</h3>
+            <p>Most frequently, you will want to back up a few important game Worlds. To do so, find the World you want to back up in the setup screen, right click it, and select "Take Backup". You can also back up Systems and Modules in the same way, allowing you to store the exact state of a module or system you may rely on.</p>
+            <p>The first time you launch a world after a generational update, Foundry VTT will automatically perform a backup before changes would be made, if you wish to avoid that you can uncheck the checkbox labeled "Create a backup before migrating?".</p>
+            <p>It is also possible to take individual backups from the <a href="#managebackups" rel="nofollow" target="_blank">Manage Backups</a> menu.</p>
+            <figure class="center"><video autoplay="" controls="" height="75%" muted="" src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_70/screen/world-backup-steps-2023-09-28.webm" width="75%"> </video>
+                <figcaption>You can back up a package using a right-click!</figcaption>
+                </figure>
+        <h3 id="snapshot">Creating a Snapshot</h3>
+            <figure class="center"><img alt="Creating a Snapshot Backup" src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/creating-a-snapshot-backup-2023-09-28.webp"/><figcaption>Creating a new snapshot</figcaption>
+            </figure>
+            <p class="note warning">Important: Snapshot backups <u>only</u> store data contained within the modules, worlds, and systems folders. They <u>WILL NOT</u> backup files stored outside of those folders, including any image or sound assets.</p>
+            <p>Snapshots save the state of all currently installed packages, including Worlds, Game Systems, and Add-on Modules. If your folders for those packages contain a large volume of data these snapshots may take some time to perform and may consume a large amount of storage space. The Manage Backups tool can be used to see how much space your backups are using.</p>
+             <p>New snapshots can be created from the Setup screen.</p>
+             <ol>
+                <li>In the upper-right corner of the setup screen, click the <span class="reference"><i class="fa-solid fa-floppy-disks"> </i>Manage Backups</span> button.</li>
+                <li>At the top of the Manage Backups window, click <span class="reference"><i class="fas fa-camera-retro"> </i>Create a Snapshot</span>.</li>
+            </ol>
+            <p>Whenever you update to a new generation of Foundry VTT (for example: when updating from V11 to V12) you will be asked if you would like to create a new Snapshot. Simply click the provided button to do so.</p>
+    <h2 class="border" id="restorebackups">Restoring Backups</h2>
+    <figure class="right"><img alt="Restoring a Snapshot" src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/restoring-a-snapshot-2023-09-28.webp"/><figcaption>Restoring to an available World backup</figcaption></figure>
+    <p>If you would like to restore your user data from a previous backup created by Foundry VTT, the method used depends on the type of backup that you want to restore. If you performed a manual backup you can find details on how to restore your data in our <a href="/article/user-data-backup/" rel="nofollow" target="_blank" title="Troubleshooting: Backing Up and Moving Your User Data">Troubleshooting: Backing Up and Moving Your User Data</a> article.</p>
+    <h3>Restoring a Package Backup</h3>
+    <p>It is very easy to restore a world, system, or module from a backup you previously created. To do so from the Setup screen:</p>
+    <ol>
+        <li>Locate and right-click on the package you wish to restore.</li>
+        <li>Click <span class="reference"><i class="fas fa-undo"> </i> Restore Latest</span> to quickly restore your package to the last available backup.</li>
+    </ol>
+    <p>Other stored backups are available from the <span class="reference"><i class="fa-solid fa-floppy-disks"> </i>Manage Backups</span> menu which can be clicked on at any time to view a list of all available backups. </p>
+    <h3>Restoring a Snapshot</h3>
+    <p>Stored snapshots can be restored at any time to return all packages in your Foundry VTT userdata to a previously recorded state. Please note that depending on the size of your stored snapshot, the restoration process may take some time.</p>
+    <p>To restore from a previously taken Snapshot from the Setup screen:</p>
+    <ol>
+        <li>Click the <span class="reference"><i class="fa-solid fa-floppy-disks"> </i>Manage Backups</span> button.</li>
+        <li>Click the Snapshots tab.</li>
+        <li>Locate the Snapshot that you wish to restore, then click the <span class="reference"><i class="fas fa-undo"> </i> Restore</span> button.</li>
+    </ol>
+<h2 class="border" id="managebackups">Managing Backups</h2>
+<p class="note warning">Important: Do not delete backup files manually! Deleting a backup file that is required as part of a snapshot will render the entire snapshot unusable. Please use the Manage Backups window to delete backups instead.</p>
+<p>The Manage Backups window is the control center for working with your Foundry backups. This window allows you to view your existing backups, delete backups, restore to a particular backup, and even create new backups right in this window! Here's how it works:</p>
+<figure style="max-width: 500px; float: right;">
+    <img alt="Manage Backups Breakdown" src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_70/screen/manage-backups-breakdown-2023-09-28.webp"/>
+    <figcaption>A keyed image of the Manage Backups screen.</figcaption>
+</figure>
+<dl>
+    <dt>1. Package Search</dt>
+    <dd>Search for a package in the current category.</dd>
+    <dt>2. Backup Categories</dt>
+    <dd>Show only the backups for the selected category of Snapshots, Worlds, Modules, or Systems.</dd>
+    <dt>3. Backup List</dt>
+    <dd>Each Package in the selected category that has a backup will appear in this list.</dd>
+    <dt>4. Manage</dt>
+    <dd>Manage backups for the selected Package. The new window will allow you to <span class="reference">Restore</span> a specific backup, <span class="reference">Delete</span> the selected backups, see the optional note for each backup, and see its filesize.</dd>
+    <dt>5. Take Backup</dt>
+    <dd>This button will create a backup for the selected Package with an optional note.</dd>
+    <dt>6. Restore Latest</dt>
+    <dd>This button will restore the most recently created backup for the selected Package.</dd>
+    <dt>7. Create Snapshot</dt>
+    <dd>This button will create a backup for every Package you have with a single optional note.</dd>
+    <dt>Metadata</dt>
+    <dd>Each Package also includes data about the number of backups, their filesize, and compatibility risks.</dd>
+</dl>
+
+<h2 class="border" id="howbackupswork">How Backups Work</h2>
+<p>Backups are stored in the <code>Backups</code> folder of your UserData folder. Each individual backup consists of a <code>.bak</code> file containing the actual backed up data, as well as a separate <code>JSON</code> file manifest that contains contextual information about that backup.</p>
+<p>Snapshots are stored as a single <code>JSON</code> file containing references to which individual <code>.bak</code> files are required to restore your Foundry VTT user data to the state contained in the Snapshot.</p>
+<p>It is extremely important to never directly modify or delete the contents of your Backup files as it may prevent Foundry VTT from being able to restore that backup data. Instead, use the Manage Backups tool to interact with your stored Snapshots and Package Backups.</p>
