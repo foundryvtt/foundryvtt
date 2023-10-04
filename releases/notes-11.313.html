@@ -1,0 +1,78 @@
+<header id="update-header">
+<h2 class="border" id="update-title">Foundry Virtual Tabletop - Version 11 - Stable 11 Release Notes</h2>
+<figure id="update-banner">
+<img alt="V11 Stable 11 Release Banner" src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_70/screen/v11s11-release-banner-2023-10-03.webp"/>
+<figcaption>Welcome to the Foundry Virtual Tabletop update notes. <br/><strong>Image Source:</strong> The <a href="https://foundryvtt.com/packages/morkborg" rel="nofollow" target="_blank">MÖRK BORG</a> game system and the premium MÖRK BORG modules <a href="https://foundryvtt.com/packages/morkborg-core" rel="nofollow" target="_blank">MÖRK BORG Core</a>, <a href="https://foundryvtt.com/packages/morkborg-cult-heretic" rel="nofollow" target="_blank">MÖRK BORG CULT: HERETIC</a>, and <a href="https://foundryvtt.com/packages/morkborg-cult-feretory" rel="nofollow" target="_blank">MÖRK BORG CULT: FERETORY</a>.</figcaption>
+</figure>
+</header>
+<p>Following a previous update which included a security fix for Electron (the application which runs when you launch Foundry VTT through its executable) in build 11.309, another vulnerability was discovered and subsequently patched. </p>
+<p><strong>Version 11 (Build 313)</strong> addresses the new security issue by including a new version of Electron (full reinstall required) and includes a few bug fixes and documentation changes besides!</p>
+<section id="update-overview">
+    <h3 class="category-header">Security Fix for WEBM Decoding</h3>
+    <p>Last week a security vulnerability was discovered in the underlying WEBM library that our software uses. This vulnerability has posed an urgent problem for all web browsers. You can read more about the vulnerability here: <a href="https://www.helpnetsecurity.com/2023/09/28/cve-2023-5217/" rel="nofollow" target="_blank">https://www.helpnetsecurity.com/2023/09/28/cve-2023-5217/</a></p>
+    <p>Foundry Virtual Tabletop is built using Electron, which uses Chromium as an internal web browser, therefore this vulnerability is present in Foundry VTT also. This new release version upgrades to the patched version of Electron and Chromium which eliminates this vulnerability.</p>
+
+    <h3 class="category-header">Version 11 Stable Update</h3>
+    <p class="warning note">Because the fix to this vulnerability requires a new Electron version, you must fully reinstall the software, rather than using the internal updater tool. To do so, download the latest stable release, <strong>Version 11.313</strong> from <a href="https://foundryvtt.com/me/licenses" rel="nofollow" target="_blank">https://foundryvtt.com/me/licenses</a>.</p>
+
+    <h3 class="category-header">Version 10 Update</h3>
+    <p>For users still using Foundry Virtual Tabletop version 10, we have released a sibling update <a href="https://foundryvtt.com/releases/10.312" rel="nofollow" target="_blank">https://foundryvtt.com/releases/10.312</a> which includes the same fix for version 10 only. It is important to note that this Version 10 build of the software upgrades from Electron 20 to Electron 24 in order to acquire the fix. Electron chose not to backport the fix to older Electron versions which are outside their committed maintenance window. The previous experimental build that included a security fix for a WEBP vulnerability did not have any unintended consequences and so we are confident in designating this build as stable.</p>
+    <p>For users who are currently on Foundry Virtual Tabletop version 10 (or lower) - this would be a good moment to consider whether you are able to update to Version 11. Our recommendation is for users to update to version 11.313, however if it is important for you to stay on version 10 to preserve module or system compatibility, we recommend that you consider installing version 10.312 which includes this security fix.</p>
+
+    <h3 class="category-header">Questions</h3>
+    <p>If you have any questions about this issue or the update process, please ask in our Discord community in <a href="https://discord.com/channels/170995199584108546/689889940590690323" rel="nofollow" target="_blank">#install-and-connection</a> or contact us via email at <a href="https://foundryvtt.com/contact-us/" rel="nofollow" target="_blank">https://foundryvtt.com/contact-us/</a>.</p>
+</section>
+
+<section id="security">
+<h2 class="section-header border">Security Fixes</h2>
+    <h3 class="category-header" id="electron">Electron</h3>
+    <ul>
+        <li>Updated to Electron 24.8.5 in order to address a vulnerability with WEBM decoding. <a href="https://github.com/foundryvtt/foundryvtt/issues/10061" rel="nofollow" target="_blank">(10061)</a></li>
+    </ul>
+</section>
+
+<section id="api">
+
+<h2 class="section-header border">API Improvements</h2>
+    <h3 class="category-header" id="documentation">Documentation</h3>
+    <ul>
+        <li>Added example usages for <code>CompendiumCollection#getDocuments</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/10022" rel="nofollow" target="_blank">(10022)</a></li>
+        <li>Amended incorrect documentation for the <code>mergeObject</code> helper. <a href="https://github.com/foundryvtt/foundryvtt/issues/10047" rel="nofollow" target="_blank">(10047)</a></li>
+    </ul>
+    <h3 class="category-header" id="api-other">Other Changes</h3>
+    <ul>
+        <li>Improved error message when attempting to call <code>importFromJSON</code> on a non-primary Document. <a href="https://github.com/foundryvtt/foundryvtt/issues/10009" rel="nofollow" target="_blank">(10009)</a></li>
+    </ul>
+</section>
+
+<section id="bugs">
+<h2 class="section-header border">Bug Fixes</h2>
+    <h3 class="category-header" id="bugs-docs">Documents and Data</h3>
+    <ul>
+        <li>Fixed an issue where overriding <code>CONFIG.Folder.documentClass</code> could cause Worlds to fail to initialize. <a href="https://github.com/foundryvtt/foundryvtt/issues/10034" rel="nofollow" target="_blank">(10034)</a></li>
+    </ul>
+    <h3 class="category-header" id="ui">Applications and User Interface</h3>
+    <ul>
+        <li>Fixed certain conditional checks in folder context menus not behaving correctly. <a href="https://github.com/foundryvtt/foundryvtt/issues/9985" rel="nofollow" target="_blank">(9985)</a></li>
+        <li>Fixed several issues related to opening a new context menu before the previous one was closed. <a href="https://github.com/foundryvtt/foundryvtt/issues/10042" rel="nofollow" target="_blank">(10042)</a> <a href="https://github.com/foundryvtt/foundryvtt/issues/10040" rel="nofollow" target="_blank">(10040)</a></li>
+        <li>Fixed Playlist search failing to show results that were nested four folders deep. <a href="https://github.com/foundryvtt/foundryvtt/issues/9995" rel="nofollow" target="_blank">(9995)</a></li>
+        <li>Adjusted the display of the 'Jump to Bottom' button in the Chat Log to no longer use hard-coded positioning. <a href="https://github.com/foundryvtt/foundryvtt/issues/10005" rel="nofollow" target="_blank">(10005)</a></li>
+    </ul>
+    <h3 class="category-header" id="canvas">The Game Canvas</h3>
+    <ul>
+        <li>Fixed various issues related to placement and snapping. <a href="https://github.com/foundryvtt/foundryvtt/issues/10031" rel="nofollow" target="_blank">(10031)</a></li>
+        <li>Fixed <code>PIXI.VideoResource</code> not being appropriately cleaned up whenever its corresponding <code>PIXI.BaseTexture</code> was destroyed. <a href="https://github.com/foundryvtt/foundryvtt/issues/10030" rel="nofollow" target="_blank">(10030)</a></li>
+    </ul>
+    <h3 class="category-header" id="backups">Built-In Backups</h3>
+    <ul>
+        <li>Fixed display of backup notes not being appropriately truncated. <a href="https://github.com/foundryvtt/foundryvtt/issues/10057" rel="nofollow" target="_blank">(10057)</a></li>
+    </ul>
+    <h3 class="category-header" id="i18n">Localization and Accessibility</h3>
+    <ul>
+        <li>Amended Invisible Wall toolclip to no longer claim it blocks sound. <a href="https://github.com/foundryvtt/foundryvtt/issues/9962" rel="nofollow" target="_blank">(9962)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-other">Other Changes</h3>
+    <ul>
+        <li>Improved server-side error handling when attempting to launch a default World via the <code>--world</code> command-line argument. <a href="https://github.com/foundryvtt/foundryvtt/issues/10016" rel="nofollow" target="_blank">(10016)</a></li>
+    </ul>
+</section>
