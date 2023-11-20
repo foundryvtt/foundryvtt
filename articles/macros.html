@@ -1,5 +1,13 @@
-<p>Macros are an exciting part of any virtual tabletop. In Foundry Virtual Tabletop, you will find that macros are as versatile, powerful, and simple as you want them to be. With the right macros, you can speed up your game, automate the unwieldy, and even do things that would normally require use of Add-on Modules. Best of all, macros are easily shared among users, allowing you to pick and choose your own tailored experience in Foundry Virtual Tabletop!</p>
-<p>Macros are pre-written commands in Foundry Virtual Tabletop that when used, execute their commands. Macros can be created and accessed through the macro toolbar located on the bottom of the Foundry window. This article will introduce you to two types of macros: </p>
+<p>Macros are pre-written commands that you can send to Foundry Virtual Tabletop to do powerful things. With the right macros, you can:</p> 
+
+<ul>
+    <li>Speed up tasks you do frequently</li>
+    <li>Create splashy effects to wow your players</li>
+    <li>Perform several consecutive tasks all at once</li>
+    <li>Do things that are impossible with the user interface alone</li>
+</ul>
+<p>You can write your own macros, or if that's not your thing, you can use macros that are written and shared by other community members. </p>
+<p>Foundry VTT was designed from the ground up to be highly customizable via its powerful JavaScript-based API, making Foundry macros a versatile and powerful tool. Two different types of macros are available: </p>
 <dl>
 	<dt>Chat Macros</dt>
 	<dd>Simple and easy to use, chat macros post pre-defined chat messages to the chat log when executed. All users can execute chat macros by default.</dd>
@@ -7,114 +15,292 @@
 	<dd>Complex and powerful macros which leverage the FVTT API through plain JavaScript to perform functions as simple or as advanced as you can imagine.</dd>
 </dl>
 
-<h2 id="ui" class="border">The Macros UI</h2>
-<figure class="center">@Image[22]
+<h2 class="border" id="ui">The Macro User Interface</h2>
+<p>Macros can be created and accessed through the Macro Hotbar and Macro Directory located at the bottom of the Foundry window.</p>
+<figure class="center"><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/macro-hotbar-2021-02-03.jpg" alt="Macro Hotbar">
 	<figcaption>The Macro Hotbar is located at the bottom of the game interface. See the legend below for explanations of each element.</figcaption>
 </figure>
-<p>The sections of the macro bar are as follows:</p>
 
 <h4>Macro Hotbar</h4>
-<p>The Macro Hotbar gives instant keypress access to 10 quick Macros, which can be used to send chat messages or perform scripted API actions. Primarily used by advanced users. Some systems provide the ability to drop items or actors onto the macro bar to generate a macro for quick use. The macro hotbar has four macro pages that users can switch between, giving them up to four different pages of macro layouts for convenience. These can be cycled by using the up and down indicators on the right of the macro bar (<i class="fas fa-angle-up"> </i> and <i class="fas fa-angle-down"> </i>).</p>
+<p>The Macro Hotbar gives easy access to 10 Macros at a time and can store up to 50 macros. Clicking a Macro in the hotbar executes the Macro. Clicking a blank Macro Hotbar slot allows you to create a new Macro assigned to that slot.</p>
+
+<p>You can populate the Macro Hotbar by dragging and dropping Macros from the Macro Directory (see below). Some game systems also provide the ability to automatically generate a macro by dragging and dropping items or actors onto the Macro Hotbar.</p>
+
+<p>Each Macro Hotbar "slot" also has a keyboard shortcut assigned to it and pressing the assigned key executes the Macro also, just like you clicked it. By default, the assigned keyboard shortcuts are the numbers 1-9, with the number 0 representing the tenth slot. The macro hotbar has five different macro pages that users can switch between, each containing ten macros. The current page can be cycled using the up and down indicators on the right of the macro hotbar (<i class="fas fa-angle-up"> </i> and <i class="fas fa-angle-down"> </i>).</p>
+
+<p class="info note"><strong>Note:</strong> Each user has their own Macro Hotbar, so each person can set their Macros up exactly how they want. If a GM wants to set up a player's Macro Hotbar with useful Macros for them, they can log in as that user.</p>
 
 <h4>Macro Directory</h4>
-<p>The Macro Directory (<i class="fas fa-folder"> </i>) provides access to all macros that have been created which you have permission to view, use, or edit. From inside this directory you can create new macros by clicking the <strong>Create Macro</strong> button, which will open the macro creation dialog, allowing you to set a name and select the type of macro you want to create.</p>
+<p>The Macro Directory (<i class="fas fa-folder"> </i>) is a small but important folder icon located at the left of the Macro Hotbar.
+<p>The Macro Directory provides access to all macros that you have permission to view, and users can create new macros here by clicking the <strong>Create Macro</strong> button. By default, players do not have access to Macros created by other users. However, a GM can control players' access to a Macro by right-clicking it in the Macro Directory and selecting the "Configure Ownership" option.</p>
+<p class="info note"><strong>Note:</strong> Macros use the same permission guidelines found in the <a href="/article/users/" title="Users and Permissions" target="_blank">Users and Permissions</a> article. </p>
 
-<p>You can also use the <strong>Create Folder</strong> button to create a folder in this directory. Macros can be dragged to and from folders to organize macros as desired. Clicking the Create Macro icon (<i class="fas fa-user-plus"> </i>) on the folder itself will open the macro creation dialog, allowing you to create a new macro that will automatically be placed into that folder.</p>
-
-<p>Folders can be edited by right clicking them and selecting "Edit Folder," the resulting dialog allows you to set the name and color of the folder as you see fit. You can also configure the permissions of the folder to decide what level of user can see and use the macros within. This uses the same permission guidelines found in the @Article[users] article. You can also export all the macros in a folder to an unlocked compendium, create a new rolltable with the macros in the folder as the possible results, remove the folder (this places the macros back into the directory itself), or delete the folder and all items within it.</p>
-
-<h2 id="create" class="border">Creating, Using, and Sharing Macros</h2>
-<p>Macros can be created by clicking on an empty slot in the macro bar, and typing out the relevant information. If your Game System supports it, macros can also be created by dragging and dropping an item from an actor sheet to the Hotbar. In addition, existing macros stored in a compendium or in the Macros Directory can be dragged to the macro hotbar for convenience.</p>
+<h5>Folders in the Macro Directory</h5>
+<p>You can use the <strong>Create Folder</strong> button to create folders to help organize your Macros. Macros can then be dragged to and from folders. Folders can be right-clicked, granting access to options that configure the folder and all Macros within it, including:</p>
+<ul>
+     <li><strong>Edit Folder:</strong> Configure the folder name and color of the folder itself.</li>
+     <li><strong>Create Rollable Table:</strong> Automatically create a new rolltable that has the macros in the folder as the possible results.</li> 
+     <li><strong>Remove Folder:</strong> Remove the folder (placing the macros back into the folder's parent directory).</li>
+     <li><strong>Delete All:</strong> Completely delete the folder and all items within it.</li>
+     <li><strong>Configure Ownership:</strong> Set permissions of the folder itself and all Macros within it.</li>
+     <li><strong>Export to Compendium:</strong> Export all the macros in a folder to an unlocked compendium.</li> 
+</ul>
 
 <h4 id="execute">Executing Macros</h4>
-<p>Macros can be used by clicking on them in the macro bar, pressing the corresponding number key on your keyboard, or by entering <code>/macro The Macro's Name</code> in the chat box. You can also execute a macro from its configuration window by pressing the Execute button at the bottom.</p>
+<p>Macros are most often used by clicking them in the Macro Hotbar or by pressing the keyboard shortcut for the correct slot in the Macro Hotbar (typically the numbers 1-9 and 0). Alternately, you can execute a macro from the Foundry chat box by entering <code>/macro The Macro's Name</code>. You can also execute a Macro directly from its configuration window by pressing the <strong>Execute</strong> button at the bottom.</p>
 
-<h4 id="share">Sharing Macros</h4>
-<p>Macros can be shared in several different ways in Foundry Virtual Tabletop. The easiest method is to copy and paste the macro text. This is as simple as sharing it on Discord, hosting it on a text-pasting website, or putting it in a macro repository- the community wiki has one hosted <a href="https://foundryvtt.wiki/en/basics/Macros" target="_blank" rel="nofollow noopener">here</a>.</p>
-<p>In the Macros Directory, a single Macro can be exported to a JSON file and re-imported in a different World. Lastly, Macros can also be stored in a compendium, which can be shared among users via a Module.</p>
+<h2 class="border" id="create">Sharing, Exporting, and Importing Macros</h2>
+<p>A simple and effective way to use a Macro that was created by another user is to create a blank, new Macro, then copy and paste the macro's text into it. Macro text is often shared in the Foundry community Discord (<a href="https://discord.gg/FoundryVTT">(https://discord.gg/FoundryVTT)</a>, particularly in the <code>#macro-polo</code> channel or in your individual game system's channel.</p>
 
-<h3>Creating Chat Macros</h3>
-<p>Chat macros are, as indicated by the name, macros that will utilize chat when executed. They are simpler to create, but do not have all of the capabilities that a script macro does.</p>
-<p>A chat macro can involve a simple dice command like <code>/r 1d100</code> linking a document in chat<code>@Document[Document Name Here]</code> (where <code>Document</code> is the Type for that Document like <code>Actor</code>), or displaying pre-written text or an image using HTML tags.</p>
-<p>Chat macros work the same as typing a message in chat, and anything you can type into the chat entry field can be entered here. For more information on chat syntax and the possible actions a user can do within the chat entry field, see @Article[chat]</p>
-<h4>Example Chat Macros</h4>
-<pre><code>/r 1d6#which of my players is the next victim?</code></pre>
-<pre><code>/roll {4d6kh3, 4d6kh3, 4d6kh3, 4d6kh3, 4d6kh3, 4d6kh3}#Rolling for DND5e Ability Scores. Don't forget to click to expand the message!</code></pre>
-<pre>
-<code>&lt;em&gt;&lt;u&gt;Singing:&lt;/u&gt;
-There once was a ship that put to sea,
-and the name of the ship was the &lt;b&gt;Billy o' Tea!&lt;/b&gt;
-The winds blew hard, her bow dipped down
-Blow, me bully boys, blow!&lt;/em&gt;</code>
-</pre>
-<pre><code>&lt;h2>Foundry VTT is AWESOME!&lt;/h2>
-&lt;img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/asset/fvtt-community-content-anvil-2020-09-16.png" width="100%"/></code></pre>
+<p>You can create a blank new Macro by clicking an empty slot in the Macro Hotbar or by clicking the <strong>Create Macro Button</strong> inside the Macro Directory. Make sure to give the Macro a descriptive name and, if necessary, to change it to a script Macro using the dropdown menu.</p>
+    
+<p>Many game systems and modules come with compendiums of Macros. You can add macros from a compendium by dragging them to the Macro Hotbar, Macro Directory, or by right-clicking them and selecting the "Import" option. You can also export individual macros to a JSON file. These Macro JSON files, can then be imported by creating a new blank macro within the Macro Directory, right-clicking it, and selecting the "Import Data" option.</p>
+
+<p class="info note">The Foundry community wiki has a number of community-created Macros available here: <a href="https://foundryvtt.wiki/en/basics/Macros" rel="nofollow" target="_blank">here</a>.</p>
+
+<h2 class="border">Chat and Script Macros</h2>
+
+<h3>What Are Chat Macros?</h3>
+<p>As their name implies, chat macros create chat messages when they are executed. They are simpler to create, but do not have all of the capabilities that a script macro does.</p>
+<p>A chat macro can perform many simple tasks, including:</p>
+<ul>
+    <li>A simple dice roll command like <code>/r 1d100</code>.</li>
+    <li>Displaying pre-written text or an image using HTML tags.</li>
+    <li>Linking a document in chat using the syntax <code>@Document[Document Name Here]</code>. <br><strong>Note:</strong> <code>Document</code> needs to be replaced with a particular Document Type, for example <code>@Actor[Big Bad Enemy Guy]</code>).</li>
+</ul> 
+   
+<p>Chat macros work the same as typing a message in chat, and anything you can type into the chat entry field can be entered here. For more information on chat syntax and the possible actions a user can do within the chat entry field, see <a href="/article/chat/" title="Chat Messages" target="_blank">Chat Messages</a>.</p>
+
+<section class="collapsible">
+    <header class="collapsible-header">Example Chat Macros</header>
+    <div class="collapsible-content">
+        <h5 id="victimpicker">Victim Picker</h5>
+        <pre><code>/r 1d6#which of my players is the next victim?</code></pre>
+        <h5>Roll DND5E Ability Scores</h5>
+        <pre><code>/roll {4d6kh3, 4d6kh3, 4d6kh3, 4d6kh3, 4d6kh3, 4d6kh3}#Rolling for DND5e Ability Scores. Don't forget to click to expand the message!</code></pre>
+        <h5>Shanty Time</h5>
+        <pre><code>&lt;em&gt;&lt;u&gt;Singing:&lt;/u&gt;
+        There once was a ship that put to sea,
+        and the name of the ship was the &lt;b&gt;Billy o' Tea!&lt;/b&gt;
+        The winds blew hard, her bow dipped down
+        Blow, me bully boys, blow!&lt;/em&gt;</code>
+        </pre>
+        <pre><code>&lt;h2&gt;Foundry VTT is AWESOME!&lt;/h2&gt;
+        &lt;img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1/asset/fvtt-community-content-anvil-2020-09-16.png" width="100%"/&gt;</code></pre>
+    </div>
+</section>
 
 <h3>What Are Script Macros?</h3>
-<p>Script macros are more complicated, but powerful commands that can interact with the Foundry JavaScript API. Script macros are limited only by your imagination and the functions available to JavaScript. Users can perform any task using a script macro that their User role and permissions settings allow for them to take. For example, script macros could automatically consume character resources, roll dice checks, toggle conditions, or change Token appearance.</p>
-<p>As script macros are more powerful than chat macros, a Gamemaster can choose to disable script macros for players via the permissions system, which is found in the <span class="reference">Configure Settings</span> menu under the <span class="reference">Game Settings</span> tab.</p>
+<p>Script macros are more complicated, more powerful commands that can interact with Foundry's JavaScript API. Script macros are limited only by your imagination and the functions available to JavaScript. Users can perform any task using a script macro that their User role and permissions settings allow for them to take. For example, script macros could automatically consume character resources, roll dice checks, toggle conditions, or change Token appearance.</p>
+<p>Because script macros are more powerful than chat macros, a Gamemaster can choose to disable script macros for players via the permissions system, which is found in the <span class="reference">Configure Settings</span> menu under the <span class="reference">Game Settings</span> tab.</p>
 
-<h4>Using Arguments in Macros and Returning Values</h4>
-<p>Some values are available directly in Macros without passing them in. For example, if a Token is selected the variables <code>actor</code> and <code>token</code> will both be populated with the values from the selected Token. Macros can also have arguments passed to them programmatically or through the chat box. Arguments that are passed into a macro are available in the <code>scope</code> variable in your Macro. For example, if you pass in the argument <code>id</code> it will be available at <code>scope.id</code>. Before we learn how to pass arguments let's create an example macro that uses an argument and returns a value. It's name will be "Get Actor" and it's ID is "kIuGflzokbwdwla5":</p>
-<pre>
-	<code>
-const character = game.actors.get(scope.id);
-console.log(character);
-return character;
-	</code>
-</pre>
+<section class="collapsible">
+    <header class="collapsible-header">Example Script Macros: "Victim Picker" and "Better Victim Picker"</header>
+    <div class="collapsible-content">
+        <p>These example script macro shows what one of the example chat macros from above, "<a href="#victimpicker">Victim Picker</a>", might look like as a script macro. This demonstrates both how much of the heavy lifting is done automatically in a chat macro as well as the additional functionality that is available to a script macro.</p>
+        <h5>Victim Picker</h5>
+        <pre><code class="language-javascript">//Pick a victim from one of six possible numbered players and export the results to chat and to the console log
 
-<h4>Pass Arguments to Macros Programmatically and Get Their Return Value</h4>
-<p>This example demonstrates how to get a Macro by it's ID (the demonstration Macro we created above) and then execute it with the argument <code>id</code> passed to it. We then capture the return value in the <code>Actor</code> variable.</p>
-<pre>
-	<code>
-// Get the Macro by it's ID
-const macro = game.macros.get("kIuGflzokbwdwla5");
-// Execute the Macro and pass the 'id' argument in via an object and capture the return value in 'actor'
-const character = await m.execute({id: "G9CLr70iR4k2pl5l"}); 
-	</code>
-</pre>
+const roll = await new Roll(`1d6`).roll();
+console.log(roll);
 
-<h4>Pass Arguments to Macros From the Chat Box</h4>
-<p>This example demonstrates how to call a macro from the chat box (the demonstration Macro we created above) and then execute it with the argument <code>id</code> passed to it like so:<code>/macro Get Actor id=G9CLr70iR4k2pl5l</code></p>
+const results_html = `&lt;h3&gt;Victim Selected!&lt;/h3&gt;
+&lt;p&gt;Something bad is going to happen to &lt;br&gt;&lt;strong&gt;Player ${roll.total}&lt;/strong&gt;. Buckle up!&lt;/p&gt;`;
 
-<h4>Example Script Macros</h4>
-<h5>Scene Wall and Light Duplicator</h5>
-<pre><code class="language-javascript">const source = game.scenes.get("9293Opb8eFtD0BxO");
+ChatMessage.create({
+    user: game.user._id,
+    content: results_html
+});</code></pre>
+        <p>So far, there is a lot more code to create output that is similar to the output created by the chat macro version, albeit with greater control over formatting.</p>
+        <p>However, the script macro version can be improved to do things that are impossible for the chat macro version to do, such as automatically knowing how many users exist and selecting from that list:</p>
+        <h5>Better Victim Picker</h5>
+        <pre><code class="language-javascript">//Pick a victim from the list of users, then output the results to chat and to the console log. Note: The GM is a possible victim!
 
-const wallData = source.walls.map(i=>i.toObject())
-const lightData = source.lights.map(i=>i.toObject())
+const victims = game.users.contents;
 
-await canvas.scene.createEmbeddedDocuments("Wall", wallData)
-await canvas.scene.createEmbeddedDocuments("AmbientLight", lightData)
+const roll = await new Roll(`1d${victims.length} - 1`).roll();
+const victim = victims[roll.total];
+console.log(victim);
+
+const results_html = `&lt;h3&gt;Victim Selected!&lt;/h3&gt;
+&lt;p&gt;Something bad is going to happen to &lt;br&gt;&lt;strong&gt;${victim.name}&lt;/strong&gt;. Buckle up!&lt;/p&gt;`
+
+ChatMessage.create({
+    user: game.user._id,
+    content: results_html
+});
 </code></pre>
-<h5>Emergency Campaign Resolver</h5>
-<pre><code class="language-javascript">//Rocks Fall, everyone dies.
+    </div>
+</section>
 
-const targets = []
+<h3>Example Script Macros</h3>
+<p>The following examples of script macros illustrate some of what is possible with script macros:</p>
+<section class="collapsible">
+    <header class="collapsible-header">Scene Wall and Light Duplicator</header>
+    <div class="collapsible-content">
+        <p>This macro copies all walls and lights from a "template" or "source" scene into the current scene. To use it, replace <code>9293Opb8eFtD0BxO</code> with the ID of your source scene.</p>
+        <pre><code>const wallData = source.walls.map(i=&gt;i.toObject());
+const lightData = source.lights.map(i=&gt;i.toObject());
+
+await canvas.scene.createEmbeddedDocuments("Wall", wallData);
+await canvas.scene.createEmbeddedDocuments("AmbientLight", lightData);</code></pre>
+</div>
+</section>
+
+<section class="collapsible">
+    <header class="collapsible-header">Scene Wall Scaler</header>
+    <div class="collapsible-content">
+        <p>After the size of the background image of a scene changes, walls can be out of place. This macro scales the walls up or down by 1% per macro execution. Repeated uses of this macro will allow the scene image and walls to match again.</p>
+        <p>When you run this macro, all walls are uniformly scaled to be 1% smaller. Hold down the Shift key while executing the macro to make the walls 1% larger instead.</p>
+    <pre><code>class="language-javascript">const source = game.scenes.get("9293Opb8eFtD0BxO");
+const walls = canvas.scene.walls;
+const scale = event.shiftKey ? 1.01 : 0.99;
+const updates = walls.map(w => {
+    const c = w.c.map(i => i * scale);
+    return {_id: w.id, c};
+});
+await canvas.scene.updateEmbeddedDocuments("Wall", updates);</code></pre>
+        <p><i>Credit: Macro written by Community Helper Zhell.</i></p>
+    </div>
+</section>
+
+<section class="collapsible">
+    <header class="collapsible-header">Emergency Campaign Resolver</header>
+    <div class="collapsible-content">
+<pre><code class="language-javascript">//Rocks Fall, everyone dies.
+let targets = []
 game.user.targets.forEach(i => {
-	const name = i.name;
-	targets.push(name);
+    const name = i.name;
+    targets.push(name);
 })
 
 if (targets.length === 0) {targets = "no one, this time"}
 
-const roll = await new Roll(`8d10+100`).roll();
+let roll = await new Roll(`8d10+100`).roll();
 console.log(this.roll)
 
 const results_html = `&lt;h2&gt;Cave In!&lt;/h2&gt;
 The cave collapses from above, dealing &lt;a class="inline-result"&gt;&lt;i class="fas fa-dice-d20"&gt;&lt;/i&gt;${roll.total}&lt;/a&gt; damage to &lt;strong&gt;${targets}&lt;/strong&gt;.`
 
 ChatMessage.create({
-	user: game.user._id,
-	speaker: ChatMessage.getSpeaker({token: actor}),
-	content: results_html
+    user: game.user._id,
+    speaker: ChatMessage.getSpeaker({token: actor}),
+    content: results_html
+});</code></pre>
+    </div>
+</section>
+
+<h2 class="border">Script Macros: Additional Details</h2>
+<p>The Foundry API allows you to interact with script macros  </p>
+
+<h4>Script Macro Built-in Values</h4>
+<p>Some values are available directly in Macros without passing them in. For example, if a Token is selected when you execute a Macro, the selected Token is passed to the Macro as the object variable <code>token</code>. The selected Token's Actor is also passed to the Macro as the <code>actor</code> object variable.</p>
+<section class="collapsible">
+    <header class="collapsible-header">Example Script Macro: "Hey There!"</header>
+    <div class="collapsible-content">
+        <pre><code class="language-javascript">//token and actor do not need to be defined.
+console.log("Selected token and actor:");
+console.log(token);
+console.log(actor);
+let msg_html = token ? `&lt;h3&gt;Hey there!&lt;/h3&gt;&lt;p&gt;Hi, I'm ${actor.name}!&lt;/p&gt;` : "Please select a token before using the &lt;i&gt;Hey There&lt;/i&gt; macro.";
+
+ChatMessage.create({
+    user: game.user._id,
+    speaker: ChatMessage.getSpeaker({token: actor}),
+    content: msg_html
+});</code></pre>
+    </div>
+</section>
+
+<p class = "info note"><strong>Note:</strong> The <code>token</code> and <code>actor</code>built-in value is most useful when you know that only a single token is collected. When more than one token might be selected, consider using <code>canvas.tokens.controlled</code> instead, which returns an array of all selected tokens. The <code>actor</code> property of one of those tokens can then be used to get that token's actor.</p>
+
+<h3>Script Macro Arguments</h3>    
+<p>In addition to the built-in <code>token</code> and <code>actor</code>, macros can also have arguments passed to them so that they can be used within the Macro. This can be done programmatically (typically through another macro) or even using the Foundry chat box.</p>
+
+<p>Arguments that are passed into a Macro are available in the <code>scope</code> variable in your Macro. These arguments are also made available as their own variables that you can then use within the macro. For example, if you pass in the argument <code>id</code> it is available at <code>scope.id</code>, and the variable <code>id</code> could now also be called within the macro directly.</p>
+
+<p>This example demonstrates how to specify a value to use in a macro that you are calling. This time, instead of letting "Better Victim Picker" pick a victim for us, we are going to tell the Attack a Victim! macro exactly who to attack by passing in an argument containing that information. In this case, the macro that we are calling manually ("Attack a Victim!") has its own ID (<code>PNSebX0bAXOCwQ8P</code> in this example).</p>
+
+<section class="collapsible">
+    <header class="collapsible-header">Example Script Macro: "Example Script Macros: Manual Victim Picking"</header>
+    <div class="collapsible-content">
+        <h5>Best Victim Picker</h5>
+        <p>We are going to create one last version of Victim Picker that allows for manually overriding the victim that is chosen. Additionally, we will build in a return statement for future use. For the sake of this example, let's say that Foundry randomly assigned this macro the id <code>XFmUgx6skqyDo1IW</code>. </p>
+        <pre><code class="language-javascript">//Pick a victim from the list of users, then output the results to chat and to the console log. Note: The GM is a possible victim!
+
+const victims = game.users.contents;
+
+const roll = await new Roll(`1d${victims.length} - 1`).roll();
+const victim = victims[roll.total];
+console.log(victim);
+
+const victimName = scope.manualVictim ? scope.manualVictim : victim.name;
+
+const results_html = `&lt;h3&gt;Victim Selected!&lt;/h3&gt;
+&lt;p&gt;Something bad is going to happen to &lt;br&gt;&lt;strong&gt;${victimName}&lt;/strong&gt;. Buckle up!&lt;/p&gt;`
+
+ChatMessage.create({
+    user: game.user._id,
+    content: results_html
 });
+
+return victim;</code></pre>
+
+<p>Now, we can create a macro that can pass in <code>manualVictim</code> as an argument so we can "cheat" and always pick a certain victim. Poor Bob.</p>
+<h5>Manual Victim Picker</h5>
+        <pre><code class="language-javascript">//Get the Best Victim Picker macro
+const macro = game.macros.get("XFmUgx6skqyDo1IW");
+//Execute the Better Victim Picker macro, but manually specify that the victim should be Bob
+await macro.execute({victimName:"Bob"});</code></pre>
+    </div>
+</section>
+
+<p class="info note"><strong>Note:</strong> If you pass an argument of the same name as a variable that is provided by default it overrides that default variable. For example, you can pass a variable named <code>token</code> to override and replace the <code>token</code> variable that is available by default in all macros.</p>
+
+<h4>Macros Return Values</h4>  
+<p>You can even have the return of one Macro serve as an argument for another! In other words, you can use one Macro's output as the input for another Macro.</p>
+
+<p>To demonstrate, let's take another look at the latest version of our macro, "Best Victim Picker." The last line of the macro, <code>return victim;</code> returns the selected token that was chosen so that another macro can potentially use it.</p>
+
+<p>Let's do exactly that by making a version of our "Hey There!" macro called "Attack a Victim!" and have it use the "Better Victim Picker" to choose who to attack.</p>
+
+<p>First, we need a way to refer to the "Better Victim Picker" macro so we can call it. When the Macro was created, Foundry assigned a Macro ID to it. You can easily get a Macro's ID by editing it and clicking the Copy ID button:</p>
+
+<figure class="center"><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_681/screen/copy-macro-id-2023-11-11.webp" alt="Copy Macro ID">
+	<figcaption>Easily copy the Macro ID by clicking the button at the top.</figcaption>
+</figure>
+
+<p>For the purposes of this example,  we will say the assigned Macro ID is "3b7YVSvYsaSoGxlY" (remember: your Macro ID will be different, and you have to replace it in the example macro code). We can then use this ID to call that macro from another macro:</p> 
+
+<h5>Attack a Victim!</h5>
+<pre><code class="language-javascript">//Use the "Better Victim Picker" macro to choose a victim
+    const macro = game.macros.get("3b7YVSvYsaSoGxlY");
+    const victim = await macro.execute(); 
+    //Logic to manually pick a victim if you'd like
+    victimName = scope.manualVictim ? scope.manualVictim : victim.name;
+
+    console.log("Token to attack:");
+    console.log(victim);
+
+    let msg_html = token ? `&lt;h3&gt;Attack!&lt;/h3&gt;&lt;p&gt;I am going to attack you, ${victimName}!&lt;/p&gt;` : "Please select a token before using the &lt;i&gt;Attack a Victim!&lt;/i&gt; macro.";
+
+    ChatMessage.createv({
+        user: game.user._id,
+        speaker: ChatMessage.getSpeaker({token: actor}),
+        content: msg_html
+    });
 </code></pre>
+
+<p>Note that the first macro outputs normally, creating its chat message, but also passes its result along to the second macro.</p>
+
+<h4>Pass Arguments to Macros From the Chat Box</h4>
+<p>This example demonstrates how to call a macro from the chat box just like we did from within a macro: <code>/macro Attack a Victim! manualVictim=Bob</code></p>
+<p class="info note">All arguments passed this way are made available to the Macro as Strings. This can be important to keep in mind when dealing with seemingly numeric values such as `10`.</p>
+
 <h2 class="border">API References</h2>
-<p>While anything within the <a href="https://foundryvtt.com/api/">Foundry VTT API</a> can be used within a Macro, to interact with Macros themselves, you will primarily use the following API concepts:</p>
+<p>While anything within the <a href="https://foundryvtt.com/api/" rel="nofollow">Foundry VTT API</a> can be used within a Macro, the following API concepts are primarily used to interact with the Macros themselves:</p>
 <ul>
-<li>The @API[classes/client.Macro, Macro Document]</li>
-<li>The @API[classes/client.Macros, Macros Collection]</li>
-<li>The @API[classes/client.MacroDirectory, MacroDirectory Setup Application]</li>
+<li>The <a href="/api/classes/client.Macro.html" title=" Macro Document" target=_"blank"/> Macro Document</a></li>
+<li>The <a href="/api/classes/client.Macros.html" title=" Macros Collection" target=_"blank"/> Macros Collection</a></li>
+<li>The <a href="/api/classes/client.MacroDirectory.html" title=" MacroDirectory Setup Application" target=_"blank"/> MacroDirectory Setup Application</a></li>
 </ul>
