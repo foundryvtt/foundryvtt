@@ -1,0 +1,142 @@
+<h2>Overview</h2>
+<p>Due to overwhelming popular demand, we have implemented a Package Release API for package developer use! This API is similar in functionality to the amazing third-party community solutions such as <a href="https://github.com/Varriount/fvtt-autopublish" rel="nofollow" target="_blank">FVTT Autopublish</a> and <a href="https://github.com/ghost-fvtt/foundry-publish" rel="nofollow" target="_blank">Foundry Publish</a>.</p>
+
+<p>The Package Release API offers a programmatic alternative to using the <a href="https://foundryvtt.com/article/front-end-package-management/" rel="nofollow">the front-end package management form</a>. Instead of manually filling out this form, developers can now send the necessary information about a new release directly to the Foundry API endpoint. The API then uses this information to automatically create a new version, including updating your package's last updated date and time, and sending a package release note to the Foundry Discord.</p>
+
+<h2 class="border">How to Use the Package Release API</h2>
+<p>To use the Package Release API, you send a properly formatted request to the <code>https://api.foundryvtt.com/_api/packages/release_version</code> endpoint, including an authorization token that is unique to each package. Explaining how to make such a request to an API endpoint is outside the scope of this article, but this is typically done through something like a <a href="https://github.com/features/actions">GitHub Action</a>.</p>
+
+<p>To obtain your token for a package, go to <a href="https://foundryvtt.com/me/packages" rel="nofollow"></a>your package's page on the Foundry website</a>. The "Package Release Token" field, located just above the "Save Package" button, contains the pre-generated authentication token that you need. You can easily copy this token by clicking the field, but make sure to  store it in a safe place.</p> 
+
+<p class="note warning">Remember: This secret API token can be used to edit your package programmatically. <b>Do not</b> share or publish your API key, or we will refresh or revoke the key. If you worry your key has gotten into the wild, we have provided an automated "Refresh" button which will revoke your current token and generate a new one in its place.</p>
+
+<h3 class="border">The Request</h3>
+<p>Now that you have your token, let's use it in a real-world example. The following JavaScript code block shows how to include your release API token as an authorization header, as well as all the components of the response body.</p>
+<pre><code class="language-javascript hljs">response = await fetch("https://api.foundryvtt.com/_api/packages/release_version/", {
+headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'fvttp_...'
+},
+method: "POST",
+body: JSON.stringify({
+    "dry-run": true,
+    "release": {
+    "version": "1.0.0",
+    "manifest": "https://github.com/example/example-module/issues/releases/download/release-1.0.0/system.json",
+    "notes": "https://github.com/example/example-module/releases/tag/release-1.0.0",
+    "compatibility": {
+        "minimum": "10.312",
+        "verified": "11",
+        "maximum": ""
+    }
+    }
+})
+});
+response_data = await response.json()
+</code></pre>
+<p>The Authorization header is self-explanatory for those familiar with APIs. Insert your token (including the <code>fvttp_</code>) as an API token by including <code>"Authorization": "{release_token}"</code> in your HTTP headers.</p>
+<p>The JSON body of the request is made up of a few required and optional fields.</p>
+<dl>
+    <dt><code>dry-run</code></dt>
+        <dd>An optional parameter. If you include it with the boolean "true", the API will validate and process your request, but not save any changes. This is a good way to, before releasing a version, make sure that your version, compatibility, and URL information is correct.</dd>
+    <dt><code>release</code></dt>
+        <dd>A <b>required</b> JSON dictionary of your release data, the same format you would use in a manifest file. <code>release</code> has several components (see below).
+        <br><br>    
+        Components of the <code>release</code> element:
+        </dd>
+</dl>
+<div style="margin-left:3rem">
+    <dl>       
+        <dt><code>version</code></dt> 
+            <dd>The <b>required</b> string representing the package version number. A semantic version number is preferred, such as "1.0.0".</dd>
+        <dt><code>manifest</code></dt>
+            <dd>The <b>required</b> string for the URL of your package manifest associated with this release of your package. <b><u>Please Note:</b></u> We prefer you do not use a "latest" manifest, as this prevents users from downloading previous versions of your package.</dd>
+        <dt><code>notes</code></dt>
+            <dd>The <b>optional</b> string for the URL of your release notes for this version of your package. As with your manifest URL, we prefer this to be a discrete list of changes for this release for ease of accessing the most up-to-date, correct information.</dd>
+        <dt><code>compatibility</code></dt>
+            <dd>The <b>required</b> dictionary representing the compatibility for this release. This matches the form of your manifest, as explained below.
+                <br><br>
+                Components of the <code>compatibility</code> element:    
+            </dd>
+    </dl>
+    <div style="margin-left:3rem">
+        <dl>
+            <dt><code>minimum</code></dt>
+                <dd>The <b>required</b> string for the Foundry version before which this module cannot function. This prevents installation for users on these incompatible versions.</dd>
+            <dt><code>verified</code></dt>
+                <dd>The <b>required</b> string for the most recent Foundry version during which this module has been verified to work correctly. This is a suggestion to users to run either exactly or at most this version of Foundry when installing the module, but will not prevent installation.</dd>
+            <dt><code>maximum</code></dt>
+                <dd>The <b>optional</b> string for the Foundry version which this module has been verified to no longer function. We recommend not setting this value unless you have tested or received reports about your module no longer working in a recent version of Foundry, as it will prevent installation for any user at or after that version. As with <code>minimum</code>, this prevents installation for users on these incompatible versions.</dd>
+        </dl>
+    </div>
+</div>
+<p>Whether you use GitHub Actions, an API platform application, JavaScript, your favorite programming language, or a combination, this JSON body format and HTTP Authorization header will grant you access to the API.</p>
+<h3 class="border">Responses</h3>
+<h4>Success Responses</h4>
+<p>On a successful request, you will receive a <code>200 OK</code> HTTP status response with the JSON:</p>
+<pre><code class="language-json hljs">{
+  "status": "success",
+  "page": "https://foundryvtt.com/packages/{package_id}/edit"
+}
+</code></pre>
+<p>If you included the <code>dry-run</code> parameter in the request, you will instead receive the JSON response:</p>
+<pre><code class="language-json hljs">{
+  "status": "success",
+  "page": "https://foundryvtt.com/packages/{package_id}/edit",
+  "message": "Dry run completed successfully. To save, submit the request again without dry-run"
+}
+</code></pre>
+<h4>Failure Responses</h4>
+<p>When an error is thrown, either when processing the request itself or when validating its data, the API responds with the appropriate HTTP Status Code and headers or text to guide you in the right direction.</p>
+<p>For example, if you try to submit too many package releases for the same package within 60 seconds of one another, you will receive a <code>429 Too Many Requests</code> response with the HTTP Header <code>Retry-After</code> telling you how many seconds to wait before sending another response.</p>
+<p>Any data validation error will return HTTP Status <code>400 Bad Request</code> with a JSON description of the error. Some example errors are provided below:</p>
+<p>A required field is missing:</p>
+<pre><code class="language-json hljs">{
+  "status": "error",
+  "errors": {
+    "manifest": [
+      {
+        "message": "This field is required.",
+        "code": "required"
+      }
+    ]
+  }
+}
+</code></pre>
+<p>Invalid data was provided for a field:</p>
+<pre><code class="language-json hljs">{
+  "status": "error",
+  "errors": {
+    "manifest": [
+      {
+        "message": "Enter a valid URL.",
+        "code": "invalid"
+      }
+    ]
+  }
+}
+</code></pre>
+<p>Sometimes, there is an over-arching error with the entire form. For example, a common data validation error is to attempt to name two package releases with the same version number. This would result in the following error response:</p>
+<pre><code class="language-json hljs">{
+  "status": "error",
+  "errors": {
+    "__all__": [
+      {
+        "message": "Package Version with this Package and Version Number already exists.",
+        "code": "unique_together"
+      }
+    ]
+  }
+}
+</code></pre>
+<p>The <code>"__all__"</code> error code here is taking the place of a field name. Because the error is spread over two fields (your package's ID and the release version's number), <code>"__all__"</code> covers this case.</p>
+
+<h2 class="border">How to Get Help with the Package API</h2>
+<p>If you need further assistance with this feature, help is available.</p>
+    <dl>
+        <dt>Discord</dt>
+        <dd>Drop by our <a href="https://discord.gg/FoundryVTT" rel="nofollow" target="_blank">Discord</a> (try the <code>#dev-support</code> or <code>#module-development</code> channels)</dd>
+        <dt>Email</dt>
+        <dd><a href="/contact-us" rel="nofollow" target="_blank">Contact Us</a> directly</p></dd>
+    </dl>
+     
