@@ -32,6 +32,20 @@
 
 <p class="note info">The simplest way to integrate with AWS is by providing credentials directly in this JSON configuration, but for improved security we recommend omitting these credentials and instead using one of the <a href="https://docs.aws.amazon.com/sdkref/latest/guide/standardized-credentials.html" title="AWS SDK Authentication Methods">more preferred methods</a> supported by AWS.</p>
 
+<p>Note that if you are using a non-AWS S3 service, the <code>region</code> is <strong>still required</strong>. This is used by the AWS SDK to determine how to build the payload type, and can be set to any valid AWS region, for example <code>us-east-1</code>. The region is not used, and no data is sent to AWS if an alternate <code>endpoint</code> is specified. Here is an example using DigitalOcean spaces in the <code>nyc3</code> datacenter: </p>
+
+<pre><code class="language-json">{
+  "region": "us-east-1",
+  "endpoint": "https://nyc3.digitaloceanspaces.com",
+  "credentials": {
+    "accessKeyId": "SPACES_KEY",
+    "secretAccessKey": "SPACES_SECRET"
+  }
+}
+</code></pre>
+
+<p>You can get more details from the <a href="https://docs.digitalocean.com/products/spaces/reference/s3-sdk-examples/">Digital Ocean Spaces documentation</a>, or the object storage documentation for your specific provider.</p>
+
 <p>The Foundry Virtual Tabletop software can be instructed to use this configuration by either saving it as a JSON file in the Config folder, for example <code>{User Data}/Config/aws.json</code>, or by including it in-line <code>options.json</code> configuration file. The <code>aws</code> field of the <code>options.json</code> file accepts either an in-line AWS configuration or a relative file path to a separate AWS configuration JSON file. If using a separate file with a path reference, this may be configured in the Setup menu of the Foundry Virtual Tabletop software.</p>
 
 <p>The remainder of this article covers some more specialized topics intended to assist users with creating or configuring an S3 integration.</p>
