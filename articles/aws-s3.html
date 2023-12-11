@@ -1,4 +1,4 @@
-<h2>Overview</h2>
+<h2 class="border">Overview</h2>
 <p>Foundry Virtual Tabletop features integrated support for S3 file storage solution, allowing you to use an AWS account and S3 buckets as a built-in, browseable file storage location for media assets. To enable this functionality, you must include an entry in your <code>options.json</code> config file which points towards another JSON file that contains your S3 authentication credentials. If such a file is correctly specified and the credentials provided have permission to access S3 buckets, those buckets will be available for use in the File Browser for any Foundry VTT users you grant permission to access it.</p>
 <p>Use of S3 integration in Foundry VTT is a great solution for users who are self-hosting on internet connections that have very limited upload speeds. When configured properly for S3 integration, FVTT will offer image, video, and audio assets directly from S3 to all connected users rather than having to use the host's internet connection.</p>
 <p class="note warning">Configuring AWS S3 integration is an advanced feature of Foundry VTT and requires technical configuration.</p>
@@ -32,6 +32,12 @@
 
 <p class="note info">The simplest way to integrate with AWS is by providing credentials directly in this JSON configuration, but for improved security we recommend omitting these credentials and instead using one of the <a href="https://docs.aws.amazon.com/sdkref/latest/guide/standardized-credentials.html" title="AWS SDK Authentication Methods">more preferred methods</a> supported by AWS.</p>
 
+<p>The Foundry Virtual Tabletop software can be instructed to use this configuration by either saving it as a JSON file in the Config folder, for example <code>{User Data}/Config/aws.json</code>, or by including it in-line <code>options.json</code> configuration file. The <code>aws</code> field of the <code>options.json</code> file accepts either an in-line AWS configuration or a relative file path to a separate AWS configuration JSON file. If using a separate file with a path reference, this may be configured in the Setup menu of the Foundry Virtual Tabletop software.</p>
+
+<h2 id="other_providers"class="border">Non-AWS Providers</h2>
+
+<p>Some other cloud hosting services, such as Digital Ocean, offer storage services that may also be Foundry-compatible.</p>
+
 <p>Note that if you are using a non-AWS S3 service, the <code>region</code> is <strong>still required</strong>. This is used by the AWS SDK to determine how to build the payload type, and can be set to any valid AWS region, for example <code>us-east-1</code>. The region is not used, and no data is sent to AWS if an alternate <code>endpoint</code> is specified. Here is an example using DigitalOcean spaces in the <code>nyc3</code> datacenter: </p>
 
 <pre><code class="language-json">{
@@ -46,14 +52,13 @@
 
 <p>You can get more details from the <a href="https://docs.digitalocean.com/products/spaces/reference/s3-sdk-examples/">Digital Ocean Spaces documentation</a>, or the object storage documentation for your specific provider.</p>
 
-<p>The Foundry Virtual Tabletop software can be instructed to use this configuration by either saving it as a JSON file in the Config folder, for example <code>{User Data}/Config/aws.json</code>, or by including it in-line <code>options.json</code> configuration file. The <code>aws</code> field of the <code>options.json</code> file accepts either an in-line AWS configuration or a relative file path to a separate AWS configuration JSON file. If using a separate file with a path reference, this may be configured in the Setup menu of the Foundry Virtual Tabletop software.</p>
-
+<h2 class="border">Creating and Configuring an S3 Integration</h2>
 <p>The remainder of this article covers some more specialized topics intended to assist users with creating or configuring an S3 integration.</p>
 
-<h2 class="border">Creating an S3 Bucket</h2>
-<p>Before you can store files in S3, you need to configure a bucket to work with.</p>
+<h3 class="border">Creating an S3 Bucket</h3>
+<p>Before you can store files in S3, you need to create and configure a bucket to work with.</p>
 
-<p>Take care how you name your S3 Bucket, the bucket name can only contain lowercase letters, numbers, and dashes and must be globally unique across all AWS regions and accounts. Do not use <code>.</code> in the name as it will cause issues with HTTPS certificates, more info is provided here: <a title="AWS S3 VirtualHosting" href="http://docs.aws.amazon.com/AmazonS3/latest/dev/VirtualHosting.html" target="_blank" rel="nofollow noopener">AWS S3 VirtualHosting</a>.</p>
+<p>Take care how you name your S3 Bucket. The bucket name can only contain lowercase letters, numbers, and dashes and must be globally unique across all AWS regions and accounts. Do not use <code>.</code> in the name as it will cause issues with HTTPS certificates, more info is provided here: <a title="AWS S3 VirtualHosting" href="http://docs.aws.amazon.com/AmazonS3/latest/dev/VirtualHosting.html" target="_blank" rel="nofollow noopener">AWS S3 VirtualHosting</a>.</p>
 <p></p>
 <ol>
     <li>Click Services in the upper left hand corner.</li>
@@ -68,7 +73,9 @@
 
 <p class="note warning">Foundry VTT presently requires buckets to be public in order to function. You should not upload anything to these buckets which may be private or confidential as they will be accessible to anyone with the link.</p>
 
-<h3>Configuring a Bucket Policy</h3>
+<h3 class="border">Configuring an S3 Bucket</h3>
+<p>Now that the S3 bucket has been created, some configuration changes are needed before it can be used. </p>
+<h4>Configuring a Bucket Policy</h4>
 <p>While the bucket may be set to public, the objects that we upload to it are not public by default. Thanks to a <a href="https://foundryvtt.wiki/en/setup/hosting/Self-Hosting-on-AWS">community guide</a>, you can place the following json policy into your "Bucket Policy" configuration: </p>
 <pre><code class="language-json">{
     "Version": "2012-10-17",
@@ -84,7 +91,7 @@
 }</code></pre>
 <p class="note info">Be sure to replace "(YOUR_ARN_HERE)" with the ARN you copied previously. </p>
 
-<h3 id="cors">Enabling Cross-Origin Resource Sharing (CORS)</h3>
+<h4 id="cors">Enabling Cross-Origin Resource Sharing (CORS)</h4>
 <p>In order to use assets out of your S3 bucket from Foundry VTT you will need to set a CORS policy. To do this, navigate to the <strong>Permissions</strong> tab on the S3 bucket management panel. Under the <strong>Cross-origin resource sharing (CORS)</strong> section apply the following policy:</p>
 <pre><code class="language-json">
 [
@@ -99,10 +106,10 @@
 </code></pre>
 <p>For more information, see the following AWS support page: <a href="https://docs.aws.amazon.com/AmazonS3/latest/user-guide/add-cors-configuration.html" target="_blank" rel="nofollow noopener">https://docs.aws.amazon.com/AmazonS3/latest/user-guide/add-cors-configuration.html</a>.</p>
 
-<h2 id="permissions" class="border">Restricting Bucket Permissions</h2>
+<h4 id="permissions">Restricting Bucket Permissions</h4>
 <p>You may not wish to allow your AWS account to access all S3 buckets from within Foundry VTT. Later in this article we will create a secondary user account to allow for that, but first you will need to configure a policy that will allow that user to interact with your S3 bucket. </p>
 
-<h3>Creating an IAM Policy</h3>
+<h4>Creating an IAM Policy</h4>
 <p>From your AWS Management Console:</p>
 <ol>
     <li>Click Services in the upper left hand corner</li>
@@ -152,15 +159,15 @@
 </ul>
 <p>Your policy can be modified to allow access to a different set of buckets depending on your use case and needs.</p>
 
-<h4 id="access">Allowing User Access</h4>
+<h3 id="access" class="border">Allowing User Access</h3>
 <p>If you wish for your players or co-GMs to be able to access the contents of your S3 buckets through FVTT, simply configuring access to the file browser and to allow uploads should be sufficient assuming you have configured the bucket permissions in accordance with the above configuration.</p>
 <p>The permission controls on your AWS bucket are used to restrict the ability to upload content only. To use uploaded content in a game session, all players must have access to read the files in your bucket. You can either accomplish this by making your entire bucket public access (as we have done above), specifically assigning a public-read ACL to each uploaded key (Uploading using Foundry VTT does this automatically assuming you have configured the policies as above), or by specifically authorizing individual IP addresses of your players for the bucket (advanced, requiring knowledge of your users IP addresses).</p>
 
 <p>For more information, see the following AWS support page: <a href="https://aws.amazon.com/premiumsupport/knowledge-center/s3-console-access-certain-bucket/" target="_blank" rel="nofollow noopener">https://aws.amazon.com/premiumsupport/knowledge-center/s3-console-access-certain-bucket/</a></p>
 
 
-<h2 id="IAM" class="border">Creating an S3 Sub-account</h2>
-<p>Now that you have created an S3 bucket and configured the necessary permissions, you will need a sub-account for the actual setup and management of our S3 buckets. It is better to configure this secondary account with less permissions than your primary S3 account for the purposes of maintaining your S3 buckets through Foundry Virtual Tabletop. </p>
+<h4 id="IAM">Creating an S3 Sub-account</h4>
+<p>Now that you have created an S3 bucket and configured the necessary permissions, you will need a sub-account for the actual setup and management of your S3 buckets. It is better to configure this secondary account with less permissions than your primary S3 account for the purposes of maintaining your S3 buckets through Foundry Virtual Tabletop. </p>
 
 <p>From your AWS Management Console:</p>
 <ol>
