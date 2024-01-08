@@ -1,0 +1,62 @@
+<h2 id="overview" class="border">TypeDataModel Overview</h2> 
+
+<code>TypeDataModel</code> provides a framework to define a structured data schema from which document objects can be constructed, validated, updated, and serialized.
+
+Most data structures and concepts in the Foundry Virtual Tabletop ecosystem can (and possibly should) be expressed as a TypeDataModel. The most immediate use cases for such models are documents, but we have also adopted the data model for other cases ranging from <code>ApplicationConfiguration</code> to <code>VisionMode</code> definitions.
+
+<h3>Data Schema</h3>
+The foundation of any Type Data Model is its data schema which defines the set of fields which can belong to the model. This provides a rich and expressive framework for defining DataField instances with many helpful field types provided.
+
+The static schema for every TypeDataModel class is now defined using these fields, as follows:
+<pre><code>class MyDataModel extends foundry.abstract.TypeDataModel {
+  static defineSchema() {
+    const fields = foundry.data.fields;
+    return {
+      requiredString: new fields.StringField({required: true, blank: false}),
+      positiveInteger: new fields.NumberField({required: true, nullable: false, integer: true, positive: true}),
+      stringArray: new fields.ArrayField(new fields.StringField()),
+      innerSchema: new fields.SchemaField({
+        innerBoolean: new fields.BooleanField({initial: false}),
+        numberSet: new fields.SetField(new fields.NumberField({nullable: false, min: 0, max: 1}))
+      })
+    }
+  }
+}</code></pre>
+<p>Data schema can be very expressive, including nested objects and structures. We encourage developers who wish to define a TypeDataModel for their own use cases to survey the many examples provided by the <a href="https://foundryvtt.com/api/v10/modules/foundry.documents.html">core document definitions</a>.</p>
+
+<h3>Document Construction</h3>
+<p>Each constructed instance of a TypeDataModel is an individual object of data which is structured and validated according to its schema. Every field of the model is available as a property on the constructed data instance. For example, we can construct our defined model as:</p>
+<pre><code>const myData = new MyDataModel({
+  requiredString: "Hello",
+  positiveInteger: 7,
+  stringArray: ["one", "two", "seven"]
+});
+console.log(myData.positiveInteger); // 7</code></pre>
+
+<p>Attempting to construct a data model using invalid data will throw a ModelValidationError.</p>
+
+<pre><code>const myData = new MyDataModel({
+  requiredString: null,
+  positiveInteger: -1
+});
+// Uncaught Error: MyDataModel Model Validation Errors
+// [MyDataModel.requiredString]: may not be a blank string
+// [MyDataModel.positiveInteger]: may not be null</code></pre>
+<p>If you wish to construct a DataModel instance using potentially unclean data, you may do so by providing <code>{strict: false}</code> as a context option to the constructor. This will warn about validation failures instead of strictly raising an error.</p>
+
+<pre><code>const myData = new MyDataModel({
+  requiredString: null,
+  positiveInteger: -1
+}, {strict: false});
+console.log(myData.requiredString); // ""
+console.log(myData.positiveInteger); // 1</code></pre>
+
+<h3>Validation and Updating</h3>
+<p>A TypeDataModel instance is validated strictly whenever its source data is updated using the TypeDataModel#updateSource method.</p>
+
+<pre><code>myData.updateSource({requiredString: ""});
+// Uncaught Error: MyDataModel Model Validation Errors
+// [MyDataModel.requiredString]: may not be a blank string
+You may test a candidate set of changes by calling the TypeDataModel#validate method.</code></pre>
+
+<p>Data Models are not solely for use by core Document types, but also empower system developers to define such Data Models in order to represent data specific to their systems. Data Models defined in this way receive many of the same benefits as their core API counterparts, including validation on initialization and update, and on-the-fly data migration and coercion. It also allows functionality to be delegated out to these models, reducing the burden on the system's Document implementation to solely house such logic.</p>

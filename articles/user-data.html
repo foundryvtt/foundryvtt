@@ -1,0 +1,60 @@
+<h2 id="where-user-data">Where Is My Data Stored?</h2>
+<p>In order to protect your data, and to comply with operating system expectations, Foundry VTT secures the data for your Game Worlds, Systems, and Add-on Modules in a separate, user-specific folder stored in referred to by Foundry VTT as the User Data folder. The default application data location for each operating system is the following:</p>
+<p><strong>Windows</strong></p>
+<pre><code class="language-bash">%localappdata%/FoundryVTT</code></pre>
+<p><strong>macOS</strong></p>
+<pre><code class="language-bash">~/Library/Application Support/FoundryVTT</code></pre>
+<p><strong>Linux (in order of availability)</strong></p>
+<pre><code class="language-bash">/home/$USER/.local/share/FoundryVTT
+/home/$USER/FoundryVTT
+/local/FoundryVTT
+</code></pre>
+<h2 class="border" id="userdata">Managing Your User Data</h2>
+<p>Users frequently ask for best practices for managing their existing User Data folders to ensure that they're maintaining good backups of their worlds or in some cases to move their user data to a new location.</p>
+<h4>Regarding File Naming Conventions</h4>
+<p>Since Foundry VTT works as a web server, you should be sure to use directory and file names which conform to web file and URL encoding conventions. You should generally avoid using spaces or special characters as these are likely to cause issues when serving your content to other players. See the <a href="https://developers.google.com/maps/documentation/urls/url-encoding" rel="nofollow" target="_blank">Google URL Guidelines</a> for more detail.</p>
+<h3 id="backup">Backing Up Your User Data</h3>
+<p>The easiest way to backup your User Data folder is to simply copy or create a zip file of your User Data folder in entirety. Our partners over at Encounter Library have produced a short video on this which details the process perfectly: <a href="https://www.youtube.com/watch?v=OmbxMmqNNXU" rel="nofollow" target="_blank">Encounter Library - Backing up your User Data Folder</a></p>
+<h4 id="sync">About Sync Services</h4>
+<p class="note warning">Incorrect configuration of automated backup services can result in permanent data loss.</p>
+<p>The use of data syncing services such as Dropbox, OneDrive, Google Drive, iCloud, and others is attractive as a method to be certain your data is backed up as expected. However, failure to correctly set up these services can prevent Foundry VTT from accessing necessary files in your UserData folder at best, and result in data loss at worst.</p>
+<p>If you are going to set up a data syncing service for your UserData folder, please follow these recommendations:</p>
+<ul>
+<li>Make sure that your sync service is set to <strong>only upload</strong>. Do not set the sync software to download from the service to your UserData folder.</li>
+<li>Backup the Data subfolder of your UserData only.</li>
+<li>Ideally, set the syncing service to only perform the synchronization during a time when you will not be actively using the Foundry VTT software.</li>
+</ul>
+<h3 id="migrate">Moving Your User Data</h3>
+<p>The steps for migrating the User Data folder vary slightly depending on which OS you are using, but can be reduced to the following steps (please note that these steps are over-cautious in the interest of protecting your data):</p>
+<ol>
+<li>Close FVTT if it is open. Open your current User Data path in a file browser.</li>
+<li>Open a second file browser and create a new folder wherever you plan to store your data. This location can be anywhere, but must not be within the Foundry VTT Application folder.</li>
+<li>COPY the Config, Data, and Logs folders from your current User Data folder to your new location.</li>
+<li>Open Foundry VTT and on the configuration tab of the main menu, set your User Data path to the new location and click Save Changes .</li>
+<li>Foundry VTT will shut down. Relaunch it.</li>
+<li>Check to see that your Worlds still appear and that the User Data Path still shows correctly on the Configuration Tab.</li>
+<li>Temporarily move the Data folder from your previous (or default) User Data folder to a new location.</li>
+<li>Close and Relaunch Foundry VTT.</li>
+<li>If your worlds still appear in this list, you have successfully moved your User Data to a new location and you may delete the copy of the Data folder you moved in step 7.</li>
+</ol>
+<h2 class="border">The User Data File Structure</h2>
+<p>The user data folder contains the following basic directory and file structure.</p>
+<ul class="file-structure">
+<li><code>Config/</code> - The configuration directory
+<ul class="file-structure">
+<li><code>options.json</code> - Application configuration options</li>
+</ul>
+</li>
+<li><code>Data/</code> - User data directory
+<ul class="file-structure">
+<li><code>systems/</code> - Installed game systems</li>
+<li><code>modules/</code> - Installed add-on modules</li>
+<li><code>worlds/</code> - Installed game worlds</li>
+</ul>
+</li>
+<li><code>Logs/</code> - Server log files</li>
+</ul>
+<p>Any content stored inside the Data directory is publicly available to be served directly. This is where you should put your content that you intend to use inside the application. You are free to create any folder or directory structure that you want inside this data directory. For example, if you have the following file in your file system:</p>
+<pre><code class="language-plaintext">&lt;User Data Path&gt;/Data/worlds/my-world/maps/dungeons/deadly-dungeon-01.jpg</code></pre>
+<p>When using that map image inside Foundry VTT, you can reference it as a web-accessible URL using the path relative to the Data folder</p>
+<pre><code class="language-plaintext">worlds/my-world/maps/dungeons/deadly-dungeon-01.jpg</code></pre>

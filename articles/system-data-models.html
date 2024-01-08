@@ -1,14 +1,18 @@
-<p>The <code>DataModel</code> class provided as <code>foundry.abstract.DataModel</code> is a powerful tool for defining data schema and functionality that is used throughout Foundry Virtual Tabletop. For an overview of this concept please read the introductory article about the <a href="/article/v10-data-model/" target="_blank">Version 10 Data Model</a> which was written when this architecture was first added to Foundry Virtual Tabletop.</p>
+<p>The <code>TypeDataModel</code> class is a powerful tool for defining data schema, granting system developers access to the powerful and flexible Data Model functionality that is used throughout Foundry Virtual Tabletop. it is provided as <code>foundry.abstract.TypeDataModel</code> and full API documentation is available here @API[classes/foundry.abstract.TypeDataModel,TypeDataModel].</p> 
 
-<p>Data Models are not solely for use by core Document types, but also empower system developers to define such Data Models in order to represent data specific to their systems. Data Models defined in this way receive many of the same benefits as their core API counterparts, including validation on initialization and update, and on-the-fly data migration and coercion. It also allows functionality to be delegated out to these models, reducing the burden on the system's Document implementation to solely house such logic.</p>
+<p>This article focuses on how to utilize Type Data Models for a Game System in Foundry Virtual Tabletop. For more information on Data Models themselves, please refer to the following resources:</p>
+<ul>
+  <li>This <a href="/article/v10-data-model/">article</a> introducing the concept of Data Models (written when this architecture was first added)</li>
+  <li>The @API[classes/foundry.abstract.DataModel,DataModel] API Documentation</li>
+</ul>
 
-<p>This article focuses on how to utilize Data Models for a Game System in Foundry Virtual Tabletop. For more detailed information on Data Models themselves please read the above article or refer to the @API[classes/foundry.abstract.DataModel,DataModel] API Documentation.</p>
+<p class="note"><strong>Note:</strong> Modules have the ability to define data sub-types. For more information about module-level data sub types, please see the <a href="/article/module-sub-types/" target="_blank"> module sub-type article</a>.</p>
 
-<h2 id="definition" class="border">Defining a Data Model</h2>
-<p>Data Models themselves are lightweight classes that can be defined very simply. Here we will take an example system template and construct a corresponding Data Model for it.</p>
+<h2 id="definition" class="border">Defining a Type Data Model</h2>
+<p>Type Data Models themselves are lightweight classes that can be defined very simply. Here we will take an example system template and construct a corresponding Type Data Model for it.</p>
 
-<h4>Data Model</h4>
-<pre><code class="lang-js">class CharacterData extends foundry.abstract.DataModel {
+<h4>Type Data Model</h4>
+<pre><code class="lang-js">class CharacterData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     const fields = foundry.data.fields;
     return {
@@ -38,9 +42,7 @@
   }
 }</code></pre>
 
-<p class="note">If developing for <strong>Version 10</strong>, you may wish to include the <code>static _enableV10Validation = true;</code> property on your DataModel class which enables more strict validation of your defined model fields. If developing for Version 11 or later this property is unnecessary.</p>
-
-<p>With the full schema of your DataModel defined, it becomes unnecessary to define the schema using the <code>template.json</code> file. The only fields necessary in that file are to confirm the document types that your system uses, and which fields require additional server-side sanitization as <code>htmlFields</code>, for example:</p>
+<p>With the full schema of your TypeDataModel defined, it becomes unnecessary to define the schema using the <code>template.json</code> file. The only fields necessary in that file are to confirm the document types that your system uses, and which fields require additional server-side sanitization as <code>htmlFields</code>, for example:</p>
 
 <h4>template.json</h4>
 <pre><code class="lang-json">{
@@ -51,17 +53,17 @@
   }
 }</code></pre>
 
-<h2 id="registration" class="border">Registering a Data Model</h2>
-<p>Once the Data Model is defined, the core API can be made aware of it and will automatically apply the data model to the <code>system</code> field of any registered types.</p>
+<h2 id="registration" class="border">Registering a Type Data Model</h2>
+<p>Once the Type Data Model is defined, the core API can be made aware of it and will automatically apply the Type Data Model to the <code>system</code> field of any registered types.</p>
 
 <p>The following code snippet will register the example <code>CharacterData</code> model to be automatically applied as the <code>system</code> data for every Actor of the <code>character</code> type.</p>
 <pre><code class="lang-js">Hooks.on("init", () => {
-  CONFIG.Actor.systemDataModels.character = CharacterData;
+  CONFIG.Actor.dataModels.character = CharacterData;
 });</code></pre>
 
 <h2 id="migration" class="border">Migrations</h2>
-<p>Migrations and data coercion can be performed before your Data Model is instantiated, allowing legacy data to be converted into a format that the current version of your system understands. Migrations are run when the source data is first retrieved from disk, as well as run on any update deltas before they are applied to the Document.</p>
-<pre><code class="lang-js">class CharacterData extends foundry.abstract.DataModel {
+<p>Migrations and data coercion can be performed before your Type Data Model is instantiated, allowing legacy data to be converted into a format that the current version of your system understands. Migrations are run when the source data is first retrieved from disk, as well as run on any update deltas before they are applied to the Document.</p>
+<pre><code class="lang-js">class CharacterData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     // Omitted for brevity.
   }
@@ -81,9 +83,9 @@
   }
 }</code></pre>
 
-<h2 id="enhancement" class="border">Enhancing a Data Model</h2>
-<p>Data Models can have methods added to them that encapsulate logic relevant to the particular system-specific type of Document that they represent. This allows you to move logic out of the Document implementation and house it in a location that is much more specific to its functionality. The parent Document instance is accessible from within the Data Model's instance methods via <code>this.parent</code>, allowing for more complex interactions and logic.</p>
-<pre><code class="lang-js">class CharacterData extends foundry.abstract.DataModel {
+<h2 id="enhancement" class="border">Enhancing a Type Data Model</h2>
+<p>Type Data Models can have methods added to them that encapsulate logic relevant to the particular system-specific type of Document that they represent. This allows you to move logic out of the Document implementation and house it in a location that is much more specific to its functionality. The parent Document instance is accessible from within the Type Data Model's instance methods via <code>this.parent</code>, allowing for more complex interactions and logic.</p>
+<pre><code class="lang-js">class CharacterData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     // Omitted for brevity.
   }
@@ -110,7 +112,7 @@ game.actors.getName("Character").system.dead;
 <h2 id="resources" class="border">Token Resources</h2>
 <p>When using the System <code>template.json</code>, the properties that can be used for a Token's resource bar are inferred from the template. This works well enough, but it can also include things like derived properties, properties that were intended to be hidden, or otherwise properties that are not suitable or ever useful as a resource bar, making it difficult for a user to locate the actual properties they want.</p>
 
-<p>When using a Data Model for your <code>system</code> data, the core software will no longer attempt to infer which properties can be used as Token resource bars. Instead, you are given full control to tailor this list to whatever makes sense for your System. To do so, you need to modify the <code>CONFIG.Actor.trackableAttributes</code> configuration variable. The below example shows how to configure one resource as a bar attribute, and another as a value attribute.</p>
+<p>When using a Type Data Model for your <code>system</code> data, the core software will no longer attempt to infer which properties can be used as Token resource bars. Instead, you are given full control to tailor this list to whatever makes sense for your System. To do so, you need to modify the <code>CONFIG.Actor.trackableAttributes</code> configuration variable. The below example shows how to configure one resource as a bar attribute, and another as a value attribute.</p>
 
 <pre><code class="lang-js">Hooks.on("init", () => {
   CONFIG.Actor.trackableAttributes = {
@@ -121,8 +123,8 @@ game.actors.getName("Character").system.dead;
   };
 });</code></pre>
 
-<p>For bar attributes, the property supplied must point to some object with both <code>value</code> and <code>max</code> properties, and these properties must both be numbers. For value attributes, the property supplied must simply point to any number. The attributes do not need to exist in your Data Model, they can be properties that are later derived as part of data preparation. If the attribute does not exist in the Data Model or is not a <code>NumericField</code>, then it will not be editable in the Token HUD.</p>
+<p>For bar attributes, the property supplied must point to some object with both <code>value</code> and <code>max</code> properties, and these properties must both be numbers. For value attributes, the property supplied must simply point to any number. The attributes do not need to exist in your Type Data Model, they can be properties that are later derived as part of data preparation. If the attribute does not exist in the Type Data Model or is not a <code>NumericField</code>, then it will not be editable in the Token HUD.</p>
 
 <p>In line with this feature, the signature of <code>TokenDocument.getTrackedAttributes</code> has changed. It will now accept a string value of the <code>type</code> of Actor that the resources should be retrieved for. If the argument is not supplied, and tracked attributes are configured via <code>trackableAttributes</code>, then <code>getTrackedAttributes</code> will return the union of all resources across all configured Actor types. This is useful in cases where the Actor type is not known, such as default token settings.</p>
 
-<p>If your System makes use of Data Models, but you would rather have the core software infer the tracked attributes from your schema, you may opt to not configure any <code>trackableAttributes</code>. Bear in mind that the core API does not know the semantics of any custom <code>DataField</code>s you may be making use of in your Data Model, and so will not be able to inspect it for potential trackable attributes. Additionally, it will be unable to include any properties derived during data preparation, as they will not have corresponding fields in your schema. If you want to tailor the list of trackable attributes in those cases, you must override <code>TokenDocument.getTrackedAttributes</code> yourself. In the majority of cases, we expect that using the <code>trackableAttributes</code> configuration should be a lot simpler.</p>
+<p>If your System makes use of Data Models, but you would rather have the core software infer the tracked attributes from your schema, you may opt to not configure any <code>trackableAttributes</code>. Bear in mind that the core API does not know the semantics of any custom <code>DataField</code>s you may be making use of in your Type Data Model, and so will not be able to inspect it for potential trackable attributes. Additionally, it will be unable to include any properties derived during data preparation, as they will not have corresponding fields in your schema. If you want to tailor the list of trackable attributes in those cases, you must override <code>TokenDocument.getTrackedAttributes</code> yourself. In the majority of cases, we expect that using the <code>trackableAttributes</code> configuration should be a lot simpler.</p>
