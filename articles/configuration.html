@@ -176,13 +176,13 @@ The steps for migrating the User Data folder vary slightly depending on which OS
 <p>Example usage of the command line syntax to launch the application for various environments are:</p>
 
 <h4>Node.js</h4>
-<pre><code class="language-bash">node main.js --port=30000 --world=myworld --dataPath=/local/data/foundryvtt</code></pre>
+<pre><code class="language-bash">node main.js --port=30000 --world=my-world --dataPath=/local/data/foundryvtt</code></pre>
 
 <h4>Electron (Windows)</h4>
-<pre><code class="language-bash">FoundryVTT.exe --port=30000 --world=myworld --dataPath=D:\FoundryVTT</code></pre>
+<pre><code class="language-bash">FoundryVTT.exe --port=30000 --world=my-world --dataPath=D:\FoundryVTT</code></pre>
 
 <h4>Electron (Linux)</h4>
-<pre><code class="language-bash">foundryvtt --port=30000 --world=myworld --dataPath=/local/data/foundryvtt</code></pre>
+<pre><code class="language-bash">foundryvtt --port=30000 --world=my-world --dataPath=/local/data/foundryvtt</code></pre>
 <section class="collapsible"><header class="collapsible-header">Command Line Flag Listing</header>
 	<div class="collapsible-content">
 <dl>
@@ -191,11 +191,12 @@ The steps for migrating the User Data folder vary slightly depending on which OS
 	<dt><code>--port</code></dt>
 	<dd>This specifies the port Foundry will listen on for incoming connections.  If not specified, Foundry will use the port defined in options.json, or <code>30000</code>. This is the port you should use for @Article[port-forwarding].</dd>
 	<dt><code>--world</code></dt>
-	<dd>This allows for a specific world to be opened immediately as Foundry launches.  Note that this option will not work if some setup steps are not completed, such as EULA acceptance.</dd>
+	<dd>This flag allows for a specific world to be opened immediately as Foundry launches. The expected value is the datapath of the world, not the user-facing name of the world. For example, if your campaign was named <code>My PF2E Campaign</code>, Foundry generates a datapath for that world by setting all characters to lowercase and replacing spaces with hyphens, resulting in <code>my-pf2e-campaign</code>. The datapath for a world can be viewed from the Setup screen by right-clicking it and selecting the "Edit World" option. 
+		<br><br>Note that this option will not work if some setup steps are not completed, such as EULA acceptance.</dd>
 	<dt><code>--dataPath</code></dt>
 	<dd>This lets you specify the user data directory that Foundry will load up to source systems, modules, and world data.</dd>
 	<dt><code>--noupnp</code></dt>
-	<dd>This disables universal plug and play.  If this flag is set, port forwarding will need to be set up, or the server Foundry is running on will need to have a public IP in order for Foundry to be externally accessible by your players.</dd>
+	<dd>This disables universal plug and play. If this flag is set, port forwarding will need to be set up, or the server Foundry is running on will need to have a public IP in order for Foundry to be externally accessible by your players.</dd>
 	<dt><code>--noupdate</code></dt>
 	<dd>This disables the package updating system for the core software, preventing Foundry VTT from checking if there are new core software updates available.</dd>
 	<dt><code>--adminPassword</code></dt>
