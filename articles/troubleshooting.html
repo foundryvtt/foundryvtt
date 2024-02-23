@@ -1,7 +1,31 @@
 <h2>Overview</h2>
-<p>This article covers a number of common issues and their solutions. If you are running into issues which are not resolved here, we strongly recommend that you <a href="/contact-us/" target="_blank" rel="nofollow noopener">contact us</a> or join our <a href="https://discord.gg/foundryvtt" target="_blank" rel="nofollow noopener">Discord community</a> for live support.</p>
+<p>This article contains general tips and best practices to use to troubleshoot unexpected Foundry behaviors. It also contains detailed information about a number of common issues and their solutions.</p>
 
-<h2 class="border">Reset Your Administrator Password</h2>
+<h2 class="border" id="tips">General Troubleshooting Tips</h2>
+    <h3>Initial Troubleshooting</h3>
+    <p>When first encountering an unexpected behavior, there are some tried-and-true techniques that can resolve many issues easily or at least help further narrow down what is happening.</p>
+    <dl>
+        <dt>Refresh the affected web browser and/or Foundry</dt>
+            <dd>Occasionally a GM's Foundry client can get out of sync with a player or another similar temporary issue can crop up. Have affected users hard refresh Foundry or their browsers by pressing `Ctrl-F5` and seeing if that resolves the issue.</dd>
+        <dt>Restart the Foundry server</dt>
+            <dd>Sometimes a full Foundry server restart can resolve a temporary issue as well.</dd>
+        <dt>Disable all modules</dt>
+            <dd>Often, a module or a combination of modules is the root cause of an issue rather than Foundry itself. If the issue no longer occurs with all modules disabled, it is a module-related issue. Try enabling modules slowly again until you determine which module (or combination of modules!) is responsible.
+            <br><br>To resolve the module issue, try updating to the latest version of the module. If that does not work, try visiting the module's GitHub or GitLab page or or joining our <a href="https://discord.gg/foundryvtt" target="_blank" rel="nofollow noopener">Discord community and heading to the #module-troubleshooting channel.</a></dt>
+        <dd>Try an "incognito" browser or use a different browser</dd>
+            <dt>Sometimes, a web browser's settings or extensions can cause issues. To eliminate this possibility, pick a different supported web browser (<i><strong>Note:</strong> Opera GX and Safari are not currently supported!</i>). For example, connect using Firefox instead of a Chromium-based browser (Chrome/Opera/Edge), or pick a Chromium browser to try if you are already using Firefox. Using incognito mode delivers many of the same benefits while being a bit easier.</dt>
+        <h3></h3>
+        
+        <dt>Launch the world in Safe Configuration</dt>
+            <dd>If you are having trouble opening your world at all, try launching the world in <a title="How to Launch Foundry in Safe Configuration" href="/article/launch-safe-configuration/" target="_blank" rel="nofollow noopener">Safe Configuration</a>.</dd>
+        <dd>Ask for help</dd>
+            <dt>If you are running into issues which are not resolved here, we strongly recommend that you <a href="/contact-us/" target="_blank" rel="nofollow noopener">contact us</a> or join our <a href="https://discord.gg/foundryvtt" target="_blank" rel="nofollow noopener">Discord community</a> for live support.</dd>
+    </dl>
+    
+<h2 class="border" id="passwords">Passwords and Account Recovery</h2>
+<h2>Troubleshooting Specific Issues</h2>
+
+<h3>Reset Your Administrator Password</h3>
 <p><a title="How to Reset Your Foundry Administrator Password" href="/article/reset-admin-password/" target="_blank" rel="nofollow noopener">How to Reset Your Foundry Administrator Password</a></p>
 <p>This article resolves any of the following issues:</p>
 <ul>
@@ -13,7 +37,7 @@
 </ul>
 <p class="note error">The provided server administrator password is invalid. If you have forgotten your configured password you will need to manually delete the <strong>Config/admin.txt</strong> file from your user data location.</p>
 
-<h2 class="border">Reset All User Passwords in One of Your Worlds</h2>
+<h3 class="border">Reset All User Passwords in One of Your Worlds</h3>
 <p><a title="How to Reset Foundry User Passwords" href="/article/reset-user-passwords/" target="_blank" rel="nofollow noopener">How to Reset Foundry User Passwords</a></p>
 <p>This article resolves any of the following issues:</p>
 <ul>
@@ -21,21 +45,14 @@
     <li>I can't remember my GM password for a game world.</li>
     <li>I don't want passwords on any users and want to clear them quickly.</li>
 </ul>
-
-<h2 class="border">Launch Your World in a Safe Configuration</h2>
-<p><a title="How to Launch Foundry in Safe Configuration" href="/article/launch-safe-configuration/" target="_blank" rel="nofollow noopener">How to Launch Foundry in Safe Configuration</a></p>
-<p>This article resolves any of the following issues:</p>
-<ul>
-    <li>My game world isn't launching properly.</li>
-    <li>I want to disable all of the modules in my game world.</li>
-    <li>My game world has an audio track playing that won't stop.</li>
-</ul>
-
-<h2 class="border">Manage User Data</h2>
-<p><a title="Managing User Data" href="/article/user-data/" target="_blank" rel="nofollow noopener">Managing User Data</a></p>
-<p>This article resolves any of the following issues:</p>
-<ul>
-    <li>I want to add new material to my user data.</li>
-    <li>I want to manually install a game module or game world.</li>
-    <li>I want to back up my game worlds or other user data content.</li>
-</ul>
+<h3>Regain Access to your Foundry VTT Website Account</h3>
+<p>If you are not receiving an email after using the reset password link in the Foundry website, the usual cause is that the email you are checking is not the email that is associated with the account. Try to think of any other email accounts that your Foundry account could be linked to and check those as well.</p>
+<p>If necessary, we can restore access to your account by emailing <a href="mailto:support@foundryvtt.com">support@foundryvtt.com</a>. Include as many of the following details as you can:</p>
+<ol>
+    <li>Your username (not the display name, which is different)</li>
+    <li>The email address you used to use</li>
+    <li>The date when you purchased Foundry Virtual Tabletop</li>
+    <li>Your software license key (if you still know it)</li>
+    <li>The last 4 digits of the credit card used to make the purchase</li>
+    <li>The cardholder name of the credit card used to make the purchase</li>
+</ol>
