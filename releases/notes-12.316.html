@@ -1,0 +1,251 @@
+<header id="update-header">
+    <h2 class="border" id="update-title">Foundry Virtual Tabletop - Version 12 - Prototype 1 Release Notes</h2>
+    <figure id="update-banner">
+        <img alt="Release Notes for Foundry Virtual Tabletop Version 12 Prototype 1" src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_70/screen/v12-prototype-1-release-banner-2023-12-12.webp 
+        " title="Foundry VTT - Version 12 - Prototype 1 Release Notes"/>
+        <figcaption>Welcome to the Foundry Virtual Tabletop V12 - Prototype 1 update notes</figcaption>
+    </figure>
+</header>
+
+<section id="update-overview">
+    <p class="note info">We strongly recommend users considering testing V12 Prototype 1 upgrade first to V11.315 to take advantage of the new backup and pre-flight update check features included in that version. These should allow for the safe restoration of data in V12 migrations.</p>
+
+    <p>We're extremely excited to share this update with the community. Version 12 Prototype 1 brings a number of new features, bug fixes, and improvements to Foundry Virtual Tabletop and is the first step in our development cycle for Version 12. Our overall goals for Version 12 include new features to make the canvas even more powerful, continuing our database improvements from V11 with the updated <code>ClientDatabaseBackend</code>, new sound features as part of our new audio module, and of course a ton of user experience improvements and bug fixes for good measure. Please check out the full list of changes below for a detailed breakdown of what was changed in this update!</p>
+
+    <p class="note warning"><strong>WARNING:</strong> Updates on the Prototype channel provide the implementation of major new features which are likely to introduce unforeseen bugs, breakages to existing game systems or modules, or other problems which will be disruptive to the usage of the software. Do not install this update unless you are doing so for the specific purposes of testing, it is not intended for use in 'live game' scenarios. The purpose of Prototype builds are to allow new experimental features to be tested and to help developers to begin the process of updating packages which are impacted by these changes. If you choose to update to this version you expose yourself to serious risk of having a bad experience. Please take this warning to heart.</p>
+
+    <h2 class="border">Update Highlights</h2>
+
+    <h3>Yes We Canvas</h3>
+    <p>The team has been hard at work improving the canvas and have added a ton of new features:
+        </p><ul>
+            <li>Scenes now support a new Environment Ambience Configuration which includes options for configuring the base and darkness ambience tints, light filters, and other ambience lighting options!</li>
+            <li>Overhead Tiles now fade on hover making it easier to see what's underneath a Tile.</li>
+            <li>Support has been added for <code>elevation</code> to <code>Drawing</code>, <code>Tile</code>, <code>MeasuredTemplate</code>, <code>Note</code>, <code>AmbientLight</code>, and <code>AmbientSound</code> documents.</li>
+            <li>A new framework for audio effect filters has been introduced, allowing filters to be attached to <code>AmbientSound</code> placeables or other Sound instances.</li>
+            <li>Initial support for Scene Regions has been implemented which provides a data model that we hope developers will help us improve so it can work for their use cases.</li>
+        </ul>
+
+    <h3>Going Off the Grid</h3>
+    <p>The grid is now a shader, which makes a number of new features possible in the core software and for module developers. The team have also worked diligently to improve how our grids work, are calculated, and improved navigation for grid squares and hexes. This should be a huge boon to users of hex and square grids alike.</p>
+
+    <h3>Database of Operations</h3>
+    <p>As part of our architectural improvements for Prototype 1, the team also made several enhancements to the <code>DatabaseBackend</code> by substantially improving documentation regarding parameters of database operations, providing more type information, and expanding the database transaction workflow to offer batch-level pre and post functions that can modify, react to, or wholesale reject sets of proposed changes.</p>
+</section>
+
+<section id="breaking">
+<h2 class="section-header border">Breaking Changes</h2>
+    <h3 class="category-header" id="breaking-architecture">Architecture and Infrastructure</h3>
+    <ul>
+        <li>Foundry VTT now requires Node.js 18+ as a minimum requirement, dropping support for Node 16. <a href="https://github.com/foundryvtt/foundryvtt/issues/9996" rel="nofollow" target="_blank">(9996)</a></li>
+    </ul>
+    <h3 class="category-header" id="breaking-docs">Documents and Data</h3>
+    <ul>
+        <li>Breaking changes and deprecations from V10 and earlier which have reached the end of their compatibility period are now finalized. <a href="https://github.com/foundryvtt/foundryvtt/issues/10164" rel="nofollow" target="_blank">(10164)</a></li>
+        <li>The return type of <code>AsyncWorker</code> functions has been changed. It should now return <code>[result: any, transfer?: Array&lt;TransferableObject&gt;]</code> <a href="https://github.com/foundryvtt/foundryvtt/issues/9907" rel="nofollow" target="_blank">(9907)</a></li>
+        <li>We have renamed <code>ChatMessage#user</code> to <code>ChatMessage#author</code>, and <code>MeasuredTemplateDocument#user</code> to <code>MeasuredTemplateDocument#author</code>.  <a href="https://github.com/foundryvtt/foundryvtt/issues/9843" rel="nofollow" target="_blank">(9843)</a></li>
+        <li>Added standardized <code>renderContext</code> and <code>renderData</code> to <code>Application#render</code> and <code>Application#close</code> calls made in <code>Document#_onCreate</code>, <code>Document#_onUpdate</code>, and <code>Document#_onDelete</code> callbacks. <a href="https://github.com/foundryvtt/foundryvtt/issues/10244" rel="nofollow" target="_blank">(10244)</a></li>
+        <li><code>AngleField#base</code> has been deprecated in favor of <code>AngleField#normalize</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/9970" rel="nofollow" target="_blank">(9970)</a></li>
+        <li>The value of <code>ColorField</code> is now a <code>Color</code> instead of a string and <code>ColorField</code> can be initialized with any valid value that can be passed to <code>Color.from</code> <a href="https://github.com/foundryvtt/foundryvtt/issues/10200" rel="nofollow" target="_blank">(10200)</a></li>
+        <li><code>FormDataExtended</code> now includes readonly fields by default. It is intended for forms to use the readonly attribute for fields which should not be editable by the user but should be included in the submitted form data structure. <a href="https://github.com/foundryvtt/foundryvtt/issues/9973" rel="nofollow" target="_blank">(9973)</a></li>
+        <li>In the interest of standardization, <code>Math.clamped</code> has been deprecated in favor of <code>Math.clamp</code>, <code>Math.roundDecimals</code> has been deprecated without replacement, the <code>base</code> paramater of <code>Math.normalizeDegrees</code> has also been deprecated. Additionally, <code>Math.toRadians</code> should now calculate results correctly and <code>Math.normalizeRadians</code> no longer enters an infinite loop when provided with large arguments. <a href="https://github.com/foundryvtt/foundryvtt/issues/9966" rel="nofollow" target="_blank">(9966)</a></li>
+        <li>Provide numerous improvements to the <code>DatabaseBackend</code> interface. <a href="https://github.com/foundryvtt/foundryvtt/issues/10214" rel="nofollow" target="_blank">(10214)</a></li>
+    </ul>
+    <h3 class="category-header" id="breaking-apps">Applications and User Interface</h3>
+    <ul>
+        <li>The canvas, ruler, and interaction layers now capture mouse events outside of the canvas bounds, allowing users to pan the canvas by dragging the region outside of the gridded canvas area. <a href="https://github.com/foundryvtt/foundryvtt/issues/9925" rel="nofollow" target="_blank">(9925)</a></li>
+        <li>The Audio API has received numerous improvements, including the consolidation of AudioContainer into Sound and much more. Please review the following GitHub issue for more information: <a href="https://github.com/foundryvtt/foundryvtt/issues/10092" rel="nofollow" target="_blank">(10092)</a></li>
+    </ul>
+    <h3 class="category-header" id="breaking-canvas">The Game Canvas</h3>
+    <ul>
+        <li>We have standardized the <code>isOwner</code> property for all canvas placeable objects. As a result, <code>Token#owner</code> and <code>MeasuredTemplate#owner</code> have been deprecated. <a href="https://github.com/foundryvtt/foundryvtt/issues/9842" rel="nofollow" target="_blank">(9842)</a></li>
+        <li>Removed the <code>createEffectsCanvasGroup</code> hook event. <a href="https://github.com/foundryvtt/foundryvtt/issues/9900" rel="nofollow" target="_blank">(9900)</a></li>
+        <li><code>CanvasLayer#_tearDown</code> is no longer called before the first <code>CanvasLayer#_draw</code> call. <a href="https://github.com/foundryvtt/foundryvtt/issues/9901" rel="nofollow" target="_blank">(9901)</a></li>
+        <li><code>BaseCanvasMixin</code> has been renamed to <code>CanvasGroupMixin</code>, and now offers <code>CanvasGroupMixin#_draw</code> and <code>CanvasGroupMixin#_tearDown</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/9903" rel="nofollow" target="_blank">(9903)</a></li>
+        <li>The canvas grid is no longer rendered using <code>PIXI.Graphics</code>, instead favoring a new method using <code>GridMesh</code> and <code>GridShader</code> which offers better performance and more flexibility. <a href="https://github.com/foundryvtt/foundryvtt/issues/10003" rel="nofollow" target="_blank">(10003)</a></li>
+        <li>Significant changes have been made to the <code>GridHex</code> class in order to provide V12 grid compatibility. Please review the following GitHub issue for more information: <a href="https://github.com/foundryvtt/foundryvtt/issues/10082" rel="nofollow" target="_blank">(10082)</a></li>
+        <li>A significant number of changes have been made to the Grid API V2, please review the following GitHub issue for more information: <a href="https://github.com/foundryvtt/foundryvtt/issues/10088" rel="nofollow" target="_blank">(10088)</a></li>
+        <li><code>Scene#grid</code> is now a <code>BaseGrid</code> instance. <a href="https://github.com/foundryvtt/foundryvtt/issues/10089" rel="nofollow" target="_blank">(10089)</a></li>
+        <li>Numerous changes have been made to Primary Canvas Objects, please review the following GitHub issue for more information: <a href="https://github.com/foundryvtt/foundryvtt/issues/10104" rel="nofollow" target="_blank">(10104)</a></li>
+        <li>Legacy hex grid migration has improved significantly, please see the following GitHub issue for more information: <a href="https://github.com/foundryvtt/foundryvtt/issues/10132" rel="nofollow" target="_blank">(10132)</a></li>
+        <li>Added <code>Note#_refreshTooltip</code> for controlling refresh of a rendered tooltip. The refresh part of <code>Note#_drawTooltip</code> has been moved into this function. <a href="https://github.com/foundryvtt/foundryvtt/issues/10232" rel="nofollow" target="_blank">(10232)</a></li>
+    </ul>
+    <h3 class="category-header" id="breaking-packages">Package Development</h3>
+    <ul>
+        <li>To prevent packages from containing invalid compendium names, compendium name fields are now validated against the same rules used for package IDs. <a href="https://github.com/foundryvtt/foundryvtt/issues/8282" rel="nofollow" target="_blank">(8282)</a></li>
+        <li>We have deprecated and added a number of grid-related changes to the V12 System manifest schema. Please review the list of changes here: <a href="https://github.com/foundryvtt/foundryvtt/issues/9999" rel="nofollow" target="_blank">(9999)</a></li>
+    </ul>
+</section>
+<section id="features">
+<h2 class="section-header border">New Features</h2>
+    <h3 class="category-header" id="features-architecture">Architecture and Infrastructure</h3>
+    <ul>
+        <li>The package dependency Yauzl has been swapped out for Yauzl-promise to resolve some minor tech-debt issues with package creation. <a href="https://github.com/foundryvtt/foundryvtt/issues/9802" rel="nofollow" target="_blank">(9802)</a></li>
+        <li>Updated a number of package dependencies for Version 12 Prototype 1. <a href="https://github.com/foundryvtt/foundryvtt/issues/10081" rel="nofollow" target="_blank">(10081)</a></li>
+        <li>Added <code>ProgressEmitter</code> and <code>ProgressReceiver</code> classes to encapsulate the progress of websocket communications between server and client on the setup screen. <a href="https://github.com/foundryvtt/foundryvtt/issues/10190" rel="nofollow" target="_blank">(10190)</a></li>
+        <li>An unnecessary <code>Document#toObject</code> call found in server-side batch update and delete transactions has been eliminated, improving performance for database round trips significantly. <a href="https://github.com/foundryvtt/foundryvtt/issues/10239" rel="nofollow" target="_blank">(10239)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-docs">Documents and Data</h3>
+    <ul>
+        <li>Drawing Documents now have standard <code>elevation</code> and <code>sort</code> fields so they can be perfectly organized relative to other objects in the Primary Canvas Group. <a href="https://github.com/foundryvtt/foundryvtt/issues/8498" rel="nofollow" target="_blank">(8498)</a></li>
+        <li>Scenes now support a new Environment Ambience Configuration which includes options for configuring the base and darkness ambience tints, light filters, and other ambience lighting options! <a href="https://github.com/foundryvtt/foundryvtt/issues/9683" rel="nofollow" target="_blank">(9683)</a></li>
+        <li>Scene fog data is now a specialized schema. <a href="https://github.com/foundryvtt/foundryvtt/issues/9904" rel="nofollow" target="_blank">(9904)</a></li>
+        <li>The Global Illumination light source now has a data schema attached to the Scene, allowing for its configuration to be changed via the API. <a href="https://github.com/foundryvtt/foundryvtt/issues/9836" rel="nofollow" target="_blank">(9836)</a></li>
+        <li><code>ColorField</code> values are now coerced to lowercase to ensure consistency. <a href="https://github.com/foundryvtt/foundryvtt/issues/9851" rel="nofollow" target="_blank">(9851)</a></li>
+        <li>Added the <code>elevation</code> field to <code>Drawing</code>, <code>Tile</code>, <code>MeasuredTemplate</code>, <code>Note</code>, <code>AmbientLight</code>, and <code>AmbientSound</code> documents. Added the <code>sort</code> field to <code>Drawing</code>, <code>Tile</code>, <code>MeasuredTemplate</code>, <code>Note</code>, and <code>Token</code> documents. <a href="https://github.com/foundryvtt/foundryvtt/issues/10218" rel="nofollow" target="_blank">(10218)</a></li>
+        <li>Added a framework for handling server-side migrations that ensures retired source-only migrations are persisted whenever a database is connected. <a href="https://github.com/foundryvtt/foundryvtt/issues/10257" rel="nofollow" target="_blank">(10257)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-apps">Applications and User Interface</h3>
+    <ul>
+        <li>Non-Gamemaster users may now hold Shift+Left-Click to generate a ping which pans their own view, but behaves as a regular ping for other users. <a href="https://github.com/foundryvtt/foundryvtt/issues/8960" rel="nofollow" target="_blank">(8960)</a></li>
+        <li>Light sources with an elevation above a roof Tile no longer illuminate the space below the roof. <a href="https://github.com/foundryvtt/foundryvtt/issues/8996" rel="nofollow" target="_blank">(8996)</a></li>
+        <li><code>MouseInteractionManager</code> now includes tracking for the <code>GRABBED</code> state, indicating whether an object was clicked and can be dragged. This provides better support for drag-and-drop workflows. <a href="https://github.com/foundryvtt/foundryvtt/issues/9841" rel="nofollow" target="_blank">(9841)</a></li>
+        <li>The Combat Tracker now offers a new <code>pan to combatant</code> control icon for players. <a href="https://github.com/foundryvtt/foundryvtt/issues/10242" rel="nofollow" target="_blank">(10242)</a></li>
+        <li>Configuring the set of status conditions provided by an Active Effect now uses a multi-select UX. <a href="https://github.com/foundryvtt/foundryvtt/issues/10122" rel="nofollow" target="_blank">(10122)</a></li>
+        <li>The Token HUD now offers "Bring to Front" and "Send to Back" buttons to help handle Token stack cycling. <a href="https://github.com/foundryvtt/foundryvtt/issues/10191" rel="nofollow" target="_blank">(10191)</a></li>
+        <li>Added keybindings (using <span class="key">[</span> and <span class="key">]</span>) for controlling the z-index of placeable objects, specifically avoiding keys near WASD to prevent accidental triggering. <a href="https://github.com/foundryvtt/foundryvtt/issues/10222" rel="nofollow" target="_blank">(10222)</a></li>
+        <li>Holding the target key (T by default) while performing a drag selection operation now targets all Tokens contained in the selection box. <a href="https://github.com/foundryvtt/foundryvtt/issues/9275" rel="nofollow" target="_blank">(9275)</a></li>
+        <li>The 'clear search field' button has had its hitbox expanded and no longer requires pin-point precision to click it. <a href="https://github.com/foundryvtt/foundryvtt/issues/9086" rel="nofollow" target="_blank">(9086)</a></li>
+        <li>We've made a number of improvements to folder styles, including the addition of a shadow to folder titles, border indicators for directory items, and more! <a href="https://github.com/foundryvtt/foundryvtt/issues/9648" rel="nofollow" target="_blank">(9648)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-canvas">The Game Canvas</h3>
+    <ul>
+        <li>Overhead Tiles now fade on mouse hover, allowing for users to more easily see what is underneath the Tile. <a href="https://github.com/foundryvtt/foundryvtt/issues/10143" rel="nofollow" target="_blank">(10143)</a></li>
+        <li>Roof Tiles over invisible walls and open doors no longer make those wall segments block sight for Tokens that are not under that roof. <a href="https://github.com/foundryvtt/foundryvtt/issues/8888" rel="nofollow" target="_blank">(8888)</a></li>
+        <li>The Scene ambience lighting configuration now supports both a night and day cycle. <a href="https://github.com/foundryvtt/foundryvtt/issues/10125" rel="nofollow" target="_blank">(10125)</a></li>
+        <li>Scene configuration now provides an option to lock the darkness level, preventing it from being changed. <a href="https://github.com/foundryvtt/foundryvtt/issues/10194" rel="nofollow" target="_blank">(10194)</a></li>
+        <li>We now persist the Token stacking order, storing the sort order in the data model and allowing all clients to share a consistent view of Token stacking. <a href="https://github.com/foundryvtt/foundryvtt/issues/6751" rel="nofollow" target="_blank">(6751)</a></li>
+        <li>Hex grids now use a Token's border polygon as its hitArea rather than the previous square default. <a href="https://github.com/foundryvtt/foundryvtt/issues/8243" rel="nofollow" target="_blank">(8243)</a></li>
+        <li>Tokens on hex-grid scenes now offer specific configuration options allowing users to choose between different hexagonal Token shapes, for more fine-grained control over the appearance and orientation of Token shapes. <a href="https://github.com/foundryvtt/foundryvtt/issues/10144" rel="nofollow" target="_blank">(10144)</a></li>
+        <li>Added <code>SquareGrid#diagonals</code> and the Square Grid Diagonals (<code>core.gridDiagonals</code>) world setting which can be leveraged by systems to more easily configure the diagonal movement rules for square grids. <a href="https://github.com/foundryvtt/foundryvtt/issues/9998" rel="nofollow" target="_blank">(9998)</a></li>
+        <li>The initial cleaning constraint on Token position has been relaxed, such that only the Token center must be within the canvas bounds. <a href="https://github.com/foundryvtt/foundryvtt/issues/10173" rel="nofollow" target="_blank">(10173)</a></li>
+        <li>We have relaxed some restrictions on the width of Measured Templates to allow cases where the width may need to be a non-integer. <a href="https://github.com/foundryvtt/foundryvtt/issues/8723" rel="nofollow" target="_blank">(8723)</a></li>
+        <li>The center point of larger Tokens in hexagonal grids is now the centroid of the hexagonal shape, providing a more visually consistent hexagonal appearance. <a href="https://github.com/foundryvtt/foundryvtt/issues/10151" rel="nofollow" target="_blank">(10151)</a></li>
+        <li>Small Tokens now snap to grid space centers on scenes with square grids. <a href="https://github.com/foundryvtt/foundryvtt/issues/10266" rel="nofollow" target="_blank">(10266)</a></li>
+        <li>Authors of a Drawing may now toggle its locked and hidden state. Hidden Drawings now remain visible to their author. <a href="https://github.com/foundryvtt/foundryvtt/issues/9850" rel="nofollow" target="_blank">(9850)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-packages">Package Development</h3>
+    <ul>
+        <li>We've refactored package dependency management to better handle package dependency inheritance. As a result, Module Dependencies now dynamically adjust to user input and recalculate dependencies as required. <a href="https://github.com/foundryvtt/foundryvtt/issues/9725" rel="nofollow" target="_blank">(9725)</a>, <a href="https://github.com/foundryvtt/foundryvtt/issues/9762" rel="nofollow" target="_blank">(9762)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-i18n">Localization and Accessibility</h3>
+    <ul>
+        <li>Range inputs are now highlighted when hovered or focused to standardize their appearance with other types of input. <a href="https://github.com/foundryvtt/foundryvtt/issues/9669" rel="nofollow" target="_blank">(9669)</a></li>
+    </ul>
+</section>
+<section id="api">
+<h2 class="section-header border">API Improvements</h2>
+    <h3 class="category-header" id="api-docs">Documents and Data</h3>
+    <ul>
+        <li>For use by Foundry VTT core software developers only, we now support defining certain data model fields which are only editable by a GM user regardless of other permissions. <a href="https://github.com/foundryvtt/foundryvtt/issues/9613" rel="nofollow" target="_blank">(9613)</a></li>
+        <li>The new <code>DocumentUUIDField()</code> StringField subclass allows validation as a UUID string, resolving to either world or compendium content. <a href="https://github.com/foundryvtt/foundryvtt/issues/9736" rel="nofollow" target="_blank">(9736)</a></li>
+        <li><code>randomID</code> now uses <code>crypto.getRandomValues</code> instead of <code>Math.random</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/9844" rel="nofollow" target="_blank">(9844)</a></li>
+        <li>Added <code>ClientDocument.fromImport</code>, which can be used to import document data from a previous core version of Foundry VTT. <a href="https://github.com/foundryvtt/foundryvtt/issues/10100" rel="nofollow" target="_blank">(10100)</a></li>
+        <li>Added <code>TypedSchemaField</code> which can be used to represent multiple schemas. Please see the following GitHub issue for more information: <a href="https://github.com/foundryvtt/foundryvtt/issues/10192" rel="nofollow" target="_blank">(10192)</a></li>
+        <li>Added <code>JournalPageSheet#_closeView</code> which is called whenever the view mode of that sheet is closed, allowing subclasses to define tear-down behavior for custom Journal pages. <a href="https://github.com/foundryvtt/foundryvtt/issues/10230" rel="nofollow" target="_blank">(10230)</a></li>
+        <li>Added a new constructor parameter to <code>DataField</code> class which defines field context, supporting the assignment of field <code>name</code> or <code>parent</code> at constructor-time <a href="https://github.com/foundryvtt/foundryvtt/issues/10238" rel="nofollow" target="_blank">(10238)</a></li>
+        <li>Added <code>options</code> parameter to <code>Actor#getTokenDocument</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/10249" rel="nofollow" target="_blank">(10249)</a></li>
+        <li>Added <code>anchorX</code>, <code>anchorY</code>, <code>fit</code>, and <code>alphaThreshold</code> fields to <code>TextureData</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/10252" rel="nofollow" target="_blank">(10252)</a></li>
+        <li>The database transaction workflow has expanded and now offers batch-level "pre" and "post" functions that can modify, react to, or wholesale reject sets of proposed changes. <a href="https://github.com/foundryvtt/foundryvtt/issues/9740" rel="nofollow" target="_blank">(9740)</a></li>
+        <li>We have added the new utility function <code>foundry.utils.EventEmitterMixin</code> which allows event-emission behavior to be added to any class. <a href="https://github.com/foundryvtt/foundryvtt/issues/10097" rel="nofollow" target="_blank">(10097)</a></li>
+    </ul>
+    <h3 class="category-header" id="api-apps">Applications and User Interface</h3>
+    <ul>
+        <li>Scenes can now contain "Scene Regions" as an embedded Document and Placeable Object type, allowing users to define geometric regions with sub-types which determine their behavior. Scene Regions haven't been completed yet. This is only the first incomplete draft of the data model for Prototype 1. <a href="https://github.com/foundryvtt/foundryvtt/issues/9772" rel="nofollow" target="_blank">(9772)</a></li>
+        <li>Added a new <code>TokenDocument#locked</code> field which allows individual Tokens to be locked to prevent them from moving or rotating via user interaction. <a href="https://github.com/foundryvtt/foundryvtt/issues/10165" rel="nofollow" target="_blank">(10165)</a></li>
+        <li>A new framework for audio effect filters has been introduced, allowing filters to be attached to AmbientSound placeables or other Sound instances. <a href="https://github.com/foundryvtt/foundryvtt/issues/10152" rel="nofollow" target="_blank">(10152)</a></li>
+        <li>The <code>AudioHelper</code> class now supports Audio Sprites, using <code>playAudioSprite(source, sprite, selfVolume)</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/5632" rel="nofollow" target="_blank">(5632)</a></li>
+        <li>The API ergonomics of starting, stopping, and restarting a Sound that uses an <code>AudioBufferSourceNode</code> have been improved and now automatically re-construct the buffer node in the background. <a href="https://github.com/foundryvtt/foundryvtt/issues/7427" rel="nofollow" target="_blank">(7427)</a></li>
+        <li><code>AmbientSound</code> placeables now fully stop playback when their source is no longer audible rather than simply setting their playback volume to zero. <a href="https://github.com/foundryvtt/foundryvtt/issues/10265" rel="nofollow" target="_blank">(10265)</a></li>
+        <li><code>SoundsLayer#playAtPosition</code> adds API support for playing one-shot environmental sound effects at a specific position within the world. Door sounds now use this method, making door sounds local so that they are only heard by nearby controlled Tokens. <a href="https://github.com/foundryvtt/foundryvtt/issues/10153" rel="nofollow" target="_blank">(10153)</a></li>
+        <li>We have added experimental custom <code>HTMLElement</code> support for &lt;multi-select&gt; and &lt;multi-checkbox&gt; elements. <a href="https://github.com/foundryvtt/foundryvtt/issues/9830" rel="nofollow" target="_blank">(9830)</a></li>
+        <li>Add a new custom range <code>HTMLElement</code> for Hue which can be used by package developers to present a hue slider for color selection. <a href="https://github.com/foundryvtt/foundryvtt/issues/9987" rel="nofollow" target="_blank">(9987)</a></li>
+        <li>Added a new <code>@Embed</code> enricher which can be used to embed the HTML representation of a Document within other content, including <code>JournalPage</code>s of the type <code>text</code> or <code>image</code>, as well as <code>RollTable</code> documents. <a href="https://github.com/foundryvtt/foundryvtt/issues/10262" rel="nofollow" target="_blank">(10262)</a></li>
+        <li>When using custom enrichers, an enricher which replaces the entire contents of its parent element can now be moved out of its parent element. <a href="https://github.com/foundryvtt/foundryvtt/issues/10256" rel="nofollow" target="_blank">(10256)</a></li>
+        <li>Added <code>once</code> option to <code>foundry.utils.logCompatibilityWarning</code> to reduce the amount of duplicate deprecation warnings that are logged. <a href="https://github.com/foundryvtt/foundryvtt/issues/10250" rel="nofollow" target="_blank">(10250)</a></li>
+    </ul>
+    <h3 class="category-header" id="api-canvas">The Game Canvas</h3>
+    <ul>
+        <li>The auto-fading API now supports Overhead Tiles, providing an option to control the fading behavior of these Tiles for GMs. <a href="https://github.com/foundryvtt/foundryvtt/issues/9829" rel="nofollow" target="_blank">(9829)</a></li>
+        <li>Added the new Hook events <code>drawGroup</code> and <code>tearDownGroup</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/9899" rel="nofollow" target="_blank">(9899)</a></li>
+        <li>The <code>AdaptiveFXAA</code> filter may now be enabled or disabled via the new <code>fxaa</code> property of <code>Canvas#blurOptions</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/9915" rel="nofollow" target="_blank">(9915)</a></li>
+        <li><code>OutlineOverlayFilter#animate</code> has been deprecated in favor of <code>OutlineOverlayFilter#animated</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/9967" rel="nofollow" target="_blank">(9967)</a></li>
+        <li>Tokens configuration now supports an "image fit" mode and an anchor setting, allowing fine-grain control over how a Token image is scaled and positioned within its bounds. <a href="https://github.com/foundryvtt/foundryvtt/issues/9971" rel="nofollow" target="_blank">(9971)</a></li>
+        <li>We have added a new ambience filter for applying post-processing effects to the primary canvas group. <a href="https://github.com/foundryvtt/foundryvtt/issues/9988" rel="nofollow" target="_blank">(9988)</a></li>
+        <li>The new <code>BaseGrid#getDirectPath</code> returns a path (a sequence of grid offsets) offering the shortest, most direct path through a given set of waypoints. This function does not consider walls or other obstacles. <a href="https://github.com/foundryvtt/foundryvtt/issues/10001" rel="nofollow" target="_blank">(10001)</a></li>
+        <li>The <code>SpriteMesh</code> class now supports a <code>padding</code> property similar to the one used by <code>PIXI.Filter</code>. This property can be used to extend the space accessible to shaders allowing them to extend beyond the natural bounds of the sprite asset. <a href="https://github.com/foundryvtt/foundryvtt/issues/10002" rel="nofollow" target="_blank">(10002)</a></li>        
+        <li>Added support for basis universal supercompressed GPU texture format. <a href="https://github.com/foundryvtt/foundryvtt/issues/10017" rel="nofollow" target="_blank">(10017)</a></li>
+        <li>Added <code>HexagonalGrid#getCube</code> which returns the integer cube coordinates <code>{q, r, s}</code> of the hexagon containing the given coordinates. <a href="https://github.com/foundryvtt/foundryvtt/issues/10018" rel="nofollow" target="_blank">(10018)</a></li>
+        <li>The <code>PlaceablesLayer</code> and <code>PrimaryCanvasGroup</code> quadtree are now cleared during the <code>_tearDown</code> instead of the <code>_draw</code> workflow. <a href="https://github.com/foundryvtt/foundryvtt/issues/10019" rel="nofollow" target="_blank">(10019)</a></li>
+        <li>We now provide alpha map compatibility through <code>OccludableObject</code> and the use of sprite sheets. <a href="https://github.com/foundryvtt/foundryvtt/issues/10020" rel="nofollow" target="_blank">(10020)</a></li>
+        <li>The Primary Canvas Object framework has received numerous overall improvements, and now takes into account additional data such as anchor and pivot. <a href="https://github.com/foundryvtt/foundryvtt/issues/10028" rel="nofollow" target="_blank">(10028)</a></li>
+        <li>Added <code>unclickLeft</code> and <code>unclickRight</code> events to <code>MouseInteractionManager</code>. Added <code>PlaceableObject#_onUnclickLeft</code> and <code>PlaceableObject#_onUnclickRight</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/10064" rel="nofollow" target="_blank">(10064)</a></li>
+        <li>Weather shaders and filters now take into account a terrain texture's UV coordinate. <a href="https://github.com/foundryvtt/foundryvtt/issues/10103" rel="nofollow" target="_blank">(10103)</a></li>
+        <li>The <code>data</code> object has been removed from all Primary Canvas Object classes. <a href="https://github.com/foundryvtt/foundryvtt/issues/10105" rel="nofollow" target="_blank">(10105)</a></li>
+        <li>A new subclass (<code>ObservableTransform</code>) has been added to <code>PIXI.Transform</code>, designed to allow our Primary Canvas Objects to efficiently monitor changes in properties that may impact bounds and/or occlusion. <a href="https://github.com/foundryvtt/foundryvtt/issues/10108" rel="nofollow" target="_blank">(10108)</a></li>
+        <li>Primary Canvas Object handling has been refactored to enhance the computation of bounds. <a href="https://github.com/foundryvtt/foundryvtt/issues/10111" rel="nofollow" target="_blank">(10111)</a></li>
+        <li>We have improved the occlusion workflow and increased control over occlusion alpha. <a href="https://github.com/foundryvtt/foundryvtt/issues/10114" rel="nofollow" target="_blank">(10114)</a></li>
+        <li><code>SceneDimensions</code> now includes data values for <code>rows</code>, <code>columns</code>, and <code>units</code>.  <a href="https://github.com/foundryvtt/foundryvtt/issues/10174" rel="nofollow" target="_blank">(10174)</a></li>
+        <li>We have added the new <code>PlaceableObject#hasActiveHUD</code> function which returns true if the layer has a HUD element and the placeable is bound to this HUD currently. <a href="https://github.com/foundryvtt/foundryvtt/issues/10180" rel="nofollow" target="_blank">(10180)</a></li>
+        <li><code>AbstractBaseShader</code> now offers a <code>_configure</code> method for a one-time/ponctual initialization and <code>BaseSamplerShader</code> with texture/tint update handlers. <a href="https://github.com/foundryvtt/foundryvtt/issues/10193" rel="nofollow" target="_blank">(10193)</a></li>
+        <li><code>SpriteMesh</code> and <code>QuadMesh</code> have been refactored and are now subclassed from <code>PIXI.Mesh</code> to <code>PIXI.Container</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/10196" rel="nofollow" target="_blank">(10196)</a></li>
+        <li>Added <code>BaseGrid#getShiftedOffset</code>, <code>BaseGrid#getShiftedPoint</code>, and <code>HexagonalGrid#getShiftedCube</code>. Deprecated <code>BaseGrid#shiftPosition</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/10078" rel="nofollow" target="_blank">(10078)</a></li>
+        <li>Added <code>HexagonalGrid#pointToCube</code>, <code>HexagonalGrid#cubeToPoint</code>, and <code>HexagonalGrid.cubeRound</code> <a href="https://github.com/foundryvtt/foundryvtt/issues/10085" rel="nofollow" target="_blank">(10085)</a></li>
+        <li>Added <code>HexagonalGrid#offsetToCube</code> and <code>HexagonalGrid#cubeToOffset</code>. Deprecated <code>HexagonalGrid.offsetToCube</code> and Deprecated <code>HexagonalGrid.cubeToOffset</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/10086" rel="nofollow" target="_blank">(10086)</a></li>
+        <li>Added <code>foundry.utils.polygonCentroid</code> which can be used to calculate the centroid of a non-self-intersecting closed polygon. <a href="https://github.com/foundryvtt/foundryvtt/issues/10258" rel="nofollow" target="_blank">(10258)</a></li>
+        <li>Added <code>BaseGrid#getVertices</code> and <code>BaseGrid#getShape</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/10099" rel="nofollow" target="_blank">(10099)</a></li>
+        <li>Added <code>CachedContainer#autoRender</code> which can be used to control the rendering of a cached container. <a href="https://github.com/foundryvtt/foundryvtt/issues/10202" rel="nofollow" target="_blank">(10202)</a></li>
+        <li>Added a batch renderer for rendering sprites with occlusion, for more information please see the following GitHub issue: <a href="https://github.com/foundryvtt/foundryvtt/issues/10208" rel="nofollow" target="_blank">(10208)</a></li>
+        <li>Added <code>Token#getSnappedPosition</code>. Deprecated <code>Token#getCenter</code> in favor of <code>Token#getCenterPoint</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/10211" rel="nofollow" target="_blank">(10211)</a></li>
+        <li>Added <code>Ruler#token</code>, which sets the movement token when a measurement starts to allow custom (system-based) rulers to render the ruler based on the Token's available movement types, range, elevation, and more. <a href="https://github.com/foundryvtt/foundryvtt/issues/10213" rel="nofollow" target="_blank">(10213)</a></li>
+        <li>Added the option to configure the radial occlusion range of a Token. <a href="https://github.com/foundryvtt/foundryvtt/issues/10221" rel="nofollow" target="_blank">(10221)</a></li>
+        <li>The <code>enabled</code> and <code>pause</code> workflows for the <code>BaseSamplerShader</code> class have been improved. <a href="https://github.com/foundryvtt/foundryvtt/issues/10234" rel="nofollow" target="_blank">(10234)</a></li>
+        <li>Added the parameter <code>renderer: PIXI.Renderer</code> to the signature of <code>AbstractBaseShader#_preRender</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/10246" rel="nofollow" target="_blank">(10246)</a></li>
+        <li>Added <code>CanvasDepthMask#mapElevation</code> and <code>CanvasOcclusionMask#mapElevation</code>. Deprecated <code>PrimaryCanvasGroup#mapElevationToDepth</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/10247" rel="nofollow" target="_blank">(10247)</a></li>
+        <li>Added <code>PIXI.Graphics#drawSmoothedPolygon</code> which provides a function for specifying polygons and control of the level of smoothing to be applied to those polygons. <a href="https://github.com/foundryvtt/foundryvtt/issues/10248" rel="nofollow" target="_blank">(10248)</a></li>
+        <li>Added <code>deprecated</code> option to <code>RenderFlags</code>. When set, a deprecated warning is logged with logCompatibilityWarning, to which the given deprecation options are passed. The deprecation message is auto-generated unless a message is passed with the options. By default the message is logged only once. <a href="https://github.com/foundryvtt/foundryvtt/issues/10251" rel="nofollow" target="_blank">(10251)</a></li>
+        <li>Added <code>Drawing#_getLineStyle</code> and <code>Drawing#_getFillStyle</code> which can be used to determine the line styling and fill styling configured on a particular drawing. <a href="https://github.com/foundryvtt/foundryvtt/issues/10253" rel="nofollow" target="_blank">(10253)</a></li>
+        <li>Added <code>AbstractBaseShader#initialUniforms</code> which provides a view of the (default) uniforms used when creating the shader. <a href="https://github.com/foundryvtt/foundryvtt/issues/10254" rel="nofollow" target="_blank">(10254)</a></li>
+        <li>Added <code>Token#getShape</code> which returns the shape of the Token. <a href="https://github.com/foundryvtt/foundryvtt/issues/10259" rel="nofollow" target="_blank">(10259)</a></li>
+        <li>Deprecated <code>BaseGrid#getCenter</code> in favor of <code>BaseGrid#getCenterPoint</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/10011" rel="nofollow" target="_blank">(10011)</a></li>
+        <li>Deprecated <code>BaseGrid#getTopLeft</code> in favor of <code>BaseGrid#getTopLeftPoint</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/10012" rel="nofollow" target="_blank">(10012)</a></li>
+        <li>Added <code>BaseGrid#getOffset</code> and <code>BaseGrid#getOffsetRange</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/10013" rel="nofollow" target="_blank">(10013)</a></li>
+        <li>Deprecated <code>BaseGrid#getSnappedPosition</code> in favor of <code>BaseGrid#getSnappedPoint</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/10014" rel="nofollow" target="_blank">(10014)</a></li>
+        <li>Deprecated <code>BaseGrid#getNeighbors</code> and <code>GridLayer#isNeighbor</code> in favor of <code>BaseGrid#getAdjacentOffsets</code> and <code>BaseGrid#testAdjacency</code>.  <a href="https://github.com/foundryvtt/foundryvtt/issues/10071" rel="nofollow" target="_blank">(10071)</a></li>
+        <li>Deprecated <code>BaseGrid#measureDistances</code> and <code>GridLayer#measureDistances</code> in favor of <code>BaseGrid#measurePath</code> and <code>GridLayer#measurePath</code>.  <a href="https://github.com/foundryvtt/foundryvtt/issues/10072" rel="nofollow" target="_blank">(10072)</a></li>
+        <li>Deprecated <code>BaseGrid#getGridPositionFromPixels</code> and <code>BaseGrid#getPixelsFromGridPosition</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/10077" rel="nofollow" target="_blank">(10077)</a></li>
+        <li>Deprecated <code>HexagonalGrid.pixelsToOffset</code>, <code>HexagonalGrid.pixelsToOffset</code>, and <code>HexagonalGrid.pixelToCube</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/10087" rel="nofollow" target="_blank">(10087)</a></li>
+    </ul>
+    <h3 class="category-header" id="api-packages">Package Development</h3>
+    <ul>
+        <li>The SystemData data schema now includes <code>grid.type</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/7211" rel="nofollow" target="_blank">(7211)</a></li>
+    </ul>
+</section>
+<section id="bugs">
+<h2 class="section-header border">Bug Fixes</h2>
+    <h3 class="category-header" id="bugs-docs">Documents and Data</h3>
+    <ul>
+        <li><code>StringField</code> no longer overrides the default initial value defined by subclasses. <a href="https://github.com/foundryvtt/foundryvtt/issues/9656" rel="nofollow" target="_blank">(9656)</a></li>
+        <li>Combats have been simplified to ensure that turn events have correct comparison data, and should no longer throw an error in cases where there are no combatants when advancing turns. <a href="https://github.com/foundryvtt/foundryvtt/issues/9718" rel="nofollow" target="_blank">(9718)</a></li>
+        <li>Combat turn events are now dispatched when the turn number remains the same but the combatant ID changes. <a href="https://github.com/foundryvtt/foundryvtt/issues/9741" rel="nofollow" target="_blank">(9741)</a></li>
+        <li><code>Combat#started</code> is now true if the combat round is greater than zero even if the combat has no Combatants. <a href="https://github.com/foundryvtt/foundryvtt/issues/9742" rel="nofollow" target="_blank">(9742)</a></li>
+        <li><code>ActiveEffect#isTemporary</code> now returns a boolean as expected. <a href="https://github.com/foundryvtt/foundryvtt/issues/10199" rel="nofollow" target="_blank">(10199)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-apps">Applications and User Interface</h3>
+    <ul>
+        <li>Cancelling a Measuring Distance operation with the Ruler no longer causes a selected Token to enter a state where it cannot be released. <a href="https://github.com/foundryvtt/foundryvtt/issues/9746" rel="nofollow" target="_blank">(9746)</a></li>
+        <li><code>Application#appId</code> now correctly handles cases where a new Application instance is created, but a previous instance still exists for a certain appId. <a href="https://github.com/foundryvtt/foundryvtt/issues/9849" rel="nofollow" target="_blank">(9849)</a></li>
+        <li>Corrected some issues related to canvas controls particular to the use of <code>PIXI.FederatedEvent</code> in debounced events. <a href="https://github.com/foundryvtt/foundryvtt/issues/10178" rel="nofollow" target="_blank">(10178)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-canvas">The Game Canvas</h3>
+    <ul>
+        <li>The canvas no longer breaks in cases where it is redrawn while already being in the process of drawing. <a href="https://github.com/foundryvtt/foundryvtt/issues/9898" rel="nofollow" target="_blank">(9898)</a></li>
+        <li>The "Send to Back" function for Drawings no longer places those drawings below the background layer of a scene. <a href="https://github.com/foundryvtt/foundryvtt/issues/10052" rel="nofollow" target="_blank">(10052)</a></li>
+        <li>Deprecated <code>PlaceablesLayer#gridPrecision</code> in favor of <code>PlaceablesLayer#getSnappedPoint</code>.  <a href="https://github.com/foundryvtt/foundryvtt/issues/10070" rel="nofollow" target="_blank">(10070)</a></li>
+        <li><code>VisionMode.vision.defaults.color</code> now applies as expected when switching vision mode in the Token Configuration application, as part of the <code>defaults</code> SchemaField. <a href="https://github.com/foundryvtt/foundryvtt/issues/9312" rel="nofollow" target="_blank">(9312)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-dice">Dice and Cards</h3>
+    <ul>
+        <li>The validation for Inline Roll syntax has been tightened in order to eliminate cases of false positives. Previous uses of inline expressions like <code>[[skill 15]]</code> will no longer be incorrectly matched as an inline roll. <a href="https://github.com/foundryvtt/foundryvtt/issues/9959" rel="nofollow" target="_blank">(9959)</a></li>
+    </ul>
+</section>
