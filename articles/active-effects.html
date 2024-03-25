@@ -1,4 +1,4 @@
-<h2>Overview</h2>
+<h2 id="overview">Overview</h2>
 <p>Foundry Virtual Tabletop provides a convenient system for applying changes to characters (<a href="/article/actors/" rel="nofollow" target="_blank" title="Actors">Actors</a>) based on certain effects, equipment, spells, or other special traits that might give temporary benefits or downsides. This provides Game Systems and Add-on Modules with the ability to create, modify, and distribute their own prefab conditions that users can use to shape how these effects apply to characters in their specific games.</p>
 <p>This page provides an overview of Active Effects, their function, and how to find data structures you can use active effects to modify, and how to import items from compendiums or json files.</p>
 <dl>
@@ -7,7 +7,7 @@
 <dt>Attribute Keys</dt>
 <dd>Object Data Paths are not directly used to create active effects. The value that is actually used to create active effects is called an Attribute Key, but this value is determined by the data path that you are modifying. The attribute key is a part of a data path of the part of the Actor or Item that you want to modify, separated by periods. For more information, see <a href="#creating-effects">Creating Active Effects</a> below.   </dd>
 </dl>
-<h2 class="border">How Active Effects Change Actors</h2>
+<h2 class="border" id="changes">How Active Effects Change Actors</h2>
 <p>In order to understand how Active Effects work, it's important to first understand the way that Foundry Virtual Tabletop stores data for Actors. Character sheets store a wide variety of different data, and while it's certainly easy to change a 10 to an 11 on a particular character attribute, when games involve a lot of temporary effects it's easy to forget what the original number was after you've changed it.</p>
 <p>For the purposes of this article, it's easiest to imagine that Foundry VTT stores a second copy of the data for each character. When an Active Effect is applied, the <strong>original</strong> data is unchanged. Instead, the change is applied to a copy of the Actor which is presented to the user. By preserving the original data in this way, when a character loses a magical item or a temporary effect they can have the active effect removed- at which point their original data is restored. This convenient process allows for one or more active effects to be stored on an actor and toggled on or off as needed without making permanent changes.</p>
 <p>Active effects can apply to an Actor from one of three sources.</p>
@@ -64,9 +64,9 @@ shells.forEach( s => console.log(`'${s.type}'`, "type Items have the following a
     <figcaption>An example of determining a <code>character</code> type Actor's data paths and corresponding attribute key in a game system that uses system data models.</figcaption>
     </figure>
 <p>When you run this command, the list of available data paths that can be affected by Active Effects displays. You can then use these data paths as the attribute key when creating an Active Effect. Remember to include the <code>system.</code> prefix. For example, because a <code>character</code>-type actor's strength value can be found under "<code>system</code> > abilities > <code>str</code> > <code>value</code>", the attribute key for a <code>character</code> type Actor's Strength value is <code>system.abilities.str.value</code>.</p>
-<h3>Legacy method of finding data paths</h3>
+<h3 id="legacy-data-path">Legacy method of finding data paths</h3>
 <p>If the method presented earlier did not return the expected output, your game system likely does not use system data models. If so, try this method instead.</p>
-<h4>Determining Actor or Item Types</h4>
+<h4 id="determining-type">Determining Actor or Item Types</h4>
 <p>The first step is finding out what types of Actors or Items exist in your game system.</p>
 <ol>
 <li>Open your Developer Tools (<code>F12</code> or <code>CMD+Shift+I</code>).</li>
@@ -100,9 +100,9 @@ shells.forEach( s => console.log(`'${s.type}'`, "type Items have the following a
 <p>Once you have created an Active Effect, it will appear in the list of Active Effects on the Actor or Item sheet. You can usually toggle the effect on or off by clicking the toggle next to the effect's name.</p>
 </div>
 </section>
-<h3>Effects With Multiple Changes</h3>
+<h3 id="multpile-changes">Effects With Multiple Changes</h3>
 <p>It isn't uncommon for magic items or special equipment to modify more than one aspect of a character. The Active Effects system allows for defining effects which change multiple values at different data paths. When creating an effect as above, you can repeat steps 4-6 as necessary to make multiple changes inside the same effect.</p>
-<h2 class="border">API References</h2>
+<h2 class="border" id="api">API References</h2>
 <p>To interact with Active Effects documents programmatically, you will primarily use the following API concepts:</p>
 <ul>
 <li><a href="/api/classes/client.ActiveEffect.html" rel="nofollow" target="_blank" title=" The ActiveEffect Document">classes/client.ActiveEffect</a></li>
