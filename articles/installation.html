@@ -1,31 +1,26 @@
-<h2>Overview</h2>
+<h2 id="overview">Overview</h2>
 <p>Foundry Virtual Tabletop is available cross-platform, so users of Windows, macOS, and various linux distributions can all host servers for their GMs and Players to use conveniently and easily. This article will instruct you on how to download and install of Foundry VTT for your operating system, and warn you of some of the more common pitfalls users face when trying to install for the first time.</p>
 <h2 class="border">Downloading Foundry VTT</h2>
 <figure>
 	@Image[164]
-	<figcaption>A step by step guide to finding your license key and most recent download for Foundry VTT.</figcaption>
+	<figcaption>A step-by-step guide to finding your license key and most recent download for Foundry Virtual Tabletop.</figcaption>
 </figure>
 <p>To download Foundry Virtual Tabletop you must be a software license owner, if you have purchased a license the links to download the latest stable release of the software are available on your user profile as shown above.</p>
 
-<p>The Foundry VTT standalone application is the recommended installation path for most users: it bundles the the Foundry game server software with a built-in chromium web browser to serve as a client view, allowing you to interact with the server directly and conveniently. If you are planning to host a dedicated server instead, you will want to install the Node.js version. Full instructions for this process are described <a href="#dedicated">later in this article.</a></p>
+<p>The Foundry VTT standalone application is the recommended installation path for most users: it bundles the Foundry game server software with a built-in Chromium web browser to serve as a client view, allowing you to interact with the server directly and conveniently. If you are planning to host a dedicated server instead, you will want to install the Node.js version. Full instructions for this process are described <a href="#dedicated">later in this article.</a></p>
 
-<h3 id="timedurl">Downloading Foundry via a Timed URL</h3>
+<h3 id="timedurl" class="border">Downloading Foundry via a Timed URL</h3>
 <p>In addition to the standard download button, there is a "Timed URL" download option in the Foundry website. This alternate method can be convenient in rarer cases when you need to download Foundry via command line, or to temporarily allow a friend to download a Foundry installer without sharing your Foundry credentials.</p>
-<section class="collapsible">
-    <header class="collapsible-header">Downloading Foundry via a Timed URL</header>
-    <div class="collapsible-content">
-        
-        <figure><img max-height="200px" width="auto" src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_681/screen/timed_url_download-2023-11-10.webp" alt="Timed URL Download Button"/>
-            <figcaption>The "Timed URL" download button</figcaption>
-        </figure>
-        <p>Clicking the "Timed URL" button generates a temporary link which can be used to help download download Foundry VTT. This can be pasted into a web browser, or it can be used to download via a terminal or shell interface using wget.</p>
-        <p>When downloading the link using a command line utility such as <code>wget</code> it's important to wrap the link in double-quotes. This ensures that the link is read correctly by the command. For example: </p>
-        <pre><code class="language bash">wget -O foundryvtt.zip "PASTED-URL-FROM-FOUNDRY-WEBSITE-HERE"</code></pre>
-        <p class="info note">Please be aware that the download links provided via the purchased licenses page expire every 5 minutes.</p>
-    </div>
-</section>
+<figure><img height="200px" width="auto" src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_681/screen/timed_url_download-2023-11-10.webp" alt="Timed URL Download Button"/>
+    <figcaption>The "Timed URL" download button</figcaption>
+</figure>
+<p>Clicking the "Timed URL" button generates a temporary link which can be used to help download Foundry VTT. This can be pasted into a web browser, or it can be used to download via a command line interface using wget.</p>
+<p>When downloading the link using a command line utility such as <code>wget</code> it's important to wrap the link in double-quotes. This ensures that the link is read correctly by the command. For example: </p>
+<pre><code class="language bash">wget -O foundryvtt.zip "PASTED-URL-FROM-FOUNDRY-WEBSITE-HERE"</code></pre>
+<p class="info note">Please be aware that the download links provided via the purchased licenses page expire every 5 minutes.</p>
 
-<h2>Installing Foundry VTT</h2>
+
+<h2 id="installing" class="border">Installing The Software</h2>
 
 <section class="collapsible">
     <header id="windowsinstall" class="collapsible-header">Installation - Windows</header>
@@ -34,7 +29,7 @@
         <p>During the installation process you will be asked for an installation location. Despite being the default path for installation, it is recommended to install Foundry VTT in a location not contained within the Program Files directory, as this can result in some permission issues when updating the software.</p>
         <p> Once installation is complete, you can launch Foundry VTT using either the shortcut in the start menu, on your desktop, or by running the FoundryVTT.exe file located within your installation location.</p>
         <h4>Microsoft Defender SmartScreen</h4>
-        <p>In rare cases you may see a warning message from Microsoft Defender SmartScreen. To allow Foundry Virtual Tabletop to pass the Defender SmartScreen, click <strong>More Info</strong> and then click <strong>Run Anyway</strong> Alternatively, if you have stronger security settings applied, you may need to right click the file, click Properties, and mark the checkbox <strong>Unblock</strong> in the Security section.</p>
+        <p>In rare cases you may see a warning message from Microsoft Defender SmartScreen. To allow Foundry Virtual Tabletop to pass the Defender SmartScreen, click <strong>More Info</strong> and then click <strong>Run Anyway</strong> Alternatively, if you have stronger security settings applied, you may need to right-click the file, click Properties, and mark the checkbox <strong>Unblock</strong> in the Security section.</p>
     </div>
 </section>
 
@@ -61,7 +56,7 @@
     <header id="linuxinstall" class="collapsible-header">Installation - Linux</header>
     <div class="collapsible-content">
         <p>For Linux users, Foundry Virtual Tabletop is currently distributed as a simple <code><strong>.zip</strong></code> archive. All you need to do is extract the zip file in a location of your choosing. Feel free to choose whatever installation location is best for you, a simple option would be to use a folder named foundryvtt in your user home directory.</p> <pre><code>unzip foundryvtt.zip -d $HOME/foundryvtt</code></pre>
-        <p>Once you have extracted the archive, locate the <code>foundryvtt</code> file in the directory and set the permission on it to allow execution as a program. This will allow you to execute it from the terminal with <code>./foundryvtt</code>. Alternatively, on some Linux distributions (Deb/Ubuntu) you can rename the <code>foundryvtt</code> file to add a .sh extension. This will allow you to quickly launch it by double-clicking. At this time there is no Linux .desktop packaged with FVTT.</p>
+        <p>Once you have extracted the archive, locate the <code>foundryvtt</code> file in the directory and set the permission on it to allow execution as a program. This will allow you to execute it from the terminal with <code>./foundryvtt</code>. Alternatively, on some Linux distributions (Deb/Ubuntu) you can rename the <code>foundryvtt</code> file to add a .sh extension. This will allow you to quickly launch it by double-clicking. At this time there is no Linux .desktop packaged with Foundry VTT.</p>
     </div>
 </section>
 
@@ -73,22 +68,22 @@
 <p>After entering your license key you will be prompted to sign the End User License Agreement, agreeing to the terms of the software will contact the Foundry web server to validate and sign your license so, for this step of the process <strong>an internet connection is required</strong>.</p>
 <p>That's it, you're ready! Now it's time to get started by checking out the @Article[tutorial] and for a guide on ensuring your players are able to connect be sure to take any necessary steps to set up @Article[port-forwarding].</p>
 
-<h2 id="dedicated" class="border">Hosting a Dedicated Server with NodeJS</h2>
-<p>If you are planning to host and run Foundry Virtual Tabletop as a dedicated server rather than a client application, FVTT is also available as a NodeJS package. The NodeJS version of the package is available from the Purchased Licenses page mentioned above.</p>
+<h2 id="dedicated" class="border">Hosting a Dedicated Server with Node.js</h2>
+<p>If you are planning to host and run Foundry Virtual Tabletop as a dedicated server rather than a client application, Foundry VTT is also available as a Node.js package. The Node.js version of the package is available from the Purchased Licenses page mentioned above.</p>
 
-<h3>Installing NodeJS</h3>
-<p>To use the NodeJS package, you must first install NodeJS.</p> 
+<h3 class="border">Installing Node.js</h3>
+<p>To use the Node.js package, you must first install Node.js.</p>
 <section class="collapsible">
-    <header class="collapsible-header">Installing NodeJS on Windows and Mac OS</header>
+    <header class="collapsible-header">Installing Node.js on Windows and macOS</header>
     <div class="collapsible-content">
-        If your server runs the Windows or Mac OS operating system, use the installers available here <a href="https://nodejs.org/en/download">https://nodejs.org/en/download</a>.
+        If your server runs the Windows or macOS operating system, use the installers available here <a href="https://nodejs.org/en/download">https://nodejs.org/en/download</a>.
     </div>
 </section>
 
 <section class="collapsible">
-    <header class="collapsible-header">Installing NodeJS on Linux</header>
+    <header class="collapsible-header">Installing Node.js on Linux</header>
     <div class="collapsible-content">
-        <p>Node Version Manager (https://github.com/nvm-sh/nvm), or NVM, is the recommended method of installing Node for use on a Linux-based Foundry server.</p> 
+        <p>Node Version Manager (https://github.com/nvm-sh/nvm), or NVM, is the recommended method of installing Node for use on a Linux-based Foundry server.</p>
 
         <p>If you are uncertain whether NVM is already installed on your server, you can easily double-check. If NVM is properly installed, the following bash script should output `NVM`:</p>
         <pre><code>nvm -v</code></pre>
@@ -108,11 +103,8 @@
     </div>
 </section>
 
-<h3>Downloading Foundry for a Server</h3>
-<p>When setting up a dedicated server, it is sometimes necessary to download Foundry via command line. This can be conveniently done using the Foundry website's <a href="#timedurl">Timed URL download method.</a></p>
-
-<h3>Extracting and Launching the Server Using NodeJS</h3>
-<p>Now that you have downloaded both the Foundry VTT NodeJS package and installed NodeJS, it's time to extract the zip and create your data directory.</p>
+<h3 class="border">Extracting and Launching the Server</h3>
+<p>Now that you have downloaded Foundry VTT and installed Node.js, it's time to extract the zip and create your data directory.</p>
 
 <section class="collapsible">
     <header class="collapsible-header">For Linux</header>
@@ -152,7 +144,7 @@ node resources/app/main.js --dataPath=$HOME/foundrydata</code></pre>
     <header class="collapsible-header">For Windows</header>
     <div class="collapsible-content">
         <p>You can also run a dedicated server on Windows. You will first need to download and install Node.js from <a href="https://nodejs.org/en/download/" target="_blank" rel="nofollow noopener">https://nodejs.org/en/download/</a>. Once Node.js is installed, you can launch the server process from whichever location you installed the Foundry Virtual Tabletop software using your preferred windows command-line client like the Command Prompt or <a href="https://apps.microsoft.com/store/detail/windows-terminal/9N0DX20HK701" target="_blank">Windows Terminal</a>.</p>
-        <pre><code 
+        <pre><code
 class="language bash"># Make a folder in a location of your choosing to store your Foundry VTT data
 cd %userprofile%
 mkdir foundrydata
@@ -162,6 +154,7 @@ cd C:\Program Files\FoundryVTT\
 node resources/app/main.js --dataPath=%userprofile%/foundrydata</code></pre>
     </div>
 </section>
-<p>Now that you are running Foundry VTT via node, open any modern web browser and connect to <a href="http://127.0.0.1:30000">http://127.0.0.1:30000</a> to access your Foundry VTT server.</p>
-<h3>Running as a Service</h3>
-<p>If you wish to keep the server running perpetually, you can find relevant documentation for maintaining background processes with a process manager such as PM2 <a href="https://pm2.keymetrics.io/docs/usage/quick-start/">here</a>, or otherwise review the relevant documentation for crontab or the equivalent for your operating system.</p>
+<p>Now that you are running Foundry VTT via node, open any modern web browser and connect to <a href="http://127.0.0.1:30000">http://127.0.0.1:30000</a> to access your server.</p>
+
+<h3 id="service" class="border">Running as a Service</h3>
+<p>If you wish to keep the server running perpetually, you may wish to run Foundry VTT using a process manager like <a href="https://systemd.io/" target="_blank">systemd</a> which is recommended for standalone installations or <a href="https://pm2.keymetrics.io/docs/usage/quick-start/" target="_blank">PM2</a> which is recommended for operating a cluster of instances. Such service managers can be helpful but are not required.</p>
