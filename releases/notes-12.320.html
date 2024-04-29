@@ -1,0 +1,152 @@
+<header id="update-header">
+    <h2 id="update-title" class="border">Foundry Virtual Tabletop - Version 12 - Testing 1 Release Notes</h2>
+    <figure id="update-banner">
+        <img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_70/screen/v12-testing-release-banner-2024-04-25.webp" title="Foundry VTT - Version 12 - Testing 1 Release Notes" alt="Release Notes for Foundry Virtual Tabletop Version 12 - Testing 1"/>
+        <figcaption>Foundry Virtual Tabletop Version 12 now officially moves into the Testing phase! Shown: the <i><a href="https://foundryvtt.com/packages/house-divided">A House Divided</a></i> adventure for <i><a href="https://foundryvtt.com/packages/dnd5e">Dungeons and Dragons Fifth Edition</a></i>.</figcaption>
+    </figure>
+</header>
+
+<section id="update-overview">
+    <p>We are eager to announce and share the release of <strong>Foundry Virtual Tabletop Version 12 Testing 1 (Build 320)</strong>, our first release of the Testing Phase for Version 12!</p>
+    <p class="note info"><strong>WARNING:</strong>  This Testing update is intended for those dedicated users who wish to test the new features provided in Version 12. It is not intended for use in weekly games or in games with heavy use of add-on modules. The goal for this build is to collect preliminary testing feedback from developers and users, not to power actual game sessions!
+    <p>As part of the Testing phase, this update is less focused on new features and more focused on starting to polish them up and delivering fixes. As we refine our designs during the upcoming testing releases, you can expect further improvements along these lines!</p>
+    <p>Please keep in mind that features and user interfaces (particularly Scene Regions) will continue to evolve as we start the journey towards a Stable release.</p>
+    <p class="note warning">As always, it is very important to back up your user data before any major update. It is <strong>strongly</strong> recommended to backup your important Worlds before experimenting with the Testing Build. Better yet, consider taking a <a href="https://foundryvtt.com/article/backups/">full Snapshot</a>.</p>
+</section>
+
+<section id="highlights">
+    <h2 class="section-header border">Update Highlights</h2>
+        <p>While this release focuses primarily on steady improvements to V12, there is one new feature that we'd like to highlight and explain a bit further.</p>
+    
+    <h3>"Dynamic" Global Illumination for Scene Regions</h3>
+    <section class= "columns">
+    <section class="column">
+        <p>Properly illuminating a Scene that contains a mix of "lit" and "unlit" spaces has always been challenging. This often happens when you have a dark indoor space near an outdoor setting and is particularly tricky if the players might visit the area during the day or night.</p>
+        <p>This common situation can now be resolved using Scene Regions and an existing Scene configuration setting.</p>
+        <h4>TL;DR</h4>
+            <p>Even if Global Illumination is enabled for your Scene, you can now make a building, cave, or similar area mechanically "unlit" just by darkening it with a Scene Region.</p>
+        <h4>The Nitty Gritty</h4>
+            <p>Scenes already have an existing setting called the "Global Illumination Threshold." This setting allows you to easily use the same Scene during the "day" or "night" by automatically disabling Global Illumination when the Scene is dark enough. A Scene's darkness can be controlled by configuring its "Darkness Level" setting or by clicking the "Transition to Night" lighting control.</p>
+            <p>In the first incarnation of Scene Regions, you could darken a part of the map visually using the Adjust Darkness behavior, essentially making it dimmer, but this would have no mechanical effect on Token vision. Now, if the darkness of the Scene Region meets the Scene's Global Illumination threshold, the area automatically becomes mechanically "unlit" as well. That is, tokens will no longer be able to see inside that region unless they have some other detection mode or source of illumination.</p>
+        </section>  
+        <figure class="column right"><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_681/screen/the-scene-configuration-dialog-with-darkness-settings-shown-2024-04-26.webp">
+            <figcaption>The "Global Illumination Threshold" and related settings</figcaption>
+        </figure>
+    </section>
+    <figure class="center"><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_681/screen/example-scene-region-with-adjust-darkness-behavior-shown-2024-04-26.webp" style="width: 75%; height: 75%;">
+        <figcaption>Example Scene Region with "Adjust Darkness" behavior shown</figcaption>
+    </figure>
+</section>
+
+<section id="features">
+    <h2 class="section-header border">New Features</h2>
+        <h3 id="features-canvas" class="category-header">The Game Canvas</h3>
+        <ul>
+            <li>The existing Scene-level Global Illumination Threshold now also applies to Scene Regions that use the Adjust Darkness behavior. When this threshold is set, you can now exclude the Scene Region from Global Illumination just by darkening it. <a href="https://github.com/foundryvtt/foundryvtt/issues/10749" target="_blank">(10749)</a></li>
+        </ul>
+
+        <h3 id="scene-regions" class="category-header">Scene Regions</h3>
+        <ul>
+            <li>When a Scene Region is hovered or selected, the entire row of Scene Regions is now highlighted in the Region Legend. <a href="https://github.com/foundryvtt/foundryvtt/issues/10719" target="_blank">(10719)</a></li>
+            <li>Applied a random color to newly created Scene Regions rather than having them be colorless by default. <a href="https://github.com/foundryvtt/foundryvtt/issues/10745" target="_blank">(10745)</a></li>
+            <li>Added an indicator for a Scene Region's assigned color in the Scene Region legend. <a href="https://github.com/foundryvtt/foundryvtt/issues/10724" target="_blank">(10724)</a></li>
+            <li>Added a "Delete All" button to the Scene Region controls. <a href="https://github.com/foundryvtt/foundryvtt/issues/10707" target="_blank">(10707)</a></li>
+            <li>For consistent UX with similar canvas objects, <code>ALT</code> (instead of <code>CTRL</code>) is now used to lock aspect ratio when placing a Scene Region's Shape. <a href="https://github.com/foundryvtt/foundryvtt/issues/10718" target="_blank">(10718)</a></li>
+            <li>Added a button to the Scene Region legend to create an empty Scene Region. <a href="https://github.com/foundryvtt/foundryvtt/issues/10738" target="_blank">(10738)</a></li>
+            <li>Elevation ranges are now set at the Scene Region level and are now uniform across the entire Scene Region. To support this, the bottom/top elevation was removed from <code>BaseShapeData</code> and added to the <code>RegionDocument</code> instead. <a href="https://github.com/foundryvtt/foundryvtt/issues/10742" target="_blank">(10742)</a></li>
+        </ul>
+
+        <h3 id="features-architecture" class="category-header">Architecture and Infrastructure</h3>
+        <ul>
+            <li>Implemented <code>winston-daily-rotate-file</code> to reduce the file size impact of error and debug logs. <a href="https://github.com/foundryvtt/foundryvtt/issues/9972" target="_blank">(9972)</a></li>
+        </ul>
+
+        <h3 id="features-apps" class="category-header">Applications and User Interface</h3>
+        <ul>
+            <li>Created a client setting to allow the user to choose whether the Application V2 theme should be light mode, dark mode, or match the browser default theme. <a href="https://github.com/foundryvtt/foundryvtt/issues/10678" target="_blank">(10678)</a></li>
+            <li>Suppressed notification pips for new core versions when you are using a game system that does not yet support that version. <a href="https://github.com/foundryvtt/foundryvtt/issues/9572" target="_blank">(9572)</a></li>
+            <li>Improved the <code>UserConfig</code> to more clearly organize the Actors that a User can pick and to indicate whether the User owns that Actor or is simply an observer.<a href="https://github.com/foundryvtt/foundryvtt/issues/9892" target="_blank">(9892)</a></li>
+            <li>The detection mode "Basic Sight" was renamed to "Darkvision" to better indicate that this detection mode controls Token vision in non-illuminated areas. <a href="https://github.com/foundryvtt/foundryvtt/issues/10728" target="_blank">(10728)</a></li>
+        </ul>
+
+    </section>
+    <section id="api">
+    <h2 class="section-header border">API Improvements</h2>
+        <h3 id="api-apps" class="category-header">Applications and User Interface</h3>
+        <ul>
+            <li>Added a basic <code>ActorSheetV2</code> implementation which provides a starting place for modules that wish to use the Application V2 framework for their Actor sheet UI. <a href="https://github.com/foundryvtt/foundryvtt/issues/10657" target="_blank">(10657)</a></li>
+            <li>Explicitly named <code>ItemSheetV2</code> so that it now has a "V2" suffix in the class name. <a href="https://github.com/foundryvtt/foundryvtt/issues/10658" target="_blank">(10658)</a></li>
+            <li>Loosened restriction on settings menu applications so they can be Application V2 instances or classes. <a href="https://github.com/foundryvtt/foundryvtt/issues/10680" target="_blank">(10680)</a></li>
+        </ul>
+        <h3 id="api-other" class="category-header">Other Changes</h3>
+        <ul>
+            <li>When an array is passed to the <code>selectOptions</code> handlebars helper, the index for each element is now retained as its <code>value</code> attribute. <a href="https://github.com/foundryvtt/foundryvtt/issues/10691" target="_blank">(10691)</a></li>
+        </ul>
+    </section>
+    <section id="bugs">
+    <h2 class="section-header border">Bug Fixes</h2>
+        <h3 id="bugs-docs" class="category-header">Documents and Data</h3>
+        <ul>
+            <li>Prevented a case where invalid embedded Documents could make the parent Document invalid. <a href="https://github.com/foundryvtt/foundryvtt/issues/10566" target="_blank">(10566)</a></li>
+            <li>Integer <code>NumberField</code>s now take into account that they might also be nullable when attempting to round input values. <a href="https://github.com/foundryvtt/foundryvtt/issues/10670" target="_blank">(10670)</a></li>
+            <li><code>Combat#getCombatantsByToken</code> now properly returns an array of <code>Combatant</code>s instead of a single instance. <a href="https://github.com/foundryvtt/foundryvtt/issues/10672" target="_blank">(10672)</a></li>
+            <li>Custom <code>DataField</code> subclasses now have their active effect <code>apply</code> methods called. <a href="https://github.com/foundryvtt/foundryvtt/issues/10679" target="_blank">(10679)</a></li>
+            <li>Beginning a combat without combatants no longer throws an error. <a href="https://github.com/foundryvtt/foundryvtt/issues/10702" target="_blank">(10702)</a></li>
+        </ul>
+        <h3 id="bugs-apps" class="category-header">Applications and User Interface</h3>
+        <ul>
+            <li>Fixed a bug where the Combat tracker could not be configured. <a href="https://github.com/foundryvtt/foundryvtt/issues/10662" target="_blank">(10662)</a></li>
+            <li>Fixed a bug which prevented the Prototype Token configuration dialog from rendering. <a href="https://github.com/foundryvtt/foundryvtt/issues/10675" target="_blank">(10675)</a></li>
+            <li>Fixed an issue with a captured pointer event that was causing <code>ApplicationV2</code>to not properly minimizes the application on <code>dblclick</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/10684" target="_blank">(10684)</a></li>
+            <li>Fixed an issue where the "Game Paused" indicator was on top of open applications by once again starting Application windows from <code>z-index-window</code> instead of <code>z-index-app</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/10689" target="_blank">(10689)</a></li>
+            <li>Changing the value of a <code>&lt;color-picker&gt;</code> custom element now triggers <code>Application#_onChangeInput</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/10693" target="_blank">(10693)</a></li>
+            <li>Allowed Application V2 click actions to customize which pointer buttons they respond to. Added support for right-clicking the "Copy Document ID" button in Application V2 to copy the UUID of the document to the clipboard. <a href="https://github.com/foundryvtt/foundryvtt/issues/10704" target="_blank">(10704)</a></li>
+            <li>Line-breaks no longer appear as <code>&lt;br&gt;</code> in text areas that were created by <code>JavaScriptField</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/10705" target="_blank">(10705)</a></li>
+            <li>Playlist audio initialization is now delayed until after game audio is unlocked. Sound instances for <code>PlaylistSound</code> documents are now only created lazily when playback is actually required. <a href="https://github.com/foundryvtt/foundryvtt/issues/10753" target="_blank">(10753)</a></li>
+        </ul>
+        <h3 id="bugs-canvas" class="category-header">The Game Canvas</h3>
+        <ul>
+            <li><code>SquareGrid#getCircle</code>/<code>getCone</code> no longer returns incorrect results when a nonzero origin is passed to it while alternating diagonals are in use on a square grid. <a href="https://github.com/foundryvtt/foundryvtt/issues/10694" target="_blank">(10694)</a></li>
+            <li>Transparent parts of the Token's image no longer become darker when Dynamic Ring is enabled. <a href="https://github.com/foundryvtt/foundryvtt/issues/10703" target="_blank">(10703)</a></li>
+            <li><code>ClockwiseSweepPolygon</code> no longer fails to compute the correct polygon in some positions with a darkness source. <a href="https://github.com/foundryvtt/foundryvtt/issues/10711" target="_blank">(10711)</a></li>
+            <li>Fixed an error where the <code>PointVisionSource.blindedColorRGB</code> getter tried to access the private <code>PointVisionSource.#blindedColorRGB</code> property. <a href="https://github.com/foundryvtt/foundryvtt/issues/10731" target="_blank">(10731)</a></li>
+            <li>The <code>MouseInteractionManager</code> now handles <code>dragLeftMove</code>/<code>dragRightMove</code> immediately after <code>dragLeftStart</code>/<code>dragRightStart</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/10761" target="_blank">(10761)</a></li>
+            <li>Fixed an issue where dragging certain hexagonal shaped tokens did not snap the token to the desired position. Tokens are now "grabbed" at their center regardless of the drag origin point. <a href="https://github.com/foundryvtt/foundryvtt/issues/10762" target="_blank">(10762)</a></li>
+            <li><code>TokenHUD##onToggleCombat</code> no longer calls the base static methods <code>deleteCombatants</code> and <code>createCombatants</code> rather than any system implementation. <a href="https://github.com/foundryvtt/foundryvtt/issues/10735" target="_blank">(10735)</a></li>          
+        </ul>
+        <h3 id="bugs-dice" class="category-header">Dice and Cards</h3>
+        <ul>
+            <li><code>Roll.replaceFormulaData</code> once again can invoke <code>toString</code> on complex objects. <a href="https://github.com/foundryvtt/foundryvtt/issues/10674" target="_blank">(10674)</a></li>
+            <li>Manual exploding die inputs now correctly reject values that are outside of the range of the die. <a href="https://github.com/foundryvtt/foundryvtt/issues/10736" target="_blank">(10736)</a></li>
+        </ul>
+        <h3 id="bugs-scene-regions" class="category-header">Scene Regions</h3>
+        <ul>
+            <li>Prevented the Scene Region dialog from rendering strangely after a Macro UUID is assigned. <a href="https://github.com/foundryvtt/foundryvtt/issues/10673" target="_blank">(10673)</a></li>
+            <li>An error is no longer thrown when non-GM users move a Token into a Scene Region. <a href="https://github.com/foundryvtt/foundryvtt/issues/10706" target="_blank">(10706)</a></li>
+            <li><code>"REGION.SHAPES.polygon"</code> is now correctly a <code>"Polygon"</code> instead of a <code>"Rectangle"</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/10698" target="_blank">(10698)</a></li>
+            <li>Fixed a bug where the "Left Click to Release Objects" client setting was preventing new Shapes from being added to existing Scene Regions. <a href="https://github.com/foundryvtt/foundryvtt/issues/10696" target="_blank">(10696)</a></li>
+            <li>Scene Regions without any shapes now appear in the legend. <a href="https://github.com/foundryvtt/foundryvtt/issues/10727" target="_blank">(10727)</a></li>
+        </ul>
+        
+        <h3 id="bugs-other" class="category-header">Other Changes</h3>
+        <ul>
+            <li>Compendium packs can once again be migrated from NeDB to LevelDB. <a href="https://github.com/foundryvtt/foundryvtt/issues/10681" target="_blank">(10681)</a></li>
+            <li><code>@Embed</code> no longer fails when relative UUIDs use implicit keys. <a href="https://github.com/foundryvtt/foundryvtt/issues/10688" target="_blank">(10688)</a></li>
+            <li>Hot reloading JSON/HTML/Handlebars files no longer throws an error. <a href="https://github.com/foundryvtt/foundryvtt/issues/10700" target="_blank">(10700)</a></li>
+            <li>Fixed an issue where the <code>TextEditor._primeCompendiums</code> regex was not matching UUID links featuring non-word characters. <a href="https://github.com/foundryvtt/foundryvtt/issues/10750" target="_blank">(10750)</a></li>
+        </ul>
+    </section>
+    <section id="documentation">
+    <h2 class="section-header border">Documentation Improvements</h2>
+        <h3 id="documentation-other" class="category-header">Other Changes</h3>
+        <ul>
+            <li>The <code>{{#select}}</code> deprecation warning now correctly refers to <code>createSelectInput</code> rather than <code>createSelectElement</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/10690" target="_blank">(10690)</a></li>
+            <li>The deprecation warning for <code>Token#toggleCombat</code> now correctly mentions <code>TokenDocument#toggleCombatant</code> instead of <code>Token#toggleCombatant</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/10734" target="_blank">(10734)</a></li>        
+        </ul>
+    </section>
+    <section id="summary">
+    <h2 class="section-header border"></h2>
+    </section>
+    <section id="title">
+    <h2 class="section-header border"></h2>
+    </section>
