@@ -186,7 +186,11 @@ The steps for migrating the User Data folder vary slightly depending on which OS
 	<div class="collapsible-content">
 <dl>
 	<dt><code>--demo</code></dt>
-	<dd>Launching Foundry in demo mode allows you to configure a world which will be automatically launched and reset at a frequency of your choosing. When the world is reset, it is deactivated. The source data for the world is restored to its original state using a provided .zip file, and the next reset is automatically scheduled. Details on configuring demo mode are provided below.</dd>
+	<dd>Launching Foundry in demo mode allows you to configure a world which will be automatically launched and reset at a frequency of your choosing. When the world is reset, it is deactivated. The source data for the world is restored to its original state using a provided .zip file, and the next reset is automatically scheduled. Should provide a path that points to a JSON file (can be anywhere) with the following structure:</dd>
+	<dd><code>{"sourceZip": "<the demo world as a zip>",
+		"worldName": "<demo world name>",
+		"resetSeconds": <reset the demo to blank after this many seconds></code>
+	  }</dd>
 	<dt><code>--port</code></dt>
 	<dd>This specifies the port Foundry will listen on for incoming connections.  If not specified, Foundry will use the port defined in options.json, or <code>30000</code>. This is the port you should use for @Article[port-forwarding].</dd>
 	<dt><code>--world</code></dt>
@@ -201,6 +205,22 @@ The steps for migrating the User Data folder vary slightly depending on which OS
 	<dd>This disables the package updating system for the core software, preventing Foundry VTT from checking if there are new core software updates available.</dd>
 	<dt><code>--adminPassword</code></dt>
 	<dd>Set a default administrator access key for the application which will be required if an admin access key has not been defined. If an admin key has already been set, this option will be ignored.</dd>
+	<dt><code>--logsize</code></dt>
+	<dd>The maximum size a log can reach before being rotated. The units should be included, e.g. 1024k, 64m, 1g.</dd>
+	<dt><code>--maxlogs</code></dt>
+	<dd>The maximum number of logs to retain before older ones are deleted.</dd>
+	<dt><code>--hotReload</code></dt>
+	<dd>Starts the server with hot-reloading enabled. Modules and Systems can specify certain paths to watch for changes. When files under those paths are modified, the changes are injected into the running World and re-rendered without having to refresh the page.</dd>
+	<dd>The following file-types are supported: <code>.js</code>, <code>.mjs</code>, <code>.css</code>, <code>.html</code>, <code>.hbs</code>, <code>.json</code>. Hot-reload paths are specified in the package manifest flags:</dd>
+	<dd><code>{
+		  "flags": {
+			"hotReload": {
+			  "paths": []
+			}
+		  }
+		}</code></dd>
+	<dt><code>--noipdiscovery</code></dt>
+	<dd>Disables the attempt to learn what the server's external IP address is. Normally this involves making an outbound request to an IP discovery service. Disabling this skips the outbound request and only displays local IP addresses in invitation dialog.</dd>
 </dl>
 </div>
 </section>
