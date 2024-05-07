@@ -16,8 +16,6 @@
         <pre><code class="language-plaintext">/roll (2d4)d8</code></pre>
         <p>Roll a number of dice equal to the results of one roll of a 20-sided die multiplied by two, with a number of sides between 1 and 10.</p>
         <pre><code class="language-plaintext">/roll (1d20*2)d(1d10)</code></pre>
-        <p>Count the number of success based on the selected token's &lsquo;power' attribute.</p>
-        <pre><code class="language-plaintext">/roll 3d12cs&lt;=(@attributes.power)</code></pre>
         <p>Get the margin of success based on an opposed roll of 4d6.</p>
         <pre><code class="language-plaintext">/roll 3d12ms&gt;(4d6)</code></pre>                
     </div>
@@ -31,7 +29,7 @@
         <p>Roll 4d6, 3d8, and 2d10, keep only the highest result.</p>
         <pre><code class="language-plaintext">/roll {4d6, 3d8, 2d10}kh</code></pre>
         <p>Roll one twenty sided die and the result can only be 10 or higher.</p>
-        <pre><code class="language-plaintext">/roll {1d20, 10}kh # </code></pre>
+        <pre><code class="language-plaintext">/roll {1d20, 10}kh</code></pre>
         <p><em>DND 5e - Reliable Talent</em>: compare a die roll against a fixed number (10), selecting the higher of the two for the result. This can be accomplished with an enclosed die roll using the keep highest modifier. Roll one twenty-sided die, and use the higher of its result or the number 10, and add 5 to it.</p>
         <pre><code class="language-plaintext">/r {1d20,10}kh + 5</code></pre>
         <p><em>DND5e - Character Creation</em>: roll a pool of ability scores when creating your character.</p>
@@ -47,11 +45,15 @@
 <p>Foundry VTT stores important values in the data for each Document, regardless of its type. These data paths can be called within rolls in order to provide complex functionality and references to a selected character's statistics and modifiers.</p>
 
 <h3>Understanding The Structure of Roll Data</h3>
-<p>Each game system has its own particular Data Paths which it defines. There are two ways to resolve what these data paths are which can be used via the Developer Tools console. The first method explores the evaluated roll-data object for a specific Actor.</p>
+<p>Each game system has its own particular Data Paths which it defines. There several ways ways to resolve what these data paths are which can be used via the Developer Tools console. The first method explores the evaluated roll-data object for a specific Actor.</p>
 <pre><code class="language-javascript">const actor = game.actors.getName("My Character Name");
 console.log(actor.getRollData());
 </code></pre>
-<p>The second method explores the defined game system data template for a certain Actor type.</p>
+<p>You can also find these paths by selecting a Token and then pasting the following text into the Developer's console:</p>
+<p class="language-javascript"><code class="language-javascript">_token.actor.getRollData();</code></p>
+<p>The third method explores the defined game system data template for a certain Actor type.</p>
+<pre><code class="language-javascript">game.system.model.Actor.&lt;type of actor&gt;</code></pre>
+<p>For example, you could check the attributes of a Character type actor in the Dungeons and Dragons Fifth Edition game system using the following code:</p>
 <pre><code class="language-javascript">game.system.model.Actor.&lt;type of actor&gt;</code></pre>
 <p>If used correctly, either of these commands will output a clickable list of the object data stored on every character which can be conveniently referenced with rolls using <code>@the.path.to.data</code>.</p>
 
@@ -60,7 +62,9 @@ console.log(actor.getRollData());
     <div class="collapsible-content">
         <p>Once you know the structure of an actor, you can use them as part of any roll formula. When a roll formula resolves a data path variable, it automatically gets the data from the <strong>currently controlled token first</strong>, and if no token is controlled, gathers the data from whichever Actor has been chosen in the "Select Character" section of player configuration.</p>
         <p>Data path variables can take the place of any number in any part of a roll formula.</p>
-        <p>For example in the dnd5e Game System, by rolling <code>/roll 1d20 + @abilities.cha.mod</code> you would perform a check of your selected token's Charisma modifier.</p>                
+        <p>For example in the Dungeons & Dragons Fifth Edition game system, you could perform a non-proficient Charisma check for the controlled Token by using <code>/roll 1d20 + @abilities.cha.mod</code> in chat.</p>                
+        <p>If your game system has a Power attribute, this would count the number of successes based on the selected token's Power attribute.</p>
+        <pre><code class="language-plaintext">/roll 3d12cs&lt;=(@attributes.power)</code></pre>
     </div>
 </section>
 
@@ -87,10 +91,19 @@ console.log(actor.getRollData());
 <p>It is fast, reliably random over long periods of usage, and easily implemented, which has led to its widespread use in numerous programming languages. In fact, this pseudorandom number generator is the most widely used general-purpose PRNG in existence, and widely viewed as the most reliable for use in dice and other gaming impelementations.</p>
 <p>The Mersenne Twister utilizes a seed number that the internal mathematics use to determine the set of random numbers generated. In Foundry VTT, this seed is set at the time each user connects, giving them a unique set of rolls for the rest of that session.</p>
 
+<h2 id="fulilled" class="border">Fulfilled Rolls</h2>
+<p>In Foundry V12 or newer, you can choose how you want Foundry to fulfill its rolls by specifying your own randomness methodology. Instead of always using the default digital Mersenne twister, users can choose whether each of their die denominations should be fulfilled via digital dice rolling, manual input, or some other external service. This is controlled by the Dice Configuration core setting.</p>
+<p>This external service can be lava lamps, cosmic microwave background radiation, or Bluetooth dice like <a href="https://particula-tech.com/godice/?v=7516fd43adaa">GoDice</a> or <a href="https://gamewithpixels.com/">Pixel dice</a>.</p>
+<figure class="center">@Asset[706]
+<figcaption>Choose your own randomness method!</figcaption>
+</figure>
+<p class="note info">To use certain methods, such as Bluetooth dice, you may need to install a module. Please consult the manufacturer or service provider's documentation for more information.</p>
+
+
 <h2 id="api" class="border">API References</h2>
 <p>For module and system developers who want to go deeper with dice mechanics - there is a robust JavaScript API which can do even more with dice rolls. See the following API documentation for details.</p>
 <ul>
-    <li>The @APIV10[classes/client.Roll, The Roll Class] Class.</li>
-    <li>The @APIV10[classes/client.DiceTerm, The DiceTerm Base Class] Base Class.</li>
-    <li>The @APIV10[classes/client.Die, The Die Constructor] Die Term that can be used as part of a Roll Formula.</li>
+    <li>The @APIV12[classes/client.Roll, The Roll Class] Class.</li>
+    <li>The @APIV12[classes/client.DiceTerm, The DiceTerm Base Class] Base Class.</li>
+    <li>The @APIV12[classes/client.Die, The Die Constructor] Die Term that can be used as part of a Roll Formula.</li>
 </ul>
