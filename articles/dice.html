@@ -31,8 +31,8 @@
     <header class="collapsible-header">Simple Roll Commands</header>
     <div class="collapsible-content">
         <p>A dice roll can be made by entering the <code>/roll</code> (or <code>/r</code>) <strong>chat command</strong> followed by some simple syntax to identify the number of dice, and which type of die you wish to roll. This roll command uses whichever <strong>Default Roll Mode</strong> is currently set by the user.</p>
-        <p class="note info">All of the example rolls on this page may be pasted directly into Foundry VTT exactly as they are, including commented text which will label the roll explaining what it does.</p>
-        <pre><code class="language-plaintext">/r {number of dice}d{faces}</code></pre>
+        <p class="note info">All of the example rolls on this page that appear entirely on their own lines may be pasted directly into Foundry VTT exactly as they are, including commented text which will label the roll explaining what it does.</p>
+        <p>The most common template for a roll is <code class="language-plaintext">/r {number of dice}d{faces}</code>.</p>
         <pre><code class="language-plaintext">/r 5d20 #Rolls five twenty-sided dice, generating random numbers from 1 to 20, and outputting the sum of all rolls.</code></pre>                
     </div>
 </section>
@@ -40,14 +40,13 @@
 <section id="simplemath" class="collapsible">
     <header class="collapsible-header">Using Simple Math with Roll Commands</header>
     <div class="collapsible-content">
-        <p>Most dice rolls result in a number that is the sum of any dice rolled, and simple math modifiers can be used to increase or decrease this result after rolls are made.</p>
+        <p>Most dice rolls result in a number that is the sum of any dice rolled, and simple math modifiers can be used to increase or decrease this result after rolls are made. This is the general syntax: <code class="language-plaintext"> /roll {number}d{faces}{math}{number}d{faces}</code>.</p>
         <ul>
             <li><code>+</code> adds the number that follows it to the sum of the roll.</li>
             <li><code>-</code> subtracts the number that follows it from the sum of the roll.</li>
             <li><code>*</code> multiplies the sum of the roll by the number given.</li>
             <li><code>/</code> divides the sum of the roll by the number given.</li>
         </ul>
-        <pre><code class="language-plaintext"> /roll {number}d{faces}{math}{number}d{faces}</code></pre>
         <p>Roll one ten-sided die and add to it the result of rolling a single four-sided die.</p>
         <pre><code class="language-plaintext">/roll 1d10 + 1d4 + 4</code></pre>
         <p>Roll one twenty-sided die, divide the number by 2, then add 10 to the result.</p>
@@ -97,7 +96,7 @@
 </figure>
 <p>Users can add a text description to a roll by adding a # and desired text at the end of the /roll chat command. The text appears under the name of the user that made the roll.</p>
 <pre><code class="language-plaintext">/r {roll command} # {desired text}</code></pre>
-<p>Example: roll a 20-sided die, adding 2 to the result. Includ some text to describe the roll.</p>
+<p>Example: roll a 20-sided die, adding 2 to the result. Include some text to describe the roll.</p>
 <pre><code class="language-plaintext">/r 1d20 + 2 # This is my roll!</code></pre>
 
 <h3>Describing Dice</h3>
