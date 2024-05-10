@@ -1,0 +1,110 @@
+<header id="update-header">
+    <h2 class="border" id="update-title">Foundry Virtual Tabletop - Version 12 - Testing 3 Notes</h2>
+    <figure id="update-banner">
+        <img alt="Release Notes for Foundry Virtual Tabletop Version 12 Testing 3" src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_70/screen/v12-testing-3-release-banner-2024-05-10.webp" title="Foundry VTT - Version 12 - Testing 3 Release Notes"/>
+        <figcaption>Foundry Virtual Tabletop Testing 3 Patch Notes</figcaption>
+    </figure>
+</header>
+
+<section id="update-overview">
+    <p>Another week, another build! We're happy to deliver the next build in the User Testing phase of our development cycle for Version 12. This build forgoes introducing new features in favour of focusing on some UX/UI polish and bug fixes for features previously released during earlier phases of development. </p>
+    <p> We'd like to take the time to express some gratitude for the dedicated members of our development community and those amongst the broader membership of our userbase who have been diligently testing and providing feedback, finding bugs and helping to keep our eye on potential issues as we work toward a stable build! Thanks everyone!</p>
+    <p class="note warning"><strong>WARNING:</strong> This Testing update is intended for those dedicated users who wish to test the new features provided in Version 12. It is not intended for use in weekly games or in games with heavy use of add-on modules. The goal for this build is to collect preliminary testing feedback from developers and users, not to power actual game sessions!</p>
+</section>
+
+<section id="features">
+<h2 class="section-header border">New Features</h2>
+    <h3 class="category-header" id="features-architecture">Architecture and Infrastructure</h3>
+    <ul>
+        <li>Several dependencies and libraries have been updated to their latest stable versions. Please see the following GitHub issue for details:<a href="https://github.com/foundryvtt/foundryvtt/issues/10877" rel="nofollow" target="_blank">(10877)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-apps">Applications and User Interface</h3>
+    <ul>
+        <li>The Permission Configuration window now uses ApplicationV2 and has received some standardization in appearance for both in-world use and the User Management view. <a href="https://github.com/foundryvtt/foundryvtt/issues/10867" rel="nofollow" target="_blank">(10867)</a></li>
+        <li>The ProseMirror editor selection dropdowns now use a JavaScript approach to resolve issues with UI overflow. <a href="https://github.com/foundryvtt/foundryvtt/issues/8212" rel="nofollow" target="_blank">(8212)</a></li>
+        <li>When creating a new Document, leaving the name field blank now uses the sub-type of the document rather than the primary document name. For example, creating a new Actor of the type "NPC" will result in "NPC 43" rather than "New Actor 43" <a href="https://github.com/foundryvtt/foundryvtt/issues/10737" rel="nofollow" target="_blank">(10737)</a></li>
+        <li>The Scene Region tools now provide helpful toolclips similar to those provided by other tools on other layers. <a href="https://github.com/foundryvtt/foundryvtt/issues/10760" rel="nofollow" target="_blank">(10760)</a></li>
+        <li>Pressing &lt;Delete&gt; now deletes a controlled Region or controlled Shape. <a href="https://github.com/foundryvtt/foundryvtt/issues/10756" rel="nofollow" target="_blank">(10756)</a></li>
+        <li>Notifications are now provided when objects are deleted using the Delete key, copying/pasting objects with CTRL+C or CTRL+V, and reverting changes with CTRL+Z <a href="https://github.com/foundryvtt/foundryvtt/issues/10856" rel="nofollow" target="_blank">(10856)</a></li>
+        <li>In cases where canvas placeables (such as tokens) share the same coordinates, elevation, and sort index hovering over a particular token will temporarily elevate it to the top of the stack for easier visibility. <a href="https://github.com/foundryvtt/foundryvtt/issues/10822" rel="nofollow" target="_blank">(10822)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-canvas">The Game Canvas</h3>
+    <ul>
+        <li>The Shapes tab of the configuration window for Scene Regions now features a new button that will create a shape from a selection of walls. <a href="https://github.com/foundryvtt/foundryvtt/issues/10710" rel="nofollow" target="_blank">(10710)</a></li>
+        <li>The initial values for Scene darkness environment ambience received some recalibration and Scenes now more closely match the visual appearance of V11 scenes. <a href="https://github.com/foundryvtt/foundryvtt/issues/10861" rel="nofollow" target="_blank">(10861)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-dice">Dice and Cards</h3>
+    <ul>
+        <li>Inline Roll Tooltips now display the original formula data rather than the evaluated outcome. <a href="https://github.com/foundryvtt/foundryvtt/issues/8810" rel="nofollow" target="_blank">(8810)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-i18n">Localization and Accessibility</h3>
+    <ul>
+        <li>Header buttons in AppV2 instances now follow the same localization process as those used in AppV1 instances. <a href="https://github.com/foundryvtt/foundryvtt/issues/10846" rel="nofollow" target="_blank">(10846)</a></li>
+        <li>Certain data model field labels (such as "is Darkness Source?") which previously included a questionmark no longer do. <a href="https://github.com/foundryvtt/foundryvtt/issues/10866" rel="nofollow" target="_blank">(10866)</a></li>
+    </ul>
+</section>
+<section id="api">
+<h2 class="section-header border">API Improvements</h2>
+    <h3 class="category-header" id="api-docs">Documents and Data</h3>
+    <ul>
+        <li><code>Actors#fromCompendium</code> now includes a <code>clearPrototypeToken</code> option to control whether or not default token settings should applied. <a href="https://github.com/foundryvtt/foundryvtt/issues/10876" rel="nofollow" target="_blank">(10876)</a></li>
+        <li>Document class metadata is now used to determine if a Document contains <code>type</code> data, rather than querying its schema. <a href="https://github.com/foundryvtt/foundryvtt/issues/10875" rel="nofollow" target="_blank">(10875)</a></li>
+    </ul>
+    <h3 class="category-header" id="api-apps">Applications and User Interface</h3>
+    <ul>
+        <li>ActorSheetV2 now includes Prototype Token Configuration, Show Portrait, and Show Token in its default set of header actions. <a href="https://github.com/foundryvtt/foundryvtt/issues/10827" rel="nofollow" target="_blank">(10827)</a></li>
+        <li><code>ApplicationV2#bringToTop</code> now provides a backwards-compatible shim which redirects to <code>ApplicationV2#bringToFront</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/10844" rel="nofollow" target="_blank">(10844)</a></li>
+        <li>When an ApplicationV2 window renders it now includes an indicator as to whether it is a first render as part of its <code>ApplicationRenderOptions</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/10847" rel="nofollow" target="_blank">(10847)</a></li>
+        <li><code>game.settings.get</code> and <code>game.settings.set</code> calls now provide more meaninful feedback that includes the attempted setting key which was not valid. <a href="https://github.com/foundryvtt/foundryvtt/issues/10834" rel="nofollow" target="_blank">(10834)</a></li>
+    </ul>
+    <h3 class="category-header" id="api-canvas">The Game Canvas</h3>
+    <ul>
+        <li>Temporary actor creation via <code>Actor.implementation</code> now uses default token properties if they are configured. <a href="https://github.com/foundryvtt/foundryvtt/issues/10665" rel="nofollow" target="_blank">(10665)</a></li>
+    </ul>
+
+    <h3 class="category-header" id="api-canvas">Documentation Improvements</h3>
+    <ul>
+        <li>Corrected some typos in the documentation of <code>foundry.utils.throttle</code> <a href="https://github.com/foundryvtt/foundryvtt/issues/10838" rel="nofollow" target="_blank">(10838)</a></li>
+    </ul>
+</section>
+<section id="bugs">
+<h2 class="section-header border">Bug Fixes</h2>
+    <h3 class="category-header" id="bugs-docs">Documents and Data</h3>
+    <ul>
+        <li>Defined <code>pack</code>s may now configure their banners to be blank by assigning the banner key a null value. <a href="https://github.com/foundryvtt/foundryvtt/issues/9681" rel="nofollow" target="_blank">(9681)</a></li>
+        <li>Corrected an API issue which prevented players from updating Combatants for which they had ownership permissions. <a href="https://github.com/foundryvtt/foundryvtt/issues/10501" rel="nofollow" target="_blank">(10501)</a></li>
+        <li>Resolved an issue which caused <code>SortingHelpers.performIntegerSort</code> to fail to respect the original sort request in cases where a re-index of siblings was required. <a href="https://github.com/foundryvtt/foundryvtt/issues/10531" rel="nofollow" target="_blank">(10531)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-apps">Applications and User Interface</h3>
+    <ul>
+        <li>Canvas panning operations no longer halt in cases where the canvas is right-clicked without moving the mouse. <a href="https://github.com/foundryvtt/foundryvtt/issues/10836" rel="nofollow" target="_blank">(10836)</a></li>
+        <li>Corrected a bug which prevented a base audio effect from playing when the sound was muffled, if no muffled effect was defined. <a href="https://github.com/foundryvtt/foundryvtt/issues/10862" rel="nofollow" target="_blank">(10862)</a></li>
+        <li>Context menus for the Macro Hotbar are now rendered above the Game Paused graphic. <a href="https://github.com/foundryvtt/foundryvtt/issues/10832" rel="nofollow" target="_blank">(10832)</a></li>
+        <li>Corrected a bug which caused <code>ContextMenu#_onClose</code>to not be called in cases where a new context menu was opening at the same time the close would be performed, resulting in more than one context menu being open at a time. <a href="https://github.com/foundryvtt/foundryvtt/issues/10555" rel="nofollow" target="_blank">(10555)</a></li>
+        <li>ApplicationV2 windows now only minimize when double-clicking in the empty space of the header, rather than when double-clicking header buttons. <a href="https://github.com/foundryvtt/foundryvtt/issues/10840" rel="nofollow" target="_blank">(10840)</a></li>
+        <li>Resolved some issues with the z-index sorting for ApplicationV2 header control buttons. <a href="https://github.com/foundryvtt/foundryvtt/issues/10852" rel="nofollow" target="_blank">(10852)</a></li>
+        <li>Styling for the Region Legend now has an overflow configured to correct a visual style bug with the cropping of the focus shadow indicating a selected input. <a href="https://github.com/foundryvtt/foundryvtt/issues/10837" rel="nofollow" target="_blank">(10837)</a></li>
+        <li>Corrected some visual bugs with the styling of FilePicker on both the setup and game views. <a href="https://github.com/foundryvtt/foundryvtt/issues/10843" rel="nofollow" target="_blank">(10843)</a></li>
+        <li>ApplicationV2 header buttons are now classified as <code>type="button"</code> so they do not respond to &lt;ENTER&gt; keypresses. <a href="https://github.com/foundryvtt/foundryvtt/issues/10851" rel="nofollow" target="_blank">(10851)</a></li>
+        <li>Data submitted on document sheets is now validated to catch errors that should block form submission and halts the submission to allow for correction. This improves the overall DocumentSheetV2 framework and resolves issues like one which incorrectly submitted a scene Region Script Behavior configuration sheet with invalid JS. <a href="https://github.com/foundryvtt/foundryvtt/issues/10869" rel="nofollow" target="_blank">(10869)</a></li>
+        <li>All remaining uses of the previous <code>colorPicker</code> handlebars helper have now been replaced with the new &lt;color-picker&gt; HTML element <a href="https://github.com/foundryvtt/foundryvtt/issues/10871" rel="nofollow" target="_blank">(10871)</a></li>
+        <li>The deprecated <code>nameAttr</code> option of the <code>selectOptions</code> handlebars helper now uses the correct deprecation path rather than silently failing. <a href="https://github.com/foundryvtt/foundryvtt/issues/10872" rel="nofollow" target="_blank">(10872)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-canvas">The Game Canvas</h3>
+    <ul>
+        <li>xx (Check status) Corrected an issue which caused the Blindness vision mode to render as a black circle. <a href="https://github.com/foundryvtt/foundryvtt/issues/10868" rel="nofollow" target="_blank">(10868)</a></li>
+        <li>xx (Check status) Tokens placed on or very close to the boundary of a darkness source no longer gain visibility into the area of the darkness source. <a href="https://github.com/foundryvtt/foundryvtt/issues/10839" rel="nofollow" target="_blank">(10839)</a></li>
+        <li>Combatants are no longer removed from Combat if their token is teleported to a different scene by the Scene Region Teleport behavior, instead, the Combat is automatically unlinked from its scene. <a href="https://github.com/foundryvtt/foundryvtt/issues/10829" rel="nofollow" target="_blank">(10829)</a></li>
+        <li>Walls can now be chained again by holding the &lt;CTRL&gt; key. <a href="https://github.com/foundryvtt/foundryvtt/issues/10845" rel="nofollow" target="_blank">(10845)</a></li>
+        <li>Scene Region darkness level adjustment behaviors now apply a visual indicator of the darkness change immediately. <a href="https://github.com/foundryvtt/foundryvtt/issues/10855" rel="nofollow" target="_blank">(10855)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-packages">Package Development</h3>
+    <ul>
+        <li>Corrected an edge-case bug which occasionally caused <code>relationships.systems</code> to accept object data instead of an array. <a href="https://github.com/foundryvtt/foundryvtt/issues/8328" rel="nofollow" target="_blank">(8328)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-dice">Dice and Cards</h3>
+    <ul>
+        <li>Corrected a bug that caused an error to be thrown when the formula of a Roll included whitespace at the end (such as in cases where a space was placed between the formula and a flavor comment). <a href="https://github.com/foundryvtt/foundryvtt/issues/10858" rel="nofollow" target="_blank">(10858)</a></li>
+        <li><code>Roll#render</code> now passes supplied <code>options.flavor</code> strings onward to the HTML template. <a href="https://github.com/foundryvtt/foundryvtt/issues/9347" rel="nofollow" target="_blank">(9347)</a></li>
+    </ul>
+</section>
