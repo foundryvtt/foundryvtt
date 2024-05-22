@@ -1,0 +1,266 @@
+<header id="update-header">
+	<h2 class="border" id="update-title">Foundry Virtual Tabletop - Version 12 Stable Release Notes</h2>
+	<figure id="update-banner">
+	    <img alt="Release Notes for Foundry Virtual Tabletop Version 12 Stable" src="" title="Foundry VTT - Version 12 Stable Release Notes"/>
+	    <figcaption>Welcome to the Foundry Virtual Tabletop update notes for Version 12 Stable Build 324</figcaption>
+	</figure>
+</header>
+  
+    <p>Just in time for our fourth anniversary! We are extremely proud to launch the first stable-channel release for Version 12, bringing a whole host of new features to Foundry Virtual Tabletop for our users. Version 12 contains thousands of hours of development work and is a substantial iteration on nearly every aspect of Foundry VTT. Throughout V12 we've focused on: comprehensive backend changes to key elements of the canvas, the introduction of Application V2 for future UI improvements, environmental audio and lighting, and the item chosen as a priority feature by our patrons: Scene Regions and triggered events.</p>
+    <p>With development of new features concluding in V12, we're very pleased with the changes that it brings and we hope you'll all enjoy the myriad of improvements we've made. Our next few releases will target high priority bug fixes to further round-out the stable build of V12, as we prepare for the planning phase of Version 13!</p>
+    <p class="note warning"><strong>WARNING:</strong> While this is categorized as a stable release there is always a possibility of unexpected bugs or compatibility issues. As with any time you update the core software, be sure to perform a complete backup of your user data to minimize any risk of data loss.</p>  
+    <section class="note">
+    <h2 class="border">IMPORTANT: How to Update <u>Safely</u> To a New Version</h2>
+    <p class="note error">This update performs a data migration when worlds are launched which <u>cannot be reversed</u> if you do not back up your data.</p>
+        <ol>
+            <li><a href="https://foundryvtt.com/article/backups/" rel="nofollow" target="_blank">Back up your User Data</a>. A full snapshot backup is recommended, but not required.</li>
+            <li>Version 12 contains updates to dependent packages which require a full reinstallation, you must uninstall your existing version of Foundry VTT.</li>
+            <li>Download and install the Version 12 Stable Release (Build 324). You may not update to version 12 using the in-application updater. You must reinstall using a full download from <a href="https://foundryvtt.com/me/licenses" rel="nofollow">the download page</a>.</li>
+            <li>After launching Foundry VTT in v12, take a moment to update your Game Systems and Add-on Modules. Some systems and modules will have a V12 compatible version available, some will not.</li>
+            <li>Launch your World. Be aware that in order to protect your data, all modules will initially be disabled during the first launch of a World in Version 12. When you click launch, a prompt will remind you that this is the last opportunity to save your data if you have not already performed a backup!</li>        
+            <li>Take some time to test your World and make sure everything is in working order before re-enabling any modules. </li>
+            <li>Carefully re-enable a few Modules at a time, choosing ones you view as most essential. Take the time to test your World in-between, just to make sure nothing has drastically changed.</li>    
+            <li>If everything has gone well, congratulations! Enjoy all the new features Version 12 brings! In the event you need to revert to V11 you can restore the backup to stored during step 1.</li>
+        </ol>
+    </section>
+    <section id="update-highlights">
+	<h2 class="section-header border">V12 Comprehensive Highlights</h2>
+    <p>As is tradition, the highlights section for the first stable release in a new Version showcase some of the biggest changes introduced in V12 and we hope our users are as excited to read through them as we are to write them. While we try to be as thorough as possible, this kind of summary can only scratch the surface of the extremely long list of changes that come from nearly a year of development, so we strongly encourage our users who want a more in-depth view of V12 features to read through the release notes for each update that we have produced during the V12 development cycle:</p>
+    <ul>
+        <li><a href="https://foundryvtt.com/releases/12.316" rel="nofollow">Version 12 Prototype 1</a></li>
+        <li><a href="https://foundryvtt.com/releases/12.317" rel="nofollow">Version 12 Prototype 2</a></li>
+        <li><a href="https://foundryvtt.com/releases/12.318" rel="nofollow">Version 12 API Development 1</a></li>
+        <li><a href="https://foundryvtt.com/releases/12.319" rel="nofollow">Version 12 API Development 2</a></li>
+        <li><a href="https://foundryvtt.com/releases/12.320" rel="nofollow">Version 12 Testing 1</a></li>
+        <li><a href="https://foundryvtt.com/releases/12.321" rel="nofollow">Version 12 Testing 2</a></li>
+        <li><a href="https://foundryvtt.com/releases/12.322" rel="nofollow">Version 12 Testing 3</a></li>
+        <li><a href="https://foundryvtt.com/releases/12.323" rel="nofollow">Version 12 Testing 4</a></li>
+    </ul>
+<section class="collapsible">
+    <header class="collapsible-header">General Canvas Goodness</header>
+    <div class="collapsible-content">
+        <div class="columns">
+            <div class="column">
+        <p>In order to lay some groundwork for future development, V12 brings some significant changes to several aspects of how we render the game Canvas and its various layers. While many of the improvements here are architectural and aren't very user-facing, there are some direct benefits that users can expect to notice in their games. </p>
+        <figure class="column right noborder"><video autoplay="true" loop="loop" muted="true" src="https://foundryvtt-dev.s3.us-west-2.amazonaws.com/website-media-dev/user_70/screen/multiple-token-ring-effects-demo-2024-01-18.webm"></video>
+            <figcaption>The Dynamic Token engine enhances tokens with special effects applied to their background, ring, or creature artwork.</figcaption>
+            </figure>
+        <dl>
+            <dt><strong>Shady Grids</strong></dt>
+                <dd>One of the more notable user-facing changes brings a host of new settings for the appearance of grids on scenes. Grids are now rendered using shaders rather than textures, allowing for users to change style and thickness of grids. In addition, improvements to the way grids are rendered allowed us to correct some long-standing issues with navigation on hexagonal and gridless scenes. We've also added some visual snapping to movement operations for most placeables on gridded scenes, making it easier to preview where the object will land without having to guess which subgrid point the object will snap to.</dd>
+            <dt><strong>Dynamic Token Rendering</strong></dt>
+                <dd>First introduced in the D&amp;D system, V12 introduces a new, optional framework for token rendering that allows content creators to build tokens that can interact with Foundry dynamically. This new method of displaying tokens renders a separate ring layer, effect layer, and asset layer as a composite, which allows systems and modules to provide special effects that only apply to one of those rendered layers. While Phandelver &amp; Below is the only module which currently takes advantage of this framework, we look forward to putting it in the hands of many more creators and developers and seeing how it takes off!</dd>
+            <dt><strong>Elevated Tiles and More</strong></dt>
+                <dd>Where V11 introduced the concept of assigning elevation to tiles, V12 improves on this existing framework to provide a more natural feel of interaction with tiles by moving them from the binary idea of "Overhead or Underfoot" to a scaling idea of elevation. As a result, the idea of "Roof" tiles has changed, instead becoming a pair of toggles for whether the tile restricts light or restricts weather. In addition, tiles now provide a clean fade when hovered by the GM, making it more convenient for GMs to handle objects they've hidden under tiles. For a quick shortcut, toggling the Overhead button on the tiles layer will automatically set tiles to elevation 20. We've also added elevation support for many canvas objects, including: drawings, templates, notes, ambient lights and sounds...but not walls yet.</dd>
+            <dt><strong>Informational Drawings</strong></dt>
+                 <dd>To provide GMs with ability to distinguish between drawings that are hidden by the fog of war and drawings that appear above the fog of war, drawings now have two roles: Object and Information. By default, all drawings are Object drawings and are affected by light and fog as they were in V11 and earlier. Information Drawings, however, are rendered above the lighting and fog level, making them visible to users at all times.</dd>
+            <dt><strong>Performance and Anti-aliasing</strong></dt>
+                <dd>We've made some significant changes under the hood to how Foundry VTT handles when rendering and even your largest scenes perform better in terms of frames-per-second rendering. This performance improvement should be beneficial for running large scenes on older hardware or newer. In addition, we've swapped from Fast Approximate Antialiasing (FXAA) to Subpixel Morophological Antialiasing (SMAA) for rendering many aspects of canvas objects which provides a cleaner appearance while simultaneously improving performance in the rendering of canvas objects.</dd>
+        </dl>
+    </div>
+</div>
+</div></section>
+<section class="collapsible">
+    <header class="collapsible-header">Regional Delicacies</header>
+    <div class="collapsible-content">
+        <p>Perhaps the most powerful feature suite included in V12, Scene Regions provide a method for GMs to configure specific areas of a Scene with explicitly defined Behaviors that are triggered by particular Events. Scene Regions add an extremely customizable set of tools which have nearly limitless functionality, and we can't wait to see what unique and interesting automation our community implements using them.</p>
+        <p>It is important to recognize that a Region is not simply one Shape, but each region is more of a "group" of Shapes which all share the same Behaviors. Each Region can have multiple Behaviors, each triggered by one or more Events.</p>
+        <figure class="center"><img src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_681/screen/example-scene-region-with-adjust-darkness-behavior-shown-2024-04-26.webp" style="width: 75%;"/>
+            <figcaption>Example Scene Region with "Adjust Darkness" behavior shown, demonstrating the effect on Global Illumination</figcaption>
+        </figure>
+        <p>The available built-in Behaviors can be leveraged to accomplish things that we have often heard users wish for:</p>
+        <dl>
+            <dt><strong>Adjust Darkness Level</strong></dt>
+                <dd>Have you ever wanted to exclude part of a scene from Global Illumination, so that the light level <strong>outside</strong> was different from the light level <strong>inside</strong>? This Behavior delivers that ability and more.</dd>
+            <dt><strong>Execute Macro</strong></dt>
+                <dd>For those Macro-hoarding GMs who already have all manner of pre-coded scripts ready to go for certain actions and just want them to trigger automatically, the Execute Macro behavior does what it says on the label: when you assign it the UUID of a given Macro (which can be gotten by right-clicking the ID button in the header of a macro), it will trigger that macro under the conditions of the event you assign to trigger it.</dd>
+            <dt><strong>Execute Script</strong></dt>
+                <dd>If you only need a script to apply to this particular Region, this allows you to craft a bit of JavaScript that will be run under the desired conditions. Those wishing to access the data provided by the triggering event can easily do so by accessing <code>event.data</code> from within the script.</dd>
+            <dt><strong>Pause Game</strong></dt>
+                <dd>Sick of your players running off like a shot and skipping past your carefully planned traps, having to move them back and clear the fog of war? Just draw a scene region that will pause the game whenever a token enters the region. For convenience, you can also toggle the "Once" option so it doesn't do it every single time a token passes by.</dd>
+            <dt><strong>Suppress Weather</strong></dt>
+                <dd>Want to keep it from snowing indoors in your arctic hunting lodge, but you don't have a convenient tile to place for a roof? This behavior will stop rendering weather effects inside the Region, whether there's a roof there or not.</dd>
+            <dt><strong>Teleport Token</strong></dt>
+                <dd>Perhaps one of the most desired features, the Teleport Token behavior allows you to instantaneously transport a token that enters the region from one region to another. Similar to Execute Macro, this behavior requires the UUID of another Scene Region to serve as a destination. The destination region can even be in a different scene!</dd>
+            <dt><strong>Toggle Behavior</strong></dt>
+                <dd>Have a particular behavior you only want to activate after a certain condition has been met, such as a trap that is only active after a token has stepped on its pressure plate? Toggle behavior allows you to link to the UUID of a different Behavior, enabling or disabling the linked behavior when a certain triggering event occurs.</dd>
+        </dl>
+        <p>In the hands of even a completely inexperienced coder, Scene Regions can be leveraged to create truly powerful automations.</p>
+        <p>If you want to see some of these in action, there will be examples in the Scene Regions article, and we're already racing to add support for Scene Regions to some of our first-party Premium Content. We look forward to adding additional functionality to Scene Regions in the future, but we hope you'll find the toolkit that we've provided to be more than adequate for all of your scene-automating needs!</p>
+    </div>
+</section>    
+<section class="collapsible">
+    <header class="collapsible-header">Application V2</header>
+    <div class="collapsible-content">
+        <p>As part of our efforts to modernize the Foundry VTT user interface, we took the opportunity to lay some groundwork for future changes by implementing Application V2. A few UI elements, such as the User Configuration dialog, have been now been updated to use Application V2 already.</p>
+        <p>While this is <strong>mostly</strong> something that is immediately exciting a limited number of community developers, it is an important upgrade because almost every "window" you open within Foundry VTT is an Application. Users can look forward to many upcoming UI improvements which leverage Application V2 in the future!</p>
+        <p><strong>Additional details</strong>: A key feature of Application V2 is that it improves multi-user editing of a single window. As a severe oversimplification, the new Application window can be portioned up into discrete parts, allowing data to be updated on one part of a sheet without losing the state of other parts of the Data. There are many different frameworks (Svelte, Vue, React and many others) which can be used to accomplish this similar goal, so we've made it possible for experienced programmers to define which renderer their Application V2 program will use.</p>
+    </div>
+</section>
+<section class="collapsible">
+    <header class="collapsible-header">Environmental Enhancements</header>
+    <div class="collapsible-content">
+        <p>Part of our updates to the canvas brought significant changes for the way scenes appear, introducing new options for Environmental Lighting so content creators and GMs can now customize the appearance of scenes more than they ever could before. Powerful support for mechanical darkness was also added to the vision engine!</p>
+        <h3>Scene Ambience</h3>
+        <p>The goal of the Environmental/Ambience lighting changes is to allow users to modify the color components of a scene, enabling the game master to create a customizable and immersive atmosphere.</p>
+        <p>For example, users can simulate the ambience of a specific planet with different sun colors, such as a red sun setting a warm, eerie glow over the landscape or a blue sun casting a cool, alien light. Other examples include creating the atmosphere of a haunted house, the bright and cheerful lighting of a sunny meadow, or the harsh, cold lighting of a futuristic spaceship. This flexibility allows for a more dynamic and engaging storytelling environment, tailored to the narrative needs of each session.</p>
+        <h3>Improved Darkness Sources</h3>
+        <p>Representing darkness within scenes has evolved significantly since the early versions of Foundry VTT. First, it was a somewhat secret feature that could be achieved by giving a light source a negative radius. Then, it could be represented with a negative luminosity value.</p>
+        <p>Up to this point, however, "darkness" sources could never do anything other more than apply visual "dimness" to an area. Mechanically, the area was still fully "lit". That is to say, Tokens could still "see" within their radius, exactly like they could with any other light source.</p> 
+        <p>For the first time, V12 introduces a new "Darkness Source" toggle which makes a light source not only visually "dim", but also mechanically dark. These Darkness Sources also impact token vision, making it impossible for Tokens to see through them to the other side without some sort of special vision mode. If a token should be foolish enough to step within the darkness source, the distance of their vision is sharply decreased, preventing them from seeing outside the darkness from within it.</p>
+        <p>A method for creating "true," vision-blocking darkness is something that the community has often requested so we're very proud to be able to deliver on that request!</p>
+        <h3>Regional Darkness</h3>
+        <p>A powerful existing feature of Foundry VTT is the ability to easily use the same Scene for a visit during the night or day. This is accomplished by automatically disabling Global Illumination (think daylight) when the Darkness Level of a scene exceeds a specified value (called the Global Illumination Threshold). For instance, if you have a threshold set and you click the existing "Transition to Darkness" button within the Lighting tools, Global Illumination is automatically disabled for the Scene and it becomes mechanically "unlit." This means that Tokens would then need to bring their own light source or vision mode if they wish to see.</p>
+        <p>But what if your Scene contains both dark, "indoor" areas and bright "outdoor" areas at the same time? This challenge can now be met with one of V12's powerful new Scene Region features: the "Adjust Darkness Level" behavior. If you use this feature to make a part of your map darker than the threshold value, the area doesn't doesn't just become visually dark, it becomes mechanically unlit as well. Your players without supernatural senses will need to bring a torch with them to explore that cave!</p>
+</section>
+<section class="collapsible">
+    <header class="collapsible-header">Roll and Go</header>
+    <div class="collapsible-content">
+        <h3>Choose Your Own Method of Randomness</h3>
+        <p>With the release of several competing Bluetooth-based dice products, we've heard the community's desire to have a way to be able to use those dice with official Foundry VTT integration.</p>
+        <p>V12 introduces a new Configure Dice section in our Game Settings to allow users to determine their randomness method.</p> 
+        <ul>    
+            <li><strong>Foundry VTT Digital Roll</strong> - This new method gives priority to any module which would change the dice rolling method (such as one for a specific set of Bluetooth dice, for example).</li>
+            <li><strong>The Digital Roll (Mersenne Twister)</strong> - This option is the standard method Foundry has always used to produce your dice rolls.</li>
+            <li><strong>Manual Rolls</strong> - Foundry prompts the user to enter a number to serve as the result of their roll. This is typically the number that they rolled on a physical die. The Manual method is primarily geared towards GMs who want to run their tables in person but still want to take advantage of the automation features of Foundry VTT.</li>
+        </ul>
+        <p>By default, the dice method is unchanged: the Digital Roll (Mersenne Twister) option is used.</p>
+        <h3>Roll Parsing and Peggy</h3>
+        <p>We have also further refined our parsing of roll formulae by introducing a new library called Peggy. While most users may not even notice a difference, switching to using Peggy as our parser allows us to finally correct some very obscure cases which could occasionally return inaccurate or unexpected results on very complex roll expressions. As a result of this change, our dice rolling is now more robust than ever before. </p>
+    </div>
+</section>
+<section class="collapsible">
+    <header class="collapsible-header">Audio Improvements</header>
+    <div class="collapsible-content">
+        <p>Over the course of V12 development, we ended up adding several important improvements to Foundry's audio system.</p>
+        <h3>Dynamic Ambient Sounds</h3>
+        <p>Placeable sounds have new options to add powerful effects filters. For example, this allows Walls to audibly muffle sounds as they pass through! These new options come in the form of the new Special Effects section which can be found in the configuration window of placed Ambient Sounds.</p> 
+        <p>At present, Ambient Sounds support the following effects:</p>         
+        <ul>
+            <li><strong>Low Pass</strong> - Frequently used to emulate a dense surface softening the higher frequency sounds, Low Pass filters make a sound more 'rich', 'warm', and most importantly 'muffled'. If you want to make something sound like it is muffled behind a door or wall, you would apply a Low Pass filter.</li>
+            <li><strong>High Pass</strong> - Often in outdoor environments, the bass frequency of the sound falls off while higher frequencies remain clear. You might use a High Pass filter to simulate a sound crossing a large open space, such as a grassy field.  </li>
+            <li><strong>Reverb</strong> - Primarily used in cases where you want to make the environment of a sound 'echo' a little more, so that the sound emulates an environment such as hard stone walls that reflect the sound back at the listener.</li>
+        </ul>
+        <p>There are two different ways these effect can be applied:</p>
+        <ul>    
+            <li><strong>Base Effects</strong> - Apply to the sound regardless of whether a wall is between the listener and the sound source</li>
+            <li><strong>Muffled Effects</strong> - Only apply in cases where a wall between the source and the listener would alter the sounds. Importantly, if the sound doesn't have the "Constrained by Walls" option toggled to false (allowing it to be heard through walls at all), this effect never has the opportunity to be applied.</li>
+        </ul>
+        <h3>Musical Permissions</h3>
+        <p>Players can now be assigned ownership permissions over playlists. This allows them to control which sounds are playing, make changes to any part of the playlist, and to trigger sounds on demand exactly the way a GM can. The GM still has control, though... these permissions function exactly the same as permissions for other kinds of Documents. If a player wants to play DJ, however, this allows GMs to offload some of the burden of keeping the ambience of their games flowing.</p>    
+        <h3>Audio Mixing Channels</h3>
+        <p>GMs and users alike have long been able to control the volume of music, ambient effects, and interface sounds separately. In V12, each piece of audio played throughout the Foundry VTT ecosystem can designate which channel it most appropriately belongs to. This allows all 3 channels to have separate volume control and timing.</p>
+    </div>
+</section>
+</section>
+
+<section id="breaking">
+    <h2 class="section-header border">Breaking Changes</h2>
+        <p>As always, please keep in mind that many of your favorite modules or game systems may not be updated for V12 until some time after its release... and that's okay. Please be patient and kind to our excellent community developers!</p>
+        <p><strong>Developers</strong>: While there are no breaking changes in the V12 Stable 1 release itself, there are some important breaking changes that you should be aware of when making the jump from V11 to V12.</p>
+        <p>You can find a comprehensive list of all V12 breaking changes here: <a href="https://github.com/orgs/foundryvtt/projects/42/views/9" rel="nofollow" target="_blank">Breaking Changes for Version 12</a>. You can also find out more information by scanning the "Breaking Changes" sections in the patch notes of the individual V12 releases.</p>
+</section>
+
+<p class="note info">The remaining portion of this document provides the patch notes for the changes that are specifically included in the V12 Stable 1 release. </p>
+<section id="features">
+    <h2 class="section-header border">New Features in V12 Stable 1</h2>
+        <h3 id="features-docs" class="category-header">Documents and Data</h3>
+        <ul>
+            <li>Changed the default Environmental Lighting settings to better support existing Scenes. <a href="https://github.com/foundryvtt/foundryvtt/issues/10969" target="_blank">(10969)</a></li>
+        </ul>
+        <h3 id="features-apps" class="category-header">Applications and User Interface</h3>
+        <ul>
+            <li>Provided clarifying hint text about the interaction between Global Illumination Threshold and the "Adjust Darkness Level" Scene Region behavior. <a href="https://github.com/foundryvtt/foundryvtt/issues/10848" target="_blank">(10848)</a></li>
+            <li>When you use the "Add Shape from Controlled Walls" button in the Scene Regions dialog, automatically activate the "Select Wall" tool for convenience. <a href="https://github.com/foundryvtt/foundryvtt/issues/10933" target="_blank">(10933)</a></li>
+            <li>Improved the Theme V2 styling rules for <code>label.checkbox</code> elements. <a href="https://github.com/foundryvtt/foundryvtt/issues/10945" target="_blank">(10945)</a></li>
+            <li>Swapped the left-click and right-click functionality of the "Copy ID" button in the header of a Document's configuration window. Left-clicking now copies the UUID to the clipboard, and right-clicking now copies the ID. <a href="https://github.com/foundryvtt/foundryvtt/issues/10975" target="_blank">(10975)</a></li>
+        </ul>
+        <h3 id="features-canvas" class="category-header">The Game Canvas</h3>
+        <ul>
+            <li>Edges of inactive (but not disabled or suppressed darkness sources) are once again created. <a href="https://github.com/foundryvtt/foundryvtt/issues/10973" target="_blank">(10973)</a></li>
+        </ul>
+        <h3 id="features-i18n" class="category-header">Localization and Accessibility</h3>
+        <ul>
+            <li>Added localizations for the base types of Documents that were missing them. <a href="https://github.com/foundryvtt/foundryvtt/issues/10920" target="_blank">(10920)</a></li>
+        </ul>
+</section>
+
+<section id="bugs">
+    <h2 class="section-header border">Bug Fixes in V12 Stable 1</h2>
+        <h3 id="bugs-docs" class="category-header">Documents and Data</h3>
+        <ul>
+            <li>Compendium documents can no longer be cleared from cache if their sheets are still open. <a href="https://github.com/foundryvtt/foundryvtt/issues/5968" target="_blank">(5968)</a></li>
+            <li>Simplified the process of adding custom sound sets for Combat Themes by using <code>CONFIG.Combat.sounds</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/10268" target="_blank">(10268)</a></li>
+            <li>Broken content links can no longer break links to sibling journal entry pages. <a href="https://github.com/foundryvtt/foundryvtt/issues/10272" target="_blank">(10272)</a></li>
+            <li>Fixed an issue where journal headings that contain only numerical characters could result in incorrect sorting of headings in the summary. <a href="https://github.com/foundryvtt/foundryvtt/issues/10283" target="_blank">(10283)</a></li>
+            <li>Removed the "Delete All" context option for Folders of the Compendium type because contained compendium packs cannot be deleted in this way. <a href="https://github.com/foundryvtt/foundryvtt/issues/10533" target="_blank">(10533)</a></li>
+            <li>Content links to a specific page in a multi-page view journal now reliably open to the correct page. <a href="https://github.com/foundryvtt/foundryvtt/issues/10602" target="_blank">(10602)</a></li>
+            <li>An ObjectField which is configured as <code>{required: false}</code> will now be initialized as <code>undefined</code>. An <code>ObjectField</code> which is required but <code>{nullable: true}</code> will now be initialized as <code>null</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/10928" target="_blank">(10928)</a></li>
+            <li><code>Macro.createDialog</code> once again has the option to pick the type ("Chat" or "Script"). <a href="https://github.com/foundryvtt/foundryvtt/issues/10952" target="_blank">(10952)</a></li>
+            <li><code>EmbeddedDataFields</code> in <code>TypedSchemaFields</code> return a correct <code>fieldPath</code>. It no longer inserts its <code>type</code> into the path. <a href="https://github.com/foundryvtt/foundryvtt/issues/10955" target="_blank">(10955)</a></li>
+            <li>Selecting text in a journal page once again works as expected in the TinyMCE editor. <a href="https://github.com/foundryvtt/foundryvtt/issues/10957" target="_blank">(10957)</a></li>
+            <li>All subclasses of the same base Document now share the same data schema. <a href="https://github.com/foundryvtt/foundryvtt/issues/10962" target="_blank">(10962)</a></li>
+            <li>Prevented an issue where each scene was activated when importing multiple scenes. <a href="https://github.com/foundryvtt/foundryvtt/issues/10964" target="_blank">(10964)</a></li>
+            <li><code>PrototypeToken.defineSchema</code> no longer re-declares <code>name</code> with the same properties. <a href="https://github.com/foundryvtt/foundryvtt/issues/10971" target="_blank">(10971)</a></li>
+        </ul>
+        <h3 id="bugs-apps" class="category-header">Applications and User Interface</h3>
+        <ul>
+            <li>Provided a default color for light animation types that require a non-zero light color to display.  <a href="https://github.com/foundryvtt/foundryvtt/issues/9819" target="_blank">(9819)</a></li>
+            <li>Clicking the "Save Module Settings" button does not bring the reload prompt to the front if it's already rendered. <a href="https://github.com/foundryvtt/foundryvtt/issues/10037" target="_blank">(10037)</a></li>
+            <li>Creating a Macro by clicking an empty hotbar slot now properly appends a number to the initial name of the created document. <a href="https://github.com/foundryvtt/foundryvtt/issues/10369" target="_blank">(10369)</a></li>
+            <li>Prevented users from being able to see cursors when loading into a World for the first time when the Display Mouse Cursor option is disabled. <a href="https://github.com/foundryvtt/foundryvtt/issues/10529" target="_blank">(10529)</a></li>
+            <li>The "Show GM Users" checkbox in the Document Ownership Configuration view is now remembered across multiple renderings of that form within a single client session. <a href="https://github.com/foundryvtt/foundryvtt/issues/10607" target="_blank">(10607)</a></li>
+            <li>To help prevent microgaps, restored a small amount of proximity detection of nearby Wall endpoints when CTRL-clicking to chain walls. <a href="https://github.com/foundryvtt/foundryvtt/issues/10889" target="_blank">(10889)</a></li>
+            <li>The "Add Shape from Controlled Walls" button in the Scene Regions dialog no longer causes the loss of unsaved changes in the Identity tab. <a href="https://github.com/foundryvtt/foundryvtt/issues/10932" target="_blank">(10932)</a></li>
+            <li>Selecting or removing options in <code>&lt;multi-select&gt;</code> elements in a form now properly triggers form submission. <a href="https://github.com/foundryvtt/foundryvtt/issues/10954" target="_blank">(10954)</a></li>
+            <li>Prevented App V2 changes from resulting in coloration changes for dropdowns in App V1 dialogs. <a href="https://github.com/foundryvtt/foundryvtt/issues/10965" target="_blank">(10965)</a></li>
+            <li>Resolved an overflow issue in App V2 Filepicker dialogs. <a href="https://github.com/foundryvtt/foundryvtt/issues/10966" target="_blank">(10966)</a></li>
+            <li>The <code>HTMLColorPickerElement</code> now sets the same initial color for both the string input placeholder and the color selection UI. <a href="https://github.com/foundryvtt/foundryvtt/issues/10972" target="_blank">(10972)</a></li>
+        </ul>
+        <h3 id="bugs-canvas" class="category-header">The Game Canvas</h3>
+        <ul>
+            <li>Double-clicking a wall segment in a location that is not an end-node once again opens its Wall Configuration dialog. <a href="https://github.com/foundryvtt/foundryvtt/issues/10821" target="_blank">(10821)</a></li>
+            <li>Changing the text of a Drawing and then drag-moving the Drawing no longer reverts the text to its prior value. <a href="https://github.com/foundryvtt/foundryvtt/issues/10883" target="_blank">(10883)</a></li>
+            <li>Prevented another player's cursor from expanding bounds of the Scene's padding area when it moved out of it. <a href="https://github.com/foundryvtt/foundryvtt/issues/10930" target="_blank">(10930)</a></li>
+            <li>Prevented the controlled Token from being moved with the arrow keys during a Ruler measurement. <a href="https://github.com/foundryvtt/foundryvtt/issues/10938" target="_blank">(10938)</a></li>
+            <li>Added missing labels and hints on the Prototype Token Configuration dialog. <a href="https://github.com/foundryvtt/foundryvtt/issues/10953" target="_blank">(10953)</a></li>
+            <li>Fixed a Canvas freeze that could occur when selecting a Token with Global Illumination enabled for the Scene. <a href="https://github.com/foundryvtt/foundryvtt/issues/10956" target="_blank">(10956)</a></li>
+            <li>Prevented a "flash" from occurring after the editing a light. <a href="https://github.com/foundryvtt/foundryvtt/issues/10960" target="_blank">(10960)</a></li>
+            <li>Light configuration tabs are now re-rendered if the darkness checkbox changes to ensure that animation types and advanced options are appropriately toggled. <a href="https://github.com/foundryvtt/foundryvtt/issues/10967" target="_blank">(10967)</a></li>
+            <li>A template that exceeds the bounds of the padding area no longer causes the area of darkness to expand. <a href="https://github.com/foundryvtt/foundryvtt/issues/10974" target="_blank">(10974)</a></li>
+            <li>Token teleportation to a different Scene no longer fails if the player that moved the Token doesn't have Token Creation and Deletion permissions. <a href="https://github.com/foundryvtt/foundryvtt/issues/10976" target="_blank">(10976)</a></li>
+        </ul>
+        <h3 id="bugs-i18n" class="category-header">Localization and Accessibility</h3>
+        <ul>
+            <li>Compendium pack labels are now localized in the the compendium app title bar. <a href="https://github.com/foundryvtt/foundryvtt/issues/10664" target="_blank">(10664)</a></li>
+            <li>Added localization for <code>Coordinates</code> and <code>pixels</code> in the Ambient Sound Configuration dialog. <a href="https://github.com/foundryvtt/foundryvtt/issues/10958" target="_blank">(10958)</a></li>
+            <li>In systems without localization, <code>ClientDocument.defaultName()</code> now properly returns a Document type instead of a localization key. <a href="https://github.com/foundryvtt/foundryvtt/issues/10959" target="_blank">(10959)</a></li>
+        </ul>
+        <h3 id="bugs-other" class="category-header">Other Changes</h3>
+        <ul>
+            <li>The Compendium Application's "Delete Entry" context menu no longer bypasses <code>ClientDocument#deleteDialog</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/10226" target="_blank">(10226)</a></li>
+            <li><code>RollTable#toMessage</code> no longer throws errors when a <code>Roll</code> instance is not provided. <a href="https://github.com/foundryvtt/foundryvtt/issues/10229" target="_blank">(10229)</a></li>
+            <li>Fixed an issue where errors thrown by DOM functions could cause <code>Hooks.onError</code> to obscure the original error with its own. <a href="https://github.com/foundryvtt/foundryvtt/issues/10534" target="_blank">(10534)</a></li>
+            <li><code>DocumentCollection#delete</code> now properly returns a boolean. <a href="https://github.com/foundryvtt/foundryvtt/issues/10936" target="_blank">(10936)</a></li>
+            <li>Fixed a regression in <code>StringField#_getChoices</code> which only worked for simple object values but not other non-string types. <a href="https://github.com/foundryvtt/foundryvtt/issues/10949" target="_blank">(10949)</a></li>
+            <li>Prevented an error that occurred when hovering any Shape with the Shapes tab of the Scene Region dialog open. <a href="https://github.com/foundryvtt/foundryvtt/issues/10963" target="_blank">(10963)</a></li>
+            <li>Refactored <code>FogExploration.get</code> to <code>FogExploration.load</code> to avoid breaking inheritance with the parent <code>Document.get</code> static method. <a href="https://github.com/foundryvtt/foundryvtt/issues/10946" target="_blank">(10946)</a></li>
+        </ul>
+</section>
+
+<section id="documentation">
+    <h2 class="section-header border">Documentation Improvements in V12 Stable 1</h2>
+        <h3 id="documentation-canvas" class="category-header">The Game Canvas</h3>
+        <ul>
+            <li>Improved the clarity of the description of the "Provides Vision" checkbox in the <code>AmbientLights</code> configuration dialog. <a href="https://github.com/foundryvtt/foundryvtt/issues/10231" target="_blank">(10231)</a></li>
+        </ul>
+        <h3 id="documentation-other" class="category-header">Other Changes</h3>
+        <ul>
+            <li>The documentation for <code>Document.createDocuments</code> now accurately reflects that it accepts a <code>(object | Document)[]</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/8860" target="_blank">(8860)</a></li>
+        </ul>
+</section>
+
+<section id="api">
+    <h2 class="section-header border">API Improvements in V12 Stable 1</h2>
+        <li>Refactored <code>FogExploration.get</code> to <code>FogExploration.load</code> to avoid breaking inheritance with the parent <code>Document.get</code> static method. <a href="https://github.com/foundryvtt/foundryvtt/issues/10946" target="_blank">(10946)</a></li>
+</section>
