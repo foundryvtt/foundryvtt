@@ -8,26 +8,26 @@
 <ul>
 	<li>Building a game system in FVTT requires a few skills: at least some basic knowledge of JavaScript, HTML, and CSS are required. You do not need to be an expert web developer, but understanding the basics of these languages is critical.</li>
 	<li>The development process will (probably) take longer than you think. Even game systems that seem simple or basic often have underlying portions of game mechanics which are overlooked. Building a system does not take days; it will certainly take weeks, and in some cases for more complex systems, months to develop. Try to remain focused on the long-term objective and do not let slow progress in the short term discourage you.</li>
-	<li>Make progress one piece at a time. A game system is comprised of many component parts both within and outside of Foundry VTT. We recommend starting with the data model in the <code>template.json</code> file - but don't worry about adding every attribute at first - you can always expand the data model later. Consider starting with a simple model which captures the minimum and most important pieces of Actor or Item data. Breaking your system down into smaller pieces will make the construction process easier and less overwhelming.</li>
-	<li>Consider using the "Simple Worldbuilding" system as a stop-gap while your own system is still under development. This will allow you and your players to enjoy using the Virtual Tabletop while you work on completing your own system. When the time comes, the data for your World can be moved to your completed system.</li>
+	<li>Make progress one piece at a time. A game system is comprised of many component parts both within and outside of Foundry VTT. We recommend starting with the data model - but don't worry about adding every attribute at first - you can always expand the data model later. Consider starting with a simple model which captures the minimum and most important pieces of Actor or Item data. Breaking your system down into smaller pieces will make the construction process easier and less overwhelming.</li>
+	<li>Consider using the "Simple Worldbuilding" system as a stop-gap while your own system is still under development. This will allow you and your players to enjoy using the Virtual Tabletop while you work on completing your own system.</li>
 </ul>
 
 <h3 id="structure">System File Structure</h3>
-<p>Each game system is a subdirectory within the <code>{userData}/Data/systems</code> path of your Foundry Virtual Tabletop user data location. When developing a new system, we recommend creating your git repository directly within this location for ease of development and testing. Within this directory there are two required files: <code>system.json</code> and <code>template.json</code> which are each explained below. You are free to use your own naming conventions for subdirectories and files within your game system, but we encourage you to use lower-case hyphen-separated file and folder names as a best practice.</p>
+<p>Each game system is a subdirectory within the <code>{userData}/Data/systems</code> path of your Foundry Virtual Tabletop user data location. When developing a new system, we recommend creating your git repository directly within this location for ease of development and testing. Within this directory there is only one required file: <code>system.json</code>, which is explained below. You are free to use your own naming conventions for subdirectories and files within your game system, but we encourage you to use lower-case hyphen-separated file and folder names as a best practice.</p>
 <p>A standard example file structure for a minimal system might look like this:</p>
 <pre><code class="language-plaintext">{userData}/Data/systems/mysystem/
 system.json
-template.json
-scripts/
-	system-script.js
-	system-module.mjs
+mysystem.mjs
+module/
+  data-models.mjs
+  documents.mjs
 styles/
-	system-styles.css
+  system-styles.css
 packs/
-	monsters/
-	items/
+  monsters/
+  items/
 lang/
-	en.json</code></pre>
+  en.json</code></pre>
 <p>There are three ways to share a created system with others:</p>
 <ol>
 	<li><strong>Manual Install</strong>: You may package the system directory directly into a .zip file which users can extract within their own systems folder.</li>
@@ -43,52 +43,49 @@ lang/
   "description": "A human-readable description of your system.",
   "version": "1.0.0",
   "compatibility": {
-    "minimum": "10",
-    "verified": "11",
-    "maximum": "11"
+    "minimum": 12,
+    "verified": 12
   },
-  "authors": [
-    {
-      "name": "me",
-      "url": "YOUR WEBSITE ADDRESS HERE",
-	  "email": "YOUR EMAIL ADDRESS HERE",
-	  "discord": "YOUR DISCORD USERNAME HERE"
-    }
-  ],
-  "scripts": [
-    "scripts/system-script-1.js",
-    "scripts/system-script-2.js"
-  ],
-  "esmodules": [
-    "scripts/system-module-1.mjs"
-  ],
-  "styles": [
-    "styles/system-styles-1.css",
-    "styles/system-styles-2.css"
-  ],
-  "packs": [
-    {
-      "name": "monsters",
-      "label": "My Monsters",
-      "type": "Actor"
+  "authors": [{
+    "name": "me",
+    "url": "YOUR WEBSITE ADDRESS HERE",
+    "email": "YOUR EMAIL ADDRESS HERE",
+    "discord": "YOUR DISCORD USERNAME HERE"
+  }],
+  "esmodules": ["mysystem.mjs"],
+  "styles": ["styles/system-styles.css"],
+  "packs": [{
+    "name": "monsters",
+    "label": "My Monsters",
+    "type": "Actor"
+  },
+  {
+    "name": "items",
+    "label": "My Items",
+    "type": "Item"
+  }],
+  "languages": [{
+    "lang": "en",
+    "name": "English",
+    "path": "lang/en.json"
+  }],
+  "documentTypes": {
+    "Actor": {
+      "hero": { "htmlFields": ["background.biography"] },
+      "villain": { "htmlFields": ["background.biography"] },
+      "pawn": {}
     },
-    {
-      "name": "items",
-      "label": "My Items",
-      "type": "Item"
+    "Item": {
+      "weapon": {},
+      "spell": {}
     }
-  ],
-"languages": [
-    {
-      "lang": "en",
-      "name": "English",
-      "path": "lang/en.json"
-    }
-  ],
+  },
   "socket": false,
   "initiative": "1d20",
-  "gridDistance": 10,
-  "gridUnits": "ft",
+  "grid": {
+    "distance": 10,
+    "units": "ft"
+  },
   "primaryTokenAttribute": "resources.health",
   "secondaryTokenAttribute": "resources.power",
   "url": "https://your/hosted/system/repo/",
@@ -113,7 +110,7 @@ lang/
 </dd>
 <dt>version</dt>
 <dd>
-	<p>The system version number can be a number or a string depending on what versioning scheme you prefer to use. You should always increment the system version number if you make changes to the Data Template which is described below. When the system version is changed, the platform will automatically migrate all content to match the new Data Template schema.</p>
+	<p>The system version number can be a number or a string depending on what versioning scheme you prefer to use.</p>
 </dd>
 </dl>
 </div>
@@ -135,21 +132,18 @@ lang/
 </dl>
 </dd>
 <pre code="language-json"><code>"compatibility": {
-	"minimum": 9,
-	"verified": "11"
-	"maximum": "11"
+  "minimum": 9,
+  "verified": 11
+  "maximum": 11
 }</code></pre>
 <dt>authors</dt>
 <dd>
   <p>An array listing each author as an object that can contain the keys <code>name</code>, <code>email</code>, <code>discord</code>, and <code>url</code>. For example:</p>
-  <pre><code class="language-json">"authors": [
-    {
-      "id": "Atropos",
-      "discord": "Atropos",
-      "url": "https://foundryvtt.com"
-    }
-  ]
-  </code></pre>
+<pre><code class="language-json">"authors": [{
+  "id": "Atropos",
+  "discord": "Atropos",
+  "url": "https://foundryvtt.com"
+}]</code></pre>
   </dd>
 <dt>scripts</dt>
 <dd>
@@ -206,17 +200,8 @@ lang/
 </dl>
 <p>Example relationships structure:</p>
 <pre><code class="language-json">"relationships": {
-  "systems": [{
-    "id": "archmage",
-    "type": "system",
-    "manifest": "https://gitlab.com/asacolips-projects/foundry-mods/archmage/-/raw/1.5.0/system.json",
-    "compatibility": {
-      "verified": "1.5.0"
-    }
-  }],
   "requires": [{
     "id": "_chatcommands",
-    "type": "module",
     "manifest": "https://github.com/League-of-Foundry-Developers/Chat-Commands-Lib/releases/download/1.2.0/module.json",
     "compatibility": {
       "verified": "1.2.0"
@@ -242,6 +227,11 @@ lang/
 		</dd>
 	</dl>
 </dd>
+<dt>documentTypes</dt>
+<dd>
+  <p>Custom Document sub-types drive the majority of the implementation of the System. They store special data that is specific to the game system, and include logic and functionality that facilitate the game's rules. The <code>documentTypes</code> definition tells the server which sub-types are provided by the System so that they are not marked as invalid Documents, and should be paired with DataModel definitions in code.</p>
+  <p>Example DataModels are included <a href="#data">below</a>, but please see the <a href="https://foundryvtt.com/article/system-data-models/" target="_blank">Introduction to System Data Models</a> article for full details.</p>
+</dd>
 <dt>socket</dt>
 <dd>
 	<p>A system may request for a specialized socket namespace to be provided. If set to <code>true</code>, a socket event will be handled by the server with the name <code>system.${id}</code>, in this example case <code>system.mysystem</code> which transacts a arbitrary data object by broadcasting that data to all connected clients. This allows the system to have a reserved channel for messaging events which are needed to coordinate actions across multiple connected clients.</p>
@@ -250,21 +240,27 @@ lang/
 <dd>
 	<p>Not every game system uses the concept of initiative, but this field provides the default dice rolling formula that can be used to determine the turn order of Tokens within the combat tracker.</p>
 </dd>
-<dt>gridDistance</dt>
+<dt>grid</dt>
 <dd>
-	<p>This field designates the default amount of distance that a single grid space should typically represent under this game system. This value configures the default value used when a new Scene is created, but can always be changed for each Scene independently.</p>
-</dd>
-<dt>gridUnits</dt>
-<dd>
-	<p>This field designates the standard unit of measure used to describe distances under this game system. This defines the default value used when new a new Scene is created, but can always be changed for each Scene independently.</p>
+  <p>If the game system is played on a grid, default grid settings are specified using this object.</p>
+  <dl>
+    <dt>distance</dt>
+    <dd>
+      <p>This field designates the default amount of distance that a single grid space should typically represent under this game system. This value configures the default value used when a new Scene is created, but can always be changed for each Scene independently.</p>
+    </dd>
+    <dt>units</dt>
+    <dd>
+      <p>This field designates the standard unit of measure used to describe distances under this game system. This defines the default value used when new a new Scene is created, but can always be changed for each Scene independently.</p>
+    </dd>
+  </dl>
 </dd>
 <dt>primaryTokenAttribute</dt>
 <dd>
-	<p>An attribute path within the system data model that points to an object that contains both a <code>value</code> and <code>max</code> key. The prototype Token for each Actor created in this system will automatically have this resource assigned as it's primary bar. Omit this key or set it to <code>null</code> for no default attribute.</p>
+	<p>An attribute path within the system data model that points to an object that contains both a <code>value</code> and <code>max</code> key. The prototype Token for each Actor created in this system will automatically have this resource assigned as its primary bar. Omit this key or set it to <code>null</code> for no default attribute.</p>
 </dd>
 <dt>secondaryTokenAttribute</dt>
 <dd>
-	<p>An attribute path within the system data model that points to an object that contains both a <code>value</code> and <code>max</code> key. The prototype Token for each Actor created in this system will automatically have this resource assigned as it's secondary bar. Omit this key or set it to <code>null</code> for no default attribute.</p>
+	<p>An attribute path within the system data model that points to an object that contains both a <code>value</code> and <code>max</code> key. The prototype Token for each Actor created in this system will automatically have this resource assigned as its secondary bar. Omit this key or set it to <code>null</code> for no default attribute.</p>
 </dd>
 <dt>url</dt>
 <dd>
@@ -283,97 +279,149 @@ lang/
 </section>
 
 <p>You can learn more about the fields supported in a package manifest file on the <a href="https://foundryvtt.com/api/classes/foundry.packages.BasePackage.html" title="Package Data API Documentation" target="_blank">BasePackage</a> and <a href="https://foundryvtt.com/api/classes/foundry.packages.BaseSystem.html" title="System Data API Documentation" target="_blank">BaseSystem</a> API documentation pages.</p>
-<h2 class="border" id="data">The Data Template</h2>
-<p>In addition to the System Specification file described above, each game system must include a Data Template file named <code>template.json</code> at the root-level of the system folder. For example, if we create a game system with the name <code>mysystem</code>, then we would create and include the file <code>{userData}/Data/systems/mysystem/template.json</code>.</p>
-<p>The data template defines a data model which is used by Actor and Item documents within this game system. Normally, Documents in Foundry Virtual Tabletop have strictly defined data schemas - but the system <code>template.json</code> file allows for game systems to extend that schema to contain additional system-specific data attributes.</p>
-<p>The basic structure of the data template provides top-level objects which define schema for each of the <code>Actor</code> and <code>Item</code> document types. Within a single document block, the following keys are supported:</p>
-<dl>
-	<dt>types</dt>
-	<dd>An array of string sub-types for different varieties of Actor or Item document which may be used. Each document type can have its own different schema.</dd>
-	<dt>templates</dt>
-	<dd>An object of named data templates which define modular and reusable sets of fields which can be included in the schema for multiple types. Consider defining a named template for sets of attributes which are reused across multiple types of Actor or Item documents.</dd>
-	<dt>{type}</dt>
-	<dd>An object block for each sub-type which defines their unique attributes as well as any included template blocks. For attributes which are unique to a single type - you can declare those attributes directly within this block without the need to define a template.</dd>
-</dl>
-<p>Fields within the data model may have any of the primitive types of <code>string</code>, <code>number</code>, or <code>boolean</code>, or provide an inner <code>Array</code> or <code>Object</code> structure. The provided value defines both the default value for new documents as well as the data type for the field. here is no limitation on the depth or structure of the template - however we encourage logical grouping of similarly themed attributes within named objects as this tends to help with organization and maintainability.</p>
-<p>The following provides an example <code>template.json</code> file which uses these tools to define a system template that includes three Actor types: <code>hero</code>, <code>pawn</code>, and <code>villain</code> - as well as two Item types: <code> wweapon, and spell. Note how certain templates like "resources" are included for each Actor type, while certain actor types have additional attributes which only apply to that type.</p>
+
+<h2 class="border" id="data">The Data Model</h2>
+<p>The core Foundry VTT software provides an API that is agnostic of whichever game system the user is playing. For your System to store and track the special data it needs in order to implement its rules, it must define Data Models. Most commonly a System needs special data for Actors and Items, but many other Document types can include System-specific data, such as the ActiveEffect, Cards, ChatMessage, and JournalEntryPage Documents.</p>
+<p>You should familiarize yourself with Data Models and how they are implemented in Systems before proceeding. You can read more about them in the <a href="https://foundryvtt.com/article/system-data-models/" target="_blank">Introduction to System Data Models</a> article. For the purposes of this article, we will define some example Data Models that include three Actor types: <code>hero</code>, <code>pawn</code>, and <code>villain</code> - as well as two Item types: <code>weapon</code>, and <code>spell</code>.</p>
+<p>Note how certain data, like <code>resources</code>, are common to all Actor types, but there are additional attributes that are unique to specific types. The example uses inheritance to accomplish this, but since schemas are simple objects, there are many other techniques that can be used to accomplish the same thing.</p>
 <section class="collapsible">
-    <header class="collapsible-header">Example template.json</header>
-    <div class="collapsible-content">
-<pre><code class="language-json">{
-"Actor": {
-  "types": ["hero", "pawn", "villain"],
-  "templates": {
-    "background": {
-      "biography": "",
-      "hairColor": "blue"
-    },
-    "resources": {
-      "health": {
-        "min": 0,
-        "value": 10,
-        "max": 10
-      },
-      "power": {
-        "min": 0,
-        "value": 1,
-        "max": 3
-      }
-    }
-  },
-  "hero": {
-    "templates": ["background", "resources"],
-    "goodness": {
-      "value": 5,
-      "max": 10
-    }
-  },
-  "pawn": {
-    "templates": ["resources"]
-  },
-  "villain": {
-    "templates": ["background", "resources"],
-    "wickedness": {
-      "value": 5,
-      "max": 100
-    }
-  }
-},
-"Item": {
-  "types": ["weapon", "spell"],
-  "templates": {
-    "rarity": {
-      "rarity": "Common",
-      "price": 20
-    }
-  },
-  "weapon": {
-    "templates": ["rarity"],
-    "damage": 5
-  },
-  "spell": {
-    "templates": ["rarity"],
-    "cost": 2
+<header class="collapsible-header">Example Data Models</header>
+<div class="collapsible-content">
+<pre><code class="lang-js">const { HTMLField, NumberField, SchemaField, StringField } = foundry.data.fields;
+
+/* -------------------------------------------- */
+/*  Actor Models                                */
+/* -------------------------------------------- */
+
+class ActorDataModel extends foundry.abstract.TypeDataModel {
+  static defineSchema() {
+    // All Actors have resources.
+    return {
+      resources: new SchemaField({
+        health: new SchemaField({
+          min: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+          value: new NumberField({ required: true, integer: true, min: 0, initial: 10 }),
+          max: new NumberField({ required: true, integer: true, min: 0, initial: 10 })
+        }),
+        power: new SchemaField({
+          min: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+          value: new NumberField({ required: true, integer: true, min: 0, initial: 1 }),
+          max: new NumberField({ required: true, integer: true, min: 0, initial: 3 })
+        })
+      })
+    };
   }
 }
+
+class ImportantActorDataModel extends ActorDataModel {
+  static defineSchema() {
+    // Only important Actors have a background and hair color.
+    return {
+      ...super.defineSchema(),
+      background: new SchemaField({
+        biography: new HTMLField({ required: true, blank: true }),
+        hairColor: new StringField({ required: true, blank: true })
+      })
+    };
+  }
+}
+
+export class HeroDataModel extends ImportantActorDataModel {
+  static defineSchema() {
+    return {
+      ...super.defineSchema(),
+      goodness: new SchemaField({
+        value: new NumberField({ required: true, integer: true, min: 0, initial: 5 }),
+        max: new NumberField({ required: true, integer: true, min: 0, initial: 10 })
+      }),
+      level: new NumberField({ required: true, integer: true, min: 0, initial: 0, max: 30 })
+    };
+  }
+}
+
+export class VillainDataModel extends ImportantActorDataModel {
+  static defineSchema() {
+    return {
+      ...super.defineSchema(),
+      wickedness: new SchemaField({
+        value: new NumberField({ required: true, integer: true, min: 0, initial: 5 }),
+        max: new NumberField({ required: true, integer: true, min: 0, initial: 100 })
+      })
+    };
+  }
+}
+
+// The pawn does not have any different data to the base ActorDataModel, but we
+// still define a data model for it, in case we have any special logic we want
+// to perform only for pawns.
+export class PawnDataModel extends ActorDataModel {}
+
+/* -------------------------------------------- */
+/*  Item Models                                 */
+/* -------------------------------------------- */
+
+class ItemDataModel extends foundry.abstract.TypeDataModel {
+  static defineSchema() {
+    return {
+      rarity: new StringField({
+        required: true,
+        blank: false,
+        options: ["common", "uncommon", "rare", "legendary"],
+        initial: "common"
+      }),
+      price: new NumberField({ required: true, integer: true, min: 0, initial: 20 })
+    };
+  }
+}
+
+export class WeaponDataModel extends ItemDataModel {
+  static defineSchema() {
+    return {
+      ...super.defineSchema(),
+      damage: new NumberField({ required: true, integer: true, positive: true, initial: 5 })
+    };
+  }
+}
+
+export class SpellDataModel extends ItemDataModel {
+  static defineSchema() {
+    return {
+      ...super.defineSchema(),
+      cost: new NumberField({ required: true, integer: true, positive: true, initial: 2 })
+    };
+  }
 }</code></pre>
 </div>
 </section>
+
 <h3 id="resources">Resource Attributes</h3>
-<p>Specific attributes will be recognized by the game system as a "resource" if (and only if) they contain keys which define a <code>value</code> and a <code>max</code>. In the above example, health, power, and goodness would be detected as eligible resources for hero type characters.</p>
+<p>Certain attributes that define a <code>value</code> and <code>max</code> can be treated as 'resources' by the core API, and can appear on Tokens as a colored bar. Other numeric attributes that don't necessarily have a <code>value</code> or <code>max</code> can also be set as Token attributes. They won't render as a bar, but they can be edited via the Token HUD.</p>
+<p>These attributes are configured with <code>CONFIG.Actor.trackableAttributes</code>. For example, if we wanted the hero and pawn Actors to have <code>power</code> and <code>health</code> resources, and for heroes to additionally have the <code>goodness</code> resource, and <code>level</code> attribute, we would configure <code>CONFIG.Actor.trackableAttributes</code> like so:</p>
+<pre><code class="lang-js">CONFIG.Actor.trackableAttributes = {
+  hero: {
+    bar: ["resources.health", "resources.power", "goodness"],
+    value: ["level"]
+  },
+  pawn: {
+    bar: ["resources.health", "resources.power"],
+    value: []
+  }
+};</code></pre>
 
 <h3 id="model">How the Data Model is Applied</h3>
-<p>When a new Document is created in a game using this system, it will automatically have it's own internal data populated to conform to the schema defined in the system template. For example, when using this system, if we were to execute the following code:</p> <pre><code class="language-javascript">const item = await Item.create({name: "Test Weapon", type: "weapon"});
+<p>When a new Document is created in a game using this System, it will automatically have its own internal data populated to conform to the schema defined in the Data Model. For example, when using this System, if we were to execute the following code:</p>
+<pre><code class="lang-js">const item = await Item.implementation.create({name: "Test Weapon", type: "weapon"});
 console.log(item); // The created item data structure
 </code></pre>
-<p>We would observe that the item was created and assigned an ID, and the <code>system</code> field contained within the item matches the expected contents defined by the game system template.</p> <pre><code class="language-json">{
+<p>We would observe that the item was created and assigned an ID, and the <code>system</code> field contained within the item matches the expected contents defined by the game system Data Model.</p>
+<pre><code class="lang-json">{
   "_id": "e6c7US1VK2cqejVJ",
   "name": "Test Weapon",
   "permission": {
     "default": 0
   },
   "system": {
-    "rarity": "Common",
+    "rarity": "common",
     "damage": 5
   },
   "flags": {},
@@ -381,6 +429,162 @@ console.log(item); // The created item data structure
   "img": "icons/svg/sword.svg"
 }</code></pre>
 
-<h2 class="border" id="migration">Data Model Migrations</h2>
-<p>Often, during the course of system development, changes to the template data structure are needed. In such cases, if you increment the <code>version</code> number in your system manifest file any existing Actors or Items will be automatically migrated to the latest template data specification when a World that uses the system is next loaded. During this migration process - any newly added data attributes will be added to existing documents, however old attributes which are no longer required by the template are not removed in case that data needs to be migrated.</p>
-<p>To apply additional migration rules, the recommended approach is to provide client side logic which detects whether a migration is necessary and uses the client side API to facilitate additional changes.</p>
+<h3 id="migration">Data Model Migrations</h3>
+<p>Often, during the course of system development, changes to the data structure are needed. Removing fields or adding new ones is straight-forward and can be done by simply making the appropriate modifications in the <code>defineSchema</code> method. Such changes will automatically be reflected on any existing Documents or newly-created ones.</p>
+<p>Moving data or changing its type can be a more complex process, however, and the specifics will depend on the data and how it needs to migrate. You can define a <code>migrateData</code> method on your Data Models to implement the bespoke logic you need in order to transform the data. For example, if we wanted to migrate the hero's <code>level</code> field to a more granular <code>progress</code> field that tracks 5 progress points per level, we could define a migration method like the following:</p>
+<section class="collapsible">
+<header class="collapsible-header">Example Data Model Migration</header>
+<div class="collapsible-content">
+<pre><code class="lang-js">export class HeroDataModel extends ImportantActorDataModel {
+  static defineSchema() {
+    // We have modified this model to remove the level field and replace it
+    // with the progress field.
+    return {
+      ...super.defineSchema(),
+      goodness: new SchemaField({
+        value: new NumberField({ required: true, integer: true, min: 0, initial: 5 }),
+        max: new NumberField({ required: true, integer: true, min: 0, initial: 10 })
+      }),
+      progress: new NumberField({ required: true, integer: true, min: 0, initial: 0, max: 150 })
+    };
+  }
+
+  static migrateData(source) {
+    // Migrate level to progress.
+    if ( Number.isNumeric(source.level) ) source.progress = source.level * 5;
+    return super.migrateData(source);
+  }
+}</code></pre>
+</div>
+</section>
+<p>Bear in mind that <code>migrateData</code> methods are also run when a Document is updated, and <code>source</code> is the provided update delta only, not the full source of the Document. As such, performing some migration contingent on the absence of a field in the source data may not always behave as expected.</p>
+
+<h2 class="border" id="custom-implementation">Custom Document Implementations</h2>
+<p>In addition to defining Data Models for your System's Document sub-types, you can also define a bespoke Document implementation for almost every Document type defined by the core API. Using a combination of Data Models and custom Document implementations, you can implement any special logic and rules required by your game system.</p>
+<p>For example, since every type of Actor has a <code>health</code> attribute, we might want to provide a method for dealing damage to the Actor. Depending on the game system, damage application might be very complex, so this could be an important method for your game system. In our simple example, we will just handle a simple rule of always taking a minimum of one point of damage, and also log a message to the chat.</p>
+<section class="collapsible">
+<header class="collapsible-header">Example Actor Implementation</header>
+<div class="collapsible-content">
+<pre><code class="lang-js">export class SystemActor extends Actor {
+  async applyDamage(damage) {
+    // Always take a minimum of 1 damage, and round to the nearest integer.
+    damage = Math.round(Math.max(1, damage));
+
+    // Update the health.
+    const { value } = this.system.resources.health;
+    await this.update({ "system.resources.health.value": value - damage });
+
+    // Log a message.
+    await ChatMessage.implementation.create({
+      content: `${this.name} took <strong>${damage}</strong> damage!`
+    });
+  }
+}</code></pre>
+</div>
+</section>
+<p>Similarly, since every type of Item has a <code>price</code>, we could add a convenience method to check if any given Item is free.</p>
+<section class="collapsible">
+<header class="collapsible-header">Example Item Implementation</header>
+<div class="collapsible-content">
+<pre><code class="lang-js">export class SystemItem extends Item {
+  get isFree() {
+    return this.price &lt; 1;
+  }
+}</code></pre>
+</div>
+</section>
+<p>We then enable these new implementations by setting <code>CONFIG.Actor.documentClass</code> and <code>CONFIG.Item.documentClass</code>.</p>
+<pre><code class="lang-js">CONFIG.Actor.documentClass = SystemActor;
+CONFIG.Item.documentClass = SystemItem;</code></pre>
+<p>Once this is done, the new methods are available on every Actor or Item in the System.</p>
+<pre><code class="lang-js">const actor = await Actor.implementation.create({
+  name: "Hero",
+  type: "hero"
+});
+console.log(actor.system.resources.health.value); // 10
+await actor.applyDamage(7);
+console.log(actor.system.resources.health.value); // 3
+
+const item = await Item.implemenation.create({
+  name: "Item",
+  type: "weapon"
+});
+console.log(item.system.price); // 20
+console.log(item.isFree); // false</code></pre>
+
+<h2 class="border" id="prepare-data">Preparing and Deriving Data</h3>
+<p>In addition to the raw source data stored on the Document, there might be additional attributes or properties that can be calculated automatically based on that source data. For example, in the case of the hero Actor, their <code>progress</code> score can be used to calculate their <code>level</code>. Rather than adding getters for each of these properties, you can use the various preparation methods provided by the core API to have these values calculated automatically whenever the Actor is updated.</p>
+<p>Additionally, these preparation methods can be used to enforce certain game system rules or data integrity, allowing you to simplify the assumptions used elsewhere in your code. For example, the <code>health</code> attribute has <code>min</code> and <code>max</code> properties. We can use data preparation to ensure that the <code>value</code> property is always within those limits. Doing this as part of data preparation means that we do not need to check against <code>min</code> and <code>max</code> everywhere we adjust health or use health, we can safely assume that <code>value</code> is always correct.</p>
+<p>There are two places we can inject our special logic: <code>prepareBaseData</code>, and <code>prepareDerivedData</code>. The former is called before embedded children are prepared, and before ActiveEffects are applied (in the case of Actors), while the latter is called after. For our simple example we focus only on <code>prepareDerivedData</code>.</p>
+<p>First, we override <code>Actor#prepareDerivedData</code> in our custom Actor implementation in order to handle health preparation, since this attribute is common to all Actor sub-types.</p>
+<section class="collapsible">
+<header class="collapsible-header">Example Actor Preparation</header>
+<div class="collapsible-content">
+<pre><code class="lang-js">export class SystemActor extends Actor {
+  async applyDamage(damage) { // Omitted for brevity. }
+
+  prepareDerivedData() {
+    super.prepareDerivedData();
+
+    // Clamp health within the appropriate range.
+    const { health } = this.system.resources;
+    health.value = Math.clamp(health.value, health.min, health.max);
+  }
+}</code></pre>
+</div>
+</section>
+<p>Next, we override <code>TypeDataModel#prepareDerivedData</code> in our hero Data Model. Since heroes are the only sub-type that has a <code>progress</code> attribute, the Data Model is the ideal place for this logic.</p>
+<section class="collapsible">
+<header class="collapsible-header">Example Data Model Preparation</header>
+<div class="collapsible-content">
+<pre><code class="lang-js">export class HeroDataModel extends ImportantActorDataModel {
+  static defineSchema() { // Omitted for brevity. }
+
+  prepareDerivedData() {
+    super.prepareDerivedData();
+
+    // Determine the hero's current level.
+    this.level = Math.floor(this.progress / 5);
+  }
+}</code></pre>
+</div>
+</section>
+
+<h2 class="border" id="entry-point">Putting It All Together</h2>
+<p>So far we have covered defining a <code>system.json</code> manifest, defining System Data Models for several System-specific Document sub-types, as well as defining some custom Actor and Item implementations. In our <code>system.json</code> we defined an <code>esmodules</code> field that pointed to <code>mysystem.mjs</code>. This is the entry point to the System's code and where we place all the various configurations mentioned above.</p>
+<section class="collapsible">
+<header class="collapsible-header">Example System Entry Point</header>
+<div class="collapsible-content">
+<pre><code class="lang-js">import { SystemActor, SystemItem } from "./module/documents.mjs";
+import { HeroDataModel, VillainDataModel, PawnDataModel, WeaponDataModel, SpellDataModel } from "./module/data-models.mjs";
+
+Hooks.once("init", () => {
+  // Configure custom Document implementations.
+  CONFIG.Actor.documentClass = SystemActor;
+  CONFIG.Item.documentClass = SystemItem;
+
+  // Configure System Data Models.
+  CONFIG.Actor.dataModels = {
+    hero: HeroDataModel,
+    villain: VillainDataModel,
+    pawn: PawnDataModel
+  };
+  CONFIG.Item.dataModels = {
+    weapon: WeaponDataModel,
+    spell: SpellDataModel
+  };
+
+  // Configure trackable attributes.
+  CONFIG.Actor.trackableAttributes = {
+    hero: {
+      bar: ["resources.health", "resources.power", "goodness"],
+      value: ["progress"]
+    },
+    pawn: {
+      bar: ["resources.health", "resources.power"],
+      value: []
+    }
+  };
+});</code></pre>
+</div>
+</section>

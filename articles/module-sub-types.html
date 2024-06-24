@@ -1,4 +1,4 @@
-<p>As of Foundry Virtual Tabletop Version 11, it is possible for Modules to extend the list of sub-types available to certain Documents in much the same way that Systems can. <code>Actor</code>, <code>Item</code>, <code>JournalEntryPage</code>, <code>Cards</code>, and <code>Card</code> Documents can all have additional sub-types added in this way.</p>
+<p>As of Foundry Virtual Tabletop Version 11, it is possible for Modules to extend the list of sub-types available to certain Documents in much the same way that Systems can. Any Document that includes a <code>system</code> field can have additional sub-types added in this way.</p>
 
 <p>Once a Module declares which sub-types it provides for which Documents, they will subsequently be available for use in the World by users who activate that Module, and will function in the same way that core or System-defined sub-types do, with additional, Module-specific data being available under the Document's <code>system</code> field.</p>
 
@@ -52,14 +52,14 @@
 <p>If your Module stores and renders user-provided HTML content, it must include an <code>htmlFields</code> definition so that the server can appropriately sanitize that HTML content. The value of this field is an array of strings that correspond to the properties under <code>system</code> that must be sanitized. In the example above, that would be <code>system.description.long</code>, and <code>system.description.short</code>.</p>
 
 <h4><code>filePathFields</code></h4>
-<p>If your Module stores media content, it must either include a <code>filePathFields</code> definition, or it must expressly forbid base64-encoded content from be stored in that field. Storing base64-encoded content inside the Document itself unnecessarily bloats the size of the Document and the database it is stored in. Using a <code>filePathFields</code> definition will allow the server to automatically extract the base64-encoded data and save it as a separate file that is accessible in the World.</p>
+<p>If your Module stores media content, it must either include a <code>filePathFields</code> definition, or it must expressly forbid base64-encoded content from being stored in that field. Storing base64-encoded content inside the Document itself unnecessarily bloats the size of the Document and the database it is stored in. Using a <code>filePathFields</code> definition will allow the server to automatically extract the base64-encoded data and save it as a separate file that is accessible in the World.</p>
 
-<p>The value of this field is an object with keys that correspond to the properties under <code>system</code> that should have base64-encoded data extracted from them. The values should be an array of category name strings that correspond to the categories of media that are allowed in that field. See @APIV10[classes/foundry.data.fields.FilePathField,FilePathField] for more information, and <a href="https://foundryvtt.com/api/modules/foundry.CONST.html#FILE_CATEGORIES" target="_blank">FILE_CATEGORIES</a> for the list of available categories.</p>
+<p>The value of this field is an object with keys that correspond to the properties under <code>system</code> that should have base64-encoded data extracted from them. The values should be an array of category name strings that correspond to the categories of media that are allowed in that field. See @API[classes/foundry.data.fields.FilePathField,FilePathField] for more information, and <a href="https://foundryvtt.com/api/modules/foundry.CONST.html#FILE_CATEGORIES" target="_blank">FILE_CATEGORIES</a> for the list of available categories.</p>
 
 <h3>DataModel Definitions</h3>
 <p>The second part of implementing custom sub-types is defining <code>DataModel</code>s that will be used to represent the data that the sub-type requires. These will be instantiated under the Document's <code>system</code> property, in much the same way that a system-provided sub-type would have its data represented.</p>
 
-<p>This example will cover a <code>DataModel</code> definition for the custom <code>quest</code> sub-type, but for more detailed information on Data Models themselves, please see <a href="/article/v10-data-model/" target="_blank">this</a> article and view the documentation @APIV10[classes/foundry.abstract.DataModel,here].</p>
+<p>This example will cover a <code>DataModel</code> definition for the custom <code>quest</code> sub-type, but for more detailed information on Data Models themselves, please see <a href="/article/v10-data-model/" target="_blank">this</a> article and view the documentation @API[classes/foundry.abstract.DataModel,here].</p>
 
 <h4>The DataModel</h4>
 <pre><code class="lang-js">class QuestModel extends foundry.abstract.TypeDataModel {
@@ -80,7 +80,7 @@
   }
 }</code></pre>
 
-<p>The <code>TypeDataModel</code> is a special subclass of the base <code>DataModel</code> class and should be used when defining <code>DataModel</code>s that represent type-specific data. See @APIV10[classes/foundry.abstract.TypeDataModel,here] for more information.</p>
+<p>The <code>TypeDataModel</code> is a special subclass of the base <code>DataModel</code> class and should be used when defining <code>DataModel</code>s that represent type-specific data. See @API[classes/foundry.abstract.TypeDataModel,here] for more information.</p>
 
 <p>Subclasses of <code>TypeDataModel</code> may override the abstract <code>prepareBaseData</code> and <code>prepareDerivedData</code> methods. These methods will be called before those of the base Document, allowing for any type-specific preparation logic to be executed before the more general Document preparation logic runs.</p>
 
@@ -141,7 +141,7 @@
 
 <h2 id="using-sub-types" class="border">Using Sub-Types</h2>
 <h3>System Compatibility</h3>
-<p>While the core Foundry VTT API provides this mechanism for Modules to provide their own sub-types, it is still a new feature, and there is no guarantee that existing Systems, which are used to having full control of all available sub-types, will accommodate any given Module's additional sub-types. You might expect errors during data preparation, or when performing certain operations where the System either does not recognise the Document's sub-type, or assumes certain data exists where it does not for your Module's sub-type.</p>
+<p>While the core Foundry VTT API provides this mechanism for Modules to provide their own sub-types, there is no guarantee that existing Systems, which typically have full control of all available sub-types, will accommodate any given Module's additional sub-types. You might expect errors during data preparation, or when performing certain operations where the System either does not recognise the Document's sub-type, or assumes certain data exists where it does not for your Module's sub-type.</p>
 
 <p>For Actor or Item sub-types, for example, it is recommended that you only attempt to provide support for a single System, and that you update the <code>relationships</code> field of your Module's manifest appropriately to represent this. For Journal Pages, this is less likely to be an issue.</p>
 
