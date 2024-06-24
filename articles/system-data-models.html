@@ -1,60 +1,80 @@
-<p>The <code>TypeDataModel</code> class is a powerful tool for defining data schema, granting system developers access to the powerful and flexible Data Model functionality that is used throughout Foundry Virtual Tabletop. it is provided as <code>foundry.abstract.TypeDataModel</code> and full API documentation is available here @API[classes/foundry.abstract.TypeDataModel,TypeDataModel].</p> 
+<p>System Data Models are powerful tools for defining data schema, granting system developers access to the Data Model functionality that is used throughout Foundry Virtual Tabletop for their own System-defined Document sub-types.</p>
 
-<p>This article focuses on how to utilize Type Data Models for a Game System in Foundry Virtual Tabletop. For more information on Data Models themselves, please refer to the following resources:</p>
+<p>This article focuses on how to utilize System Data Models for a Game System in Foundry Virtual Tabletop. For more information on Data Models themselves, please refer to the following resources:</p>
 <ul>
   <li>This <a href="/article/v10-data-model/">article</a> introducing the concept of Data Models (written when this architecture was first added)</li>
   <li>The @API[classes/foundry.abstract.DataModel,DataModel] API Documentation</li>
 </ul>
 
-<p class="note"><strong>Note:</strong> Modules have the ability to define data sub-types. For more information about module-level data sub types, please see the <a href="/article/module-sub-types/" target="_blank"> module sub-type article</a>.</p>
+<h2 id="definition" class="border">Defining a System Data Model</h2>
+<p>Data Models themselves are lightweight classes that can be defined very simply. Here we will construct a simple Data Model for a game system's <code>character</code> Actor.</p>
 
-<h2 id="definition" class="border">Defining a Type Data Model</h2>
-<p>Type Data Models themselves are lightweight classes that can be defined very simply. Here we will take an example system template and construct a corresponding Type Data Model for it.</p>
+<h3>The System Manifest</h3>
+<p>The first part of implementing a System Data Model is to include a <code>documentTypes</code> definition in the <code>system.json</code> manifest. This makes the server aware of these custom sub-types so that they are not discarded as invalid Documents.</p>
 
-<h4>Type Data Model</h4>
-<pre><code class="lang-js">class CharacterData extends foundry.abstract.TypeDataModel {
+<pre><code class="lang-json">{
+  "documentTypes": {
+    "Actor": {
+      "character": {
+        "htmlFields": ["biography"],
+        "filePathFields": {
+          "crest": ["IMAGE"]
+        }
+      }
+    }
+  }
+}</code></pre>
+
+<p>The <code>documentTypes</code> field is an object of Document types. Those Document type objects then contain further objects with keys that correspond to the sub-types that your System provides.</p>
+
+<p>The <code>htmlFields</code> and <code>filePathFields</code> are optional, and are related to the data sanitization that your System might require. They can be omitted entirely if the data your System uses has no need of sanitization. Here is how the <code>documentTypes</code> field would look in that case:</p>
+
+<pre><code class="lang-json">{
+  "documentTypes": {
+    "Actor": {
+      "character": {}
+    }
+  }
+}</code></pre>
+
+<h4><code>htmlFields</code></h4>
+<p>If your System stores and renders user-provided HTML content, it must include an <code>htmlFields</code> definition so that the server can appropriately sanitize that HTML content. The value of this field is an array of strings that correspond to the properties under <code>system</code> that must be sanitized. In the example above, that would be <code>system.biography</code>.</p>
+
+<h4><code>filePathFields</code></h4>
+<p>If your System stores media content, it must either include a <code>filePathFields</code> definition, or it must expressly forbid base64-encoded content from being stored in that field. Storing base64-encoded content inside the Document itself unnecessarily bloats the size of the Document and the database it is stored in. Using a <code>filePathFields</code> definition will allow the server to automatically extract the base64-encoded data and save it as a separate file that is accessible in the World.</p>
+
+<p>The value of this field is an object with keys that correspond to the properties under <code>system</code> that should have base64-encoded data extracted from them. The values should be an array of category name strings that correspond to the categories of media that are allowed in that field. See @API[classes/foundry.data.fields.FilePathField,FilePathField] for more information, and <a href="https://foundryvtt.com/api/modules/foundry.CONST.html#FILE_CATEGORIES" target="_blank">FILE_CATEGORIES</a> for the list of available categories.</p>
+
+<h3>DataModel Definitions</h3>
+<p>The second part of implementing System Data Models is defining <code>DataModel</code>s that will be used to represent the data that the sub-type requires. These will be instantiated under the Document's <code>system</code> property.</p>
+
+<pre><code class="lang-js">const {
+  HTMLField, SchemaField, NumberField, StringField, FilePathField, ArrayField
+} = foundry.data.fields;
+
+class CharacterData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
-    const fields = foundry.data.fields;
     return {
-      biography: new fields.HTMLField(),
-      health: new fields.SchemaField({
-        value: new fields.NumberField({
-          required: true,
-          initial: 10,
-          integer: true
-        }),
-        min: new fields.NumberField({
-          required: true,
-          initial: 0,
-          integer: true
-        }),
-        max: new fields.NumberField({
-          required: true,
-          initial: 10,
-          integer: true
-        })
+      biography: new HTMLField(),
+      health: new SchemaField({
+        value: new NumberField({ required: true, integer: true, min: 0, initial: 10 }),
+        min: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+        max: new NumberField({ required: true, integer: true, min: 0, initial: 10 })
       }),
-      proficiencies: new fields.SchemaField({
-        weapons: new fields.ArrayField(new fields.StringField()),
-        skills: new fields.ArrayField(new fields.StringField())
-      })
+      proficiencies: new SchemaField({
+        weapons: new ArrayField(new StringField()),
+        skills: new ArrayField(new StringField())
+      }),
+      crest: new FilePathField({ required: false, categories: ["IMAGE"] }),
+      xp: new NumberField({ required: true, integer: true, min: 0, initial: 0 })
     };
   }
 }</code></pre>
 
-<p>With the full schema of your TypeDataModel defined, it becomes unnecessary to define the schema using the <code>template.json</code> file. The only fields necessary in that file are to confirm the document types that your system uses, and which fields require additional server-side sanitization as <code>htmlFields</code>, for example:</p>
+<p>The <code>TypeDataModel</code> is a special subclass of the base <code>DataModel</code> class and should always be used when defining <code>DataModel</code>s that represent type-specific data, which is the case here with our System Data Model. See @API[classes/foundry.abstract.TypeDataModel,here] for more information.</p>
 
-<h4>template.json</h4>
-<pre><code class="lang-json">{
-  "Actor": {
-    "types": ["character"],
-    "htmlFields": ["biography"],
-    "character": {}
-  }
-}</code></pre>
-
-<h2 id="registration" class="border">Registering a Type Data Model</h2>
-<p>Once the Type Data Model is defined, the core API can be made aware of it and will automatically apply the Type Data Model to the <code>system</code> field of any registered types.</p>
+<h2 id="registration" class="border">Registering a System Data Model</h2>
+<p>Once the Data Model is defined, the core API can be made aware of it and will automatically apply it to the <code>system</code> field of any registered types.</p>
 
 <p>The following code snippet will register the example <code>CharacterData</code> model to be automatically applied as the <code>system</code> data for every Actor of the <code>character</code> type.</p>
 <pre><code class="lang-js">Hooks.on("init", () => {
@@ -62,11 +82,11 @@
 });</code></pre>
 
 <h2 id="migration" class="border">Migrations</h2>
-<p>Migrations and data coercion can be performed before your Type Data Model is instantiated, allowing legacy data to be converted into a format that the current version of your system understands. Migrations are run when the source data is first retrieved from disk, as well as run on any update deltas before they are applied to the Document.</p>
+<p>Migrations and data coercion can be performed before your Data Model is instantiated, allowing legacy data to be converted into a format that the current version of your System understands. Migrations are run when the source data is first retrieved from disk, as well as run on any update deltas before they are applied to the Document.</p>
+<p>As an example, we have a migration that changes the proficiencies format. We migrate from representing the Boomerang proficiency with a terse 3-letter string <code>"bmr"</code> to the more human-readable string <code>"boomerang"</code>.</p>
+
 <pre><code class="lang-js">class CharacterData extends foundry.abstract.TypeDataModel {
-  static defineSchema() {
-    // Omitted for brevity.
-  }
+  static defineSchema() { // Omitted for brevity. }
 
   /**
    * Migrate source data from some prior format into a new specification.
@@ -74,8 +94,9 @@
    * @inheritDoc
    */
   static migrateData(source) {
-    if ( "weapons" in source ) {
-      source.weapons = source.weapons.map(weapon => {
+    const proficiencies = source.proficiencies ?? {};
+    if ( "weapons" in proficiencies ) {
+      proficiencies.weapons = proficiencies.weapons.map(weapon => {
         return weapon === "bmr" ? "boomerang" : weapon;
       });
     }
@@ -83,16 +104,12 @@
   }
 }</code></pre>
 
-<h2 id="enhancement" class="border">Enhancing a Type Data Model</h2>
-<p>Type Data Models can have methods added to them that encapsulate logic relevant to the particular system-specific type of Document that they represent. This allows you to move logic out of the Document implementation and house it in a location that is much more specific to its functionality. The parent Document instance is accessible from within the Type Data Model's instance methods via <code>this.parent</code>, allowing for more complex interactions and logic.</p>
-<pre><code class="lang-js">class CharacterData extends foundry.abstract.TypeDataModel {
-  static defineSchema() {
-    // Omitted for brevity.
-  }
+<h2 id="enhancement" class="border">Enhancing a System Data Model</h2>
+<p>System Data Models can have methods added to them that encapsulate logic relevant to the particular system-specific type of Document that they represent. This allows you to move logic out of the Document implementation and house it in a location that is much more specific to its functionality. The parent Document instance is accessible from within the Type Data Model's instance methods via <code>this.parent</code>, allowing for more complex interactions and logic.</p>
 
-  static migrateData() {
-    // Omitted for brevity.
-  }
+<pre><code class="lang-js">class CharacterData extends foundry.abstract.TypeDataModel {
+  static defineSchema() { // Omitted for brevity. }
+  static migrateData() { // Omitted for brevity. }
 
   /**
    * Determine whether the character is dead.
@@ -100,31 +117,55 @@
    */
   get dead() {
     const invulnerable = CONFIG.specialStatusEffects.INVULNERABLE;
-    if ( this.parent.effects.some(e => e.statuses.has("invulnerable") ) return false;
+    if ( this.parent.statuses.has("invulnerable") ) return false;
     return this.health.value &lt;= this.health.min;
   }
 }</code></pre>
+
 <p>The defined <code>dead</code> property could then be accessed on any Actor document of the character type as follows:</p>
-<pre><code class="lang-js">// Determine if a character is dead.
-game.actors.getName("Character").system.dead;
+
+<pre><code class="lang-js">const actor = await Actor.implementation.create({
+  name: "Test",
+  type: "character"
+});
+console.log(actor.system.dead); // false
+await actor.update({ "system.health.value": -10 });
+console.log(actor.system.dead); // true
 </code></pre>
 
-<h2 id="resources" class="border">Token Resources</h2>
-<p>When using the System <code>template.json</code>, the properties that can be used for a Token's resource bar are inferred from the template. This works well enough, but it can also include things like derived properties, properties that were intended to be hidden, or otherwise properties that are not suitable or ever useful as a resource bar, making it difficult for a user to locate the actual properties they want.</p>
+<h2 id="data-preparation" class="border">Data Preparation</h2>
+<p>In addition to adding new methods and properties to the Data Models, subclasses of <code>TypeDataModel</code> may also override the <code>prepareBaseData</code> and <code>prepareDerivedData</code> methods. These methods are run during normal Document preparation and allow for automatically calculating additional values that are specific to the sub-type whenever the Document is updated.</p>
+<p>As an example, we calculate the Actor's level based on its XP value, and make sure that its HP can never go above its maximum.</p>
 
-<p>When using a Type Data Model for your <code>system</code> data, the core software will no longer attempt to infer which properties can be used as Token resource bars. Instead, you are given full control to tailor this list to whatever makes sense for your System. To do so, you need to modify the <code>CONFIG.Actor.trackableAttributes</code> configuration variable. The below example shows how to configure one resource as a bar attribute, and another as a value attribute.</p>
+<pre><code class="lang-js">class CharacterData extends foundry.abstract.TypeDataModel {
+  static defineSchema() { // Omitted for brevity. }
+  static migrateData() { // Omitted for brevity. }
+  get dead() { // Omitted for brevity. }
+
+  /** @inheritDoc */
+  prepareDerivedData() {
+    super.prepareDerivedData();
+
+    // Make sure HP cannot exceed its maximum.
+    this.health.value = Math.min(this.health.value, this.health.max);
+
+    // Derive level from XP.
+    this.level = Math.floor(this.xp / 100);
+  }
+}</code></pre>
+
+<h2 id="resources" class="border">Token Resources</h2>
+<p>When using a System Data Model for your <code>system</code> data, you can modify the <code>CONFIG.Actor.trackableAttributes</code> configuration variable in order to define which values in your model are eligible for use as Token resources. The below example shows how to configure one resource as a bar attribute, and another as a value attribute.</p>
 
 <pre><code class="lang-js">Hooks.on("init", () => {
   CONFIG.Actor.trackableAttributes = {
     character: {
-      bar: ["attributes.hp"],
-      value: ["attributes.ac.value"]
+      bar: ["health"],
+      value: ["xp"]
     }
   };
 });</code></pre>
 
-<p>For bar attributes, the property supplied must point to some object with both <code>value</code> and <code>max</code> properties, and these properties must both be numbers. For value attributes, the property supplied must simply point to any number. The attributes do not need to exist in your Type Data Model, they can be properties that are later derived as part of data preparation. If the attribute does not exist in the Type Data Model or is not a <code>NumericField</code>, then it will not be editable in the Token HUD.</p>
-
-<p>In line with this feature, the signature of <code>TokenDocument.getTrackedAttributes</code> has changed. It will now accept a string value of the <code>type</code> of Actor that the resources should be retrieved for. If the argument is not supplied, and tracked attributes are configured via <code>trackableAttributes</code>, then <code>getTrackedAttributes</code> will return the union of all resources across all configured Actor types. This is useful in cases where the Actor type is not known, such as default token settings.</p>
+<p>For bar attributes, the property supplied must point to some object with both <code>value</code> and <code>max</code> properties, and these properties must both be numbers. For value attributes, the property supplied must simply point to any number. The attributes do not need to exist in your Type Data Model, they can be properties that are later derived as part of data preparation. If the attribute does not exist in the Type Data Model or is not a <code>NumberField</code>, then it will not be editable in the Token HUD.</p>
 
 <p>If your System makes use of Data Models, but you would rather have the core software infer the tracked attributes from your schema, you may opt to not configure any <code>trackableAttributes</code>. Bear in mind that the core API does not know the semantics of any custom <code>DataField</code>s you may be making use of in your Type Data Model, and so will not be able to inspect it for potential trackable attributes. Additionally, it will be unable to include any properties derived during data preparation, as they will not have corresponding fields in your schema. If you want to tailor the list of trackable attributes in those cases, you must override <code>TokenDocument.getTrackedAttributes</code> yourself. In the majority of cases, we expect that using the <code>trackableAttributes</code> configuration should be a lot simpler.</p>
