@@ -1,0 +1,101 @@
+<header id="update-header">
+    <h2 class="border" id="update-title">Foundry Virtual Tabletop - Version 12 - Stable 3 Release Notes</h2>
+    <figure id="update-banner">
+        <img alt="Foundry V12 Stable 3, shown with the D&amp;D Fifth Edition game system and the premium 'Dragonshorn Tales: The Dead Mines' module from Dragonshorn Studios." src="https://r2.foundryvtt.com/website-uploads-public/screen/user_70/v12-stable-326-release-banner-2024-06-07.webp" title="Foundry VTT - Version 12 - Stable 3 Release Notes"/>
+        <figcaption>Foundry V12 Stable 3, shown with the D&amp;D Fifth Edition game system and the premium <a href="https://foundryvtt.com/packages/drgh-short-story-2" rel="nofollow">Dragonshorn Tales: The Dead Mines</a> module from <a href="https://foundryvtt.com/creators/dragonshornstudios/" rel="nofollow">Dragonshorn Studios</a>.</figcaption>
+    </figure>
+</header>
+
+<section id="update-commentary">
+    <p class="note">Version 12 Stable 3 (12.327) replaces 12.326 but contains all of the fixes 12.326 contained. After release of 12.326 (Stable 3) the community drew our attention to an unfortunately disruptive bug that prevented combatants from being added to combats. We have delisted 12.326 as a result and instead extended 12.327 to correct that issue.</p>
+</section>
+
+<div class="columns">
+    <div class="column">
+        <section id="update-overview">
+            <p>We are happy to announce the third release of Foundry Virtual Tabletop Version 12. This patch continues to incrementally improve upon Foundry V12 Stable, bringing a number of bug fixes and also a few refinements to features that are new to V12. Thanks again to everyone for submitting your feedback and helping us stay on top of bugs!</p>
+            <p>Notable improvements include the oft-requested visual indicator for manual Rolls, more robust handling for packages hosted in GitLab, and UI improvements to help configure dynamic token rings for individual Tokens. For a complete log of all the features added in V12, please see the notes for our <a href="https://foundryvtt.com/releases/12.324" rel="nofollow" target="_blank">first release on the stable channel</a>.</p>
+            <p class="note warning"><strong>WARNING:</strong> While this is categorized as a stable release there is always a possibility of unexpected bugs or compatibility issues. As with any time you update the core software, be sure to perform a complete backup of your user data to minimize any risk of data loss.</p>
+        </section>
+    </div>
+    <figure class="right" id="manual-roll">
+        <img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/manual-roll-example-in-swb-2024-06-07.png" title="An example visual indicator for a manual Roll, as shown in the Simple Worldbuilding game system."/>
+        <figcaption>An example visual indicator for a manual Roll, shown in the Simple Worldbuilding game system.</figcaption>
+    </figure>
+</div>
+<p class="info note">Please be aware that the new visual indicator for manual Rolls may not appear in your game immediately upon updating. Many major game sessions (including D&amp;D Fifth Edition and PF2E) will need to incorporate this new feature into their custom roll handling before it can display.</p>
+
+<section id="features">
+<h2 class="section-header border">New Features</h2>
+    <h3 class="category-header" id="features-dice">Dice and Cards</h3>
+    <ul>
+        <li>Added roll resolution mode tracking to the <code>Roll</code> data and added a visual indicator to Chat Messages that were generated using an interactive roll resolution mode. <a href="https://github.com/foundryvtt/foundryvtt/issues/10990" rel="nofollow" target="_blank">(10990)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-apps">Applications and User Interface</h3>
+    <ul>
+        <li>Token Ring subject scale correction and effects are now available in the Token Config UI. <a href="https://github.com/foundryvtt/foundryvtt/issues/11139" rel="nofollow" target="_blank">(11139)</a></li>
+        <li>Improved how the Token Ring background color is applied on the background ring texture. <a href="https://github.com/foundryvtt/foundryvtt/issues/11153" rel="nofollow" target="_blank">(11153)</a></li>
+        <li>Added the "Everyone" option (not enabled by default) to the Execute Macro Region Behavior that controls whether the Macro is executed by all connected Users or a single User with sufficient permissions. <a href="https://github.com/foundryvtt/foundryvtt/issues/10947" rel="nofollow" target="_blank">(10947)</a></li>
+    </ul>
+</section>
+<section id="api">
+<h2 class="section-header border">API Improvements</h2>
+    <ul>
+        <li>Factored <code>ClockwiseSweepPolygon#_determineEdgeTypes</code> into a separate protected function. <a href="https://github.com/foundryvtt/foundryvtt/issues/11140" rel="nofollow" target="_blank">(11140)</a></li>
+        <li>Added the equivalent of <code>Dialog</code>'s <code>render</code> option to <code>DialogV2</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11128" rel="nofollow" target="_blank">(11128)</a></li>
+        <li>Added the <code>speaker</code> option to <code>ChatLog#processMessage</code> to improve the way Chat Messages created by the "Execute Macro" Scene Region Behavior to assign their speakers. <a href="https://github.com/foundryvtt/foundryvtt/issues/11159" rel="nofollow" target="_blank">(11159)</a></li>    
+    </ul>
+</section>
+
+<section id="bugs">
+<h2 class="section-header border">Bug Fixes</h2>
+    <h3 class="category-header" id="bugs-docs">Documents and Data</h3>
+    <ul>
+        <li>Fixed <code>parseUuid</code> inserting "undefined" in the returned UUID if passed a legacy compendium UUID and its pack didn't exist, and also fixed <code>DocumentUUIDField</code>s not accepting legacy compendium UUIDs if the pack did not exist. <a href="https://github.com/foundryvtt/foundryvtt/issues/11145" rel="nofollow" target="_blank">(11145)</a></li>
+        <li>Resolved an issue where "Region Boundary Changed" event was being triggered with an incorrect User. <a href="https://github.com/foundryvtt/foundryvtt/issues/11160" rel="nofollow" target="_blank">(11160)</a></li>
+        <li>(12.327) Resolved an issue which prevented the adding of combatants to a combat. <a href="https://github.com/foundryvtt/foundryvtt/issues/11163" rel="nofollow" target="_blank">(11163)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-packages">Package Development</h3>
+    <ul>
+        <li>Resolved an issue where requests to download packages that are hosted on GitLab could fail with a <code>406 Not Acceptable</code> error. <a href="https://github.com/foundryvtt/foundryvtt/issues/11000" rel="nofollow" target="_blank">(11000)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-apps">Applications and User Interface</h3>
+    <ul>
+        <li><code>Sound#loaded</code> should be false after its HTMLAudioElement has been unloaded. This fixes a bug which caused long-duration sound files to fail to play after they had completed playing once. <a href="https://github.com/foundryvtt/foundryvtt/issues/11004" rel="nofollow" target="_blank">(11004)</a></li>
+        <li>The "Loop" button is no longer missing for Playlist Sounds. <a href="https://github.com/foundryvtt/foundryvtt/issues/11124" rel="nofollow" target="_blank">(11124)</a></li>
+        <li>The "throbber" icon in the Playlists tab now correctly rotates around its center point. <a href="https://github.com/foundryvtt/foundryvtt/issues/11127" rel="nofollow" target="_blank">(11127)</a></li>
+        <li>Prevented an error that could occur when multiple calls to <code>Playlist#playAll</code> occurred too close to each other. <a href="https://github.com/foundryvtt/foundryvtt/issues/10984" rel="nofollow" target="_blank">(10984)</a></li>
+        <li>Changing <code>globalPlaylistVolume</code> / <code>globalAmbientVolume</code> / <code>globalInterfaceVolume</code> now updates the volume sliders in the sidebar tab.  <a href="https://github.com/foundryvtt/foundryvtt/issues/11061" rel="nofollow" target="_blank">(11061)</a></li>
+        <li>Improved muffling detection for point sound sources to ensure that doors do not muffle themselves if the listener is able to reach the door without collision. <a href="https://github.com/foundryvtt/foundryvtt/issues/11079" rel="nofollow" target="_blank">(11079)</a></li>
+        <li>Resolved a bug where the Playlist that is currently playing was not displayed in the sidebar when first logging in. <a href="https://github.com/foundryvtt/foundryvtt/issues/11097" rel="nofollow" target="_blank">(11097)</a></li>
+        <li>Prevented the act of dropping a card onto itself from changing the card order. <a href="https://github.com/foundryvtt/foundryvtt/issues/11104" rel="nofollow" target="_blank">(11104)</a></li>
+        <li>Previewing a combat theme in the Combat configuration dialog no longer throws an error. <a href="https://github.com/foundryvtt/foundryvtt/issues/11113" rel="nofollow" target="_blank">(11113)</a></li>
+        <li>Fixed an issue where loading a large number of Chat Messages at once caused duplicate rendering. <a href="https://github.com/foundryvtt/foundryvtt/issues/10951" rel="nofollow" target="_blank">(10951)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-canvas">The Game Canvas</h3>
+    <ul>
+        <li>Restored the previous Ruler measurement behavior where right-clicking cancelled the entire measurement if <span class="reference">CTRL</span> is not currently pressed. <a href="https://github.com/foundryvtt/foundryvtt/issues/11094" rel="nofollow" target="_blank">(11094)</a></li>
+        <li>Switching to the Scene Controls of a non-<code>PlaceablesLayer</code> no longer causes an error. <a href="https://github.com/foundryvtt/foundryvtt/issues/11107" rel="nofollow" target="_blank">(11107)</a></li>
+        <li>Darkness Level adjustments are now immediately updated after a light-restricting Tile is moved. <a href="https://github.com/foundryvtt/foundryvtt/issues/11111" rel="nofollow" target="_blank">(11111)</a></li>
+        <li>Improved <code>null</code> handling in <code>PlaceablesLayer#_sendToBackOrBringToFront</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11135" rel="nofollow" target="_blank">(11135)</a></li>
+        <li>The Ambience filter now uses the Darkness Level texture. <a href="https://github.com/foundryvtt/foundryvtt/issues/11136" rel="nofollow" target="_blank">(11136)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-dice">Dice and Cards</h3>
+    <ul>
+        <li>Prevented a crash when spaces exist between a unary operator and brackets. <a href="https://github.com/foundryvtt/foundryvtt/issues/11037" rel="nofollow" target="_blank">(11037)</a></li>
+        <li>Improved Peggy grammar parsing to better handle additional cases involving unnecessary whitespace in dice formulas. <a href="https://github.com/foundryvtt/foundryvtt/issues/11099" rel="nofollow" target="_blank">(11099)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-api">API</h3>
+    <ul>
+        <li>The <code>&lt;string-tags&gt;</code> element now fires <code>change</code> events when a tag is added or removed. <a href="https://github.com/foundryvtt/foundryvtt/issues/11112" rel="nofollow" target="_blank">(11112)</a></li>
+        <li><code>DOMExceptions</code> thrown during rendering of an App v2 Application are no longer obscured by an unrelated error. <a href="https://github.com/foundryvtt/foundryvtt/issues/11120" rel="nofollow" target="_blank">(11120)</a></li>
+        <li>Invoking an instance-level CRUD operation with a <code>parentUuid</code> option can no longer override the real parent. <a href="https://github.com/foundryvtt/foundryvtt/issues/11155" rel="nofollow" target="_blank">(11155)</a></li>
+    </ul>
+</section>
+<section id="documentation">
+<h2 class="section-header border">Documentation Improvements</h2>
+    <h3 class="category-header" id="documentation-other">Other Changes</h3>
+    <ul>
+        <li>Fixed classes in the client namespace not appearing in the generated API docs. <a href="https://github.com/foundryvtt/foundryvtt/issues/11095" rel="nofollow" target="_blank">(11095)</a></li>
+    </ul>
+</section>
