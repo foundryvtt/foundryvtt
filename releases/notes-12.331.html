@@ -1,0 +1,93 @@
+<header id="update-header">
+    <h2 id="update-title" class="border">Foundry Virtual Tabletop - Version 12 - Stable 7 Release Notes</h2>
+    <figure id="update-banner">
+        <img src="{BANNER_IMG}" title="Foundry VTT - Version 12 - Stable 7 Release Notes" alt="Release Notes for Foundry Virtual Tabletop Version 12"/>
+        <figcaption>Welcome to the Foundry Virtual Tabletop update notes</figcaption>
+    </figure>
+</header>
+
+<section id="update-overview">
+    <p>As Foundry Stable Version 12 matures, the pace and scope of our releases are naturally decreasing. This latest update brings a modest array of bug fixes as well as some styling and documentation improvements.</p>
+    <p>By popular demand, this update also includes a new, optional "Grid Fit" mode for dynamic token rings. Previously, Tokens that used a dynamic ring were always somewhat smaller than their grid size so that Tokens with "overflowing" elements didn't significantly interfere with or obscure their surroundings. Now, when the new "Grid" option is selected, all dynamic Tokens take greater advantage of their allocated grid space without this built-in buffer for overflowing elements.</p>
+    <figure class="center"><img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/dynamic-token-fit-mode-comparison-2024-08-14.webp" style="max-width:60%">
+        <figcaption>Example dynamic Tokens with overflowing elements, rendered using the existing "Standard" and new "Grid" fit modes.</figcaption>
+    </figure>
+    <p class="note warning"><strong>WARNING:</strong> While this is categorized as a stable release there is always a possibility of unexpected bugs or compatibility issues. As with any time you update the core software, be sure to perform a complete backup of your user data to minimize any risk of data loss.</p>
+</section>
+
+<section id="features">
+<h2 class="section-header border">New Features</h2>
+    <h3 id="features-apps" class="category-header">Applications and User Interface</h3>
+    <ul>
+        <li>Improved the contrast of <code>ApplicationV2</code> checkboxes when Light Mode is in use. <a href="https://github.com/foundryvtt/foundryvtt/issues/11513" target="_blank">(11513)</a></li>
+    </ul>
+    <h3 id="features-canvas" class="category-header">The Game Canvas</h3>
+    <ul>
+        <li>Added a core setting for a new Dynamic Ring "Grid Fit" mode that results in larger dynamic Tokens. The tradeoff is that Token elements which "overflow" their rings may now spill further beyond the Token's normal grid boundary. <a href="https://github.com/foundryvtt/foundryvtt/issues/11571" target="_blank">(11571)</a></li>
+    </ul>
+</section>
+<section id="api">
+<h2 class="section-header border">API Improvements</h2>
+    <h3 id="api-apps" class="category-header">Applications and User Interface</h3>
+    <ul>
+        <li>Added the ability to use <code>&lt;hr&gt;</code> to add horizontal lines in <code>FormSelectOption</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11518" target="_blank">(11518)</a></li>
+    </ul>
+    <h3 id="api-other" class="category-header">Other Changes</h3>
+    <ul>
+        <li><code>DialogV2</code> dialogs can now use <code>options.form.closeOnSubmit</code> to permit them to stay rendered when using their buttons. <a href="https://github.com/foundryvtt/foundryvtt/issues/11514" target="_blank">(11514)</a></li>
+        <li><code>HTMLProseMirrorElement</code> now emits a <code>close</code> event when its inner editor is destroyed. <a href="https://github.com/foundryvtt/foundryvtt/issues/11577" target="_blank">(11577)</a></li>
+    </ul>
+</section>
+<section id="bugs">
+<h2 class="section-header border">Bug Fixes</h2>
+    <h3 id="bugs-docs" class="category-header">Documents and Data</h3>
+    <ul>
+        <li>Improved <code>Macro#execute</code> so that chat macros always reliably return a <code>ChatMessage</code> instance. <a href="https://github.com/foundryvtt/foundryvtt/issues/11505" target="_blank">(11505)</a></li>
+        <li><code>operation.combatTurn</code> is now only set in <code>Combatant#_preUpdateOperation</code> if <code>operation.turnEvents</code> isn't <code>false</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11531" target="_blank">(11531)</a></li>
+    </ul>
+    <h3 id="bugs-apps" class="category-header">Applications and User Interface</h3>
+    <ul>
+        <li>Resolved an issue where the "Jump to Bottom" button was incorrectly appearing after clearing chat under certain circumstances. <a href="https://github.com/foundryvtt/foundryvtt/issues/10041" target="_blank">(10041)</a></li>
+        <li>Added <code>ApplicationV2</code> Light Mode table styling, significantly improving legibility. <a href="https://github.com/foundryvtt/foundryvtt/issues/11509" target="_blank">(11509)</a></li>
+        <li>When a Region placeable is controlled or released, the Region Legend now retains its previous positioning. <a href="https://github.com/foundryvtt/foundryvtt/issues/11583" target="_blank">(11583)</a></li>
+    </ul>
+    <h3 id="bugs-canvas" class="category-header">The Game Canvas</h3>
+    <ul>
+        <li>Scene darkness animation no longer continues after viewing a different Scene. <a href="https://github.com/foundryvtt/foundryvtt/issues/11520" target="_blank">(11520)</a></li>
+        <li>Prevented an error that was thrown when attempting to set a flag that contained a <code>null</code> value. <a href="https://github.com/foundryvtt/foundryvtt/issues/11540" target="_blank">(11540)</a></li>
+        <li>The <code>first</code> and <code>history</code> segment properties are now set correctly in <code>Ruler#_getMeasurementSegments</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11542" target="_blank">(11542)</a></li>
+        <li>Resolved an issue where the path returned by <code>SquareGrid#getDirectPath</code> could sometimes contain repeating offsets when using the <code>ILLEGAL</code> diagonal rule. <a href="https://github.com/foundryvtt/foundryvtt/issues/11566" target="_blank">(11566)</a></li>
+        <li><code>GridlessGrid#getShiftedOffset</code> now returns correct results when passed <code>GridOffset</code> coordinates. <a href="https://github.com/foundryvtt/foundryvtt/issues/11574" target="_blank">(11574)</a></li>
+    </ul>
+    <!--pulled from milestone
+    <h3 id="bugs-packages" class="category-header">Package Development</h3>
+    <ul>
+        <li>Fixed a sizing issue with the buttons in the "Module Configuration" form. <a href="https://github.com/foundryvtt/foundryvtt/issues/11551" target="_blank">(11551)</a></li>
+    </ul>-->
+    <h3 id="bugs-other" class="category-header">Other Changes</h3>
+    <ul>
+        <li>Implemented <code>_onClick</code> on all custom HTML elements to improve consistency and accessibility. <a href="https://github.com/foundryvtt/foundryvtt/issues/11506" target="_blank">(11506)</a></li>
+    </ul>
+</section>
+<section id="documentation">
+<h2 class="section-header border">Documentation Improvements</h2>
+    <!-- pulled from milestone
+    <h3 id="documentation-docs" class="category-header">Documents and Data</h3>
+    <ul>
+        <li>Fixed a typo in the description of <code>ActiveEffect#active</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11585" target="_blank">(11585)</a></li>
+    </ul>-->
+    <h3 id="documentation-other" class="category-header">Other Changes</h3>
+    <ul>
+        <li>Clarified the API documentation for the first parameter of <code>Document.create()</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/8619" target="_blank">(8619)</a></li>
+        <li>Fixed a minor error in the comment of <code>Item#isOwned</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11496" target="_blank">(11496)</a></li>
+        <li>Updated the API front page document sheet links to include <code>ApplicationV2</code> subclasses. <a href="https://github.com/foundryvtt/foundryvtt/issues/11503" target="_blank">(11503)</a></li>
+        <li>Fixed a typo in the <code>_onDeleteDocuments</code> deprecation warning. <a href="https://github.com/foundryvtt/foundryvtt/issues/11528" target="_blank">(11528)</a></li>
+        <li>Improved consistency of <code>Document</code> inheritance API documentation. <a href="https://github.com/foundryvtt/foundryvtt/issues/11572" target="_blank">(11572)</a></li>
+    </ul>
+</section>
+<section id="summary">
+<h2 class="section-header border"></h2>
+</section>
+<section id="title">
+<h2 class="section-header border"></h2>
+</section>
