@@ -1,0 +1,469 @@
+<div class="columns">
+    <div class="column">      
+        <p>Most interesting battlemaps aren't just featureless grids. Perhaps part of your Scene is a set of stairs, a dark cave, a magical portal to another realm, or even a dastardly trap.</p>
+        <p>Scene Regions allow you to define these interesting parts of your map so that they do remarkable things or behave in certain ways. With Scene Regions, you could:</p>
+        <dl>
+            <dt><strong>Set up “stairways”</strong></dt>
+                <dd>
+                    <p>Scene Regions allow you to define automatic teleportation zones which your players can easily use themselves without GM intervention.</p>
+                    <p>These zones can be used to replicate stairs, elevators, magical portals, or similar concepts within Foundry. This teleportation can be set up between different Scene Regions as needed, even if one is on a different Scene.</p> 
+                    <!-- TODO: add link to instructions   -->    
+                </dd>
+            <dt><strong>Give “indoor” areas the properties you expect</strong></dt>
+                <dd>
+                    <p>You can make a building or a cave keep out the things it should, like weather and or daylight.</p>
+                    <!-- TODO: add link to instructions -->
+                </dd>
+            <dt><strong>Perform actions when the Region detects certain changes</strong></dt>
+                <dd>
+                    <p>As an example, when a Token enters a Scene Region, that Region can automatically pause the game or even execute a custom Macro. Combined with Foundry's powerful API, this adds the potential for nearly limitless functionality, such as powering intricate puzzles or devious traps.</p>
+                    <!-- TODO: add link to instructions -->
+                </dd>  
+        </dl>
+    </div>
+    <figure class="column right noborder"><video autoplay="true" loop="loop" muted="true" src="https://r2.foundryvtt.com/website-uploads-public/asset/user_681/region-demo-stair-teleport-2024-05-29.webm"></video>
+        <figcaption>A player's Token enjoying the convenience of the <code>Teleport Token</code> Scene Region Behavior.</figcaption>
+    </figure>
+</div>
+
+<h2 class="border" id="terminology">Scene Region Terminology Guide</h2>
+<p>Understanding Scene Regions begins with learning a few important concepts:</p>
+<section class="collapsible">
+<header class="collapsible-header">Scene Region Definitions</header>
+    <div class="collapsible-content">
+        <div class="columns">
+            <div class="column">
+                <dl>
+                    <dt><strong>Region</strong></dt>
+                        <dd>
+                            <p>A Region, often called a “Scene Region”, represents one or more parts of a Scene that you would like to behave in a certain way.</p>
+                            <p>Each Region may contain many Shapes (which all share the same Behaviors). Without at least one Shape and Behavior, a Region doesn't actually do anything.</p>
+                        </dd>
+                    <dt><strong>Shape</strong></dt>
+                        <dd>
+                            <p>The geometry of a Scene Region is made out of Shapes that cover an area in the canvas, much like Drawings.</p>
+                            <p>Each Shape can be rectangular, elliptical, or polygonal, and the part of the canvas that is considered to be within the Region is determined by the combination of all its Shapes. Some of these Shapes may be “holes,” which actually remove areas from the Region.</p>
+                            <p>A single elevation range may be assigned to every Shape in the Scene Region. This means it is possible to go “under” or “over” a Scene Region's Shapes without traveling through them.</p>
+                        </dd>
+                    <dt><strong>Hole</strong></dt>
+                        <dd>
+                            <p>A hole is a Shape, but it is considered a "negative Shape" that removes geometry from the Region instead of adding it.</p>
+                        </dd>       
+                    <dt><strong>Behavior</strong></dt>
+                        <dd>
+                            <p>Behaviors are the functionality that a Scene Region can perform. Each Region can have multiple Behaviors.</p>
+                        </dd>
+                    <dt><strong>Event</strong></dt>
+                        <dd>
+                            <p>An Event is a change that is related to a Region, such as a Token entering or leaving one of its Shapes.</p>
+                            <p>Behaviors can “subscribe” to Events, allowing them to "trigger" when the Region detects that Event.</p>
+                        </dd>
+                </dl>
+            </div>
+            <div class="column" style="max-width:25%;">
+                <figure><img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/shapes-diagram-2024-05-29.webp"/>
+                    <figcaption>Three different Scene Regions, each containing a single Shape of a different geometry type.</figcaption>
+                </figure>
+                <figure><img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/shapes-and-holes-diagram-2024-05-29.webp"/>
+                    <figcaption>Three heroes avoiding a Scene Region by standing in holes inside it.</figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>    
+</section>
+
+
+<h2 class="border" id="controls">Scene Region Controls</h2>
+
+<p>The Scene Regions Layer's Tool pallette can opened by clicking the chessboard icon (<i class="fas fa-chess-board"> </i>) on the left-hand side of the user interface. When you click this menu button, a Scene Region Legend also displays to help manage Regions in the Scene.</p>
+
+<section class="collapsible">
+    <header class="collapsible-header">The Scene Region Layer Menu</header>
+    <div class="collapsible-content">
+        <div class="columns">
+            <div class="column">
+                <p>The following tools are available in the Scene Regions Layer Menu:</p>
+                <!--  TODO: Add Toolclips-->
+                <dl>
+                    <dt><strong>Select Regions</strong> ( <i class="far fa-expand"> </i> )</dt>
+                        <dd>This tool allows you to select Regions by clicking or drag-selecting their Shapes in the canvas so that you can configure or delete them. Use <span class="reference">SHIFT</span> to select more than one Scene Region at a time.</dd>
+                        <!-- toolclip-->
+                    <dt><strong>Draw Rectangle</strong> ( <i class="fas fa-square"> </i> )</dt>
+                        <dd>Used for drawing rectangular Shapes. Holding <span class="reference">ALT</span> while drawing creates a perfect square.</dd> 
+                        <dd>If an existing Scene Region is already selected, this new Shape will be added to that existing Scene Region. Otherwise, a new Scene Region is automatically created and this Shape is added to it.</dd>
+                        <!-- toolclip-->
+                    <dt><strong>Draw Ellipse</strong> ( <i class="fas fa-circle"> </i> )</dt>
+                        <dd>Used for drawing elliptical Shapes. Holding <span class="reference">ALT</span> while drawing creates a perfect circle.</dd>
+                        <dd>If an existing Scene Region is already selected, this new Shape will be added to that existing Scene Region. Otherwise, a new Scene Region is created and this Shape is automatically added to it.</dd>
+                        <!-- toolclip-->
+                    <dt><strong>Draw Polygon</strong> ( <i class="fas fa-draw-polygon"> </i> )</dt>
+                        <dd>Left-click with this tool to create polygonal Shapes from a sequence of straight lines. Right-click to remove the last point drawn or double-click to finish.</dd> 
+                        <dd>If an existing Scene Region is already selected, this new Shape will be added to that existing Scene Region. Otherwise, a new Scene Region is created and this Shape is automatically added to it.</dd>
+                        <!-- toolclip-->
+                    <dt><strong>Create Holes</strong> ( <i class="fa-duotone fa-object-subtract"> </i> )</dt>
+                        <dd>This option is a toggle that stays enabled or disabled. When it is enabled, it glows visually and any new Shapes that are drawn are created as holes. For more information, see <a href="#terminology">holes</a>.</dd>
+                        <!-- toolclip-->
+                    <dt><strong>Force Snap to Grid Vertices</strong> ( <i class="fa-solid fa-plus"> </i> )</dt>
+                        <dd>This option is a toggle that stays enabled or disabled. When it is enabled, it glows visually and any new Shapes that are drawn automatically snap to the grid.</dd>
+                        <!-- toolclip-->
+                    <dt><strong>Clear Regions</strong> ( <i class="fa-solid fa-trash"> </i> )</dt>
+                        <dd>After a confirmation prompt, this button clears all existing Regions that you own in the Scene.</dd>
+                        <!-- toolclip-->
+                </dl>        
+            </div>
+            <figure class="right"><img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/the-scene-region-tools-2024-05-29.webp" style="width: 40%;"/>
+                <figcaption>The Scene Region Tools.</figcaption>
+            </figure>
+        </div>
+    </div>
+</section>
+
+<section class="collapsible">
+    <header class="collapsible-header">The Scene Region Legend</header>
+    <div class="collapsible-content">
+        <p>The Scene Regions Legend offers a unique way to view and manage your Scene Regions. You can use this tool to create a blank new Scene Region or to view, select, or configure any Region in the currently viewed scene.</p>
+        <h4>Creating a Blank Scene Region Using the Legend</h4>
+        <p>Click the "Create Region" button (the <i class="fa-solid fa-plus"> </i> icon in the upper-right corner) to create a blank new Scene Region. For more information about configuring a Scene Regions, see <a href="#configuring-regions">Configuring Scene Regions</a> below.</p>      
+        <h4>The Scene Region Legend Interface</h4>
+        <div class="columns">
+            <div class="column">
+                <p>When you hover over a region in the Scene Region Legend, it is visually highlighted in the canvas and the Legend. If you click a Scene Region's row, you can select or deselect it. You can also select more than one Scene Region at a time using the <span class="reference">SHIFT</span> key.</p>
+                <p>The row for each Scene Region has the following features:</p>
+                <dl>
+                    <dt><strong>Elevation Range Label</strong> (not always present)</dt>
+                        <dd>If an elevation range is specified for this Scene Region, this elevation range displays in the Region's row in the format <code>[bottom,top]</code>. If no elevation range is specified, the Scene Region applies to all elevations.</dd>
+                    <dt><strong>Configure Region</strong> ( <i class="fa-solid fa-gears"> </i> )</dt>
+                        <dd>Opens the Scene Region's configuration dialog, just like double-clicking it in the canvas.</dd>
+                    <dt><strong>Lock Region</strong> ( <i class="fa-solid fa-lock"> </i> )</dt>
+                        <dd>Locks the region, preventing it deleting the Scene Region, adding Shapes to it, or removing any of its Shapes. </dd>
+                    <dt><strong>Delete Region</strong> ( <i class="fa-solid fa-trash"> </i> )</dt>
+                        <dd>If the Region is locked, this icon is disabled. If the Region is not locked, clicking this button prompts the user whether they want to delete the entire Scene Region.</dd>
+                </dl>
+            </div>
+            <figure class="right"><img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/the-scene-region-legend-2024-05-29.webp"/ style="max-height:50%;">
+                <figcaption>The Scene Region Legend.</figcaption>
+            </figure>
+        </div>
+    </div>
+</section>
+
+<h2 class="border" id="creating-regions">Creating Scene Regions</h3>
+<p>There are two ways to create Scene Regions:</p>
+<ul>
+    <li>
+        <p><strong>The Scene Region Legend</strong></p>
+        <p>You can use the Scene Region Legend's "Create Region" button (the <i class="fa-solid fa-plus"> </i> icon in the upper-right corner) to create a new, empty Scene Region. Because this Scene Region has no Shapes or Behaviors, it is just a placeholder until you configure it (see below).</p>
+    </li>
+    <li>
+        <p><strong>Drawing new Shapes</strong></p>
+        <p>If you have no Scene Region currently selected, using one of the Region Layer's tools that draw a new Shape ("Draw Rectangle", "Draw Ellipse", or "Draw Polygon") automatically creates a new Region to contain that Shape.<p>
+        <p class="note info"><strong>Note</strong>: If a Scene Region is already selected when you draw a Shape, that Shape is automatically added to the selected Scene Region instead of creating a new one.</p>
+        <p>You can deselect Scene Regions using either the Scene Region Legend or the canvas. Please note that if you do not have the "Left Click to Deselect Objects" <a href="https://foundryvtt.com/article/settings/"> Game Setting</a> enabled, you may need to draw an empty selection to deselect Scene Regions.</p>
+    </li>
+</ul>
+
+
+<h2 class="border" id="configuring-regions">Configuring Scene Regions</h2>
+<p>After creating a Scene Region, use the Scene Region Configuration dialog to edit its properties. You can open this dialog using the Scene Region Legend or by double-clicking it in the canvas.</p>
+
+<section class="collapsible">
+    <header class="collapsible-header" id="identity-tab">The Identity Tab</header>
+    <div class="collapsible-content">
+        <div class="columns">
+            <div class="column">
+                <p>The available fields in the Identity tab allow you to control how the Scene Region is identified and displayed.</p>
+                <dl>
+                    <dt><strong>Name</strong></dt>
+                        <dd><p>A name used to identify this Scene Region which is used to label it in the Scene Region legend.</p></dd>
+                    <dt><strong>Color</strong></dt>
+                        <dd><p>The color that is used to identify this Scene Region in both the canvas and the Scene Region Legend.</p></dd>
+                    <dt><strong>Elevation</strong></dt>
+                        <dd>
+                            <p>These two fields define the top and the bottom of range of elevations that the Scene Region applies to, potentially allowing Tokens to avoid it by passing "under" or "over" it. By default, a Scene Region exists at all elevations.</p>
+                            <p>If an elevation is specified, it also displays in the Scene Region Legend.</p>
+                        </dd>
+                    <dt><strong>Visibility</strong></dt>
+                        <dd>
+                            <p>This field provides options to control when this Scene Region should be displayed in the canvas:</p>
+                            <ul>
+                                <li>
+                                    <p><strong>Only on Regions Layer</strong></p>
+                                    <p>The default visibility option. With this option selected, Scene Regions are only visible when you are viewing the Scene Regions Layer of the canvas, just like Lights or Walls.</p>
+                                </li>
+                                <li>
+                                    <p><strong>Always for Gamemaster</strong></p>
+                                    <p>If this option is chosen, users with Assistant GM or Gamemaster permissions can always see this scene region, regardless of the current canvas layer. For example, you might choose this option to indicate a region that is functioning as a trap.</p>
+                                </li>
+                                <li>
+                                    <p><strong>Always for Everyone</strong></p>
+                                    <p>With this option selected, all users can always see this scene region, regardless of the current canvas layer. For example, you might choose this option to indicate the region of a trap region that has been discovered by the party.</p>
+                                </li>
+                            </ul>
+                        </dd>
+                </dl>
+            </div>
+            <figure class="right"><img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/configure-demo-region-identity-tab-2024-05-30.webp"/>
+                <figcaption>The Scene Region Configuration Dialog with the "Identity" tab shown.</figcaption>
+            </figure>
+        </div>
+    </div>
+</section>
+
+<section class="collapsible">
+    <header class="collapsible-header" id="shapes-tab">The Shapes Tab</header>
+    <div class="collapsible-content">
+        <p>Because Shapes define the geometry of the Scene Region, the fields in this tab control how the Scene Region exists in the canvas.</p> 
+        <p>There are two ways to add new Shapes to this Scene Region so that they display in this tab:</p>
+        <ul>
+            <li>
+                <p><strong>Draw a new Shape</strong></p>
+                <p>Ensure this Scene Region is selected, then use this layer's "Draw Rectangle", "Draw Circle", or "Draw Polygon" tools to add the new Shape to it.</p>
+            </li>
+            <li>
+                <p><strong>Add a new Shape using Walls</strong></p>
+            </li>
+        </ul>
+        <div class="columns">
+            <div class="column">
+                <h4 id="add-shape-walls">Adding New Shapes Using Walls</h4>
+                <p>Often, you have already used Walls to trace out the exact geometry that you want to add as a Shape, such as when you want to add a Scene Region for an entire building. The "Create Shape from Controlled Walls" button ( <i class="fa-solid fa-plus"> </i> <i class="fa-solid fa-block-brick"> </i> ) in the upper-right of this tab allows you to easily create a Shape using that existing Wall geometry.</p>
+                <p class="note info"><strong>Please Note</strong>: The controlled walls must form a complete loop.</p>
+                <p>To add a Shape using Walls:</p>
+                <ol>
+                    <li>
+                        <p><strong>Click the "Create Shape from Controlled Walls" button</strong></p>
+                        <p>Foundry automatically switches to the Walls layer and selects the Select Walls tool.</p>
+                    </li>
+                    <li>
+                        <p><strong>Select the loop of outermost walls that trace out your future Shape</strong></p>
+                        <p>Select ("control") the walls that contain the area that you want to add as a Shape.</p>
+                        <p>You may consider adding a wall or two temporarily to form a loop. If your walls look like they close but don't, you may have small gaps in your Walls. If necessary, make sure that you are not holding the <span class="reference">SHIFT</span> key, then adjust wall endpoints to allow grid snapping to connect them perfectly.</p>
+                    </li>
+                    <li>
+                        <p><strong>Click the "Create Shape from Controlled Walls" button again</strong></p>
+                        <p>If your wall selection is valid, a Shape is created and added to your Scene Region. If your Wall selection is not valid, please see the previous step for tips on how to correct the issue.</p>
+                    </li>
+                </ol>
+                <p>After adding a Shape in this way, Foundry remains on the Walls layer. You can either continue adding additional Shapes from Walls, or return to the Scene Regions layer to continue working with Regions.</p>
+                <h4 id="configure-shape">Configuring Existing Shapes</h4>
+                <p>Each existing Shape of the Scene Region is listed as a row in the Shapes tab. When you hover the rows in this tab, that Shape is outlined in dashes in the canvas (even if it is a hole).</p>
+                <p>If at least one Shape is a hole, then the order of the Shapes matter. A Shape that is a hole only "punches through" the Shapes that are above it in the list of Shapes, as shown by the bottom Circle shape in the previous figure.</p>
+                <p>Several buttons are available to control the existing Shapes in this tab.</p>
+                <dl>
+                    <dt><strong>Make Hole</strong> ( <i class="fa-solid fa-circle"> </i> or <i class="fa-regular fa-circle"> </i> )</dt>
+                        <dd>
+                            <p>Clicking this button toggles whether the Shape is considered a <a href="#terminology">hole</a> or not.</p>
+                            <ul>
+                                <li>
+                                    <p>A filled circle ( <i class="fa-solid fa-circle"> </i>  )indicates that the Shape is not currently considered a hole.</p>
+                                </li>
+                                <li>
+                                    <p>An empty circle ( <i class="fa-regular fa-circle"> </i> ) indicates that this Shape is a hole.</p>
+                                </li>
+                            </ul>
+                        </dd>
+                    <dt><strong>Move Shape Up</strong> and <strong>Move Shape Down</strong> ( <i class="fa-solid fa-arrow-up"> </i> and <i class="fa-solid fa-arrow-down"> </i> )</dt>
+                        <dd>
+                            <p>These two buttons change the relative order of Shapes in this list, which is mostly important for determining how <a href="#terminology">holes</a> are applied to the Scene Region's geometry.</p>
+                        </dd>    
+                    <dt><strong>Delete Shape</strong> ( <i class="fa-solid fa-trash"> </i> )</dt>
+                        <dd>
+                            <p>After a confirmation prompt, this button deletes the Shape from the Scene Region.</p>
+                        </dd>
+                </dl>
+            </div>
+            <div class="column" style="max-width:25%;">
+                <figure class="center"><img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/scene-regions-configure-shapes-tab-vert-2024-05-31.webp">
+                    <figcaption>A Shape created using the "Create Shape from Controlled Walls" button.</figcaption>
+                </figure>
+                <figure class="center"><img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/configure-scene-regions-shapes-tab-vert-2024-05-31.webp">
+                    <figcaption>The "Shapes" tab and those same Shapes in the canvas.</figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="collapsible">
+    <header class="collapsible-header" id="behaviors-tab">The Behaviors tab</header>
+    <div class="collapsible-content">
+        <p>Behaviors are the functionality that a Scene Region can perform, and each Scene Region can support many Behaviors. This tab allows you tc create and manage these behaviors. Each Behavior of the Scene Region appears in a row in this tab, sorted alphabetically by name.</p>
+        <p>When a new Scene Region is created, no Behaviors are present. At least one Behavior must be added for the Scene Region to have any functionality. You can create a new behavior by clicking the "Create Behavior" button ( <i class="fa-solid fa-plus"> </i> ).</p>
+        <div class="columns">
+            <div class="column">
+                <p>Several buttons are available in each Behavior's row:</p>
+                <dl>
+                    <dt>The <strong>Enable / Disable</strong> slider ( <i class="fa-solid fa-toggle-on"> </i> or <i class="fa-solid fa-toggle-off"> </i> ) </dt>
+                        <dd>A Behavior is only functional if this slider is enabled ( <i class="fa-solid fa-toggle-on"> </i> ) . When a Behavior is disabled ( <i class="fa-solid fa-toggle-off"> </i> ), it does not affect its Scene Region in any way.</dd>
+                    <dt><strong>Edit Behavior</strong> ( <i class="fa-solid fa-pen-to-square"> </i> ) </dt>
+                        <dd>Clicking this button opens its "Configure Behavior" dialog. For more information on how to configure each type of Behavior, see the "Scene Region Behaviors" section below. </dd>
+                    <dt><strong>Delete Behavior</strong> ( <i class="fa-solid fa-trash"> </i> )</dt>
+                        <dd>
+                            <p>After a confirmation prompt, this button deletes the Behavior from the Scene Region.</p>
+                        </dd>
+                </dl>
+            </div>
+            <figure class="right"><img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/configure-scene-regions-behaviors-tab-2024-05-30.webp">
+                <figcaption>The "Scene Region Configuration" dialog with the "Behaviors" tab and some example Behaviors shown.</figcaption>
+            </figure>
+        </div>
+    </div>
+</section>
+
+<h2 class="border" id="behaviors">Scene Region Behaviors</h2>
+<p>Behaviors are what a Scene Region actually <em>does</em>. Each Region can support multiple Behaviors, and every Shape within that region shares the same set of Behaviors. </p>
+<p>The available built-in Behaviors can be leveraged to accomplish a variety of goals. Some Behaviors require Events, while others have a continuous effect on their Region.</p>
+
+<h3 id="uuids">UUIDs and Behaviors</h3>
+<p>Some Behavior types, notably the <code>Teleport Token</code> and <code>Execute Macro</code> Behaviors, need to identify a different thing that they work with. The Teleport Token behavior needs to specify which Scene Region it teleports into, and the Execute Macro button needs to specify which Macro it executes. In both cases, this is performed by providing the behavior with the UUID ("<strong>U</strong>niversally <strong>U</strong>nique <strong>ID</strong>entifier") of the thing that it links to.</p>
+<figure class="center">
+            <img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/scene-region-uuids-combined-2024-05-30.webp" style="max-width:50%;">
+    <figcaption>Two Behavior fields which require adding document UUIDs and where to find them.</figcaption>
+</figure>
+<p>Looking up the UUID of any object in Foundry is the same. Simply open its Configuration Dialog and <strong>left-click</strong> the "Copy ID" button in its header to copy the UUID to the clipboard. Once you have the UUID that you want to use with your Behavior, paste it into the Behavior's configuration dialog as needed. Make sure to press the "Add Document" button ( <i class="fa-solid fa-file-plus"> </i> )!</p>
+<p class="info note"><strong>Note</strong>: Remember to double-check that you clicked the "Add Document" button before closing the dialog!</p>
+
+<section class="collapsible">
+    <header class="collapsible-header" id="behaviors">Available Behaviors</header>
+    <div class="collapsible-content">
+        <h3 id="continuous-behaviors">Continuous Behaviors</h3>
+        <!-- TODO: Add Screenshot and description of UI for each behavior type-->
+        <div class="columns">
+            <div class="column">
+                <p>These behaviors do not require a subscribed Event. If these Behaviors are enabled, they always have their effect on their Region.</p>
+                <dl>
+                    <dt><strong>Adjust Darkness Level</strong></dt>
+                    <dd>Have you ever wanted to exclude part of a scene from Global Illumination, so that the light level outside was different from the light level inside? This Behavior delivers that ability and more.</dd>
+                    <dd>If the result of this Behavior makes the region dark enough, the area is no longer considered lit, even if Global Illumination is enabled on the Scene. This means that Tokens will need a source of light or a special vision mode to be able to see in this darkened area. This works exactly the same way that Global Illumination can be automatically disabled "at night": the level of darkness is checked agains the Scene's Global Illumination Threshold. For more information, see the <a href="https://foundryvtt.com/article/scenes/">Scenes article.</a></dd>
+                    <dt>Suppress Weather</dt>
+                    <dd>Foundry allows the prevention of weather effects through the use of Tiles, but you may not have a convenient tile to place for a roof. Additionally, it might not make much sense to place a "roof" tile for an area, such as a natural cave. Adding this behavior to a Region will stop rendering weather effects inside the Region, whether there's a roof there or not.</dd>
+                </dl>
+            </div>
+            <figure class="column right noborder"><video autoplay="true" loop="loop" muted="true" src="https://r2.foundryvtt.com/website-uploads-public/asset/user_681/region-demo-cave-weather-suppression-2024-05-29.webm"></video>
+                <figcaption>A cozy cave that is protected from the elements by a Scene Region's <code>Suppress Weather</code> behavior.</figcaption>
+            </figure> 
+        </div>
+        <h3 id="event-based-behaviors">Event-based Behaviors</h3>
+        <!-- TODO: Add Screenshot and description of UI for each behavior type-->
+        <p>The Region only performs this type of Behavior if it is enabled and a subscribed Event is detected for that Region.</p>
+        <dl>
+            <dt><strong>Execute Macro</strong></dt>
+                <dd>For those Macro-hoarding GMs who already have all manner of pre-coded scripts ready to go for certain actions and just want them to trigger automatically, the Execute Macro behavior does what it says on the label: when you assign it the UUID of a given Macro (which can be gotten by right-clicking the ID button in the Macro's header), it will trigger that Macro when its Scene Region detects that one of its subscribed events occurs.</dd>
+                <dd>
+                    <p>If you want to write your own Macros to use, the Scene Region passes in several important values to help you:</p>
+                    <ul>
+                        <li>
+                            <p><code>behavior</code></p>
+                            <p>The <code>Execute Macro</code> behavior itself.</p>
+                        </li>
+                        <li>
+                            <p><code>event</code></p>
+                            <p>The Event that triggered the execution of the macro. Using <code>event.data.token</code> is particularly useful, since it recontains the Token that triggered the Event (or <code>null</code> if there isn't one).</p>
+                        </li>
+                        <li>
+                            <p><code>region</code></p>
+                            <p>The Region that triggered the Macro.</p>
+                        </li>
+                        <li>
+                            <p><code>scene</code></p>
+                            <p>The Scene that contains the Region that called the Macro.</p>
+                        </li>
+                    </ul>
+                    <p>For more information about writing and using Macros, see the<a href="/article/macros/"> Macros article</a>.</p>
+                </dd>
+            <dt><strong>Execute Script</strong></dt>
+                <dd>This Behavior functions exactly like the <code>Execute Macro</code> behavior but it executes a script file instead of a Macro. It provides the same values to any Script that is called as the <code>Execute Macro</code> behavior does also.</dd>
+            
+            <dt><strong>Pause Game</strong></dt>
+                <dd>
+                    <p class="note info">This Behavior only happens when the user controlling the token is not a GM. This means testing this Region requires you to log in as a player.</p>
+                </dd>
+                <dd>Sick of your players running off like a shot and skipping past your carefully planned traps, having to move them back and clear the fog of war? Just draw a scene region that will pause the game whenever a token enters the region. For convenience, you can also toggle the "Once" option so it doesn't do it every single time a token passes by.</dd>          
+            <dt><strong>Teleport Token</strong></dt>
+                <dd>Perhaps one of the most desired features, the Teleport Token behavior allows you to instantaneously transport a token that enters the region from one region to another. Similar to Execute Macro, this behavior requires the UUID of another Scene Region to serve as a destination. The destination region can even be in a different scene!</dd>
+    <dt><strong>Toggle Behavior</strong></dt>
+        <dd>Have a particular behavior you only want to activate after a certain condition has been met, such as a trap that is only active after a token has stepped on its pressure plate? Toggle behavior allows you to link to the UUID of a different Behavior, enabling or disabling the linked behavior when a certain triggering event occurs.</dd>
+        <dd>In the hands of even a novice coder, Scene Regions can be leveraged to create truly powerful automations.</dd>
+        </dl>
+
+        <p class="note info"><strong>Note</strong>: Modules or Game Systems may provide additional Behaviors. Please consult their documentation for more information about them.</p>
+    </div>
+</section>
+
+<h2 class="border" id="events">Scene Region Events</h2>
+<p>Behaviors can check for Events to determine if they need to perform certain Behaviors, like <code>Pause Game</code> or <code>Execute Script</code>. You can add an Event to a Behavior to have it "subscribe" to that Event, causing it to regularly check whether that Event occurred within its geometry.</p>
+<section class="collapsible">
+    <header class="collapsible-header" id="events">Available Events</header>
+    <div class="collapsible-content">
+        <p>By default, the following Events are available:</p>
+                <dl>
+                    <dt><strong>Region Boundary Changed</strong></dt>
+                        <dd>This Event occurs if the Scene Region's geometry changed in any way, such as by adding a Shape, removing it, or changing whether that Shape is a hole. It also fires if the order of the Shapes are changed, but it does not fire if the entire Region is deleted.</dd> 
+                    <dt><strong>Behavior Status Changed</strong></dt>
+                        <dd>Occurs if the Behavior that is subscribed to this Event is enabled or disabled. It does not occur if other Behaviors in the same Region (or different Regions) are enabled or disabled.</dd>
+                    <dt><strong>Token Enters</strong></dt>
+                        <dd>This Event fires if a Token enters the Region by any method, including the token being created there as a result of a Copy or drag-and-drop operation. It does not fire if the Token is already in the region when the Scene is loaded.</dd>
+                </dl>
+        <div class="columns">
+            <div class="column">   
+                <dl>
+                    <dt><strong>Token Exits</strong></dt>
+                        <dd>Event occurs if a Token leaves the Region by any method, including the token being deleted.</dd>
+                    <dt><strong>After Token Moved</strong></dt>
+                        <dd>When a Token moves through the Region, this Event occurs after the token's movement has completed, regardless of whether the Token is still in that Region.</dd>
+                    <dt><strong>Before Token Moves</strong></dt>
+                        <dd>This Event occurs immediately when a Token is about to move relative to a Region. Specifically, it fires when a Token is about move into, out of, through, or within a Region.</dd>
+                    <dt><strong>Token Starts Turn</strong></dt>
+                        <dd>Occurs when a Token inside this region is part of a Combat Encounter and a Combat Turn begins.</dd>
+                    <dt><strong>Token Ends Turn</strong></dt>
+                        <dd>Occurs when a Token inside this region is part of a Combat Encounter and a Combat Turn ends.</dd>
+                    <dt><strong>Token Starts Round</strong></dt>
+                        <dd>Occurs when a Token inside this region is part of a Combat Encounter and a Combat Turn begins.</dd>
+                    <dt><strong>Token Ends Round</strong></dt>
+                        <dd>Occurs when a Token inside this region is part of a Combat Encounter and a Combat Round ends.</dd>
+                </dl>
+            </div>
+            <figure class="column right noborder"><video autoplay="true" loop="loop" muted="true" src="https://r2.foundryvtt.com/website-uploads-public/asset/user_681/region-demo-slide-trap-with-rotation-2024-05-29.webm"></video>
+                <figcaption>Watch where you step! There may be slide traps powered by the <code>Token Enters</code> Event...</figcaption>
+            </figure> 
+        </div> 
+
+        <p class="note info"><strong>Note</strong>: Modules or Game Systems may provide additional Events. Please consult their documentation for more information about them.</p>
+    </div>
+</section>
+
+<h2 class="border" id="examples">Scene Region Examples</h2>
+<p>The following common examples are provided to illustrate how Scene Regions operate and how you might want to use them.</p> 
+<!-- TODO: add examples-->
+<ol>
+    <li>
+        <p><strong>Pause Game "Trap"</strong></p>
+        <p>Coming soon!</p>
+    </li>
+    <li>
+        <p><strong>The Cosy Cave</strong></p>
+        <p>Coming soon!</p>
+    </li>
+    <li>
+        <p><strong>Stairs</strong></p>
+        <p>Coming soon!</p>
+    </li>
+    <li>
+        <p><strong>Execute Macro</strong></p>
+        <p>Coming soon!</p>
+    </li>
+    <li>
+        <p><strong>Slide Trap</strong></p>
+        <p>Coming soon!</p>
+    </li>
+</ol>
+
+<h2 class="border" id="api">Developer Notes and API References</h2>
+<p>Scene Regions are built so that game systems and modules can easily add their own functionality. We can't wait to see what mad creations our developer community implements using this framework!</p>
+<p class="info note"><strong>Developer Note</strong>: The name of the new Document type that stores Scene Region information is <code>Region</code>, and it contains <code>Behavior</code>Embedded Documents. Shapes are not embedded documents, but rather are stored in an array in the Region document.</p>
+<p>To interact with Scene Regions programmatically, you will primarily use the following API concepts:</p>
+<ul>
+    <li><a href="/api/v12/classes/foundry.documents.BaseRegion.html" rel="nofollow" target="_blank" title="The Scene Region Document">The <code>classes/client.BaseRegion</code> document</a></li>
+    <!-- <li><a href="api/v12/classes/foundry.documents.BaseRegionBehavior.html" rel="nofollow" target="_blank" title="Scene Region Behaviors">The <code>classes/client.BaseRegionBehavior</code> document</a></li>
+    <li><a href="api/v12/enums/foundry.CONST.REGION_EVENTS.html" rel="nofollow" target="_blank" title="Scene Region Events">The <code>const.region_events</code> enumeration</a></li> -->
+</ul>
