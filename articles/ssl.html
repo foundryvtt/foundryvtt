@@ -40,6 +40,14 @@
 <h3 id="ca-signed">Obtaining a CA Signed Certificate</h3>
 <p>Most hosting providers offer them for a nominal fee or include them with your hosting package, so if you are hosting Foundry VTT via a remote-hosted server there is a reasonably good chance you can simply acquire the certificate.pem and privkey.pem files from your hosting provider, place them in your FVTT Config directory, and point Foundry VTT's configuration to them per Part 3 of this process as listed below.</p>
 
+<p>Before you begin, be sure you have:</p>
+<ul>
+<li>A Domain name</li>
+<li>A <a title="Port Forwarding" href="/article/port-forwarding/" target="_blank" rel="nofollow noopener">Port Forwarding</a> rule configured to direct traffic on port 80 and 443 to the computer on which you are hosting FVTT</li>
+<li>Any firewall software you are using configured to allow traffic on port 80 and 443</li>
+<li>Administrator permissions for your computer</li>
+</ul>
+
 <p>This guide now primarily recommends the use of Caddy as a reverse-proxy server that also automates the creation of CA Signed Certificates for SSL, as a cross-platform option that works reliably. Those wishing to use Certbot for SSL certificates on Linux or Mac can skip this section.</p>
 
 <section class="collapsible">
@@ -74,13 +82,6 @@
 
 <h3>Using Certbot as an Alternative</h3>
 <p>If you are self-hosting there is a process for using the Certbot software (provided generously by <a href="https://letsencrypt.org/" target="_blank" rel="nofollow noopener">Let's Encrypt</a> and the Electronic Frontier Foundation <a href="http://eff.org" target="_blank" rel="nofollow noopener">Electronic Frontier Foundation</a>) which will allow you to generate legitimate certificates through their verification process. Certbot is 100% free and can be configured for most Linux distributions and for macOS, but there is no viable client for Windows. </p>
-<p>Before you begin, be sure you have:</p>
-<ul>
-<li>A Domain name</li>
-<li>A <a title="Port Forwarding" href="/article/port-forwarding/" target="_blank" rel="nofollow noopener">Port Forwarding</a> rule configured to direct traffic on port 80 and 443 to the computer on which you are hosting FVTT</li>
-<li>Any firewall software you are using configured to allow traffic on port 80 and 443</li>
-<li>Administrator permissions for your computer</li>
-</ul>
 <p class="note warning"><strong>Note:</strong> CA Signed Certificates will typically last for 90-days before requiring renewal, and if using CertBot the EFF will email you a notification warning you of the pending expiration. If you are renewing your certificate, skip directly to the step 3!</p>
 
 <section class="collapsible">
