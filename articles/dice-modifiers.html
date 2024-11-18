@@ -16,6 +16,8 @@
     <dd>Rerolls a die continually based on the set condition, so that each occurrence of the number rolls again, continually adding to the total result.</dd>
     <dt>xo : Explode Once</dt>
     <dd>Rerolls a die once based on the set condition, used primarily by games which use a "dice pool", adding to the total result.</dd>
+    <dt>x<em><strong><u>Any Number</u></strong></em>: Explode with Numeric Cap</dt>
+    <dd>Rerolls the die based on the set condition, but only up to a maximum of <em><strong><u>Any Number</u></strong></em>&nbsp; times. For example, adding <i>x5</i> to a roll would allow it to explode up to a maximum of 5 times, and adding x1 to a roll is identical to adding <i>x0</i>.</dd>
 </dl>
 <section class="collapsible">
     <header class="collapsible-header">Re-rolls and Exploding Dice Examples</header>
@@ -32,6 +34,10 @@
         <pre><code class="language-plaintext">/r 1d20x&lt;10kh</code></pre>
         <p>Roll six ten-sided dice, and roll one additional die for each 10 rolled, but do not re-roll 10s on the additional die, adding them to the total.</p>
         <pre><code class="language-plaintext">/r 6d10xo10</code></pre>
+        <p>Roll six ten-sided dice, and roll one additional die for each 10 rolled (up to a maximum of 5 times), adding them to the total.</p>
+        <pre><code class="language-plaintext">/r 6d10x5=10</code></pre>
+        <p>Roll six ten-sided dice, and roll one additional die for each 9 or 10 rolled (up to a maximum of 2 times), adding them to the total.</p>
+        <pre><code class="language-plaintext">/r 6d10x2>=9</code></pre>
         <p><em>Chronicles of Darkness - Rote Rolls</em>; roll five ten-sided dice, re-rolling any dice that fall under 8, and re-rolling any dice that score a 10, before counting the total successes in the roll.</p>
         <pre><code class="language-plaintext">/r 5d10xo&lt;8x10cs&gt;=8</code></pre>    
     </div>
