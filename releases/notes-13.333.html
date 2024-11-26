@@ -1,0 +1,249 @@
+<header id="update-header">
+    <h2 id="update-title" class="border">Foundry Virtual Tabletop - Version 13 - Prototype 2 Release Notes</h2>
+    <figure id="update-banner">
+        <img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/v13p2-release-banner-2024-11-25.webp" title="Foundry VTT - Version 13 - Prototype 2 Release Notes" alt="Release Notes for Foundry Virtual Tabletop Version 13"/>
+        <figcaption>Welcome to the update notes for Foundry Virtual Tabletop Version 13.333... (repeating, of course!), as shown with <a href="https://foundryvtt.com/packages/sgeh-monkeydm">Steinhardt's Guide to the Eldritch Hunt</a>.</figcaption>
+    </figure>
+</header>
+
+<section id="update-overview">
+    <p>Hello Foundry community! We are extremely excited to release our second Prototype build in the Version 13 update cycle, Version 13.333... (repeating, of course!). Our focus was to refine and expand upon the first Prototype release by continuing to front-load the more serious changes to the API.</p>
+    <p>In addition to the ongoing ruler work to support our community-selected feature (Token Drag Ruler) and the ongoing <code>ApplicationV2</code> convert-a-palooza, we've also added a slew of improvements throughout the application that we are quite excited to share with all of you today.
+    <p class="note warning"><strong>WARNING:</strong> Updates on the Prototype channel provide the implementation of major new features which are likely to introduce unforeseen bugs, breakages to existing game systems or modules, or other problems which will be disruptive to the usage of the software. Do not install this update unless you are doing so for the specific purposes of testing, it is not intended for use in 'live game' scenarios. The purpose of Prototype builds are to allow new experimental features to be tested and to help developers to begin the process of updating packages which are impacted by these changes. If you choose to update to this version you expose yourself to serious risk of having a bad experience. Please take this warning to heart.</p>
+</section>
+
+    <h2 class="border">Highlights</h2>
+    <h4>Making it Shiny</h4>
+    <p>A primary focus for V13 is delivering the next generation of the Foundry user interface, and Prototype 2 provides strong progress in that initiative.</p>
+    <p>This release implements a flexible CSS theming system, powering a Foundry light mode and dark mode as well as enabling other arbitrary themes. We can't wait to see what the Foundry community does with this functionality in Game Systems and Modules.</p>
+    <p>Of course, many more important components of the Foundry UI have now also been migrated to Application V2 as well, bringing its visual and architectural improvements to an ever-increasing percentage of the software.</p>
+
+    <h4>Foundry Rules!</h4>
+    <p>To implement the Token Drag ruler as we envision, we continue to extensively improve the underlying movement-related data structures and API.</p>
+    <p>With much of that work now in place, Prototype 2 delivers significant improvements in multi-waypoint movement, including:</p>
+    <ul>
+        <li>Movement that would be blocked by a wall is indicated by a dashed line</li>
+        <li>Auto-rotation of token facing as your Token moves about the map  (don't worry pog fans, you can lock rotation as usual to prevent this)</li>
+        <li>Token movement speeds are now configurable for each waypoint segment</li>
+        <li>Better interaction with Scene Regions</li>
+    </ul>
+    <p>Measuring with <span class="reference">CTRL</span> also received some love in this release. You can now secretly measure a distance by holding <span class="reference">ALT</span> so that you don't tip your cunning plan to your unsuspecting players.</p>
+
+    <h4>Unleash Your Token's Inner Darkness</h4>
+    <p>Tokens have long been able to emit light, but now you can do the exact opposite and emit darkness as well. Your players will never see that monster coming...</p>
+
+    <h4>Flashy Chat</h4>
+    <p>Ever miss an incoming chat message because you were on a different sidebar tab? In Prototype 2, new incoming chat message notifications flash to the left of the sidebar to let you easily keep an eye on things.</p>
+   
+    <h4>Time for a Change</h4>
+    <p>It is still a work in progress, but this release brings the beginnings of a prototype Calendar API for supporting configurable in-world calendars with the <code>GameTime</code> class.</p>
+
+    <h3 class="border">Known Issues</h3>
+    <ul>
+        <li>When entering or exiting a Scene Region. a token may sometimes "slide" along its boundary in certain cases.</li>
+        <li>Tokens may clip through walls during movement in certain circumstances.</li>
+    </ul>
+
+<section id="breaking">
+<h2 class="section-header border">Breaking Changes</h2>
+<p>In addition to the changes listed below, please see details about the <a href="#api-apps">conversions to ApplicationV2</a>  here. These conversions may require changes for modules and systems that touch these applications.</p>
+    <h3 id="breaking-docs" class="category-header">Documents and Data</h3>
+    <ul>
+        <li>Switched behavior of <code>CONFIG.ActiveEffect.legacyTransferral</code> to be <code>false</code> by default and added a deprecation warning. <a href="https://github.com/foundryvtt/foundryvtt/issues/11412" target="_blank">(11412)</a></li>
+    </ul>
+    <h3 id="breaking-canvas" class="category-header">The Game Canvas</h3>
+    <ul>
+        <li>Refactored shape-related properties and functions from <code>Region</code> to <code>RegionDocument</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11819" target="_blank">(11819)</a></li>
+        <li>Deprecated the <code>TOKEN_PRE_MOVE</code> Region event, which is no longer triggered. <a href="https://github.com/foundryvtt/foundryvtt/issues/11839" target="_blank">(11839)</a></li>
+        <li>Deprecated the <code>TOKEN_MOVE</code> Region event in favor <code>TOKEN_MOVE_WITHIN</code>, which is only triggered for movement within the Region, but not when moving in or out. <code>TOKEN_MOVE</code> is no longer triggered. <a href="https://github.com/foundryvtt/foundryvtt/issues/11840" target="_blank">(11840)</a></li>
+    </ul>
+    <h3 id="breaking-other" class="category-header">Other Changes</h3>
+    <ul>
+        <li>Put TinyMCE on a deprecation path to be removed in V15. <a href="https://github.com/foundryvtt/foundryvtt/issues/11821" target="_blank">(11821)</a></li>
+        <li>The default value of <code>DialogV2WaitOptions#rejectClose</code> is now <code>false</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11763" target="_blank">(11763)</a></li>
+        <li>For Compendium Documents, <code>ClientDocument#collection</code> now returns a <code>CompendiumCollection</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11807" target="_blank">(11807)</a></li>
+        <li>Removed backwards compatible support for changes in V11 or prior which have reached the end of their deprecation period. <a href="https://github.com/foundryvtt/foundryvtt/issues/11815" target="_blank">(11815)</a></li>
+    </ul>
+</section>
+<section id="features">
+<h2 class="section-header border">New Features</h2>
+    <h3 id="features-architecture" class="category-header">Architecture and Infrastructure</h3>
+    <ul>
+        <li>Migrated to classic-level version <code>2.0.0</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11782" target="_blank">(11782)</a></li>
+        <li>Updated dependencies (including a small Electron version bump to 33.0.2). <a href="https://github.com/foundryvtt/foundryvtt/issues/11822" target="_blank">(11822)</a></li>
+    </ul>
+    <h3 id="features-docs" class="category-header">Documents and Data</h3>
+    <ul>
+        <li>The meaning of <code>Document.metadata.permissions</code> was refined to be more explicit about what <code>USER_ROLES</code> or <code>DOCUMENT_OWNERSHIP_LEVELS</code> are allowed to perform a certain actions. <code>view</code> was also added as a permission level on the Document itself that can be used by downstream code. <a href="https://github.com/foundryvtt/foundryvtt/issues/11280" target="_blank">(11280)</a></li>
+        <li>Added support for <code>TypedSchemaField</code> outside of <code>ArrayField</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/10833" target="_blank">(10833)</a></li>
+        <li>Redesigned the functionality of default token settings to better respect user-defined preferences and added support to define those user preferences per Actor type. <a href="https://github.com/foundryvtt/foundryvtt/issues/11758" target="_blank">(11758)</a></li>
+    </ul>
+    <h3 id="features-apps" class="category-header">Applications and User Interface</h3>
+    <ul>
+        <li>Changed drag distance evaluation so that it is based on screen coordinates instead of canvas coordinates. <a href="https://github.com/foundryvtt/foundryvtt/issues/11028" target="_blank">(11028)</a></li>
+        <li>Added reporting to indicate which players are idle based on the timestamp that their last user activity packet was received. <a href="https://github.com/foundryvtt/foundryvtt/issues/11517" target="_blank">(11517)</a></li>
+        <li>Rationalized the way that Theme V2 color variables for text are used across themes. <a href="https://github.com/foundryvtt/foundryvtt/issues/11770" target="_blank">(11770)</a></li>
+    </ul>
+    <h3 id="features-canvas" class="category-header">The Game Canvas</h3>
+    <ul>
+        <li>Allowed token-emitted light sources to be darkness sources. <a href="https://github.com/foundryvtt/foundryvtt/issues/10741" target="_blank">(10741)</a></li>
+        <li>Added movement history visualization. <a href="https://github.com/foundryvtt/foundryvtt/issues/11735" target="_blank">(11735)</a></li>
+        <li>Improved the performance of token target indicators. <a href="https://github.com/foundryvtt/foundryvtt/issues/11766" target="_blank">(11766)</a></li>
+    </ul>
+    <h3 id="features-i18n" class="category-header">Localization and Accessibility</h3>
+    <ul>
+        <li>Implemented an overall UI scale setting which adjusts the size of game interface elements. <a href="https://github.com/foundryvtt/foundryvtt/issues/5508" target="_blank">(5508)</a></li>
+        <li>Added labels to <code>name</code> and <code>img</code> Document fields. <a href="https://github.com/foundryvtt/foundryvtt/issues/11796" target="_blank">(11796)</a></li>
+        <li>Standardized grammatical number of Document-related localization namespaces. <a href="https://github.com/foundryvtt/foundryvtt/issues/11823" target="_blank">(11823)</a></li>
+        <li>Utilized <code>DataModel.LOCALIZATION_PREFIXES</code> as part of <code>DocumentSheetV2</code> conversions. <a href="https://github.com/foundryvtt/foundryvtt/issues/11825" target="_blank">(11825)</a></li>
+    </ul>
+    <h3 id="features-other" class="category-header">Other Changes</h3>
+    <ul>
+        <li>Replaced the raw HTML prosemirror editor <code>textarea</code> with <code>code-mirror</code>, greatly improving the in-app text editing experience. <a href="https://github.com/foundryvtt/foundryvtt/issues/11741" target="_blank">(11741)</a></li>
+        <li>Improved pattern of <code>DocumentSheetV2</code> default window IDs so that escaping them is not necessary. <a href="https://github.com/foundryvtt/foundryvtt/issues/11756" target="_blank">(11756)</a></li>
+    </ul>
+</section>
+<section id="api">
+<h2 class="section-header border">API Improvements</h2>
+    <h3 id="api-docs" class="category-header">Documents and Data</h3>
+    <ul>
+        <li><code>data-dtype=Number</code> is now added to <code>SetField(NumberField)</code> automatically. <a href="https://github.com/foundryvtt/foundryvtt/issues/11301" target="_blank">(11301)</a></li>
+        <li>Changed the type of two base Document data fields to better reflect their intent (<code>BaseScene#navName</code> and <code>BasePlaylist#fade</code>). <a href="https://github.com/foundryvtt/foundryvtt/issues/11824" target="_blank">(11824)</a></li>
+        <li>The following fields of <code>TokenDocument</code> have now been declared unpreparable: <code>x</code>, <code>y</code>, <code>elevation</code>, <code>width</code>, <code>height</code>, and <code>shape</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11845" target="_blank">(11845)</a></li>
+        <li><code>null</code> sight and detection mode ranges are now interpreted as a range of <code>Infinity</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11852" target="_blank">(11852)</a></li>
+    </ul>
+    <h3 id="api-apps" class="category-header">Applications and User Interface</h3>
+    <ul>
+        <li>Converted <code>ActiveEffectConfig</code> to <code>ApplicationV2</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11319" target="_blank">(11319)</a></li>
+        <li>Converted <code>ActorDirectory</code> to <code>ApplicationV2</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11320" target="_blank">(11320)</a></li>
+        <li>Converted <code>AdventureImporter</code> to <code>ApplicationV2</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11322" target="_blank">(11322)</a></li>
+        <li>Converted <code>BasePlaceableHUD</code> to <code>ApplicationV2</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11325" target="_blank">(11325)</a></li>
+        <li>Converted <code>CardsDirectory</code> to <code>ApplicationV2</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11330" target="_blank">(11330)</a></li>
+        <li>Converted <code>ChatLog</code> to <code>ApplicationV2</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11333" target="_blank">(11333)</a></li>
+        <li>Converted <code>FolderExport</code> to <code>DialogV2</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11350" target="_blank">(11350)</a></li>
+        <li>Converted <code>HeadsUpDisplay</code> to <code>ApplicationV2</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11355" target="_blank">(11355)</a></li>
+        <li>Converted <code>JournalDirectory</code> to <code>ApplicationV2</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11361" target="_blank">(11361)</a></li>        
+        <li>Converted <code>JournalSheet</code> to <code>ApplicationV2</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11364" target="_blank">(11364)</a></li>
+        <li>Converted <code>JournalTextPageSheet</code> to <code>ApplicationV2</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11365" target="_blank">(11365)</a></li>
+        <li>Converted <code>MacroDirectory</code> to <code>ApplicationV2</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11370" target="_blank">(11370)</a></li>        
+        <li>Converted <code>PlaylistConfig</code> to <code>ApplicationV2</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11379" target="_blank">(11379)</a></li>
+        <li>Converted <code>PlaylistSoundConfig</code> to <code>ApplicationV2</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11381" target="_blank">(11381)</a></li>
+        <li>Converted <code>RollTableDirectory</code> to <code>ApplicationV2</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11382" target="_blank">(11382)</a></li>
+        <li>Converted <code>SceneConfig</code> to <code>ApplicationV2</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11383" target="_blank">(11383)</a></li>
+        <li>Converted <code>Sidebar</code> to <code>ApplicationV2</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11391" target="_blank">(11391)</a></li>
+        <li>Converted <code>TokenHUD</code> to <code>ApplicationV2</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11801" target="_blank">(11801)</a></li>
+        <li>Converted <code>DrawingHUD</code> to <code>ApplicationV2</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11802" target="_blank">(11802)</a></li>
+        <li>Converted <code>TileHUD</code> to <code>ApplicationV2</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11803" target="_blank">(11803)</a></li>
+        <li>Exposed <code>SceneControls#activate</code> to the API to support changing scene controls, tools, or toggles without necessarily re-rendering. <a href="https://github.com/foundryvtt/foundryvtt/issues/11789" target="_blank">(11789)</a></li>
+        <li>Arbitrary UI elements can now include theme-specific boilerplate variables via use of the <code>.themed</code> class in conjunction with the specific theme to apply. <a href="https://github.com/foundryvtt/foundryvtt/issues/11812" target="_blank">(11812)</a></li>
+    </ul>
+    <h3 id="api-canvas" class="category-header">The Game Canvas</h3>
+    <ul>
+        <li>Separated ruler measurement from ruler drawing. The results of ruler measurement is now passed via sockets instead of recalculating on each client. <a href="https://github.com/foundryvtt/foundryvtt/issues/10361" target="_blank">(10361)</a></li>
+        <li>Checkpoints are now automatically added to the movement path where the Token moves into or out of a Region that has a Behavior that subscribes to the <code>TOKEN_MOVE_IN</code> or <code>TOKEN_MOVE_OUT</code> event. Added the ability to pause movement at these checkpoints, then subsequently resume (<code>TokenDocument#pauseMovement</code>) or stop (<code>TokenDocument#stopMovement</code>) this movement. <a href="https://github.com/foundryvtt/foundryvtt/issues/11627" target="_blank">(11627)</a></li>
+        <li>Added the <code>snapped</code> property to Token movement waypoints to indicate whether the Token was placed with snapping. <a href="https://github.com/foundryvtt/foundryvtt/issues/11640" target="_blank">(11640)</a></li>
+        <li><code>Region.CLIPPER_SCALING_FACTOR</code> has been deprecated in favor of the new <code>CONST.CLIPPER_SCALING_FACTOR</code>. Several functions now use this as their default <code>scalingFactor</code> option instead of 1. <a href="https://github.com/foundryvtt/foundryvtt/issues/11705" target="_blank">(11705)</a></li>
+        <li>Added <code>TokenDocument#_preUpdateMovement</code>, <code>TokenDocument#_onUpdateMovement</code>, and the hooks <code>preMoveToken</code> and <code>moveToken</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11754" target="_blank">(11754)</a></li>
+        <li>Added support for a pre-determined cost and custom cost function for each individual waypoint in <code>Token#measureMovementPath</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11828" target="_blank">(11828)</a></li>
+        <li>Changed the return type of <code>Token#constrainMovementPath</code> from <code>{reached: number, collision: ElevatedPoint|null}</code> to <code>{reached: number, terminalPath: ElevatedPoint[]}</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11829" target="_blank">(11829)</a></li>
+        <li>Added <code>Token#_initializeRuler(): BaseTokenRuler | null</code>, which initializes the <code>TokenRuler</code> instance of the Token. <a href="https://github.com/foundryvtt/foundryvtt/issues/11830" target="_blank">(11830)</a></li>
+        <li>Added <code>mode: "replace" | "acquire" | "release"</code> option to <code>TokenLayer#setTargets</code>, which determines the targeting behavior of the provided target IDs. <a href="https://github.com/foundryvtt/foundryvtt/issues/11831" target="_blank">(11831)</a></li>
+        <li>Added the <code>linkToMovement</code> update operation animation option which sets the animation duration of non-movement properties to the duration of the movement animation. <a href="https://github.com/foundryvtt/foundryvtt/issues/11832" target="_blank">(11832)</a></li>
+        <li>The ID of the User that performed the movement is now recorded in the movement history. <a href="https://github.com/foundryvtt/foundryvtt/issues/11833" target="_blank">(11833)</a></li>
+        <li>Intermediate waypoints (the waypoints of grid spaces on the direct path between to waypoints) are now recorded in the movement history. <code>TokenDocument#getDirectMovementPath</code> has been replaced by <code>TokenDocument#getIntermediateMovementPath</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11834" target="_blank">(11834)</a></li>
+        <li>Added the <code>showRuler</code> update option which controls whether the ruler of the Token is shown during the movement animation. If <code>undefined</code>, the ruler is shown only if the movement was recorded in the history. <a href="https://github.com/foundryvtt/foundryvtt/issues/11835" target="_blank">(11835)</a></li>
+        <li>Added <code>CONFIG.Token.movement.defaultAction</code>, which is the default action of token movement waypoints. <a href="https://github.com/foundryvtt/foundryvtt/issues/11836" target="_blank">(11836)</a></li>
+        <li>Added <code>Token#updateDragRulerPath</code> and <code>TokenLayer#updateDragRulerPaths</code> which update the path through the waypoints of the drag operation. <a href="https://github.com/foundryvtt/foundryvtt/issues/11837" target="_blank">(11837)</a></li>
+        <li>Changed the signature of <code>TokenRuler#_getWaypointLabel</code>, <code>TokenRuler#_getGridHighlightStyle</code>, and <code>TokenRuler#refresh</code>. Added <code>TokenRuler#_getWaypointStyle</code>, <code>TokenRuler#_getSegmentStyle</code>, <code>TokenRuler#_configureOutline</code>, and <code>TokenRuler#_configureDashLine</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11838" target="_blank">(11838)</a></li>
+        <li>Reworked the Region event data of <code>TOKEN_MOVE_IN</code>, <code>TOKEN_MOVE_OUT</code>, and <code>TOKEN_MOVE_WITHIN</code>. The <code>segments</code>, <code>teleport</code>, and <code>forced</code> event data properties have been deprecated. <a href="https://github.com/foundryvtt/foundryvtt/issues/11841" target="_blank">(11841)</a></li>
+        <li>Deprecated the <code>teleport</code> and <code>forced</code> Token update operation options in favor of the new movement waypoint data. <a href="https://github.com/foundryvtt/foundryvtt/issues/11842" target="_blank">(11842)</a></li>
+        <li>Add <code>TokenDocument#move(waypoints: TokenMovementWaypoint | TokenMovementWaypoint[], options?: object): Promise&lt;boolean&gt;</code>, which moves the Token through the provided waypoints. <a href="https://github.com/foundryvtt/foundryvtt/issues/11843" target="_blank">(11843)</a></li>
+        <li>Token drag measurements are now broadcast to other users. <a href="https://github.com/foundryvtt/foundryvtt/issues/11844" target="_blank">(11844)</a></li>
+        <li>Changed the return type of <code>Token#findMovementPath</code> so that it now requires a <code>result</code> property. <a href="https://github.com/foundryvtt/foundryvtt/issues/11846" target="_blank">(11846)</a></li>
+        <li>Changed <code>PointSourcePolygon#origin</code> from <code>Point</code> to <code>ElevatedPoint</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11847" target="_blank">(11847)</a></li>
+        <li>Added <code>Token#_getDragWaypointProperties(): {action?: string, teleport?: boolean}</code> and <code>Token#_getDragPathfindingOptions(): TokenFindMovementPathOptions</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11848" target="_blank">(11848)</a></li>
+        <li><code>TokenDocument#pauseMovement</code> now returns a callback that can continue the movement, but only if all other continuation callbacks have been called of all other <code>Token#pauseMovement</code> calls that occurred at the same time. <code>Token#continueMovement</code> has been removed. <a href="https://github.com/foundryvtt/foundryvtt/issues/11849" target="_blank">(11849)</a></li>
+        <li>Tokens now automatically rotate in the direction of movement if dragged or moved by keyboard inputs. The <code>autoRotate</code> update operation option controls this behavior. <a href="https://github.com/foundryvtt/foundryvtt/issues/11850" target="_blank">(11850)</a></li>
+        <li>Added <code>Token#_getAnimationRotationSpeed(options: TokenAnimationOptions): number</code> and <code>Token#_requiresRotationAnimation(): boolean</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11853" target="_blank">(11853)</a></li>
+        <li>Added <code>Token#movementAnimationPromise</code>, which returns the promise that resolves once the current movement animation has completed. <a href="https://github.com/foundryvtt/foundryvtt/issues/11854" target="_blank">(11854)</a></li>
+    </ul>
+    <h3 id="api-packages" class="category-header">Package Development</h3>
+    <ul>
+        <li>Added support so that modules can use the <code>preImportAdventure</code> or <code>importAdventure</code> hooks to register workflows that can perform asynchronous pre-processing or post-processing of adventure data. <a href="https://github.com/foundryvtt/foundryvtt/issues/11816" target="_blank">(11816)</a></li>
+    </ul>
+    <h3 id="api-other" class="category-header">Other Changes</h3>
+    <ul>
+        <li>Allowed for custom enrichers to supply event listeners to their created elements. <a href="https://github.com/foundryvtt/foundryvtt/issues/8755" target="_blank">(8755)</a></li>
+        <li>Improved upon the <code>GameTime</code> API and added <code>CalendarConfig</code> to offer a more robust framework for defining a custom in-world calendar, performing date/time transformations, and formatting returned dates. <a href="https://github.com/foundryvtt/foundryvtt/issues/11426" target="_blank">(11426)</a></li>
+        <li>Made <code>ChatLog##renderBatch</code> functionality accessible to the public API. <a href="https://github.com/foundryvtt/foundryvtt/issues/11744" target="_blank">(11744)</a></li>
+        <li>Provided a way for <code>Document#toEmbed</code> Document embeds to attach interactivity to their embedded results via <code>Document#onEmbed</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11791" target="_blank">(11791)</a></li>
+        <li>Improved <code>AbstractFormInputElement</code> and <code>DataField</code> form group/input generation. <a href="https://github.com/foundryvtt/foundryvtt/issues/11826" target="_blank">(11826)</a></li>
+    </ul>
+</section>
+<section id="bugs">
+<h2 class="section-header border">Bug Fixes</h2>
+    <h3 id="bugs-docs" class="category-header">Documents and Data</h3>
+    <ul>
+        <li>Resolved an issue where <code>ActiveEffect._applyLegacy</code> could set values to <code>undefined</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11527" target="_blank">(11527)</a></li>
+        <li>If the user does not have the prerequisite FILES_UPLOAD permission, generation of new Scene preview thumbnails by that user is cancelled. <a href="https://github.com/foundryvtt/foundryvtt/issues/11582" target="_blank">(11582)</a></li>
+        <li>Fixed an issue where deletion keys were always included in the diff returned by <code>DataModel#updateSource</code>, even if the key wasn't deleted. <a href="https://github.com/foundryvtt/foundryvtt/issues/11827" target="_blank">(11827)</a></li>
+        <li>Fixed bug where retrieving new actor-compendium index fields flushed compendium art from the application. <a href="https://github.com/foundryvtt/foundryvtt/issues/11863" target="_blank">(11863)</a></li></li>
+    </ul>
+    <h3 id="bugs-apps" class="category-header">Applications and User Interface</h3>
+    <ul>
+        <li>Creating a <code>JournalEntryPage</code> subtype with an ApplicationV2 Document sheet no longer prevents the parent <code>JournalEntry</code> from being able to render. <a href="https://github.com/foundryvtt/foundryvtt/issues/11546" target="_blank">(11546)</a></li>
+        <li>Made the <code>HTMLDocumentTagsElement</code> somewhat more permissive. It now accepts theoretically valid UUID strings instead of requiring that the Document exist in the current World or active compendium pack. <a href="https://github.com/foundryvtt/foundryvtt/issues/11717" target="_blank">(11717)</a></li>
+        <li>Resolved an issue where <code>HTMLDocumentTagsElement</code> did not work with Document types that lacked a <code>name</code> field. <a href="https://github.com/foundryvtt/foundryvtt/issues/11738" target="_blank">(11738)</a></li>
+        <li>Prevented <code>SceneControls</code> from re-rendering twice every time a new control is activated. <a href="https://github.com/foundryvtt/foundryvtt/issues/11745" target="_blank">(11745)</a></li>
+        <li>Fixed typo in <code>AVConfig</code> hint. <a href="https://github.com/foundryvtt/foundryvtt/issues/11775" target="_blank">(11775)</a></li>
+        <li>Added handling to playlists for handling drag data that contains sound. <a href="https://github.com/foundryvtt/foundryvtt/issues/11788" target="_blank">(11788)</a></li>
+    
+    </ul>
+    <h3 id="bugs-canvas" class="category-header">The Game Canvas</h3>
+    <ul>
+        <li><code>GridLayer.instance</code> now correctly returns a subclass of <code>CanvasLayer</code> (not <code>BaseGrid</code> as it did previously). <a href="https://github.com/foundryvtt/foundryvtt/issues/11794" target="_blank">(11794)</a></li>
+        <li>Reworked the methods used to manage targeting to close several loopholes. Introduced <code>TokensLayer#setTargets</code> which can be used to set multiple targets at once and made several <code>User</code> methods internal. <a href="https://github.com/foundryvtt/foundryvtt/issues/10613" target="_blank">(10613)</a></li>
+        <li>Accounted for Token movement being stopped by a Region in Ruler measurement history creation. <a href="https://github.com/foundryvtt/foundryvtt/issues/10830" target="_blank">(10830)</a></li>
+        <li>Added dynamic padding for Token Rings when scale correction is less than 1 to prevent visual cropping. <a href="https://github.com/foundryvtt/foundryvtt/issues/11580" target="_blank">(11580)</a></li>
+        <li>The global light source is no longer restricted by roofs. <a href="https://github.com/foundryvtt/foundryvtt/issues/11644" target="_blank">(11644)</a></li>
+        <li>Fixed a bug that caused cone templates to not highlight all the grid spaces they should in scenes with an uneven grid size. <a href="https://github.com/foundryvtt/foundryvtt/issues/11749" target="_blank">(11749)</a></li>
+        <li>Improved snapping for placeable objects that are copied from a Scene with a different grid configuration. <a href="https://github.com/foundryvtt/foundryvtt/issues/11751" target="_blank">(11751)</a></li>
+        <li>Restored <span class="reference">CTRL+A</span> functionality for the Token layer. <a href="https://github.com/foundryvtt/foundryvtt/issues/11752" target="_blank">(11752)</a></li>
+        <li>Fixed output buffer size checks in <code>expandBufferRedToBufferRGBA</code> and <code>reduceBufferRGBAToBufferRED</code> to address Scene rendering issues in Firefox. <a href="https://github.com/foundryvtt/foundryvtt/issues/11759" target="_blank">(11759)</a></li>
+        <li>Performed an editing pass of the User Permission Configuration dialog. <a href="https://github.com/foundryvtt/foundryvtt/issues/11859" target="_blank">(11859)</a></li>
+    </ul>
+    <h3 id="bugs-other" class="category-header">Other Changes</h3>
+    <ul>
+        <li>Fixed <code>PerceptionManager</code> render flag <code>alias</code> misalignment. <a href="https://github.com/foundryvtt/foundryvtt/issues/11790" target="_blank">(11790)</a></li>
+        <li>Made <code>FormApplication#_onChangeInput()</code> more specific in targeting only <code>.editor.prosemirror</code> or <code>.editor.tinymce</code> elements. <a href="https://github.com/foundryvtt/foundryvtt/issues/9952" target="_blank">(9952)</a></li>
+        <li>Improved messaging when Foundry is unable to get available packages by replacing the <code>key.split</code> error with a more human-readable error message. <a href="https://github.com/foundryvtt/foundryvtt/issues/11533" target="_blank">(11533)</a></li>
+        <li>Added form locking for non-editable Documents to <code>DocumentSheetV2</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11673" target="_blank">(11673)</a></li>
+        <li>Escaped the ID in <code>DocumentSheetV2</code> to prevent an error in <code>_syncPartState</code> when using form fields. <a href="https://github.com/foundryvtt/foundryvtt/issues/11742" target="_blank">(11742)</a></li>
+        <li>Fixed an error which was preventing the Prototype and Default Token Configuration windows from opening. <a href="https://github.com/foundryvtt/foundryvtt/issues/11743" target="_blank">(11743)</a></li>
+        <li>Restored the correct range (0.2 to 3) to the Scale control in <code>TokenConfig</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11747" target="_blank">(11747)</a></li>
+        <li>Fixed a bug which was causing <code>ActorSheet#_onDropFolder</code> to always evaluate as true. <a href="https://github.com/foundryvtt/foundryvtt/issues/11769" target="_blank">(11769)</a></li>
+        <li>Prevented an error that occurred when force-closing a V1 application that was already closed. <a href="https://github.com/foundryvtt/foundryvtt/issues/11771" target="_blank">(11771)</a></li>
+        <li><code>ForeignDocumentField</code> no longer ignores <code>choices</code> when creating form groups. <a href="https://github.com/foundryvtt/foundryvtt/issues/11774" target="_blank">(11774)</a></li>
+        <li>Fixed a bug causing non-truthy placeholders to not be set by the <code>setInputAttributes</code> helper. <a href="https://github.com/foundryvtt/foundryvtt/issues/11778" target="_blank">(11778)</a></li>
+        <li>Resolved an issue where the "Append Number to name of Unlinked Tokens" setting could create duplicate numbers in certain circumstances. <a href="https://github.com/foundryvtt/foundryvtt/issues/11799" target="_blank">(11799)</a></li>
+    </ul>
+</section>
+<section id="documentation">
+<h2 class="section-header border">Documentation Improvements</h2>
+    <h3 id="documentation-other" class="category-header">Other Changes</h3>
+    <ul>
+        <li>Corrected the Handlebars <code>numberFormat</code> documentation. <a href="https://github.com/foundryvtt/foundryvtt/issues/8622" target="_blank">(8622)</a></li>
+        <li>Resolved an issue that was causing <code>@typedef</code> descriptions to be excluded from the generated API docs. <a href="https://github.com/foundryvtt/foundryvtt/issues/11573" target="_blank">(11573)</a></li>
+        <li><code>@import</code> was added for referenced classes and <code>@typedef</code>s so that the type is linked correctly in the API docs. <a href="https://github.com/foundryvtt/foundryvtt/issues/11579" target="_blank">(11579)</a></li>
+        <li>Fixed an issue where the <code>Scene</code> class was incorrectly marked as extending <code>BaseItem</code> instead of <code>BaseScene</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11601" target="_blank">(11601)</a></li>
+        <li>Corrected the "Fog Exploration" toggle in Scene configuration's Lighting tab. <a href="https://github.com/foundryvtt/foundryvtt/issues/11662" target="_blank">(11662)</a></li>
+        <li>Added documentation for the types used in Peggy. <a href="https://github.com/foundryvtt/foundryvtt/issues/11765" target="_blank">(11765)</a></li>
+        <li>Restored <code>readonly</code> status of certain <code>Game</code> properties. <a href="https://github.com/foundryvtt/foundryvtt/issues/11813" target="_blank">(11813)</a></li>
+    </ul>
+</section>
+<section id="summary">
+<h2 class="section-header border"></h2>
+</section>
+<section id="title">
+<h2 class="section-header border"></h2>
+</section>
