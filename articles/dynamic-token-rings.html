@@ -1,3 +1,4 @@
+<p class="note info v13">The information described in this article has been updated for Foundry V13. Some content may differ from V12 stable.</p>
 <h2 class="border" id="overview">Overview</h2>
 <p>This article is intended to provide guidance to content creators and developers who would like to ensure that tokens that they create are both compatible with the Dynamic Token feature, and also compatible with other products that make use of it. </p>
 
@@ -10,160 +11,248 @@
 </p>
 
 <h3 id="anatomy">Anatomy of a Dynamic Token</h3>
-<p>In simple terms, a Dynamic Token is composed from the same elements as a 'static' token: a Subject, a Ring, and a Background. Just like a traditional token, these layers are combined to form a single image.</p>
-<p>Where they differ is that, while “static” token layers are combined when the file is saved, a “dynamic” token layers are saved separately, and the textures are combined only when the token is rendered within Foundry VTT.</p>
+<p>A Dynamic Token is composed from the same elements as a typical "pog-style" token: a Subject, a Ring, and a Background. Unlike a "static" pog-style token, however, these elements are not combined when the file is saved. Instead, for a “dynamic” token these elements are saved separately, then combined only when the token is rendered within Foundry VTT.</p>
+<dl>
+    <dt>Subject</dt>
+    <dd>The flavorful artwork "content" that depicts the Actor represented by this Token. The ring and background both serve to supplement this subject artwork, making it into a usable dynamic token.</dd>
+    <dd>If no image is specifically provided for use as the dynamic token's subject, the standard image for the Token is used. For best results, it is recommended to use an image that was specifically designed to be the subject for the dynamic token. </dd>
+    <dt>Ring</dt>
+    <dd>Typically circular, this is the "frame" that surrounds the subject artwork. For performance reasons, the same ring texture is used for all dynamic tokens.</dd>
+    <dt>Background</dt>
+    <dd>A separate background color and a texture that overlays it can be defined for each dynamic token.</dd>
+</dl>
 
 <figure class="center noborder">@Asset[738]
     <figcaption>Foundry VTT creates a Dynamic Token by rendering a Subject asset above the Ring and Background.</figcaption>
 </figure>
+<p>Defining the elements of the token separately in this way gives Foundry users and developers granular control over how the token operates, allowing them to control and interact with the Token in interesting and useful ways.</p>
+
 <p>Foundry VTT includes a default Ring and Background asset which will be applied if no ring texture is supplied in the settings menu, and other styles may be provided in the future. Additionally, a module or system can also register their own assets, allowing a custom ring to be applied to all tokens regardless of their source. Changing among available rings can be done from the @Article[settings] menu.</p>
 
 <section class="collapsible">
-    <header class="collapsible-header">Dynamic Token Ring Configuration</header>
+    <header class="collapsible-header border" id="configuration">Dynamic Token Ring Configuration</header>
     <div class="collapsible-content">
+        <h3 id="usage">Using a Dynamic Token Ring</h3>
         <div class="columns">
             <div class="column" style="flex:2">
-                <h3 class="usage">Using a Dynamic Token Ring</h3>
-                <h4>Prototype Token Settings</h4>
+                <h4>Dynamic Token Prototype Token Settings</h4>
                 <p>As with other settings for @Article[tokens], configuration for the Dynamic Token Ring is handled from within an Actor's Prototype Token configuration.</p>
-                <p>To activate the Dynamic Token Ring, simply check "Ring Enabled". If you have entered a file path in the Subject Texture, the dynamic ring will render using that asset. If you have not, it will assume the provided Token Asset should be rendered instead.</p>
+                <p>To activate the Dynamic Token Ring, simply check "Ring Enabled". If you have entered a file path in the Subject Texture field, the dynamic ring will render using that asset. If you have not, it will assume the provided Token Asset should be rendered instead.</p>
                 <p>This menu also allows some basic modifications to be made on a per-actor basis, such as tinting the ring or background textures. More advanced functionality, such as interactions with game rules, can also be added at a system level.</p>
                 <dl>
-                <dt>Ring Enabled</dt>
-                <dd>A simple toggle for whether this token uses the Dynamic Token Ring feature or not.</dd>
-                <dt>Ring Color</dt>
-                <dd>A color value provided as a hex code. When this is configured, it will overlay that color on the ring texture.</dd>
-                <dt>Background Color</dt>
-                <dd>A color value provided as a hex code. When this is configured, it will overlay that color on the background texture.</dd>
-                <dt>Subject Texture</dt>
-                <dd>The file path to the location of the texture that should be used to depict the actor. This texture should be saved with no ring or background as part of its image file.</dd>
-                <dt>Subject Scale Correction</dt>
-                <dd>In some cases, Overscaled tokens (such as when a token is intended to be unconstrained by the bonds of the grid) may require correction of their scale to allow them to line up with the provided ring. This slider allows for adjusting that scale.</dd>
-                <dt>Ring Effects</dt>
-                <dd>A simple toggle which applies some example effects. Toggling these options can provide a specific visual effect, or be used by developers and creators to test how the effects provided by systems and modules will look with their provided tokens.</dd>
+                    <dt>Ring Enabled</dt>
+                    <dd>A simple toggle for whether this token uses the Dynamic Token Ring feature or not.</dd>
+                    <dt>Ring Color</dt>
+                    <dd>A color value provided as a hex code. When this is configured, it will overlay that color on the ring texture.</dd>
+                    <dt>Background Color</dt>
+                    <dd>A color value provided as a hex code. When this is configured, it will overlay that color on the background texture.</dd>
+                    <dt>Subject Texture</dt>
+                    <dd>The file path to the location of the texture that should be used to depict the actor. This texture should be saved with no ring or background as part of its image file.</dd>
+                    <dt>Subject Scale Correction</dt>
+                    <dd>In some cases, Overscaled tokens (such as when a token is intended to be unconstrained by the bonds of the grid) may require correction of their scale to allow them to line up with the provided ring. This slider allows for adjusting that scale.</dd>
+                    <dd><u>Note</u>: The Subject Scale Correction option only has an effect on a dynamic token that has a subject texture defined. For more information, see the <a href="#scale-fit">Scale, Fit, and Dynamic Tokens</a> section.</dd>
+                    <dt>Ring Effects</dt>
+                    <dd>Each checkbox toggles an example effect on or off, providing a specific visual effect. System and module developers may extend or alter these options.</dd>
                 </dl>
-                </div>
-                <figure class="right">@Asset[726]
-                    <figcaption>The Dynamic Token Ring Configuration settings</figcaption>
-                </figure>
-            </div>            
+                <h4>Related Token Prototype Settings</h4>
+                <p>These Token settings do not apply exclusively to dynamic tokens, but they interact with them in important ways.</p>
+                <dl>
+                    <dt>Image Fit</dt>
+                    <dd>Typically, this dropdown controls how a token's image stretches and/or shrinks to fit its intended size on the canvas. If a subject texture is defined, however, this option has no effect on the token because the subject texture must always fit its token ring. For more information, see <a href="#scale-fit">Scale, Fit, and Dynamic Tokens</a> below.</dd>
+                    <dt>Lock Artwork Rotation</dt>
+                    <dd>Because dynamic tokens are "pog-style" tokens, the artwork is typically intended to always remain in an upright position. Enabling this checkbox is recommended when configuring your dynamic tokens because it prevents the token artwork from rotating automatically as they move around.</dd>
+                </dl>
+            </div> 
+            <div class="column">           
+            <figure><img style="width:75%;height:75%" src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/dynamic-token-rings-prototype-settings-2025-01-29.webp" alt="Settings to control the Dynamic Token Ring configuration for an Actor"></img>
+                <figcaption>Settings to control the Dynamic Token Ring configuration for an Actor</figcaption>
+            </figure>
+            </div>
+        </div> 
     </div>
 </section>
 
-<h2 class="border" id="creating-subject">Creating Dynamic Token Subject Artwork</h2>
-<p>If you're familiar with the token creation process for traditional static tokens, then the process of creating a token to be compatible with the Dynamic Token Ring will be very familiar. The main difference is that rather than exporting the file as one single image asset, you must instead hide the ring and background layers before exporting the final asset.</p>
-
-<p>For those who wish to adapt their token creation workflow to use dynamic tokens, a zip file containing templates (Adobe Photoshop PSD format) to aid in the creation process is <a href="https://r2.foundryvtt.com/website-uploads-public/zip/asset/user_671/dynamic-token-templates-psd-2024-09-06.zip" rel="nofollow" target="_blank">available here</a>, in three sizes. </p>
-
-<p>The most important part of ensuring that a subject asset is compatible with the Dynamic Token Ring is understanding where the ring will be placed. If the Subject artwork is too large or too small, it won't line up with the ring properly.</p>
-
-<figure class="center noborder" style="width:50%; margin: 1rem auto;">@Asset[735]
-    <figcaption>Examples Of Subject Artwork Placement Issues</figcaption>
-</figure>
-
-
-
-<h4 id="include-subject">What do I include in the Subject?</h4>
-<div class="columns">
-    <div class="column" style="flex:2">
-        <p>Foundry VTT renders the Subject texture above the Ring texture, with the Background rendered below both. This is important to keep in mind since it affects decisions of which elements to include in the Subject asset. </p>
-        <p>Subject artwork should assume that the ring will start ⅔ from the center of the image, with the remaining ⅓ “padding” being reserved for the ring to use, as illustrated in the examples below.</p>
-        <p>Any element of the Subject that protrudes into the (highlighted green) padding area will appear to “pop out” over the ring.</p>
-        <p>Conversely, anything that is intended to be “hidden” by the Ring must be eliminated either by a mask or by deletion. Any elements which should be rendered *over* the Ring and Background - like the drop shadow added to the Subject in our example- should also be baked into the Subject texture.</p>
+<section class="collapsible">
+    <header class="collapsible-header">Scale, Fit, and Dynamic Tokens</header>
+    <div class="collapsible-content">
         
+        <h3 id="scale-fit">Scale, Fit, and Dynamic Tokens</h3>
+        <p>Because Foundry VTT can interact with each individual part of a properly configured dynamic token separately, resizing dynamic tokens behaves differently than it does for traditional static tokens.</p>
+        
+        <h4 class="border">Scale and Fit With a Properly Configured Dynamic Token</h4>
+        <p>This section only applies to dynamic token rings that have a subject texture defined. If a token is a dynamic but defaults to the standard token image path, see <a href="#scale-no-subject">Scale and Fit Without a Subject Texture Defined</a> instead.</p>    
+        
+        <h5>Token Settings</h5>
+        <P>Most settings that control the token's rendered size are located in directly in the Token's settings.</P>
+        <dl>
+            <dt>Image Fit</dt>
+            <dd>The <a href="#configuration">Image Fit setting</a> does not affect a fully configured dynamic token at all. The subject image is always automatically sized so that it fits inside the ring.</dd>
+            <dt>Subject Scale</dt>
+            <dd>This setting only scales the token's subject image, causing it to be larger or smaller relative to the token ring. The size of the token ring and background image do not change.</dd>
+            <dt>Scale</dt>
+            <dd>Changing the Scale setting scales the entire token simultaneously - subject, ring, and background.</dd>
+        </dl>
+        
+        <h5>Global Settings</h4>
 
-<figure class="center">@Asset[737]
-    <figcaption>The Composition of Dynamic Token Ring Assets</figcaption>
-</figure>
-    </div>
-</div>
-        <h3 class="border">Subject Artwork Dimensions</h3>
-        <p>While the canvas size for the subject asset can theoretically be of any size, we generally recommend 512px by 512px for a token intended to fill a single grid square. Texture sizes with pixel dimensions in power-of-two figures (512, 1024, etc) are preferred, as they offer minor performance advantages on most modern hardware.</p>
-        <p>For many game systems, we recommend standardizing your subject art to meet the following dimensions: </p>
-        <table>
-        <tbody>
-        <tr>
-        <td><strong>Size</strong></td>
-        <td>
-        <p><strong>Grid Space (Square)</strong></p>
-        </td>
-        <td>
-        <p><strong>Subject Art Dimensions&nbsp;</strong></p>
-        </td>
-        </tr>
-        <tr>
-        <td>
-        <p><strong>Tiny</strong></p>
-        </td>
-        <td>
-        <p>0.25 x 0.25</p>
-        </td>
-        <td>
-        <p>256px</p>
-        </td>
-        </tr>
-        <tr>
-        <td>
-        <p><strong>Small or Medium</strong></p>
-        </td>
-        <td>
-        <p>0.8 x 0.8&nbsp;</p>
-        </td>
-        <td>
-        <p>512px</p>
-        </td>
-        </tr>
-        <tr>
-        <td>
-        <p><strong>Medium</strong></p>
-        </td>
-        <td>
-        <p>1x1</p>
-        </td>
-        <td>
-        <p>512px</p>
-        </td>
-        </tr>
-        <tr>
-        <td>
-        <p><strong>Large</strong></p>
-        </td>
-        <td>
-        <p>2x2</p>
-        </td>
-        <td>
-        <p>1024px</p>
-        </td>
-        </tr>
-        <tr>
-        <td>
-        <p><strong>Huge</strong></p>
-        </td>
-        <td>
-        <p>3x3</p>
-        </td>
-        <td>
-        <p>1024px</p>
-        </td>
-        </tr>
-        <tr>
-        <td>
-        <p><strong>Gargantuan</strong></p>
-        </td>
-        <td>
-        <p>4x4 or larger</p>
-        </td>
-        <td>
-        <p>2048px</p>
-        </td>
-        </tr>
-        </tbody>
-        </table>
         <div class="columns">
             <div class="column" style="flex:2">
-        <h4>Creating Overscaled Tokens</h4>
+            <p>One important setting, Dynamic Token Rings Fit mode, is not located in the Token settings at all. Because it applies globally to all dynamic tokens (that have a subject texture defined), it is in the Core Foundry Settings instead.</p>
+            <P>The purpose of the Grid Fit setting is to address the situation where an oversize dynamic token has a piece that extends beyond the expected circular token shape. While such tokens are interesting and engaging, they can potentially obscure other tokens and cause confusion.</P>
+            <p>Two different options are available, each with its own pros and cons.</p>
+            <dl>
+                <dt>Standard Fit Mode</dt>
+                <dd>The default Fit Mode leaves a small buffer between the outside of the token ring and the inner edges of the grid squares around it. This is a balanced option that leaves some room for token elements to spill outside the ring without interfering with nearby objects.</dd>
+                <dt>Grid Fit Mode</dt>
+                <dd>Choosing this option instead results in larger dynamic Tokens. The tradeoff is that there is very little buffer for elements which "overflow" their rings, so they are more likely to interfere with nearby objects.</dd>
+            </dl>
+            
+            <h4 id="scale-no-subject" class="border">Scale and Fit Without a Subject Texture Defined</h3>
+            <p>If a token is dynamic but it <u>doesn't have a subject texture</u> and instead defaults to the standard token Image Path, it scales in the exact same way that a traditional static token does. For additional details, please see @Article[tokens].</p>
+            <dl>
+                <dt>Image Fit</dt>
+                <dd>Changing the Image Fit setting for a controls the entire image so that it is stretched or shrunk to fit its designated size on the map. The subject, ring, and background are all scaled simultaneously to fit.</dd>
+                <dt>Grid Fit</dt>
+                <dd>This global core setting does not affect tokens without a subject texture at all. Instead, the Image Fit setting of each of the tokens should be configured appropriately so that the entire rendered Token fits into its intended space, just like a traditional static token.</dd>
+                <dt>Subject Scale</dt>
+                <dd>Perhaps unsurprisingly, this setting does not affect tokens without a subject texture at all.</dd>
+                <dt>Scale</dt>
+                <dd>For a Token without a subject texture, the entire rendered Token is still scaled simultaneously (image, ring, and background).</dd>
+            </dl>
+        </div>
 
-        <p>One advantage of the way Foundry VTT renders tokens on the grid is that it allows for particular token art to extend into adjacent spaces in the grid, by increasing the Scale value in the Token Configuration. This <em>overscaled</em> effect is still possible with the Dynamic Token Ring, and the workflow for it is essentially identical, with the exception that you will need to adjust the Subject Scale Correction value to do so. </p>
+        <figure class="right" style="width:75%;height:75%;"><img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/dynamic-token-fit-mode-comparison-2024-08-14.webp" alt="Example dynamic Tokens with overflowing elements, rendered using 'Standard' mode (top) and the 'Grid Fit' mode (bottom)."></img>
+            <figcaption>
+                Dynamic Tokens with overflowing elements, shown using 'Standard' mode (top) and 'Grid Fit' mode (bottom).
+            </figcaption>
+        </figure>
+
+    </div>
+</div>
+</section>
+
+<section class="collapsible">
+    <header class="collapsible-header border" id="creating-subject">Creating Dynamic Token Subject Artwork</header>
+    <div class="collapsible-content">
+        <p>If you're familiar with the token creation process for traditional static tokens, then the process of creating a token to be compatible with the Dynamic Token Ring will be very familiar. The main difference is that rather than exporting the file as one single image asset, you must instead hide the ring and background layers before exporting the final asset.</p>
+
+        <p>For those who wish to adapt their token creation workflow to use dynamic tokens, a zip file containing templates (Adobe Photoshop PSD format) to aid in the creation process is <a href="https://r2.foundryvtt.com/website-uploads-public/zip/asset/user_671/dynamic-token-templates-psd-2024-09-06.zip" rel="nofollow" target="_blank">available here</a>, in three sizes. </p>
+
+        <p>The most important part of ensuring that a subject asset is compatible with the Dynamic Token Ring is understanding where the ring will be placed. If the Subject artwork is too large or too small, it won't line up with the ring properly.</p>
+
+        <figure class="center noborder" style="width:50%; margin: 1rem auto;">@Asset[735]
+            <figcaption>Examples Of Subject Artwork Placement Issues</figcaption>
+        </figure>
+
+
+
+        <h4 id="include-subject">What do I include in the Subject?</h4>
+        <div class="columns">
+            <div class="column" style="flex:2">
+                <p>Foundry VTT renders the Subject texture above the Ring texture, with the Background rendered below both. This is important to keep in mind since it affects decisions of which elements to include in the Subject asset. </p>
+                <p>Subject artwork should assume that the ring will start ⅔ from the center of the image, with the remaining ⅓ “padding” being reserved for the ring to use, as illustrated in the examples below.</p>
+                <p>Any element of the Subject that protrudes into the (highlighted green) padding area will appear to “pop out” over the ring.</p>
+                <p>Conversely, anything that is intended to be “hidden” by the Ring must be eliminated either by a mask or by deletion. Any elements which should be rendered *over* the Ring and Background - like the drop shadow added to the Subject in our example- should also be baked into the Subject texture.</p>
+                
+
+        <figure class="center">@Asset[737]
+            <figcaption>The Composition of Dynamic Token Ring Assets</figcaption>
+        </figure>
+            </div>
+        </div>
+                <h3 class="border">Subject Artwork Dimensions</h3>
+                <p>While the canvas size for the subject asset can theoretically be of any size, we generally recommend 512px by 512px for a token intended to fill a single grid square. Texture sizes with pixel dimensions in power-of-two figures (512, 1024, etc) are preferred, as they offer minor performance advantages on most modern hardware.</p>
+                <p>For many game systems, we recommend standardizing your subject art to meet the following dimensions: </p>
+                <table>
+                <tbody>
+                <tr>
+                <td><strong>Size</strong></td>
+                <td>
+                <p><strong>Grid Space (Square)</strong></p>
+                </td>
+                <td>
+                <p><strong>Subject Art Dimensions&nbsp;</strong></p>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                <p><strong>Tiny</strong></p>
+                </td>
+                <td>
+                <p>0.25 x 0.25</p>
+                </td>
+                <td>
+                <p>256px</p>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                <p><strong>Small or Medium</strong></p>
+                </td>
+                <td>
+                <p>0.8 x 0.8&nbsp;</p>
+                </td>
+                <td>
+                <p>512px</p>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                <p><strong>Medium</strong></p>
+                </td>
+                <td>
+                <p>1x1</p>
+                </td>
+                <td>
+                <p>512px</p>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                <p><strong>Large</strong></p>
+                </td>
+                <td>
+                <p>2x2</p>
+                </td>
+                <td>
+                <p>1024px</p>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                <p><strong>Huge</strong></p>
+                </td>
+                <td>
+                <p>3x3</p>
+                </td>
+                <td>
+                <p>1024px</p>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                <p><strong>Gargantuan</strong></p>
+                </td>
+                <td>
+                <p>4x4 or larger</p>
+                </td>
+                <td>
+                <p>2048px</p>
+                </td>
+                </tr>
+                </tbody>
+                </table>
+                <div class="columns">
+                    <div class="column" style="flex:2">
+                <h4>Including Traditional Tokens</h4>
+                <p>Even when making use of the Dynamic Token Ring feature, module developers may also want their package to include “static” copies of their tokens in order to support Foundry VTT users who are on older versions or who for any other reason might choose not to use the feature. This is fully supported, and there is no major downside to doing so- the file size increase of including a second copy of assets is minimal, and the creation of “combined” tokens can easily be automated so as to not add any extra steps to the token creation process.</p>
+        </div>
+        <figure class="right">@Asset[727]
+            <figcaption>Overscaling a Token</figcaption>
+        </figure>
+        </div>
+        <h3>Creating Overscaled Tokens</h3>
+        <p>One advantage of the way Foundry VTT renders tokens on the grid is that it allows for particular token art to extend into adjacent spaces in the grid by increasing the Scale value in the Token Configuration. This <em>overscaled</em> effect is still possible with the Dynamic Token Ring, and the workflow for it is essentially identical, with the exception that you will need to adjust the Subject Scale Correction value to do so. </p>
         <p>If you wish to create an Overscaled token, the process is fairly straightforward:</p>
         <ul>
             <li>In the image editor of your choice, increase the canvas size to double your ring template. (example: a ring intended for a 512x512 token remains centered, but the canvas size becomes 1024x1024). This inflates your 'ring padding' area as depicted in the image to the right.</li>
@@ -174,44 +263,43 @@
             <li>Set your Subject Scale Correction to 2. This is because you doubled your canvas size to provide more space for the token to overlap adjacent grid spaces. If you had set it to 2048 instead of 1024, you would set this to 4 instead.</li>
             <li>Lastly, you may need to change the Scale (Ratio) value to ensure the scale lines up correctly to achieve your desired effect.</li>
         </ul>
-        <h4>Including Traditional Tokens</h4>
-        <p>Even when making use of the Dynamic Token Ring feature, module developers may also want their package to include “static” copies of their tokens in order to support Foundry VTT users who are on older versions or who for any other reason might choose not to use the feature. This is fully supported, and there is no major downside to doing so- the file size increase of including a second copy of assets is minimal, and the creation of “combined” tokens can easily be automated so as to not add any extra steps to the token creation process.</p>
-</div>
-<figure class="right">@Asset[727]
-    <figcaption>Overscaling a Token</figcaption>
-</figure>
-</div>
-<div class="columns">
-    <div class="column" style="flex:2">
-        <h2 class="border" id="dynamic-rings">Designing Dynamic Rings</h2>
-        <p>Foundry VTT includes a default token ring that will be used if no ring is provided. As such, content developers or users need only provide the corresponding subject texture, and the VTT will do the rest. Many projects may want to provide bespoke rings of their own as part of building a cohesive aesthetic identity for their product. This section explains the format and functionality of the Dynamic Ring assets in a little more detail.</p>
-        <h3 class="border">Ring Format</h3>
-        <p>New Token Rings (and their background textures) can be provided in the format of a spritesheet, with an accompanying json file that instructs the software on how to slice it into separate textures. The default ring’s spritesheet is located in Foundry’s source files at <code>/public/canvas/tokens/rings.webp</code>.</p>
-        <p>If a module provides its own spritesheet and accompanying <code>.json</code> file, there is some flexibility in terms of the appearance and thickness of the token ring, but there are some essential conventions that must be followed, particularly, that the ring be sized in a way that expects the center ⅔ of final token to be the space where the Subject Texture will be rendered.</p>
     </div>
-    <figure class="right">@Asset[728]
-        <figcaption>The spritesheet for the default ring assets included in Foundry VTT's V12 update.</figcaption>
-    </figure>
-</div>
+</section>
 
-<h3 class="border" id="dimensions">Dimensions</h3>
-<p>As you can see, the spritesheet actually includes four versions of the default token ring, with different sizes- 256x256px, 512x512px, 1024x1024px, and 2048x2048px. This allows the software to choose the most efficient ring asset for each token based on their size, avoiding the performance hit of rendering a 2048x2048px texture for every rat or owl on the battlefield.</p>
-<p>The size of the ring texture does not need to exactly match the size of the subject artwork that it is being applied to- for instance, a 512x512px Subject asset will work flawlessly with a 1024x1024px ring, so long as the ratios (the ⅔ discussed above) are correct. This is how we can seamlessly swap to a larger ring if a creature is temporarily enlarged by a spell or similar effect.</p>
-<h3 id="thickness" class="border">Ring Thickness</h3>
-<p>As previously mentioned, the middle ⅔ of the token's canvas is expected to be filled by its Subject artwork. However, the ring is not required or expected to fill the remaining ⅓ by itself. The ring can use as much or as little of that “padding” space as it desires. As this comparison image illustrates, the default token uses less than half of the available space:</p>
-<p>All that is needed to ensure that the Subject texture still fits is the ⅔ rule that we discussed earlier. This is what allows Subject assets and Ring assets from different sources to remain compatible. </p>
+<section class="collapsible">
+    <header class="collapsible-header border" id="designing-rings">Designing Dynamic Rings</header>
+    <div class="collapsible-content">
+        <div class="columns">
+            <div class="column" style="flex:2">
+                <p>Foundry VTT includes a default token ring that will be used if no ring is provided. As such, content developers or users need only provide the corresponding subject texture, and the VTT will do the rest. Many projects may want to provide bespoke rings of their own as part of building a cohesive aesthetic identity for their product. This section explains the format and functionality of the Dynamic Ring assets in a little more detail.</p>
+                <h3 class="border">Ring Format</h3>
+                <p>New Token Rings (and their background textures) can be provided in the format of a spritesheet, with an accompanying json file that instructs the software on how to slice it into separate textures. The default ring’s spritesheet is located in Foundry’s source files at <code>/public/canvas/tokens/rings.webp</code>.</p>
+                <p>If a module provides its own spritesheet and accompanying <code>.json</code> file, there is some flexibility in terms of the appearance and thickness of the token ring, but there are some essential conventions that must be followed, particularly, that the ring be sized in a way that expects the center ⅔ of final token to be the space where the Subject Texture will be rendered.</p>
+                <h3 class="border" id="multiple">Multiple Rings</h3>
+                <p>In order to maintain acceptable performance levels, Foundry VTT will only load one ring spritesheet at a time. This means that it is not currently possible to have two different rings from different sources in use simultaneously. The currently selected ring will be used by all dynamic tokens in that world.</p>
+                <p>A module can still propose several ring styles, offering user selection for their preference via an in-application setting- but it can't support (for example) applying a separate ring asset to players vs NPCs.</p>
+                <p>Due to the existence of the default ring, and in order to avoid conflicts with other modules, it would be best practice for modules providing custom rings to support a workflow that allows disabling their ring to allow users to choose which ring works best for them.</p>
+            </div>
+            <figure class="right">@Asset[728]
+                <figcaption>The spritesheet for Foundry VTT's default ring assets</figcaption>
+            </figure>
+        </div>
 
-<h3 class="border" id="bands">Ring Bands</h3>
-<p>One of the key features of the Dynamic Token Ring is the ability to draw solid colors, gradients, or even animations to specific areas of the ring. These areas are defined programmatically, and their sizes can be configured as part of the JSON file used when the software is supplied with a new ring.</p>
-<p>The default ring comprises two zones. Below, they are visualized as blue and magenta bands. The magenta area (which is also magenta-coloured in the spritesheet) is where UI-level animations will be applied by Foundry VTT, while the blue area of the ring is expected to be treated as a static asset.</p>
+        <h3 class="border" id="dimensions">Dimensions</h3>
+        <p>As you can see, the spritesheet actually includes four versions of the default token ring, with different sizes- 256x256px, 512x512px, 1024x1024px, and 2048x2048px. This allows the software to choose the most efficient ring asset for each token based on their size, avoiding the performance hit of rendering a 2048x2048px texture for every rat or owl on the battlefield.</p>
+        <p>The size of the ring texture does not need to exactly match the size of the subject artwork that it is being applied to- for instance, a 512x512px Subject asset will work flawlessly with a 1024x1024px ring, so long as the ratios (the ⅔ discussed above) are correct. This is how we can seamlessly swap to a larger ring if a creature is temporarily enlarged by a spell or similar effect.</p>
+        <h3 id="thickness" class="border">Ring Thickness</h3>
+        <p>As previously mentioned, the middle ⅔ of the token's canvas is expected to be filled by its Subject artwork. However, the ring is not required or expected to fill the remaining ⅓ by itself. The ring can use as much or as little of that “padding” space as it desires. As this comparison image illustrates, the default token uses less than half of the available space:</p>
+        <p>All that is needed to ensure that the Subject texture still fits is the ⅔ rule that we discussed earlier. This is what allows Subject assets and Ring assets from different sources to remain compatible. </p>
 
-<figure class="center"><img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_671/dynamic-token-ring-color-bands-2024-06-14.webp" style="width:50%; height:50%;">
-    <figcaption>The dynamic (magenta) and static (blue) zones of the dynamic token ring</figcaption>
-</figure>
+        <h3 class="border" id="bands">Ring Bands</h3>
+        <p>One of the key features of the Dynamic Token Ring is the ability to draw solid colors, gradients, or even animations to specific areas of the ring. These areas are defined programmatically, and their sizes can be configured as part of the JSON file used when the software is supplied with a new ring.</p>
+        <p>The default ring comprises two zones. Below, they are visualized as blue and magenta bands. The magenta area (which is also magenta-coloured in the spritesheet) is where UI-level animations will be applied by Foundry VTT, while the blue area of the ring is expected to be treated as a static asset.</p>
 
-<p>It is suggested that custom rings include similar re-colorable zones for displaying effects. A custom ring could be designed to ensure that its recolorable band is located in the same place as the default ring’s, or it could provide its own band sizes which are tailored to that specific ring asset. Defining custom color bands does require a small amount of custom code, and there are certain limitations on their placement- because they are defined based on their distance from the center, they must be circular, and cannot be irregularly sized or shaped.</p>
+        <figure class="center"><img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_671/dynamic-token-ring-color-bands-2024-06-14.webp" style="width:50%; height:50%;">
+            <figcaption>The dynamic (magenta) and static (blue) zones of the dynamic token ring</figcaption>
+        </figure>
 
-<h3 class="border" id="multiple">Multiple Rings</h3>
-<p>In order to maintain acceptable performance levels, Foundry VTT will only load one ring spritesheet at a time. This means that it is not currently possible to have two different rings from different sources in use simultaneously. The currently selected ring will be used by all dynamic tokens in that world.</p>
-<p>A module can still propose several ring styles, offering user selection for their preference via an in-application setting- but it can’t support (for example) applying a separate ring asset to players vs NPCs.</p>
-<p>Due to the existence of the default ring, and in order to avoid conflicts with other modules, it would be best practice for modules providing custom rings to support a workflow that allows disabling their ring to allow users to choose which ring works best for them.</p>
+        <p>It is suggested that custom rings include similar re-colorable zones for displaying effects. A custom ring could be designed to ensure that its re-colorable band is located in the same place as the default ring's, or it could provide its own band sizes which are tailored to that specific ring asset. Defining custom color bands does require a small amount of custom code, and there are certain limitations on their placement- because they are defined based on their distance from the center, they must be circular, and cannot be irregularly sized or shaped.</p>
+    </div>
+</section>
