@@ -1,0 +1,128 @@
+<header id="update-header">
+    <h2 class="border" id="update-title">Foundry Virtual Tabletop - Version 13 - Development 1 Release Notes</h2>
+    <figure id="update-banner">
+        <img alt="Release Notes for Foundry Virtual Tabletop Version 13 Development 1" src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/v13p2-release-banner-2024-11-25.webp" title="Foundry VTT - Version 13 - Development 1 Release Notes"/>
+        <figcaption>Foundry V13 Development 1, shown with <a href="https://foundryvtt.com/packages/frost-giant-cave-champions-pack" rel="nofollow">Dransky's Frost Giant Cave animated map pack</a> (available via their <a href="https://www.patreon.com/dransky" rel="nofollow" target="_blank">Patreon</a>) and Tokens from <a href="https://foundryvtt.com/packages/dnd-phandelver-below" rel="nofollow">Phandelver and Below</a>.</figcaption>
+    </figure>
+</header>
+
+<section id="update-overview">
+    <p> Hello everyone! Just in time for the holiday season, we're excited to bring you all the first Development-phase release of Foundry Virtual Tabletop Version 13.</p>    
+    <p>In the Development phase, our focus is on refining the initial design of major new features with a particular eye towards stabilizing the API for our system and module developers. While we encourage and welcome feedback, please keep in mind that <u>everything is still very much in flux and is still evolving rapidly</u> in the Development phase. In particular, things that have been freshly converted to Application V2 are not in a state that represents their intended final user experience or feature set.</p>
+    <p class="note warning"><strong>WARNING:</strong> Updates on the Development channel are intended for testing and feedback from the development community. While the features and improvements of these updates may be close to a level of stability intended for public testing, they are likely to still include some bugs and incompatibilities which may frustrate you. It is not intended to use these releases for a live game.</p>
+    <h2 class="border">Update Highlights</h2>
+    <h3>Token Drag Ruler Refinements</h3>
+    <p>Among other improvements, users can now hide the movement ruler from others using the <span class="reference">ALT</span> key, and the movement rulers of enemies are no longer visible by default. </p>
+    <h3>You have the power... of granular theming</h3>
+    <p><code>ThemeV2</code> is a major... theme... of Foundry V13, and in an earlier release we've provided Foundry with the ability to operate in light mode or dark mode based on your system settings. With this release, you can also override the default theme of any individual sheet if you like.</p>
+    <h3>Application V2 Progress</h3>
+    <p>Work continues apace on converting all of Foundry to Application V2, with Journals notably making the jump this release. Additionally, we've added some support to the ApplicationV2 framework itself also by providing built-in, standardized support for tabbed interfaces at the Application level.</p>
+    <ul>Application V2 conversions were primarily focused on the following major areas of the software:</ul>
+        <li>Combat Tracker</li>
+        <li>Roll Tables</li>
+        <li>Journal Entries</li>
+    
+</section>
+
+<section id="breaking">
+<h2 class="section-header border">Breaking Changes</h2>
+    <h3 class="category-header" id="breaking-apps">Applications and User Interface</h3>
+    <h4><code>ApplicationV2</code> Migrations</h4>
+    <ul>
+        <li>Converted the <code>RollTableConfig</code> application to <code>ApplicationV2</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/8696" rel="nofollow" target="_blank">(8696)</a></li>
+        <li>Converted CombatTracker to <code>ApplicationV2</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11335" rel="nofollow" target="_blank">(11335)</a></li>
+        <li>Converted DocumentSheetConfig to <code>ApplicationV2</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11346" rel="nofollow" target="_blank">(11346)</a></li>
+        <li>Converted ItemDirectory to <code>ApplicationV2</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11360" rel="nofollow" target="_blank">(11360)</a></li>
+        <li>Converted JournalImagePageSheet to <code>ApplicationV2</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11362" rel="nofollow" target="_blank">(11362)</a></li>
+        <li>Converted JournalPDFPageSheet to <code>ApplicationV2</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11363" rel="nofollow" target="_blank">(11363)</a></li>
+        <li>Converted JournalVideoPageSheet to <code>ApplicationV2</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11367" rel="nofollow" target="_blank">(11367)</a></li>
+        <li>Converted MarkdownJournalPageSheet to <code>ApplicationV2</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11372" rel="nofollow" target="_blank">(11372)</a></li>
+    </ul>
+    <h4>Combat Tracker</h4>
+    <p>The update of the Combat Tracker to <code>ApplicationV2</code> is more impactful, but we wanted to specifically call out that we flipped the default behavior for combats in multiple scenes. In V13, combats are now "unlinked" by default, meaning that the same combat is visible across all scenes. Now, if a pair of Combatants battle their way up a staircase to a different Foundry Scene, they will remain in the same Combat by default.</p>
+</section>
+<section id="features">
+<h2 class="section-header border">New Features</h2>
+    <h3 class="category-header" id="features-docs">Documents and Data</h3>
+    <ul>
+        <li>Players are now allowed to update <code>system</code> properties on Combatants they own. <a href="https://github.com/foundryvtt/foundryvtt/issues/11922" rel="nofollow" target="_blank">(11922)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-apps">Applications and User Interface</h3>
+    <ul>
+        <li>The header for a Roll Table is now "sticky" - it always remains visible at the top when you scroll down. <a href="https://github.com/foundryvtt/foundryvtt/issues/4051" rel="nofollow" target="_blank">(4051)</a></li>
+        <li>Moved the "Lock Rotation" setting from the Identity tab to the Appearance tab and renamed it to make it clear that this setting does not prevent the rotation of the Token, but rather only prevents the Token image from rotating visually. <a href="https://github.com/foundryvtt/foundryvtt/issues/11871" rel="nofollow" target="_blank">(11871)</a></li>
+        <li>Roll Table results can now be edited using Prosemirror. <a href="https://github.com/foundryvtt/foundryvtt/issues/11902" rel="nofollow" target="_blank">(11902)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-canvas">The Game Canvas</h3>
+    <ul>
+        <li>Drag rulers are now only shown for a Token if the Token's disposition is friendly or if the current user has observer permissions for that Token. <a href="https://github.com/foundryvtt/foundryvtt/issues/11874" rel="nofollow" target="_blank">(11874)</a></li>
+        <li>A Token's ruler history now only records movement that was initiated by dragging and by default, the ruler is no longer displayed for movement that was not the result of dragging the Token. <a href="https://github.com/foundryvtt/foundryvtt/issues/11876" rel="nofollow" target="_blank">(11876)</a></li>
+        <li>Token drag ruler measurements can now be hidden by holding the <span class="reference">ALT</span> key so that only the measuring user can see them. <a href="https://github.com/foundryvtt/foundryvtt/issues/11882" rel="nofollow" target="_blank">(11882)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-i18n">Localization and Accessibility</h3>
+    <ul>
+        <li>Added localization support to various operations related to Roll Tables. <a href="https://github.com/foundryvtt/foundryvtt/issues/4538" rel="nofollow" target="_blank">(4538)</a></li>
+    </ul>
+</section>
+<section id="api">
+<h2 class="section-header border">API Improvements</h2>
+    <h3 class="category-header" id="api-docs">Documents and Data</h3>
+    <ul>
+        <li>Implemented a special syntax for <code>mergeObject</code> and <code>DataModel#updateSource</code> operations to explicitly replace an object without needing to resort to <code>{recursive: false}</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11273" rel="nofollow" target="_blank">(11273)</a></li>
+        <li>Added wildcard sanitization for <code>htmlFields</code> and <code>filePathFields</code> that exist within <code>ArrayFields</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11471" rel="nofollow" target="_blank">(11471)</a></li>
+        <li>Changed the <code>ActiveEffect#change#mode</code> field to be <code>nullable: false</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11880" rel="nofollow" target="_blank">(11880)</a></li>
+    </ul>
+    <h3 class="category-header" id="api-apps">Applications and User Interface</h3>
+    <ul>
+        <li>Implemented per-sheet theming options for Document sheets. <a href="https://github.com/foundryvtt/foundryvtt/issues/11916" rel="nofollow" target="_blank">(11916)</a></li>
+    </ul>
+    <h3 class="category-header" id="api-canvas">The Game Canvas</h3>
+    <ul>
+        <li>Added <code>TokenMovementOperation#method: "dragging" | "keyboard" | "api" | "undo"</code> to record the method that was used to initiate the movement. <a href="https://github.com/foundryvtt/foundryvtt/issues/11875" rel="nofollow" target="_blank">(11875)</a></li>
+        <li>Set the total cost of movement to infinity if the cost to move any of the individual grid space is infinity. <a href="https://github.com/foundryvtt/foundryvtt/issues/11894" rel="nofollow" target="_blank">(11894)</a></li>
+        <li><code>Token#constrainMovementPath</code> now constrains movement that has an infinite cost unless the <code>ignoreCost</code> option is true. Changed the return type of <code>Token#constrainMovementPath</code> to <code>[constrainedPath: TokenMovementWaypoint[], wasConstrained: boolean]</code>.  <a href="https://github.com/foundryvtt/foundryvtt/issues/11896" rel="nofollow" target="_blank">(11896)</a></li>
+    </ul>
+    <h3 class="category-header" id="api-i18n">Localization and Accessibility</h3>
+    <ul>
+        <li>Added a <code>format</code> and <code>localize</code> option to the update function of progress notification bars. <a href="https://github.com/foundryvtt/foundryvtt/issues/11919" rel="nofollow" target="_blank">(11919)</a></li>
+    </ul>
+    <h3 class="category-header" id="api-other">Other Changes</h3>
+    <ul>
+        <li>Consolidated tab handling in various applications to the <code>ApplicationV2</code> level. <a href="https://github.com/foundryvtt/foundryvtt/issues/11023" rel="nofollow" target="_blank">(11023)</a></li>
+        <li>Added a <code>clientSettingChanged</code> hook that allows packages to react to changes in a client-setting that they don't own themselves (such as <code>core.uiConfig</code>). <a href="https://github.com/foundryvtt/foundryvtt/issues/11948" rel="nofollow" target="_blank">(11948)</a></li>
+    </ul>
+</section>
+<section id="bugs">
+<h2 class="section-header border">Bug Fixes</h2>
+    <h3 class="category-header" id="bugs-docs">Documents and Data</h3>
+    <ul>
+        <li>Improved the scroll behavior of Roll Table sheets. <a href="https://github.com/foundryvtt/foundryvtt/issues/9990" rel="nofollow" target="_blank">(9990)</a></li>
+        <li>Prevented an error when attempting to edit Walls (<code>TypeError: Cannot read properties of null (reading 'type')</code>). <a href="https://github.com/foundryvtt/foundryvtt/issues/11884" rel="nofollow" target="_blank">(11884)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-apps">Applications and User Interface</h3>
+    <ul>
+        <li>Added scrolling to the "Support Details" dialog. <a href="https://github.com/foundryvtt/foundryvtt/issues/11931" rel="nofollow" target="_blank">(11931)</a></li>
+        <li>Resolved an issue where <code>ActiveEffectConfig</code> failed to show default image or to localize alt text. <a href="https://github.com/foundryvtt/foundryvtt/issues/11933" rel="nofollow" target="_blank">(11933)</a></li>
+        <li>Resolved an issue where the Macro config could not be completely minimized. <a href="https://github.com/foundryvtt/foundryvtt/issues/11945" rel="nofollow" target="_blank">(11945)</a></li>
+        <li>Fixed a typo in the "scrollable" CSS class name of <code>ActiveEffectConfig</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11946" rel="nofollow" target="_blank">(11946)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-canvas">The Game Canvas</h3>
+    <ul>
+        <li>Resolved an issue where vision did not have fog of war applied in certain edge cases due to a self-intersecting <code>ClockwiseSweepPolygon</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/9953" rel="nofollow" target="_blank">(9953)</a></li>
+        <li>Fixed a minor rounding issue that was causing inconsistent snapping on a square grid. <a href="https://github.com/foundryvtt/foundryvtt/issues/11873" rel="nofollow" target="_blank">(11873)</a></li>
+        <li>Fixed movement cost calculation for Tokens larger than a single grid square. <a href="https://github.com/foundryvtt/foundryvtt/issues/11877" rel="nofollow" target="_blank">(11877)</a></li>
+        <li>Resolved an issue that was preventing the "Teleport Token" and "Pause Game" Scene Region behaviors from functioning. <a href="https://github.com/foundryvtt/foundryvtt/issues/11881" rel="nofollow" target="_blank">(11881)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-other">Other Changes</h3>
+    <ul>
+        <li>Updating a Scene from <code>SceneConfig</code> no longer resets background image offset. <a href="https://github.com/foundryvtt/foundryvtt/issues/11935" rel="nofollow" target="_blank">(11935)</a></li>
+        <li><code>PrototypeTokenConfig</code> can once again be opened from the title bar of <code>ActorSheetV2</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11940" rel="nofollow" target="_blank">(11940)</a></li>
+        <li>Resolved an issue where adding a new <code>change</code> in <code>ActiveEffectConfig</code> erased any unsaved ones. <a href="https://github.com/foundryvtt/foundryvtt/issues/11942" rel="nofollow" target="_blank">(11942)</a></li>
+    </ul>
+</section>
+<section id="summary">
+
+</section>
+<section id="title">
+
+</section>
