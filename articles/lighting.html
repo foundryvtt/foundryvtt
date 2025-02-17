@@ -53,6 +53,10 @@
 <dd> This setting determines how strongly the light's color affects the appearance of the light itself. All newly created lights begin with a default setting of 0.5, which is 50% strength. Lights with an intensity of 0 are treated as having no color at all.</dd>
 <dt>Darkness Activation Range</dt>
 <dd> This setting determines the range in which the light will be active. All newly created lights begin with a range of 0/1, making them active at all times. By adjusting the minimum and maximum darkness range the light can be fine-tuned to turn on or off at specific darkness levels. This is useful for creating lights such as lanterns, street lights and candles which would only be lit at night.</dd>
+<dt id="darkness">Is Darkness Source</dt>
+<dd>If this box is checked, the "light" instead emits darkness that actively blocks light and vision. The area of the darkness source is unilluminated mechanically as well as being visually "dim" on the map. Tokens have no vision within a darkness source's area, and tokens typically cannot see past an area of Darkness. The edges of a Darkness source's area block vision, much like a Wall. </dd>
+<dt class="V12">Priority (V13 only)</dt>
+<dd>Priority matters when the areas of a light source and a darkness source overlap. The source with the higher priority "wins" and emits its light or darkness in the conflicting areas. When conflicting sources have the same priority, the tie goes to the darkness source.</dd>
 </dl>
 </div>
 </section>
@@ -118,7 +122,10 @@
 <dt>Coloration Technique</dt> 
 <dd>This dropdown list provides a selection of available coloration methods for lights and how it blends with other lights. All newly created lights default to Adaptive Luminance. The specific lighting options are explained below in greater detail.</dd>
 <dt>Luminosity</dt> 
-<dd>This setting determines the brightness of the light source in the scene. All newly created lights begin with a Luminosity of 0.5, which can be manually changed. A luminosity setting of 0 makes the light appear no brighter than its surroundings, though it will still impart some color and animation effects on the scene.</dd>
+<dd>
+    <p>This setting determines the brightness of the light source in the scene. All newly created lights begin with a Luminosity of 0.5, which can be manually changed. A luminosity setting of 0 makes the light appear no brighter than its surroundings, though it will still impart some color and animation effects on the scene.</p>
+    <p>Luminosity must be at least zero. To make an area darker, you can instead place a <a href="#darkness">Darkness source</a> or use a <a href="article/scene-regions">Scene Region</a> with the "Adjust Darkness Level" Behavior.</p>
+</dd>
 <dt>Gradual Illumination</dt>
 <dd>This setting determines if the light's bright and dark radii should be blended, becoming more diffused the close they get to their outer edges. All newly created lights have this setting turned on by default. Toggling it off will give lights a more sharply defined line between dark and light zones, and where the light's overall radius ends.</dd>
 <dt>Background Saturation</dt> 
