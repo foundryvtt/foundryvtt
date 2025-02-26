@@ -108,3 +108,9 @@ sudo service caddy restart
 <hr/>
 
 <p>If you have followed these steps you should now be running an SSL reverse proxy redirecting traffic to Foundry VTT, enjoy!</p>
+
+<hr/>
+<h3 id="static-files">Serving Static Files via Proxy (Not Recommended)</h3>
+<p>Now that you have a proxy server available, it could be tempting to use it to serve static files instead of letting the Foundry VTT web server (express) handle this task like normal.</p>
+<p>However, this is <u>not a recommended approach.</u> The performance benefits are extremely minimal, the complexity to set it up properly is significant, and the potential for problems outweighs any potential benefit.</p>
+<p>Specifically, there is a high likelihood of configuring the proxy server in a way that serves Foundry's static files extremely incorrectly. Furthermore, Foundry VTT's internal logic that determines which static files to serve and where to serve them from may change from version to version without notice.</p> 
