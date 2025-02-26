@@ -5,10 +5,14 @@
     dedicated web hosts, is absolutely not required in order to use Foundry Virtual Tabletop.</p>
 <hr/>
 
-<h3>Step 1 - Create your Virtual Host</h3>
-
-<p>While setting up a virtual server to host Foundry is outside the scope of this tutorial, a few helpful pointers will be included. There are quite a few inexpensive hosting providers available such as:</p>
-
+<h3 id="host">Step 1 - Create your Virtual Host</h3>
+<p>While setting up a virtual server to host Foundry is outside the scope of this tutorial, here are a few helpful pointers.</p>
+<p>First, you will need to procure hosting. Fortunately, many inexpensive options are available:</p>
+<dl>
+    <dt><a href="https://www.racknerd.com/BlackFriday/">Racknerd</a></dt>
+    <dd>For several years now, Racknerd has offered a hidden <a href="https://www.racknerd.com/BlackFriday/">"permanent Black Friday" discount</a> year-round. This option offers a particularly excellent value, and our users have reported positive experiences.</dd>
+</dl>
+<p><b>Other options:</b></p>
 <ul>
     <li><a href="https://www.linode.com/?r=31112a7b4a25b16d80c6267ffec4d7cf50695218" target="_blank">Linode</a></li>
     <li><a href="https://aws.amazon.com/lightsail/" target="_blank">Amazon LightSail</a></li>
@@ -74,7 +78,7 @@ your.hostname.com {
 <hr/>
 
 <p>Once you have configured Caddy, there are some configurations for Foundry Virtual Tabletop in the @Article[configuration] article you will also want to apply. Set the following options in your Foundry VTT<code>{userData}/Config/options.json</code> file which will instruct Foundry that the server is running with a proxy server in front of it on port 443.</p>
-<p class="note info">Please be aware that if your Foundry VTT location is hosted at a subfolder location, such as <code>mysite.com/foundryvtt</code>, you will need to define a routePrefix as outlined in the @Article[configuration] article.</p>
+<p class="note info">Please be aware that if your Foundry VTT location is hosted at a subfolder location, such as <code>mysite.com/foundryvtt</code>, you will need to define a <code>routePrefix</code> as outlined in the @Article[configuration] article.</p>
 <pre><code class="language-json">"hostname": "your.hostname.com",
 "routePrefix": null,
 "sslCert": null,
