@@ -130,13 +130,24 @@
 <dt>packs</dt>
 <dd>
 <p>Modules may come bundled with Compendium packs which include game content for various Document types. Compendium packs are defined as objects which have their own internal metadata structure. The <code>path</code> field is optional and the <code>system</code> field only needs to be filled out for system-specific packs like Actors and Items. For example:</p>
-<pre><code class="language-json">"packs": [
+<dl>
+<dt>ownership</dt>
+<dd>
+<p>Packs can have different levels of ownership/visibility depending on the user's role. You can set Assistant Gamemasters, Trusted Players, and Players to have either <code>OWNER</code> (can view and edit), <code>OBSERVER</code> (can view), or <code>NONE</code> (can't see) permissions.</p>
+</dd>
+</dl>
+  <pre><code class="language-json">"packs": [
     {
       "name": "pack-name",
       "label": "Pack Title",
       "system": "system-id",
       "path": "./packs/desired-folder-name",
-      "type": "Item"
+      "type": "Item",
+      "ownership": {
+          "PLAYER": "NONE",
+          "TRUSTED": "OBSERVER"
+          "ASSISTANT": "OWNER",
+      },
     }
 ]</code></pre>
 <p class="note warning">Important: As of Version 10, Actor, Item, and Adventure compendium packs MUST define a system field.</p>
