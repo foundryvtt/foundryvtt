@@ -1,31 +1,125 @@
 <h2>Overview</h2>
 <p>The Measurement Control toolbar, when enabled, provides access to tools for accessing and controlling the placement of measured templates. This tool allows you to determine the shape of a spell, or area effect, and determine what spaces will be affected. This article will go over how to lay down measurement templates, the types of shapes available, and how to modify a template once it's been placed into a scene.</p>
-<h2 id="measurementcontrols" class="border">Measured Template Controls</h2>
-<figure class="right">@Image[51]
-<figcaption>Measured Template Tool Palette</figcaption>
-</figure>
+<h2 class="border" id="methods">Measurement Methods</h2>
+<p>There are three main ways to measure distance with Foundry VTT:</p>
 <dl>
-<dt>Circle Template (<i class="far fa-circle"> </i>)</dt>
-<dd>Circular templates create a radius around the starting point to the distance you select.</dd>
-<dt>Cone Template (<i class="fas fa-angle-left"> </i>)</dt>
-<dd>Cones create an effect in the shape of a triangle or pizza slice from the starting point. These cones default to about 53 degrees, but can be customized in the templates settings.</dd>
-<dt>Rectangle Template (<i class="far fa-square"> </i>)</dt>
-<dd>A rectangle uses the origin point as one of the corners, treating the origin as being inside of the rectangle's area.</dd>
-<dt>Ray Template (<i class="fas fa-arrows-alt-v"> </i>)</dt>
-<dd>A ray creates a single line that is one square in width and as long as you drag it to. Rays can have their width increased as required in its template settings.</dd>
-<dt>Clear Templates (<i class="fas fa-trash"> </i>)</dt>
-<dd>This button clears all existing templates on the scene if you are a GM or Assistant GM.</dd>
+	<dt><a href="#measure-distance">The Distance Measurement Ruler</a></dt>
+	<dd>When this ruler is toggled on, clicking anywhere in the map begins the measurement process.</dd>
+	<dt><a href="drag-measurement">Token Drag Measurement</a></dt>
+	<dd>Dragging a token automatically begins measuring the amount of movement that would be required to move the token.</dd>
+	<dt><a href="measured-templates">Measured Templates</a></dt>
+	<dd>Area measurement is accomplished by overlaying templates of existing shapes onto the map. This is primarily used to calculate "area of effects."</dd>
 </dl>
+
+<h2 id="measure-distance" class="border">The Distance Measurement Ruler</h2>
+<p>The Distance Measurement Ruler can be toggled on or off. When it is active, clicking anywhere in the map begins measuring distance from that point.</p>
+<p>Using this tool, you can add waypoints as needed to perform complicated measurements or to account for elevation changes. If waypoints are at different elevations, the Euclidean difference between them is automatically calculated.</p>
+<figure><img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/distance-measurement-ruler-example-2025-03-10.webp" alt="A ranger calculates the distance to their target using the Distance Measurement Ruler to and two elevation-changing waypoints.">
+	<figcaption>A ranger calculates the distance to their target using the Distance Measurement Ruler to and two elevation-changing waypoints.</figcaption>
+</figure>
+
+<h3 class="section-header border">Token Drag Measurement and the Measure Distance Ruler</h3> 
+<div class="columns">
+	<div class="column">
+		<p>The Token Drag Measurement ruler and the existing Distance Measurement Ruler share the same controls for setting waypoints and changing elevation, but there is an important difference between them. The Measure Distance ruler measures <em>distance</em>, while the Token Drag Measurement ruler measures <em>movement cost</em>.</p>
+		<p>Typically, these calculations are the same, but if part of the area is "difficult terrain" and includes one of the new <a href="https://github.com/foundryvtt/foundryvtt/issues/12052">"Modify Movement Cost" Scene Region Behaviors</a>, the two rulers will give different results.</p>
+		<p>To make way for Token drag measurement, we decided to change the Measure Distance ruler so that it is now toggled on and off using a new configurable key ( <span class="reference">R</span> by default) instead of <span class="reference">CTRL</span>. Alternatively, you can still use the "Measure Distance" button, located in the Token Controls at the top-left of your screen.</p>
+	</div>
+	<figure class="right"><img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/measure-distance-control-2025-02-27.webp" alt="The Measure Distance Control">
+		<figcaption>The Measure Distance control</figcaption>
+	</figure>
+</div>
+
+<h3 class="border" id="measure-controls">Distance Measurement Ruler Controls</h3>
+<div class="columns">
+	<div class="column">
+		<p>You can toggle the Distance Measurement Ruler on or off using two different methods:</p>
+		<dl>
+			<dt>Clicking a Button</dt>
+			<dd><p>You can click the Distance Measurement Ruler button to activate the Distance Measurement Ruler. You can turn it off again by selecting a different control or pressing the Distance Measurement Ruler key (see below).</p>
+				<p>Unlike most measurement-related controls, it is located in the <strong>Token</strong> controls for convenience.</p>
+			</dd>
+			<dt>Pressing a Key</dt>
+			<dd><p>You can also quickly toggle the Distance Measurement Ruler on or off by pressing a single key, <span class="reference">R</span> by default. If you prefer another key, you can choose a different one using the <a href="/article/settings/">"Configure Controls" settings</a>.</dd>
+		</dl>
+		<p>You can add and remove waypoints using the same controls as the <a href="#token-drag">Token Drag Measurement</a> process.</p>
+	</div>
+	<figure class="right"><img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/distance-measurement-ruler-button-2025-03-10.webp" alt="The Distance Measurement Ruler button">
+		<figcaption></figcaption>
+	</figure>
+</div>
+<p class="note info v12"><strong>NOTE:</strong> In V12, distance measurement was performed with the <span class="reference">CTRL</span> key and tokens could move along the measured route with <span class="reference">Spacebar</span>.</p>
+</section>
+
+<h2 class="section-header border" id="drag-measurement">Token Drag Measurement</h2>
+    <p>When you drag a token from one location to another, <span class="v12">in V13</span> measurement is now automatically performed along its route.</p>
+    <figure><video src="https://r2.foundryvtt.com/website-uploads-public/asset/user_681/token-drag-movement-demo-2025-02-28.webm" autoplay loop muted></video>
+        <figcaption>A monk uses the new Token drag measurement feature to easily make a new friend.</figcaption>
+    </figure>
+    <p>There are two different ways to drag a Token using waypoints. Use the process that feels more natural to you.</p>
+    <h4 class="section-header border">Using CTRL+Click</h4>
+    <p>While dragging a Token and holding down the <span class="reference">CTRL</span> button:</p>
+    <ul>
+        <li>Release the left mouse button, then left-click the map to place waypoints</li>
+        <li>Right-click anywhere to remove the last waypoint you placed</li>
+    </ul>
+    <p>When you finish plotting your Token's path, release the <span class="reference">CTRL</span> button, then:</p>
+    <ul>
+        <li>Left-click the final destination to move the Token, or</li>
+        <li>Right-click anywhere to cancel the entire movement</li>
+    </ul>
+    <h4 class="section-header border">Using a Keybinding</h4>
+    <p>While dragging a Token:</p>
+    <ul>
+        <li>Press the configured "Place Waypoint" key ( <span class="reference">F</span> by default) to add a waypoint at the cursor's location'</li>
+        <li>Press <span class="reference">ALT</span> and the same "Place Waypoint" key to remove the last waypoint you placed ( <span class="reference">ALT + F</span> by default) </li>
+        <li>Right-click anywhere to cancel the entire movement</li>
+    </ul>
+    <h4 class="section-header border">Additional Controls</h4>
+    <p>Whichever method you use, these controls are also available:</p>
+    <dl>
+        <dt><strong>The Ascend and Descend Keys</strong></dt>
+        <dd>
+            <p>While dragging a token, you can raise the elevation of the next waypoint with one of the keys bound to "Ascend Elevation" ( <span class="reference">Numpad+</span>, or <span class="reference">E</span> by default).</p>
+            <p>Similarly, you can lower the next waypoint with one of the keys bound to "Descend Elevation" ( <span class="reference">Numpad-</span>, or <span class="reference">Q</span> by default).</p>
+        </dd>
+        <dt><strong><span class="reference">ALT</span></strong></dt>
+        <dd>Holding the <span class="reference">ALT</span> key <u>before you begin the movement</u> hides it from all other users. If the movement is hidden, the word <code>[Hidden]</code> displays near the end of the ruler.</dd>
+        <dt><strong><span class="reference">CTRL</span> + Mouse Scroll Wheel</strong></dt>
+        <dd>If the <span class="reference">CTRL</span> button is held down, using the scroll wheel increases or decreases the elevation of the next waypoint placed.</dd>
+        <dt><strong><span class="reference">SHIFT</span></strong></dt>
+        <dd>Holding <span class="reference">SHIFT</span> while creating a waypoint prevents it from snapping to the grid.</dd>
+        <dd>Holding <span class="reference">SHIFT</span> while changing elevation only changes the elevation by 10% of the usual amount.</dd>
+    </dl>
+    <p>Typically, the elevation is always changed by an amount equal to the grid size. On a map with a 5 foot grid, Tokens go up and down 5 feet at a time.</p>  
+
+<h2 id="measured-templates" class="border">Measured Template Controls</h2>
+	<figure class="right"> <img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/measurement-controls-v13-2025-03-10.webp" alt="Measured Template Tool Palette">
+	<figcaption>Measured Template Tool Palette</figcaption>
+	</figure>
+	<dl>
+		<dt>Circle Template (<i class="far fa-circle"> </i>)</dt>
+		<dd>Circular templates create a radius around the starting point to the distance you select.</dd>
+		<dt>Cone Template (<i class="fas fa-angle-left"> </i>)</dt>
+		<dd>Cones create an effect in the shape of a triangle or pizza slice from the starting point. These cones default to about 53 degrees, but can be customized in the templates settings.</dd>
+		<dt>Rectangle Template (<i class="far fa-square"> </i>)</dt>
+		<dd>A rectangle uses the origin point as one of the corners, treating the origin as being inside of the rectangle's area.</dd>
+		<dt>Ray Template (<i class="fas fa-arrows-alt-v"> </i>)</dt>
+		<dd>A ray creates a single line that is one square in width and as long as you drag it to. Rays can have their width increased as required in its template settings.</dd>
+		<dt>Clear Templates (<i class="fas fa-trash"> </i>)</dt>
+		<dd>This button clears all existing templates on the scene if you are a GM or Assistant GM.</dd>
+	</dl>
+
 <section class="collapsible">
 	<header class="collapsible-header">Using Measured Templates</header>
 	<div class="collapsible-content">
-<figure>@Image[398]
-<figcaption>An example of the available measured template types.</figcaption>	
-</figure>
-<p>To place a measured template of any kind, select the type you want to place, then click a point in the scene, and drag out the selected measurement shape to the desired size. Once you release your mouse button the template will be created. If your scene is using the Grid or Hex grid types it also shows you all the spaces affected. Gridless maps will not show highlighted spaces, though it will still show the area of the effect.</p>
-<p>You can hover your mouse over an existing template's origin point (appears as a starburst icon) and use Shift + your mouse scroll wheel to rotate a cone or ray template around its starting point. Control + scroll wheel allows you to make smaller adjustments to the template. To move an existing template click and drag the template by the starburst icon that represents the template's origin point. Templates will automatically snap to grids spaces and grid intersections. You can precisely place them by holding down Shift or Control while dragging them.</p>
-<p>To delete a template, simply hover your mouse over the origin point, and press the delete key. Gamemasters can use the trash can icon to remove all measurement templates from a scene. To hide a template, simply right-click on the origin point. The icon will turn orange, indicating the template is hidden from view.</p>
-</div>
+		<figure>@Image[398]
+		<figcaption>An example of the available measured template types.</figcaption>	
+		</figure>
+		<p>To place a measured template of any kind, select the type you want to place, then click a point in the scene, and drag out the selected measurement shape to the desired size. Once you release your mouse button the template will be created. If your scene is using the Grid or Hex grid types it also shows you all the spaces affected. Gridless maps will not show highlighted spaces, though it will still show the area of the effect.</p>
+		<p>You can hover your mouse over an existing template's origin point (appears as a starburst icon) and use Shift + your mouse scroll wheel to rotate a cone or ray template around its starting point. Control + scroll wheel allows you to make smaller adjustments to the template. To move an existing template click and drag the template by the starburst icon that represents the template's origin point. Templates will automatically snap to grids spaces and grid intersections. You can precisely place them by holding down Shift or Control while dragging them.</p>
+		<p>To delete a template, simply hover your mouse over the origin point, and press the delete key. Gamemasters can use the trash can icon to remove all measurement templates from a scene. To hide a template, simply right-click on the origin point. The icon will turn orange, indicating the template is hidden from view.</p>
+	</div>
 </section>
 
 <section class="collapsible">
