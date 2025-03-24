@@ -336,17 +336,22 @@
                     <dd>Have you ever wanted to exclude part of a scene from Global Illumination, so that the light level outside was different from the light level inside? This Behavior delivers that ability and more.</dd>
                     <dd>If the result of this Behavior makes the region dark enough, the area is no longer considered lit, even if Global Illumination is enabled on the Scene. This means that Tokens will need a source of light or a special vision mode to be able to see in this darkened area. This works exactly the same way that Global Illumination can be automatically disabled "at night": the level of darkness is checked agains the Scene's Global Illumination Threshold. For more information, see the <a href="https://foundryvtt.com/article/scenes/">Scenes article.</a></dd>
                     <dt>Suppress Weather</dt>
-                    <dd>Foundry allows the prevention of weather effects through the use of Tiles, but you may not have a convenient tile to place for a roof. Additionally, it might not make much sense to place a "roof" tile for an area, such as a natural cave. Adding this behavior to a Region will stop rendering weather effects inside the Region, whether there's a roof there or not.</dd>
+                    <dd>Foundry VTT allows the prevention of weather effects through the use of Tiles, but you may not have a convenient tile to place for a roof. Additionally, it might not make much sense to place a "roof" tile for an area, such as a natural cave. Adding this behavior to a Region will stop rendering weather effects inside the Region, whether there's a roof there or not.</dd>
+                    <dt>Modify Movement Cost</dt>
+                    <dd>Many games have rules about certain types of terrain that are faster or slower to move through compared to standard terrain. This might be an area of magic that increases or decreases movement speed, a tangle of brambles or mud pit that requires slowing down to safely navigate, or many other possible causes. The Modify Movement Cost behavior can be used to set a multiplier (from 0 to 5 in increments of 0.25) on the "cost" of movement through a scene region, artificially increasing or decreasing the distance part of the grid represents. </dd>
                 </dl>
             </div>
             <figure class="column right noborder"><video autoplay="true" loop="loop" muted="true" src="https://r2.foundryvtt.com/website-uploads-public/asset/user_681/region-demo-cave-weather-suppression-2024-05-29.webm"></video>
                 <figcaption>A cozy cave that is protected from the elements by a Scene Region's <code>Suppress Weather</code> behavior.</figcaption>
             </figure> 
         </div>
+
         <h3 id="event-based-behaviors">Event-based Behaviors</h3>
         <!-- TODO: Add Screenshot and description of UI for each behavior type-->
         <p>The Region only performs this type of Behavior if it is enabled and a subscribed Event is detected for that Region.</p>
         <dl>
+            <dt>Display Scrolling Text</dt>
+            <dd>This behavior can be used to display on-screen colored text in an animation when its event is triggered. The text can have its color configured, visibility limited to gamemasters or observers, and optionally may be configured to only show the first time it is triggered. </dd>
             <dt><strong>Execute Macro</strong></dt>
                 <dd>For those Macro-hoarding GMs who already have all manner of pre-coded scripts ready to go for certain actions and just want them to trigger automatically, the Execute Macro behavior does what it says on the label: when you assign it the UUID of a given Macro (which can be gotten by right-clicking the ID button in the Macro's header), it will trigger that Macro when its Scene Region detects that one of its subscribed events occurs.</dd>
                 <dd>
@@ -395,43 +400,54 @@
 <section class="collapsible">
     <header class="collapsible-header" id="events">Available Events</header>
     <div class="collapsible-content">
-        <p>By default, the following Events are available:</p>
-                <dl>
-                    <dt><strong>Region Boundary Changed</strong></dt>
-                        <dd>This Event occurs if the Scene Region's geometry changed in any way, such as by adding a Shape, removing it, or changing whether that Shape is a hole. It also fires if the order of the Shapes are changed, but it does not fire if the entire Region is deleted.</dd> 
-                    <dt><strong>Behavior Status Changed</strong></dt>
-                        <dd>Occurs if the Behavior that is subscribed to this Event is enabled or disabled. It does not occur if other Behaviors in the same Region (or different Regions) are enabled or disabled.</dd>
-                    <dt><strong>Token Enters</strong></dt>
-                        <dd>This Event fires if a Token enters the Region by any method, including the token being created there as a result of a Copy or drag-and-drop operation. It does not fire if the Token is already in the region when the Scene is loaded.</dd>
-                </dl>
         <div class="columns">
             <div class="column">   
+                <p>By default, the following Events are available:</p>
                 <dl>
+                    <dt>Region Boundary Changed</dt>
+                        <dd>This Event occurs if the Scene Region's geometry changed in any way, such as by adding a Shape, removing it, or changing whether that Shape is a hole. It also fires if the order of the Shapes are changed, but it does not fire if the entire Region is deleted.</dd> 
+                    <dt>Behavior Status Changed</dt>
+                        <dd>Occurs if the Behavior that is subscribed to this Event is enabled or disabled. It does not occur if other Behaviors in the same Region (or different Regions) are enabled or disabled.</dd>
+                    <dt>Token Enters</dt>
+                        <dd>This Event fires if a Token enters the Region by any method, including the token being created there as a result of a Copy or drag-and-drop operation. It does not fire if the Token is already in the region when the Scene is loaded.</dd>
+                    <dt>Region Boundary Changed</dt>
+                    <dd>This event occurs when the shapes contained within the Region, or the bottom/top elevation of the Region, are changed.</dd>
+                    <dt>Behavior Activated</dt>
+                    <dd>This event occurs when the Region Behavior becomes active, i.e. is enabled or created without being disabled. This event is triggered only for the Region Behavior that subscribes to this event. </dd>
+                    <dt>Behavior Deactivated</dt>
+                    <dd>The inverse of Behavior Activated, this event is triggered when the Region Behavior becomes inactive, i.e. is disabled or deleted without being disabled. This event is triggered only for the Region Behavior that subscribes to this event.</dd>
+                    <dt>Behavior Viewed</dt>
+                    <dd>This event occurs when the Region Behavior is being viewed or the Scene containing its Region becomes active. This event trigger is more likely to be used by developers or content creators for the purposes of handling special animations and effects on the canvas, to activate those effects only when that portion of the scene is being viewed.</dd>
+                    <dt>Behavior Unviewed</p>
+                    <dd>This event occurs when the Region becomes inactive or the Scene of its Region is no longer being viewed. This event trigger is more likely to be used by developers or content creators for the purposes of handling special animations and effects on the canvas, to deactivate those effects once that portion of the scene is no longer being viewed.</dd>
+                    <dt>Token Enters</dt>
+                    <dd>This event occurs whenever a token enters a region, whether it is created in the region, moves into it by way of drag or measured movement, the boundary of the region changes to encompass the token, or the region behavior is activated while tokens are within the shape.</dd>
                     <dt><strong>Token Exits</strong></dt>
-                        <dd>Event occurs if a Token leaves the Region by any method, including the token being deleted.</dd>
-                    <dt><strong>After Token Moved</strong></dt>
-                        <dd>A Token "moves" in relation to a Region when it is about to move into, out of, through, or within a Region. This Event occurs immediately after a Token completes such a move.</dd>
-                    <dt><strong>Before Token Moves</strong></dt>
-                        <dd>A Token "moves" in relation to a Region when it is about to move into, out of, through, or within a Region. This Event occurs immediately when a Token is about to perform such a move.</dd>
-                    <dt><strong>Token Moved In</strong></dt>
-                        <dd>This Event occurs when a Token begins a movement that has a destination inside a Region and the Token was not inside that Region's boundaries before the movement began.</dd>                    
-                    <dt><strong>Token Moved Out</strong></dt>
-                        <dd>This Event occurs when a Token begins a movement that has a destination outside a Region and the Token was inside that Region's boundaries before the movement began.</dd>                    
+                    <dd>This event occurs if a Token leaves the Region by any method, including the token being deleted, moving out of the region by way of a drag or measured movement, the boundary of the region changes so it no longer encompasses the token, or the region behavior becomes inactive while tokens are within the shape.</dd>
+                    <dt>Token Moves In</dt>
+                    <dd>This event occurs when a Token begins a movement that has a destination inside a Region and the Token was not inside that Region's boundaries before the movement began.</dd>           
+                    <dt>Token Moves Out </dt>
+                    <dd>This event occurs when a Token begins a movement that has a destination outside a Region and the Token was inside that Region's boundaries before the movement began.</dd>               
+                    <dt>Token Moves Within</dt>
+                    <dd>This event occurs when a Token begins a movement that has a destination within the same Region shape, but not when entering or exiting the Region.</dd>
+                    <dt>Token Animates In</p>
+                    <dd>This event occurs if a token's movement animation would bring it into the shape of a Scene Region, but not if the token enters by other means such as creation or the changing of a region boundary. This event will only occur if the Region is being viewed while it occurs.</dd>
+                    <dt>Token Animates Out</dt>
+                    <dd>This event occurs is triggered when a token's movement animation would cause it to exit the shape of a Scene Region, but not if the token leaves by other means such as deletion or the changing of a region boundary. This event will only occur if the Region is being viewed while it occurs.</dd>                    
                     <dt><strong>Token Starts Turn</strong></dt>
-                        <dd>Occurs when a Token inside this region is part of a Combat Encounter and a Combat Turn begins.</dd>
+                        <dd>This event occurs when a Token inside this region is part of a Combat Encounter and a Combat Turn begins.</dd>
                     <dt><strong>Token Ends Turn</strong></dt>
-                        <dd>Occurs when a Token inside this region is part of a Combat Encounter and a Combat Turn ends.</dd>
+                        <dd>This event occurs when a Token inside this region is part of a Combat Encounter and a Combat Turn ends.</dd>
                     <dt><strong>Token Starts Round</strong></dt>
-                        <dd>Occurs when a Token inside this region is part of a Combat Encounter and a Combat Turn begins.</dd>
+                        <dd>This event occurs when a Token inside this region is part of a Combat Encounter and a Combat Turn begins.</dd>
                     <dt><strong>Token Ends Round</strong></dt>
-                        <dd>Occurs when a Token inside this region is part of a Combat Encounter and a Combat Round ends.</dd>
+                        <dd>This event occurs when a Token inside this region is part of a Combat Encounter and a Combat Round ends.</dd>
                 </dl>
             </div>
             <figure class="column right noborder"><video autoplay="true" loop="loop" muted="true" src="https://r2.foundryvtt.com/website-uploads-public/asset/user_681/region-demo-slide-trap-with-rotation-2024-05-29.webm"></video>
                 <figcaption>Watch where you step! There may be slide traps powered by the <code>Token Enters</code> Event...</figcaption>
             </figure> 
         </div> 
-
         <p class="note info"><strong>Note</strong>: Modules or Game Systems may provide additional Events. Please consult their documentation for more information about them.</p>
     </div>
 </section>
@@ -440,26 +456,119 @@
 <p>The following common examples are provided to illustrate how Scene Regions operate and how you might want to use them.</p> 
 <!-- TODO: add examples-->
 <ol>
-    <li>
-        <p><strong>Pause Game "Trap"</strong></p>
-        <p>Coming soon!</p>
-    </li>
-    <li>
-        <p><strong>The Cosy Cave</strong></p>
-        <p>Coming soon!</p>
-    </li>
-    <li>
-        <p><strong>Stairs</strong></p>
-        <p>Coming soon!</p>
-    </li>
-    <li>
-        <p><strong>Execute Macro</strong></p>
-        <p>Coming soon!</p>
-    </li>
-    <li>
-        <p><strong>Slide Trap</strong></p>
-        <p>Coming soon!</p>
-    </li>
+    <section class="collapsible">
+        <header class="collapsible-header" id="events">Adjust Darkness (Darker Interior than Exterior)</header>
+        <div class="collapsible-content">
+            <div class="columns">
+                <div class="column">   
+                    <p>Often, a map may have some outdoor and indoor areas that call for the interior being naturally darker than exterior locations. An open field might give way to the entrance of a cavern, a well-lit forest might hide an abandoned house.</p>
+                    <p>The Adjust Darkness behavior allows GMs to use a Scene Region to define areas that are either darker or lighter than the rest of the scene.</p>
+                    <p>To replicate the darkening effect we use in the screenshot to the right, you would:</p>
+                    <ul>
+                        <li>Create a new scene region with a shape that matches the confines of the area you wish to darken.</li>\
+                        <li>Assign that region a new behavior: "Adjust Darkness Level"</li>
+                        <li>Give that behavior the mode: "Override"</li>
+                        <li>Set the darkness level to your preferred level, typically a darkness level of 1 is used for full darkness.</li>
+                        <li>Optionally choose to blur the darkness level at its edges.</li>
+                        <li>Update your region behavior and scene region to save your changes, and anyone venturing from outside the region into it will no longer be able to see as if Global Illumination is enabled.</li>
+                    </ul>
+                </div>
+                <figure class="column right noborder"><a href="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/example-scene-region-with-adjust-darkness-behavior-shown-2024-04-26.webp" target="_blank" ></a>@Asset[694]
+                    <figcaption>A token's ability to see is restricted to only lit areas indoors, but wholly unrestricted outside the confines of the cabin walls.</figcaption>
+                </figure> 
+            </div> 
+        </div>
+    </section>
+    <section class="collapsible">
+        <header class="collapsible-header" id="events">Marking Difficult Terrain</header>
+        <div class="collapsible-content">
+                    <p>Many game systems have rules about moving through spaces that might be slow to navigate, typically this just adds a multiplier to the amount of movement 'cost' it takes to move through that space. Suppose you have an area of a battlefield that is strewn with deep mud, making it arduous to cross. Using the "Modify Movement Cost" region behavior, you can mark that part of your scene to specify how hard it is to move through it.</p>
+                    <ul>
+                        <li>Create a new scene region with a shape that matches the confines of the area you wish to limit.</li>
+                        <li>Assign that region a new behavior: "Modify Movement Cost"</li>
+                        <li>Set the slider to indicate how much the cost of movement should be multiplied by when passing through this region - setting it to 2 will double the cost of movement (so 5ft becomes 10ft), and will proportionally slow the animation of token movement.</li>
+                        <li>Update your region behavior and scene region to save your changes, and now any token crossing this part of your scene will be slowed down!</li>
+                    </ul>
+        </div>
+    </section>
+    <section class="collapsible">
+<header class="collapsible-header" id="events">Stairways</header>
+<div class="collapsible-content">
+    <div class="columns">
+        <div class="column">   
+            <p>Creating a user-navigable stairway is quite possibly the simplest example of a Teleport Token behavior, allowing for players to simply step into a scene region to initiate a movement of their token either to another part of a scene, or to another scene entirely. A scene region configured with Teleport Token requires an additional region to serve as a "landing" for where the token will come out when it is teleported. Setting up a scene region for stairs is a super easy, two-stage process!</p>
+            <h4>Stage 1 - Stick The Landing</h4>
+            <p>Find the part of your map where tokens will land when they've been teleported, this could be the landing at the top of a flight of stairs. Always make sure to leave enough room for more than one token to emerge, and if you plan to allow 'return trips', make sure you leave space to place a future region shape to handle that return.</p>
+            <ul>
+                <li>Create a new region shape for your landing.</li>
+                <li>Get the UUID for your region shape - this universal identifier is how you point your teleporter to this region. You can get it conveniently by left-clicking the <i class="fa-solid fa-passport">&nbsp;</i> Copy Document UUID button in the header of the configuration window for your scene region.</li>
+                <li>Paste that UUID somewhere you can easily access it later.</li>
+            </ul>
+            <h4>Stage 2 - Mark the stairs</h4>
+            <p>Unlike the landing for your teleporter, the entry to the teleporter only really needs to be big enough to encompass the space a token would need to enter, this could be a single grid space at the top of a narrow stair, or as wide as the top of a grandiose ramp allowing multiple tokens to enter side by side.</p>
+            <ul>
+                <li>Create a new region shape in the space you'd like players to enter in order to teleport to the top of the stairs.</li>
+                <li>Configure the scene region with the behavior: Teleport Token</li>
+                <li>In the "Destination" field, paste the UUID you copied in stage 1 and click the "Add Document" button to be sure it is committed to the configuration.</li>
+                <li>Optionally, you may click "Allow Choice" to give users a small dialog prompt asking if they would like to teleport before the teleportation occurs when they move into the region.</li>
+                <li>That's it, click update region behavior and you have successfully configured a stairway teleporter!</li>
+            </ul>
+        </div>
+        <figure class="column right noborder">
+            <video autoplay="true" loop="loop" muted="true" src="https://r2.foundryvtt.com/website-uploads-public/asset/user_681/region-demo-stair-teleport-2024-05-29.webm"></video>
+            <figcaption>A token moves up a flight of stairs, entering a Teleport Token region, and is moved to another scene.</figcaption>
+        </figure> 
+    </div> 
+</section>
+    <section class="collapsible">
+        <header class="collapsible-header" id="events">Super Happy Fun Slide (Slide Trap)</header>
+        <div class="collapsible-content">
+            <figure class="right noborder"><a href="https://r2.foundryvtt.com/website-uploads-public/screen/user_671/the-canvas-coordinate-system-2025-03-21.webp" target="_blank" ></a>@Asset[893]
+                <figcaption>An example of the canvas grid coordinate system.</figcaption>
+            </figure> 
+            <figure class="right noborder"><a href="https://r2.foundryvtt.com/website-uploads-public/screen/user_671/an-example-of-a-slide-trap-scene-region-2025-03-21.webp" target="_blank" ></a>@Asset[894]
+                <figcaption>Demonstration of the slide region with the landing zone highlighted.</figcaption>
+            </figure> 
+            <figure class="right noborder">
+                <video autoplay="true" loop="loop" muted="true" src="https://r2.foundryvtt.com/website-uploads-public/asset/user_681/region-demo-slide-trap-with-rotation-2024-05-29.webm"></video>
+                <figcaption>A token enters a region configured with the slide trap and tumbles to the bottom of the slide.</figcaption>
+            </figure> 
+                    <p>Picture the moment your players are rustling around in some ancient tomb and they uncover a hidden doorway, beyond which a steeply sloped stone surface leads off into the darkness, water rushing over it. You want them to be able to choose to step onto the path- but once they've stepped on, you don't want them stepping off, and you certainly don't want them trying to climb back up it- this is a one-way journey.</p>
+                    <p>Sure, we could use a simple teleport region with a destination at the bottom and no return, but where would the fun be in that? We want our players to show up at a random location in a patch of terrain at the bottom of the slide, and any attempt to climb back up should put them back at the bottom. </p>
+                    <p>Before we can do anything else, we need to first establish an area where our players will land, which if we assume you are working with a scene using a square grid, you can do that with a few simple steps:</p>
+                    <ul>
+                        <li>Place a temporary placeholder token in the upper-left grid space where you would like a token to land. </li>
+                        <li>With the token positioned in the first landing location, double right-click to open the token configuration and view the X-Y coordinates for that token's location. Write those coordinates down somewhere, you'll need them.</li>  
+                        <li>Now, since we know the coordinates for the upper leftmost corner where the token can land, we need to know how many spaces we want the tokens to <strong>land in</strong>. Count the number of spaces to the right of your token for the area you would like to have tokens land, that will determine our new X coordinates. Do the same with spaces below the token- that will determine the new Y coordinates.</li>
+                        <li>Check your Scene Configuration - in the grid tab, the grid-size in pixels determines how many pixels we need to add to our number of grid spaces.</li>
+                        <li>Now, we will bring all the numbers together. Using the image to the right as an example, if Akra is located at X2300, Y2200, and we would like our possible spaces of landing to be any of the spaces to the right or bottom of the chart, we would form two lists: </li>
+                        <ul>
+                            <li><em>xcoord = [2300, 2400]</em></li>
+                            <li><em>ycoord = [2200, 2300, 2400]</em></li>
+                        </ul>
+                        <li>This means that we have two columns of grid spaces, each containing three spaces where a character may land.</li>
+                        <li>Next, we create a region on the scene, and add a shape that covers the space of our slide— but not its landing.</li>
+                        <li>Finally, we set the behavior to "execute script" with the subscribed event "Token Enters". We need to write a little bit of JavaScript to handle the slide:</li>
+                        
+                        <pre>
+                            <code class="language-javascript hljs" data-highlighted="yes">//your chosen x coordinates go here
+const Xcoord = [2300,2400] 
+//your chosen y coordinates go here
+const Ycoord = [2200,2300,2400] 
+//this randomizes the X coordinate from the available options
+let randX = Math.floor(Math.random() * Xcoord.length)
+//this randomizes the Y coordinate from the available options
+let randY = Math.floor(Math.random() * Ycoord.length) 
+//this updates the coordinates of any token that enters the region shape,
+//using the random coordinates you provided
+await event.data.token.update({x:Xcoord[randX], y:Ycoord[randY]})</code>
+                        </pre>
+
+                            <li>After that has been configured, clicking Update Region Behavior will save this script and, after that, any token that moves into the defined region shape will immediately be moved to one of the grid spaces you chose!</li>
+                    </ul>
+
+    </div>
+    </section>
 </ol>
 
 <h2 class="border" id="api">Developer Notes and API References</h2>
