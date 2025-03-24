@@ -29,6 +29,8 @@
     <dd>Cloning walls draws walls with the same configuration settings as the last wall that was edited or created.</dd>
 <dt>Force Snap to Grid (<i class="fas fa-plus"> </i>)</dt>
     <dd>This toggle forces walls to snap to the scene's grid lines if the scene uses a square or hex grid type.</dd>
+<dt>Close All Doors (<i class="far fa-door-closed"> </i>)</dt>
+    <dd>This button closes all doors on the currently viewed scene.</dd>
 <dt>Clear Walls (<i class="fas fa-trash"> </i>)</dt>
     <dd>This button clears all existing walls on the scene.</dd>
 </dl>
@@ -36,7 +38,7 @@
 <h3>Creating Walls</h3>
 <p>To create a new wall, select a wall type from the Wall Controls palette, then left click and drag from the point where you want the wall segment to start to the point where you want to wall to end.</p>
 <h4>Chaining Walls</h4>
-<p>Connected wall segments can easily be created by holding Ctrl (or command, if you are using MacOS) while placing a wall, which creates a new wall from your cursor to the last-placed wall segment, and will continue creating chained walls from all future points create. You can cancel the placement of a wall segment by right-clicking before you place the second point of the wall.</p>
+<p>Connected wall segments can easily be created by holding Ctrl (or command, if you are using MacOS) while placing a wall, which creates a new wall from your cursor to the last-placed wall segment, and will continue creating chained walls from all future points created. You can cancel the placement of a wall segment by right-clicking before you place the second point of the wall.</p>
 <p>A wall can be selected by left-clicking it. Holding the Alt key when selecting a wall also selects all walls directly connected to one of that wall's endpoints. This allows you to move, delete or modify entire structures at once.</p>
 <h4 id="snapping">Wall Snapping</h4>
 <p>By default, the wall tool attempts to snap to an invisible sub-grid on the canvas in order to assist users in linking wall segments together without a gap wherever possible. The precision of this grid is partially adaptive, changing based on the size of the grid in use for the scene:</p> 
@@ -112,6 +114,44 @@
 </ul>
 </div>
 </section>
+<h4 id="animation">Door Animations</h4>
+<section class="columns">
+    <div class="column"><p>Walls configured as doors also provide the option for several pre-configured animations, allowing a GM user to add  special animation effects to the opening and closing of doors on their scenes. Assigning an animation also allows for doors to be configured with a graphical asset that the animation will use. While Foundry VTT provides a variety of assets for free thanks to our friends at <a href="https://www.forgotten-adventures.net/" target="_blank">Forgotten Adventures</a> , GMs may also use their own custom asset files instead. </p>
+        <dl>
+            <dt>Door Texture</dt>
+            <dd>This file path points to the graphical asset you wish to include for your door to use. The door assets Foundry VTT includes are in the Core Data tab, in the <code>canvas/doors/</code> directory.</dd>1
+            <dt>Flip Door Texture</dt>
+            <dd>If the graphical asset for the door doesn't quite line up correctly with your existing scene or looks a little odd when animated, flipping the door texture will mirror it so that it can be found easily.</dd>
+            <dt>Double Door</dt>
+            <dd>This toggle allows you to indicate if your door is intended to be a double door, for example, one that opens at the center point rather than at an edge.</dd>
+            <dt>Animation Duration</dt>
+            <dd>How quickly or slowly the door animation takes to complete in miliseconds(ms). Default: 500.</dd>
+            <dt>Open Direction</dt>
+            <dd>By default, the door will hinge on the first wall point placed when drawing the wall, if it opens the wrong direction, you can simply set this to reversed Whether the door opens the default direction or </dd>
+            <dt>Animation Strength</dt>
+            <dd>The 'forcefullness' with which the animation hits and how far the door opens, if set to a lower value it will open more slowly and less drastically, a higher value will throw the door open with more of an impact and, if the door is set to swing, a wider arc.</dd>
+        </dl>
+    </div>
+    <section class="collapsible">
+        <header class="collapsible-header">Animation Types</header>
+        <div class="collapsible-content">
+            <p>Animated doors can be configured with one of a variety of different animation effects including:</p>
+            <dt>Ascend</dt>
+            <dd>The door will appear to rise above the canvas, as though a portcullis is receding into the ceiling.</dd>
+            <dt>Descend</dt>
+            <dd>The door will appear to fall below the canvas, as though a stone door receding into the floor.</dd>
+            <dt>Slide</dt>
+            <dd>The door will appear to slide into the wall cavity to the left or right, as though it is a pocket door.</dd>
+            <dt>Swing</dt>
+            <dd>The door will swing open, as though it were a typical household barrel-hinged door.</dd>
+            <dt>Swivel</dt>
+            <dd>The door will pivot on its center point, as though it were a hidden wall panel door.</dd>
+        </div>
+    </section>
+   <figure class="column right noborder"><video autoplay="true" loop="loop" muted="true" src="https://r2.foundryvtt.com/website-uploads-public/asset/user_671/animated-doors-demonstration-2024-10-16.webm"></video>
+        <figcaption>Foundry VTT allows you to configure doors with a wide variety of animation options.</figcaption>
+    </figure> 
+</section>
 
 <section class="collapsible">
 	<header class="collapsible-header">Wall Types</header>
@@ -133,6 +173,8 @@
 <p>Using the Permission Configuration window, the GM can control which user roles are allowed to open unlocked doors.</p>
 <p><u>Door Sounds</u></p>
 <p>Optionally, doors can be configured so that a sound plays when they open. A standard set of sounds are included in Foundry so that an appropriate sound can be chosen for each door.</p>
+<p><u>Animation Type</u></p>
+<p>Doors can be configured to include <a href="#animation">an animation</a> which allows assigning a graphical asset, providing the ability to add a variety of special effects that occur when the door state changes to open from closed.</p>
 <p><u>Locked Doors</u></p>
 <p>A Gamemaster can lock any door by right-clicking it. When a non-GM user attempts to open a locked door, a "locked" sound plays and the door remains closed. The Gamemaster can unlock a door by right-clicking the door's icon again.</p>
 <p><u>Door Color Key</u></p>
