@@ -294,9 +294,14 @@
 </dd>
 <dt>library</dt>
 <dd>
-<p>The library field is a boolean that indicates whether the package is a library intended for other packages to depend on and consume. This field should be true if your package does not present any user-facing features, but rather provides functionality for other packages to utilize and rely upon. Packages with this field set to true may be hidden from third party package lists to avoid confusing users.</p>
-<p><code>"library": true,</code></p>
-<p>When omitted the default value of this field is false. It is not necessary to explicitly set this value unless it needs to be true.</p>
+<p>The library field is a boolean that indicates whether the package is a "library." A library module is a special type of module that is intended to be used only by other packages and developers.  Libraries do not present any user-facing features, but rather they provides functionality for other packages to utilize and rely upon.</p>
+<p>Setting this field to <code>true</code> provides some important benefits for library modules:</p>
+<ul>
+  <li>Ensures that library modules always load before non-library packages so that they are always ready when other packages call on them</li>
+  <li>Clarifies the intention of the module to serve as a library and allows it to be determined programmatically</li>
+  <li>Hides the module from certain third party package lists to avoid confusing users</li>
+</ul>
+<p>When omitted, the value of this field defaults to <code>false</code>, so modules that are not libraries do not need to explicitly set this value.</p>
 </dd>
 <dt>media</dt>
 <dd>An array of objects composed of a <code>type</code>, <code>url</code>, and <code>thumbnail</code> that can contain art that Foundry uses in places like the Setup screen for a Package's background image. For example:
