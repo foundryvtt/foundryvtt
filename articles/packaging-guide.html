@@ -1,6 +1,10 @@
 <h2 class="border" id="overview">Overview</h2>
 <p>This guide will walk you through the process of creating a self-contained module that holds your custom content. The process of packaging a module is fairly simple, and requires no special tools beyond a functioning copy of Foundry VTT and a text editor (windows notepad, notepad++, etc).</p>
 <p>For more information about how to distribute and protect a module created using this process, please see <a href="https://foundryvtt.com/article/publisher-handbook/" target="_blank">the Publisher's Handbook</a>.</p>
+
+<h3 id="module-maker">The Built-In Module Maker</h3>
+<p>Since V11 Foundry VTT has included a built-in <a href="https://foundryvtt.com/article/module-maker/" rel="nofollow">Module Maker</a> which can be used to create and edit modules in Foundry, no coding necessary. The Module Maker can create and edit compendium packs, authors, system and module requirements, and more. This is the recommended way to create modules for Foundry VTT. If you're using the Module Maker you can skip to <a href="#asset-staging">Step 2</a> below.</p>
+
 <h3 id="why-module">Why Use a Module to Distribute Content?</h3>
 <p>A Module that contains one or more Compendium Packs is a great solution to distribute your content. Using this method, the latest version of your content is stored and updated in a single location. Users can then easily access that content within any World by enabling the Module.</p>
 <p class="note info">Before <a href="https://foundryvtt.com/article/adventure/">Adventure Compendium Packs</a> were implemented, content creators often created and distributed pre-packaged Worlds. This approach is no longer recommended.</p>
@@ -101,13 +105,11 @@
         "name": "module-creatures",
         "label": "Module Creatures",
         "path": "./packs/creatures.db",
-        "type": "Actor",
-        "entity": "Actor"
+        "type": "Actor"
     }
 </code></pre>
-<p class="note info">The <code>"entity": "Actor"</code> and preceding comma are only necessary to maintain backwards compatibility with V8 of Foundry VTT. If you only want to support V9 you can remove the comma after <code>"Actor"</code> and delete the <code>"entity"</code> line entirely.</p>
 <p>To rename a pack, open the <code>module.json</code>, and change the <code>label</code> field.</p>
-<p>To delete a pack, simply delete everything inside of curly brackets (<code>{</code>,<code>}</code>), and the brackets themselves, then save your file. You should also delete the associated <code>.db</code> file in the <code>/packs</code> folder, as it won't be needed.</p>
+<p>To delete a pack, simply delete everything inside of curly brackets (<code>{</code>,<code>}</code>), and the brackets themselves, then save your file. For V10 and prior you should also delete the associated <code>.db</code> file in the <code>/packs</code> folder and in V11+ delete the associated database folder (which will have the same name) as it won't be needed.</p>
 <p class="note warning"><strong>Note:</strong> Make sure all of the pack entries except the last one in the list have a comma (<code>,</code>) following the closing curly bracket. If there is a comma missing, or if the last entry in the packs list has an unneeded comma your module will not be recognized by Foundry when it next loads.</p>
 
 <h2 class="border" id="final-details">Step 5: Final Details</h2>

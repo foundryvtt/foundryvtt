@@ -1,7 +1,28 @@
-<p><a title="Nginx Web Server" href="https://www.nginx.com/" target="_blank" rel="nofollow noopener">Nginx</a> is a popular web server which you may consider using as a proxy server in front of Foundry Virtual Tabletop. There are a number of advantages to using a proxy server like Nginx like using a subdomain, using an external port that is different than your Foundry VTT port, stronger access controls, and faster serving of static files. This article provides a basic overview of using Nginx with Foundry Virtual Tabletop. There are <em>many advanced options</em> which are not covered here.</p>
-<p class="note info">Please note that using a proxy server like Nginx, while advantageous for dedicated web hosts, is absolutely not required in order to use Foundry Virtual Tabletop.</p>
+<p><a title="Nginx Web Server" href="https://www.nginx.com/" target="_blank" rel="nofollow noopener">Nginx</a> is a popular web server which you may consider using as a proxy server in front of Foundry Virtual Tabletop.</p> 
+<p>This is a quick tutorial that will cover how to setup a virtual server that uses Apache to proxy. There are <em>many advanced options</em> which are not covered here.</p>
 <hr />
-<h3 id="install">Step 1 - Install Nginx</h3>
+<h3 id="host">Step 1 - Create your Virtual Host</h3>
+<p>While setting up a virtual server to host Foundry is outside the scope of this tutorial, here are a few helpful pointers.</p>
+<p>First, you will need to procure hosting. Fortunately, many inexpensive options are available:</p>
+<dl>
+    <dt><a href="https://www.racknerd.com/BlackFriday/">Racknerd</a></dt>
+    <dd>For several years now, Racknerd has offered a hidden <a href="https://www.racknerd.com/BlackFriday/">"permanent Black Friday" discount</a> year-round. This option offers a particularly excellent value, and our users have reported positive experiences.</dd>
+</dl>
+<p><b>Other options:</b></p>
+<ul>
+    <li><a href="https://www.linode.com/?r=31112a7b4a25b16d80c6267ffec4d7cf50695218" target="_blank">Linode</a></li>
+    <li><a href="https://aws.amazon.com/lightsail/" target="_blank">Amazon LightSail</a></li>
+    <li><a href="https://www.digitalocean.com" target="_blank">Digital Ocean</a></li>
+    <li><a href="https://www.vultr.com" target="_blank">Vultr</a></li>
+</ul>
+
+<p>Foundry doesn't require many resources on the server side as most of the
+    processing happens within the client's browser, so the typical $5/month (or lower) plan should be plenty. If you went with Linode, here is a
+    <a href="https://www.linode.com/docs/getting-started/" target="_blank">tutorial</a>
+    you can follow to get your instance created and setup.</p>
+<hr/>
+
+<h3 id="install">Step 2 - Install Nginx</h3>
 <p>Start by installing Nginx for your Linux distribution. Some common examples are provided below, but consult the <a title="Nginx documentation" href="https://www.nginx.com/resources/wiki/start/topics/tutorials/install/" target="_blank" rel="nofollow noopener">Nginx documentation</a> for your Linux flavor.</p>
 <p class="note warning">This guide assumes a basic level of familiarity with the Linux operating system and how to interface with it. If you are brand new to Linux we recommend starting with a beginner's tutorial to the Linux command line before proceeding.</p>
 <h4>Ubuntu or Debian</h4>
@@ -17,7 +38,8 @@ sudo yum install nginx
 sudo amazon-linux-extras install nginx1 -y
 </code></pre>
 <hr />
-<h3 id="configure">Step 2 - Configure Nginx</h3>
+
+<h3 id="configure">Step 3 - Configure Nginx</h3>
 <p>Nginx requires a configuration file which defines how the server functions. A functional starting point to begin testing Nginx is the following configuration which does not use SSL certificates (we can enable those later). For the purposes of this example we assume that Foundry Virtual Tabletop is running from <code>/home/ec2-user/foundryvtt</code>, but your application installation path may be different, you should adjust the configuration file accordingly.</p>
 <p class="note warning">Make sure to update the references to <code>your.hostname.com</code> in the configuration.</p>
 <pre><code class="language-bash"># This goes in a file within /etc/nginx/sites-available/. By convention,
@@ -56,7 +78,7 @@ server {
 <p>Once you have configured Nginx, there are some configurations for Foundry Virtual Tabletop in the @Article[configuration] article you will also want to apply. Set the following options in your Foundry VTT <code>{userData}/Config/options.json</code> file which will instruct Foundry that the server is running with a proxy server in front of it on port 80.</p>
 <p class="note warn"> This is where you should update any port-forwarding or access control rules to allow connection to your server on the ports you are allowing through NGINX. For more information please see: @Article[port-forwarding]</p>
 </p>
-<p class="note info">Please be aware that if your Foundry VTT location is hosted at a subfolder location, such as <code>mysite.com/foundryvtt</code>, you will need to define a routePrefix as outlined in the @Article[configuration] article.</p>
+<p class="note info">Please be aware that if your Foundry VTT location is hosted at a subfolder location, such as <code>mysite.com/foundryvtt</code>, you will need to define a <code>routePrefix</code> as outlined in the @Article[configuration] article.</p>
 <pre><code class="language-json">"hostname": "your.hostname.com",
 "routePrefix": null,
 "sslCert": null,
@@ -66,7 +88,7 @@ server {
 </code></pre>
 <p>Once you have configured your reverse proxy, you will want to restart the proxy instance as well as your Foundry VTT instance to ensure that the new settings are active.</p>
 <hr />
-<h3 id="control">Step 3 - Start, Stop, and Restart Nginx</h3>
+<h3 id="control">Step 4 - Start, Stop, and Restart Nginx</h3>
 <p>You can use the <code>service</code> utility to easily manage your Nginx server.</p>
 <pre><code class="language-bash"># Enable new site
 sudo ln -s /etc/nginx/sites-available/your.hostname.com /etc/nginx/sites-enabled/
@@ -84,7 +106,7 @@ sudo service nginx stop
 sudo service nginx restart
 </code></pre>
 <hr />
-<h3 id="ssl">Step 4 - Add SSL Certificates (Optional)</h3>
+<h3 id="ssl">Step 5 - Add SSL Certificates (Optional)</h3>
 <p>For more advanced usage you can add SSL Certificates for added security. Start by creating SSL Certificates, we recommend <a title="Certbot SSL Certificates Instructions" href="https://certbot.eff.org/instructions" target="_blank" rel="nofollow noopener">using Certbot</a>. Once your certificates are created, your Nginx configuration file will be updated to use port 443 and the SSL certificates you have created.</p>
 <p class="note warning">Make sure to update the references to <code>your.hostname.com</code> in the configuration.</p>
 <pre><code class="language-bash"># This goes in a file within /etc/nginx/sites-available/. By convention,
@@ -144,3 +166,9 @@ server {
 "proxyPort": 443,
 "proxySSL": true
 </code></pre>
+
+<hr/>
+<h3 id="static-files">Serving Static Files via Proxy (Not Recommended)</h3>
+<p>Now that you have a proxy server available, it could be tempting to use it to serve static files instead of letting the Foundry VTT web server (express) handle this task like normal.</p>
+<p>However, this is <u>not a recommended approach.</u> The performance benefits are extremely minimal, the complexity to set it up properly is significant, and the potential for problems outweighs any potential benefit.</p>
+<p>Specifically, there is a high likelihood of configuring the proxy server in a way that serves Foundry's static files extremely incorrectly. Furthermore, Foundry VTT's internal logic that determines which static files to serve and where to serve them from may change from version to version without notice.</p> 

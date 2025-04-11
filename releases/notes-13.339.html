@@ -1,0 +1,149 @@
+<header id="update-header">
+    <h2 id="update-title" class="border">Foundry Virtual Tabletop - Version 13 - Testing 4 Release Notes</h2>
+    <figure id="update-banner">
+        <img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_671/banner-image-for-v13-testing-4-2025-03-27.webp" title="Foundry VTT - Version 13 - Testing 4 Release Notes" alt="Release Notes for Foundry Virtual Tabletop Version 13 Testing 4"/>
+        <figcaption>Foundry Virtual Tabletop Version 13 Testing 4, featured screenshot showcases some of the <a href="https://foundryvtt.com/packages/dnd-players-handbook" target="_blank">Player's Handbook</a> pregen characters facing content from <a href="https://foundryvtt.com/packages/mcdm-flee-mortals-where-evil-lives" target="_blank"> Flee Mortals!</a></figcaption>
+    </figure>
+</header>
+
+<section id="update-overview">
+    <p>We're on the steady slide toward the finish line for a stable build of Version 13! V13 Testing 4 represents the culmination of months of hard work, and primarily introduces a variety of bug fixes and small finishing touches as we get closer to that final stable build. While it is a testing build, we anticipate this release as sort of a 'release candidate' that may be nearly identical to the stable build of V13.</p>
+    <p class="note warning"><strong>WARNING:</strong> This Testing update is intended for those dedicated users who wish to test the new features provided in Version 13. It is not intended for use in weekly games or in games with heavy use of add-on modules. The goal for this build is to collect preliminary testing feedback from developers and users, not to power actual game sessions!</p>
+</section>
+
+<h2 class="border">Update Highlights</h2>
+<h3 class="border">A Scattered Collection</h3>
+<p>As this build focuses primarily on bug fixes, documentation, and some minor UI polish, there really aren't any big-ticket items to call out. Instead, we'll take this time to highlight a few small but notable items worthy of extra attention:</p>
+<h5>An Abundance of API Documentation</h5>
+<p>The dev team have been deep down in the dregs of documentation review, issuing sweeping corrections and resolutions for whole sections of the API, improving typedoc definitions and clearing up a lot of changes thanks, in no small part, to the diligence of community developers who have been extremely thorough in hunting out errors and inaccuracies. Specific praise is deserved for the numerous dedicated community developers who contributed to <a href="https://github.com/foundryvtt/foundryvtt/issues/11768">this particular GitHub issue</a>.</p>
+<h5>Cut and Paste</h3>
+<p>A small but no less mighty change, this version introduces a cut and paste workflow for canvas placeables, allowing users to press <span class="reference">CTRL</span> + <span class="reference">X</span> (CMD+X for macOS) to cut any placeable objects (such as Tokens, Tiles, etc.) and press <span class="reference">CTRL</span> + <span class="reference">V</span> (CMD+V for macOS) paste them at a new location.</p>
+<h5>A Little Pinch</h5>
+<p>A little change to canvas interactions for users who rely on a trackpad— the multitouch 'pinch' gesture now zooms in and out rather than trying to rotate your currently selected canvas object, making it easier to navigate the canvas for those who don't have a mouse.</p>
+<h5>Ongoing UI Improvements</h5>
+<p>We're putting in more finishing touches on the UX and UI overhaul that V13 brought with it, including new features like the ability to collapse the sidebar menu by clicking on the currently open sidebar tab, a little reorganization of the header buttons for Document sheet windows (specifically for ApplicationV2 windows), and a few small tweaks to UX and UI styles to generally improve visual appearance or organization.</p>
+</section>
+
+<h3 class="border">In Case You Missed It: Windows Portable Build</h3>
+<p>During the previous update we trialed a new type of build for Foundry VTT for the Windows operating system, the new "Windows Portable" build offers a convenient way for users who wish to keep their Foundry VTT server a little more mobile or who wish to avoid the standard Windows installation process, whether for testing new versions of the software or otherwise. We're working toward a version that comes packed with its own dedicated <code>userdata</code> folder so that it doesn't rely on the existing userdata folder established by previous installations, but we're not <strong><em>quite</em></strong> there yet.</p>
+<p>This new build type allows Windows users to conveniently test out new versions of Foundry VTT without disrupting their primary installation.</p>
+<p class="note info">Before testing out a new major version of Foundry VTT, taking a Snapshot is recommended. At a minimum, you should always <a href="https://foundryvtt.com/article/backups" rel="nofollow">backup</a> all your important Worlds!</p>
+<p>Once your data is safely backed up, here's how to use the Windows Portable build to try out the new Foundry VTT version:</p><p>
+</p><ol>
+    <li>Triple-check that you backed up your data</li>
+    <li><a href="https://foundryvtt.com/me/licenses" rel="nofollow">Download</a> the Windows Portable build of the version to test</li>
+    <li>Extract the downloaded file</li>
+    <li>In the extracted folder, double-click the <code>Foundry Virtual Tabletop.exe</code> file to launch it</li>
+</ol>
+<p class="warning note"><strong>WARNING: </strong>The Windows Portable build currently uses the same Foundry VTT User Data Folder as your "real" version of Foundry VTT. We strongly recommend creating and using a new Foundry VTT User Data Folder to test with instead.</p>
+
+<section class="collapsible">
+    <header class="collapsible-header">Configuring a Dedicated "Test" Foundry User Data Folder</header>
+        <div class="collapsible-content">
+<p>There are two different ways to create and use a test folder. First, create a new folder somewhere (for example, <code>D:\Foundry_VTT_User_Data_Test</code>). You can then tell Foundry VTT to use this new test user data folder in one of two ways:</p>
+<ul>
+    <li>
+        <p><strong>The Foundry VTT Setup Screen</strong></p>
+        <p>The simplest way to ensure that you do not accidentally affect your real data while testing is to change the Foundry User Data Folder manually before testing, but it may be easy to forget this step.</p>
+    </li>
+    <li>
+        <p><strong>Windows shortcut</strong></p>
+        <p>You can create a Windows shortcut that points to your portable <code>"Foundry Virtual Table Top.exe"</code>. You can then add a launch parameter to the end of the shortcut's target to automatically use your new test User Data folder like.</p>
+        <p>For example, your shortcut's target might be: <code>"Foundry Virtual Tabletop.exe" --dataPath="D:\Foundry_VTT_User_Data_Test"</code>.</p>
+    </li>
+</ul>
+</div>
+</section>
+
+<section id="features">
+<h2 class="section-header border">New Features</h2>
+    <h3 id="features-docs" class="category-header">Documents and Data</h3>
+    <ul>
+        <li>It is no longer possible to upload files to the root Data directory via a FilePicker. <a href="https://github.com/foundryvtt/foundryvtt/issues/12384" target="_blank">(12384)</a></li>
+    </ul>
+    <h3 id="features-apps" class="category-header">Applications and User Interface</h3>
+    <ul>
+        <li>Left-clicking a currently open tab for the sidebar menu will now collapse the menu. <a href="https://github.com/foundryvtt/foundryvtt/issues/12129" target="_blank">(12129)</a></li>
+        <li><code>ActorSheetV2</code> now provides a Token configuration button.  <a href="https://github.com/foundryvtt/foundryvtt/issues/12244" target="_blank">(12244)</a></li>
+        <li><code>data-tooltip</code>s that are not localization strings are now always cleaned by <code>foundry.utils.cleanHTML</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/12356" target="_blank">(12356)</a></li>
+        <li>The Door Animations section of the wall configuration UI has been reconfigured to swap the positions of Open Direction and Animation Duration. <a href="https://github.com/foundryvtt/foundryvtt/issues/12399" target="_blank">(12399)</a></li>
+        <li>The Document sheet configuration buttons have been moved and now reside inside a drop-down menu. <a href="https://github.com/foundryvtt/foundryvtt/issues/12437" target="_blank">(12437)</a></li>
+        <li>Changes made to <code>PrototypeTokenOverrides</code> now apply automatically to all Actor Documents within the world when they are changed. <a href="https://github.com/foundryvtt/foundryvtt/issues/12438" target="_blank">(12438)</a></li>
+        <h3 id="features-canvas" class="category-header">The Game Canvas</h3>
+        <li>The canvas now supports a cut and paste workflow for placeable objects using <span class="reference">CTRL</span> + <span class="reference">X</span> to cut and <span class="reference">CTRL</span> + <span class="reference">V</span> to paste. <a href="https://github.com/foundryvtt/foundryvtt/issues/12408" target="_blank">(12408)</a></li>
+    </ul>
+</section>
+<section id="api">
+<h2 class="section-header border">API Improvements</h2>
+    <h3 id="api-docs" class="category-header">Documents and Data</h3>
+    <ul>
+        <li><code>GameTime#worldTime</code> updates which occur as part of a <code>Combat</code> turn or round change are now processed and emitted before the <code>Combat</code> update so that the <code>worldTime</code> is already the new time in <code>Combat#_onUpdate</code> callbacks and hooks. <a href="https://github.com/foundryvtt/foundryvtt/issues/11619" target="_blank">(11619)</a></li>
+        <li><code>CombatTracker#_shouldHighlightToken</code> has been replaced with <code>CombatTracker#_isTokenVisible</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/12382" target="_blank">(12382)</a></li>
+        <li>The <code>TimeComponents</code> returned by <code>CalendarData#timeToComponents</code> have been changed to include several expanded options and remove some fields of <code>CalendarData</code> which are unused by core implementations.  <a href="https://github.com/foundryvtt/foundryvtt/issues/12385" target="_blank">(12385)</a></li>
+    </ul>
+    <h3 id="api-apps" class="category-header">Applications and User Interface</h3>
+    <ul>
+        <li>There is a new API shorthand for specifying tooltips from <code>aria-label</code>s. <a href="https://github.com/foundryvtt/foundryvtt/issues/12427" target="_blank">(12427)</a></li>
+        <li>The newly implemented <code>data-tooltip</code> <code>aria-label</code> shorthand is now used across all core software HTML templates. <a href="https://github.com/foundryvtt/foundryvtt/issues/12439" target="_blank">(12439)</a></li>
+        <li><code>CONFIG.ux</code> is a new class for configuring various interaction helper overrides for the properties of <code>CONFIG.ux.ContextMenu</code>, <code>Config.ux.Draggable</code>, <code>Config.ux.DragDrop</code>, and <code>Config.ux.TooltipManager</code>, allowing developers to offer different implementations of their respective global interaction helper classes.  <a href="https://github.com/foundryvtt/foundryvtt/issues/12404" target="_blank">(12404)</a></li>, <a href="https://github.com/foundryvtt/foundryvtt/issues/12141" target="_blank">(12141)</a></li>
+        <li>It is now possible to configure custom minimum zoom levels via <code>CONFIG.Canvas.minZoom</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/12374" target="_blank">(12374)</a></li>
+        <li><code>TooltipManager</code> can now be subclassed and configured before construction of the <code>game.tooltip</code> singleton. <a href="https://github.com/foundryvtt/foundryvtt/issues/12395" target="_blank">(12395)</a></li>
+        <li>The <code>rangePicker</code> Handlebars helper is now deprecated in favor of the custom <code>&lt;range-picker&gt;</code> HTML element. <a href="https://github.com/foundryvtt/foundryvtt/issues/12435" target="_blank">(12435)</a></li>
+    </ul>
+    <h3 id="api-canvas" class="category-header">The Game Canvas</h3>
+    <ul>
+        <li><code>TokenDocument#continueMovement</code> has been renamed to <code>TokenDocument#resumeMovement</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/12381" target="_blank">(12381)</a></li>
+        <li><code>WallConfig#editTargets</code> now has a new <code>readonly</code> getter to allow for developers to retrieve a list of editable wall points. <a href="https://github.com/foundryvtt/foundryvtt/issues/12394" target="_blank">(12394)</a></li>
+        <li>Renamed <code>Token#updateDragRulerPath</code> and <code>TokenLayer#updateDragRulerPaths</code> to <code>Token#recalculatePlannedMovementPath</code> and <code>TokenLayer#recalculatePlannedMovementPaths</code> respectively. <a href="https://github.com/foundryvtt/foundryvtt/issues/12430" target="_blank">(12430)</a></li>
+    </ul>
+</section>
+<section id="bugs">
+<h2 class="section-header border">Bug Fixes</h2>
+    <h3 id="bugs-docs" class="category-header">Documents and Data</h3>
+    <ul>
+        <li>Settings which are configured with a <code>DataField</code> type that initializes to something different than the raw value (such as a <code>SetField</code>) are now detected as the correct type when submitting the <code>SettingsConfig</code> form. <a href="https://github.com/foundryvtt/foundryvtt/issues/12358" target="_blank">(12358)</a></li>
+        <li>The Combatant context menu now renders regardless of whether a Combatant has an assigned Token. <a href="https://github.com/foundryvtt/foundryvtt/issues/12360" target="_blank">(12360)</a></li>
+        <li>Changes passed to <code>EmbeddedCollectionField</code> as part of a Combat update are no longer delivered in a polluted state, resolving an issue with Combatant update workflows related to player level accounts and Combatant Document subtypes. <a href="https://github.com/foundryvtt/foundryvtt/issues/12386" target="_blank">(12386)</a></li>
+        <li>Corrected an issue that caused "Begin Combat", "Next Turn", and "Next Round" to throw an error in cases where the Combat encounter had no Combatants. <a href="https://github.com/foundryvtt/foundryvtt/issues/12402" target="_blank">(12402)</a></li>
+        <li>Deleting a scene in a compendium with the same ID as an in-World scene no longer risks deletion of Fog Exploration or Combat encounters associated with that scene. <a href="https://github.com/foundryvtt/foundryvtt/issues/12403" target="_blank">(12403)</a></li>
+        <li>To correct for a deprecation warning, automatically generated hotbar macros no longer reference <code>globalThis.Hotbar</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/12412" target="_blank">(12412)</a></li>
+        <li><code>TableResult#documentCollection</code> no longer returns the wrong result following v13 data migrations. <a href="https://github.com/foundryvtt/foundryvtt/issues/12416" target="_blank">(12416)</a></li>
+        <li><code>ClientSettings#set</code> now returns the initialized value of the assigned setting rather than the raw value provided as user input. <a href="https://github.com/foundryvtt/foundryvtt/issues/12370" target="_blank">(12370)</a></li>
+        <li>The <code>onChange</code> callback for <code>ClientSettings#onChange</code> and the <code>clientSettingsChanged</code> hook now receive cleaned and initialized setting values rather than the raw values passed in by the set caller. <a href="https://github.com/foundryvtt/foundryvtt/issues/12371" target="_blank">(12371)</a></li>
+        <li>Compendium Art mapping now gracefully handles string values. <a href="https://github.com/foundryvtt/foundryvtt/issues/12407" target="_blank">(12407)</a></li>
+    </ul>
+    <h3 id="bugs-apps" class="category-header">Applications and User Interface</h3>
+    <ul>
+        <li><code>HTMLStringTagsElement</code> and <code>HTMLMultiSelectElement</code> no longer allow clicking to remove tags if the parent element is <code>disabled</code> or in a <code>readonly</code> state. <a href="https://github.com/foundryvtt/foundryvtt/issues/12028" target="_blank">(12028)</a></li>
+        <li>Pinching gestures with trackpad interfaces now zoom in and out on the canvas as expected instead of attempting to rotate the currently selected object. <a href="https://github.com/foundryvtt/foundryvtt/issues/12222" target="_blank">(12222)</a></li>
+        <li>Tooltip texts no longer incorrectly display a doubled localization when displayed in a folder, in addition, Tooltip Texts now support non-localized tooltip texts if they are configured with <code>data-tooltip-text</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/12355" target="_blank">(12355)</a></li>
+        <li>The "Import" header button now only appears in appropriate configuration Sheets. <a href="https://github.com/foundryvtt/foundryvtt/issues/12362" target="_blank">(12362)</a></li>
+        <li>Cancelling the creation of a Tile with the "Place Tile" tool by closing the Tile Config now clears the preview of the Tile on the canvas. <a href="https://github.com/foundryvtt/foundryvtt/issues/12367" target="_blank">(12367)</a></li>
+        <li>The Application V1 and V2 styles now use <code>cursor: var(--cursor-*)</code> instead of <code>cursor: *</code> in order to support the new mouse cursors. <a href="https://github.com/foundryvtt/foundryvtt/issues/12376" target="_blank">(12376)</a></li>
+        <li>Corrected an issue which caused the mouse cursor to be incorrectly assigned to <code>pointer</code> after dragging a placeable object and releasing. <a href="https://github.com/foundryvtt/foundryvtt/issues/12377" target="_blank">(12377)</a></li>
+        <li><code>StringField._prepareChoiceConfig</code> and <code>config.options</code> no longer return <code>undefined</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/12389" target="_blank">(12389)</a></li>
+        <li>Toggling off status effects via the TokenHUD now functions as expected. <a href="https://github.com/foundryvtt/foundryvtt/issues/12390" target="_blank">(12390)</a></li>
+        <li>Ruler labels for movement actions are now correctly localized regardless of whether an icon has been specified. <a href="https://github.com/foundryvtt/foundryvtt/issues/12405" target="_blank">(12405)</a></li>
+        <li>The Game Settings application can now be resized once more. <a href="https://github.com/foundryvtt/foundryvtt/issues/12426" target="_blank">(12426)</a></li>
+        <li>Addressed a number of issues related to the FilePicker, addressing a case where the browser could fail with an error when trying to pick any file to use as a Tile texture. <a href="https://github.com/foundryvtt/foundryvtt/issues/12364" target="_blank">(12364)</a></li>
+    </ul>
+    <h3 id="bugs-canvas" class="category-header">The Game Canvas</h3>
+    <ul>
+        <li>Synthetic Actors now correctly adopt grandchild <code>ActiveEffects</code> as part of the <code>ActorDelta</code> workflow. This corrects cases where a synthetic Actor's Item that was not yet adopted would fail to adopt that item's <code>ActiveEffects</code> as expected. <a href="https://github.com/foundryvtt/foundryvtt/issues/12359" target="_blank">(12359)</a></li>
+        <li>Token movement history waypoint labels are now displayed as expected. <a href="https://github.com/foundryvtt/foundryvtt/issues/12378" target="_blank">(12378)</a></li>
+        <li>The box select tool state is now cleared as expected to prevent cases where the selection state would get stuck when switching from the Select tool to another tool. <a href="https://github.com/foundryvtt/foundryvtt/issues/12379" target="_blank">(12379)</a></li>
+        <li>The <code>MouseInteractionManager</code> now respects the use of custom applications other than <code>canvas.app</code>, resolving an issue which would cause the <code>MouseInteractionManager</code> to not clean up properly after a drag-drop event. <a href="https://github.com/foundryvtt/foundryvtt/issues/12401" target="_blank">(12401)</a></li>
+        <li>The canvas camera now only pans to a newly placed Token for a user if the user does not already have a controlled Token. <a href="https://github.com/foundryvtt/foundryvtt/issues/12411" target="_blank">(12411)</a></li>
+    </ul>
+</section>
+<section id="documentation">
+<h2 class="section-header border">Documentation Improvements</h2>
+    <h3 id="documentation-docs" class="category-header">Documents and Data</h3>
+    <ul>
+        <li>A large number of corrections have been made to API documentation, please see the full GitHub issue for details. <a href="https://github.com/foundryvtt/foundryvtt/issues/11768" target="_blank">(11768)</a></li>
+        <li>Corrected an annotation in the documentation for <code>ActorSheetV2#_onDropFolder</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/12425" target="_blank">(12425)</a></li>
+        <li>Hooks for ApplicationV2 are now included in the API documentation. <a href="https://github.com/foundryvtt/foundryvtt/issues/11746" target="_blank">(11746)</a></li>
+        <li>Corrected a localization typo for the string “minute” in <code>TIME.minute.one</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/12361" target="_blank">(12361)</a></li>
+        <li>Corrected some syntax errors in the example given for <code>foundry.utils.Semaphore</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/12422" target="_blank">(12422)</a></li>
+    </ul>
+</section>

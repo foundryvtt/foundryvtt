@@ -1,0 +1,105 @@
+<header id="update-header">
+    <h2 class="border" id="update-title">Foundry Virtual Tabletop - Version 12 - Stable 2 Release Notes</h2>
+    <figure id="update-banner">
+        <img alt="Release Notes for Foundry Virtual Tabletop Version 12 Stable 2" src="https://r2.foundryvtt.com/website-uploads-public/screen/user_70/v12-s2-release-banner-2024-05-30.webp" title="Foundry VTT - Version 12 - Stable 2 Release Notes"/>
+        <figcaption>Welcome to the Foundry Virtual Tabletop Version 12 Stable 2 update notes. Shown: the <a href="https://foundryvtt.com/packages/soulbound-core" rel="nofollow">Core Rulebook</a>, <a href="https://foundryvtt.com/packages/soulbound-bestiary" rel="nofollow">Bestiary</a>, <a href="https://foundryvtt.com/packages/soulbound-order" rel="nofollow">Champions of Order</a>, and <a href="https://foundryvtt.com/packages/soulbound-starter-set" rel="nofollow">Starter Set</a> premium content modules for the <a href="https://foundryvtt.com/packages/age-of-sigmar-soulbound" rel="nofollow">Warhammer Age of Sigmar: Soulbound</a> game system. <em>Note: While the Warhammer Age of Sigmar game system is compatible with V12 it has not received a full compatibility update and may still contain some bugs.</em></figcaption>
+    </figure>
+</header>
+
+<section id="update-overview">
+    <p>Welcome to the second release of Foundry Virtual Tabletop Version 12. We're extremely pleased to bring this update to our community, containing a wide variety of bug fixes sourced from the feedback and bug reporting channels on our community disccord. Thank you all for submitting your feedback and helping us stay on top of bugs!</p>
+    <p>This update focuses on some post-release cleanup of bugs for Foundry VTT V12. For a complete log of all the features added in V12, please see the notes for our <a href="https://foundryvtt.com/releases/12.324" rel="nofollow" target="_blank">first release on the stable channel</a>.</p>
+    <p class="note warning"><strong>WARNING:</strong> While this is categorized as a stable release there is always a possibility of unexpected bugs or compatibility issues. As with any time you update the core software, be sure to perform a complete backup of your user data to minimize any risk of data loss.</p>
+</section>
+
+<section id="features">
+<h2 class="section-header border">New Features</h2>
+    <h3 class="category-header" id="features-canvas">The Game Canvas</h3>
+    <ul>
+        <li>Restored Wall endpoint snapping in gridless grids. <a href="https://github.com/foundryvtt/foundryvtt/issues/11081" rel="nofollow" target="_blank">(11081)</a></li>
+        <li>Replaced the private <code>AmbientLight#emitsLight</code> with the protected <code>AmbientLight#_isLightSourceDisabled</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11086" rel="nofollow" target="_blank">(11086)</a></li>
+        <li>Adjusted the prioritization for the active Vision Mode when multiple Tokens are selected. <a href="https://github.com/foundryvtt/foundryvtt/issues/11035" rel="nofollow" target="_blank">(11035)</a></li>
+        <li>Added deprecation warnings to <code>TilesLayer#roofs</code> and <code>Tile#isRoof</code> since they rely on the already deprecated <code>TileDocument#roof</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11044" rel="nofollow" target="_blank">(11044)</a></li>
+        <li>Improved Ruler label placement in gridless Scenes. <a href="https://github.com/foundryvtt/foundryvtt/issues/11045" rel="nofollow" target="_blank">(11045)</a></li>
+        <li>Holding <span class="reference">SHIFT</span> now consistently disables snapping even if <span class="reference">Force Snap to Grid Vertices</span> is enabled. <a href="https://github.com/foundryvtt/foundryvtt/issues/11071" rel="nofollow" target="_blank">(11071)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-packages">Package Development</h3>
+    <ul>
+        <li>We now avoid double-counting package warnings for deprecated fields that have been explicitly migrated. <a href="https://github.com/foundryvtt/foundryvtt/issues/10989" rel="nofollow" target="_blank">(10989)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-dice">Dice and Cards</h3>
+    <ul>
+        <li>Immediately evaluated inline rolls now always force use of non-interactive roll resolution. Deferred inline rolls now use the default roll resolution method which may be interactive. <a href="https://github.com/foundryvtt/foundryvtt/issues/10854" rel="nofollow" target="_blank">(10854)</a></li>
+        <li>Added a user permission setting for enabling manual rolls. <a href="https://github.com/foundryvtt/foundryvtt/issues/11065" rel="nofollow" target="_blank">(11065)</a></li>
+    </ul>
+</section>
+<section id="bugs">
+<h2 class="section-header border">Bug Fixes</h2>
+    <h3 class="category-header" id="bugs-docs">Documents and Data</h3>
+    <ul>
+        <li>The <code>enrichHTML</code> method no longer prevents a sheet from loading when it encounters a link to a non-existent Compendium. <a href="https://github.com/foundryvtt/foundryvtt/issues/10988" rel="nofollow" target="_blank">(10988)</a></li>
+        <li>Fixed an issue with the initial setting of the performance mode which resulted in a validation error when resetting the game settings back to default. <a href="https://github.com/foundryvtt/foundryvtt/issues/11007" rel="nofollow" target="_blank">(11007)</a></li>
+        <li>Documents that contain a <code>FilePathField</code> with base64 data will now migrate correctly. <a href="https://github.com/foundryvtt/foundryvtt/issues/11015" rel="nofollow" target="_blank">(11015)</a></li>
+        <li>A range picker's minimum is now set to the step size for a positive <code>NumberField</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11039" rel="nofollow" target="_blank">(11039)</a></li>
+        <li>The <code>Scene#createThumbnail</code> method now correctly accounts for Tile elevation. <a href="https://github.com/foundryvtt/foundryvtt/issues/11057" rel="nofollow" target="_blank">(11057)</a></li>
+        <li>The Combat Tracker now correctly renders when a Combatant is modified. <a href="https://github.com/foundryvtt/foundryvtt/issues/11062" rel="nofollow" target="_blank">(11062)</a></li>
+        <li>When determining the initial <code>img</code> field's value, Foundry now redirects to the implmentation's <code>getDefaultArtwork</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11074" rel="nofollow" target="_blank">(11074)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-apps">Applications and User Interface</h3>
+    <ul>
+        <li><code>ClientDocument.createDialog</code> no longer throws an error if the Document has type data but no sub-types other than <code>base</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11083" rel="nofollow" target="_blank">(11083)</a></li>
+        <li>The share data usage popup now correctly refers to version 12. <a href="https://github.com/foundryvtt/foundryvtt/issues/10998" rel="nofollow" target="_blank">(10998)</a></li>
+        <li>Playlist sounds are now only synced on update if game audio is unlocked. <a href="https://github.com/foundryvtt/foundryvtt/issues/11008" rel="nofollow" target="_blank">(11008)</a></li>
+        <li>Fixed an error that occurred when attempting to auto-preload the next Sound that should play in a Playlist. <a href="https://github.com/foundryvtt/foundryvtt/issues/11009" rel="nofollow" target="_blank">(11009)</a></li>
+        <li>Corrected the hint for the <span class="reference">Vision Enabled</span> field. <a href="https://github.com/foundryvtt/foundryvtt/issues/11011" rel="nofollow" target="_blank">(11011)</a></li>
+        <li>When creating a new script Macro on the hotbar, clicking the <span class="reference">Execute</span> button now saves the Macro before executing it. <a href="https://github.com/foundryvtt/foundryvtt/issues/11026" rel="nofollow" target="_blank">(11026)</a></li>
+        <li>Made the <code>AmbientLightConfig</code> sheet tolerant of cases where you switch the canvas layer before submitting the form. <a href="https://github.com/foundryvtt/foundryvtt/issues/11076" rel="nofollow" target="_blank">(11076)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-canvas">The Game Canvas</h3>
+    <ul>
+        <li>Uncontrolled Tokens with vision no longer remain a source of vision when another Token with vision is controlled by a non-GM player. <a href="https://github.com/foundryvtt/foundryvtt/issues/11016" rel="nofollow" target="_blank">(11016)</a></li>
+        <li>Updating a Drawing's text once again correctly refreshes the canvas Placeable. <a href="https://github.com/foundryvtt/foundryvtt/issues/11056" rel="nofollow" target="_blank">(11056)</a></li>
+        <li>The <code>easing</code> option of <code>Token#animate</code> is now correctly applied. <a href="https://github.com/foundryvtt/foundryvtt/issues/11084" rel="nofollow" target="_blank">(11084)</a></li>
+        <li>Tokens now once again correctly emit light even after a page refresh. <a href="https://github.com/foundryvtt/foundryvtt/issues/10997" rel="nofollow" target="_blank">(10997)</a></li>
+        <li>The grid change preview is now correctly reset when closing the Scene configuration window. <a href="https://github.com/foundryvtt/foundryvtt/issues/10999" rel="nofollow" target="_blank">(10999)</a></li>
+        <li>The scrolling status text container is no longer interactive which fixes an issue that prevented interacting with Placeables below it. <a href="https://github.com/foundryvtt/foundryvtt/issues/11001" rel="nofollow" target="_blank">(11001)</a></li>
+        <li>The canvas is no longer unnecessarily being redrawn when the Scene configuration is submitted without changes. <a href="https://github.com/foundryvtt/foundryvtt/issues/11002" rel="nofollow" target="_blank">(11002)</a></li>
+        <li>We now render the detection filter but not others on Token meshes which resolves an issue where the glow effect was not visible on invisible Tokens. <a href="https://github.com/foundryvtt/foundryvtt/issues/11006" rel="nofollow" target="_blank">(11006)</a></li>
+        <li>The canvas no longer crashes if a Token is created with data containing the ID of a Token that already exists in the Scene. <a href="https://github.com/foundryvtt/foundryvtt/issues/11012" rel="nofollow" target="_blank">(11012)</a></li>
+        <li>Rotating a drawing with text no longer results in the text being rotated twice. <a href="https://github.com/foundryvtt/foundryvtt/issues/11013" rel="nofollow" target="_blank">(11013)</a></li>
+        <li>The active Vision Mode is now initialized after vision sources are initialized. <a href="https://github.com/foundryvtt/foundryvtt/issues/11017" rel="nofollow" target="_blank">(11017)</a></li>
+        <li>The ring color no longer becomes black after <code>TokenRing#flashColor</code> is run. <a href="https://github.com/foundryvtt/foundryvtt/issues/11018" rel="nofollow" target="_blank">(11018)</a></li>
+        <li>The Prototype Token <span class="reference">Dynamic Token Ring</span> settings are now properly saved. <a href="https://github.com/foundryvtt/foundryvtt/issues/11030" rel="nofollow" target="_blank">(11030)</a></li>
+        <li>We now override Tile vision occlusion behavior with a fade effect when a Token without vision is controlled and the Tile is occluded. <a href="https://github.com/foundryvtt/foundryvtt/issues/11032" rel="nofollow" target="_blank">(11032)</a></li>
+        <li>The initial value of <code>Scene#environment.globalLight.luminosity</code> was unintentionally and incorrectly set to 0.5 (the default value for normal light sources). We added a migration that reset the global illumination luminosity to 0 for all Scenes to correct this issue. Global Illumination will provide the same brightness level as in V11 by default after the migration, which is no visible brightness change when it is toggled on. <a href="https://github.com/foundryvtt/foundryvtt/issues/11038" rel="nofollow" target="_blank">(11038)</a></li>
+        <li>Scene controls are now re-rendered when running <code>InteractionLayer#activate</code> regardless of whether the layer is already active. <a href="https://github.com/foundryvtt/foundryvtt/issues/11042" rel="nofollow" target="_blank">(11042)</a></li>
+        <li>Light level correction is no longer applied to vision and the global light source is no longer rendered when there's no global light. This fixes an issue that prevented the darkvision Vision Mode from appearing correctly. <a href="https://github.com/foundryvtt/foundryvtt/issues/11048" rel="nofollow" target="_blank">(11048)</a></li>
+        <li>Improved Token Ring subject texture loading during <code>Token#_draw</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11068" rel="nofollow" target="_blank">(11068)</a></li>
+        <li>The Token render flag <code>refresh</code> now propagates <code>refreshRingVisuals</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11072" rel="nofollow" target="_blank">(11072)</a></li>
+        <li>Preview darkness sources no longer incorrectly suppress light and vision sources. <a href="https://github.com/foundryvtt/foundryvtt/issues/11088" rel="nofollow" target="_blank">(11088)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-dice">Dice and Cards</h3>
+    <ul>
+        <li><code>Cards#sortStandard</code> no longer fails if <code>Card#suit</code> is <code>undefined</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11085" rel="nofollow" target="_blank">(11085)</a></li>
+        <li>Fixed an issue with <code>FunctionTerm</code> serialization that led to some dice terms not displaying the dice that were rolled as part of their evaluation. <a href="https://github.com/foundryvtt/foundryvtt/issues/10995" rel="nofollow" target="_blank">(10995)</a></li>
+        <li>Deterministic evaluation options no longer prompt for interactive rolls which prevents an issue where rolling on a Roll Table would sometimes prompt for manual input. <a href="https://github.com/foundryvtt/foundryvtt/issues/10996" rel="nofollow" target="_blank">(10996)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-i18n">Localization and Accessibility</h3>
+    <ul>
+        <li>If <code>ClientDocument.defaultName</code> is not defined in the system the localization now falls back to the Document name. We also fixed a localization issue in the <code>createDialog</code>'s type field label. <a href="https://github.com/foundryvtt/foundryvtt/issues/10959" rel="nofollow" target="_blank">(10959)</a></li>
+        <li>We now ensure that <code>Localization.#localizeSchema</code> uses fallback translation keys for cases where a field is translated in English but not in the currently chosen language. <a href="https://github.com/foundryvtt/foundryvtt/issues/11003" rel="nofollow" target="_blank">(11003)</a></li>
+        <li>The <code>ClientDocument.defaultName</code> now uses the label configured in <code>CONFIG.{Document}.typeLabels</code> instead of the default <code>TYPES.{Document}.{type}</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/11029" rel="nofollow" target="_blank">(11029)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-other">Other Changes</h3>
+    <ul>
+        <li>Placeable state is now refreshed if the tool is changed. <a href="https://github.com/foundryvtt/foundryvtt/issues/11052" rel="nofollow" target="_blank">(11052)</a></li>
+        <li>Fixed an issue that prevented <code>CONFIG.compatibility.excludePatterns</code> from suppressing warnings in Firefox. <a href="https://github.com/foundryvtt/foundryvtt/issues/11063" rel="nofollow" target="_blank">(11063)</a></li>
+    </ul>
+</section>
+<section id="documentation">
+<h2 class="section-header border">Documentation Improvements</h2>
+    <h3 class="category-header" id="documentation-other">Other Changes</h3>
+    <ul>
+        <li>Corrected the <code>EffectsCanvasGroup#getDarknessLevel</code> method's return type to be a number. <a href="https://github.com/foundryvtt/foundryvtt/issues/11060" rel="nofollow" target="_blank">(11060)</a></li>
+    </ul>
+</section>

@@ -64,7 +64,7 @@ shells.forEach( s => console.log(`'${s.type}'`, "type Actors have the following 
 <pre><code>const types = Item.implementation.TYPES;
 const shells = types.map( t => new Item.implementation({name: t, type: t}));
 shells.forEach( s => console.log(`'${s.type}'`, "type Items have the following attribute keys available:\nsystem.\n", s.toObject().system));</code></pre>
-<figure class="right"><img alt="Active Effects Configuration - Finding and Using Data Paths - System Data Model Version" src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_681/screen/finding-an-attribute-key-for-use-with-active-effects-2024-03-05.webp"/>
+<figure class="right">@Asset[679]
     <figcaption>An example of determining a <code>character</code> type Actor's data paths and corresponding attribute key in a game system that uses system data models.</figcaption>
     </figure>
 <p>When you run this command, the list of available data paths that can be affected by Active Effects displays. You can then use these data paths as the attribute key when creating an Active Effect. Remember to include the <code>system.</code> prefix. For example, because a <code>character</code>-type actor's strength value can be found under "<code>system</code> > abilities > <code>str</code> > <code>value</code>", the attribute key for a <code>character</code> type Actor's Strength value is <code>system.abilities.str.value</code>.</p>
@@ -78,7 +78,7 @@ shells.forEach( s => console.log(`'${s.type}'`, "type Items have the following a
 <li>At the bottom, in the console prompt, paste <code>game.system.model.Actor</code> or <code>game.system.model.Item</code> and press the Enter key.</li>
 <li>A list of types of Actors or Items is displayed based on which command you used, compressed to a single line that you can click to expand.</li>
 </ol>
-<figure class="right"><img alt="Active Effects Configuration - Finding and Using Data Paths" src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_671/screen/active-effects-configuration-finding-and-using-data-paths-2022-08-25.webp"/>
+<figure class="right">@Asset[409]
     <figcaption>An example Actor's expanded data model, showing how to find the data paths to use as Attribute Keys.</figcaption>
     </figure>
 <p>Once you know what kind of actor you want to change, you can get the list of modifiable traits for that actor type using a similar process. If the previous approach didn't work, <code>Object.keys(foundry.utils.flattenObject(game.system.model.Actor.ACTORTYPEHERE))</code>, replacing "ACTORTYPEHERE" with your chosen actor type, such as 'character'.</p>
@@ -88,7 +88,7 @@ shells.forEach( s => console.log(`'${s.type}'`, "type Items have the following a
 </section>
 <section class="collapsible"><header class="collapsible-header">Creating an Active Effect From an Actor Sheet or Item Sheet</header>
 <div class="collapsible-content">
-<figure class="right"><img alt="Active Effects - Effect Configuration" src="https://foundryvtt.s3.us-west-2.amazonaws.com/website-media-dev/user_1294/screen/active-effects-effect-configuration-2022-11-16.png"/>
+<figure class="right">@Asset[445]
 <figcaption>An example of a functional Active Effect from the dnd5e game system.</figcaption>
 </figure>
 <p>Once you have identified the data paths you want to modify, you can create an Active Effect by accessing the 'effects' tab of your character's Actor sheet. The process for creating an Active Effect is the same regardless of whether you are creating the effect on an Actor or on an Item.</p>

@@ -1,0 +1,71 @@
+<h2 class="border">When should I update?</h2>
+<p>A shiny new version of Foundry VTT may have just dropped, but this doesn't necessarily mean that you should immediately update to it!</p></p>
+<p class="note warning"><strong>WARNING</strong>: Before updating to a new generation of Foundry VTT, you should <u>always</u> backup your data and check whether your favorite modules and game systems are compatible.</p>
+<p><strong>Only use Stable builds</strong> to run a "live" game with Foundry VTT. You should only update to a Prototype, Development or Testing build if you are a community developer or a curious power user. For more information, please see the <a href="/article/versioning">Versioning</a> article.</p>
+<p>Even for a Stable build, you will likely need to wait a bit until your favorite modules and game systems update. If you use fewer modules, you'll be able to update much more quickly and easily than if you have many "must-have" modules.</p>
+
+<h2 class="border" id="backup">Back Up Your Important Data</h2>
+<p>Before updating, the first and most important thing to remember is to always <a href="/article/backups">backup any important Worlds or even take a full Snapshot</a>. Recent backups can prevent data loss and can make it easy to revert to the previous generation of Foundry VTT, should that becomes necessary.</p>
+<p class="note info">If you use one of our <a href="/article/partnerships/">official hosting partners</a>, this feature may not be available and they may have their own backup method instead. If you use one of these services, please consult their website or Discord for more information about the best way to back up your data.</p>
+
+<h2 class="border" id="compatibility">Check Module and Game System Compatibility</h2>
+<p>The <a href="https://foundryvtt.com/packages/dnd5e">Dungeons & Dragons Fifth Edition</a> and the <a href="https://foundryvtt.com/packages/pf2e">Pathfinder Second Edition</a> game systems are typically already compatible with a new Stable version when it releases. Almost all other game systems and modules will take some time to release a compatible version.</p>
+<p class="info note"><strong>Please be patient</strong> and remember that the people working on these updates are both humans with their own lives and also are typically volunteers.</p>
+<p>A great way to keep track of update progress is to join our <a href="https://discord.gg/FoundryVTT">Discord</a> and head to the <code>#modules</code> channel and to your game system's channel. Remember, just because a new version was released doesn't always mean that the release added compatibility for the new version of Foundry VTT!</p>
+
+<div class="columns">
+    <div class="column">
+        <h3 class="compatible-versions">The Maximum, Minimum, and Verified Compatibility Indicators</h3>
+        <p>Realistically, Game Systems and Modules can't be compatible with every version of Foundry VTT. Fortunately, developers can provide compatibility information which is displayed on the Foundry VTT website and helps you to understand whether a Module or Game System is likely to work with a given version of Foundry VTT.</p>
+        <p>If no specific version number is provided (the version is listed as "12" or "13" instead of something like 12.331 or 1336), this refers to all releases from that generation of Foundry VTT instead.</p> 
+        <dl>
+            <dt><strong>Minimum</strong></dt>
+            <dd>If your Foundry VTT or Game System is older than the specified minimum version, do not expect compatibility.</dd>
+            <dt><strong>Maximum</strong></dt>
+            <dd>Similarly, your Foundry VTT or Game System may be too new for an older module, and the developer may choose to specify a maximum version. If your Foundry VTT or Game System is newer than the specified maximum version, do not expect compatibility.</dd>
+            <dt><strong>Verified</strong></dt>
+            <dd>Once a developer has specifically double-checked their creation's compatibility with a given version of Foundry VTT, they can mark it as "Verified" for that version. If you see that a Game System or Module is "Verified" for a given version of Foundry VTT, you can reasonably expect it to function normally.</dd>
+        </dl>
+    </div>
+    <figure class="right"><img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/dice-so-nice-example-verified-20250324-2-2025-03-24.webp" alt="The Maximum and Verified flags for a module as demonstrated by Dice So Nice" max-width="40%">
+        <figcaption>The Maximum and Verified flags for a module as demonstrated by <a href="https://foundryvtt.com/packages/dice-so-nice">Dice So Nice</a>, a 3D dice module</figcaption>
+    </figure>
+</div>
+
+<h2 class="border" id="test-versions">Test it Out!</h2>
+<p>Before you attempt to run a real game in a new major version of Foundry VTT, you should always test it out first, particularly if you use many modules. Ideally, this testing would happen comfortably before the session that you intend to switch to the new version.</p>
+
+<h3>Testing New Foundry VTT Versions using the Windows Portable Build</h3>
+<p>This build type <span class="V12">(which is new to V13)</span> allows Windows users to conveniently test out new versions of Foundry VTT without disrupting your primary installation:</p>
+<p class="note info">You did double-check that your data is all safely backed up, right?</p>
+<ol>
+    <li><a href="https://foundryvtt.com/me/licenses">Download</a> the Windows Portable build of the new Foundry VTT version to test span</li>
+    <li>Extract the downloaded file</li>
+    <li>In the extracted folder, double-click the <code>Foundry Virtual Tabletop.exe</code> file to launch it</li>
+</ol>
+<p class="warning note"><strong>WARNING: </strong>The Windows Portable build currently uses the same Foundry VTT User Data Folder as your "real" version of Foundry VTT. We strongly recommend creating and using a new Foundry VTT User Data Folder to test with instead.</p>
+<h4>Configuring a Dedicated "Test" Foundry User Data Folder</h4>
+<p>First, create a new folder somewhere (for example, <code>D:\Foundry_VTT_User_Data_Test</code>). You can then tell Foundry VTT to use this new test user data folder in one of two ways:</p>
+<ul>
+    <li>
+        <p><strong>The Foundry VTT Setup Screen</strong></p>
+        <p>The simplest way to ensure that you do not accidentally affect your real data while testing is to <a href="https://foundryvtt.com/article/configuration/#setup"> change the Foundry User Data Folder manually</a> before testing, but it may be easy to forget this step.</p>
+    </li>
+    <li>
+        <p><strong>Windows shortcut</strong></p>
+        <p>You can create a Windows shortcut that points to your portable <code>"Foundry Virtual Table Top.exe"</code>. You can then add a launch parameter to the end of the shortcut's target to automatically use your new test User Data folder like.</p>
+        <p>For example, your shortcut's target might be: <code>"Foundry Virtual Tabletop.exe" --dataPath="D:\Foundry_VTT_User_Data_Test"</code>.</p>
+    </li>
+</ul>
+
+<h2>Testing New Foundry VTT Versions for MacOS and Linux Users</h2>
+<p>There are effective ways to test out new Foundry VTT versions on MacOS and Linux without requiring a special build type.</p>
+<p>To ensure that you do not accidentally affect your real data while testing <a href="https://foundryvtt.com/article/configuration/#setup"> make sure to change the Foundry User Data Folder manually if needed.</a></p>
+<p class="warning note"><strong>WARNING: </strong>Do not use your Foundry VTT User Data folder while testing a new version of Foundry VTT.</p>
+
+<dl>
+    <dt><strong>macOS</strong></dt>
+    <dd>There is an <a href="https://foundryvtt.wiki/en/setup/hosting/macos-node">excellent community-created and maintained guide</a> here that can help walk macOS users through the process of setting up a Node host, which will allow you to safely test a new version..</dd>
+    <dt><strong>Linux</strong></dt>
+    <dd><a href="https://foundryvtt.com/me/licenses">Download</a> the Node build to test a new version. If needed, you can also provide the <code>--dataPath</code> parameter at launch to specify a Foundry User Data Folder to use during testing.</dd>
+</dl>
