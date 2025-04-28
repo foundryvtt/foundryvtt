@@ -26,9 +26,9 @@
 <dd>Keep this up to date at all times, especially when breaking changes happen.</dd>
 </dl>
 
-<h2>Package Compatibility</h2>
+<h2 id="compatibility">Package Compatibility</h2>
 <p>Packages can denote compatibility with Foundry VTT core versions using the compatibility field (see @Article[module-development]).</p>
-<p>The <code>minimum</code> and <code>maximum</code> fields are hard enforced by the core software. A package marked <code>minimum: 11</code> and <code>maximum: 11</code> can only be installed and enabled on a Version 11 build of Foundry VTT. It's not possible to install it in V10, nor V12. It will not show up in the list of packages available to install for a V11 user, and if already installed, will flag a red error in the UI and refuse to enable inside of a World.</p>
+<p>The <code>minimum</code> and <code>maximum</code> fields are hard enforced by the core software. A package marked <code>minimum: 12</code> and <code>maximum: 12</code> can only be installed and enabled on a Version 12 build of Foundry VTT. It's not possible to install it in V11, nor V13. It will not show up in the list of packages available to install for a V13 user, and if already installed, will flag a red error in the UI and refuse to enable inside of a World.</p>
 
 The <code>verified</code> field meanwhile is used to provide guidance to the user. For example, <code>verified: 11</code> or <code>verified: 11.300</code> does not block usage of the package. The first format is generation-wide, the second is build-specific, but in both cases the following occurs:
 <ol>
@@ -40,7 +40,7 @@ The <code>verified</code> field meanwhile is used to provide guidance to the use
 In all of these cases, the package still shows up in the install list (so long as it isn't archived), can be installed, and can be enabled in a World.
 
 <h3>Sidegrading</h3>
-<p>To assist in keeping compatibility up-to-date, we offer a feature called Sidegrading. If a remote manifest and/or the website does not offer a new version, but does offer new metadata, the local installed version of that Package gets sidegraded with the new values. Please see the chart in "0.8.2+ Onward" (below) for easy visual reference of what fields are included, and how they are treated.</p>
+<p>To assist in keeping compatibility up-to-date, we offer a feature called sidegrading. If a remote manifest and/or the website does not offer a new version, but does offer new metadata, the local installed version of that Package gets sidegraded with the new values. Please see the chart below)for easy visual reference of what fields are included, and how they are treated.</p>
 <p>We highly recommend package admins keep their compatibility info updated on the website for best user experience, with the following per-field advice:</p>
 <dl>
 	<dt>minimum:</dt>
@@ -72,19 +72,8 @@ In all of these cases, the package still shows up in the install list (so long a
 <li>Foundry downloads the manifest's <code>download</code> url and checks if it is a zip file. If so, it unzips.</li>
 </ol>
 
-<h2 class="border">How Foundry checks for Package Updates</h2>
+<h2 class="border" id="check-update">How Foundry checks for Package Updates</h2>
 
-<h4 id="before-082">Before 0.8.2</h4>
-<ol>
-<li>User initiates the flow by either clicking on "Check Update" an individual module or the "Update All" button.</li>
-<li>Foundry fetches the manifest from the url in the currently installed package's manifest json.</li>
-<li>Foundry compares the <code>version</code> strings of the installed module's manifest against the fetched manifest.<br />2.a If the user is doing this on an individual package they have to then click the "Update" button.</li>
-<li>If Foundry determines that the fetched manifest json has a newer version, it then downloads that manifest's <code>download</code> and checks if it is a zip file. If so, it unzips.</li>
-</ol>
-<p class="note info">The above process has changed as of 0.8.2 to align with the steps below.</p>
-
-<h4 id="h-082"><strong>0.8.2+ Onward</strong></h4>
-<ol>
 <li>User initiates the flow by either clicking on "Check Update" an individual module or the "Update All" button.</li>
 <li>If the Package is listed in the Package Repository:<br />2.a Foundry checks to see if the <code>manifest</code> field has changed in the listing and points to a newer version compatible with the installed version of Foundry.<br />2.b If so, Foundry prompts the User to see if they want to use the old local value, or the new Package Repository value (recommended)<br />2.c If the User selects "Yes", the local <code>manifest</code> is overwritten with the new value from the Package Repository</li>
 <li>Foundry fetches the manifest from the url in the currently installed package's manifest json.</li>
