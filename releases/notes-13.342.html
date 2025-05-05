@@ -1,0 +1,44 @@
+<header id="update-header">
+    <h2 class="border" id="update-title">Foundry Virtual Tabletop - Version 13 - Stable 2 Release Notes</h2>
+    <figure id="update-banner">
+        <img alt="Release Notes for Foundry Virtual Tabletop Version 13" src="https://r2.foundryvtt.com/website-uploads-public/screen/user_671/v13-stable-release-banner-2025-04-29.webp" title="Foundry VTT - Version 13 - Stable Release Notes"/>
+        <figcaption>Welcome to the Foundry Virtual Tabletop update notes for Version 13.342</figcaption>
+    </figure>
+</header>
+
+<section id="update-overview">
+    <p>This build is just a fast turnaround update that addresses a few edge case bugs which were not caught during testing, there are no significant feature changes worth highlighting. The whole of this update serves to fix a few bugs that cropped up related to package installation and world migrations for certain very specific cases. </p>
+    <p class="note warning"><strong>WARNING:</strong> While this is categorized as a stable release there is always a possibility of unexpected bugs or compatibility issues. As with any time you update the core software, be sure to perform a complete backup of your user data to minimize any risk of data loss.</p>
+</section>
+
+<section id="features">
+<h2 class="section-header border">New Features</h2>
+    <h3 class="category-header" id="features-packages">Package Development</h3>
+    <ul>
+        <li>Installing a package via manifest URL directly now displays a warning and confirmation dialog in cases where the package would be incompatible with the current Foundry VTT software version. <a href="https://github.com/foundryvtt/foundryvtt/issues/12699" rel="nofollow" target="_blank">(12699)</a></li>
+    </ul>
+</section>
+<section id="bugs">
+<h2 class="section-header border">Bug Fixes</h2>
+    <h3 class="category-header" id="bugs-docs">Documents and Data</h3>
+    <ul>
+        <li>The "Draw Result" button on <code>RollTableSheet</code> is no longer disabled when completing a draw with replacement and no longer requires reopening the table to re-enable it. <a href="https://github.com/foundryvtt/foundryvtt/issues/12698" rel="nofollow" target="_blank">(12698)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-apps">Applications and User Interface</h3>
+    <ul>
+        <li>The UPnP checkbox is available in the Configuration window of the Setup screen again. <a href="https://github.com/foundryvtt/foundryvtt/issues/12710" rel="nofollow" target="_blank">(12710)</a></li>
+        <li>The package installation workflow no longer attempts to sidegrade to the latest compatible version of a package when installing via manifest URL. <a href="https://github.com/foundryvtt/foundryvtt/issues/12705" rel="nofollow" target="_blank">(12705)</a></li>        
+        <li>In cases where the connection to the Foundry VTT website is unavailable, the core software instance no longer allows updating to a version of a system/module that is not compatible with the currently installed version. <a href="https://github.com/foundryvtt/foundryvtt/issues/12690" rel="nofollow" target="_blank">(12690)</a></li>
+        <li>Package favorites now render as expected during the intial rendering of <code>SetupPackages</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/12697" rel="nofollow" target="_blank">(12697)</a></li>
+        <li>Corrected an issue which allowed instances launched using the <code>--world</code> flag to bypass version compatibility checks for the launched World. <a href="https://github.com/foundryvtt/foundryvtt/issues/12700" rel="nofollow" target="_blank">(12700)</a></li>
+        <li>Launching a World no longer throws an error during migrations in cases where <code>--no-backup</code> has been configured. <a href="https://github.com/foundryvtt/foundryvtt/issues/12695" rel="nofollow" target="_blank">(12695)</a></li>
+        <li>Shadow DOM elements of disabled range input elements no longer show a pointer cursor when hovered. <a href="https://github.com/foundryvtt/foundryvtt/issues/12704" rel="nofollow" target="_blank">(12704)</a></li>
+        <li>Reframed the text for the Region Layer Create Holes toolclip to provide increased clarity on tool usage. <a href="https://github.com/foundryvtt/foundryvtt/issues/12673" rel="nofollow" target="_blank">(12673)</a></li>
+        <li>Shifted a definition of <code>--background</code> out of <code>.themed.theme-light</code> to allow it to be defined specifically in <code>.application</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/12639" rel="nofollow" target="_blank">(12639)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-canvas">The Game Canvas</h3>
+    <ul>
+        <li><code>Region#_overlapsSelection</code> now uses <code>RegionDocument#clipperPaths</code> instead of the deprecated <code>Region#clipperPaths</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/12671" rel="nofollow" target="_blank">(12671)</a></li>
+        <li><code>TokenConfig</code> overrides non-existent <code>_disableFields</code> method. <a href="https://github.com/foundryvtt/foundryvtt/issues/12703" rel="nofollow" target="_blank">(12703)</a></li>
+    </ul>
+ </section>
