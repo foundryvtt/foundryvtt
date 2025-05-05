@@ -1,0 +1,261 @@
+<header id="update-header">
+    <h2 class="border" id="update-title">Foundry Virtual Tabletop - Version 13 - Stable Release Notes</h2>
+    <figure id="update-banner">
+        <img alt="Release Notes for Foundry Virtual Tabletop Version 13" src="https://r2.foundryvtt.com/website-uploads-public/screen/user_671/v13-stable-release-banner-2025-04-29.webp" title="Foundry VTT - Version 13 - Stable Release Notes"/>
+        <figcaption>Welcome to the Foundry Virtual Tabletop update notes for Version 13 Stable</figcaption>
+    </figure>
+</header>
+
+<section id="update-overview">
+<p>It's finally here! We are very proud to announce the full, stable release of Foundry Virtual Tabletop Version 13. This release is the culmination of months of hard work, thorough testing, and a mountain of completed GitHub issues. While this particular update specifically targeted bug fixes and very minor changes from our previous V13 Testing 5 release, these notes also include a comprehensive list of changes for those users updating from Version 12 to Version 13. 
+</p><p>We do feel obligated to remind users that while our development community is very dedicated and often swift to update for new versions of Foundry VTT, it does take <strong>time</strong> for them to prepare their systems and modules when we release a new version. Not all game systems and modules will be compatible with Version 13 on release- so do take the time to confirm your favourite systems are working before updating. If you're not certain whether your modules and game systems are ready for Version 13, remember that the Compatibility Preview tool is available through the update section of the setup menu so you can check how many of your current packages are  V13-ready!</p>
+<p class="note warning"><strong>WARNING:</strong> While this is categorized as a stable release there is always a possibility of unexpected bugs or compatibility issues. As with any time you update the core software, be sure to perform a complete backup of your user data to minimize any risk of data loss.</p>  
+<p>Now that development has concluded for new features in V13, speaking on behalf of the team, we think it represents our greatest version of Foundry VTT yet, and we hope you'll all enjoy the changes it brings. Version 13 focused on two key pillars— a complete overhaul of user interface in order to update to the new Application V2 underlying framework, and, of course, the community voted feature: Token Drag Measurement.</p>
+    <section class="collapsible">
+        <header class="collapsible-header">IMPORTANT: How to Update Safely To a New Version </header>
+        <div class="collapsible-content">
+    <p class="note error">This update performs a data migration when worlds are launched which <u>cannot be reversed</u> if you do not back up your data.</p>
+        <ol>
+            <li><strong>(NEW OPTIONAL STEP)</strong> For Windows users, Version 13 offers a new 'portable' build which comes packaged with its own separate UserData folders. If you wish to try out V13 without any possible risk to your existing data, simply download the portable build and try it fresh. You will have to enter your license key, which can be found on <a href="https://foundryvtt.com/me/licenses" rel="nofollow">the download page</a>.</li>
+            <li><a href="https://foundryvtt.com/article/backups/" rel="nofollow" target="_blank">Back up your User Data</a>. A full snapshot backup is strongly recommended, but not required.</li>
+            <li>Version 13 contains updates to dependent packages which require a full reinstallation, you must uninstall your existing version of Foundry VTT. Most notably, Version 13 now requires Node 20+ (for those launching the program using NodeJS).</li>
+            <li>Download and install the Version 13 Stable Release (Build 341). You may not update to version 13 using the in-application updater. You must reinstall using a full download from <a href="https://foundryvtt.com/me/licenses" rel="nofollow">the download page</a>.</li>
+            <li>After launching Foundry VTT in v13, take a moment to update your Game Systems and Add-on Modules. Some systems and modules will have a V13 compatible version available, some will not.</li>
+            <li>Launch your World. Be aware that in order to protect your data, any existing worlds will have all modules disabled during the first launch in Version 13. When you click launch, a prompt will remind you that this is the last opportunity to save your data if you have not already performed a backup!</li>        
+            <li>Take some time to test your World and make sure everything is in working order before re-enabling any modules. </li>
+            <li>Carefully re-enable a few Modules at a time, choosing ones you view as most essential. Take the time to test your World in-between, just to make sure nothing has drastically changed.</li>    
+            <li>If everything has gone well, congratulations! Enjoy all the new features Version 13 brings! In the event you need to revert to V12 you can restore the backup you saved during step 2.</li>
+        </ol>
+        </div>
+    </section>
+    
+    <section id="update-highlights">
+	<h2 class="section-header border">V13 Comprehensive Highlights</h2>
+    <p>As the first stable release for V13, these notes showcase the biggest changes that we've introduced since V12, but as hard as we might try these highlights can only offer a brief glimpse of all that has changed. For a more thorough, in-depth, comprehensive understanding of the changes, we encourage our community to read through the patch notes for each release of the V13 development cycle:</p>
+    <ul>
+        <li><a href="https://foundryvtt.com/releases/13.332" rel="nofollow">Version 13 Prototype 1</a></li>
+        <li><a href="https://foundryvtt.com/releases/13.333" rel="nofollow">Version 13 Prototype 2</a></li>
+        <li><a href="https://foundryvtt.com/releases/13.334" rel="nofollow">Version 13 API Development 1</a></li>
+        <li><a href="https://foundryvtt.com/releases/13.335" rel="nofollow">Version 13 API Development 2</a></li>
+        <li><a href="https://foundryvtt.com/releases/13.326" rel="nofollow">Version 13 Testing 1</a></li>
+        <li><a href="https://foundryvtt.com/releases/13.337" rel="nofollow">Version 13 Testing 2</a></li>
+        <li><a href="https://foundryvtt.com/releases/13.338" rel="nofollow">Version 13 Testing 3</a></li>
+        <li><a href="https://foundryvtt.com/releases/13.339" rel="nofollow">Version 13 Testing 4</a></li>
+        <li><a href="https://foundryvtt.com/releases/13.340" rel="nofollow">Version 13 Testing 5</a></li>
+    </ul>
+
+<div id="ux">
+        <h3 class="border">Built for Comfort (UX and UI)</h3>
+
+            <p>V13 brings with it sweeping changes to the UX and UI of Foundry VTT.  We set out in V13 to update all of our existing Applications to use the new ApplicationV2 framework, and we have succeeded on that front!</p>
+            <p>In moving to AppV2, we also set ourselves the goal of breathing some new life into the user interface through Theme V2. We wanted to achieve a more modern look and feel for our entire UI, but it was also important to us that we not make the new UI less approachable and intuitive than the UI that preceded it. Those of you who have any experience in UX and UI design know just how challenging it can be to renovate instead of construct new, but we think we've managed to hit the sweet spot here!</p>      
+            <p>Foundry VTT's interface elements now automatically adapt to the settings from your operating system or browser— if you've configured your preference for a darker theme, Foundry VTT's UI will be dark; if you prefer light mode, it will be light. This preference can be overridden with a world-level setting found in the game settings menu. Speaking of settings, the settings menu now also contains a number of controls for numerous UI elements, including options for rescaling, changing the degree of opacity in the automatic fade, disabling the fade entirely, and more! </p>
+            <p>More than just a mild retheming, the UI also got a new level of polish. Most UI elements are now sharper, a little more visually striking. The "Game Paused" display is now centralized and has a slightly more subtle, less spin-related animation. The canvas controls are now a little smaller but more visually distinct by way of additional spacing; the previous scene navigation bar is now a collapsed navigation menu instead. The macro hotbar is now more centralized, balanced on each side with additional controls. The sidebar is now more of a 'cabinet' style which occupies the complete vertical space, collapsed by default in order to draw the eye to the canvas. The chatlog maintains a cleaner display of its cards without a background, and foregoes the previous dropdown menu for Roll Mode selection for four handy icons instead. The chat entry field remains displayed regardless of what tab of the sidebar you are on, and a minimalist chat notifications tray will show the previous few messages for a short period of time without needing to open the chat log. Additionally we managed to squeeze some very clean feeling animations into the UI for that smooth modern feel without sacrificing performance. </p>
+            <figure class="image-showcase">
+                <img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_671/the-game-ui-in-light-mode-2025-04-29.webp"/> 
+                <img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_671/the-game-ui-in-dark-mode-2025-04-29.webp"/> 
+                
+            </figure>        
+            <figcaption class="note center">Light and Dark themes are shown against a backdrop of magical combat.</figcaption>
+            <p>Community developers can also rejoice as we've migrated entirely to using <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@layer" rel="nofollow" target="_blank">CSS Layers</a> for Foundry VTT-controlled UI elements, which should make it easier for developers to more specifically target and reskin our UI while also making it easier to identify just how far those changes are going to go. This lets everyone (our team included) be a little less specific with their CSS selectors without having to worry about it obliterating whole sections of the UI. We're also in the process of deprecating jQuery, for those of you who might want to rejoice over such things.</p>
+            <p>A few last notes to bring up about user experience and interface: the canvas now supports cut and paste in addition to copy and paste, so you can save yourself a few delete operations when you want to move your party! Also, as a boon for those using a touchpad or certain touch interfaces, we've corrected some issues with multitouch interfaces and pinching should now zoom in and out the way you might expect instead of trying to rotate your token.</p>
+</div>
+<h3 class="border">Haul and Drag (Token Drag Measurement and Movement Changes) </h3>
+<div id="token-drag">
+    <figure class="right">
+        <video autoplay="" loop="loop" muted="true" src="https://r2.foundryvtt.com/website-uploads-public/asset/user_681/token-drag-movement-demo-2025-02-28.webm"></video>
+        <figcaption>A demonstration of a complex movement using Token Drag Measurement.</figcaption>
+    </figure>
+    <figure class="right"><img src="https://r2.foundryvtt.com/website-uploads-public/asset/user_671/movement-types-demo-2025-04-17.gif"/>
+        <figcaption>A Token menu showcasing an early version of the available movement types</figcaption>
+       </figure>
+            <p>Token Drag Measurement was the winner of the patreon-voted priotization poll for V13, and it has finally arrived! This feature comprehensively changes the way token movement works in Foundry VTT, allowing you to drag a token around the canvas and have the distance of that drag measured as you go. Token Drag Measurement features two styles of movement:</p>
+            <ul>
+                <li>Simple Movement - This type of movement occurs by simply clicking and dragging your token from one space to another on the grid, and will display the distance your token will move with a visible ruler until you drop the token, at which point the move will immediately execute, relocating the token to its new position.</li>
+                <li>Complex Movement (Waypoints) - This type of movement occurs by beginning your drag operation with a <span class="key">CTRL + click</span> (<span class="key">⌘ CMD + click</span> for macOS) of the token, and while holding <span class="key">CTRL</span> (<span class="key">⌘ CMD</span> for macOS) allows you to left click multiple times to place additional waypoints. You can also increase or decrease elevation as part of the waypoint by using your mousewheel. Right-clicking removes existing waypoints, and clicking with <span class="key">CTRL</span> (<span class="key">⌘ CMD</span> for macOS) released will execute the movement operation, moving the token to each waypoint along the way. You can also press escape to erase all waypoints and cancel the move. In keeping with the standard operations for other canvas tools, holding the <span class="key">ALT</span> key while performing this operation as a GM hides the movement ruler from your players.</li>
+            </ul>
+            <p>The updates to incorporate a hybrid ruler measurement and drag movement system also brought a few additional UX changes we hope you'll enjoy. Tokens now automatically rotate to face their movement direction when being moved, for the topdown token users who prefer it (portrait style token users can lock their artwork rotation under the appearance tab of their tokens to disable this behavior). Tokens can now have their "type" of movement configured from the Token HUD, with a number of preconfigured Movement Action options already included, and users can now cycle through those movement types by pressing the <span class="key">TAB</span> key when performing a complex (waypoint) move. </p>
+            <h4>Moving Right Along</h4>
+            <p>Additionally, since we now have more detailed measured movement thanks to Token Drag Measurement, we've added a new Scene Region Behavior. Modify Movement Cost provides a simple way for users to create regions that multiply the value used when calculating how much a grid space is considered to be when moving through it. This allows for systems that have rules about things like "difficult terrain" to easily multiply the cost of movement without having to resize the grid. Likewise, this region behavior can be configured to apply only to certain types of movement, allowing a token to swim at normal speed but walk at half speed, for example.</p>
+</div>
+<div id="lights">
+    
+        <h3 class="border">Red Light Indicates Doors are Secured (Lights, Doors, and Turn Markers)</h3>
+        <p>It wouldn't be an update to Foundry VTT without including new features for the canvas and this Version is no exception. This time around we've got a suite of small but significant changes for lighting, doors, and a couple of small perks for tokens.</p>
+            <h4>Lights and Sounds</h4>
+            <figure class="column right noborder">
+                <video autoplay="" controls="" loop="loop" muted="true" src="https://r2.foundryvtt.com/website-uploads-public/asset/user_70/sound-reactive-lights-trimmed-2025-04-29.webm"></video>
+                <figcaption>A demonstration of the Sound Reactive Pulse light animation.</figcaption>
+            </figure>
+            <p>A lot of RPGs have a concept of light and darkness competing for visibility in game terms. Does that magical darkness snuff out a torch? is it blasted away by a magical light spell? Does the black hole outside the ship consume any light you shine into it? Previously, there was no real way of handling these competing light options, but light sources now have a field for defining "priority". Setting a priority on a light or darkness source determines its relative importance— higher priority lights will overwrite lower-priority darkness, unless both have the same set priority, in which case darkness sources will always win out. </p>
+            <p>Speaking of darkness sources, we've also expanded the radius of the visible effect for darkness sources just slightly in order to allow players to benefit from some of the cool darkness source animations and visual effects while also providing a visible way for them to understand that there is <strong>something</strong> causing that chunk of the map to prevent their ability to see. We've also taken the time to extend the types of lights that Tokens can carry to include darkness sources the way they carry light sources now, configurable via the token menu.</p>
+            <p>If that wasn't enough, we've also introduced a new type of light source animation. Sound reactive lights automatically synchronize with game sound, pulsing in time with the beat for those times when you want to set up an encounter in a nightclub or for those deep dark cavernous goblin raves.</p>
+          <h4>That's Right, The Door's Opening.</h4>
+          <figure class="column right noborder">
+            <video autoplay="" loop="loop" muted="true" src="https://r2.foundryvtt.com/website-uploads-public/asset/user_671/animated-doors-demonstration-2024-10-16.webm"></video>
+            <figcaption>A demonstration of a variety of door animations in use.</figcaption>
+        </figure>
+            <p>One of the first features to move from the Ember project into the main Foundry VTT codebase is a set of new options that allow animating doors. Doors can now be configured to animate when opening or closing, using one of the included default textures from our good friends at Forgotten Adventures, or using your own custom texture if you are so inclined. With them comes a suite of options allowing you to configure the speed of animation, direction of opening, and how far they open when activated.  There are a variety of animation options available, including:</p>
+                <ul>
+                    <li><strong>Ascend</strong> - When opened, the door will appear to rise into a recess in the ceiling.</li>
+                    <li><strong>Descend</strong> - When opened, the door will appear to lower into a recess in the floor.</li>
+                    <li><strong>Slide</strong> - When opened, the door will appear to slide away to its left or right.</li>
+                    <li><strong>Swing</strong> - When opened, the door will move with a traditional hinged swing from a side pivot point.</li>
+                    <li><strong>Swivel</strong> - When opened, the door will rotate on a central pivot point.</li>
+                </ul>
+                <h4>The Mark Has Been Made (Combat Turn Markers)</h4>
+                <p>One final canvas feature to highlight is the addition of Combat Turn Markers— the option to configure a simple marker indicating whose turn it is during combat, adding a little icon beneath their token. This is a feature that has been on our roadmap for a long time, but it was often managed by a variety of community-developed modules, so it was fairly low urgency. In V13, however, we've added core software support and we hope that community developers will expand on the feature and leverage our API to add their own custom animations and symbols in their modules. This feature allows a GM to switch which texture (both image and video assets are supported) will be used beneath a token to indicate their turn, and they may also configure from amongst a short list of animation styles to make those images a little more eye-catching.</p>
+</div>
+
+<div id="builds">
+        <h3 class="border">Papa Got a Brand New...Build</h3>
+        <p>One final significant change worth highlighting might seem slightly less glamourous, but is no less important. Beginning in the testing cycle of V13 we began packaging and releasing a few new types of software build to offer more support for specific users. The Linux/NodeJS build is no more. Instead, we offer a separate NodeJS build and a separate Linux electron build, to allow those users who don't have interest in running the electron build of the software to run a simple headless copy through Node directly. The Linux electron build also received a small upgrade to offer support for ARM64 architecture natively for those users who want to run the electron client on ARM64 systems. While these changes are smaller, there's one slightly more significant change that benefits a wider array of users:</p>
+        <h4>Windows Portable Build</h4>
+        <p>For quite some time it has been possible for users of our macOS and Linux builds to set up portable configurations of Foundry VTT by placing the software on a USB drive and configuring the userdata folder to one that resides on the same drive. Now we have brought that possibility to Windows users. </p>
+        <p>The Windows Portable build comes as a single zip file which, when unzipped, contains an App folder that holds the Foundry VTT software. When the application is first run, it automatically creates three new folders in its parent directory- Config, Data, and Logs, and it is configured to use those folders by default, making it convenient to unzip onto a USB drive in a single FoundryVTT folder that will house it.</p>
+        <p>The Portable build operates the same as any other Foundry VTT instance, but spares the need for Windows users to follow standard installation procedures, allowing you to take Foundry VTT with you on a convenient portable drive and use it from any computer, without needing to wonder whether you left your data behind. Additionally, this is particularly beneficial for Windows users who would like to try out a new version of Foundry VTT without risking any changes to their existing setups.</p>
+        <pre><code>E:\
+    ├──FOUNDRYVTT-PORTABLE-13.341
+            ├───App
+            ├───Config
+            ├───Data
+            └───Logs</code></pre>   
+</div>
+
+<section id="breaking">
+<h2 class="section-header border">Breaking Changes</h2>
+    <ul>
+        <li>To resolve an issue with Actor and Item sheets falling back to the AppV1 sheets, default actor and item sheet registrations have been removed. <a href="https://github.com/foundryvtt/foundryvtt/issues/12617" rel="nofollow" target="_blank">(12617)</a></li>
+    </ul>
+</section>
+<section id="features">
+<h2 class="section-header border">New Features</h2>
+    <h3 class="category-header" id="features-apps">Applications and User Interface</h3>
+    <ul>
+        <li>Movement actions in Token Config and Token HUD are now arranged in accordance with their <code>order</code> property rather than alphabetically. <a href="https://github.com/foundryvtt/foundryvtt/issues/12593" rel="nofollow" target="_blank">(12593)</a></li>
+        <li>Improved the contrast of the Roll initiative button in Combat Tracker when using the light theme. <a href="https://github.com/foundryvtt/foundryvtt/issues/12626" rel="nofollow" target="_blank">(12626)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-canvas">The Game Canvas</h3>
+    <ul>
+        <li>xx <code>PrototypeTokenOverrides</code> can now be applied to Tokens already placed in a Scene. <a href="https://github.com/foundryvtt/foundryvtt/issues/12140" rel="nofollow" target="_blank">(12140)</a></li>
+        <li>Reverted the client notification behavior for texture loading to its previous progress-tracking state. <a href="https://github.com/foundryvtt/foundryvtt/issues/12554" rel="nofollow" target="_blank">(12554)</a></li>
+        <li>Provided some improvements to the New User Experience default scene, correcting some bugs with initial view position. In addition, <code>game.nue.createDefaultScene</code> is now a public API method. <a href="https://github.com/foundryvtt/foundryvtt/issues/12684" rel="nofollow" target="_blank">(12684)</a></li>
+        
+    </ul>
+    <h3 class="category-header" id="features-i18n">Localization and Accessibility</h3>
+    <ul>
+        <li>"Blink (Teleport)" and "Displace (Teleport)" have been relabelled and are now "Teleport (Blink)" / "Teleport (Displace)". <a href="https://github.com/foundryvtt/foundryvtt/issues/12633" rel="nofollow" target="_blank">(12633)</a></li>
+    </ul>
+</section>
+<section id="api">
+<h2 class="section-header border">API Improvements</h2>
+    <h3 class="category-header" id="bugs-docs">Documents and Data</h3>
+    <ul>
+        <li><code>Roll#render</code> now contains a reference to the containing <code>ChatMessage</code> Document if the Roll is being rendered in the context of a <code>ChatMessage</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/12569" rel="nofollow" target="_blank">(12569)</a></li>
+        <li>If a <code>ChatMessage</code> subclass defines both <code>getHTML</code> and <code>renderHTML</code> methods it will no longer trigger an unnecessary deprecation warning. <a href="https://github.com/foundryvtt/foundryvtt/issues/12582" rel="nofollow" target="_blank">(12582)</a></li>
+        <li>The new <code>CalendarData#add</code> method provides a way for developers to add time components to an initial given time to determine a new resulting time without committing that change to the database. <a href="https://github.com/foundryvtt/foundryvtt/issues/12568" rel="nofollow" target="_blank">(12568)</a></li>
+        <li><code>Mixin</code> class definitions now extend an empty class instead of <code>Object</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/12650" rel="nofollow" target="_blank">(12650)</a></li>
+    </ul>
+    <h3 class="category-header" id="api-canvas">The Game Canvas</h3>
+    <ul>
+        <li>The result of <code>BaseGrid#measurePath</code> now includes Euclidean distance measurements as <code>.euclidean</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/12510" rel="nofollow" target="_blank">(12510)</a></li>
+        <li><code>GridLayer#measureDistance</code> now supplies a more informative deprecation warning. <a href="https://github.com/foundryvtt/foundryvtt/issues/12519" rel="nofollow" target="_blank">(12519)</a></li>
+        <li>In the interest of parity with Documents, <code>PlaceableObject.implementation</code> and <code>foundry.utils.getPlaceableObjectClass</code> have been added as new helper methods. <a href="https://github.com/foundryvtt/foundryvtt/issues/12563" rel="nofollow" target="_blank">(12563)</a></li>
+    </ul>
+</section>
+<section id="bugs">
+<h2 class="section-header border">Bug Fixes</h2>
+    <h3 class="category-header" id="bugs-architecture">Architecture and Infrastructure</h3>
+    <ul>
+        <li>The Windows Portable build now correctly persists application configuration settings. <a href="https://github.com/foundryvtt/foundryvtt/issues/11615" rel="nofollow" target="_blank">(12615)</a></li>
+        <li>To resolve an issue which could sometimes cause package listings to fail to load on slower or unreliable connections, the timeout threshold for retrieving package listings has been increased.<a href="https://github.com/foundryvtt/foundryvtt/issues/12647" rel="nofollow" target="_blank">(12647)</a></li>
+        <li>Corrected an issue which could cause the Host address to be incorrect when returning to setup with a proxy server in play. <a href="https://github.com/foundryvtt/foundryvtt/issues/12584" rel="nofollow" target="_blank">(12584)</a></li>
+
+    </ul>
+    <h3 class="category-header" id="bugs-docs">Documents and Data</h3>
+    <ul>
+        <li>Corrected a Handlebars rendering issue that prevented the adding of new <code>TableResult</code>s without first rendering in view mode. <a href="https://github.com/foundryvtt/foundryvtt/issues/12551" rel="nofollow" target="_blank">(12551)</a></li>
+        <li>Fields inside <code>TypedObjectField</code>s can now localized automatically. <a href="https://github.com/foundryvtt/foundryvtt/issues/12591" rel="nofollow" target="_blank">(12591)</a></li>
+        <li><code>ArrayField/TypedObjectField#_getField</code> now verifies that the path matches the name of the <code>element</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/12622" rel="nofollow" target="_blank">(12622)</a></li>
+        <li>The <code>options</code> parameter of <code>JournalPageSheet#goToPage</code> is now optional. <a href="https://github.com/foundryvtt/foundryvtt/issues/12635" rel="nofollow" target="_blank">(12635)</a></li>
+        <li>If no scene is active and multiple scenes are created at once, the first scene that is created with <code>active: true</code> in the creation data is now activated provided that at least one of the entries is configured with <code>active: true</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/12642" rel="nofollow" target="_blank">(12642)</a></li>
+        <li>Moving a Scene into a compendium pack now clears the "Show in Navigation" state for that scene as expected. <a href="https://github.com/foundryvtt/foundryvtt/issues/12643" rel="nofollow" target="_blank">(12643)</a></li>
+        <li>The scale data for Tokens in TokenConfig now uses data from the source Document. <a href="https://github.com/foundryvtt/foundryvtt/issues/12665" rel="nofollow" target="_blank">(12665)</a></li>
+        <li><code>Card.metadata.labelPlural</code> is now uses the correct <code>DOCUMENT.CardPlural</code> "Cards" instead of an invalid i18n string. <a href="https://github.com/foundryvtt/foundryvtt/issues/12652" rel="nofollow" target="_blank">(12652)</a></li>
+ </ul>
+    <h3 class="category-header" id="bugs-apps">Applications and User Interface</h3>
+    <ul>
+        <li>Saving the The JournalEntry sheet config now saves changes to the global <code>DefaultSheet</code> as expected. <a href="https://github.com/foundryvtt/foundryvtt/issues/12638" rel="nofollow" target="_blank">(12638)</a></li>
+        <li>Corrected an issue that caused context menus to render below Applications in some cases. <a href="https://github.com/foundryvtt/foundryvtt/issues/10502" rel="nofollow" target="_blank">(10502)</a></li>
+        <li>Corrected an issue that prevented linking to Journal Text Page Subheadings from separate journal pages. <a href="https://github.com/foundryvtt/foundryvtt/issues/12545" rel="nofollow" target="_blank">(12545)</a></li>
+        <li>Improved tag contrast and visibility in the Module Management Application to improve user readability for version labels among other things.  <a href="https://github.com/foundryvtt/foundryvtt/issues/12549" rel="nofollow" target="_blank">(12549)</a></li>
+        <li>Resolved an issue that caused newly rendered context menus to position the #context-menu at top left of the application window instead of their expected location. <a href="https://github.com/foundryvtt/foundryvtt/issues/12552" rel="nofollow" target="_blank">(12552)</a></li>
+        <li>Corrected an issue which caused the drawing of blank tiles using the Place Tile tool to fail with error on non-square grid scenes.  <a href="https://github.com/foundryvtt/foundryvtt/issues/12555" rel="nofollow" target="_blank">(12555)</a></li>
+        <li>Resolved an issue with the configuration window for Map Notes which would display "Note: Null" when configuring a newly created Map Note. <a href="https://github.com/foundryvtt/foundryvtt/issues/12570" rel="nofollow" target="_blank">(12570)</a></li>
+        <li>Cancelling Map Note creation no longer results in empty created map notes that remain on the canvas. <a href="https://github.com/foundryvtt/foundryvtt/issues/12571" rel="nofollow" target="_blank">(12571)</a></li>
+        <li>Corrected an alignment issue that could occur when collapsing the Table of Contents in a Journal  Application. <a href="https://github.com/foundryvtt/foundryvtt/issues/12577" rel="nofollow" target="_blank">(12577)</a></li>
+        <li>AppV1 sheets no longer offers theme options intended to apply to ApplicationV2 instances. <a href="https://github.com/foundryvtt/foundryvtt/issues/12583" rel="nofollow" target="_blank">(12583)</a></li>
+        <li>The Token HUD and Config no longer displays an option for Movement Action if the Token has no available defined movement actions. <a href="https://github.com/foundryvtt/foundryvtt/issues/12594" rel="nofollow" target="_blank">(12594)</a></li>
+        <li>Fixed an issue that prevented the function of the Loop button on the Playlist sidebar tab. <a href="https://github.com/foundryvtt/foundryvtt/issues/12598" rel="nofollow" target="_blank">(12598)</a></li>
+        <li>Checkboxes created via the <code>radioBoxes</code> helper now honor their checked state as expected. <a href="https://github.com/foundryvtt/foundryvtt/issues/12600" rel="nofollow" target="_blank">(12600)</a></li>
+        <li>The confirmation of deletion dialog when pressing the Delete Key no longer displays if there are no objects selected on the canvas. <a href="https://github.com/foundryvtt/foundryvtt/issues/12601" rel="nofollow" target="_blank">(12601)</a></li>
+        <li>Changing movement action type now places a label on the path of a Complex Move without placing an explicit waypoint in order to indicate the movement type has changed. <a href="https://github.com/foundryvtt/foundryvtt/issues/12604" rel="nofollow" target="_blank">(12604)</a></li>
+        <li>Resolved an issue which caused the Elevation (delta) in the token ruler waypoint labels to not be displayed in certain cases. <a href="https://github.com/foundryvtt/foundryvtt/issues/12605" rel="nofollow" target="_blank">(12605)</a></li>
+        <li>Resolved an issue which required an additional click to place a waypoint after pressing tab to cycle movement action. <a href="https://github.com/foundryvtt/foundryvtt/issues/12606" rel="nofollow" target="_blank">(12606)</a></li>
+        <li>Toggling Sorting modes now apply on first click as expected. <a href="https://github.com/foundryvtt/foundryvtt/issues/12608" rel="nofollow" target="_blank">(12608)</a></li>
+        <li>Diagonal keyboard movement no longer moves the token two grid spaces at once. <a href="https://github.com/foundryvtt/foundryvtt/issues/12609" rel="nofollow" target="_blank">(12609)</a></li>
+        <li>Resolved an issue that resulted from checking <code>DragStart</code> permissions in the Setup view <code>FilePicker</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/12619" rel="nofollow" target="_blank">(12619)</a></li>
+        <li>Clicking the name of a module in <code>Module Configuration</code> toggles the module as enabled once more. <a href="https://github.com/foundryvtt/foundryvtt/issues/12623" rel="nofollow" target="_blank">(12623)</a></li>
+        <li>Compendiums now maintain scroll position during re-renders. <a href="https://github.com/foundryvtt/foundryvtt/issues/12636" rel="nofollow" target="_blank">(12636)</a></li>
+        <li>The launch world button on the Setup screen now handles the display of a context menu on right-click rather than launching that world. <a href="https://github.com/foundryvtt/foundryvtt/issues/12640" rel="nofollow" target="_blank">(12640)</a></li>
+        <li>Corrected a styling issue that resulted in window breakages when a Journal Page included a wide table. <a href="https://github.com/foundryvtt/foundryvtt/issues/12573" rel="nofollow" target="_blank">(12573)</a></li>
+        <li>Resolved an issue that caused duplicate display of hint text for Custom Keybindings. <a href="https://github.com/foundryvtt/foundryvtt/issues/12657" rel="nofollow" target="_blank">(12657)</a></li>
+        <li>Macro hotbar context menus no longer get clipped as a result of UI scaling. <a href="https://github.com/foundryvtt/foundryvtt/issues/12637" rel="nofollow" target="_blank">(12637)</a></li>
+        <li>Double-clicking a token to open an Actor Sheet no longer triggers a deprecation warning. <a href="https://github.com/foundryvtt/foundryvtt/issues/12521" rel="nofollow" target="_blank">(12521)</a></li>
+        <li>The Token HUD no longer locks to the first token selected in cases where multiple tokens are currently selected.  <a href="https://github.com/foundryvtt/foundryvtt/issues/12659" rel="nofollow" target="_blank">(12659)</a></li>
+        <li>Resolved a regression with <code>SceneControls</code> button variables that resulted in toggle buttons failing to appear in their intended state.  <a href="https://github.com/foundryvtt/foundryvtt/issues/12660" rel="nofollow" target="_blank">(12660)</a></li>
+        <li><code>ApplicationV2#submit</code> now returns the value of the form submission handler (if any).  <a href="https://github.com/foundryvtt/foundryvtt/issues/12660" rel="nofollow" target="_blank">(12660)</a></li>
+        <li>The <code>selectOptions</code> Handlebars helper now supports configuring <code>Set</code> as a type of its <code>selected</code> parameter. <a href="https://github.com/foundryvtt/foundryvtt/issues/12517" rel="nofollow" target="_blank">(12517)</a></li>
+        <li>It is now possible to update <code>CONFIG.ui.sidebar.TABS</code> before the sidebar is rendered. <a href="https://github.com/foundryvtt/foundryvtt/issues/12541" rel="nofollow" target="_blank">(12541)</a></li>
+        <li>Resolved an issue with content return paths in <code>FontConfig</code> which prevented the Font Configuration application from functioning as expected. <a href="https://github.com/foundryvtt/foundryvtt/issues/12547" rel="nofollow" target="_blank">(12547)</a></li>
+        <li>Resolved an issue which caused duplicate entries to appear in the results of <code>getHeaderControls</code> when mutating the array of ApplicationV2 header control buttons of an <code>ActorSheetV2</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/12556" rel="nofollow" target="_blank">(12556)</a></li>
+        <li>Corrected a bug which could cause <code>this.element</code> of a given <code>ChatLog.#postOne()</code> to return <code>null</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/12560" rel="nofollow" target="_blank">(12560)</a></li>
+        <li><code>ModuleManagement</code> now offers a deprecation path and backwards compatibility support for the now removed <code>ModuleManagement.CONFIG_SETTING</code> static property. <a href="https://github.com/foundryvtt/foundryvtt/issues/12587" rel="nofollow" target="_blank">(12587)</a></li>
+        <li><code>Game#tooltip</code> is now constructed after the <code>init</code> hook to resolve an issue which prevented subclassing. <a href="https://github.com/foundryvtt/foundryvtt/issues/12589" rel="nofollow" target="_blank">(12589)</a></li>
+        <li><code>collectionSortingModes</code> now provides a defined key for compendium browser. <a href="https://github.com/foundryvtt/foundryvtt/issues/12607" rel="nofollow" target="_blank">(12607)</a></li>
+        <li>Sheets for Documents that have not yet been created (such as an unsaved macro) no longer show <code>DocumentSheetConfig</code> in their header controls. <a href="https://github.com/foundryvtt/foundryvtt/issues/12645" rel="nofollow" target="_blank">(12645)</a></li>
+        <li>Corrected a styling bug which caused scene navigation icons to be nearly invisible when using the light theme. <a href="https://github.com/foundryvtt/foundryvtt/issues/12685" rel="nofollow" target="_blank">(12685)</a></li>
+        <li>Pressing enter on the Token Configuration while an input field is focused no longer adds an unintended Detection Mode.<a href="https://github.com/foundryvtt/foundryvtt/issues/12682" rel="nofollow" target="_blank">(12682)</a></li>
+        <li>Font Family selection for <code>NoteConfig</code> is now a select input again.<a href="https://github.com/foundryvtt/foundryvtt/issues/12675" rel="nofollow" target="_blank">(12675)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-canvas">The Game Canvas</h3>
+    <ul>
+        <li>Resolved an issue which could cause <code>ActorDelta#restore</code> to fail with an error when trying to use <code>getSheetClassesForSubtype</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/12565" rel="nofollow" target="_blank">(12565)</a></li>
+        <li>Corrected an issue which caused the unintentional override of some Movement Type animation options. <a href="https://github.com/foundryvtt/foundryvtt/issues/12592" rel="nofollow" target="_blank">(12592)</a></li>
+        <li><code>TokenApplicationMixin#_prepareIdentityTab</code> no longer throws errors for <code>PrototypeToken</code> as a result of the <code>canSelect</code> function accessing <code>token.actor</code>.  <a href="https://github.com/foundryvtt/foundryvtt/issues/12603" rel="nofollow" target="_blank">(12603)</a></li>
+        <li><code>ActorDelta</code> changes made to synthetic actors now apply immediately rather than requiring a refresh. <a href="https://github.com/foundryvtt/foundryvtt/issues/12611" rel="nofollow" target="_blank">(12611)</a></li>
+        <li><code>Canvas#fog</code> is now initialized (re-initialized if necessary) after <code>canvasInit</code>, allowing <code>CONFIG.Canvas.fogManager</code> to be configured in <code>init</code> and in <code>canvasInit</code> for a specific scene. <a href="https://github.com/foundryvtt/foundryvtt/issues/12631" rel="nofollow" target="_blank">(12631)</a></li>
+        <li>Moving a separate token on the canvas no longer causes an existing Token Configuration preview to vanish. <a href="https://github.com/foundryvtt/foundryvtt/issues/12634" rel="nofollow" target="_blank">(12634)</a></li>
+        <li>Resolved an issue which caused certain darkness sources to have the wrong radius applied to the mesh of their visual effect.<a href="https://github.com/foundryvtt/foundryvtt/issues/12683" rel="nofollow" target="_blank">(12683)</a></li>
+        <li>The Display Scrolling Text behavior now animates over the point where a token leaves the region when it is subscribed to the Token Animate Out event.<a href="https://github.com/foundryvtt/foundryvtt/issues/12680" rel="nofollow" target="_blank">(12680)</a></li>
+
+    </ul>
+    <h3 class="category-header" id="bugs-packages">Package Development</h3>
+    <ul>
+        <li>The Preview Compatibility tool will now display even in cases where a release of the same generation cannot be installed via the internal software updater. <a href="https://github.com/foundryvtt/foundryvtt/issues/12566" rel="nofollow" target="_blank">(12566)</a></li>
+        <li>Corrected an issue which caused the organization of checkboxes on <code>ModuleManagement</code> to become offset as a result of overflow. <a href="https://github.com/foundryvtt/foundryvtt/issues/12595" rel="nofollow" target="_blank">(12595)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-i18n">Localization and Accessibility</h3>
+    <ul>
+        <li>Fixed a broken i18n localization label in the Create Folder dialog. <a href="https://github.com/foundryvtt/foundryvtt/issues/12548" rel="nofollow" target="_blank">(12548)</a></li>
+        <li>Corrected capitalizaiton of CALENDAR.GREGORIAN localization keys. <a href="https://github.com/foundryvtt/foundryvtt/issues/12596" rel="nofollow" target="_blank">(12596)</a></li>
+        <li><code>WORLD.GameSystem</code> is now localized in the Support &amp; Issues Application. <a href="https://github.com/foundryvtt/foundryvtt/issues/12625" rel="nofollow" target="_blank">(12625)</a></li>
+    </ul>
+</section>
+<section id="documentation">
+<h2 class="section-header border">Documentation Improvements</h2>
+    <ul>
+        <li>Corrected a typo in the deprecation warning for the <code>FilePathField</code> constructor. <a href="https://github.com/foundryvtt/foundryvtt/issues/12616" rel="nofollow" target="_blank">(12616)</a></li>
+        <li><code>ProseMirrorInputConfig#height</code> now provides documentation. <a href="https://github.com/foundryvtt/foundryvtt/issues/12624" rel="nofollow" target="_blank">(12624)</a></li>
+    </ul>
+</section></section></section>
