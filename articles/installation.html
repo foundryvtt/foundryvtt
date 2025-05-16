@@ -1,48 +1,84 @@
 <h2 id="overview">Overview</h2>
-<p>Foundry Virtual Tabletop is available cross-platform, so users of Windows, macOS, and various linux distributions can all host servers for their GMs and Players to use conveniently and easily. This article will instruct you on how to download and install of Foundry VTT for your operating system, and warn you of some of the more common pitfalls users face when trying to install for the first time.</p>
-<h2 class="border" id="downloading">Downloading Foundry VTT</h2>
-<figure>
-	@Asset[857]
-	<figcaption>A step-by-step guide to finding your license key and most recent download for Foundry Virtual Tabletop.</figcaption>
-</figure>
-<p>If you have purchased a Foundry license, the links to download the latest stable release of the software are available in the <a href="https://foundryvtt.com/me/licenses">Foundry website account's "Licenses" tab</a> as shown above.</p>
+<p>Foundry Virtual Tabletop is a "cross-platform" application that is compatible all major operating systems including Windows, macOS, and various Linux distributions.</p>
+<!-- TODO: add back in somewhere? 
+ This installer that makes this possible is a combination of a specialized Chromium web browser and a lightweight Foundry VTT game server.
+-->
+<p>This article covers downloading, installing, and activating Foundry VTT for all platforms and for several different purposes:</p>
+<dl>
+    <dt>The Recommended Installation Process</dt>
+        <dd>This section covers the standard method to download, install, and activate Foundry VTT. The vast majority of new and existing users should follow these instructions.</dd>
+    <dt>Installation Options</dt>
+        <dd>Additional available download and installation options are covered here.</dd>
+    <dt>Specialized Installation Instructions</dt>
+        <dd>This article also presents instructions for downloading and installing Foundry to achieve specific goals, such as:
+            <ul>
+                <li>Downloading and installing an older version of the software</li>
+                <li>Installing a "portable" version of Foundry VTT</li>
+                <li>Managing multiple versions of Foundry VTT on the same machine</li>
+                <!-- <li>Helping a friend install and use Foundry VTT by sharing your license</li> -->
+                <li>Setting up a dedicated "headless" Foundry VTT server</li>
+            </ul>
+        </dd>
+</dl>
 
-<p>The Foundry VTT standalone application is the recommended installation path for most users: it bundles the Foundry game server software with a built-in Chromium web browser to serve as a client view, allowing you to interact with the server directly and conveniently. If you are planning on a more unusual configuration of Foundry (for example, a dedicated headless server), instructions are available <a href="#dedicated">later in this article.</a></p>
-<p>You may have noticed the "Timed URL" button located next to the standard Download button. This alternate method can be convenient in certain cases, such as when you would like to allow a friend to download Foundry for you or if you need to download Foundry using a command line.</p>
 
-<section class="collapsible">
-    <header id="timed-url" class="collapsible-header">Downloading Foundry via a Timed URL</header>
-    <div class="collapsible-content">
-        <div class="columns">
-            <div class="column">
-                <p>Click the "Timed URL" button to generate a temporary Foundry download link. You can use this link in two different ways:
+<h2 class="border" id="recommmended">The Recommended Installation Process</h2>
+<p>This section covers how to download, install, and activate the standard Foundry VTT desktop application so that you can "self-host" Foundry VTT games directly on your own computer. 
+<p>Unless you are an experienced Foundry VTT user and have a specific reason, you should always follow this standard process to download, activate, and install Foundry VTT.</p>
+
+<h3 class="border" id="download">Downloading Foundry VTT</h3>
+<p>Typically, to download the software you must own a valid Foundry VTT license. If necessary, you can <a href="https://foundryvtt.com/purchase/">purchase</a> one here.</p>
+<div class="columns">
+    <div class="column" style="width:50%">
+        <ol>
+            <li>
+                <p><strong>Log in</strong></p>
+                <p>First, ensure that you are logged into the <a href="https://foundryvtt.com/">Foundry VTT website</a> with the account that owns your license.</p>
+            </li>
+            <br>
+            <li>    
+                <p><strong>Click "Download Software" ( <i class="fas fa-download"> </i> )</strong></p>
+                <p>Clicking this button automatically takes you to the "Purchased Licenses" tab of your user account where you can download the software.</p>  
+                <p>You can also access this same "Purchased Licenses" tab clicking it directly in your account profile.</p>
+            </li>
+            <br>
+            <li>
+                <p><strong>Choose your download options</strong></p>
                 <dl>
-                    <dt><strong>Web browser</strong></dt>
-                        <dd>To use the download link is to simply paste it into the address bar of your web browser. If the link is still valid, your download will begin automatically.</dd>
-                    <dt><strong>Command line</strong></dt>
-                        <dd>Alternatively, this link can be used to download Foundry VTT using a command line utility such as <code>wget</code>. When using the link in the command, it is important to wrap the link in double-quotes. For example:
-                            <pre><code class="language bash">wget -O foundryvtt.zip "PASTED-URL-FROM-FOUNDRY-WEBSITE-HERE"</code></pre>
-                        </dd>
-                </dl>
-            </div>
-            <figure class="right">@Asset[643]
-                <figcaption>The "Timed URL" download button</figcaption>
-            </figure>
-        </div>
-        <p class="info note">Please be aware that the download links provided via the purchased licenses page expire every 5 minutes.</p>
+                    <dt>Version</dt>
+                        <dd>Choose the "Recommended" version at the very top.</dd>
+                        <dd>This is always the newest and most reliable version of Foundry VTT.</dd>
+                    <dt>Operating System</dt>
+                        <dd>If you are a Windows user, choose the "Windows" option here.</dd>
+                        <dd>If you use macOS or Linux, choose that option instead.</dd>
+                </dl> 
+                <p>For information, please see <a href="#options">Additional Installation Options</a>.</p>                    
+            </li>
+            <br>
+            <li>
+                <p><strong>Click <i class="fas fa-cloud-download-alt"> </i> "Download" </strong></p>
+                <p>When you click this button, your download begins!</p>                
+            </li>
+        </ol>
     </div>
-</section>
+    <div class="column" style="width:50%">
+        <figure" style="min-width:50%">	
+            <img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/installation_diagram_large_20250502-2025-05-02.webp" alt="Follow these steps to download Foundry VTT from the website.">
+            <figcaption>Follow these steps to download Foundry VTT from the website.</figcaption>
+        </figure>
+    </div>
+</div>
+<p class="note info"><strong>NOTE:</strong> If you do not see the "Download Software" button or the "Purchased Licenses" tab, you are not logged into an account that owns a valid Foundry VTT license.</p>
+<p>If you believe that you do own a Foundry VTT license, you may accidentally be logged in with duplicate acount. If you need assistance, please use the <a href="https://foundryvtt.com/contact-us/">Contact Us</a> form.</p>
 
-<h2 id="installing" class="border">Installing The Software</h2>
+<h3 id="installing" class="border">Installing the Software</h3>
+<p>Next, use the downloaded file to install Foundry VTT like any other application:</p> 
 
 <section class="collapsible">
     <header id="windowsinstall" class="collapsible-header">Installation - Windows</header>
     <div class="collapsible-content">
-        <p>If you are using the Windows version of Foundry VTT there is an installation process necessary once you have downloaded the installer. To install the software, run the setup executable file that you downloaded.</p>
-        <p>During the installation process you will be asked for an installation location. Despite being the default path for installation, it is recommended to install Foundry VTT in a location not contained within the Program Files directory, as this can result in some permission issues when updating the software.</p>
-        <p> Once installation is complete, you can launch Foundry VTT using either the shortcut in the start menu, on your desktop, or by running the FoundryVTT.exe file located within your installation location.</p>
-        <h4>Microsoft Defender SmartScreen</h4>
-        <p>In rare cases you may see a warning message from Microsoft Defender SmartScreen. To allow Foundry Virtual Tabletop to pass the Defender SmartScreen, click <strong>More Info</strong> and then click <strong>Run Anyway</strong> Alternatively, if you have stronger security settings applied, you may need to right-click the file, click Properties, and mark the checkbox <strong>Unblock</strong> in the Security section.</p>
+        <p>To install the Foundry VTT Desktop application, run the setup executable file as usual.</p> 
+        <p> <em>(Optional)</em>: if you choose a custom installation location outside the usual Program Files directory, you may avoid some potential hassles with Windows permissions while updating the software.</p>
     </div>
 </section>
 
@@ -50,8 +86,8 @@
     <header id="macinstall" class="collapsible-header">Installation - macOS</header>
     <div class="collapsible-content">
         <p>If you are using the macOS version of Foundry VTT, there are some steps which are required to allow you to run the app.</p> 
-        <p>Because the macOS copy of Foundry VTT is not code-signed through Apple's developer process, you may see a notification when you try to run the app that advises you that the application cannot be opened.</p>
-        <p class="info note"><strong>Note:</strong> More information on this security process from Apple can be found <a href="https://support.apple.com/en-ca/HT202491" target="_blank" rel="nofollow noopener">here</a>.</p>
+        <p>Because the macOS copy of Foundry VTT is not code-signed through Apple's official process, you may see a notification when you try to run the app that advises you that the application cannot be opened.</p>
+        <p class="info note"><strong>Note:</strong> More information on this security process from Apple can be found <a href="https://support.apple.com/en-ca/HT202491" target="_blank" rel="nofollow noopener">on their website here</a>.</p>
     </div>
 </section>
 
@@ -60,56 +96,241 @@
     <div class="collapsible-content">
         <p>For Linux users, Foundry Virtual Tabletop is currently distributed as a simple <code><strong>.zip</strong></code> archive. All you need to do is extract the zip file in a location of your choosing. Feel free to choose whatever installation location is best for you, a simple option would be to use a folder named foundryvtt in your user home directory.</p> <pre><code>unzip foundryvtt.zip -d $HOME/foundryvtt</code></pre>
         <p>Once you have extracted the archive, locate the <code>foundryvtt</code> file in the directory and set the permission on it to allow execution as a program. This will allow you to execute it from the terminal with <code>./foundryvtt</code>. Alternatively, on some Linux distributions (Deb/Ubuntu) you can rename the <code>foundryvtt</code> file to add a .sh extension. This will allow you to quickly launch it by double-clicking. At this time there is no Linux .desktop packaged with Foundry VTT.</p>
+        <p>Another option for Linux users to consider is using the <a href="#build-types">Node</a> installer. It is a bit lighter-weight than the traditional Linux installer and may be more compatible with certain architectures.</p>
     </div>
 </section>
 
-<h2 id="licensekey" class="border">Entering your Software License</h2>
-<p>When you have launched the application you will initially be greeted by a window prompting you to enter your Software License Key. Enter your purchased Software License key and click <strong>Submit</strong>.</p>
-<figure>@Asset[19]
-	<figcaption>Enter your purchased Software License Key in this field.</figcaption>
-</figure>
-<p>After entering your license key you will be prompted to sign the End User License Agreement, agreeing to the terms of the software will contact the Foundry web server to validate and sign your license so, for this step of the process <strong>an internet connection is required</strong>.</p>
-<p>That's it, you're ready! Now it's time to get started by checking out the @Article[tutorial] and for a guide on ensuring your players are able to connect be sure to take any necessary steps to set up @Article[port-forwarding].</p>
 
-<h2 id="dedicated" class="border">Hosting a Dedicated Server with Node.js</h2>
+<h3 id="activating" class="border">Activating the Software</h3>
+<p>Once Foundry VTT is fully installed, the final step of the installation process is to launch it and activate it.</p>
+
+<section class="collapsible">
+    <header id="licensekey" class="collapsible-header">Entering your license key</header>
+    <div class="collapsible-content">
+        <p>When Foundry VTT opens, a screen displays asking for your Software License Key.</p>
+        <p>Copy your Foundry VTT software license key directly from either your receipt email or from the Purchased Licenses tab of the website, then paste it in and click <strong>Submit</strong>.</p>
+        <p class="info note"><strong>TIP:</strong> To prevent data entry mistakes, copying and pasting the software license key rather than attempting to type it in manually is <u>highly recommended</u>.</p>
+        <figure>@Asset[19]
+            <figcaption>Paste your purchased Software License Key into this field.</figcaption>
+        </figure>
+    </div>
+</section>
+
+<section class="collapsible">
+    <header id="accept" class="collapsible-header">Accepting the EULA and (optional) data sharing</header>
+    <div class="collapsible-content">
+        <p>After entering your license key, the End User License Agreement displays.</p>
+        <p>Although Foundry VTT can typically be run entirely offline, you <strong>need an internet connection for this step</strong> so that your license key can be validated and that you can agreed to the <a href="https://foundryvtt.com/article/license/">software license</a>.</p>
+        <p class="note info">If you cannot accept the license agreement, make sure that you pasted in your license key and ensure that all third-party ad-blockers, VPNs, and anti-malware applications are disabled.</p>
+        <p>When prompted, feel free to opt in or out to sharing your anonymized usage data as well. For full information about the (very minimal) data is collected and what we do with it, please see our <a href="/article/privacy-policy/">privacy policy</a>.</p> 
+    </div>
+</section>
+<p>And that's it, you're now fully installed and ready to go!</p>
+<p>From here, try checking out the @Article[tutorial]. Also, be sure that your players are able to connect by setting up @Article[port-forwarding].</p>
+
+
+<h2 class="border" id="options">Additional Installation Options</h2>
+<p>For simplicity, the <a href="#recommended">recommended installation process</a> often provided instructions to pick a single option out of many. This section provides additional information about the other choices that are available during the process of downloading and installing Foundry VTT.</p>
+<section class="collapsible">
+    <header id="version-options" class="collapsible-header">Version Options</header>
+    <div class="collapsible-content">
+        <p>In addition to the current Recommended version, there are many other versions of Foundry VTT available in the "Versions" dropdown menu that experienced Foundry users might want to choose under certain circumstances:</p>
+        <dl>
+            <dt>Older Stable versions</dt>
+                <dd>Foundry VTT never forces you to update versions, and some users choose to download an older Stable version for that is more compatibility with a favorite game system or module.</dd>
+            <dt>Experimental versions</dt>
+                <dd>During the Foundry VTT development cycle, experimental builds are classified as Prototype, Development, or Testing so that community developers and power users can follow along with our progress and offer feedback.</dd>
+                <dd>Please bear in mind that <strong>these builds are not intended to run live games</strong> and they should be used with few, if any, modules enabled. If you do want to check one out, please review the <a href="https://foundryvtt.com/article/versions">versions kb article</a> before downloading and installing the software.</dd>
+        </dl>
+    </div>
+</section>
+
+<section class="collapsible">
+    <header id="build-types" class="collapsible-header">"Operating System" Options</header>
+    <div class="collapsible-content">
+        <div class="columns">
+            <div class="column">
+                <p>Although these options are called "Operating System" options, it's perhaps more useful to think of these options as "build types" for Foundry VTT. Five different Foundry VTT build types are currently available:</p>
+                <dl>
+                    <dt>The "Windows", "macOS", and "Linux" Installers</dt>    
+                        <dd>These three options are the "standard" Foundry VTT installers. Each of these options install very similar desktop applications, just designed run on the specified operating system.</dd>
+                        <dd>The Foundry VTT desktop application that they create includes both a light-weight Foundry game server and a built-in, specialized Chromium web browser. Such an application is the classic way of running Foundry VTT—launching one of them allows you to "self-host" your Foundry VTT games directly on your own computer.</dd>
+                    <dt>The Node.JS Installer</dt>
+                        <dd>The Node.JS Installer is cross-platform and can run on Linux, macOS, or Windows. This is particularly useful to <a href="#dedicated">run a dedicated Foundry VTT server</a> or to <a href="#multiple-versions">run multiple Foundry VTT installations</a> on macOS or Linux.</dd>   
+                    <dt>The Windows Portable Build Installer</dt>
+                        <dd><span class="V12">New for Foundry V13,</span>, you can use the Windows Portable Build to create a "standalone" or "portable" installation of Foundry VTT that is entirely self-contained within a single folder.</dd>
+                        <dd>For additional details information and instructions, please see "<a href="#portable">Installing a "Portable" version of Foundry VTT</a>".</dd>
+                </dl>
+            </div>  
+            <figure class="right">
+                <img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/available-build-types-20250502-2025-05-02.webp" alt="The build types available for download">
+                <figcaption>The available build types that can be downloaded using the "Operating Systems" dropdown menu.</figcaption>
+            </figure>
+        </div>
+        <h5 id="linux-node" class="border">Wait, where did the "Linux/Node" installers go? Why isn't the "Node" available for older versions?</h5>
+        <p>The "Linux" and "Node" build types became available in <a href="/releases/13.342">Foundry VTT Version 13.338</a>, shortly before the release of V13 Stable.</p>
+        <p>Previously, the legacy "Linux/Node" installer was used to install both the Linux desktop application and the Node version of Foundry vtt (for Linux, macOS, and Windows). Separating the Linux and Node installation process allows us to provide leaner installers.</p>
+        <p>The two new installers were not retroactively created for past versions of Foundry VTT. The "Linux" versions that are available for versions of Foundry VTT prior to version 13.338 are the exact same artifacts that were previously called the "Linux/Node" installers, just with a revised name.</p> 
+    </div>
+</section>  
+
+<section class="collapsible">
+    <header id="download-options" class="collapsible-header">Alternative Download Option: Generating a Timed URL link</header>
+    <div class="collapsible-content">
+<!-- TODO: add download link after adding "friend installation section"-->
+        <p>You may have noticed the "Timed URL" button located next to the standard "Download" button. This button can be used to generate a temporary Foundry VTT download link, called a "timed url," which is useful in specific circumstances.</p> 
+        <p class="info note">Please be aware that these timed URL download links expire after 5 minutes minutes.</p>
+        <div class="columns">
+            <div class="column">
+                <p>When you click this button, the website creates and automatically copies a temporary URL link that can be used to download the software. While it is valid, you can use this link in two different ways:
+                    <dl>
+                        <dt><strong>Web browser</strong></dt>
+                            <dd>To easiest and most common way to use this download link is to simply paste it into the address bar of a web browser. If the link is still valid, the Foundry VTT software download begins automatically.</dd>
+                        <dt><strong>Command line</strong></dt>
+                            <dd>Alternatively, this link can be used to download Foundry VTT using a command line utility such as <code>wget</code>. When using the link in the command, it is important to wrap the link in double-quotes. For example:
+                                <pre><code class="language bash">wget -O foundryvtt.zip "PASTED-URL-FROM-FOUNDRY-WEBSITE-HERE"</code></pre>
+                            </dd>
+                    </dl>
+            </div>
+            <figure class="right">@Asset[643]
+                <figcaption>The "Timed URL" download button</figcaption>
+            </figure>
+        </div>
+    </div>
+</section>
+
+
+<h2 class="border" id="advanced">Advanced Installation Processes</h2>
+<p>This section provides instructions for the more atypical ways to download, install, and configure Foundry VTT.</p>
+
+<!-- TODO 
+<section class="collapsible">
+    <header id="timed-url" class="collapsible-header">Helping a friend to install and use Foundry VTT by sharing your license</header>
+    <div class="collapsible-content">
+        <p>TODO</p>
+    </div>
+</section>
+-->
+
+<section class="collapsible">
+    <header id="older-version" class="collapsible-header">Installing an Older Version of Foundry VTT</header>
+    <div class="collapsible-content">
+        <p>Sometimes users prefer to deliberately install an older version of Foundry VTT rather than the latest Stable version. This happens most frequently just after a new Stable version of Foundry VTT is released and a particular game system or module has not yet updated to the new version.</p>
+        <p>When considering which version of to use, it is important to know that when a world is launched in a newer version of Foundry VTT for the first time, an automatic data migration may begin automatically.</p>
+        <p class="warning note">After a data migration, the World may no longer be launchable in older versions of Foundry VTT. This cannot be reversed except by reverting to a backup.</p>
+        <p>With proper <a href="/article/backups">backups</a>, the process of installing an older version of Foundry VTT is quite straightforward and safe.</p>
+        <ol>
+            <li>Take a backup of any important worlds</li>
+            <li>Uninstall the previous version of Foundry VTT</li>
+            <li>Follow the <a href="#recommended">recommended installation process</a>, but in the the Versions dropdown pick the older version instead of the Recommended one</li>
+            <li>Uninstall and reinstall your game system(s)</li>
+            <li>If a world won't launch, restore it to the most recent backup from the previous version of Foundry VTT</li>
+        </ol>
+    </div>
+</section>
+
+<section class="collapsible">
+    <header id="portable" class="collapsible-header">Installing a "portable" version of Foundry VTT</header>
+    <div class="collapsible-content">
+        <p>A "portable" application is one that can be installed and run anywhere, such as on a USB stick or a dedicated external hard drive. This can be particularly useful when you are preparing for a game in one location, and then running the game from a different machine. This may happen while traveling, or when you are running an in-person game that is enhanced by using Foundry VTT connected to a physical display.</p>
+        <p>The best way of setting up a portable build depends on your operating system:</p>
+                    <dl>
+                        <dt>Windows</dt>
+                            <dd>Foundry installations created using the <a href="#build-types">Windows Portable Installer</a> can be completely self-contained within a single folder, so multiple independent installations can be achieved just by using the appropriate Windows Portable builds in inside different folders. For additional information, see <a href="#windows-portable">The Windows Portable Build</a> below.</dd>
+                        <dt>macOS and Linux</dt>
+                            <dd>The architecture of macOS and Linux are much more friendly to running portable applications, so no dedicated Foundry VTT build is required. Folder-level Foundry installations are possible in macOS and Linux by using only the Node.js installer. For macOS users, there's a <a href="https://foundryvtt.wiki/en/setup/hosting/macos-node">community-created guide</a> on the topic that may particularly helpful.</dd>
+                    </dl>
+        <h3 class="border" id="windows-portable">The Windows Portable Build</h3>
+        <p><span class="V12">New for Foundry V13,</span> the Windows Portable Build isn't a traditional Windows installer at all. Instead, the "installer" is a single zip that can be extracted anywhere to create a self-contained version of Foundry VTT in that location.</p>
+        <p>The process of deploying and using a Windows Portable Build is quite simple:</p>
+        <ol>
+            <li>Use the <a href="#recommended">recommended installation process</a>, but pick "Windows Portable Build" from the "Operating System" dropdown instead of "Windows"</li>
+            <li>Extract the downloaded zip file to the location you want to run Foundry VTT</li>
+            <li>Open the <code>App</code> folder, then double-click the <code>Foundry Virtual Tabletop.exe</code> file to launch it</li>
+        </ol>
+        <p>When the <code>Foundry Virtual Tabletop.exe</code> file inside the <code>App</code> folder is run for the first time, Foundry VTT automatically creates three new folders in its parent directory- <code>Config</code>, <code>Data</code>, and <code>Logs</code> and automatically defaults to using them.</p>
+        <p>This portable installation is configured to use those folders by default for two important reasons:</p>
+        <ul>
+            <li>All the folders and files that Foundry VTT needs are already in one location for easy "out of the box" portability</li>
+            <li>If you are using the portable build <a href="#multiple-versions">for testing purposes by running an experimental or newer copy of Foundry VTT</a>, you are less likely to affect your "real" data</li>
+        </ul>
+        <p>Because a fresh <code>Config</code> folder is created, this portable version of Foundry VTT starts out with a clean set of user settings which means that some setup steps may be necessary that you wouldn't normally have to perform when installing a new version of Foundry VTT, including:</p>
+        <ol>
+            <li>Entering your Foundry VTT software license key</li>
+            <li>Accepting the license agreement and data sharing</li>
+            <li>Potentially configuring Foundry VTT to use your GPU, if needed</li>
+            <!-- TODO: add graphics step to standard installation -->
+        </ol>
+        <p>For more information about these steps, see the <a href="#recommended">recommended Foundry VTT</a> installation process.</p>
+        <p>Other than its unusual installation process and first-run configuration steps, the Windows Portable build operates the same as any other Foundry VTT instance. For example, you are not required to use the built-in "Data" folder as the Foundry User Data path, and you can <a href="/article/configuration">change it using the Setup screen</a> as usual if you so choose.</p>
+        <h5 id="windows-portable-example">Windows Portable Build Example</h5>
+             <p>For example, this is what happens if a user decides to install the (non-existent) Foundry Version 12.345 onto a USB drive that Windows has registered as <code>E:\</code></p>
+        <pre><code>E:\
+            ├──FOUNDRYVTT-PORTABLE-12.345
+                    ├───App
+                    └───README.txt</code></pre>
+        <p>When this user runs the <code>Foundry Virtual Tabletop.exe</code> file inside the <code>App</code> folder for the first time, Foundry VTT automatically creates three new folders in its parent directory- <code>Config</code>, <code>Data</code>, and <code>Logs</code>:</p>
+        <pre><code>E:\
+            ├──FOUNDRYVTT-PORTABLE-12.345
+                    ├───App
+                    ├───Config
+                    ├───Data
+                    └───Logs
+                    └───README.txt</code></pre>
+        <p></p>
+
+    </div>
+</section>
+
+<section class="collapsible">
+    <header id="multiple" class="collapsible-header">Running multiple copies of Foundry VTT on the Same Machine</header>
+    <div class="collapsible-content">
+        <h3 id="multiple" class="border">Running multiple copies of Foundry VTT on the Same Machine</h3>
+        <p>Particularly around the release of a major new version of Foundry VTT releases, it can be quite useful to have more than one version of Foundry VTT installed.</p>
+        <p>Using this approach, you can safely experience the new version of Foundry VTT first-hand and see how your favorite modules and game systems perform without affecting your "real" data. You can even use this method to run live campaigns on your machine using different versions of Foundry VTT, which may happen if one of your preferred game systems is particularly slow to update, for example.</p>
+        <p class="info note"><strong>Please Note</strong>: As always, be sure to take a <a href="/article/backups">backup</a> before making major changes to your Foundry VTT installation or User Data.</p>
+        <p>The best way to install multiple copies of Foundry VTT on a single machine is to configure multiple independent <a href="#portable">portable</a> installations of Foundry VTT, each in their own folder and using separate User Data folders.</p>
+        <p>It is even possible to run multiple versions of Foundry VTT on the same machine <em>simultaneously</em>, if you take a few precautions:</p>
+        <ul>
+            <li>Each copy of Foundry VTT needs to have its own port number</li>
+            <li>You will also need to have a separate Foundry User Data folder for each instance of Foundry</li>
+        </ul>
+        <p>If you wish to have external users to connect to one or more of these simultaneously-running worlds, there are some additional things to consider</p>
+        <ul>
+            <li>You may need to set up port forwarding separately for additional ports</li>
+            <li>You may need additional Foundry VTT license(s) to ensure that you <a href="/article/faq/#license-usage">abide by the terms of the license agreement</a>.</li>
+        </ul>
+    </div>
+</section>
+
+ <h3 id="dedicated" class="border">Hosting a Dedicated Server with Node.js</h3>
 <p class="info note"><b>Note:</b> Installing Node.js manually as described below is not part of the typical Foundry installation process.</p>
 <p>Most users can simply install Foundry <a href="#installing">using the standard Windows, macOS, or Linux installer</a>. If you are an advanced user who is planning on a more unusual method of running Foundry (such as creating a dedicated headless Foundry server), this section describes how to install Foundry VTT as a Node.js package.</p>
-
-<h3 class="border">Installing Node.js</h3>
-<p>To use the Node.js package, you must first install Node.js.</p>
 <section class="collapsible">
-    <header class="collapsible-header">Installing Node.js on Windows and macOS</header>
+    <header id="install-node" class="collapsible-header">Installing Node.js</header>
     <div class="collapsible-content">
-        If your server runs the Windows or macOS operating system, use the installers available here <a href="https://nodejs.org/en/download">https://nodejs.org/en/download</a>.
-    </div>
-</section>
-
-<section class="collapsible">
-    <header class="collapsible-header" id="node-linux">Installing Node.js on Linux</header>
-    <div class="collapsible-content">
-        <p class="note info">Note that a relatively modern version of Node.js is required in order to support various security features which are required by the application. Please use Node.js version 18.x+ (20.x is recommended, 21.x incompatible).</p>
-
-        <h4 id="redhat">For Red Hat / Amazon Linux package manager</h4> 
+        <p class="note info">Note that a relatively modern version of Node.js is required in order to support various security features which are required by the application. Please use Node.js version 20.x+.</p>
+        <p>To use the Node.js version of Foundry VTT, you must first install Node.js. If your server runs the Windows or macOS operating system, you can just use the installers available here <a href="https://nodejs.org/en/download">https://nodejs.org/en/download</a>.</p>
+        <h4 id="redhat">Installing Node.js for Linux Red Hat / Amazon Linux package manager</h4> 
         <pre><code class="language bash">sudo yum install -y openssl-devel
 curl --silent --location https://rpm.nodesource.com/setup_20.x | sudo bash -
 sudo yum install -y nodejs</code></pre>
 
-        <h4 id="debian">Debian / Ubuntu package manager</h4> <pre><code class="language bash">sudo apt install -y libssl-dev
+        <h4 id="debian">Installing Node.js for Linux Debian / Ubuntu package manager</h4> <pre><code class="language bash">sudo apt install -y libssl-dev
 curl -sL https://deb.nodesource.com/setup_20.x | sudo bash -
 sudo apt install -y nodejs</code></pre>
     </div>
 </section>
-
-<h3 class="border">Downloading Foundry</h3>
-<p>Next, you will need to download Foundry. This package can also be downloaded on the standard "Purchased Licenses" page. For more information, see the "<a href="#downloading">Downloading Foundry</a>" section above.</p>
-
-<h3 class="border">Extracting and Launching the Server</h3>
-<p>Now that you have downloaded Foundry VTT and installed Node.js, it's time to extract the zip and create your data directory.</p>
+<section class="collapsible">
+    <header id="extract-node" class="collapsible-header">Downloading, Extracting and Launching the Server</header>
+    <div class="collapsible-content">
+        <p>Next, you will need to download Foundry. Use the standard instructions "<a href="#downloading">Downloading Foundry</a>" above, but be sure to pick the "Node.js" option in the "Operating System" dropdown menu.</p>
+        <p>Now that you have downloaded Foundry VTT and installed Node.js, it's time to extract the zip, create your data directory and launch your Node.JS server. This process varies depending on  the operating system of your server.</p>
 
 <section class="collapsible">
-    <header class="collapsible-header">For Linux</header>
+    <header id="extract-linux" class="collapsible-header">For Linux</header>
     <div class="collapsible-content">
-        <pre><code class="language bash"># Create application and user data directories
+         <pre><code class="language bash"># Create application and user data directories
 cd $HOME
 mkdir foundryvtt
 mkdir foundrydata
@@ -120,12 +341,16 @@ wget -O foundryvtt.zip "&lt;foundry-website-download-url&gt;"
 unzip foundryvtt.zip
 
 # Start running the server
-node resources/app/main.js --dataPath=$HOME/foundrydata</code></pre>
+node main.js --dataPath=$HOME/foundrydata
+
+# Start running the server (FoundryVTT V12 and before)
+# node resources/app/main.js --dataPath=$HOME/foundrydata</code></pre>
+
     </div>
 </section>
 
 <section class="collapsible">
-    <header class="collapsible-header">For macOS</header>
+    <header id="extract-macOS"class="collapsible-header">For macOS</header>
     <div class="collapsible-content">
 	    <p>Foundry VTT is also supported as a native application on macOS using Electron, however if you wish to host the software using Node.js directly, this is also an option in the macOS environment. Simply visit <a href="https://nodejs.org/en/download/" target="_blank" rel="nofollow noopener">https://nodejs.org/en/download/</a> and download the macOS installer. Node is installed on your system, you can run the server using the instructions in the below section via your Mac terminal.</p>
 
@@ -135,26 +360,35 @@ mkdir foundrydata
 
 # access the application directory
 cd ~/Library/Application Support/FoundryVTT
+
 # Start running the server
-node resources/app/main.js --dataPath=$HOME/foundrydata</code></pre>
+node main.js --dataPath=$HOME/foundrydata
+
+# Start running the server (FoundryVTT V12 and before)
+# node resources/app/main.js --dataPath=$HOME/foundrydata</code></pre>
     </div>
 </section>
 
 <section class="collapsible">
-    <header class="collapsible-header">For Windows</header>
+    <header class="collapsible-header" id="extract-windows">For Windows</header>
     <div class="collapsible-content">
         <p>You can also run a dedicated server on Windows. You will first need to download and install Node.js from <a href="https://nodejs.org/en/download/" target="_blank" rel="nofollow noopener">https://nodejs.org/en/download/</a>. Once Node.js is installed, you can launch the server process from whichever location you installed the Foundry Virtual Tabletop software using your preferred windows command-line client like the Command Prompt or <a href="https://apps.microsoft.com/store/detail/windows-terminal/9N0DX20HK701" target="_blank">Windows Terminal</a>.</p>
-        <pre><code
-class="language bash"># Make a folder in a location of your choosing to store your Foundry VTT data
+        
+        <pre><code class="language bash"># Make a folder in a location of your choosing to store your Foundry VTT data
 cd %userprofile%
 mkdir foundrydata
 
 # Launch the Node.js server from the location where you installed the Foundry VTT software
 cd C:\Program Files\FoundryVTT\
-node resources/app/main.js --dataPath=%userprofile%/foundrydata</code></pre>
+
+# Start running the server
+node main.js --dataPath=%userprofile%/foundrydata
+
+# Start running the server (FoundryVTT V12 and before)
+# node resources/app/main.js --dataPath=%userprofile%/foundrydata</code></pre>
     </div>
 </section>
 <p>Now that you are running Foundry VTT via Node, open any modern web browser and connect to <a href="http://127.0.0.1:30000">http://127.0.0.1:30000</a> to access your server.</p>
 
-<h3 id="service" class="border">Running as a Service</h3>
+<h4 id="service" >Running as a Service</h4>
 <p>If you wish to keep the server running perpetually, you may wish to run Foundry VTT using a process manager like <a href="https://systemd.io/" target="_blank">systemd</a> which is recommended for standalone installations or <a href="https://pm2.keymetrics.io/docs/usage/quick-start/" target="_blank">PM2</a> which is recommended for operating a cluster of instances. Such service managers can be helpful but are not required.</p>

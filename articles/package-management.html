@@ -8,7 +8,7 @@
 <p>At the far right of a version row, you can click <strong>Delete </strong>to remove the version on that row. Note: There is confirmation when deleting a version, and no way to undo this. If you delete a version accidentally, you will need to re-add and fill it out again to restore it.</p>
 <p>If a package has no Package Versions present, it will not be available on either the official package list or in the Foundry UI.</p>
 
-<figure class="right">@Image[539]
+<figure class="right">@Asset[539]
 <figcaption>An example of how these fields display at the bottom of a module's page.</figcaption>
 </figure>
 
@@ -26,28 +26,28 @@
 <dd>Keep this up to date at all times, especially when breaking changes happen.</dd>
 </dl>
 
-<h2>Package Compatibility</h2>
+<h2 id="compatibility">Package Compatibility</h2>
 <p>Packages can denote compatibility with Foundry VTT core versions using the compatibility field (see @Article[module-development]).</p>
-<p>The <code>minimum</code> and <code>maximum</code> fields are hard enforced by the core software. A package marked <code>minimum: 11</code> and <code>maximum: 11</code> can only be installed and enabled on a Version 11 build of Foundry VTT. It's not possible to install it in V10, nor V12. It will not show up in the list of packages available to install for a V11 user, and if already installed, will flag a red error in the UI and refuse to enable inside of a World.</p>
+<p>The <code>minimum</code> and <code>maximum</code> fields are hard enforced by the core software. A package marked <code>minimum: 12</code> and <code>maximum: 12</code> can only be installed and enabled on a Version 12 build of Foundry VTT. It's not possible to install it in V11, nor V13. It will not show up in the list of packages available to install for a V13 user, and if already installed, will flag a red error in the UI and refuse to enable inside of a World.</p>
 
-The <code>verified</code> field meanwhile is used to provide guidance to the user. For example, <code>verified: 11</code> or <code>verified: 11.300</code> does not block usage of the package. The first format is generation-wide, the second is build-specific, but in both cases the following occurs:
+<p>The <code>verified</code> field meanwhile is used to provide guidance to the user. For example, <code>verified: 12</code> or <code>verified: 12.330</code> does not block usage of the package. The first format is generation-wide, the second is build-specific, but in both cases the following occurs:</p>
 <ol>
-	<li>If the user is on a version that meets the verified version (for generation-wide, any V11 build or older, for build-specific, any build 11.300 or less), it gets the green badge of honor indicating it is verfied as good to go.</li>
-	<li>If the user is on a version that doesn't meet the verified version, but it's the same generation, it gets a neutral no-color badge, neither encouraging nor deterring users away from usage.</li>
-	<li>If it's not even the same generation, it gets a yellow warning badge to warn users that behavior has not been verified, and things may break.</li>
+	<li>If the user is on a version that meets the verified version (for generation-wide, any V12 build or older, for build-specific, any build 12.330 or less), it gets the green badge of honor indicating it is verified as good to go.</li>
+	<li>If the user is on a version that doesn't meet the verified version, but it's the same generation (such as V12 or V12.331), it gets a neutral no-color badge, neither encouraging nor deterring users away from usage.</li>
+	<li>If it's not even the same generation( such as V11 or V11.311), it gets a yellow warning badge to warn users that behavior has not been verified, and things may break.</li>
 </ol>
 
-In all of these cases, the package still shows up in the install list (so long as it isn't archived), can be installed, and can be enabled in a World.
+<P>In all of these cases, the package still shows up in the install list (so long as it isn't archived), can be installed, and can be enabled in a World.</P>
 
 <h3>Sidegrading</h3>
-<p>To assist in keeping compatibility up-to-date, we offer a feature called Sidegrading. If a remote manifest and/or the website does not offer a new version, but does offer new metadata, the local installed version of that Package gets sidegraded with the new values. Please see the chart in "0.8.2+ Onward" (below) for easy visual reference of what fields are included, and how they are treated.</p>
+<p>To assist in keeping compatibility up-to-date, we offer a feature called sidegrading. If a remote manifest and/or the website does not offer a new version, but does offer new metadata, the local installed version of that Package gets sidegraded with the new values. Please see the chart below)for easy visual reference of what fields are included, and how they are treated.</p>
 <p>We highly recommend package admins keep their compatibility info updated on the website for best user experience, with the following per-field advice:</p>
 <dl>
 	<dt>minimum:</dt>
 	<dd>We recommend you set this to oldest version that you know the core functionality of your package supports, or at least to the version you first released on.</dd>
 
 	<dt>verified:</dt>
-	<dd>We recommend setting this using a generation-wide format (such as 11) for most usecases, although if you are more cautious, then use the built-specific format (such as 11.300). Keeping this updated, be it via new releases or sidegrading, helps reduce user confusion and complaint.</dd>
+	<dd>We recommend setting this using a generation-wide format (such as 13) for most usecases, although if you are more cautious, then use the built-specific format (such as 13.341). Keeping this updated, be it via new releases or sidegrading, helps reduce user confusion and complaint.</dd>
 
 	<dt>maximum:</dt> 
 	<dd>For many packages, you'll want to leave this empty unless you know for certain that your package doesn't work with an upcoming Foundry VTT Version, in which case you can mark it in admin and have that info sidegraded to users. For Systems, you may want to consider setting this to the same version you are releasing on until you verify the next Version to prevent users from migrating their Worlds forward with no way back short of a backup.</dd>
@@ -72,25 +72,15 @@ In all of these cases, the package still shows up in the install list (so long a
 <li>Foundry downloads the manifest's <code>download</code> url and checks if it is a zip file. If so, it unzips.</li>
 </ol>
 
-<h2 class="border">How Foundry checks for Package Updates</h2>
+<h2 class="border" id="check-update">How Foundry checks for Package Updates</h2>
 
-<h4 id="before-082">Before 0.8.2</h4>
 <ol>
-<li>User initiates the flow by either clicking on "Check Update" an individual module or the "Update All" button.</li>
-<li>Foundry fetches the manifest from the url in the currently installed package's manifest json.</li>
-<li>Foundry compares the <code>version</code> strings of the installed module's manifest against the fetched manifest.<br />2.a If the user is doing this on an individual package they have to then click the "Update" button.</li>
-<li>If Foundry determines that the fetched manifest json has a newer version, it then downloads that manifest's <code>download</code> and checks if it is a zip file. If so, it unzips.</li>
-</ol>
-<p class="note info">The above process has changed as of 0.8.2 to align with the steps below.</p>
-
-<h4 id="h-082"><strong>0.8.2+ Onward</strong></h4>
-<ol>
-<li>User initiates the flow by either clicking on "Check Update" an individual module or the "Update All" button.</li>
-<li>If the Package is listed in the Package Repository:<br />2.a Foundry checks to see if the <code>manifest</code> field has changed in the listing and points to a newer version compatible with the installed version of Foundry.<br />2.b If so, Foundry prompts the User to see if they want to use the old local value, or the new Package Repository value (recommended)<br />2.c If the User selects "Yes", the local <code>manifest</code> is overwritten with the new value from the Package Repository</li>
-<li>Foundry fetches the manifest from the url in the currently installed package's manifest json.</li>
-<li>Foundry compares the <code>version</code> strings of the installed module's manifest against the fetched manifest.<br />4.a If the user is doing this on an individual package they have to then click the "Update" button.</li>
-<li>If Foundry determines that the fetched manifest json has a newer version, it then downloads that manifest's <code>download</code> and checks if it is a zip file. If so, it unzips.</li>
-<li>If Foundry determines that no new version exists, but that new Remote metadata values exist for the version, Foundry will execute an automatic update of that metadata. The Fields that get updated and from what source are according to the following table:</li>
+	<li>User initiates the flow by either clicking on "Check Update" an individual module or the "Update All" button.</li>
+	<li>If the Package is listed in the Package Repository:<br />2.a Foundry checks to see if the <code>manifest</code> field has changed in the listing and points to a newer version compatible with the installed version of Foundry.<br />2.b If so, Foundry prompts the User to see if they want to use the old local value, or the new Package Repository value (recommended)<br />2.c If the User selects "Yes", the local <code>manifest</code> is overwritten with the new value from the Package Repository</li>
+	<li>Foundry fetches the manifest from the url in the currently installed package's manifest json.</li>
+	<li>Foundry compares the <code>version</code> strings of the installed module's manifest against the fetched manifest.<br />4.a If the user is doing this on an individual package they have to then click the "Update" button.</li>
+	<li>If Foundry determines that the fetched manifest json has a newer version, it then downloads that manifest's <code>download</code> and checks if it is a zip file. If so, it unzips.</li>
+	<li>If Foundry determines that no new version exists, but that new Remote metadata values exist for the version, Foundry will execute an automatic update of that metadata. The Fields that get updated and from what source are according to the following table:</li>
 </ol>
 <p>
 <figure class="center" style="max-width: 66%;max-height: 66%;">@Asset[182]

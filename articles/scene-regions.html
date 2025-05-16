@@ -334,9 +334,9 @@
                 <dl>
                     <dt><strong>Adjust Darkness Level</strong></dt>
                     <dd>Have you ever wanted to exclude part of a scene from Global Illumination, so that the light level outside was different from the light level inside? This Behavior delivers that ability and more.</dd>
-                    <dd>If the result of this Behavior makes the region dark enough, the area is no longer considered lit, even if Global Illumination is enabled on the Scene. This means that Tokens will need a source of light or a special vision mode to be able to see in this darkened area. This works exactly the same way that Global Illumination can be automatically disabled "at night": the level of darkness is checked agains the Scene's Global Illumination Threshold. For more information, see the <a href="https://foundryvtt.com/article/scenes/">Scenes article.</a></dd>
+                    <dd>If the result of this Behavior makes the region dark enough, the area is no longer considered lit, even if Global Illumination is enabled on the Scene. This means that Tokens will need a source of light or a special vision mode to be able to see in this darkened area. This works exactly the same way that Global Illumination can be automatically disabled "at night": the level of darkness is checked against the Scene's Global Illumination Threshold. For more information, see the <a href="https://foundryvtt.com/article/scenes/">Scenes article.</a></dd>
                     <dt>Suppress Weather</dt>
-                    <dd>Foundry VTT allows the prevention of weather effects through the use of Tiles, but you may not have a convenient tile to place for a roof. Additionally, it might not make much sense to place a "roof" tile for an area, such as a natural cave. Adding this behavior to a Region will stop rendering weather effects inside the Region, whether there's a roof there or not.</dd>
+                    <dd>Foundry VTT allows the prevention of weather effects through the use of Tiles (much like a roof would), but you may not have a convenient tile to place. Additionally, it might not make much sense to place a tile over an area such as a magically protected zone. Adding this behavior to a Region will stop rendering weather effects inside the Region without requiring a tile.</dd>
                     <dt>Modify Movement Cost</dt>
                     <dd>Many games have rules about certain types of terrain that are faster or slower to move through compared to standard terrain. This might be an area of magic that increases or decreases movement speed, a tangle of brambles or mud pit that requires slowing down to safely navigate, or many other possible causes. The Modify Movement Cost behavior can be used to set a multiplier (from 0 to 5 in increments of 0.25) on the "cost" of movement through a scene region, artificially increasing or decreasing the distance part of the grid represents. </dd>
                 </dl>
@@ -350,7 +350,7 @@
         <!-- TODO: Add Screenshot and description of UI for each behavior type-->
         <p>The Region only performs this type of Behavior if it is enabled and a subscribed Event is detected for that Region.</p>
         <dl>
-            <dt>Display Scrolling Text</dt>
+            <dt id="text">Display Scrolling Text</dt>
             <dd>This behavior can be used to display on-screen colored text in an animation when its event is triggered. The text can have its color configured, visibility limited to gamemasters or observers, and optionally may be configured to only show the first time it is triggered. </dd>
             <dt><strong>Execute Macro</strong></dt>
                 <dd>For those Macro-hoarding GMs who already have all manner of pre-coded scripts ready to go for certain actions and just want them to trigger automatically, the Execute Macro behavior does what it says on the label: when you assign it the UUID of a given Macro (which can be gotten by right-clicking the ID button in the Macro's header), it will trigger that Macro when its Scene Region detects that one of its subscribed events occurs.</dd>
@@ -379,7 +379,7 @@
             <dt><strong>Execute Script</strong></dt>
                 <dd>This Behavior functions exactly like the <code>Execute Macro</code> behavior but it executes a script file instead of a Macro. It provides the same values to any Script that is called as the <code>Execute Macro</code> behavior does also.</dd>
             
-            <dt><strong>Pause Game</strong></dt>
+            <dt id="pause"><strong>Pause Game</strong></dt>
                 <dd>
                     <p class="note info">This Behavior only happens when the user controlling the token is not a GM. This means testing this Region requires you to log in as a player.</p>
                 </dd>
@@ -455,23 +455,23 @@
 <h2 class="border" id="examples">Scene Region Examples</h2>
 <p>The following common examples are provided to illustrate how Scene Regions operate and how you might want to use them.</p> 
 <!-- TODO: add examples-->
-<ol>
+<div>
     <section class="collapsible">
-        <header class="collapsible-header" id="events">Adjust Darkness (Darker Interior than Exterior)</header>
+        <header class="collapsible-header" id="darkness">Adjust Darkness (Darker Interior than Exterior)</header>
         <div class="collapsible-content">
             <div class="columns">
                 <div class="column">   
                     <p>Often, a map may have some outdoor and indoor areas that call for the interior being naturally darker than exterior locations. An open field might give way to the entrance of a cavern, a well-lit forest might hide an abandoned house.</p>
                     <p>The Adjust Darkness behavior allows GMs to use a Scene Region to define areas that are either darker or lighter than the rest of the scene.</p>
                     <p>To replicate the darkening effect we use in the screenshot to the right, you would:</p>
-                    <ul>
-                        <li>Create a new scene region with a shape that matches the confines of the area you wish to darken.</li>\
+                    <ol>
+                        <li>Create a new scene region with a shape that matches the confines of the area you wish to darken.</li>
                         <li>Assign that region a new behavior: "Adjust Darkness Level"</li>
                         <li>Give that behavior the mode: "Override"</li>
                         <li>Set the darkness level to your preferred level, typically a darkness level of 1 is used for full darkness.</li>
                         <li>Optionally choose to blur the darkness level at its edges.</li>
                         <li>Update your region behavior and scene region to save your changes, and anyone venturing from outside the region into it will no longer be able to see as if Global Illumination is enabled.</li>
-                    </ul>
+                    </ol>
                 </div>
                 <figure class="column right noborder"><a href="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/example-scene-region-with-adjust-darkness-behavior-shown-2024-04-26.webp" target="_blank" ></a>@Asset[694]
                     <figcaption>A token's ability to see is restricted to only lit areas indoors, but wholly unrestricted outside the confines of the cabin walls.</figcaption>
@@ -480,46 +480,66 @@
         </div>
     </section>
     <section class="collapsible">
-        <header class="collapsible-header" id="events">Marking Difficult Terrain</header>
+        <header class="collapsible-header" id="terrain">Marking Difficult Terrain</header>
         <div class="collapsible-content">
                     <p>Many game systems have rules about moving through spaces that might be slow to navigate, typically this just adds a multiplier to the amount of movement 'cost' it takes to move through that space. Suppose you have an area of a battlefield that is strewn with deep mud, making it arduous to cross. Using the "Modify Movement Cost" region behavior, you can mark that part of your scene to specify how hard it is to move through it.</p>
-                    <ul>
+                    <ol>
                         <li>Create a new scene region with a shape that matches the confines of the area you wish to limit.</li>
                         <li>Assign that region a new behavior: "Modify Movement Cost"</li>
                         <li>Set the slider to indicate how much the cost of movement should be multiplied by when passing through this region - setting it to 2 will double the cost of movement (so 5ft becomes 10ft), and will proportionally slow the animation of token movement.</li>
                         <li>Update your region behavior and scene region to save your changes, and now any token crossing this part of your scene will be slowed down!</li>
-                    </ul>
+                    </ol>
         </div>
     </section>
     <section class="collapsible">
-<header class="collapsible-header" id="events">Stairways</header>
-<div class="collapsible-content">
-    <div class="columns">
-        <div class="column">   
-            <p>Creating a user-navigable stairway is quite possibly the simplest example of a Teleport Token behavior, allowing for players to simply step into a scene region to initiate a movement of their token either to another part of a scene, or to another scene entirely. A scene region configured with Teleport Token requires an additional region to serve as a "landing" for where the token will come out when it is teleported. Setting up a scene region for stairs is a super easy, two-stage process!</p>
-            <h4>Stage 1 - Stick The Landing</h4>
-            <p>Find the part of your map where tokens will land when they've been teleported, this could be the landing at the top of a flight of stairs. Always make sure to leave enough room for more than one token to emerge, and if you plan to allow 'return trips', make sure you leave space to place a future region shape to handle that return.</p>
-            <ul>
-                <li>Create a new region shape for your landing.</li>
-                <li>Get the UUID for your region shape - this universal identifier is how you point your teleporter to this region. You can get it conveniently by left-clicking the <i class="fa-solid fa-passport">&nbsp;</i> Copy Document UUID button in the header of the configuration window for your scene region.</li>
-                <li>Paste that UUID somewhere you can easily access it later.</li>
-            </ul>
-            <h4>Stage 2 - Mark the stairs</h4>
-            <p>Unlike the landing for your teleporter, the entry to the teleporter only really needs to be big enough to encompass the space a token would need to enter, this could be a single grid space at the top of a narrow stair, or as wide as the top of a grandiose ramp allowing multiple tokens to enter side by side.</p>
-            <ul>
-                <li>Create a new region shape in the space you'd like players to enter in order to teleport to the top of the stairs.</li>
-                <li>Configure the scene region with the behavior: Teleport Token</li>
-                <li>In the "Destination" field, paste the UUID you copied in stage 1 and click the "Add Document" button to be sure it is committed to the configuration.</li>
-                <li>Optionally, you may click "Allow Choice" to give users a small dialog prompt asking if they would like to teleport before the teleportation occurs when they move into the region.</li>
-                <li>That's it, click update region behavior and you have successfully configured a stairway teleporter!</li>
-            </ul>
+        <header class="collapsible-header" id="stairways">Stairways</header>
+        <div class="collapsible-content">
+            <div class="columns">
+                <div class="column">   
+                    <p>Creating a user-navigable stairway is quite possibly the simplest example of a Teleport Token behavior, allowing for players to simply step into a scene region to initiate a movement of their token either to another part of a scene, or to another scene entirely. A scene region configured with Teleport Token requires an additional region to serve as a "landing" for where the token will come out when it is teleported. Setting up a scene region for stairs is a super easy, two-stage process!</p>
+                    <h4>Stage 1 - Stick The Landing</h4>
+                    <p>Find the part of your map where tokens will land when they've been teleported, this could be the landing at the top of a flight of stairs. Always make sure to leave enough room for more than one token to emerge, and if you plan to allow 'return trips', make sure you leave space to place a future region shape to handle that return.</p>
+                    <ol>
+                        <li>Create a new region shape for your landing.</li>
+                        <li>Get the UUID for your region shape - this universal identifier is how you point your teleporter to this region. You can get it conveniently by left-clicking the <i class="fa-solid fa-passport">&nbsp;</i> Copy Document UUID button in the header of the configuration window for your scene region.</li>
+                        <li>Paste that UUID somewhere you can easily access it later.</li>
+                    </ol>
+                    <h4>Stage 2 - Mark the stairs</h4>
+                    <p>Unlike the landing for your teleporter, the entry to the teleporter only really needs to be big enough to encompass the space a token would need to enter, this could be a single grid space at the top of a narrow stair, or as wide as the top of a grandiose ramp allowing multiple tokens to enter side by side.</p>
+                    <ol>
+                        <li>Create a new region shape in the space you'd like players to enter in order to teleport to the top of the stairs.</li>
+                        <li>Configure the scene region with the behavior: Teleport Token</li>
+                        <li>In the "Destination" field, paste the UUID you copied in stage 1 and click the "Add Document" button to be sure it is committed to the configuration.</li>
+                        <li>Optionally, you may click "Allow Choice" to give users a small dialog prompt asking if they would like to teleport before the teleportation occurs when they move into the region.</li>
+                        <li>That's it, click update region behavior and you have successfully configured a stairway teleporter!</li>
+                    </ol>
+                </div>
+                <figure class="column right noborder">
+                    <video autoplay="true" loop="loop" muted="true" src="https://r2.foundryvtt.com/website-uploads-public/asset/user_681/region-demo-stair-teleport-2024-05-29.webm"></video>
+                    <figcaption>A token moves up a flight of stairs, entering a Teleport Token region, and is moved to another scene.</figcaption>
+                </figure> 
+            </div> 
         </div>
-        <figure class="column right noborder">
-            <video autoplay="true" loop="loop" muted="true" src="https://r2.foundryvtt.com/website-uploads-public/asset/user_681/region-demo-stair-teleport-2024-05-29.webm"></video>
-            <figcaption>A token moves up a flight of stairs, entering a Teleport Token region, and is moved to another scene.</figcaption>
-        </figure> 
-    </div> 
-</section>
+    </section>
+    <section class="collapsible">
+        <header class="collapsible-header" id="simple-trap">A Simple Trap</header>
+        <div class="collapsible-content">
+            <div class="columns">
+                <div class="column">
+                    <p>Using Scene Regions, you can easily create a simple yet flavorful and effective trap using two built-in functions:</p>
+                    <ul>
+                        <li><a href="#behaviors-tab">Pause Game</a></li>
+                        <li><a href="#behaviors-tab">Display Scrolling Text</a></li>
+                    </ul>
+                    <p>Simply create a new Scene Region with a Shape where the trap is and add these two behaviors. For simplicity and to avoid building a custom macro or script, you can then apply damage and give your players a chance to save themselves without needing to build it into the Scene Region itself.</p>
+                    <p>Just add the Toggle Pause and Display Scrolling Text behaviors and link them both to the <a href="#events">Token Animates In</a> event. You may want to consider setting both behaviors to only execute once also, either for convenience or to indicate that the trap has now been "set off".</p>
+                </div>
+                <figure class="right noborder" style="max-height:50%;"><a href="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/simple-trap-20250331-2025-03-31.webp" target="_blank" ></a><img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/simple-trap-20250331-2025-03-31.webp" alt="A simple trap.">
+                    <figcaption>A player makes a potentially fatal mistake and a simple trap springs into action.</figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
     <section class="collapsible">
         <header class="collapsible-header" id="events">Super Happy Fun Slide (Slide Trap)</header>
         <div class="collapsible-content">
@@ -533,10 +553,11 @@
                 <video autoplay="true" loop="loop" muted="true" src="https://r2.foundryvtt.com/website-uploads-public/asset/user_681/region-demo-slide-trap-with-rotation-2024-05-29.webm"></video>
                 <figcaption>A token enters a region configured with the slide trap and tumbles to the bottom of the slide.</figcaption>
             </figure> 
+                    <p>If you're willing to be a bit fancier, more impressive traps are also possible.</p>
                     <p>Picture the moment your players are rustling around in some ancient tomb and they uncover a hidden doorway, beyond which a steeply sloped stone surface leads off into the darkness, water rushing over it. You want them to be able to choose to step onto the path- but once they've stepped on, you don't want them stepping off, and you certainly don't want them trying to climb back up it- this is a one-way journey.</p>
                     <p>Sure, we could use a simple teleport region with a destination at the bottom and no return, but where would the fun be in that? We want our players to show up at a random location in a patch of terrain at the bottom of the slide, and any attempt to climb back up should put them back at the bottom. </p>
                     <p>Before we can do anything else, we need to first establish an area where our players will land, which if we assume you are working with a scene using a square grid, you can do that with a few simple steps:</p>
-                    <ul>
+                    <ol>
                         <li>Place a temporary placeholder token in the upper-left grid space where you would like a token to land. </li>
                         <li>With the token positioned in the first landing location, double right-click to open the token configuration and view the X-Y coordinates for that token's location. Write those coordinates down somewhere, you'll need them.</li>  
                         <li>Now, since we know the coordinates for the upper leftmost corner where the token can land, we need to know how many spaces we want the tokens to <strong>land in</strong>. Count the number of spaces to the right of your token for the area you would like to have tokens land, that will determine our new X coordinates. Do the same with spaces below the token- that will determine the new Y coordinates.</li>
@@ -565,18 +586,17 @@ await event.data.token.update({x:Xcoord[randX], y:Ycoord[randY]})</code>
                         </pre>
 
                             <li>After that has been configured, clicking Update Region Behavior will save this script and, after that, any token that moves into the defined region shape will immediately be moved to one of the grid spaces you chose!</li>
-                    </ul>
-
+                    </ol>
     </div>
     </section>
-</ol>
+</div>
 
 <h2 class="border" id="api">Developer Notes and API References</h2>
 <p>Scene Regions are built so that game systems and modules can easily add their own functionality. We can't wait to see what mad creations our developer community implements using this framework!</p>
 <p class="info note"><strong>Developer Note</strong>: The name of the new Document type that stores Scene Region information is <code>Region</code>, and it contains <code>Behavior</code>Embedded Documents. Shapes are not embedded documents, but rather are stored in an array in the Region document.</p>
 <p>To interact with Scene Regions programmatically, you will primarily use the following API concepts:</p>
 <ul>
-    <li><a href="/api/v12/classes/foundry.documents.BaseRegion.html" rel="nofollow" target="_blank" title="The Scene Region Document">The <code>classes/client.BaseRegion</code> document</a></li>
+    <li><a href="/api/classes/foundry.documents.BaseRegion.html" rel="nofollow" target="_blank" title="The Scene Region Document">The <code>classes/client.BaseRegion</code> document</a></li>
     <!-- <li><a href="api/v12/classes/foundry.documents.BaseRegionBehavior.html" rel="nofollow" target="_blank" title="Scene Region Behaviors">The <code>classes/client.BaseRegionBehavior</code> document</a></li>
     <li><a href="api/v12/enums/foundry.CONST.REGION_EVENTS.html" rel="nofollow" target="_blank" title="Scene Region Events">The <code>const.region_events</code> enumeration</a></li> -->
 </ul>
