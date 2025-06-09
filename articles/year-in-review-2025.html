@@ -1,0 +1,955 @@
+<figure>
+    @Asset[951]
+</figure>
+
+<p>Each year as part of our anniversary celebration we post a “Year in Review” article as an opportunity to reflect on everything we’ve achieved during the past twelve months, to share insights with our community, and to look ahead towards the coming year. This article is a good moment to celebrate accomplishments, to think about the evolving business, and to get excited about what the future holds for Foundry Virtual Tabletop.</p>
+<p>It’s interesting to read the past installments of this article and see how much Foundry Virtual Tabletop has changed, what things we projected to happen did come to pass, and what things we anticipated that went quite differently than what we expected at the time.</p>
+<ol>
+    <li>@Article[year-in-review-2021]</li>
+    <li>@Article[year-in-review-2022]</li>
+    <li>@Article[year-in-review-2023]</li>
+    <li>@Article[year-in-review-2024]</li>
+</ol>
+
+<h3 class="border">Five Years of Foundry!</h3>
+<p>We begin this year's article with some words from the creator of Foundry Virtual Tabletop, Andrew Clayton, reflecting on this remarkable milestone.</p>
+
+<figure class="commentary">
+    <blockquote>
+        <p>Foundry Virtual Tabletop changed my life. In late 2018 while in-between RPG campaigns, I wanted to move to a different software solution for playing online. I had no idea or expectation at the time that my whimsical decision to start hacking around with building a virtual tabletop app would put my life on a different trajectory. Even when Foundry VTT first “released” in May 2020, I had only modest hope that this was going to be something that I might turn into a career. Now, five years later, it’s poignant to reflect on how much we have accomplished and how we have created the privilege to work in this space that we love.</p>
+        <p>So many things were required for this to be possible; a tremendous amount of hard work, a degree of anticipation and judgment, a significant helping of good luck, and most importantly the encouragement and advocacy from an absolutely wonderful community of users who rallied around Foundry Virtual Tabletop as a product. I am grateful to each of you who have purchased or used Foundry VTT, and I am grateful to the tremendous team who have joined me on this endeavor. I have clarity and confidence about what I’ll be doing for the next five years, which speaks towards our success in creating something that we and our users love.</p>
+        <p>Thank you all for these five years of Foundry Virtual Tabletop, and please join me in raising a virtual glass to what we’ve accomplished and what we can go on to create for years to come!</p>
+    </blockquote>
+    <figcaption>
+        <p class="byline">Andrew</p>
+        <p class="role">Creator of Foundry Virtual Tabletop</p>
+    </figcaption>
+</figure>
+
+<h2 class="border">Core Software Development and Version 13</h2>
+<p>Last month we launched the first stable release of Version 13, concluding an epic development journey that we began in July of last year. There is so much for our team to be proud of in Version 13; it’s the best version of Foundry Virtual Tabletop yet.</p>
+<p>It’s always difficult to balance our desire to pack each new generation of Foundry Virtual Tabletop with game-changing new features against our desire for generational upgrades of our software to be manageable for our community of users, module developers, and content creators. We are especially proud of the balance we managed to strike with Version 13, adding major components to the software while accomplishing a relatively smooth rollout that has carefully managed the extent of disruption that upgrading to V13 causes.</p>
+<div class="columns">
+    <div class="column">
+        <p>If you’re interested to catch up or review all the things that we packed into Version 13, the best place to start is our <a href="https://foundryvtt.com/releases/13.341" target="_blank">comprehensive release notes</a> from the first V13 stable release. The biggest highlights that Version 13 added include:</p>
+        <ul>
+            <li>A reimagined user interface</li>
+            <li>An intuitive framework for Token movement and measurement</li>
+            <li>Powerful movement types for implementing system rules</li>
+            <li>Difficult terrain support via Scene Regions</li>
+            <li>An advanced priority system for competing sources of darkness and lighting</li>
+            <li>Animated doors</li>
+            <li>Combat turn markers</li>
+            <li>New Release Builds with Windows Portable and dedicated Node.js options</li>
+            <li>… and much more!</li>
+        </ul>
+    </div>
+    <figure class="column">
+        @Asset[953]
+        <figcaption>Foundry Virtual Tabletop Version 13 is available NOW!</figcaption>
+    </figure>
+</div>
+<p>Our development efforts for V13 focused on two major areas of investment: a new framework defining and rendering user interface elements called “ApplicationV2”, and a new framework for orchestrating complex Token movements and distance measurements.</p>
+
+<h3 class="border">ApplicationV2 and ThemeV2 Conversion</h3>
+<p>As early as Version 11, we began down the path of redesigning the user interface of Foundry Virtual Tabletop. These efforts initially were isolated to the initial Setup screen; we have finally in Version 13 completed this multi-generation odyssey to bring about comprehensive user interface improvements throughout the software. These improvements are built on a new foundational software component we call “ApplicationV2” (the term “Application” is used in Foundry Virtual Tabletop for any individual user interface component).</p>
+
+<figure>
+    @Asset[952]
+    <figcaption>A short video loop highlights the visual difference between the lightmode and darkmode of the new V13 user interface.</figcaption>
+</figure>
+
+<p>The ApplicationV2 framework gives us a new and easier way to define and manage these interface components. This framework also makes it easier for us to ensure stylistic compatibility across applications using a common Foundry VTT design language for UI and UX. Foundry VTT now supports multiple UI themes (with built-in support for dark and light modes) as well as a wider range of interface configuration settings for scale, opacity, and other user-specific preferences.</p>
+<p>Our team made the collective decision to not call Version 13 complete until we had converted every single UI element across the entire software to use ApplicationV2. We delivered on that goal which means we can move forward into Version 14 without any lingering technical debt or remaining work that was left unfinished.</p>
+<figure class="commentary">
+    <blockquote>
+        <p>The second iteration of the Application framework incorporates all the lessons learned from the first iteration, making it more modular and extensible, and cleaning up all the accumulated warts. Most noteworthy is the ability to swap in any rendering backend you choose, and still have it integrate seamlessly with the rest of the Foundry VTT interface.</p>
+    </blockquote>
+    <figcaption>
+        <p class="byline">Kim</p>
+        <p class="role">Software Developer</p>
+    </figcaption>
+</figure>
+
+<h3 class="border">Token Measurement and Movement</h3>
+<p>In Version 13, we redesigned and overhauled the software framework used for Token movement and measurement of movement distance so that we could provide a more intuitive and more powerful user experience. This work was partially inspired by the popular “Drag Ruler” module by Stäbchenfisch, and was selected by our Patreon supporter community as the voted-upon feature for us to prioritize in V13.</p>
+<p>We are really proud of our implementation of this feature and Eber (dev7355608) did great work owning this development. Our new framework is backed by a powerful API and data structures for managing complex Token movement paths. Some of the highlight features of the underlying framework are:</p>
+<ul>
+    <li>Complex movement paths with waypoints that support position, size, and elevation changes.</li>
+    <li>Configurable movement types which can vary by segment for walking, swimming, jumping, flying, etc…</li>
+    <li>Interaction with Scene Regions to support difficult terrain adjustments to movement cost, or other automated interventions.</li>
+    <li>Special movement modes like the Gamemaster-only ability to ignore walls or to instantly teleport.</li>
+</ul>
+<p>We paired this powerful backend movement framework with intuitive user-facing features including:</p>
+<ul>
+    <li>An easy drag-and-drop UX for moving a Token and measuring distance simultaneously.</li>
+    <li>Keyboard hotkeys for quickly shifting Token elevation or cycling your active movement action (walking, flying, etc…).</li>
+    <li>Easily understandable visualization for the grid spaces you pass through and collision with impassable obstacles.</li>
+    <li>Support for secret measurement which other players do not observe.</li>
+</ul>
+<figure>
+    @Asset[882]
+    <figcaption>A short demonstration of complex token movement using the new Token Drag Measurement feature.</figcaption>
+</figure>
+<p>We are especially proud of how this new movement system interacts with Scene Regions which provides the fundamental building block for powerful automation of features which depend on character movement or position in the game world.</p>
+<figure class="commentary">
+    <blockquote>
+        <p>The most noteworthy feature of Token Measurement isn’t the visualization of the ruler, but the new movement API behind it, which allows movement to be automatically measured, constrained, and recorded, with support for multi-waypoint paths that can be stopped, paused, and resumed.</p>
+    </blockquote>
+    <figcaption>
+        <p class="byline">Eberhard</p>
+        <p class="role">Software Developer</p>
+    </figcaption>
+</figure>
+
+<h3 class="border">Pixi Postponed</h3>
+<p>Initially, one of our major points of focus for Version 13 involved changes to our canvas rendering framework by shifting from PixiJS version 7 to version 8, including many of the new and powerful features that Pixi 8 carries with it. We put a large amount of time into investigating, scoping, and planning what such a change would entail. We had high hopes for the benefits that Pixi v8 would bring, the promise of WebGPU support, new powerful renderer features, and a more streamlined API– all features we want to one day add to Foundry VTT. </p>
+<p>We spent the initial months of V13 development thoroughly investigating what would be required in order for us to make this change and, through that examination, it became apparent that the impacts of adopting Pixi v8 would be far more sweeping and disruptive than we had planned to impose upon our developer community.</p>
+<p>Despite our excitement and desire to adopt the major features which Pixi v8 would bring to Foundry Virtual Tabletop, we aligned on the decision to delay this change until a later time. We are glad we made this choice, choosing to forego PIXI v8 allowed us to pursue a number of other improvements in Version 13 that we initially expected would not be possible. As a result, we produced a V13 release that has more features and less disruption than it would have otherwise contained.</p>
+<p>This does create some lingering technical debt for us though, and we will at some point have to confront our desire to move Foundry VTT to a more modern version of Pixi.js. We don’t know yet when the right moment for that will be, but it’s not something we are planning to address in Version 14. We will be continually evaluating further developments of the Pixi library and assessing when may be the right moment for us to commit to such a large forward step.</p>
+
+<figure>
+    @Asset[955]
+    <figcaption>A Dungeons & Dragons 5th edition combat showcasing the new V13 Combat Turn Marker feature.</figcaption>
+</figure>
+
+<h3 class="border">Compatibility and Adoption</h3>
+<p>We have been impressed with the forward momentum from our community of developers who have been eager to shift their modules and systems towards using Version 13. We have heard a lot of praise for the API improvements we implemented, especially for ApplicationV2. This is especially gratifying and powerful since it's a change in V13 that forces downstream developers to adapt their pre-existing interface elements, so for many developers to feel positively about this change really represents the best possible outcome we could have hoped for.</p>
+<p>At the time of writing, one month out from our first stable release of Version 13:</p>
+<ul>
+    <li>22% of game systems explicitly support Version 13.</li>
+    <li>16% of modules explicitly support Version 13.</li>
+    <li>14% of active users have migrated to Version 13.</li>
+    <li>All four (spoiler alert) of our Hosting Partners support Version 13.</li>
+</ul>
+
+<h3 class="border">Looking Ahead to Version 14</h3>
+<p>Now that we have accomplished the stable release of Foundry Virtual Tabletop version 13 our team is excited to turn our attention towards planning for Version 14. The next two months will involve an overlapping period of perfecting and refining V13 while we simultaneously plan out the major features that will form the backbone of V14. As always, your voice as our most supportive users and community members will inform that plan and guide us in what we prioritize for our next major iteration. That process begins now with our Patreon <a href="https://foundryvtt.com/article/v14-patreon-vote/" target="_blank">Prioritization Poll for Version 14</a>!</p>
+<figure>
+    @Asset[933]
+    <figcaption>The Version 14 feature vote is underway NOW on Patreon!</figcaption>
+</figure>
+<p>We already have a few committed plans and focus areas for Version 14 which make up a fundamental part of our development planning and roadmap. These are "Scene Levels", "ProseMirror Improvements", and "Improved Scene Management". You can read about each of these planned features in the feature vote article linked above. Joining these three features will be one feature voted upon by our community. That poll is currently underway and our dev team is excited to see which ends up being the winner!</p>
+
+<h2 class="border">Software Usage and Insights</h2>
+<p>During the development of Version 11 we added a feature that allowed server hosts to opt in to sharing anonymous analytics data about your software usage. We are grateful that 51% of our license owners have chosen to share this data with us (up from 41% last year), giving us a really powerful dataset from which to understand more about how you are using the software. This helps us to make smarter decisions about prioritization and compatibility and to better understand our population of users.</p>
+<p>We have grown our total number of software license owners by 22% since this time last year, which highlights the remarkably stable nature of our business and growth in a 5th year of operation. We’re very encouraged to see such a higher number of our users willing to share information with us and enormously grateful. Hoping to see even more users sharing data with us next year! The first set of insights we can share from this data are a survey of how you are hosting Foundry Virtual Tabletop:</p>
+
+<table style="width: 60%">
+    <thead>
+        <tr>
+            <th>Platform</th>
+            <th>Method</th>
+            <th>Percentage</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Windows</td>
+            <td>Electron</td>
+            <td>68.35%</td>
+        </tr>
+        <tr>
+            <td>Linux</td>
+            <td>Hosting Provider</td>
+            <td>17.10%</td>
+        </tr>
+        <tr>
+            <td>Linux</td>
+            <td>Node.js</td>
+            <td>9.66%</td>
+        </tr>
+        <tr>
+            <td>Mac</td>
+            <td>Electron</td>
+            <td>2.85%</td>
+        </tr>
+        <tr>
+            <td>Linux</td>
+            <td>Electron</td>
+            <td>1.19%</td>
+        </tr>
+        <tr>
+            <td>Windows</td>
+            <td>Node.js</td>
+            <td>0.76%</td>
+        </tr>
+        <tr>
+            <td>Mac</td>
+            <td>Node.js</td>
+            <td>0.06%</td>
+        </tr>
+    </tbody>
+</table>
+<p>This year we were able to separate reporting on users whose servers are hosted by one of our hosting providers (17.10%) apart from users who self-host their own dedicated server using Node.js (9.66%). Installed Windows applications running Electron are still the significant majority of Foundry VTT usage with 68.35% of users hosting in this way.</p>
+
+<p>We can also look at how typical (or atypical) Foundry VTT users are running the software or interacting with modules. We observe that 61% of our users are still running Version 12, which is unsurprising given that Version 13 is only a month old at this time.</p>
+
+<table style="width: 60%">
+    <thead>
+        <tr>
+            <th style="width: 40%">Usage</th>
+            <th>Median</th>
+            <th>Average</th>
+            <th>Maximum</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Installed Systems</td>
+            <td>1</td>
+            <td>2.78</td>
+            <td>380</td>
+        </tr>
+        <tr>
+            <td>Installed Modules</td>
+            <td>21</td>
+            <td>37.44</td>
+            <td>2,416</td>
+        </tr>
+        <tr>
+            <td>Installed Premium Content</td>
+            <td>0</td>
+            <td>2.27</td>
+            <td>283</td>
+        </tr>
+        <tr>
+            <td>Hours Playtime</td>
+            <td>7.27</td>
+            <td>377</td>
+            <td>35906</td>
+        </tr>
+    </tbody>
+</table>
+<p>It’s thrilling for us to see that the average user has 377 hours of Foundry VTT playtime, which is about 1.5 years worth of weekly 4 hour game sessions, and it’s inspiring to see that one user has been almost continuously operating their Foundry VTT game server for over four years of playtime! We also observe that the typical user only has one single game system installed - perhaps it’s time to branch out and try a new game! It’s interesting to note that the median user does not own any premium content (33% of users do own at least one premium purchase). This showcases that there is still considerable opportunity for publishers and the official marketplace to grow the way that people engage with paid content.</p>
+
+<h3 class="border">Game Systems</h3>
+<p>In the past year we have added 48 new community-created Game Systems to the package repository, for a total of 364 game systems playable on Foundry Virtual Tabletop! The following table presents the top 25 most-played game systems as defined by the number of recorded in-game hours played. The table also reports the percentage of Foundry VTT license owners who have that game system installed (different than "most played") as well as the change in that system's ranking from this time last year.</p>
+
+<table style="width: 60%">
+    <thead>
+        <tr>
+            <th>Rank</th>
+            <th style="width: 60%">Game System</th>
+            <th>Pct. Installed</th>
+            <th>Change</th>
+        </tr>
+    </thead>
+    <tr>
+        <td>1</td>
+        <td>Dungeons &amp; Dragons Fifth Edition</td>
+        <td>64.28%</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>Pathfinder Second Edition</td>
+        <td>30.52%</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>Pathfinder 1</td>
+        <td>4.32%</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>Warhammer Fantasy Roleplay 4th Edition</td>
+        <td>4.16%</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>LANCER</td>
+        <td>3.87%</td>
+        <td>+21</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>Simple Worldbuilding System</td>
+        <td>6.22%</td>
+        <td>-1</td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>Cyberpunk RED</td>
+        <td>3.50%</td>
+        <td>-1</td>
+    </tr>
+    <tr>
+        <td>8</td>
+        <td>Call of Cthulhu 7th edition</td>
+        <td>6.71%</td>
+        <td>-1</td>
+    </tr>
+    <tr>
+        <td>9</td>
+        <td>Custom System Builder</td>
+        <td>3.84%</td>
+        <td>+1</td>
+    </tr>
+    <tr>
+        <td>10</td>
+        <td>Savage Worlds Adventure Edition</td>
+        <td>3.94%</td>
+        <td>-2</td>
+    </tr>
+    <tr>
+        <td>11</td>
+        <td>Starfinder</td>
+        <td>4.06%</td>
+        <td>-2</td>
+    </tr>
+    <tr>
+        <td>12</td>
+        <td>Star Wars FFG system for Foundry VTT</td>
+        <td>3.28%</td>
+        <td>-1</td>
+    </tr>
+    <tr>
+        <td>13</td>
+        <td>World of Darkness 5e</td>
+        <td>3.61%</td>
+        <td>+1</td>
+    </tr>
+    <tr>
+        <td>14</td>
+        <td>GURPS 4th Edition Game Aid (Unofficial)</td>
+        <td>1.85%</td>
+        <td>-1</td>
+    </tr>
+    <tr>
+        <td>15</td>
+        <td>Das Schwarze Auge / The Dark Eye (5th Edition)</td>
+        <td>1.01%</td>
+        <td>-3</td>
+    </tr>
+    <tr>
+        <td>16</td>
+        <td>Alien RPG</td>
+        <td>3.02%</td>
+        <td>+2</td>
+    </tr>
+    <tr>
+        <td>17</td>
+        <td>Tormenta20</td>
+        <td>0.90%</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>18</td>
+        <td>Shadowdark RPG</td>
+        <td>1.85%</td>
+        <td>+7</td>
+    </tr>
+    <tr>
+        <td>19</td>
+        <td>Warhammer 40,000 Roleplay: Wrath &amp; Glory</td>
+        <td>2.37%</td>
+        <td>+5</td>
+    </tr>
+    <tr>
+        <td>20</td>
+        <td>Dragonbane - Drakar och Demoner</td>
+        <td>1.43%</td>
+        <td>-2</td>
+    </tr>
+    <tr>
+        <td>21</td>
+        <td>Level Up: Advanced 5th Edition (Official)</td>
+        <td>2.34%</td>
+        <td>-6</td>
+    </tr>
+    <tr>
+        <td>22</td>
+        <td>World of Darkness 20th edition</td>
+        <td>2.10%</td>
+        <td>+1</td>
+    </tr>
+    <tr>
+        <td>23</td>
+        <td>Forbidden Lands</td>
+        <td>1.87%</td>
+        <td>+3</td>
+    </tr>
+    <tr>
+        <td>24</td>
+        <td>Delta Green: The Role-Playing Game</td>
+        <td>2.26%</td>
+        <td>+2</td>
+    </tr>
+    <tr>
+        <td>25</td>
+        <td>3.5e for Foundry VTT</td>
+        <td>1.51%</td>
+        <td>-5</td>
+    </tr>
+</table>
+<p>For systems that fell outside the top 25 last year we unfortunately do not have their true ranking, so they have been reported in this table as if their prior-year ranking was #26. The true year-to-year change for those systems is likely even greater than reported!</p>
+<figure class="small">
+    @Asset[950]
+    <figcaption>Lancer is an unofficial fan-maintained game system, showcased here with Grapejuice’s Isometric module and image assets from Retrograde Minis.</figcaption>
+</figure>
+<p>Our team is especially impressed with the tremendous growth of the Lancer system since last year. The system has seen a huge surge in popularity to now become our 5th "most-played" game system. Lancer is a mud-and-lasers tactical mech RPG published by Massif press and its game system is community-maintained by community developer Eranziel and a dedicated group of Lancer fans. While Lancer doesn’t yet support Foundry VTT V13, we know that their developers are actively working on it even now. If you’re interested in a sharp, tactical sci-fi mech-piloting experience be sure to show the system devs some love and check it out!</p>
+
+<h3 class="border">Add-On Modules</h3>
+<p>We’re very proud to have a very open API as one of the most notable features of Foundry VTT, especially given the robust community of developers that has built up around it. We are endlessly thankful to our community devs for their constant contributions and seemingly infinite stream of creative add-ons and customizations for core features. The following are the 25 most installed modules which are not premium content or an underlying library.</p>
+<table style="width: 60%">
+    <thead>
+        <tr>
+            <th>Rank</th>
+            <th style="width: 60%">Add-On Module</th>
+            <th>Pct. Installed</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+        <td>1</td>
+        <td>Dice So Nice</td>
+        <td>55.18%</td>
+    </tr>
+        <tr>
+            <td>2</td>
+            <td>Dice Tray</td>
+            <td>42.65%</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Sequencer</td>
+            <td>34.71%</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Monk's Active Tile Triggers</td>
+            <td>32.55%</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>FX Master</td>
+            <td>32.47%</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>Tokenizer: The Token Editor</td>
+            <td>29.78%</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>Dynamic Active Effects</td>
+            <td>28.74%</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>Wall Height</td>
+            <td>28.30%</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>Drag Ruler</td>
+            <td>26.63%</td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td>Simple Calendar</td>
+            <td>26.49%</td>
+        </tr>
+        <tr>
+            <td>11</td>
+            <td>Automated Animations</td>
+            <td>26.36%</td>
+        </tr>
+        <tr>
+            <td>12</td>
+            <td>DDB-Importer</td>
+            <td>24.76%</td>
+        </tr>
+        <tr>
+            <td>13</td>
+            <td>PopOut!</td>
+            <td>24.57%</td>
+        </tr>
+        <tr>
+            <td>14</td>
+            <td>Levels</td>
+            <td>24.37%</td>
+        </tr>
+        <tr>
+            <td>15</td>
+            <td>Midi Quality of Life Improvements</td>
+            <td>23.72%</td>
+        </tr>
+        <tr>
+            <td>16</td>
+            <td>Jules &amp; Ben's Animated Assets</td>
+            <td>23.22%</td>
+        </tr>
+        <tr>
+            <td>17</td>
+            <td>Token Attacher</td>
+            <td>21.14%</td>
+        </tr>
+        <tr>
+            <td>18</td>
+            <td>Universal Battlemap Importer</td>
+            <td>20.97%</td>
+        </tr>
+        <tr>
+            <td>19</td>
+            <td>Monk's TokenBar</td>
+            <td>19.17%</td>
+        </tr>
+        <tr>
+            <td>20</td>
+            <td>Carousel Combat Tracker</td>
+            <td>18.73%</td>
+        </tr>
+        <tr>
+            <td>21</td>
+            <td>Better Roofs</td>
+            <td>18.00%</td>
+        </tr>
+        <tr>
+            <td>22</td>
+            <td>Torch</td>
+            <td>17.58%</td>
+        </tr>
+        <tr>
+            <td>23</td>
+            <td>Multilevel Tokens</td>
+            <td>17.47%</td>
+        </tr>
+        <tr>
+            <td>24</td>
+            <td>Quick Insert - Search Widget</td>
+            <td>17.02%</td>
+        </tr>
+        <tr>
+            <td>25</td>
+            <td>Health Estimate</td>
+            <td>16.45%</td>
+        </tr>
+    </tbody>
+</table>
+<p>Many of these popular modules depend on underlying libraries to provide frameworks and tools that they further build upon. We’ve separated out these modules because it is often the case that multiple non-library modules depending on specific libraries may depend on a single library module, which can inflate the installation percentage. The following are the 10 most installed (and therefore most-utilized) library modules.</p>
+<table style="width: 60%">
+    <thead>
+        <tr>
+            <th>Rank</th>
+            <th style="width: 60%">Library Module</th>
+            <th>Pct. Installed</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>libWrapper</td>
+            <td>72.02%</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>socketlib</td>
+            <td>61.69%</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>ColorSettings</td>
+            <td>30.59%</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Token Action HUD Core</td>
+            <td>26.28%</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Token Magic FX</td>
+            <td>24.12%</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>Settings Extender</td>
+            <td>20.62%</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>Chat Commander</td>
+            <td>12.11%</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>Babele</td>
+            <td>11.36%</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>Advanced Macros</td>
+            <td>10.96%</td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td>Moulinette Core</td>
+            <td>10.13%</td>
+        </tr>
+    </tbody>
+</table>
+<p>We would like to express our congratulations and admiration for the developers who have created modules in this list, I hope these tables make it clear that your work is so valuable to and beloved by the Foundry VTT community!</p>
+
+<h3 class="border">Premium Content</h3>
+<p>We can also use this data to recognize the most popular premium content on the Foundry VTT platform. The following table reports the top 25 most installed pieces of premium content, excluding Patreon creators who we'll come to in a moment!</p>
+<table style="width: 60%">
+    <thead>
+        <tr>
+            <th>Rank</th>
+            <th style="width: 80%">Premium Module</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>Pathfinder: Abomination Vaults</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Pathfinder Tokens: Bestiaries</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Pathfinder Beginner Box</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Player's Handbook (2024)</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Warhammer Fantasy Roleplay 4e - Core Module</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>Pathfinder: Kingmaker</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>Pathfinder Tokens: Monster Core</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>Dungeon Master's Guide (2024)</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>Outlaws of Alkenstar 1 of 3: Punks in a Powderkeg</td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td>Monster Manual (2024)</td>
+        </tr>
+        <tr>
+            <td>11</td>
+            <td>Phandelver and Below: The Shattered Obelisk</td>
+        </tr>
+        <tr>
+            <td>12</td>
+            <td>Tasha's Cauldron of Everything</td>
+        </tr>
+        <tr>
+            <td>13</td>
+            <td>Pathfinder Tokens: Character Gallery</td>
+        </tr>
+        <tr>
+            <td>14</td>
+            <td>Blood Lords 1 of 6: Zombie Feast</td>
+        </tr>
+        <tr>
+            <td>15</td>
+            <td>Savage Worlds Core Ruleset</td>
+        </tr>
+        <tr>
+            <td>16</td>
+            <td>Warhammer Fantasy Roleplay 4e - Starter Set</td>
+        </tr>
+        <tr>
+            <td>17</td>
+            <td>Outlaws of Alkenstar 2 of 3: Cradle of Quartz</td>
+        </tr>
+        <tr>
+            <td>18</td>
+            <td>Pathfinder: Harrow Deck</td>
+        </tr>
+        <tr>
+            <td>19</td>
+            <td>Outlaws of Alkenstar 3 of 3: The Smoking Gun</td>
+        </tr>
+        <tr>
+            <td>20</td>
+            <td>Warhammer Fantasy Roleplay 4e - Rough Nights &amp; Hard Days</td>
+        </tr>
+        <tr>
+            <td>21</td>
+            <td>ALIEN RPG Core Rulebook</td>
+        </tr>
+        <tr>
+            <td>22</td>
+            <td>Battlezoo Bestiary</td>
+        </tr>
+        <tr>
+            <td>23</td>
+            <td>Battlezoo Ancestries: Dragons</td>
+        </tr>
+        <tr>
+            <td>24</td>
+            <td>Blood Lords 2 of 6: Graveclaw</td>
+        </tr>
+        <tr>
+            <td>25</td>
+            <td>Season of Ghosts 1 of 4: The Summer That Never Was</td>
+        </tr>
+    </tbody>
+</table>
+<p>In addition to these popular modules which are available for individual purchase, we have a number of very popular creators on Patreon who offer content for Foundry VTT through their Patreon memberships. We have separated this channel of premium content from non-patreon premium content modules and grouped those modules by creator because it is common for patreon creators to have a large amounts of smaller modules and because our top two Patreon creators otherwise were responsible for an astounding 33 of the top 50 premium content modules. Ripper93 and Baileywiki should be extremely proud, we’re certainly proud of them! This year's top-10 Patreon creators ranked by the installation percentage of their most popular module are:</p>
+<table style="width: 60%">
+    <thead>
+        <tr>
+            <th>Rank</th>
+            <th style="width: 80%">Patreon Creator</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>theripper93</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Baileywiki</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>The MAD Cartographer</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Boss Loot</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Caeora</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>Tabletop RPG Music</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>Kobold DM</td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>Immaterial Plane</td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>Cthulhu Architect</td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td>LOVEMAPS Cthulhu</td>
+        </tr>
+    </tbody>
+</table>
+<p>Congratulations to all of these creators for producing premium content that is so essential to Foundry Virtual Tabletop gamemasters and players!</p>
+
+<h2 class="border">Business Development</h2>
+<p>It’s been a great year for us as a company with significant growth across all facets of our business and community, and we’re pleased to be able to share some insights about that growth and how it affects us as a team.</p>
+
+<h3 class="border">Team Growth</h3>
+<p>One change from prior years is that our team growth has steadied. The core Foundry Virtual Tabletop team is 8 people, 5 of whom are software developers. In addition to that we have two team members who focus on the Pathfinder 2e system and premium content. We have two team members plus a few part-time contractors who focus on the D&D5E game system and premium content. Ember is being actively developed by a team of 15 people, 8 of whom are full-time with 7 part-time contributors. The one full-time hire for the team since this time last year is Richard (stwlam) whom we affectionately call “Shark”, who has joined our team as a software developer.</p>
+<p>Shark is a talented developer who somehow manages to code despite having fins! We were glad to add Richard to the team in August of last year. Many of you may already be familiar with his work as one of the lead developers on the Game System for Pathfinder Second Edition. He has made himself a great asset to the team and V13 benefited greatly from his direct involvement in its development.</p>
+
+<h3 class="border">Community Growth</h3>
+<p>Our official <a href="https://discord.gg/foundryvtt/" target="_blank">community Discord server</a> and unofficial <a href="https://reddit.com/r/FoundryVTT" target="_blank">community-managed subreddit</a> have shown steady growth over the past year, continuing an ongoing trend for the past few years, but that doesn’t mean we aren’t on the cusp of some exciting milestones!</p>
+
+<p>Our Community Discord server will shortly surpass 100,000 members while somehow still managing to stay a welcoming and friendly outpost in a sometimes turbulent sea of the broader internet. This milestone marks the continued trend of growth for the server, and we see a near constant influx of approximately 1,500 new members every month. We’re extremely grateful not only to the moderators and community helpers who daily contribute their time to help keep the server running smoothly, but also to the community as a whole for continuing to maintain an atmosphere of welcoming inclusivity. It is a point of pride for the entire Foundry VTT team that our discord server remains a place where people can feel welcome to ask questions and find a new, quiet, and friendly home to chat with other TTRPG fans.</p>
+<p>Over the past year our community-run subreddit has also seen significant growth and is fast approaching the milestone of 75,000 members! The subreddit remains one of the best places for community members to engage outside of discord and the near-constant stream of posts and comments makes for fascinating and entertaining daily reading. Over the last twelve months r/FoundryVTT/ has had more than 69,000 published comments spanning 7500 posts. We’re extremely thankful to our community members for staying so tuned-in and engaged, your near constant stream of feedback and communication help us to make informed decisions about our software and premium content developments.</p>
+<p>We’ve also expanded our social media presence, joining <a href="https://bsky.app/profile/foundryvtt.bsky.social" target="_blank">Bluesky</a> and <a href="https://www.facebook.com/profile.php?id=61564149218691" target="_blank">Facebook</a> where we are growing our presence as alternative places to connect with users and community members. We'd like to encourage everyone to follow us on those platforms if you use them to receive announcements and updates on our ongoing projects, software update news, details of sales and announcements of upcoming premium content!</p>
+
+<h3 class="border">The Official Foundry VTT Marketplace</h3>
+<p>In February, we launched our official storefront, the <a href="https://www.foundryvtt.store/" target="_blank">Foundry VTT Marketplace</a>, where we’ve partnered with dozens of content creators to provide a unified place for purchasing premium content modules for Foundry VTT. We partnered with our good friends at MetaMorphic Digital Studio to create this marketplace. We are thrilled with how it has turned out, and we hope that you are too!</p>
+<div class="columns">
+    <div class="column">
+        <p>The marketplace improves discoverability for premium content across the board with a centralized browsing experience, advanced searching and filtering features, wishlists, discovery views, user reviews, and much more. The marketplace is seamlessly integrated with your Foundry VTT account making it easier than ever to find, purchase, and install the content you want in a single place.</p>
+        <p>In addition to making it easier for our users to buy the content they want, it also made it easier for our content creation partners to offer their content for sale at the same time. This makes it easier for us to team with those partners and offer sales like the 20% off site-wide sale currently being offered on (almost all) premium content.</p>
+        <p>The marketplace has proved to be enticing for our premium content partners, with more than 500 modules for sale from more than 60 different creators and publishers, a massive 40% of all premium content available for Foundry VTT is available through our unified marketplace within these first few months. We look forward to the next near as the storefront continues to grow and as we continue to add more publishers and refine the experience for our users.</p>
+    </div>
+    <figure class="column">
+        @Asset[883]
+    </figure>
+</div>
+<figure class="commentary">
+    <blockquote>
+        <p>We have seen an overwhelmingly positive response to the creation of the Official Foundry VTT Marketplace. We continue to welcome new Creators and titles to the offerings available to support the wonderful developers and designers. It’s proven to be useful to fans as well, based on the praise given and return visits we see!</p>
+    </blockquote>
+    <figcaption>
+        <p class="byline">Amy</p>
+        <p class="role">President, MetaMorphic Digital Studio</p>
+    </figcaption>
+</figure>
+
+<h3 class="border">PAX Unplugged 2024</h3>
+<p>For the first time ever our team presented our own dedicated booth at a major gaming convention. We've certainly had the opportunity to do this in the past, but the circumstances and costs haven't been right to make it actually happen. This past December we exhibited at <strong>PAX Unplugged</strong> in Philadelphia, showing off the Foundry Virtual Tabletop software, Ember, and other amazing premium content products to thousands of con-goers.</p>
+<figure class="small">
+    @Asset[956]
+    <figcaption>The Foundry Virtual Tabletop and Ember teams at PAX Unplugged!</figcaption>
+</figure>
+<p>It was an awesome opportunity for us to do live demonstrations, to connect with Foundry VTT users, and to introduce the software to a ton of enthusiastic newcomers. Having Ember quickly approaching Alpha One playtest at the time gave us a flagship product that we could present in addition to Foundry VTT itself, and the Ember character creation, cosmos map, and mega-region were definitely eye-catching for people passing by the booth.</p>
+<p>Our team came away from the event both exhausted but also energized from all the positive feedback we received. We can use this opportunity to confirm that we will be back at <a href="https://unplugged.paxsite.com/" target="_blank">PAX Unplugged this coming November</a>. If you're able to attend we would love to see you there!</p>
+
+<h3 class="border">Introducing Sqyre - Our Newest Hosting Partner!</h3>
+<div class="columns">
+    <div class="column">
+        <p>We’re pleased to announce that we have added a new partnered Hosting Provider to our ranks! <a href="https://www.sqyre.app/" target="_blank">Sqyre</a> is a startup company created by a group of friends and Foundry VTT enthusiasts. They started offering hosting services to a select users a little over a year ago and from there they have grown into a fully-featured hosting platform for Foundry Virtual Tabletop.</p>
+        <p>Sqyre offers generous storage allocations, the ability to customize which version of Foundry VTT you are using per-game, regional servers, and integration with professional GM tools for game discovery and session planning. Our team is excited by the features Sqyre has developed to support Foundry Virtual Tabletop, and if you're interested in a dedicated environment for hosting your Foundry VTT games that you don't have to manage yourselves, we encourage you to check them out!</p>
+    </div>
+    <figure class="column">
+        <a href="https://www.sqyre.app/" target="_blank">@Image[948]</a>
+        <figcaption>Sqyre is an exciting new official hosting partner for Foundry Virtual Tabletop!</figcaption>
+    </figure>
+</div>
+<figure class="commentary">
+    <blockquote>
+        <p>Sqyre was created with one goal: enabling high performance, lag-free Foundry games with a simple and intuitive user experience. It’s the first fully-featured hosting service to offer a completely free entry-level tier with no expiration date, and also has powerful and unique features for GMs who want to pull out all the stops for their games.</p>
+    </blockquote>
+    <figcaption>
+        <p class="byline">Thomas</p>
+        <p class="role">Founder, Sqyre</p>
+    </figcaption>
+</figure>
+
+
+<h2 class="border">Ember</h2>
+<figure>
+    @Asset[954]
+    <figcaption>Ember is an online tabletop roleplaying game of unprecedented scope from the creators of Foundry Virtual Tabletop, available for preorder now.</figcaption>
+</figure>
+<p>This time last year we were hastily preparing to reveal the <a href="https://foundryvtt.com/ember" target="_blank">Ember</a> project, feverishly writing articles and putting together promotional images to share with you all in time for our launch anniversary. It’s been positively heartwarming to see the community’s reaction to Ember as we’ve revealed more about the project.</p>
+<h3 class="border">Kickstarter</h3>
+<p>Going through the <a href="https://www.kickstarter.com/projects/foundryvtt/ember-rpg" target="_blank">Kickstarter</a> process was a huge effort for the team and quite a stressful period - to be honest. We are glad that we did it, the project was really successful with 3,808 backers pledging their support to raise $710,981 to fund our continued development of the project. I am thrilled that we have met our Kickstarter commitments so far, and while the overall Ember project will take a long time to complete, we are on track with the rollout schedule that we proposed to backers.</p>
+<figure>
+    <iframe width="720" height="410" src="https://www.youtube.com/embed/MErInn8A8Yw?si=Q8JFJzT_48aCkSIS" title="Ember Kickstarter Trailer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <figcaption>Our thrilling Kickstarter Trailer video gives an overview of features that Ember provides!</figcaption>
+</figure>
+<p>The game is currently in the “Alpha One” phase of testing which 400 backers have access to. The Alpha One process has been great for our team so far, giving us extra perspectives on the project from people playing it as well as the encouragement and morale boosts that we obtain from seeing how the Alpha community has positively received the game and new content as we roll out additional releases.</p>
+<p>A really fun part of the Kickstarter process was getting the chance to team up with the Glass Cannon Podcast crew to present a <a href="https://youtu.be/CYj0b3aLewg?si=gplUWnDToOefEB4i" target="_blank">limited 4-part Ember series</a> that debuted each week during the Kickstarter campaign. Ember as a game has already progressed a long way since what was shown during this stream, but the GCN episodes are a great look at the type of game that we are making. If you haven’t seen them yet, we would love for you to check it out.</p>
+<p>For those of you who missed out on the Kickstarter, Ember is available for <a href="http://foundryvtt.store/products/ember-early-access" target="_blank">pre-order</a> which will get you access to the game as soon as it enters the Early Access period expected at the end of this calendar year.</p>
+
+<h3 class="border">Development and Test Schedule</h3>
+<p>Our team’s work on Ember is moving full-steam ahead, we are currently in the midst of developing Chapter 3 content and gameplay. Ember is currently in Alpha One testing. For those of you who missed the Kickstarter or did not back at the Alpha tier, it will be possible to upgrade into the Alpha Two test once it becomes available in July! The major upcoming milestones for Ember will include:</p>
+<dl>
+    <dt>Alpha One (Now through July)</dt>
+    <dd>The metropolis of Ordain, Chapter 3 gameplay for D&D, Chapter 1 gameplay for Crucible.</dd>
+    <dt>Alpha Two (July through September)</dt>
+    <dd>Refinement of Chapters 1-3.</dd>
+    <dt>Beta One (September through November)</dt>
+    <dd>Chapter 4 gameplay for D&D, Chapter 2 gameplay for Crucible.</dd>
+    <dt>Beta Two (November through December)</dt>
+    <dd>Refinement of Chapters 1-4</dd>
+    <dt>Early Access (end of December or January 2026)</dt>
+    <dd>Chapters 1-4 playable.</dd>
+    <dt>Remaining Development (January 2026 through ???)</dt>
+    <dd>Chapters 5 through 7.</dd>
+</dl>
+<figure class="commentary">
+    <blockquote>
+        <p>Every day the project jumps forward, new artwork, characters, events, and system work, it feels so dynamic and alive, and I'm so excited for what's to come! I'm currently working on bringing the massive city of Ordain, along with its 51 explorable districts, to life on the region map and trying to fit so much incredible detail into the artwork and the lore!</p>
+    </blockquote>
+    <figcaption>
+        <p class="byline">Caeora</p>
+        <p class="role">Art Director and Lorekeeper</p>
+    </figcaption>
+</figure>
+
+<h2 class="border">Official D&D Content</h2>
+<p>Beginning with the <a href="https://foundryvtt.com/packages/dnd-players-handbook" target="_blank">Player's Handbook</a> in September, <a href="https://foundryvtt.com/packages/dnd-dungeon-masters-guide" target="_blank">Dungeon Master’s Guide</a> in November, and <a href="https://foundryvtt.com/packages/dnd-monster-manual" target="_blank">Monster Manual</a> in February, we released a lot of new rules support for Dungeons & Dragons Fifth Edition. The D&D5e system has gained a lot of new features since our official partnership with Wizards of the Coast, and with the most recent adoption of the SRD 2025, users have access to more free rules content for D&D on Foundry VTT than ever before.</p>
+<figure>
+    @Asset[957]
+    <figcaption>The D&D system has received tremendous investment in new features over the past year!</figcaption>
+</figure>
+<p>To highlight just some of the awesome new features the D&D 5e system has added as a result of this new partnership:</p>
+<ul>
+    <li>Completely new redesign of character and non-player character sheets, styled with an aesthetic modeled after the D&D brand.</li>
+    <li>A compendium browser application improving ease of use by providing a single, unified and fast way to find actors and items from across all of your enabled content with robust search and filtering features.</li>
+    <li>The new Enchantment system allows users to modify items with particular enchantment effects that give them new features, alter their description, grant magical bonuses and more.</li>
+    <li>A new system for Summoning allows characters to summon creatures directly to the battlefield with automatically applied bonuses, and even allows users to choose what to summon based on CR and creature type.</li>
+    <li>The new Activities system completely reworked how items worked, enabling a single item to do multiple things such as make an attack, cast spells, transform a creature, summon allies, and even more.</li>
+    <li>Improved recovery features making it easier to handle recharging items or regaining access to features.</li>
+    <li>Map Location Pages allow users to quickly set identifiers for a journal page for their locations, and when pinned to a scene they display a map pin styled to match the standard appearance for official content.</li>
+    <li>Full support for the new Bastion rules offered by the 2024 Dungeon Master’s Guide.</li>
+    <li>Inclusion of the SRD 5.2 rules for even more free rules content.</li>
+    <li>So much more!</li>
+</ul>
+<figure class="commentary">
+    <blockquote>
+        <p>In the past year we have released the full suite of 2024 core source books with the Player's Handbook, Dungeon Master's Guide, and Monster Manual launching simultaneously on Foundry VTT along with the full 5.2 SRD.</p>
+        <p>Dungeon Masters on Foundry now have access to an additional 12 classes, 48 subclasses, 10 species, 16 backgrounds, 75 feats, over 500 monsters, more than 600 items, and almost 400 spells implemented directly in Foundry VTT than they did this time last year. It's also easier than ever to build your own monsters with 680 features from the Monster Manual that dynamically update when added to your homebrew creature. All of this official content has inspired a lot of system work which has evolved from 3.3 to 5.0 with huge improvements for Dungeon Masters and players alike.</p>
+    </blockquote>
+    <figcaption>
+        <p class="byline">Matt</p>
+        <p class="role">Content Developer</p>
+    </figcaption>
+</figure>
+<p>We’re not quite ready to share what our specific plans are for D&D content just yet but members of the content conversion team are definitely hidden deep in the dungeon vaults working tirelessly to bring you new and interesting adventures for your players to enjoy. Rest assured we’re looking forward to turning our attention to more adventure content for D&D in the future and that some news on this front should be coming soon!</p>
+
+<h2 class="border">Official Pathfinder Content</h2>
+<p>Last August we released a new, groundbreaking method for finding and managing token artwork alongside a package of 1200 new tokens selected from a wide variety of Paizo’s most popular publications for Pathfinder Second Edition. <a href="https://www.foundryvtt.store/products/pf2e-tokens-characters" target="_blank">Pathfinder Tokens: Character Gallery</a> has shown itself to be one of our most popular premium content modules. Cora put in a lot of work developing this, and we’re glad to see it so well-received among the community. We’re especially pleased to see new Token Pack modules include support for the Character Gallery application, making those token pack modules even easier to use by including support for searching and filtering so you can really find that one obscure character design you’re looking for.</p>
+<figure class="small">
+    @Asset[800]
+    <figcaption>The <em>Character Gallery</em> makes it convenient to find the exact art you want to use for your actors!</figcaption>
+</figure>
+
+<figure class="commentary">
+    <blockquote>
+        <p>With the Character Gallery, we wanted to create a new framework that would make it even easier for gamemasters to access and search the artwork provided by their token modules. We're really excited to see that standard spread not only through our own modules, but also be adopted by both community members and other content developers, including the NPC Core and Monster Core token packs. Our recently-released Myth and Magic module is just the latest in a growing collection of packages that expand on the Character Gallery's utility.</p>
+    </blockquote>
+    <figcaption>
+        <p class="byline">Viviane</p>
+        <p class="role">Content Developer</p>
+    </figcaption>
+</figure>
+<p>This weekend happens to also be PaizoCon, and we decided to surprise the Pathfinder community with the reveal and release of the latest entry in the Pathfinder Tokens series of premium content packages. <a href="https://www.foundryvtt.store/products/pf2e-tokens-myth-and-magic" target="_blank">Pathfinder Tokens: Myth and Magic</a> is available NOW and offers more than 600 pieces of portrait art and matching tokens selected from more than ten primary sources and over a dozen supplemental sources to provide all the art we could find to match the theme of esoteric knowledge, forbidden lore, and divine power. Even though it’s a brand-new release, we’ve also opted to include it in the marketplace content sale for our anniversary!</p>
+<figure>
+    @Asset[946]
+    <figcaption><em>Pathfinder Tokens: Myth and Magic</em> is available for purchase NOW!</figcaption>
+</figure>
+<p>That isn’t everything we revealed at PaizoCon! Work has already begun on the next adventure product from the Foundry VTT team, with Claws of the Tyrant <a href="https://www.foundryvtt.store/products/pf2e-claws-of-the-tyrant" target="_blank">now available for preorder</a> and coming in late June 2025. Claws of the Tyrant is an anthology of three interconnected adventures set in the former nation of Lastwall, now known as the Gravelands. The premium content module features 18 gorgeous and detailed battlemaps created by popular community creator Kobold DM specifically for Foundry Virtual Tabletop ensuring every encounter has an associated map, and including new V13 scene features like animated doors. The adventure will also include tokens for every creature necessary to run the adventure, and a full official soundtrack from Michael Ghelfi Studios.</p>
+
+<h2 class="border">The Demon Queen Awakens and A House Divided</h2>
+<p>One of the most exciting parts of a new stable version of Foundry VTT is the fact that it gives us the opportunity to revisit some of our earlier work and adopt those features for our users as a way of offering continued support. Our first-party adventures <a href="https://foundryvtt.com/packages/demon-queen-awakens" target="_blank">The Demon Queen Awakens</a> and <a href="https://foundryvtt.com/packages/house-divided" target="_blank">A House Divided</a> will both be receiving feature updates.</p>
+<p>The Demon Queen Awakens V13 Feature Update is available NOW and brings some exciting new upgrades:</p>
+<ul>
+    <li><strong>Animated Doors.</strong> V13’s new animated doors feature might seem like a simple upgrade but adopting it in Demon Queen Awakens brings a very subtle but profound sense of immersion to the Vault of Aten as players navigate it. The first time the vault doors swing wide with that slow double-door swing animation and the sound of the stone doors hits just feels very different.</li>
+    <li><strong>High-Performance Rendering.</strong> The Demon Queen Awakens is our first published premium content module outside Ember to leverage KTX2 compressed textures for more performant scene rendering. It just feels faster and smoother to play on a map using this rendering stack! We've also reduced the size of the Vault of Aten <em>slightly</em> without affecting gameplay to 8192px which allows for users with less powerful GPUs to play the adventure!</li>
+    <li><strong>Improved Macros.</strong> We took the opportunity to brush up a few of the macros across both the D&D 5e and Pathfinder Second Edition versions of the adventure, streamlining them to make them easier for GMs to use.</li>
+    <li><strong>Improved Scene Regions.</strong> Somewhat of a smaller but no less important change, the Ansubek encounter now uses a scene region to handle its water combat portions with a visual effect that changes based on how deep (in negative elevation) a token descends into the water.</li>
+    <li><strong>D&D5E 2024 Rules.</strong> Since we were already updating the adventure and the rules for D&D 2024 are out, we seized the moment and updated a number of creatures and spells to use rules from the new 5.2 SRD!</li>
+</ul>
+<p>These are just some of the changes that are now available in the latest version of The Demon Queen Awakens, and we’re really looking forward to extending the same treatment to A House Divided in the coming weeks. We have plans to extend all our scenes with  animated doors and the same KTX2 texture rendering method, and to really put the new Movement Cost Scene Region Behavior through its paces on some of those ruined manor maps! We hope you’ll all look forward to the enhancements coming for A House Divided soon.</p>
+<figure class="commentary">
+    <blockquote>
+        <p>There’s something very heartwarming about getting to return to our premium content offerings, updating them for a new version, reading the feedback from people who’ve experienced an adventure we’ve created, being able to tell them about the new features that we’ve added since they last played. It really lifts me up when I get to flip through user feedback on one of our adventures and see a player getting really excited about a particular NPC’s backstory or a GM really picking up the intent in our writing and running with it. It fills me with a sense of pride to know people can trust our premium content to be high quality, the kind of content I’d use in my own games.</p>
+    </blockquote>
+    <figcaption>
+        <p class="byline">Shane</p>
+        <p class="role">Community Manager and Content Developer</p>
+    </figcaption>
+</figure>
+
+<figure class="commentary">
+    <blockquote>
+        <p>To conclude our epic-length "Year in Review" article for this year, allow us to say as a team how much we appreciate you all in the Foundry Virtual Tabletop community. Your support encourages us to ever-greater heights. We hope that the next year brings you and your friends a year of fantastic gaming and lasting memories.</p>
+    </blockquote>
+    <figcaption>
+        <p class="byline">Andrew</p>
+        <p class="role">Creator of Foundry Virtual Tabletop</p>
+    </figcaption>
+</figure>
