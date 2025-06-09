@@ -132,7 +132,7 @@
 <h3>Hooks</h3>
 <p>Hooks are an event framework Foundry VTT uses to provide package developers with the ability to register callback functions that occur at particular times as events within the program occur. For example, the <code>preCreateActor</code> Hook allows you to make changes to the data model for an Actor when its creation process is started but before the Actor is created.</p>
 
-<p>Learn more about the set of available <a href="https://foundryvtt.com/api/classes/client.Hooks.html" target="_blank">Hook events</a> in our API documentation.</p>
+<p>Learn more about the set of available @API[classes/foundry.helpers.Hooks, Hooks] in our API documentation.</p>
 
 <h4>Debugging Hooks</h4>
 <p>In order to debug and better understand which hook events are triggered, you can set the <code>CONFIG.debug.hooks</code> boolean to true. For example, by adding the following code to your package JavaScript file.</p>
@@ -141,10 +141,10 @@
 });</code></pre>
 
 <h3>Localization</h3>
-<p>Foundry Virtual Tabletop offers a Localization system in order to provide convenience for translators to work with projects internal to the application. It’s important to start thinking about localization early in the project, as it is much easier to do it as you develop rather than returning after you have completed the project to add the localization. When developing your project, consider using Localization text <strong>everywhere</strong> you would normally write text for your users to read. This will mean that other developers wishing to translate your project can do so very easily. For more information, please see @Article[localization].</p>
+<p>Foundry Virtual Tabletop offers a Localization system in order to provide convenience for translators to work with projects internal to the application. It's important to start thinking about localization early in the project, as it is much easier to do it as you develop rather than returning after you have completed the project to add the localization. When developing your project, consider using Localization text <strong>everywhere</strong> you would normally write text for your users to read. This will mean that other developers wishing to translate your project can do so very easily. For more information, please see @Article[localization].</p>
 <ul>
-    <li><a href="https://foundryvtt.com/api/classes/client.Localization.html" target="_blank">The Localization Helper Class</a></li>
-    <li><a href="https://foundryvtt.com/api/classes/client.HandlebarsHelpers.html#localize" target="_blank">The Localize Handlebars Helper</a></li>
+    <li>The @API[classes/foundry.helpers.Localization, Localization Helper Class]</li>
+    <li>The @API[functions/foundry.applications.handlebars.localize, Localize Handlebars Helper]</li>
 </ul>
 
 <h3>JavaScript Namespacing</h3>
@@ -170,7 +170,7 @@
 </code></pre>
 
 <h4>Custom Provided Helpers</h4>
-<p>In addition to the many helper methods which come with basic Handlebars, we provide a number of additional special helpers which assist with commonly occurring tasks. These additional helpers are discoverable under the <a href="https://foundryvtt.com/api/classes/client.HandlebarsHelpers.html" target="_blank">Handlebars Helpers</a> page of our API Documentation.</p>
+<p>In addition to the many helper methods which come with basic Handlebars, we provide a number of additional special helpers which assist with commonly occurring tasks. These additional helpers are discoverable under the @API[modules/foundry.applications.handlebars, Handlebars Helpers] API Documentation.</p>
 
 <h3 id="css" class="border">Namespacing for CSS</h3>
 <p>The importance of proper namespacing for CSS definitions is far greater. CSS considers two important factors when applying styles to HTML, the <strong>most recently loaded</strong> definition and the <strong>most specific</strong> definition. Using a CSS class definition which isn't specific enough will likely result in your CSS rules applying to an entire part of the program, or cause overlap with other packages. To prevent any unexpected confusion of CSS rules, please adhere to the following best practices:</p>
