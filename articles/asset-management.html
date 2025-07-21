@@ -1,0 +1,86 @@
+<p>Clever use of multimedia assets such as images, sound, and videos with Foundry VTT can dramatically increase your game's quality and immersion. This article covers:</p>
+<ul>
+    <li>Locating assets</li>
+    <li>Uploading assets so that you can use them inside Foundry VTT</li>
+    <li>Properly backing up your assets</li>
+    <li>Additional detail for power users</li>
+</ul>
+
+<h2 class="border" id="locating-assets">Locating Assets to use in Foundry VTT</h2>
+<h3 id="premade-adventures"></h3>
+<p>If you are using a pre-made adventure, most assets that you need are included in the module and are pre-configured for your use. Available adventures include:</p>
+<ul>
+    <li><a href="/packages/demon-queen-awakens">Demon Queen Awakens</a> (D&D 5E and PF2E)</li>
+    <li><a href="/packages/house-divided">A House Divided</a> (D&D 5E)</li>
+    <li><a href="/ember/">Ember</a> (D&D 5E and Crucible)</li>
+    <li><a href="/packages/dnd-phandelver-below">Phandelver and Below (D&D 5E)</a></li>
+    <li><a href="/packages/dnd-tomb-annihilation">Tomb of Annihilation (D&D 5E)</a></li>
+    <li><a href="/packages/pf2e-beginner-box">Beginner Box</a> (PF2E)</li>
+    <li><a href="/packages/pf2e-abomination-vaults">Abomination Vaults</a> (PF2E)</li>
+    <li><a href="/packages/pf2e-kingmaker">Kingmaker</a> (PF2E)</li>
+</ul>
+<p>Many more adventures are available for a wide variety of game systems. For more information, try searching on the official <a href="https://www.foundryvtt.store/">Foundry VTT Marketplace</a> or asking on our Discord (https://discord.gg/FoundryVTT) in your favorite game system's channel.</p>
+
+<h3 id="additional-assets">Finding additional assets</h3>
+<p>Even when using a pre-made adventure, it can be useful to add your own assets (player token and profile images, for example). Most modern file formats can be used in Foundry VTT, such as <code>.png</code>, <code>.jpg</code>, <code>.webp</code>, <code>.webm</code>, <code>.mp4</code>, <code>.mp3</code>, and <code>.ogg</code>.</p>
+<p class="info note"><strong>Note</strong>: Despite some lingering popularity, <code>.gif</code> is an obsolete, inefficient file format and is not supported.</p>
+<p>This means that there is a wealth of high-quality art available to support your games, both free and paid. Creators such as <a href="https://www.forgotten-adventures.net/">Forgotten Adventures</a> have an extensive library of free assets. If you're looking for something in particular, try visiting the #media-and-assets channel of our Discord (https://discord.gg/FoundryVTT), checking the pins, and asking around.</p>
+<p>Of course, the <a href="https://www.foundryvtt.store/">Foundry VTT Marketplace</a> is also an excellent resource for high quality TTRPG-ready assets of all kinds.</p>
+
+<h3>Creating and optimizing assets</h3>
+<p>If you are creating your own assets to use or using existing ones, following some media best practices can drastically reduce file sizes. This can save both storage space and upload times. For more information, see the <a href="https://foundryvtt.com/article/media/">Media Optimization Guide</a>.</p>
+
+
+<h2 class="border" id="uploading-assets">"Uploading" Assets</h2>
+<p>Once you've found a file that you like, you can upload files in one of two ways:</p>
+<ul>
+    <li>Using your operating system</li>
+    <li>Using Foundry VTT</li>
+</ul>
+<h3>"Uploading" a file with your operating system</h3>
+<p>You can always use your operating system to move files into the Foundry User Data folder without using Foundry VTT at all. Simply move the files using Windows Explorer, macOS Finder, or standard Linux commands. If you are self-hosted, it seems a bit strange to call this movement of files on the same "uploading," but this makes the files available for use within Foundry VTT.</p>
+<p>For more information about the Foundry VTT User Data folder, please see the <a href="/article/configuration">Configuration</a> article.</p>
+
+<h3>"Uploading" a file with Foundry VTT</h3>
+<p>You can also upload a file directly through the Foundry VTT user interface. For example, if you want to upload an image to use as a scene background, you could use the "Scene Configuration" window to upload your file:</p>
+<figure> <img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/uploading-a-file-20250721-2025-07-21.webp" alt="Uploading a file with Foundry VTT">
+    <figcaption>Uploading a file with Foundry VTT</figcaption>
+</figure>
+<div class="columns">
+    <div class="column">
+        <h3 id="upload-prohibited">Troubleshooting Tip: Why is my upload button disabled?</h3>
+        <p><span class="v13">As of Version 13,</span> users can now only upload files into specific folders. This change was made to prevent accidentally overwriting files in certain cases and to encourage better file management, but it can be a bit confusing if you're not expecting it.</p>
+        <p>If you want to upload a file and the Upload button is disabled, hovering over it provides some additional instructions:</p>
+        <p>Choosing a different folder to upload into will resolve this issue for you. If you see an "assets" folder at the topmost level of your User Data folder, you can always upload into that folder. You can also always upload into the folder of the world that is currently running.</p>
+        <p>If you create a new top-level folder in your user data folder (next to the <code>assets</code>, <code>modules</code>, <code>systems</code>, and <code>worlds</code> folders), you will also always be able to upload into that folder and its sub-folders.</p>
+    
+        <h3>Troubleshooting Tip: Why can't my players upload files?</h3>
+        <p class="info note">By default, players cannot upload files.</p>
+        <p>If you want to give them permission to upload their own files onto your server, you will need to configure your user permissions first so that they have the <b>Upload New File</b> permission. For more information, see the <a href="/article/users/#usermanagement">Users and Permissions</a> article.</p>
+    </div>
+    <figure class="right"> <img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/uploading-file-prohibited-2025-07-21.webp" alt="Attempting to upload a file to a prohibited location">
+        <figcaption>Attempting to upload to a prohibited folder</figcaption>
+    </figure>
+</div>
+
+
+<h2>Assets and Backups</h2>
+<p>Foundry VTT has a built-in <a href="/article/backups">backups</a> feature that can be very helpful in recovering your data or reverting a world to a past state. Occasionally, after restoring a backup, a user is surprised by one or more broken links to their assets.</p>
+<p>When you back up a world, only the contents of the World are backed up. This means that any assets that are stored in different locations are not backed up each time a backup is taken. This saves significant amount of hard drive space, but you need to ensure that any assets used in the world are in the same relative position that the backup expects.</p>
+<p>For example, if you had a token image saved directly inside the <code>assets</code> folder, but later reorganize your files and move it to a new <code>assets\tokens</code> folder, when you restore to the older backup the token's image will be a broken link.</p>
+<p>Storing all assets that you use inside your Foundry worlds in a single folder (like the <code>assets</code> folder) helps you keep all your assets together, making it easier to periodically take a manual backup copy of these images.</p>
+
+<h2>Additional Power User Details</h2>
+<p>Most users will never have to know this information, but it is included as a reference for </p>
+
+<h3>Manually allowing or prohibiting uploads in certain folders using <code>canUpload</code></h3>
+<p>The mechanism for prohibiting uploads into individual world, module, and system folders is the <code>canUpload</code> line inside the folders's corresponding <code>world.json</code>, <code>system.json</code>, or <code>module.json</code> file:</p>
+<pre><code>
+      "flags": {
+    "canUpload": true
+  },
+</code></pre>
+<p>If the <code>canUpload</code> key is omitted it is considered <code>false</code> by default.</p>
+
+<h3>S3 Integration</h3>
+<p>You can also use cloud storage such as Amazon S3 or a similar bucket to store your assets. For more information, please see the <a href="https://foundryvtt.com/article/aws-s3/">S3 integration</a> article.</p>
