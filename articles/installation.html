@@ -321,16 +321,16 @@ curl -sL https://deb.nodesource.com/setup_20.x | sudo bash -
 sudo apt install -y nodejs</code></pre>
     </div>
 </section>
-<section class="collapsible">
-    <header id="extract-node" class="collapsible-header">Downloading, Extracting and Launching the Server</header>
-    <div class="collapsible-content">
-        <p>Next, you will need to download Foundry. Use the standard instructions "<a href="#downloading">Downloading Foundry</a>" above, but be sure to pick the "Node.js" option in the "Operating System" dropdown menu.</p>
-        <p>Now that you have downloaded Foundry VTT and installed Node.js, it's time to extract the zip, create your data directory and launch your Node.JS server. This process varies depending on  the operating system of your server.</p>
+
+<h4 id="extract-node">Downloading, Extracting and Launching the Server</h4>
+<p>Next, you will need to download Foundry. Use the standard instructions "<a href="#downloading">Downloading Foundry</a>" above, but be sure to pick the "Node.js" option in the "Operating System" dropdown menu.</p>
+<p class="note info"><strong>Note</strong>: The separate "Node.js" installer only exists for Version 13+. For older versions of Foundry VTT, use the Linux installer which also includes the necessary Node.js files.</p>
+<p>Now that you have downloaded Foundry VTT and installed Node.js, it's time to extract the zip, create your data directory and launch your Node.JS server. This process varies depending on  the operating system of your server.</p>
 
 <section class="collapsible">
     <header id="extract-linux" class="collapsible-header">For Linux</header>
     <div class="collapsible-content">
-         <pre><code class="language bash"># Create application and user data directories
+        <pre><code class="language bash"># Create application and user data directories
 cd $HOME
 mkdir foundryvtt
 mkdir foundrydata
@@ -340,20 +340,18 @@ cd foundryvtt
 wget -O foundryvtt.zip "&lt;foundry-website-download-url&gt;"
 unzip foundryvtt.zip
 
-# Start running the server
-node main.js --dataPath=$HOME/foundrydata
-
-# Start running the server (FoundryVTT V12 and before)
-# node resources/app/main.js --dataPath=$HOME/foundrydata</code></pre>
-
+# Start running the server (FoundryVTT V13 and newer)
+node main.js --dataPath=$HOME/foundrydata</code></pre>
+        <p class="warning note">If you are using an older version of Foundry VTT, use the following launch command instead.</p> 
+        <pre><code class="language bash"># Start running the server (FoundryVTT V12 and before)
+node resources/app/main.js --dataPath=$HOME/foundrydata</code></pre>
     </div>
 </section>
 
 <section class="collapsible">
-    <header id="extract-macOS"class="collapsible-header">For macOS</header>
+<header id="extract-macOS"class="collapsible-header">For macOS</header>
     <div class="collapsible-content">
-	    <p>Foundry VTT is also supported as a native application on macOS using Electron, however if you wish to host the software using Node.js directly, this is also an option in the macOS environment. Simply visit <a href="https://nodejs.org/en/download/" target="_blank" rel="nofollow noopener">https://nodejs.org/en/download/</a> and download the macOS installer. Node is installed on your system, you can run the server using the instructions in the below section via your Mac terminal.</p>
-
+        <p>Foundry VTT is also supported as a native application on macOS using Electron, however if you wish to host the software using Node.js directly, this is also an option in the macOS environment. Simply visit <a href="https://nodejs.org/en/download/" target="_blank" rel="nofollow noopener">https://nodejs.org/en/download/</a> and download the macOS installer. Node is installed on your system, you can run the server using the instructions in the below section via your Mac terminal.</p>
         <pre><code class="language bash"># create a user data directory
 cd $HOME
 mkdir foundrydata
@@ -361,19 +359,18 @@ mkdir foundrydata
 # access the application directory
 cd ~/Library/Application Support/FoundryVTT
 
-# Start running the server
-node main.js --dataPath=$HOME/foundrydata
-
-# Start running the server (FoundryVTT V12 and before)
-# node resources/app/main.js --dataPath=$HOME/foundrydata</code></pre>
+# Start running the server (FoundryVTT V13 and newer)
+node main.js --dataPath=$HOME/foundrydata</code></pre>
+        <p class="warning note">If you are using an older version of Foundry VTT, use the following launch command instead.</p> 
+        <pre><code class="language bash"># Start running the server (FoundryVTT V12 and before)
+node resources/app/main.js --dataPath=$HOME/foundrydata</code></pre>
     </div>
 </section>
 
 <section class="collapsible">
     <header class="collapsible-header" id="extract-windows">For Windows</header>
     <div class="collapsible-content">
-        <p>You can also run a dedicated server on Windows. You will first need to download and install Node.js from <a href="https://nodejs.org/en/download/" target="_blank" rel="nofollow noopener">https://nodejs.org/en/download/</a>. Once Node.js is installed, you can launch the server process from whichever location you installed the Foundry Virtual Tabletop software using your preferred windows command-line client like the Command Prompt or <a href="https://apps.microsoft.com/store/detail/windows-terminal/9N0DX20HK701" target="_blank">Windows Terminal</a>.</p>
-        
+        <p>You can also run a dedicated server on Windows. You will first need to download and install Node.js from <a href="https://nodejs.org/en/download/" target="_blank" rel="nofollow noopener">https://nodejs.org/en/download/</a>. Once Node.js is installed, you can launch the server process from whichever location you installed the Foundry Virtual Tabletop software using your preferred windows command-line client like the Command Prompt or <a href="https://apps.microsoft.com/store/detail/windows-terminal/9N0DX20HK701" target="_blank">Windows Terminal</a>.</p>       
         <pre><code class="language bash"># Make a folder in a location of your choosing to store your Foundry VTT data
 cd %userprofile%
 mkdir foundrydata
@@ -381,13 +378,14 @@ mkdir foundrydata
 # Launch the Node.js server from the location where you installed the Foundry VTT software
 cd C:\Program Files\FoundryVTT\
 
-# Start running the server
-node main.js --dataPath=%userprofile%/foundrydata
-
-# Start running the server (FoundryVTT V12 and before)
-# node resources/app/main.js --dataPath=%userprofile%/foundrydata</code></pre>
+# Start running the server (FoundryVTT V13 and newer)
+node main.js --dataPath=%userprofile%/foundrydata</code></pre>
+         <p class="warning note">If you are using an older version of Foundry VTT, use the following launch command instead.</p> 
+        <pre><code class="language bash"># Start running the server (FoundryVTT V12 and before)
+node resources/app/main.js --dataPath=%userprofile%/foundrydata</code></pre>
     </div>
 </section>
+
 <p>Now that you are running Foundry VTT via Node, open any modern web browser and connect to <a href="http://127.0.0.1:30000">http://127.0.0.1:30000</a> to access your server.</p>
 
 <h4 id="service" >Running as a Service</h4>
