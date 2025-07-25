@@ -39,9 +39,9 @@
 </dl>
 
 <section class="collapsible">
-	<header class="collapsible-header">User Roles</header>
+	<header class="collapsible-header" id="user-roles">User Roles</header>
 	<div class="collapsible-content">
-<figure class="right">@Image[145]
+<figure class="right"><img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/role-permission-defaults-2025-07-25.webp" alt="Default role permissions">
 	<figcaption>The default role permissions for all roles.</figcaption>
 	</figure>
 <p>Each User has a specific <strong>role</strong> which configures their basic permission set of actions they can perform within a Foundry VTT game. The role for each User is configured using the <strong>User Management</strong> page described above. Each of the role levels and their meanings are described below:</p>
@@ -71,31 +71,32 @@
 </section>
 
 <section class="collapsible">
-	<header class="collapsible-header">Ownership Configuration (<i class="fas fa-lock"> </i>)</header>
+	<header class="collapsible-header">Ownership Configuration</i></span></header>
 	<div class="collapsible-content">
 <figure class="right">@Image[125]
 	<figcaption>The Document Permission Configuration window lets you determine who has control of a document and its data.</figcaption>
 	</figure>
-<p>Actors, Items, Journals, Roll Tables, and Cards can have theses settings changed by right clicking them in the main sidebar directory and choosing (<i class="fas fa-lock"> </i>) <strong>Configure Ownership</strong>. This opens the configuration panel which allows you to set what each world user can do with the document being configured. By default all of the listed document types begin with no ownership settings, and are only visible and editable by gamemaster accounts. The following ownership levels are available:</p>
+<p>Many components of Foundry VTT including Actors, Items, Journals, Roll Tables, and Cards have ownership permissions that control how users interact with them. You can change these settings by right clicking them in the main sidebar directory and choosing (<i class="fas fa-lock"> </i>) <strong>Configure Ownership</strong> to open their configuration dialog. By default all of the listed document types begin with no ownership settings, and are only visible and editable by gamemaster accounts.</p>
+<p>The following ownership levels are always available, but the exact behavior changes depending on the type of document As a general rule, the following guidelines apply:</p>
 <dl>
 	<dt>None</dt>
-	<dd>Restricts the associated document so that it may not be seen by this user.</dd>
+	<dd>Typically restricts the associated document so that it may not be seen by this user at all.</dd>
 
 	<dt>Limited</dt>
-	<dd>Allows the user to interact with the document in basic ways, allowing them to see it in sidebars and see only limited aspects of its contents. The limits of this interaction are defined by the game 
-	system being used.</dd>
+	<dd>Typically allows the user to interact with the document in basic ways, allowing them to see it in sidebars and see only limited aspects of its contents. The limits of this interaction are defined by the type of document and the game 
+	system.</dd>
 
 	<dt>Observer</dt>
-	<dd>Allows the user to view this document as if they were owner, but prevents them from making any changes to it.</dd>
+	<dd>Typically allows the user to view this document as if they were owner, but prevents them from making any changes to it.</dd>
 
 	<dt>Owner</dt>
-	<dd>Allows the user to view and make changes to the document as its owner. Owned documents cannot be deleted by anyone other than a gamemaster level user.</dd>
+	<dd>GMs always own every document. Ownership typically allows the user to view and make changes to the document as its owner. Even owned documents cannot be deleted by anyone other than a gamemaster level user unless special permissions are granted (see <a href="#user-roles">User Roles</a> for more information ).</dd>
 </dl>
 </div>
 </section>
 
 <section class="collapsible">
-	<header class="collapsible-header">User Configuration (<i class="fas fa-male"> </i>)</header>
+	<header class="collapsible-header">User Configuration</header>
 	<div class="collapsible-content">
 <figure class="right">@Image[8]
 	<figcaption>The Player Configuration application allows a player to choose their preferred character and other User-specific settings.</figcaption>
@@ -115,9 +116,4 @@
 </section>
 
 <h2 class="border">API References</h2>
-<p>To interact with Users programmatically, you will primarily use the following API concepts:</p>
-<ul>
-<li>The @API[classes/client.User, User</a> Document</li>
-<li>The @API[classes/client.Users, Users</a> Collection</li>
-<li>The @API[classes/client.UserConfig, UserConfig</a> User Configuration Application</li>
-</ul>
+<p>To interact with Users programmatically, consult <a href="/api/#user">this list of relevant API concepts</a>.</p>
