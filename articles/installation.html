@@ -351,13 +351,21 @@ node resources/app/main.js --dataPath=$HOME/foundrydata</code></pre>
 <section class="collapsible">
 <header id="extract-macOS"class="collapsible-header">For macOS</header>
     <div class="collapsible-content">
-        <p>Foundry VTT is also supported as a native application on macOS using Electron, however if you wish to host the software using Node.js directly, this is also an option in the macOS environment. Simply visit <a href="https://nodejs.org/en/download/" target="_blank" rel="nofollow noopener">https://nodejs.org/en/download/</a> and download the macOS installer. Node is installed on your system, you can run the server using the instructions in the below section via your Mac terminal.</p>
+        <p>Foundry VTT is supported on macOS as a native Electron application, but you can also host the software using Node.js directly if you wish.</p>
+        <h5>Use Finder to install Node.js</h5>
+        <ol>
+            <li>Use a web browser to visit <a href="https://nodejs.org/en/download/" target="_blank" rel="nofollow noopener">https://nodejs.org/en/download/</a> and download the recommended macOS installer</li>
+            <li>In your user's home location, create a folder named <code>FoundryVTT_Node</code></li>
+            <li>Download and install the Node version of Foundry VTT into this new folder</li>
+        </ol>
+        <h5>Use the macOS terminal to configure and run the Node process</h5>
+        <p>You can now configure and run the server using the macOS terminal using the instructions below.</p>
         <pre><code class="language bash"># create a user data directory
 cd $HOME
 mkdir foundrydata
 
-# access the application directory
-cd ~/Library/Application Support/FoundryVTT
+# Go to the location where you installed the Node version of the Foundry VTT software
+cd ~/FoundryVTT_Node
 
 # Start running the server (FoundryVTT V13 and newer)
 node main.js --dataPath=$HOME/foundrydata</code></pre>
