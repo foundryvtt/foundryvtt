@@ -53,7 +53,7 @@
     </ol>
     <p>Other stored backups are available from the <span class="reference"><i class="fa-solid fa-floppy-disks"> </i>Manage Backups</span> menu which can be clicked on at any time to view a list of all available backups. </p>
     <h3>Restoring a Snapshot</h3>
-    <p>Stored snapshots can be restored at any time to return all packages in your Foundry VTT userdata to a previously recorded state. Please note that depending on the size of your stored snapshot, the restoration process may take some time.</p>
+    <p>Stored snapshots can be restored at any time to return all packages in your Foundry VTT user data to a previously recorded state. Please note that depending on the size of your stored snapshot, the restoration process may take some time.</p>
     <p>To restore from a previously taken Snapshot from the Setup screen:</p>
     <ol>
         <li>Click the <span class="reference"><i class="fa-solid fa-floppy-disks"> </i>Manage Backups</span> button.</li>
@@ -87,6 +87,7 @@
 </dl>
 
 <h2 class="border" id="howbackupswork">How Backups Work</h2>
-<p>Backups are stored in the <code>Backups</code> folder of your UserData folder. Each individual backup consists of a <code>.bak</code> file containing the actual backed up data, as well as a separate <code>JSON</code> file manifest that contains contextual information about that backup.</p>
-<p>Snapshots are stored as a single <code>JSON</code> file containing references to which individual <code>.bak</code> files are required to restore your Foundry VTT user data to the state contained in the Snapshot.</p>
-<p>It is extremely important to never directly modify or delete the contents of your Backup files as it may prevent Foundry VTT from being able to restore that backup data. Instead, use the Manage Backups tool to interact with your stored Snapshots and Package Backups.</p>
+<p>Backups are stored in the <code>Backups</code> folder of your User Data folder. Each individual backup consists of a <code>.bak</code> file containing the actual backed up data, as well as a separate <code>JSON</code> file manifest that contains contextual information about that backup.</p>
+<p>Snapshots are stored as a single <code>JSON</code> file containing references to each individual <code>.bak</code> files are required to restore your Foundry VTT user data to the state contained in the Snapshot.</p>
+<p class="note warning"><strong>Please Note:</strong> Your multimedia assets are likely not included in your backup files and need to be managed separately. For more information, please see the <a href="/article/asset-management/#backups">Asset Management</a> article.</p>
+<p>Additionally, it is extremely important to never directly modify or delete the contents of your <code>backups</code> folder or its files because this may prevent Foundry VTT from being able to restore that backup data. Instead, use the Manage Backups tool to interact with your stored Snapshots and Package Backups.</p>
