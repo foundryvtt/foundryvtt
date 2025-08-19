@@ -1,5 +1,8 @@
 <h2>Overview</h2>
-<p>Foundry Virtual Tabletop supports use of Secure Sockets Layer (SSL) connections in order to provide encrypted connections for users. The primary reason to configure SSL for Foundry VTT is to allow users to enable A/V Integration for Foundry VTT. For security reasons, browsers (such as Chrome or Firefox) will not let a website capture your camera and microphone unless that connection is secure, which means Foundry VTT needs to be accessed using <cite>https://</cite> rather than <cite>http://</cite>.</p>
+<p>Foundry Virtual Tabletop supports use of TSL or SSL connections in order to provide encrypted connections for users.</p>
+<p class="note info"><strong>Note: </strong> TLS (Transport Layer Security) is the modern replacement for SSL, but for the purposes of this article the terms are used interchangeably.</p>
+<p>The primary reason to configure SSL for Foundry VTT is to allow users to enable A/V Integration for Foundry VTT. For security reasons, browsers (such as Chrome or Firefox) will not let a website capture your camera and microphone unless that connection is secure, which means Foundry VTT needs to be accessed using <cite>https://</cite> rather than <cite>http://</cite>.</p>
+
 <h3>Requirements</h3>
 <p class="note warning">Configuring SSL is an advanced feature of Foundry VTT and requires technical configuration.</p>
 <p>While it is not a difficult process to configure SSL for Foundry VTT, it does require an elevated level of technical knowledge in order to understand and troubleshoot some errors that may occur in the process. This article assumes you have familiarity with @Article[port-forwarding], firewall configuration, and the use of the command-line tools for your operating system.</p>
@@ -148,7 +151,7 @@
 <h2 id="reverse-proxy">Using a Reverse Proxy</h2>
 <p>If you configured your Foundry VTT to operate behind a reverse proxy provided by Apache, Caddy, or Nginx then all you need to do to have FVTT support https is to change one key within the <code>options.json</code>file as follows:</p>
 <pre><code class="language-json">...
-"ProxySSL": true,
+"proxySSL": true,
 ...
 </code></pre>
 <p>Once this configuration change has been made, Foundry VTT will operate using the SSL provided by your reverse proxy rather than requiring its own configuration and nothing further needs to be changed.</p>
