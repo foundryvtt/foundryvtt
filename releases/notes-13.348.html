@@ -1,0 +1,63 @@
+<header id="update-header">
+    <h2 class="border" id="update-title">Foundry Virtual Tabletop - Version 13 - Stable 7 Release Notes</h2>
+    <figure id="update-banner">
+        <img alt="Release Notes for Foundry Virtual Tabletop Version 13" src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/v13-stable-7-release-banner-2025-08-28.webp" title="Foundry VTT - Version 13 - Stable 7 Release Notes"/>
+        <figcaption>Foundry VTT Version 13 Stable 7 as shown with a map from the official D&amp;D 5E <a href="https://foundryvtt.com/packages/dnd-tomb-annihilation" rel="nofollow">Tomb of Annihilation</a> adventure module, now with the ability to replace creatures and spells with their 2024 versions using our <strong>New Content Replacement</strong> feature!</figcaption>
+</figure></header>
+
+<section id="update-overview">
+    <p>This latest release in the Version 13 series, Stable 7, is modest in scope. With the majority of our efforts now focused on bringing Version 14 to life and with Version 13 becoming increasingly polished, this small maintenance patch update simply resolves a few bugs and polishes a few rough edges.</p>
+    <p class="note warning"><strong>WARNING:</strong> While this is categorized as a stable release there is always a possibility of unexpected bugs or compatibility issues. As with any time you update the core software, be sure to perform a complete backup of your user data to minimize any risk of data loss.</p>
+</section>
+
+<section id="features">
+<h2 class="section-header border">New Features</h2>
+    <h3 class="category-header" id="features-docs">Documents and Data</h3>
+    <ul>
+        <li>Added scrolling to all <code>SceneConfig</code> tabs to better accommodate potential additional items added by modules or systems. <a href="https://github.com/foundryvtt/foundryvtt/issues/13335" rel="nofollow" target="_blank">(13335)</a></li>
+    </ul>
+    <h3 class="category-header" id="features-apps">Applications and User Interface</h3>
+    <ul>
+        <li>The "Unconstrained Movement" control now remembers its last state. Also added a new "Toggle Unconstrained Movement" keybinding (default binding: <kbd>U</kbd>). <a href="https://github.com/foundryvtt/foundryvtt/issues/13050" rel="nofollow" target="_blank">(13050)</a></li>
+        <li>Added two-decimal rounding and locale-specific formatting to the displayed elevation range in the Region legend. <a href="https://github.com/foundryvtt/foundryvtt/issues/13336" rel="nofollow" target="_blank">(13336)</a></li>
+    </ul>
+</section>
+<section id="bugs">
+<h2 class="section-header border">Bug Fixes</h2>
+    <h3 class="category-header" id="bugs-docs">Documents and Data</h3>
+    <ul>
+        <li>Restored the ability to set compendium ownership within the user interface. <a href="https://github.com/foundryvtt/foundryvtt/issues/13283" rel="nofollow" target="_blank">(13283)</a></li>
+        <li>Improved <code>searchTextFields</code> to more accurately identify and handle objects. <a href="https://github.com/foundryvtt/foundryvtt/issues/13300" rel="nofollow" target="_blank">(13300)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-apps">Applications and User Interface</h3>
+    <ul>
+        <li>Added scrolling to chat message popouts. <a href="https://github.com/foundryvtt/foundryvtt/issues/12822" rel="nofollow" target="_blank">(12822)</a></li>
+        <li>Resolved several A/V interaction issues with floating panels. <a href="https://github.com/foundryvtt/foundryvtt/issues/12879" rel="nofollow" target="_blank">(12879)</a></li>
+        <li>Fixed a bug where the Combat Tracker header menu's "Link to Viewed Scene" option failed to toggle its label to read "Unlink from Viewed Scene" after selecting it. <a href="https://github.com/foundryvtt/foundryvtt/issues/13289" rel="nofollow" target="_blank">(13289)</a></li>
+        <li>When the value of one of the user volume control sliders changes, the global mute toggle icon to the left of the hotbar now toggles its icon to indicate that the global mute has been automatically disabled. <a href="https://github.com/foundryvtt/foundryvtt/issues/13315" rel="nofollow" target="_blank">(13315)</a></li>
+        <li>Changed the priority of operations that occur when pressing <kbd>Escape</kbd> so that if the Main Menu is open it is now closed first rather than closing sheets or deselecting tokens. <a href="https://github.com/foundryvtt/foundryvtt/issues/13318" rel="nofollow" target="_blank">(13318)</a></li>
+        <li>Restored the ability to cancel drawing polygonal <code>Drawing</code>s and scene region <code>Shape</code>s with the Dismiss keybinding ( <kbd>Escape</kbd> ). <a href="https://github.com/foundryvtt/foundryvtt/issues/13325" rel="nofollow" target="_blank">(13325)</a></li>
+        <li>Fixed float rounding errors that could prevent the polygon tool from closing on a hexagonal grid. <a href="https://github.com/foundryvtt/foundryvtt/issues/13326" rel="nofollow" target="_blank">(13326)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-canvas">The Game Canvas</h3>
+    <ul>
+        <li>Changed <code>Token._configureAnimationMovementSpeed</code> so that it now passes a <code>Token</code> when it calls <code>TokenMovementActionConfig#getAnimationOptions</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/13302" rel="nofollow" target="_blank">(13302)</a></li>
+        <li>Resolved a bug that could cause Scene migrations to fail in very rare circumstances involving legacy hexagonal grids. <a href="https://github.com/foundryvtt/foundryvtt/issues/13324" rel="nofollow" target="_blank">(13324)</a></li>
+        <li>Fixed an issue that was preventing notifications about the deprecation of <code>CONFIG.MeasuredTemplate.types</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/13338" rel="nofollow" target="_blank">(13338)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-other">Other Changes</h3>
+    <ul>
+        <li>Prevented an error that could occur when a re-render was triggered as part of focusing a <code>&lt;prose-mirror&gt;</code> element. <a href="https://github.com/foundryvtt/foundryvtt/issues/13291" rel="nofollow" target="_blank">(13291)</a></li>
+        <li>Prevented the chat message popout title bar from including line breaks when the title was created from flavor text. <a href="https://github.com/foundryvtt/foundryvtt/issues/13295" rel="nofollow" target="_blank">(13295)</a></li>
+        <li>Resolved an issue where the right side of the "Tiles" view of the <code>FilePicker</code> could be cut off. <a href="https://github.com/foundryvtt/foundryvtt/issues/13304" rel="nofollow" target="_blank">(13304)</a></li>
+        <li>Fixed a bug where <code>parseUuid</code> was generating invalid UUIDs for old-style compendium links if a redirect was involved. <a href="https://github.com/foundryvtt/foundryvtt/issues/13309" rel="nofollow" target="_blank">(13309)</a></li>
+        <li>Prevented <code>JournalEntrypage</code> ownership from incorrectly resetting to <code>-1</code> (<code>INHERIT</code>) when building an adventure. <a href="https://github.com/foundryvtt/foundryvtt/issues/13331" rel="nofollow" target="_blank">(13331)</a></li>
+    </ul>
+</section>
+<section id="documentation">
+<h2 class="section-header border">Documentation Improvements</h2>
+    <h3 class="category-header" id="documentation-other">Other Changes</h3>
+    <ul>
+        <li>Updated the API documentation by replacing the now-deprecated <code>Scene#darkness</code> with <code>Scene#darknessLevel</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/13299" rel="nofollow" target="_blank">(13299)</a></li>
+    </ul>
+</section>
