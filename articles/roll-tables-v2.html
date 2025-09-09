@@ -1,0 +1,279 @@
+<!--ToC block to the left. Note: This is inaccurate and will be updated and linked when the article is finalized. TODO-->
+<div class="ToC block"><p><em><strong>[TOC BLOCK] </strong></em></p>
+    <ul>
+        <li>Rollable Tables at a Glance</li>
+        <li>Using Rollable Tables</li>
+            <ul>
+                <li>Rolling on a Rollable Table</li>
+                <li>Rolling and Replacement</li>
+            </ul>
+        <li>Creating Rollable Tables</li>
+        <li>Editing Rollable Tables</li>
+        <li>Additional Rollable Table Capabilities</li>
+        <li>API Reference</li>
+    </ul>
+</div>
+
+<p>A Rollable Table is a way of storing a list of <em>things</em> inside Foundry VTT so that you can randomly pick something from it. Sometimes called a “roll table,” this is the Foundry equivalent of the pen-and-paper random tables that date back to the earliest RPG adventures and rulebooks. </p>
+
+
+<h2 id="at-a-glance" class="border">Rollable Tables at a Glance</h2>
+<p>In traditional RPG books, random tables are commonly used to help support random encounters, treasure, or outcomes. Foundry rollable tables take that time-tested concept and elevate it by adding convenient rolling, drawn result tracking, hyperlinks, and other features that are only possible digitally.</p>
+<p>You can find and manage your rollable tables in the <kbd><i class="fas fa-th-list"> </i> Rollable Tables</kbd> <a href="/sidebars-v2/">sidebar tab.</a> 
+
+<figure class="center"><img style="max-width:50%;max-height:50%"src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/rollable-table-sidebar-20250909-3-2025-09-08.webp" alt="A simple example rollable table with the Create Rollable Table button is also shown.">
+    <figcaption>[RIGHT ALIGNED DIAGRAM] The Foundry VTT sidebar tab with the Rollable Tables tab selected and the Create Rollable table button shown.</figcaption>
+</figure>
+
+<ol>
+    <li>Create a new Rollable Table using this button</li>
+    <li>Double-click a table to open it</li>
+</ol>        
+<!-- Permissions Div Block-->
+<div class="permissions block"><p><em><strong>[PERMISSIONS BLOCK] </strong>If you are not a gamemaster, you may not have <a href="/article/users/">permission</a> to create rollable tables and the Create Rollable Table button may be hidden.</em></p></div>
+<p>A rollable table is a type of <a href="/documents-v2/">Document</a> and like other documents they can be stored in <a href="/article/compendium">Compendiums</a>. If you can't find a rollable table, look in the <i class="fas fa-atlas"> </i> Compendiums sidebar tab also .</p>
+<p>When you open a rollable table, its window displays:</p>
+
+<figure class="center"><img style="max-width:50%;max-height:50%"src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/simple-rollable-table-view-mode-20250807-2025-08-07.webp" alt="A simple example rollable table with the Edit and Draw Result buttons shown.">
+    <figcaption>[CENTERED ARROW DIAGRAM] A simple example rollable table with the Edit and Draw Result buttons shown.</figcaption>
+</figure>
+
+<ol>
+    <li>To roll against the table, click the <kbd>Draw Result</kbd> button</li>
+    <li>To make some changes, click the <kbd>Edit</kbd> button</li>
+</ol>
+<h3 id="key-features" class="border">Key features include:</h3>
+<ul>
+    <li>Rolls with and without <a href="#replacement">replacement</a></li>
+    <li>Weighted rolls so that some results are <a href="#result-probability">more or less likely</a></li>
+    <li><a href="#formatted-text">Fully formattable text results</a> with embedded links to Actors, Items, etc.</li>
+    <li><a href="/article/dice/#rollmodes">Secret or public rolls</a></li>
+    <li><a href="#manual-result">Manual control</a> over results</li>    
+    <li>Subtable support through “<a href="#nesting">nesting</a>” two or more rollable tables</li>
+    <li><a href="#folders">Automatic rollable table creation</a> based on folder contents</li>
+</ul>
+
+
+<h2 class="border" id="using">Using Rollable Tables</h2>
+<!--Try It Out Div Block-->
+<div class="try-it single"><p><em><strong>[TRY IT OUT! ONE LINE] </strong>To follow along with this article, you can either <a href="#creating">create your own rollable table</a>, or you can look in the Compendiums tab ( <i class="fas fa-atlas"> </i> ) of a world that uses the free D&D 5E game system. The rollable table used as an example can be found under <code>D&D Modern > Rollable Tables > Magic Items > Bag of Tricks</code></em>.</p></div>
+
+<figure><img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/simple-rollable-table-edit-20250807-2025-08-07.webp" alt="A rollable table in View mode.">
+    <figcaption>By default, the rollable table's information is streamlined for convenient reading and gameplay.</figcaption>
+</figure>
+
+<h3 class="border" id="rolling">Rolling from a Rollable Table</h3>
+<p>To roll from a rollable table, click its <kbd>Draw Result</kbd> button. A die of the appropriate type is automatically rolled to select a result, just like you would for a printed random table. The rollable table automatically picks the row that matches the number, generates a <a href="/article/chat/">chat message</a> for that result, and (if necessary) <a href="#replacement">marks the result as drawn</a>.</p>
+<!--Helpful Tip Inset block>:--> 
+<div class="helpful-tip inset"><p><em><strong>[HELPFUL TIP INSET RIGHT] </strong>Before you make this roll, decide whether you want the players to see the result. Standard <a href="/article/dice/#rollmodes">roll modes</a> apply, so choose Blind if you want to hide the result from your players - they'll still know you rolled for something, though!</em></p></div>
+
+<figure><img style="max-width:50%;max-height:50%" src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/blind-roll-table-draw-20250807-2025-08-07.webp" alt="">
+    <figcaption>Fortune did not favor this party and they pulled an unlucky card, but due to the blind roll the players don't know it yet. The GM may or may not decide to be merciful…</figcaption>
+</figure>
+
+<!--Warning one-liner-->
+<!--NOTE: This is only a warning for the purposes of block creation. I would likely not have this be a Warning, just plain text. I would reserve Warning blocks for something like data loss or security issues.-->
+<p><em><strong>[WARNING ONE LINER]</strong></em></p>
+<p>If the <kbd>Draw Result</kbd> button is disabled, you are likely rolling on a rollable table that is inside a Compendium. To use the table, right-click it, then select the <kbd>Import</kbd> option. You will then be able to roll on it as usual.</p>
+
+<h3 class="border" id="replacement">Rolling and Replacement</h3>
+<p>When you draw a result from a rollable table, the result is always chosen either “with replacement” or “without replacement.”</p>
+<dl>
+    <dt>With replacement</dt>
+        <dd>Each item is automatically replaced after it is rolled, allowing the same result can be drawn repeatedly. <em>Example:</em> a table to randomly determine the type of a found coin.</dd>
+    <dt>Without replacement</dt>         
+        <dd>Each item can be chosen only once. <em>Example:</em> a table simulates a raffle.</dd>
+</dl>
+<p>When a result is chosen without replacement, Foundry selects a result and sends it to the chat log as usual, but then it also marks the result as drawn by graying out the number on its row and closing the lock icon ( <i class="fas fa-lock"> </i> ):</p>
+
+<figure class="center"><img style="max-width:50%;max-height:50%"src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/rolltable-drawn-without-replacement-20250807-2025-08-07.webp" alt="A rollable table with one drawn result (note the dimmed number and the clicked lock icon). The Reset Results button shown.">
+    <figcaption>A rollable table with one drawn result (note the dimmed number and the clicked lock icon). The <kbd>Reset Results</kbd> button shown.</figcaption>
+</figure>
+
+<p>The drawn result is automatically locked and cannot be rolled again until it is unlocked again (see <a href="#manual-result">below</a>) or until the entire table is reset using the <kbd>Reset Results</kbd> button.</p>
+
+<h3 id="manual-result" class="border">Manually Controlling the Rollable Table</h3>
+<p>A truly random roll isn't the only way to select a result from the table. If they wish, the GM can easily exert some manual control over the rollable table's results.</p>
+<dl>
+    <dt>Manually including or excluding a result from the roll</dt>
+        <dd>The lock icon of a row open and closed controls whether that row can be selected as the table's result. The closed lock icon ( <i class="fas fa-lock"> </i> ) indicates the row cannot be chosen and the open lock icon ( <i class="fas fa-lock-open"> </i> ) indicates that it can be drawn. Clicking the lock icon for a row toggles it.</dd>
+    <dt>Manually Selecting a Result</dt>
+        <dd>If you click the <i class="fa-solid fa-arrow-up-from-bracket"> </i> <kbd>Draw This Result</kbd> icon for a result, Foundry "rolls" against the table but is guaranteed to pick that chosen result.</dd>
+</dl>
+
+<!-- Permissions Block-->
+<div class="permissions block">
+    <h3 id="permissions" class="border">Rollable Tables and the Player Perspective</h3>
+    <p><em><strong>[PERMISSIONS BLOCK]</strong> This entire div (including the heading?) should be blocked off with some formatting.</em></p>
+    </p>For simplicity, this article presents rollable tables from the perspective of a GM user. Non-GM users may be more restricted in what they can do depending on their <a href="/article/users/">user permission</a> level:</p>
+    <dl>
+        <dt>None</dt>
+            <dd>Cannot see that a table exists or interact with it in any way.</dd>
+        <dt>Limited</dt>
+            <dd>Can see table and can draw a result without <a href="#replacement">replacement</a>, but cannot view the table or edit it.</dd>
+        <dt>Observer</dt> 
+            <dd>Can also see the table, but still can't edit it or draw without replacement.</dd>
+        <dt>Owner</dt>
+            <dd>Has total control and can do anything a GM can do.</dd>
+    </dl>
+    <!--Info Line-->
+    <!--I am not sure if this is the right type of block or even if it should be a block. "Under the hood" isn't quite right either. I originally didn't have a block type here. For now, I'm adding an Info one liner to have an example of that type.-->
+    <p>Drawing without replacement is more restricted because when you draw from a rollable table without replacement, you are actually editing the table to indicate that the drawn result it is no longer available. This means only users who can edit the table can draw without replacement.</p>
+</div>
+
+
+<h2 class="border" id="editing">Editing Existing Rollable Tables</h2>
+<p>To keep rollable tables simple to read and use, rollable tables have two different "modes":</p>
+<dl>
+    <dt>View mode</dt>
+        <dd>Used for reading the table and drawing results. Only simple changes are possible in this mode such as renaming the table or toggling whether a result is locked.</dd>
+    <dt>Edit mode</dt>
+        <dd><p>More substantial changes to the table and its properties are made using the Edit view.</p>
+            <p> To make editing easier, the Edit mode splits the table's information into two tabs. The <kbd>Results</kbd> tab controls the table's individual results and probabilities, while the <kbd>Summary</kbd> tab controls the table's "big picture" information.</p>
+        </dd>
+</dl> 
+
+<figure><img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/rollable-table-edit-mode-side-by-side-20250908-2025-09-08.webp" alt="The same rollable table in edit mode, with both tabs shown.">
+    <figcaption>In addition to their default View mode, Rollable tables have an Edit mode that provides additional controls, including an entire second tab.</figcaption>
+</figure>
+
+<!--Version History Block-->
+<div class="version-history block"><p><em><strong>[VERSION HISTORY BLOCK] </strong>If you are not seeing a separate View and Edit mode, you are likely using an older version of Foundry VTT. Before Version 13, the same dialog was used to edit and view the rollable table.</em></p></div>
+
+<h3 id="results-tab" class="border">The Edit Rollable Table Summary Tab</h3>
+<p>The fields in the Summary tab relate to the properties of the table as a whole, not to its individual results.</p>
+<dl>
+    <dt>Description</dt>
+        <dd>A text field that allows you to enter text to help describe your table. When in View mode, any <a href="#formatted-text">formatted text</a> provided here displays below the header and above the first result.</a>.</dd>
+    <dt>Draw with Replacement</dt>
+        <dd>A checkbox that controls whether the table can draw the same result more than once. For more information, see <a href="replacement">Drawing With and Without Replacement</a>. </dd>    
+    <dt>Display roll formula to chat</dt>
+        <dd>When a random result is drawn from the table, a digital die roll is used to choose the correct result. By default, the exact formula used to pick this result is visible to players. GMs can uncheck this box to avoid revealing this information. </dd>
+</dl>
+
+<h3 id="results-tab" class="border">The Rollable Table Results Tab</h3>
+<p>Each potential result of the rollable table has its own row in the Results tab of the Edit Rollable Table window .</p>
+<ul>
+    <li>To add a new result row, click the <strong>+</strong> button at the top of the first column</li>
+    <li>To delete a row, click the <kbd>Delete Result</kbd> button for that row, represented by a trash can icon ( <i class="fas fa-trash"> </i> ) </li>
+    <li>To edit a row, make some quick changes in the result's row or click the <kbd>Edit</kbd> icon  ( <i class="fas fa-file-pen"> </i> ) in its last column.</li>
+</ul>
+<p>Each result's row has four columns of editable data and one column containing control icons. You can edit everything but the Details column directly in the row.</p>
+<dl>
+    <dt><strong>+</strong></dt>
+        <dd>The first column allows you to set an optional custom image for each result row. The <em>+</em> sign at the top is actually a button and is used to add a new result row to the rollable table.</dd>
+    <dt>Details <em>(read  only)</em></dt>
+        <dd>This column contains the result's content. To edit it, click the <kbd>Edit</kbd> icon ( <i class="fas fa-trash"> </i> ) in the last column to the right.</dd>
+    <dt>Weight</dt>
+        <dd><p>This column is used when automatically setting the probability of rolling each result during automatic normalization. For more information, see <a href="#result-probability">Controlling Result Probability</a> below.</p>
+            <p>If you're not planning on automatically balancing the odds of each result in this way, use the Range column to control each result's probability instead.</p></dd>         
+    <dt>Range</dt>
+        <dd>The range of numbers assigned to this result, and therefore how likely it is. For example, if you put 1-1 here and your rollable table uses a d8, the result will only be chosen if a one is rolled, 1 out of 8 times. If you put a range of 1-3 here instead, the result will be chosen on a result of a 1, 2, or 3, making it three times more likely to be chosen.</dd>
+    <dt><i class="fas scale-balanced"> </i></dt>
+        <dd>This row contains three control buttons:
+            <ul>
+                <li><kbd>Open Result Config</kbd> button  ( <i class="fas fa-file-pen"> </i> ): Opens the Open Result Configuration window for this row (see <a href="#edit-result"> which allows you to edit everything about your result all at once, including its <a href="result-probability">probability</a> and the its content in the Details column.</li>
+                <li><kbd>Delete Result</kbd> button ( <i class="fas fa-trash"> </i> ): Deletes this result row.</li>
+                <li><kbd>Locked / Unlocked Result</kbd> icon ( <i class="fas fa-lock"> </i> / <i class="fas fa-lock-open"> </i> ): Controls whether the result can be chosen, <a href="#manual-result">just like in View mode</a>. </li>
+            </ul> 
+            <p>The header of this row is also the button that is used to normalize <a href="#result-probabilities">probabilities</a></p>.
+        </dd>
+</dl>
+
+<h3 id="result-configuration" class="border">The Result Configuration WIndow</h3>
+<p>The <kbd>Results</kbd> tab is great for working with all the results in a rollable table at once, while the <kbd>Edit Result</kbd> button ( <i class="fas fa-file-pen"> </i> ) lets you see everything about a single result row at once. It is also the only way to edit the main content of each result in the Details column.></p>
+<p>Several of these fields are identical to the columns in the <kbd>Results</kbd> tab, but there are some new additions:</p>
+<dl>
+    <dt>Result Name</dt>
+        <dd>A text field that allows to give the result row a bold header.</dd>
+    <dt>Result Type</dt>
+        <dd><p>A result row can be either a Document or Text.</p>
+            <p> <strong>Text</strong>: A result can be free-form text, such as if "naught but dust" is found, or if you find more than one Item in a single result. These are both examples of Text results.</p> 
+            <p>If you're not sure, the Text type is always more flexible because you can always add flavor text or more documents to the result later. You can even add multiple documents of different types, (like an Actor and a notable Item they're carrying). The easiest way to add a Document is to drag and drop it onto this field from its sidebar tab.</p>
+        </dd>
+    <dt>Reference Document</dt>
+        <dd><p>The Reference Document field lists all Documents that are included in the result. The easiest way to add Documents to a result is to drag and drop them directly onto this field (or the text box below) from its sidebar tab.</p>
+            <p class="pro-tip line"><em><strong>[PRO-TIP]</strong>: If you are a power user who is comfortable working with code, you can also enter a UUID into this field directly.</em></p>
+        </dd>
+</dl>
+
+
+<h4 id="result-proabability">Controlling Result Probability</h4>
+<p>By default, a new table assigns equal probability to each result, but you can choose to make certain results more or less likely using this column. Typically, the easiest way to do this is to tweak the Range values for each column in the Results tab and perhaps changing the size of the die used in the Summary tab."
+<p>Sometimes, though, your table can be quite complex. What if you have 17 possible options, and you want three of of them to be 4 times as likely as the others? In situations like that, Foundry can do the math for you.</p>
+<p>Instead of manually setting the range of each value, we can use the Weight values instead. The higher this weight value is, the more likely this result will be chosen, much like a weighted die is more likely to roll certain things.</p>
+<p>In this example, we would set the more likely options to weight 4, leave the weights of the other options at 1, and then click the <kbd>Normalize</kbd> button. When you do, a result number is assigned to each row based on its weight automatically.</p>
+
+
+<h2 class="border" id="creating">Creating New Rollable Tables</h2>
+<!--Try it out! Line-->
+<div><p><em><strong>[TRY IT OUT! BLOCK]</strong> Feel free to open Foundry VTT, follow along, and try to create the same Rollable Table.</em></p></div>
+<p>You can easily create your own rollable tables to add a bit more organized chaos to your game. To get started, just switch to the rollable table sidebar tab and click the <i class="fas fa-th-list"> </i><kbd>Create Table</kbd> button:</p>
+
+<figure><img style="max-width:50%;max-height:50%"src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/rollable-table-sidebar-20250909-3-2025-09-08.webp" alt="The Foundry VTT sidebar tab with the Rollable Tables tab selected and the Create Rollable table button shown.">
+    <figcaption>[RIGHT ALIGNED DIAGRAM] The Foundry VTT sidebar tab with the Rollable Tables tab selected and the Create Rollable table button shown.</figcaption>
+</figure>
+
+<p>When you click it, a blank rollable table opens:</p>
+
+<figure class="center"><img style="max-width:50%;max-height:50%"src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/rollable-table-new-20250909-2025-09-08.webp" alt="A simple example rollable table with the Create Rollable Table button is also shown.">
+    <figcaption>[CENTER DIAGRAM] A blank new rollable table, with the Add New Result button shown.</figcaption>
+</figure>
+
+<h3 id="new-result" class="border">Creating New Result Rows</h3>
+<p>Use the <kbd>Add New Result</kbd> button ( <kbd>+</kbd> ) to create your new result, then click the <kbd>Open Result Configuration</kbd> button ( <i class="fas fa-file-pen"> </i> ) on each result's row to populate it. If you get stuck, check the <a href="#editing">Editing Rollable Tables</a> section for more information about the different fields.</div></p> 
+<p>You can use several techniques to create useful and beautiful results for your new table:</p>
+<dl>
+<dt id="embedding">Embedding Links Into Your Table</dt>
+    <dd>It's easy to add embedded links to other Data into your rollable tables. Just drag and drop Actors, Items, Macros or other documents directly from their sidebar tab or comopendium onto the result's row.</dd>
+<dt id="formatted-text">Adding Formatted text</dt>
+    <dd>You add rich text formatting to your result row using markup or HTML. You can even add images or videos! For more information, please see the <a href="#TODO">Prosemirror</a> article.</dd></dd>
+</dl>
+
+<h3 id="nesting" class="border">"Nesting" Tables to Create Subtables</h3>
+<p>In paper rulebooks, roll tables often have subtables. Frequently, when you look up the result of your roll against a table, instead of a result you find instructions to roll again on a different table. This process may repeat several times before you get the end result.</p> 
+<p>This may sound complicated, but it's simple to set up such a subtable in Foundry VTT. Just drag the subtable directly onto the main table and it is automatically added as a new result row. If the subtable's result is chosen, Foundry automatically rolls on the subtable also.</p>
+<p>Because one table is literally embedded inside the other table and this process can be repeated by dragging on yet another table, this is sometimes called "nesting" tables.</p>
+
+<!-- TODO: Take new screenshot after investigating potential nested tables bug. Reroll is not happening automatically (example: SRD 5.2 Reincarnation subtable doesn't automatically roll on Fiendish Lineage subtable).
+    <figure>
+        <img style="max-width:50%;max-height:50%"src="TODO" alt="An example of 'nesting tables to create subtables.">
+        <figcaption>[CENTER DIAGRAM] An example table with subtables.</figcaption>
+    </figure>
+-->
+    
+<!--Foundry Tip Block-->
+<div>
+    <p><em><strong>[FOUNDRY TIP BLOCK]</strong></em></p>
+    <p>Did you know? You can automatically create a new rollable table based on its contents by right-clicking it and choosing the <i class="fas fa-th-list"> <kbd></i> Create Rollable Table</kbd> option. This folder can be in any sidebar tab or even inside a Compendium.</p>
+    <figure>
+        <img style="max-width:50%;max-height:50%"src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/from-folder-to-rollable-table-20250909-2025-09-09.webp" alt="From a folder of spells to a rollable table in one click!">
+        <figcaption>[CENTER DIAGRAM] From a folder of spells to a rollable table in one click!</figcaption>
+    </figure>
+</div>
+
+
+<h2 class="border" id="additional-capabilities">Additional Rollable Table Capabilities</h2>
+<!--add collapsible--><h3 id="journal-entries" class="border">Rollable tables and Journal Entries</h3>
+<p>You can embed a rollable table into a <a href="/article/journals/">journal entry</a> page and even roll from it right within the journal. For instance, you might want to embed an undead random encounter rollable table into a journal entry that describes a small graveyard.</p>
+
+<!--add collapsible--><h3 id="multiple-results" class="border">Multiple Results for the Same Roll</h3>
+<p>Sometimes, it's useful to have multiple results happen for a single roll. In this scenario, the rollable table returns a set of results that the GM can choose between on the fly.</p>
+<p>To do this, simply configure your result ranges so that there is an overlap. If a number in the overlapping range is returned, both results are drawn and sent to chat.</p>
+<p>The Teleportation Mishap hazard table in the D&D 5E SRD 5.2 is a good example of this. When a GM rolls against the table, the table returns multiple possible outcomes and then the GM picks the one that matches the party's level of familiarity with their destination.</p>
+<!--Try It Out block!-->
+<div class="try-it line"><p><strong>[TRY IT OUT ONE-LINER]</strong> If you have he D&D 5E game system installed, the Teleportation Mishap rollable table is located in the <kbd><i class="fas fa-atlas"> </i> Compendiums tab</kbd> under <kbd>D&D Modern Content > Roll Tables > Spells > Teleport</kbd>.</p></div>
+
+
+<h2 id="api" class="border">Rollable Table API Links</h2>
+<!--Developer block!-->
+<!--This entire heading and its content should be a block. Not sure I'll handle API links at the end of this article this way, but for the purposes of block creation.-->
+<p class="dev block"><p><em><strong>[DEVELOPER BLOCK]</strong></em></p>
+    <p>To interact with Rollable Tables programmatically, consider using the following API concepts:</p>
+    <ul>
+        <li>The @API[classes/foundry.documents.RollTable, RollTable Document]</li>
+        <li>The @API[classes/foundry.documents.collections.RollTables, RollTables Collection]</li>
+        <li>The @API[classes/foundry.applications.sidebar.tabs.RollTableDirectory, RollTableDirectory Sidebar Directory]</li>
+        <li>The @API[classes/foundry.applications.sheets.RollTableSheet, RollTableConfig Application]</li>
+    </ul>
+</div>
