@@ -1,6 +1,30 @@
+<h5 class="release-date">Updated October 20, 2025 (Version 13.350)</h5>
 <h2>Overview</h2>
 <p>Foundry Virtual Tabletop features a number of configurable settings which are accessed by clicking the <i class="fas fa-cogs"> </i> <strong>Configure Settings</strong> button found inside the Game Settings tab (<i class="fas fa-cogs"> </i> on the sidebar). The settings here allow you to customize your FVTT experience and the way you interact with the software.</p>
-<p class="note info">Please note that these settings differ from the @Article[configuration] settings, which are controlled by the server host.</p>
+<p>These settings differ from the @Article[configuration] settings, which are controlled by the server host.</p>
+
+
+<h2 id="scopes">Setting Scopes</h2>
+<p>Settings don't apply universally for all users and worlds. How widely a setting is applied depends on its scope:</p>
+<dl>
+  <dt><strong>Client Settings</strong></dt> 
+    <dd>
+      <p>Client settings apply for a single browser on a single "client" device (for example, only when using Chrome on your laptop). However, they apply to any Foundry VTT World that you connect to while using it.</p>
+      <p>Client settings are best used to control device-specific settings such as <a href="maximum-framerate">Maximum Framerate</a> and <a href="performance-mode">Performance Modes</a>.</p>
+    </dd>
+  <dt><strong>User Settings</strong></dt>
+    <dd>
+      <p>User Settings only apply for a single User in a single World.</p>
+      <p>This type of setting allows the user to customize their own experience in a World, regardless of the browser or client device that they are using to connect.</p>
+    </dd>    
+  <dt><strong>World Settings</strong></dt>
+    <dd>
+      <p>World settings apply to a single World, but they apply universally to all users and client devices connected to that World.</p>
+    </dd>
+</dl>
+<p class="info note version"><strong>Note:</strong> The User Setting scope is new to Version 13. It is not yet used in core Foundry VTT, but modules and game systems may make use of it.</p>
+<p>Any user can always control their own Client Settings and User Settings, but only Assistant Gamemasters or users who have the Configure Settings <a href="/article/users/#user-roles">user permission</a> can configure World settings.</p>
+
 
 <h2 id="settings-tab" class="border">The Settings Tab</h2>
 <figure class="right" style="max-height: 10px;">@Asset[279]</figure>
@@ -48,61 +72,34 @@
   <dd>This button will close the current game world and return Foundry to the setup screen.</dd>
 </dl>
 
-<h3>Configure Game Settings Window</h3>
+<h2>Configure Game Settings Window</h2>
 <figure class="right">@Image[400]
   <figcaption>
-The Configure Game Settings window lets you customize and configure your game world and client settings.
+The Configure Game Settings window lets you customize and configure your game.
   </figcaption>
 </figure>
 
-<p>The Configure Game Settings window has a list of settings that users can use to customize how certain aspects of the software, game systems and add-on modules behave.</p>
-<p>A sidebar on this window provides filters to sort the available settings, and has a search bar which allows you to find specific settings you want to change.</p>
-<p>The available filters are:</p>
-<dl>
-    <dt>All Settings (<i class="fas fa-dice-d20"> </i>)</dt>
-    <dd>This filter shows you a list of all the settings available to you, including core settings, system settings and module settings.</dd>
-
-    <dt>Core Settings (<i class="fas fa-dice-d20"> </i>)</dt>
-    <dd>This filter shows you only the core software's settings. The options available in this panel are detailed below.</dd>
-  
-    <dt>Other Settings (<i class="fas fa-cogs"> </i>)</dt>
-    <dd>Additional filters appear in the filter sidebar of this menu based on the system and modules your world has loaded, and if they provide settings that can be manipulated. Options listed here will vary depending on what the system and modules allows you to change, and cannot be documented here. These additional filters show you only the settings connected to the system or modules you have selected.</dd>
-  </dl>
-<h4>Reset Defaults</h4>
-<p>Clicking the <i class="fas fa-undo"> </i> <strong>Reset Defaults</strong> button in the lower left of this window will reset all options to their default settings.</p>
-
-<h3>Core Settings</h3>
-<p>Core settings are any configuration options related to Foundry Virtual Tabletop specifically, and are always available in all game worlds. The core settings group has a series of sub-menus, as well as a collection of client and world level settings.</p>
+<h3 id="core-vs-module">Core Settings, System Settings, and Module Settings</h3>
+<p>In addition to the core settings that Foundry VTT provides to control how it behaves, you will likely have access to additional settings provided by your game system (such as Dungeons and Dragons Fifth Edition or Pathfinder Second edition) or modules (such as Dice So Nice).</p>
+<p>Settings provided by your system or modules have their own sections in this window's sidebar along with a search bar is also provided to help you find specific settings. The <i class="fas fa-undo"> </i> <strong>Reset Defaults</strong> button at the bottom of this window can be used to easily reset all options to their default settings.</p>
 
 <h4>Saving Your Settings</h4>
-<p>Changes to these game settings are only applied when the <i class="fas fa-save"> </i> <strong>Save Changes</strong> button is clicked, and some changes may require the browser to automatically refresh in order to take effect. All settings can be reset back to their default values by clicking the <i class="fas fa-arrow-rotate-left"> </i> <strong>Reset Defaults</strong> button.</p>
+<p>Changes to these game settings are only applied when the <i class="fas fa-save"> </i> <strong>Save Changes</strong> button is clicked, and some changes may require the browser to automatically refresh in order to take effect.</p>
 
 <h4>Sub-Menus</h4>
-<p>The core settings filter includes a small number of sub-menus which provide additional configuration options.</p>
+<p>Some settings have their own sub-menus to provide additional configuration options. Notable sub-menus include:</p>
 <dl>
   <dt>Configure Permissions (<i class="fas fa-user-lock"> </i>)</dt>
-  <dd>Open a separate configuration menu to customize permission controls for different User roles. See the section specific to Permission Configuration below for more details.</dd>
-  
-  <dt>Configure Audio/Video (<i class="fas fa-headset"> </i>)</dt>
-  <dd>Foundry Virtual Tabletop supports optional configuration of Audio/Video chat integration using WebRTC. This button opens a separate dialog window for configuration of this feature. See the @Article[audio-video] guide for more details on the settings contained here.</dd>
-  
-  <dt>Default Token Configuration (<i class="fas fa-user"> </i>)</dt>
-  <dd>This button opens a separate configuration menu that allows you to customize the default settings that all tokens should have. For details on what the various options affect see the @Article[tokens] article.</dd>
-  
-  <dt>Additional Fonts (<i class="fas fa-font"> </i>)</dt>
-  <dd>This button opens a separate configuration menu that allows you to customize what additional font types are available for use in journals. For details on what the various options affect see the @Article[journal] article.</dd>
+  <dd>Opens a separate configuration menu to customize permission controls for different User roles. See the @Article[users] for more details.</dd>
+   
+  <dt>Default Prototype Token Overrides (<i class="fas fa-font"> </i>)</dt>
+  <dd>This button opens a separate configuration menu that allows you to automatically set properties for all tokens that you create. For details, please see @Article[tokens] article.</dd>
 </dl>
-
-<h4 id="scopes">Setting Scopes</h4>
-<p>Setting Scopes determine if a setting affects all users, or only the user who has made the change. There are two scopes a setting can have: Client or World.</p>
-<ul>
-<li><strong>Client Settings</strong> are saved in the browser and apply to all Worlds that are accessed from the same device using the same browser. Maximum Framerate and Performance Modes are examples of a client setting. Any user, regardless of permission, can modify their own client-level settings.</li>
-<li><strong>World Settings</strong> are stored in the server-side database for the World, only apply to that single World but are common to all Users within it. By default, only a Gamemaster or User with the "Assistant Gamemaster" role can modify world-level settings.</li>
-</ul>
 
   <section class="collapsible">
   <header class="collapsible-header">Client Settings</header>
   <div class="collapsible-content">
+    <p>Notable client settings include:</p>
 <dl>
   <dt>Disable Game Canvas</dt>
   <dd>This option, when toggled, disables the game canvas that allows for the rendering of scenes but still allows the remaining functionality of Foundry Virtual Tabletop to fully function. This is setting designed to allow for individual users with less capable computer hardware to still interact with the other aspects of Foundry Virtual Tabletop without the additional hardware requirements that the WebGL canvas involve.</dd>
@@ -119,13 +116,13 @@ The Configure Game Settings window lets you customize and configure your game wo
   <dt>Disable Pixel Resolution Scaling</dt>
   <dd>When this setting is enabled the software will automatically scale the canvas resolution to the pixel density of the display device. This results in a reduction in visual quality but an improvement in application performance for pixel high-density displays such as very large or super high resolution monitors.</dd>
 
-  <dt>Left-Click to Release Objects</dt>
+  <dt id="deselect">Left-Click to Release Objects</dt>
   <dd>When set, this object allows you to release objects (deselect) on the canvas by using a single left click anywhere on the canvas, rather than the default behavior of requiring a click-and-drag in empty space.</dd>
   
-  <dt>Performance Mode</dt>
+  <dt id="performance-mode">Performance Mode</dt>
   <dd>This setting controls Foundry's rendering quality and can change how well the application performs on different types of hardware. More powerful systems can select high or maximum and lower-end machines can opt for low or medium.</dd>
   
-  <dt>Maximum Framerate</dt>
+  <dt id="maximum-framerate">Maximum Framerate</dt>
   <dd>Set a maximum framerate at which the Foundry Virtual Tabletop canvas will be rendered. By default the canvas renders at 60fps, but setting a lower maximum value may be helpful to limit the resource consumption of the Foundry application on less powerful machines.</dd>
   
   <dt>Show FPS Meter</dt>
@@ -155,6 +152,7 @@ The Configure Game Settings window lets you customize and configure your game wo
     <section class="collapsible">
       <header class="collapsible-header">World Settings</header>
       <div class="collapsible-content">
+<p>Notable world settings include:</p>
 <dl>
   <dt>Scrolling Status Text</dt>
   <dd>When this setting is enabled, scrolling text may appear above tokens or other canvas objects when they're changed. For example: a token who has been dealt five points of damage would show a floating '-5' before fading away.</dd>
@@ -171,6 +169,7 @@ The Configure Game Settings window lets you customize and configure your game wo
 </div>
 </section>
 
+<!--
 <section class="collapsible">
   <header class="collapsible-header">Permission Configuration</header>
   <div class="collapsible-content">
@@ -243,6 +242,7 @@ The Configure Game Settings window lets you customize and configure your game wo
 </dl>
 </div>
 </section>
+-->
 
 <h2 id="settingsapi" class="border">API References</h2>
 <p>To programmatically define game settings of any type see the following API documentation:</p>
@@ -252,41 +252,11 @@ The Configure Game Settings window lets you customize and configure your game wo
 <section class="collapsible">
   <header class="collapsible-header">Defining Settings</header>
   <div class="collapsible-content">
-    <p>Module and system developers have the capability to register their own settings and settings menus using the Foundry API. This involves working with the "ClientSettings" API (although this also manages world settings) to register settings and settings menus. Some examples are provided below, but see the API documentation for more detail.</p>
-    <h4>Defining a Game Setting</h4>
-<pre><code class="language-js">// Define a new setting which can be stored and retrieved
-game.settings.register("myModule", "mySetting", {
-  name: "Register a Module Setting with Choices",
-  hint: "A description of the registered setting and its behavior.",
-  scope: "client",
-  config: true,
-  type: String,
-  choices: {
-    "a": "Option A",
-    "b": "Option B"
-  },
-  default: "a",
-  onChange: value => console.log(value)
-});
-</code></pre>
-
-<h4>Defining a Settings Submenu</h4>
-<pre><code class="language-js">// Define a settings submenu which handles advanced configuration needs
-game.settings.registerMenu("myModule", "mySettingsMenu", {
-  name: "My Settings Submenu",
-  label: "The label which appears on the Settings submenu button",
-  hint: "A description of what will occur in the submenu dialog.",
-  icon: "fas fa-bars",
-  type: MySubmenuApplicationClass,
-  restricted: false
-});
-</code></pre>
-
-<h4>Referencing and Assigning a Setting Value</h4>
-<pre><code class="language-js">// Retrieve the current setting value
-game.settings.get("myModule", "mySetting");
-// Assign a new setting value
-game.settings.set("myModule", "mySetting", "b");
-</code></pre>
-</div>
-</section>
+    <p>Module and system developers have the capability to register their own settings and settings menus using the <code>ClientSettings</code> API as well. Such module and system settings are namespaced using the id of the package that created them.</p>
+    <p>Using the Foundry API properly eliminates the need to interact with this data directly, but the location where settings data is stored depends on the setting's <a href="#scopes">scope</a>.</p>
+<dl>
+  <dt>Client Settings</dt>
+    <dd>Stored in the browser's cookie data for the Foundry VTT server.</dd>
+  <dt>World and User Settings</dt>
+    <dd>Both the World Settings and the User Settings for a World are stored in the @API[classes/foundry.documents.collections.WorldSettings.html, WorldSettings world-level collection]. For user-scoped settings, he user's ID is used as an additional parameter.</dd>
+</dl>
