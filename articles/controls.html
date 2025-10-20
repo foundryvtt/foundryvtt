@@ -1,15 +1,16 @@
+<h5 class="release-date">Updated October 20, 2025 (Version 13.350)</h5>
 <h2>Overview</h2>
 <div class="columns">
     <div class="column" style="flex:2">
         
 <p>Foundry Virtual Tabletop provides a variety of keyboard shortcuts for interacting with different pieces of the software in different contexts. This article provides a detailed list of all detail the keyboard shortcuts and their related functions.</p>
-<p>You can configure the keybindings used for these controls by clicking the "Configure Controls" button in the Game Settings (<i class="fas fa-cogs"> </i>) sidebar tab. For more information, see @Article[keybinds].</p>
+<p>You can configure the keybindings used for these controls by clicking the <kbd>Configure Controls</kbd> button in the Game Settings (<i class="fas fa-cogs"> </i>) sidebar tab. For more information, see @Article[keybinds].</p>
 
-<p class="note info">At this time, we do not allow the re-binding of mouse functions.</p>
+<p class="note info">Due to technical limitations, mouse interactions (like right-clicking) cannot be customized.</p>
 </div>
         <figure class="right">@Image[303]
             <figcaption>The Configure Controls Application.</figcaption>
-            </figure>
+        </figure>
 </div>         
 <h2 class="border">Default Controls</h2>
 
@@ -36,7 +37,7 @@
             </div>
         </li>
         <li>
-            <h4>Close All Currently Open Application Windows</h4>
+            <h4>Close Window / Cancel Operation</h4>
             <div class="keys">
                 <span class="key">Esc</span>
             </div>
@@ -92,7 +93,6 @@
                 <span class="key">Left Click</span>
             </div>
         </li>
-
         <li>
             <h4>Add or Remove Selected Objects</h4>
             <div class="keys">
@@ -129,6 +129,18 @@
                 <span class="key">Mouse-Wheel</span>
             </div>
         </li>
+        <li>
+            <h4>Send Canvas Objects to the Back</h4>
+            <div class="keys">
+                <span class="key">[</span>
+            </div>
+        </li>
+        <li>
+            <h4>Send Canvas Objects to the Front</h4>
+            <div class="keys">
+                <span class="key">]</span>
+            </div>
+        </li>                
     </ol>
 
     <h3 id="canvas-keyboard">Keyboard Controls</h3>
@@ -137,6 +149,12 @@
             <h4>Highlight Canvas Objects</h4>
             <div class="keys">
                 <span class="key">Alt</span>
+            </div>
+        </li>
+        <li>
+            <h4>Cycle between Canvas Objects</h4>
+            <div class="keys">
+                <span class="key">Tab</span>
             </div>
         </li>
         <li>
@@ -165,16 +183,17 @@
             <h4>Zoom In</h4>
             <div class="keys">
                 <span class="key">Page Up</span> or
-                Numpad <span class="key">+</span>
+                <span class="key">CTRL</span> + Numpad <span class="key">+</span>
             </div>
         </li>
         <li>
             <h4>Zoom Out</h4>
             <div class="keys">
                 <span class="key">Page Down</span> or
-                Numpad <span class="key">-</span>
+                <span class="key">CTRL</span> + Numpad <span class="key">-</span>
             </div>
         </li>
+        <p class="info note version">In version 13, the E and W keys do not zoom the canvas.</p>
     </ol>
 
     <h3 id="ruler">Ruler Measurement</h3>
@@ -320,6 +339,12 @@
             </div>
         </li>
         <li class="gm">
+            <h4>Cut Canvas Elements</h4>
+            <div class="keys" title="GM Only">
+                <span class="key" >Ctrl</span> + <span class="key">X</span>
+            </div>
+        </li>
+        <li class="gm">
             <h4>Paste Canvas Elements</h4>
             <div class="keys" title="GM Only">
                 <span class="key">Ctrl</span> + <span class="key">V</span>
@@ -339,10 +364,9 @@
     <h3 id="token">Token Controls</h3>
     <ol class="hotkey-list">
         <li class="gm">
-            <h4>Place Hidden Token</h4>
+            <h4>Open Character Sheet</h4>
             <div class="keys" title="GM Only">
-                <span class="key">Alt</span> + <span class="key">Drop</span>
-                when creating a Token.
+                <span class="key">C</span>
             </div>
         </li>
         <li>
@@ -351,7 +375,57 @@
             <span class="key">T</span>,&nbsp;or Double <span class="key">Right-Click</span>
             </div>
         </li>
-        
+        <li class="gm">
+            <h4>Place Hidden Token</h4>
+            <div class="keys" title="GM Only">
+                <span class="key">Alt</span> + <span class="key">Drop</span>
+                when creating a Token.
+            </div>
+        </li>
+    </ol>
+
+    
+    <h3 id="token">Token Drag Movement Controls</h3>
+    <ol class="hotkey-list">
+        <li>
+            <h4>Toggle Distance Ruler</h4>
+            <div class="keys">
+                <span class="key">R</span>
+            </div>
+        </li>
+        <li>
+            <h4>Place Ruler Waypoint</h4>
+            <div class="keys">
+                <span class="key">R</span>
+            </div>
+        </li>
+        <li>
+            <h4>Ascend Token Vertically</h4>
+            <div class="keys">
+                Numpad <span class="key">+</span> while dragging a token<br>
+                Add <span class="key">SHIFT</span> to ascend a full grid unit
+            </div>
+        </li>
+        <li>
+            <h4>Descend Token Vertically</h4>
+            <div class="keys">
+                Numpad <span class="key">-</span> while dragging a token<br>
+                Add <span class="key">SHIFT</span> to descend a full grid unit
+            </div>
+        </li>
+        <li>
+            <h4>Toggle Unconstrained Movement</h4>
+            <div class="keys">
+                <span class="key">U</span>
+            </div>
+        </li>
+        <li>
+            <h4>Cycle Movement Method</h4>
+            <div class="keys">
+                <span class="key">Tab</span> while dragging a token
+            </div>
+        </li>
+
     </ol>
 
     <h3 id="walls">Walls Layer Controls</h3>
@@ -406,10 +480,14 @@
                 <span class="key">Enter</span>
             </div>
         </li>
-        <li>
-            <h4>Cancel Drawing Text</h4>
-            <div class="keys">
-                <span class="key">Escape</span>
+    </ol>
+
+    <h3 id="av">Integrated A/V Controls</h3>
+    <ol class="hotkey-list">
+        <li class="gm">
+            <h4>Push to Talk / Push to Mute</h4>
+            <div class="keys" title="GM Only">
+                <span class="key">`</span>
             </div>
         </li>
     </ol>
