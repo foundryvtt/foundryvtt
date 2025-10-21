@@ -1,4 +1,4 @@
-<h5 class="release-date">Updated October 20, 2025 (Version 13.350)</h5>
+<h5 class="release-date">Updated October 21, 2025 (Version 13.350)</h5>
 <h2 class="border" id="overview">Overview</h2>
 <p>Foundry Virtual Tabletop features a number of configurable settings which are accessed by clicking the <i class="fas fa-cogs"> </i> <strong>Configure Settings</strong> button found inside the Game Settings tab (<i class="fas fa-cogs"> </i> on the sidebar). The settings here allow you to customize your FVTT experience and the way you interact with the software.</p>
 <p>These settings differ from the @Article[configuration] settings, which are controlled by the server host.</p>
@@ -16,18 +16,18 @@
     <dd>
       <p>User Settings only apply for a single User in a single World.</p>
       <p>This type of setting allows the user to customize their own experience in a World, regardless of the browser or client device that they are using to connect.</p>
+      <p class="info note version v13"><strong>Note:</strong> The User Setting scope is new to Version 13.</p>
     </dd>    
   <dt><strong>World Settings</strong></dt>
     <dd>
       <p>World settings apply to a single World, but they apply universally to all users and client devices connected to that World.</p>
     </dd>
 </dl>
-<p class="info note version"><strong>Note:</strong> The User Setting scope is new to Version 13. It is not yet used in core Foundry VTT, but modules and game systems may make use of it.</p>
 <p>Any user can always control their own Client Settings and User Settings, but only Assistant Gamemasters or users who have the Configure Settings <a href="/article/users/#user-roles">user permission</a> can configure World settings.</p>
 
 
 <h2 id="settings-tab" class="border">The Settings Tab</h2>
-<figure class="right" style="max-height: 10px;">@Asset[279]</figure>
+<figure class="right">@Asset[279]</figure>
   <figcaption>The Settings tab as seen by a gamemaster, including notifications that both core software and game system updates are available.</figcaption>
 </figure>
 <p>The settings tab contains useful information about your Foundry VTT setup and lets you make changes to its configuration. Let's take a look at each section.</p>
@@ -72,34 +72,28 @@
   <dd>This button will close the current game world and return Foundry to the setup screen.</dd>
 </dl>
 
-<h2 class="border" id="game-settings">The Configure Game Settings Window</h2>
-<figure class="right">@Image[400]
-  <figcaption>
-The Configure Game Settings window lets you customize and configure your game.
-  </figcaption>
+
+<h2 class="border" id="game-settings">The Configure Game Settings Dialog</h2>
+<p>This dialog can be used to control all your settings in one place. You can access it by clicking the <i class="fas fa-cogs"> </i> <strong>Configure Settings</strong> button located at the top of the <a href="#settings-tab">Settings tab</a>.</p>
+<p>In addition to the core settings that Foundry VTT provides to control how it behaves, this dialog also provides control over any additional settings added by your game system (such as <a href="/packages/dnd5e/">Dungeons and Dragons Fifth Edition</a> or <a href="/packages/pf2e/">Pathfinder Second Edition</a>) and by modules (such as <a href="/packages/dice-so-nice">Dice So Nice</a>).</p>
+
+<figure class="center"><img style="max-width:75%;max-height:75%" src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/game-settings-configuration-game-settings-window-2025-10-20.webp" alt="The Configure Game Settings dialog lets you customize and configure your game." style="max-height: 500px; height: 75%; width: auto;">
+  <figcaption>The Configure Game Settings dialog lets you customize and configure your game.</figcaption>
 </figure>
 
-<h3 id="core-vs-module">Core Settings, System Settings, and Module Settings</h3>
-<p>In addition to the core settings that Foundry VTT provides to control how it behaves, you will likely have access to additional settings provided by your game system (such as Dungeons and Dragons Fifth Edition or Pathfinder Second edition) or modules (such as Dice So Nice).</p>
-<p>Settings provided by your system or modules have their own sections in this window's sidebar along with a search bar is also provided to help you find specific settings. The <i class="fas fa-undo"> </i> <strong>Reset Defaults</strong> button at the bottom of this window can be used to easily reset all options to their default settings.</p>
+<p>Although there are many available settings, you can use the sidebar on the left to search or you can pick a system or module from the list to view all the settings it adds.</p>
 
-<h4>Saving Your Settings</h4>
-<p>Changes to these game settings are only applied when the <i class="fas fa-save"> </i> <strong>Save Changes</strong> button is clicked, and some changes may require the browser to automatically refresh in order to take effect.</p>
-
-<h4>Sub-Menus</h4>
-<p>Some settings have their own sub-menus to provide additional configuration options. Notable sub-menus include:</p>
+<h3 id="sub-menus" class="border">Settings sub-menus</h3>
+<p>Some settings have their own sub-menus to help organize related configuration options. Notable core sub-menus include:</p>
 <dl>
   <dt>Configure Permissions (<i class="fas fa-user-lock"> </i>)</dt>
-  <dd>Opens a separate configuration menu to customize permission controls for different User roles. See the @Article[users] for more details.</dd>
-   
+    <dd>Opens a separate configuration menu to customize permission controls for different User roles. See the @Article[users] for more details.</dd>
   <dt>Default Prototype Token Overrides (<i class="fas fa-font"> </i>)</dt>
-  <dd>This button opens a separate configuration menu that allows you to automatically set properties for all tokens that you create. For details, please see @Article[tokens] article.</dd>
+    <dd>This button opens a separate configuration menu that allows you to automatically set properties for all tokens that you create. For details, please see @Article[tokens] article.</dd>
 </dl>
+<p>Changes to these game settings are only applied when the <i class="fas fa-save"> </i> <strong>Save Changes</strong> button is clicked. Some changes may cause the browser to automatically refresh.</p>
 
-  <section class="collapsible">
-  <header class="collapsible-header">Client Settings</header>
-  <div class="collapsible-content">
-    <p>Notable client settings include:</p>
+<h3 id="notable-client-settings" class="border">Notable Core Client Settings</h3>
 <dl>
   <dt>Disable Game Canvas</dt>
   <dd>This option, when toggled, disables the game canvas that allows for the rendering of scenes but still allows the remaining functionality of Foundry Virtual Tabletop to fully function. This is setting designed to allow for individual users with less capable computer hardware to still interact with the other aspects of Foundry Virtual Tabletop without the additional hardware requirements that the WebGL canvas involve.</dd>
@@ -146,13 +140,8 @@ The Configure Game Settings window lets you customize and configure your game.
   <dt>Combat Theme</dt>
   <dd>This setting allows you to select one of multiple premade combat themes which are randomized sound effects that play when a combat encounter begins, when your turn is next in the combat order, and when your turn begins. Selecting "None" disables this feature entirely. Additional combat themes can be added via add-on modules.</dd>
 </dl>
-    </div>
-    </section>
 
-    <section class="collapsible">
-      <header class="collapsible-header">World Settings</header>
-      <div class="collapsible-content">
-<p>Notable world settings include:</p>
+<h3 id="notable-world-settings" class="border">Notable world settings</h3>
 <dl>
   <dt>Scrolling Status Text</dt>
   <dd>When this setting is enabled, scrolling text may appear above tokens or other canvas objects when they're changed. For example: a token who has been dealt five points of damage would show a floating '-5' before fading away.</dd>
@@ -166,97 +155,9 @@ The Configure Game Settings window lets you customize and configure your game.
   <dt>Cone Template Type</dt>
   <dd>Choose which template measurement style should be used for cones. Flat cones will draw a straight line between the two outer rays while rounded cones will include a radial arc based on the angle of the cone.</dd>
 </dl>
-</div>
-</section>
 
-<!--
-<section class="collapsible">
-  <header class="collapsible-header">Permission Configuration</header>
-  <div class="collapsible-content">
-
-    <p>Clicking on the <strong>Permission Configuration</strong> button of the settings menu allows the customization of specific permissions which can be assigned or removed from different User roles.</p>
-
-<p class="note info">Visit the @Article[users] documentation to learn more about User roles and what they represent.</p>
-
-<p>Each Permission can be assigned to a set of Roles which are able to perform that permission. Some permissions cannot be revoked for a Gamemaster role while others can be disabled even for Gamemaster users. The image below shows the Permission Configuration form and the list which follows describes each permission capability.</p>
-<p>Changes to Permission Configuration are only applied when the <strong>Save Configuration</strong> button is clicked and some changes may require the browser to automatically refresh in order to take effect. All settings can be reset back to their default values by clicking the <strong>Reset Defaults</strong> button.</p>
-
-<figure class="right">@Image[36] 
-  <figcaption>The Permission Configuration submenu allows for fine-tuned customization of the permissions allowed to each User role.</figcaption>
-</figure>
-
-<dl>
-    <dt>Allow Broadcasting Audio</dt>
-    <dd>Allow players with this role to broadcast audio when using A/V chat integration.</dd>
-
-    <dt>Allow Broadcasting Video</dt>
-    <dd>Allow players with this role to broadcast video when using A/V chat integration.</dd>
-
-    <dt>Configure Token Settings</dt>
-    <dd>Allow players with this role to configure the settings for Tokens that they own.</dd>
-
-    <dt>Create Journal Entries</dt>
-    <dd>Allow players with this role to create new Journal Entries in the Journal sidebar.</dd>
-
-    <dt>Create Map Notes</dt>
-    <dd>Allow players with this role to create new map notes on the game canvas.</dd>
-
-    <dt>Create Measured Template</dt>
-    <dd>Allow players with this role to create templates for area-of-effect measurement.</dd>
-
-    <dt>Create New Actors</dt>
-    <dd>Allow players with this role to create new Actors in the World.</dd>
-
-    <dt>Create New Items</dt>
-    <dd>Allow players with this role to create new Items in the World.</dd>
-
-    <dt>Create New Tokens</dt>
-    <dd>Allow players with this role to place Tokens for Actors they own on the game canvas.</dd>
-
-    <dt>Display Mouse Cursor</dt>
-    <dd>Display the position of the player's mouse cursor which illustrates where the user is looking on the canvas.</dd>
-
-    <dt>Display Ruler Measurement</dt>
-    <dd>Display the position of the player's ruler measurement tool on the canvas.</dd>
-
-    <dt>Modify Configuration Settings</dt>
-    <dd>Allow players with this role to modify game settings and enable or disable modules.</dd>
-
-    <dt>Open and Close Doors</dt>
-    <dd>Allow players with this role interact with doors defined on the Walls Layer.</dd>
-
-    <dt>Upload New Files</dt>
-    <dd>Allow players with this role to upload content to the server using the File Picker.</dd>
-
-    <dt>Use Drawing Tools</dt>
-    <dd>Allow players with this role to create Drawings using the drawing tools.</dd>
-
-    <dt>Use File Browser</dt>
-    <dd>Allow players with this role to browse through available files in the File Picker.</dd>
-
-    <dt>Use Script Macros</dt>
-    <dd>Allow players with this role to use JavaScript macros which access the API.</dd>
-
-    <dt>Whisper Private Messages</dt>
-    <dd>Allow players with this role whisper private messages that the Game Master cannot see.</dd>
-</dl>
-</div>
-</section>
--->
-
-<h2 id="settingsapi" class="border">API References</h2>
-<p>To programmatically define game settings of any type see the following API documentation:</p>
+<h2 id="api" class="border">API References</h2>
+<p>For more information about working with settings programmatically, please see the following API documentation:</p>
 <ul>
-	<li>The @API[classes/foundry.helpers.ClientSettings, ClientSettings Manager]</li>
+	<li>The @API[classes/foundry.helpers.ClientSettings, ClientSettings Manager] class and its <code>register</code> function.</li>
 </ul>
-<section class="collapsible">
-  <header class="collapsible-header">Defining Settings</header>
-  <div class="collapsible-content">
-    <p>Module and system developers have the capability to register their own settings and settings menus using the <code>ClientSettings</code> API as well. Such module and system settings are namespaced using the id of the package that created them.</p>
-    <p>Using the Foundry API properly eliminates the need to interact with this data directly, but the location where settings data is stored depends on the setting's <a href="#scopes">scope</a>.</p>
-<dl>
-  <dt>Client Settings</dt>
-    <dd>Stored in the browser's cookie data for the Foundry VTT server.</dd>
-  <dt>World and User Settings</dt>
-    <dd>Both the World Settings and the User Settings for a World are stored in the @API[classes/foundry.documents.collections.WorldSettings.html, WorldSettings world-level collection]. For user-scoped settings, he user's ID is used as an additional parameter.</dd>
-</dl>
