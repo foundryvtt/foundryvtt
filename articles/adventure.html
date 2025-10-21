@@ -1,4 +1,5 @@
-<h2 id="overview">Overview</h2>
+<h5 class="release-date">Updated October 20, 2025 (Version 13.350)</h5>
+<h2 id="overview" class="border">Overview</h2>
 <p>The Adventure Document makes it easy to build Foundry-ready adventures and to backup your world data in its current state with just a couple of clicks. Adventures can contain all of the core Foundry types you're already familiar with like Actors, Scenes, Items and more in a single importable Document. This article will walk you through what the Adventure Document is and how to use the Adventure Builder and Importer.</p>
 <p style="text-align: center;"><iframe allowfullscreen="" frameborder="0" height="315" src="https://www.youtube.com/embed/dGRAR1ZDDCM" title="YouTube video player" width="560"></iframe></p>
 
@@ -12,13 +13,27 @@
     <figcaption>Using Foundry to Import Content From an Adventure.</figcaption>
 </figure>
 <p>To import all the Adventure's content into your world, simply open the Compendium, double-click the Adventure document, and choose the type(s) of content to import and click the "Import Adventure" button at the bottom.</p>    
-<p class="note warning"><strong>IMPORTANT</strong>: If you re-import an Adventure, the previous versions of the content will be overwritten with the new versions. This can be desireable in some cases, such as when a module is updated, but be careful not to lose changes that you have made.</p>
+
+<div class="columns">
+    <div class="column">
+        <h3 class="border" id="re-importing">How do I Update An Existing Adventure?</h3>
+        <p>It is still possible to import an adventure even if you've already imported it into your world.</p>
+        <p class="note warning"><strong>IMPORTANT</strong>: If you re-import an Adventure into the same world again, a warning displays that existing content will be overwritten.</p>
+        <p>This can be desirable in some cases, such as when a module is updated, but be careful not to lose changes that you have made. To help ensure that you only get the changes that you want, you can opt to import only certain types of data.</p>
+    </div>
+        <figure class="right"><img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/selectively-reimporting-an-adventure-document-20251020-2025-10-20.webp" alt="Selectively re-importing an adventure.">
+            <figcaption>
+                Selectively re-importing an adventure.
+            </figcaption>
+        </figure>
+</div>
 
 <h2 class="border" id="how-to-create">How do I Build My Own Adventure?</h2>
 <p>Before you can build any Adventures you'll need to have an Adventure Pack to hold them. Adventure Packs can be created as World or Module-level Packs just like other @Article[compendium]. Once you have an Adventure Pack ready just press the <span class="reference"> Create Adventure</span> button and the Adventure Builder will open.</p>
 <p class="note info"><strong>Do you want to distribute your Adventure?</strong><br />It's important to know that your media files are not included in the Adventure and will still link to their source in your data folders. Therefore, if you want to include images, videos, audio, or other files you'll want to place those files in your Module's folder and then create your Scenes, Actors, etc. using those files. See "Asset Staging" in the @Article[packaging-guide] for more info on this.</p>
 
-<h2 id="creating">Creating an Adventure</h2>
+
+<h2 id="creating" class="border">Creating an Adventure</h2>
 <figure class="right">@Image[429]
 <figcaption>The Adventure Document's Summary Tab.</figcaption>
 </figure>
@@ -27,41 +42,45 @@
 <figcaption>The Adventure Document's Contents Tab.</figcaption>
 </figure>
 <ol>
-<li>Open the <span class="reference"><i class="fas fa-atlas"> </i> Compendium Tab</span> in the sidebar.</li>
-<li>Open your Adventure Pack and click the <span class="reference"> Create Adventure</span> button.</li>
-<li>The <span class="reference"> Summary Tab</span> contains the following fields:
+    <li>Open the <span class="reference"><i class="fas fa-atlas"> </i> Compendium Tab</span> in the sidebar.</li>
+    <li>Open your Adventure Pack and click the <span class="reference"> Create Adventure</span> button.</li>
+    <li>The <span class="reference"> Summary Tab</span> contains the following fields:
+</ol>
 <dl>
-<dt>Adventure Name</dt>
-<dd>The name you'd like this Adventure to have, like "Demon Queen Awakens" or "Back Up - 2022/10/16".</dd>
-<dt>Banner Image</dt>
-<dd>
-<p>The path to a piece of artwork to use as a banner when someone is importing the Adventure.</p>
-</dd>
-<dt>Banner Caption</dt>
-<dd>
-<p>A caption that will appear underneath the banner image.</p>
-</dd>
-<dt>Adventure Description</dt>
-<dd>A short description of the Adventure, usually a few sentences of narrative text and a list of what the adventure contains.</dd>
-<dt>Sort Order</dt>
-<dd>When multiple Adventures are available within the same Pack, this number determines the order in which they are displayed.</dd>
+    <dt>Adventure Name</dt>
+        <dd>The name you'd like this Adventure to have, like "Demon Queen Awakens" or "Back Up - 2022/10/16".</dd>
+    <dt>Banner Image</dt>
+        <dd>
+            <p>The path to a piece of artwork to use as a banner when someone is importing the Adventure.</p>
+        </dd>
+    <dt>Banner Caption</dt>
+        <dd>
+            <p>A caption that will appear underneath the banner image.</p>
+        </dd>
+    <dt>Adventure Description</dt>
+        <dd>A short description of the Adventure, usually a few sentences of narrative text and a list of what the adventure contains.</dd>
+    <dt>Sort Order</dt>
+        <dd>When multiple Adventures are available within the same Pack, this number determines the order in which they are displayed.</dd>
 </dl>
-</li>
-<li>The <span class="reference"> Contents Tab</span> contains an area where you can drop Documents (like Actors, Items, Journals, etc.), or Folders of Documents, to add them to your Adventure. These Documents will keep their unique IDs, so that when they are imported later they will overwrite any existing copies with the same ID.</li>
-<li>Once you have added everything you wish to add, at least for now, click <span class="reference"> Build Adventure</span> and Foundry will handle the rest!</li>
+<ol>
+    <li>The <span class="reference"> Contents Tab</span> contains an area where you can drop Documents (like Actors, Items, Journals, etc.), or Folders of Documents, to add them to your Adventure. These Documents will keep their unique IDs, so that when they are imported later they will overwrite any existing copies with the same ID.</li>
+    <li>Once you have added everything you wish to add, at least for now, click <span class="reference"> Build Adventure</span> and Foundry will handle the rest!</li>
 </ol>
 <p>Once you've added all of the content you wish to include in the Adventure, it is possible to distribute that Adventure Pack the same as an Add-on Module by following the @Article[packaging-guide], you can rebuild the Adventure. This will create a new Compendium Pack for each Folder in the Adventure, and will populate each Compendium Pack with the Documents that were included in the Adventure. This process is described in more detail below.</p>
 
-<h2 id="rebuilding">Rebuilding an Adventure</h2>
+
+<h2 id="rebuilding" class="border">Rebuilding an Adventure</h2>
+
 <figure class="right">@Image[431]
-<figcaption>Editing the Adventure Document's Contents.</figcaption>
+    <figcaption>Editing the Adventure Document's Contents.</figcaption>
 </figure>
+
 <p>Once you have packed an Adventure you can still easily edit it, adding, removing or changing content as needed. In the event you want change an already built adventure, follow these steps:</p>
 <ol>
-<li>Open your Adventure Pack, right-click on your Adventure and choose <span class="reference"> Rebuild Adventure</span>.</li>
-<li>Edit your Adventure's <span class="reference"> Summary</span> or <span class="reference"> Contents</span> to reflect whatever changes you need. This is identical to the way you set it originally.</li>
-<li>In the <span class="reference"> Contents Tab</span>, you will see a list of everything your adventure currently contains. This will provide a summary of change. Documents that have been removed from the adventure are marked in red, while newly added Documents in the adventure are marked in green. This allows you to more easily determine what the differences will be between the previous Adventure and your Rebuild. Ensure that there are no unexpected changes here before you rebuild!</li>
-<li>Once you've made all of your changes simply click <span class="reference"> Build Adventure</span> again and it will overwrite your current Adventure Document with the new changes.</li>
+    <li>Open your Adventure Pack, right-click on your Adventure and choose <span class="reference"> Rebuild Adventure</span>.</li>
+    <li>Edit your Adventure's <span class="reference"> Summary</span> or <span class="reference"> Contents</span> to reflect whatever changes you need. This is identical to the way you set it originally.</li>
+    <li>In the <span class="reference"> Contents Tab</span>, you will see a list of everything your adventure currently contains. This will provide a summary of change. Documents that have been removed from the adventure are marked in red, while newly added Documents in the adventure are marked in green. This allows you to more easily determine what the differences will be between the previous Adventure and your Rebuild. Ensure that there are no unexpected changes here before you rebuild!</li>
+    <li>Once you've made all of your changes simply click <span class="reference"> Build Adventure</span> again and it will overwrite your current Adventure Document with the new changes.</li>
 </ol>
 <p class="note warning">Everything in an Adventure is replaced each time you rebuild it. That means, if you've made changes to any of the Documents in your world that are included in the Adventure they will overwrite the versions currently in the Adventure every time you press <span class="reference"> Build Adventure</span>. This <em>also</em> means if any Documents are missing in the World they will be removed from the Adventure.</p>
 
