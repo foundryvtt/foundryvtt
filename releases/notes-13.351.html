@@ -1,0 +1,34 @@
+<header id="update-header">
+    <h2 class="border" id="update-title">Foundry Virtual Tabletop - Version 13 - Stable 9 Release Notes</h2>
+    <figure id="update-banner">
+        <img alt="Release Notes for Foundry Virtual Tabletop Version 13 Stable 9" src="https://r2.foundryvtt.com/website-uploads-public/screen/user_70/v13-stable-9-release-banner-2025-11-13.webp" title="Foundry VTT - Version 13 - Stable 9 Release Notes"/>
+        <figcaption>This release banner shows the Drowning Forest adventure from the brand new <a href="https://foundryvtt.com/packages/dnd-adventures-faerun" rel="nofollow" target="_blank">Forgotten Realms: Adventures in Faerûn</a> premium content.</figcaption>
+    </figure>
+</header>
+
+<section id="update-overview">
+    <p>Since this update includes security fixes, we recommend all users who host publicly accessible Foundry VTT servers to update to this version if they are able in order to harden your server against these identified security flaws. This patch also contains bug fixes and minor changes collected from our community feedback channels. Thank you to each and every one of our community members who bring their feedback and bug reports to our attention!</p>
+    <p class="note warning"><strong>WARNING:</strong> While this is categorized as a stable release there is always a possibility of unexpected bugs or compatibility issues. As with any time you update the core software, be sure to perform a complete backup of your user data to minimize any risk of data loss.</p>
+</section>
+
+<section id="bugs">
+    <h2 class="section-header border">Bug Fixes</h2>
+    <h3 class="category-header" id="api-apps">Applications and User Interface</h3>
+    <ul>
+        <li>The Windows Portable build's <span class="reference">Browse User Data</span> option now points to the correct location. <a href="https://github.com/foundryvtt/foundryvtt/issues/13391" rel="nofollow" target="_blank">(13391)</a></li>
+        <li>The <code>Shift + C</code> shortcut now always focuses the chat input. <a href="https://github.com/foundryvtt/foundryvtt/issues/12884" rel="nofollow" target="_blank">(12884)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-docs">Documents and Data</h3>
+    <ul>
+        <li>Closed two security vulnerabilities which allowed for the possibility of RCE exploitation involving edge case operations in Document modification workflows. Our thanks to Oleg Surnin (Positive Technologies) for identifying and disclosing this vulnerability to us.</li>
+        <li>Fixed migrations for text drawings with zero width/height. <a href="https://github.com/foundryvtt/foundryvtt/issues/13049" rel="nofollow" target="_blank">(13049)</a></li>
+        <li><code>ClientDocument.defaultName</code> correctly adds numbers even when the pack is no longer cached. <a href="https://github.com/foundryvtt/foundryvtt/issues/13542" rel="nofollow" target="_blank">(13542)</a></li>
+        <li>The <span class="reference">Alternate Actor Token</span> dropdown now correctly updates a Token's art. <a href="https://github.com/foundryvtt/foundryvtt/issues/13551" rel="nofollow" target="_blank">(13551)</a></li>
+        <li>The <code>TokenHUD</code> now gracefully handles orphaned Tokens. <a href="https://github.com/foundryvtt/foundryvtt/issues/13559" rel="nofollow" target="_blank">(13559)</a></li>
+    </ul>
+    <h3 class="category-header" id="bugs-canvas">The Game Canvas</h3>
+    <ul>
+        <li>Fixed an issue that resulted in an error when trying to add placeable objects to a Scene while its placeables layer is being redrawn. <a href="https://github.com/foundryvtt/foundryvtt/issues/13401" rel="nofollow" target="_blank">(13401)</a></li>
+        <li>The Turn Marker correctly updates when combat ends. <a href="https://github.com/foundryvtt/foundryvtt/issues/13495" rel="nofollow" target="_blank">(13495)</a></li>
+    </ul>
+</section>
