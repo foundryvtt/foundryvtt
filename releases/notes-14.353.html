@@ -14,16 +14,16 @@
 <section class="highlights">
     <h2 class="border">Highlights</h2>
 <p>This is the final release of V14's Prototype phase and we've made some huge strides across our major epics for V14! Check out our <a href="https://foundryvtt.com/releases/14.349" rel="nofollow" target="_blank">Prototype 1 release notes</a> for an overview of everything we're tackling. This release is packed with new features, API enhancements, bug fixes, and other changes so we recommend checking out the full patch notes. We've highlighted some major changes below for anyone looking for a quick overview of what has changed.</p>
-<h3>Level Up Your Scenes</h3>
+<h3 id="scene-levels">Level Up Your Scenes</h3>
 <p>Prototype 3 introduces phase 1 of our work on Scene Levels. It allows you to make multiple levels in a Scene, define their elevation ranges, make sublevels visible to upper levels, transport Tokens between levels with the new Change Level behavior, block off certain areas with the new Surface region, and provides a new <strong>Placeables</strong> tab in the sidebar for seeing the content of your Scene. The UI and UX of Scene Levels is not final but we wanted to get it in the hands of users to start testing while we continue to refine and improve things.</p>
-<h3>Shared Fog of War</h3>
+<h3 id="shared-fog-of-war">Shared Fog of War</h3>
 <p>Your party can now share their fog of war exploration! Every Scene can customize their Fog of War exploration mode with new options for <strong>Disabled</strong>, <strong>Individual</strong>, and <strong>Shared</strong> fog exploration that takes advantage of the new API for sharing fog of war updates and unionizing them on all users' machines. Here's what those new options do:</p>
 <ul>
 <li><strong>Disabled:</strong> Prevents further fog of war reveals. Players will only be able to see what their Token's vision allows and any areas which were already revealed. This is the equivalent of unchecking V13's Fog Exploration option.</li>
 <li><strong>Individual:</strong> The classic Fog of War exploration mode where each user can only see areas that they've explored.</li>
 <li><strong>Shared:</strong> Players can see any area that they or other Players have explored.</li>
 </ul>
-<h3>Active Effects V2</h3>
+<h3 id="active-effects-v2">Active Effects V2</h3>
 <p>Active Effects have continued to get more powerful as we have nearly cleared out all of the issues in our <a href="https://github.com/foundryvtt/foundryvtt/issues/5842" rel="nofollow" target="_blank">Active Effects V2 Epic</a>!</p>
 <h5>Token Effects</h5>
 <p>It's now possible to make changes to a Token using Active Effects which makes it a breeze to have working torches, goggles that grant a new vision mode, a mask that disguises your Token with a new image, and so much more. The <code>Actor</code> now defines a <code>tokenOverrides</code> field which allows you to make changes to things like vision, detection modes, light emission, image, alpha, disposition, size, and more! This feature doesn't process changes of Token dimensions. A system desiring to do so can easily override <code>TokenDocument#_onOverrideSize</code> and make the change with any system-specific logic necessary.</p>
@@ -31,7 +31,7 @@
 <p>We've expanded the functionality of Active Effect durations. They can now be defined in more than just seconds and can include an "expiry event" like at the start or end of a combat, turn, or round. Systems can expand these options by defining custom events and announcing their occurrence to the registry (via <code>ActiveEffect.registry#refresh</code>). Temporary Active Effects are also tracked in a new registry (<code>ActiveEffect.registry</code>) that can be used to track, update, and delete effects which have expired or changed.</p>
 <h5>Actor Data in Active Effect Values</h5>
 <p>Rounding out our Active Effect improvements is the ability to reference Actor data in the value field of an Active Effect! This has been a popular request which seems quite simple on its face but there were a lot of complicated edge cases which had to be considered during implementation.</p>
-<h3>World Creation Improvements</h3>
+<h3 id="world-creation-ux">World Creation Improvements</h3>
 <h5>On the 3rd Prototype Kim Created the World (Creation Screen)</h5>
 <p>The World Creation screen has gotten a new coat of paint and functionality! Creating a World now gives you a live preview of your World title and background image selection. Game System selection is also now more visual with a filterable list of Game Systems to the right of your World details.</p>
 <h5>Start Playing Faster with Quick Start Adventures</h5>
@@ -43,6 +43,7 @@
     <h3 class="category-header" id="breaking-docs">Documents and Data</h3>
     <ul>
         <li>The changes made by Active Effects can now reference actor data. <a href="https://github.com/foundryvtt/foundryvtt/issues/5841" rel="nofollow" target="_blank">(5841)</a></li>
+        <li>Migrated <code>ActiveEffect#changes</code> to <code>ActiveEffect#system#changes</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/13740" rel="nofollow" target="_blank">(13740)</a></li>
     </ul>
     <h3 class="category-header" id="breaking-apps">Applications and User Interface</h3>
     <ul>
