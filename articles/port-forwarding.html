@@ -1,4 +1,4 @@
-<h2>Overview</h2>
+<h5 class="release-date">Updated February 2, 2026 (Version 13.351)</h5>
 <p>As with any server software, hosting Foundry VTT can require some network configuration to allow users to connect. It is also possible to use some simple network configuration for convenience or to provide some additional, more advanced features of FVTT (such as @Article[audio-video]). This article will introduce you to the following topics:</p>
 <dl>
 <dt>Port Forwarding</dt>
@@ -56,11 +56,11 @@
 	<figcaption>An example of port forwarding for a specific router model. My local IP address is 192.168.1.100.</figcaption>
 </figure>
 <hr/>
-<h2 class="border">Firewall Configuration</h2>
+<h2 class="border" id="firewall">Firewall Configuration</h2>
 <p>Most modern operating systems come pre-equipped with a built in firewall designed to prevent incoming connections and stop unwanted access to your computer. For the most part, these firewall softwares should be automatically configured when opening Foundry VTT through an Operating System level prompt which will ask if you wish to allow incoming connections. However, in some cases (particularly Windows Firewall) it is necessary to manually allow connections to FVTT through your firewall.</p>
 
 <p>As this most commonly arises related to Windows Defender, the following steps are provided:</p>
-<h4>Windows Defender Firewall</h4>
+<h4 id="windows-defender">Windows Defender Firewall</h4>
 <ul>
 	<li>Navigate to Control Panel, System and Security and Windows Firewall.</li>
 	<li>Select Advanced settings and highlight Inbound Rules in the left pane.</li>
@@ -71,6 +71,9 @@
 	<li>Select the network type (both) and click Next.</li>
 	<li>Name the rule something meaningful and click Finish.</li>
 </ul>
+<h4 id="macos-firewall">macOS Firewall</h4>
+<p>macOS users who are having difficulties opening their connection may need to temporarily disable the macOS firewall entirely while hosting to allow their players to connect. Instructions about how to configure your macOS firewall settings can be found <a href="https://support.apple.com/guide/mac-help/change-firewall-settings-on-mac-mh11783/mac">here.</a>.</p> 
+<p>Additionally, if you are hosting Foundry VTT over wifi, you may need to disable the Private Wifi Address setting (System Settings > Network > Wi-Fi > Details > Private Wi-Fi address. After making this change, be sure to reboot and copy andd send new invitation links.</p>
 
 <h3>About IPv6 and Firewalls</h3>
 <p>While IPv6 does not require port forwarding, it does require access to the ports on the hosting device. This means that any firewall software must be configured to allow connection on that port for IPv6 connections.</p>
