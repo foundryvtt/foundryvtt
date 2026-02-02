@@ -1,0 +1,140 @@
+<header id="update-header">
+    <h2 id="update-title" class="border">Foundry Virtual Tabletop - Version 14 - Developer 1 Release Notes</h2>
+    <figure id="update-banner">
+        <img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/v14-development-1-release-banner-2026-01-29.webp" title="Foundry VTT - Version 14 - Developer 1 Release Notes" alt="Release Notes for Foundry Virtual Tabletop Version 14"/>
+        <figcaption>The Foundry Version 14 Developer 1 release, as shown with the <a href="#highlight-restored-keep">The Restored Keep</a> battlemap by <a href="https://www.patreon.com/tomcartos">Tom Cartos</a>. Using Foundry V14, you will be able to explore it in an entirely new way! <a href="#highlight-scene-levels"></a>!</figcaption>
+    </figure>
+</header>
+
+<section id="update-overview">
+    <p>A big hello to all our Foundry friends and especially to our community developers! We're incredibly excited to announce that the first Development-phase release of Foundry Virtual Tabletop Version 14 is here.</p>    
+    <p>In the Development phase, our focus is on refining the initial design of major new features and starting to roughing out their user interfaces. As always, we are also focused on iterating on the API for our system and module developers. While we encourage and welcome feedback, please keep in mind that <u>everything is still very much in flux (particularly the user interface!) and is still evolving rapidly</u>.</p>
+    <p class="note warning"><strong>WARNING:</strong> Updates on the Development channel are intended for testing and feedback from the development community. While the features and improvements of these updates may be close to a level of stability intended for public testing, they are likely to still include some bugs and incompatibilities which may frustrate you. It is not intended to use these releases for a live game.</p>
+    
+    <h2 class="border" id="update-highlights">Update Highlights</h2>
+    <p>Along with the usual steady barrage of bugfixes and important API improvements, the Version 14 Developer 1 release features several notable improvements.</p>
+
+    <h3 id="highlight-scene-levels">Scene Level Improvements: Storm the Castle Like Never Before!</h3>
+    <p>One of the biggest challenges of "top-down" 2D battlemaps is representing areas with multiple vertically stacked "levels", such as the individual floors and rooftops of a castle.</p> 
+    <p>V14 Scene Levels addresses this challenge by vertically "stacking" multiple images inside a single scene, each at a defined elevation. Keeping everything inside one scene makes vision, movement, combat, and loading across levels much more fluid. As of this release, Scene Levels and its supporting user interface elements are now ready enough for curious power users and community developers to really start experimenting.</p>
+    <p>We eagerly look forward to your feedback and thoughts, but please keep the following things in mind:</p>
+    <ul>
+        <li>The Scene Level feature is still in active development and it will continue to evolve significantly</li>
+        <li>Further user experience features and improvements are planned</li>
+    </ul>
+
+    <h3 id="highlight-restored-keep">A Free Multi-Level Castle? Yes, Please!</h3>
+    <p>Speaking of storming the castle, we have collaborated with the excellent Tom Cartos to create a free, fully-configured, multi-level battlemap based on <a href="https://www.tomcartos.com/restored-keep">The Restored Keep</a> to demonstrate Scene Levels.</p>    
+    <p>You can use this demonstration scene to test out visibility between levels, see how we set up the four levels of the castle, and try out the new Change Level and Define Surface region behaviors in action.</p>
+     <figure class="center"><img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_70/restored-keep-third-floor-2026-01-29.webp">
+        <figcaption>The top Level of The Restored Keep, with a view of the rooftops and lower Levels.</figcaption>
+    </figure>
+    <p>This battlemap is available in a free, Foundry-VTT-exclusive module. Check out its page here: <a href="https://foundryvtt.com/packages/restored-keep-levels">https://foundryvtt.com/packages/restored-keep-levels</a>!</p>
+    <p class="note warning"><strong>WARNING:</strong> This module requires the V14 Development 1 Release. Once again, Development releases are primarily intended for developers. Do not use this release for a live game.</p>
+
+    <div class="columns">
+        <div class="column">
+            <h3 id="highlight-placeables-pallette">Introducing the Placeables Pallette</h3>
+            <p>The Developer 1 release also includes a technical preview of the brand new Placeables Palette! This new tool allow you to bulk-edit all selected canvas objects ("placeables"). Additionally, it allows you to preview the values that will be used when you create a new object in the canvas.</p>
+            <p>This tool was initially created to make placing walls on specific Scene Levels easier and so far it has only been added to the Walls layer, but we may add it to other layers later. Please keep in mind that the Placeables Palette is experimental and its user interface is still under development.</p>
+
+    <h3 id="highlight-scene-configuration">Scene Configuration: Back to Basics</h3>
+    <p>An important design goal for V14 is to make dealing with Levels entirely optional and to avoid complicating the creation of simple scenes.</p>
+    <p>As part of this goal, we've simplified and reorganized the Scene Configuration dialog so that it now opens to a new Basics tab. The most commonly used options are now all conveniently located there, while more advanced features have been relocated into other tabs.</p>
+    <p>We've also added a dedicated Levels tab to allow you to manage your multi-level scenes without adding complexity to the rest of the dialog.</p>
+    
+    <h3 id="highlight-selecting">Selecting and Live Previewing for All</h3>
+    <p>Previously, certain types of objects in the canvas (Map Notes, Ambient Lights, and Ambient Sounds) could not be selected in groups. In this release, we added a fully functional Select button for these object types so that you can select, move, cut, copy, paste, or delete multiple objects in the usual ways.</p>
+    <p>We also improved the Configuration dialogs of Map Notes, Ambient Lights, and Ambient Sounds so that they now preview changes in the canvas like all other object types already do.</p>     
+
+    </div>
+        <figure class="right"> <img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/placeables-palette-v14d1-2-2026-01-30.webp">
+            <figcaption>The first draft of the Placeables Palette as it appears in the Walls layer.</figcaption>
+        </figure>
+    </div>
+    </section>
+
+<section id="breaking">
+<h2 class="section-header border">Breaking Changes</h2>
+    <h3 id="breaking-architecture" class="category-header">Architecture and Infrastructure</h3>
+    <ul>
+        <li>The migration to ProseMirror is now officially complete, although ongoing improvements will continue to be made. Because Foundry VTT no longer uses it, the TinyMCE dependency has been entirely removed, but we have provided an external integration API that could allow modules or systems to re-introduce it. <a href="https://github.com/foundryvtt/foundryvtt/issues/12330" target="_blank">(12330)</a></li>
+    </ul>
+    <h3 id="breaking-docs" class="category-header">Documents and Data</h3>
+    <ul>
+        <li>Removed the unused <code>offsetX/Y</code> and <code>rotation</code> attributes from <code>TextureData</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/13785" target="_blank">(13785)</a></li>
+    </ul>
+    <h3 id="breaking-canvas" class="category-header">The Game Canvas</h3>
+    <ul>
+        <li>Updated scene thumbnail generation to appropriately use either the initial level or the currently viewed level. As part of this change, the <code>properties</code>, <code>src</code>, and <code>texture</code> of the return type of <code>ImageHelper#createThumbnail</code> have been deprecated. <a href="https://github.com/foundryvtt/foundryvtt/issues/13770" target="_blank">(13770)</a></li>
+    </ul>
+</section>
+<section id="features">
+<h2 class="section-header border">New Features</h2>
+    <h3 id="features-docs" class="category-header">Documents and Data</h3>
+    <ul>
+        <li>Added caching for the return value of <code>SchemaField#entries</code> to capture a meaningful performance benefit during <code>DataModel</code> construction or update workflows. <a href="https://github.com/foundryvtt/foundryvtt/issues/13534" target="_blank">(13534)</a></li>
+        <li>Added a specialized <code>ContextMenu</code> subclass that re-renders its entries. <a href="https://github.com/foundryvtt/foundryvtt/issues/13787">(13787)</a></li>
+    </ul>
+    <h3 id="features-apps" class="category-header">Applications and User Interface</h3>
+    <ul>
+        <li>In the Region Configuration dialog, added dynamic updating of the disabled state of the Levels and Is Restricted inputs. Also added tooltips to explain why they are disabled. <a href="https://github.com/foundryvtt/foundryvtt/issues/13733" target="_blank">(13733)</a></li>
+        <li>Added a fully functional Select tool for all types of "placeables" that previously didn't have one (Ambient Lights, Ambient Sounds, and Map Notes). <a href="https://github.com/foundryvtt/foundryvtt/issues/13772" target="_blank">(13772)</a></li>
+        <li>Added a radius measurement label to Ambient Lights and Ambient Sounds. <a href="https://github.com/foundryvtt/foundryvtt/issues/13784" target="_blank">(13784)</a></li>
+        <li>Simplified and reorganized the Scene Configuration dialog so that it now opens to a new Basics tab. The most essential and commonly used options for scene configuration can now be found here, and all other options are now shifted to other tabs. <a href="https://github.com/foundryvtt/foundryvtt/issues/13765" target="_blank">(13765)</a></li>
+        <li>Added "live previewing" for pending changes to the configuration dialogs of the last Document types that were missing them: Map Notes, Ambient Lights, and Ambient Sounds. <a href="https://github.com/foundryvtt/foundryvtt/issues/13783" target="_blank">(13783)</a></li>
+    </ul>
+    <h3 id="features-canvas" class="category-header">The Game Canvas</h3>
+    <ul>
+        <li>When changing the level of a token with the Change Level behavior, the destination position is now adjusted so that the token's center point is still within the region. <a href="https://github.com/foundryvtt/foundryvtt/issues/13737" target="_blank">(13737)</a></li>
+        <li>Added an animation for the changes to token attribute bars rather than instantly displaying the new bar length. <a href="https://github.com/foundryvtt/foundryvtt/issues/868" target="_blank">(868)</a></li>
+    </ul>
+    <h3 id="features-i18n" class="category-header">Localization and Accessibility</h3>
+    <ul>
+        <li>Defined standard <code>LOCALIZATION_PREFIXES</code> for the last remaining document models for all document models which did not yet use them (<code>BaseDrawing</code> and <code>BaseJournalEntryPage</code>). <a href="https://github.com/foundryvtt/foundryvtt/issues/12739" target="_blank">(12739)</a></li>
+    </ul>
+</section>
+<section id="api">
+<h2 class="section-header border">API Improvements</h2>
+    <h3 id="api-apps" class="category-header">Applications and User Interface</h3>
+    <ul>
+        <li>Added support for adding hint text for Document subtypes. <a href="https://github.com/foundryvtt/foundryvtt/issues/13760" target="_blank">(13760)</a></li>
+    </ul>
+    <h3 id="api-other" class="category-header">Other Changes</h3>
+    <ul>
+        <li>Added <code>tolerance</code> parameter to <code>PolygonTreeNode#testPoint</code>. Added <code>PolygonTreeNode#findContainingNode</code>, <code>PolytgonTreeNode#findClosestPoint</code>, and <code>foundry.utils.closestPointToPath</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/13767" target="_blank">(13767)</a></li>
+    </ul>
+</section>
+<section id="bugs">
+<h2 class="section-header border">Bug Fixes</h2>
+    <h3 id="bugs-docs" class="category-header">Documents and Data</h3>
+    <ul>
+        <li>Fixed incorrect leap day calculation in <code>CalendarData._initialize</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/13741">(13741)</a></li>
+        <li>Fixed a bug where the <code>type</code> field of the <code>ActiveEffectConfig</code> was only a freeform text input. <a href="https://github.com/foundryvtt/foundryvtt/issues/13742" target="_blank">(13742)</a></li>
+        <li>Fixed a bug where <code>ActiveEffectRegistry</code> could change expired statuses in-memory, leaving the active GM unable to update or delete them. <a href="https://github.com/foundryvtt/foundryvtt/issues/13743" target="_blank">(13743)</a></li>
+        <li>Fixed a bug where Scene migration did not handle offsets correctly. <a href="https://github.com/foundryvtt/foundryvtt/issues/13749" target="_blank">(13749)</a></li>
+        <li>Fixed a bug where <code>ActiveEffect#expiryReached</code> did not check that triggering event matched the Effect's own expiry event. <a href="https://github.com/foundryvtt/foundryvtt/issues/13752" target="_blank">(13752)</a></li>
+    </ul>
+    <h3 id="bugs-apps" class="category-header">Applications and User Interface</h3>
+    <ul>
+        <li>Fixed a bug with the Scene Navigation UI where the Configure context menu could open the wrong Level Configuration dialog if you were viewing one scene and a different scene was active. <a href="https://github.com/foundryvtt/foundryvtt/issues/13751" target="_blank">(13751)</a></li>
+        <li>Split the Region Config Area tab into the Shapes and Placement tabs and ensured both new tabs can be scrolled. <a href="https://github.com/foundryvtt/foundryvtt/issues/13753" target="_blank">(13753)</a></li>
+        <li>Fixed a bug where theme styling (notably Light Mode) did not apply to the font color of <code>&lt;dt&gt;</code>  elements. <a href="https://github.com/foundryvtt/foundryvtt/issues/13721" target="_blank">(13721)</a></li>
+        <li>Prevented a non-functional Import Document button from displaying on Adventure Documents. <a href="https://github.com/foundryvtt/foundryvtt/issues/13779" target="_blank">(13779)</a></li>
+        <li>Fixed a bug where the <code>color-scheme</code> css property was not set properly for the <code>#interface</code> and <code>#hud</code> elements of client markup. <a href="https://github.com/foundryvtt/foundryvtt/issues/13734" target="_blank">(13734)</a></li>
+    </ul>
+    <h3 id="bugs-canvas" class="category-header">The Game Canvas</h3>
+    <ul>
+        <li>Fixed a bug where triggering a scene transition while another one was ongoing broke the canvas. <a href="https://github.com/foundryvtt/foundryvtt/issues/13622" target="_blank">(13622)</a></li>
+        <li>Fixed a bug where scene transitions accidentally revealed the scene for users who did not own a source of token vision. <a href="https://github.com/foundryvtt/foundryvtt/issues/13622" target="_blank">(13623)</a></li>
+        <li>Added safeguards so that attempting to load a scene containing a non-existing transition type no longer prevents loading any scene. <a href="https://github.com/foundryvtt/foundryvtt/issues/13630" target="_blank">(13630)</a></li>
+        <li>Fixed a bug where <code>canvas.masks.vision</code> for players was cleared unexpectedly after the scene transition animation ended. <a href="https://github.com/foundryvtt/foundryvtt/issues/13739" target="_blank">(13739)</a></li>
+        <li>Resolved an issue where the positioning of a viewed level incorrectly affected other visible levels. <a href="https://github.com/foundryvtt/foundryvtt/issues/13758" target="_blank">(13758)</a></li>
+        <li>Fixed a bug where status effects were not shown on the token when added via <code>ActiveEffect.fromStatusEffect</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/13759" target="_blank">(13759)</a></li>
+    </ul>
+    <h3 id="bugs-i18n" class="category-header">Localization and Accessibility</h3>
+    <ul>
+        <li>Fixed localization for the tooltip of the Collapse/Expand Sidebar button. <a href="https://github.com/foundryvtt/foundryvtt/issues/13747" target="_blank">(13747)</a></li>
+        <li>Fixed localization of the package version in the Install Module and Install System dialogs. <a href="https://github.com/foundryvtt/foundryvtt/issues/13748" target="_blank">(13748)</a></li>
+    </ul>
+</section>
