@@ -50,7 +50,7 @@
 </figure>
 <p>Our team would like to thank and acknowledge <strong>KaKaRoTo</strong> and <strong>posnet</strong> for their creation and maintenance of the helpful <a href="https://foundryvtt.com/packages/popout" target="_blank">PopOut!</a> module which has served users admirably since the primordial pre-launch era of Foundry VTT Version&nbsp;4!</p>
 
-<h3 class="border">Scene Regions (v2)</h3>
+<h3 class="border" id="highlight-regions">Scene Regions (v2)</h3>
 <p>Scene Regions are a relatively new feature to Foundry Virtual Tabletop, but we are doubling down on the technical framework that they provide as a workhorse component for a lot of our future goals. At a general level, the ability to define an area of the scene which has some meaning or applies some behaviors is an essential concept for a huge range of tasks and features.</p>
 <p>What was, arguably, lacking with our initial implementation of Scene Regions was some flexibility and quality of UX to make it easier to work with defining and manipulating regions as well as configuring them to accommodate a wider range of shapes needed for mechanics-based gameplay. We have invested a huge amount of effort during the V14 dev cycle so far on overhauling the way that geometric shapes are defined and manipulated on the canvas. These improvements directly benefit Scene Regions, but also extend beyond regions alone to bring UX parity to everywhere in the Foundry VTT canvas that deals with shapes including Tiles, Light sources, Sound sources, and Drawings. These improvements include:</p>
 <ul>
@@ -77,7 +77,7 @@
 </dl>
 <p>Most significantly in Prototype 2, the Measured Templates layer (as you currently know it) will be going away in favor of specialized Scene Regions and behaviors, so much of our work in V14 Prototype 1 has been laying the groundwork for all the mechanically relevant shapes and options needed to support meaningful areas of effect. We are sure many of you have questions about how the Measured Templates redesign is going to work, we'll be sharing a lot more information about that in Prototype 2, so stay tuned!</p>
 
-<h3 class="border">Active Effects (v2)</h3>
+<h3 class="border" id="highlight-ae">Active Effects (v2)</h3>
 <p>Version 14 also affords our team to invest in a long-deserved upgrade to the Active Effect system that allows Actors and Items to benefit from duration-based modifiers to their attributes. This next generation of support for Active Effects includes a number of exciting features including:</p>
 <ul>
     <li>The ability to provide a Compendium pack of predefined Active Effects ready to be dragged-and-dropped.</li>
@@ -89,7 +89,7 @@
     <li>The capability for Active Effects to apply changes to Token properties like vision, size, or light emission (planned for Prototype 2).</li>
 </ul>
 
-<h3 class="border">DataModel Performance Improvements</h3>
+<h3 class="border" id="highlight-performance">DataModel Performance Improvements</h3>
 <p>Each major version we also prioritize some strategic infrastructure, backend, or API investments that reinvest into our core software. One of these main focus areas in Version 14 is a suite of improvements to the workhorse <code>DataModel</code> class that powers almost every persisted data structure (Documents and more!) across Foundry Virtual Tabletop.</p>
 <p>Over the years since the <code>DataModel</code> class was designed, we ended up with some closely related, but separate workflows for data cleaning, migration, sanitization, and validation. In Version 14 we have been able to implement some streamlined workflows for <code>DataModel#updateSource</code> and <code>DataModel.cleanData</code>, two of the model's most important functions, that economize the work they do while making the model more performant and robust against a range of previously poorly-supported edge cases. We have some preliminary <a href="https://github.com/foundryvtt/foundryvtt/issues/13406" target="_blank">benchmarking results</a> which are very encouraging (negative percentage changes mean "faster"):</p>
 <table>
