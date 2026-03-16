@@ -1,0 +1,193 @@
+<header id="update-header">
+    <h2 id="update-title" class="border">Foundry Virtual Tabletop - Version 14 - API Development 2 Release Notes</h2>
+    <figure id="update-banner">
+        <img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_70/v14-dev-2-release-banner-2026-02-24.webp" title="Foundry VTT - Version 14 -  API Development 2 Release Notes" alt="Release Notes for Foundry Virtual Tabletop Version 14"/>
+         <figcaption>The Foundry Version 14  API Development 2 release, as seen with the (free!) updated <a href="https://foundryvtt.com/packages/restored-keep-levels">Restored Keep multi-level demonstration module</a> and the Tiles layer active. The new <a href="#highlight-palette">Placeables Palette</a> is on the left and the <a href="#highlight-placeables-tab">Placeables sidebar tab</a> is to the right.</figcaption>
+    </figure>
+</header>
+
+<section id="update-overview">
+    <p>In addition to the usual API goodness, today's release brings an evolved version of the Scene Levels feature, powerful new user interface tools, and even some shiny new animation capabilities for our API.</p>
+    <p>We expect that this will be our final release of the API Development phase. During this time, our focus was on refining the initial design of major new features, finalizing the API for our system and module developers, and continuing to rough out some user interfaces. While we encourage and welcome feedback, please keep in mind that <u>everything is still very much in flux (particularly the user interface!) and is evolving rapidly</u>.</p>
+    <p class="note warning"><strong>WARNING:</strong> Updates on the API Development channel are intended for testing and feedback from the development community. While the features and improvements of these updates may be close to a level of stability intended for public testing, they are likely to still include some bugs and incompatibilities which may frustrate you. It is not intended to use these releases for a live game.</p>
+    
+    <h2 class="border" id="update-highlights">Update Highlights</h2>
+
+    <h3 id="highlight-palette">Bulk edit (and more!) with the Placeables palette</h3>
+    <p>In the previous release, we introduced a new "palette" tool as a new control button for the Walls layer which allowed greater visibility and control when creating or editing walls. When a Wall was selected, the palette conveniently displayed its key attributes and allowed you to edit them. When no Wall was selected, it displayed the attributes that would be applied when creating a new Wall.</p>
+    <p>With this release, the palette has learned an exciting new trick: bulk editing! When you select multiple things in the map, any changes that you make and apply in the palette are automatically applied to all of them.</p>
+    <p>Also, this functionality is no longer limited just to Walls! A Palette control menu button has been added for all layers (except for the Token layer). This makes the Palette's functionality available for almost all types of "placeable" canvas objects: Tiles, Drawings, Walls, Ambient Lights, Ambient Sounds, Regions, and Map Notes.</p>
+
+    <h3 id="highlight-placeables-tab">Stay organized with the Placeables tab</h3>
+    <div class="columns">
+        <div class="column">
+            <p>When we introduced Scene Regions in Version 13, we added a Region Legend to help keep track of them. This concept has been reborn in the improved Placeables sidebar tab and also expanded to all types of placeables, not just Regions.</p>
+            <p>The contents of the Placeables tab change to match the layer selected, allowing you to conveniently view, filter, and interact with anything in the scene. V14's popular "pop-out" feature will also be helpful to keep this tab handy.</p>
+
+            <h3 id="highlight-levels">V14 Continues to level up!</h3>
+            <p>The  API Development 2 release brings many improvements to the new multi-level scene feature, including:</p>
+            <dl>
+                <dt>Improved visibility between levels</dt>
+                <dd>This release allows Tokens to more easily see and check line of sight against Tokens in other levels, particularly ones in higher levels.</dd>
+                <dt>The <i>Reveal Elevated Surface</i> option for <i>Define Surface</i> behaviors</dt>
+                <dd>This new option simulates visibility onto an elevated surface region such as a roof, balcony, or other elevated platform. A surface with this option is almost entirely hidden from observers who are nearly directly below it. The portion of the region that is revealed increases for observers who are further away from it horizontally and for observers who are closer to its vertical elevation because they can "see onto" the elevated area better. This option is off by default.</dd>
+                <dt>Improved occlusion handling</dt>
+                <dd>One of the fundamental challenges of top-down multi-level scenes is handling the common situation where a Token is under things that would logically block your ability to see them. By default, whenever a Token moves underneath a Tile, background image, or foreground image that has a higher elevation, the new <code>SURFACE</code> occlusion mode is applied. This means that the interfering image becomes strategically transparent so that you can still see the Token. You can even combine this new mode in combination with other existing occlusion modes because you can now set more than one occlusion mode at a time.</dd>
+                <dt>Refined region visibility controls</dt>
+                <dd>When several large regions are present (such as regions with Define Surface behaviors), we found that it can become hard to see smaller regions. We've added a new visibility option to hide regions when they are locked to help eliminate visual clutter. Locked placeables (including Regions) are now also no longer interactable which further helps to keep them out of the way.</dd>
+            </dl>
+        </div>
+        <figure class="right"><img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/placeables-sidebar-tab-example-2026-02-25.webp" alt="The updated Placeables sidebar tab, shown with the Walls layer filtered to Walls on a single level.">
+            <figcaption>The updated Placeables sidebar tab, shown with the Walls layer filtered to only show Walls on the current level.</figcaption>
+        </figure>
+    </div>
+
+    <h3 id="highlight-animations">Shiny new animation APIs</h3>
+    <p>Our ongoing Ember project has been the driving force for many Foundry VTT innovations and these two new animation APIs are the latest examples. The new Canvas Shake animation is triggered with a simple command and creates a fun, map-rattling visual effect to reflect high-impact events like enormous boulders crashing to the ground or Big Bad Enemy Guys and/or Gals emerging from their ancient slumber.</p>
+    <p>The second animation API, the Particle Generator, allows you to flexibly generate light-weight particle effects directly within Foundry VTT, providing all the shininess of large video animations with less overhead and greater flexibility. Due to its power and customizability, the syntax for this one is a bit complex but we are confident that our skilled developers will be able to use it to create some truly amazing things.</p>
+
+    <h3 id="highlight-keep">The <i>Restored Keep</i>... remastered</h3>
+    <p>The best way to visualize V14's new Scene Levels feature is to play around with it, so to accompany the last release we coordinated with the excellent <a href="https://www.patreon.com/c/tomcartos">Tom Cartos</a> to create a free module containing a multi-level demonstration scene.</p>
+    <p>Similarly, today's release is accompanied by a significant revision of The Restored Keep module to take advantage of the latest V14 features. We also completely redid the Walls of the keep to offer what we consider the best possible exploration experience.</p>
+    <p><strong>Notable improvements:</strong></p>
+    <ul>
+        <li>Ensured that all above-ground floors have visibility to each other</li>
+        <li>Added "Define Surface" behaviors to the surface regions in all above-ground floors</li>
+        <li>Enabled the new <i>Reveal Elevated Surfaces</i> option for the 3rd floor surfaces</li>
+        <li>Made the thatched roof a separate region with a <i>Define Surface</i> behavior and the <i>Reveal Elevated Surface</i> option</li>
+    </ul>
+    <p>You can install or update this module from the Setup screen as usual, and you can learn more about it here: <a href="https://foundryvtt.com/packages/restored-keep-levels">The Restored Keep</a>.</p>
+
+<section id="breaking">
+<h2 class="section-header border">Breaking Changes</h2>
+    <h3 id="breaking-canvas" class="category-header">The Game Canvas</h3>
+    <ul>
+        <li>Changed the line-of-sight requirement so it can be satisfied in either the viewed level or in the level of the token that you are checking for visibility. This change is potentially breaking for detection modes that are not affected by darkness sources and do not override <code>_canDetect</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/13839" target="_blank">(13839)</a></li>
+        <li>Added <code>Level#edges: CanvasEdges</code> and moved edge management from <code>Wall</code> to <code>WallDocument</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/13842" target="_blank">(13842)</a></li>
+    </ul>
+    <h3 id="breaking-other" class="category-header">Other Changes</h3>
+    <ul>  
+        <li>Implemented Chat Message Visibility Modes as a replacement for the historical "Roll Mode" concept. These message modes are now more broadly applicable and can modify the visibility of any message (not only dice rolls). Additionally added a new dedicated "In-Character" mode. When this mode is active, you speak as your character by default. Backwards compatible support for old roll modes is preserved until V16. <a href="https://github.com/foundryvtt/foundryvtt/issues/8856">(8856)</a></li>
+        <li>Deprecated <code>ChatLog.MESSAGE_PATTERNS</code> in favour of <code>ChatLog.CHAT_COMMANDS</code> to allow specifying a callback for custom parsing. Deprecation support will be removed in V16. <a href="https://github.com/foundryvtt/foundryvtt/issues/13080" target="_blank">(13080)</a></li>
+        <li>Unified the API surface for <code>HeaderControls</code> and <code>ContextMenu</code> to reduce the number of differences between working with header controls and context menus. <a href="https://github.com/foundryvtt/foundryvtt/issues/13493">(13493)</a></li>
+    </ul>
+</section>
+<section id="features">
+<h2 class="section-header border">New Features</h2>
+    <h3 id="features-architecture" class="category-header">Architecture and Infrastructure</h3>
+    <ul>
+        <li>Upgraded Electron to version 40 and increased the minimum Node version to 24. <a href="https://github.com/foundryvtt/foundryvtt/issues/13851" target="_blank">(13851)</a></li>
+    </ul>
+    <h3 id="features-apps" class="category-header">Applications and User Interface</h3>
+    <ul>
+        <li>Prevented the usual confirmation dialog from displaying when deleting regions that do not contain any behaviors. <a href="https://github.com/foundryvtt/foundryvtt/issues/13788" target="_blank">(13788)</a></li>
+        <li>The borders of hidden Ambient Lights, Ambient Sounds, Drawings, Tiles, and Tokens are now dashed if they are hidden. <a href="https://github.com/foundryvtt/foundryvtt/issues/13810" target="_blank">(13810)</a></li>
+        <li>Player idling is now tracked server-side so that newly connected clients can be informed of the idle state of existing players. <a href="https://github.com/foundryvtt/foundryvtt/issues/12539" target="_blank">(12539)</a></li>
+        <li>Added <code>name</code> as an allowed attribute of <code>&lt;details&gt;</code> HTML elements. <a href="https://github.com/foundryvtt/foundryvtt/issues/13815" target="_blank">(13815)</a></li>
+        <li>Prior to Version 13, Journal table of contents used to display a helpful icon to the right of each entry to indicate its visibility and permission level for players. This was accidentally removed in V13 and has now been restored. <a href="https://github.com/foundryvtt/foundryvtt/issues/13387" target="_blank">(13387)</a></li>
+        <li>Added the new Palette tool to improve the process of creating or editing any placeable (Token, Wall, Ambient Light, etc.). <a href="https://github.com/foundryvtt/foundryvtt/issues/13776" target="_blank">(13776)</a></li>
+        <li>You can now use the Palette tool to bulk edit all types of selected objects other than Tokens (Walls, Ambient Lights, etc.). <a href="https://github.com/foundryvtt/foundryvtt/issues/4248" target="_blank">(4248)</a></li>
+        <li>Added a new context menu option to the Scene Configuration dialog to duplicate levels. <a href="https://github.com/foundryvtt/foundryvtt/issues/13768" target="_blank">(13768)</a></li>
+    </ul>
+    <h3 id="features-canvas" class="category-header">The Game Canvas</h3>
+    <ul>
+        <li>Map notes no longer require a source of vision to be visible in areas that were previously explored. <a href="https://github.com/foundryvtt/foundryvtt/issues/13820" target="_blank">(13820)</a></li>
+        <li>Added a new <code>SURFACE</code> occlusion mode for Tiles and a new Occlusion option to the Define Surface region behavior. These new options are designed to improve the experience of working with tokens under large tiles and surfaces by allowing you to see those tokens and their surroundings. <a href="https://github.com/foundryvtt/foundryvtt/issues/13838" target="_blank">(13838)</a></li>
+        <li>The shape of Ambient Light and Sound sources is now based on the visible level that is inferred by its elevation. <a href="https://github.com/foundryvtt/foundryvtt/issues/13852" target="_blank">(13852)</a></li>
+        <li>Elevation is now taken into account when determining if a Token is within detection mode range. <a href="https://github.com/foundryvtt/foundryvtt/issues/8391" target="_blank">(8391)</a></li>
+    </ul>
+    <h3 id="features-packages" class="category-header">Package Development</h3>
+    <ul>
+        <li>Added new manifest flags so that modules can avoid displaying warnings for unsupported top-level keys that are used deliberately. <a href="https://github.com/foundryvtt/foundryvtt/issues/13024" target="_blank">(13024)</a></li>
+        <li>Added the ability for modules to declare blanket compatibility with a major system version (generation) in the same way that core compatibility can be declared. <a href="https://github.com/foundryvtt/foundryvtt/issues/13160" target="_blank">(13160)</a></li>
+    </ul>
+    <h3 id="features-dice" class="category-header">Dice and Cards</h3>
+    <ul>
+        <li>Added an option to configure the default dice fulfillment method (Digital, Manual, Pixels, etc.) for all die sizes. <a href="https://github.com/foundryvtt/foundryvtt/issues/13312" target="_blank">(13312)</a></li>
+    </ul>
+</section>
+<section id="api">
+<h2 class="section-header border">API Improvements</h2>
+    <h3 id="api-docs" class="category-header">Documents and Data</h3>
+    <ul>
+        <li>Fixed an issue where <code>@readonly</code> class members were writable despite being intended to be non-writable. The correct read-only behavior is now enforced. <a href="https://github.com/foundryvtt/foundryvtt/issues/12613">(12613)</a></li>
+        <li>Added <code>Scene#getSurfaces</code> for convenience when interacting with multi-level scenes. <a href="https://github.com/foundryvtt/foundryvtt/issues/13848" target="_blank">(13848)</a></li>
+        <li>Added the ability to select multiple Occlusion Modes for Tiles and primary canvas objects. <a href="https://github.com/foundryvtt/foundryvtt/issues/13854" target="_blank">(13854)</a></li>
+    </ul>
+    <h3 id="api-apps" class="category-header">Applications and User Interface</h3>
+    <ul>
+        <li>Added <code>ShapeObjectMixin#_formatMeasuredDistance</code> to allow the customization of Region distance labels. <a href="https://github.com/foundryvtt/foundryvtt/issues/13791" target="_blank">(13791)</a></li>
+        <li>Each document class can now specify metadata to control whether documents of the "base" type are allowed to be created and offered as an option in document creation dialogs. Game systems which take control over document classes can modify this behavior. <a href="https://github.com/foundryvtt/foundryvtt/issues/12155" target="_blank">(12155)</a></li>
+        <li><code>InteractionLayer#_onMouseWheel</code> is now called for the active layer without <code>options.rotatableObjects</code> needing to be <code>true</code>. Mouse wheel events dispatched to interaction layers are no longer throttled. <a href="https://github.com/foundryvtt/foundryvtt/issues/13833" target="_blank">(13833)</a></li>
+    </ul>
+    <h3 id="api-canvas" class="category-header">The Game Canvas</h3>
+    <ul>
+        <li><code>TokenDocument#getTestPoints</code> is now constrained by walls and surfaces to prevent cases where walls and level boundaries were not blocking token visibility and region inclusion for tokens that were directly next to them. <a href="https://github.com/foundryvtt/foundryvtt/issues/13736" target="_blank">(13736)</a></li>
+        <li>Added <code>PlaceableObject#isInteractable</code>, which determines whether the placeable is interactable. Locked placeables are no longer interactable (except Tokens). <a href="https://github.com/foundryvtt/foundryvtt/issues/13832" target="_blank">(13832)</a></li>
+        <li>Added a new Canvas Shake API (<code>animation.CanvasShakeEffect</code>) for impact moments like explosions, earthquakes, heavy footsteps, or spell hits. Does not generate a sound and the shaking does not apply to particles or UI elements. <a href="https://github.com/foundryvtt/foundryvtt/issues/13835" target="_blank">(13835)</a></li>
+        <li>Added a new Particle Generator API (<code>ParticleGenerator</code>). This Foundry-native particle generator allows you to spawn, animate, and control lightweight canvas particles. <a href="https://github.com/foundryvtt/foundryvtt/issues/13836" target="_blank">(13836)</a></li>
+        <li><code>ClockwiseSweepPolygon</code> can now be computed in Levels that are not viewed. <a href="https://github.com/foundryvtt/foundryvtt/issues/13843" target="_blank">(13843)</a></li>
+        <li>Added <code>BaseEffectSource#level</code> and constrained the light source of tokens by the edges of the level they are in. <a href="https://github.com/foundryvtt/foundryvtt/issues/13845" target="_blank">(13845)</a></li>
+        <li>Added the "Reveal Elevated Surface" option to the Define Surface region behavior. This option partially reveals visible areas based on its angle to the observer, making it useful for roofs, balconies, or other overhead platforms. <a href="https://github.com/foundryvtt/foundryvtt/issues/13847" target="_blank">(13847)</a></li>
+        <li>The ready hook now fires after any scene transitions finish. <a href="https://github.com/foundryvtt/foundryvtt/issues/13856">(13856)</a></li>
+    </ul>
+    <h3 id="api-other" class="category-header">Other Changes</h3>
+    <ul>
+        <li>Extended package manifest schema with an explicit <code>type: system | module</code> field (initially optional) to definitively avoid issues when users try and install a package of the wrong type. <a href="https://github.com/foundryvtt/foundryvtt/issues/12707">(12707)</a></li> 
+        <li><code>DocumentStatsField#createdTime</code> and <code>DocumentStatsField#modifiedTime</code> are now required fields. <a href="https://github.com/foundryvtt/foundryvtt/issues/13058">(13058)</a></li>
+        <li>Added <code>RegionDocument#_onPolygonTreeChange</code> to help developers respond to changes in a region's shape. It is called when <code>RegionDocument#polygonTree</code> changes. <a href="https://github.com/foundryvtt/foundryvtt/issues/13828" target="_blank">(13828)</a></li>
+        <li>Added <code>CONFIG[documentName].embedHandlers</code> API for adjusting Document embeds. <a href="https://github.com/foundryvtt/foundryvtt/issues/13687" target="_blank">(13687)</a></li>
+        <li>Removed <code>RegExp.escape</code> in favor of native implementation. <a href="https://github.com/foundryvtt/foundryvtt/issues/13824" target="_blank">(13824)</a></li>
+    </ul>
+</section>
+<section id="bugs">
+<h2 class="section-header border">Bug Fixes</h2>
+    <h3 id="bugs-docs" class="category-header">Documents and Data</h3>
+    <ul>
+        <li>Fixed a bug where time-tracking <code>_stats</code> of embedded documents were not initialized correctly when those embedded documents were created as part of a parent document operation. <a href="https://github.com/foundryvtt/foundryvtt/issues/10348" target="_blank">(10348)</a></li>
+        <li>Fixed a bug where performing a non-recursive update to clear embedded children left them orphaned on disk. <a href="https://github.com/foundryvtt/foundryvtt/issues/13347">(13347)</a></li>
+        <li>Fixed a bug where <code>ActorDelta#_onUpdate</code> did not change the <code>documentName</code> property of the <code>operation</code> object before calling the <code>updateActor</code> hook. <a href="https://github.com/foundryvtt/foundryvtt/issues/13754" target="_blank">(13754)</a></li>
+        <li>Fixed a bug where the default scene was created without the proper background image. <a href="https://github.com/foundryvtt/foundryvtt/issues/13750" target="_blank">(13750)</a></li>
+        <li>Fixed a bug with creating a new combat where the initial system value was missing. <a href="https://github.com/foundryvtt/foundryvtt/issues/13802" target="_blank">(13802)</a></li>
+        <li>Fixed a bug where even if a player owned or observed a placeable, <code>CanvasDocument#visible</code> could still incorrectly be <code>false</code> for them. <a href="https://github.com/foundryvtt/foundryvtt/issues/13808" target="_blank">(13808)</a></li>
+        <li>Fixed a bug that could occur with custom data models where cleaning failed to occur correctly for the <code>base</code> type of <code>Card</code>, <code>Cards</code>, <code>ChatMessage</code>, <code>Combat</code>, and <code>CombatantGroup</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/13626" target="_blank">(13626)</a></li>
+        <li>Fixed a bug where updating a field in <code>TypedObjectField</code> reset other fields to their initial values. <a href="https://github.com/foundryvtt/foundryvtt/issues/13812" target="_blank">(13812)</a></li>
+
+    </ul>
+    <h3 id="bugs-apps" class="category-header">Applications and User Interface</h3>
+    <ul>
+        <li>Fixed a bug where "Transition Type" could not be set to "None" in the Scene Configuration dialog. <a href="https://github.com/foundryvtt/foundryvtt/issues/13789" target="_blank">(13789)</a></li>
+        <li>Resolved an error caused by removing a shape from a multi-shape region. <a href="https://github.com/foundryvtt/foundryvtt/issues/13801" target="_blank">(13801)</a></li>
+        <li>Fixed a bug where elevation changes made using the Token HUD were incorrect when the token was in a level with a non-zero bottom elevation. <a href="https://github.com/foundryvtt/foundryvtt/issues/13803" target="_blank">(13803)</a></li>
+        <li>Prevented an error that could occur when applying a placeable filter. <a href="https://github.com/foundryvtt/foundryvtt/issues/13805" target="_blank">(13805)</a></li>
+        <li>Resolved an issue where non-GMs could see Placeable tabs that they should not have access to. <a href="https://github.com/foundryvtt/foundryvtt/issues/13807" target="_blank">(13807)</a></li>
+        <li>Fixed a bug where changes made in the configuration dialogs of newly created placeables would not render their usual preview. <a href="https://github.com/foundryvtt/foundryvtt/issues/13811" target="_blank">(13811)</a></li>
+        <li>Improved the way the Shape field of the Token Configuration dialog handles changes to the scene's grid type (switching from square to hex, for example). <a href="https://github.com/foundryvtt/foundryvtt/issues/13829" target="_blank">(13829)</a></li>
+    </ul>
+    <h3 id="bugs-canvas" class="category-header">The Game Canvas</h3>
+    <ul>
+        <li>Resolved an issue where the fog overlay was not rendering correctly with exploration images. <a href="https://github.com/foundryvtt/foundryvtt/issues/13827">(13827)</a></li>
+        <li>Fixed a bug where tokens could move through closed doors in some circumstances. <a href="https://github.com/foundryvtt/foundryvtt/issues/13798" target="_blank">(13798)</a></li>
+        <li>Fixed a bug where the cursors, rulers, and targets of other users could sometimes not be visible after joining the game. Moved the tracking for this information server-side to ensure accuracy. <a href="https://github.com/foundryvtt/foundryvtt/issues/13809" target="_blank">(13809)</a></li>
+        <li>Fixed a bug that occurred in certain situations where Tokens could briefly see through a Wall that it was moving away from. <a href="https://github.com/foundryvtt/foundryvtt/issues/12965" target="_blank">(12965)</a></li>
+    </ul>
+    <h3 id="bugs-dice" class="category-header">Dice and Cards</h3>
+    <ul>
+        <li>Fixed a bug where compound modifiers on rolls were lost if they contained numeric components. <a href="https://github.com/foundryvtt/foundryvtt/issues/13371" target="_blank">(13371)</a></li>
+    </ul>
+    <h3 id="bugs-other" class="category-header">Other Changes</h3>
+    <ul>
+        <li>Fixed a bug where <code>Document#_preCreate</code> could no longer block Document creation. <a href="https://github.com/foundryvtt/foundryvtt/issues/13792" target="_blank">(13792)</a></li>
+        <li>Prevented an error with the <code>{{ editor }}</code> handlebars helper when using the ProseMirror engine. <a href="https://github.com/foundryvtt/foundryvtt/issues/13799" target="_blank">(13799)</a></li>
+        <li>Standardized <code>Compendium#_initializeApplicationOptions</code> so that it now correctly sets <code>options.uniqueId</code> instead of <code>options.id</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/13777" target="_blank">(13777)</a></li>
+        <li>Resolved an issue where <code>sanitizeFilePathField</code> did not always create unique paths for embedded documents. <a href="https://github.com/foundryvtt/foundryvtt/issues/11077" target="_blank">(11077)</a></li>
+        <li>Fixed a bug where <code>FilePathFields</code> were sanitized before embedded document IDs were generated. <a href="https://github.com/foundryvtt/foundryvtt/issues/11078" target="_blank">(11078)</a></li>
+    </ul>
+</section>
+<section id="documentation">
+<h2 class="section-header border">Documentation Improvements</h2>
+    <h3 id="documentation-other" class="category-header">Other Changes</h3>
+    <ul>
+        <li>Added missing documentation for <code>JournalSheetRenderOptions</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/13477" target="_blank">(13477)</a></li>
+    </ul>
+</section>

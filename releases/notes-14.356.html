@@ -1,0 +1,224 @@
+<header id="update-header">
+    <h2 id="update-title" class="border">Foundry Virtual Tabletop - Version 14 - User Testing 1 Release Notes</h2>
+    <figure id="update-banner">
+        <img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/v14t1-banner-2026-03-12.webp" title="Foundry VTT - Version 14 - User Testing 1 Release Notes" alt="Release Notes for Foundry Virtual Tabletop Version 14"/>
+        <figcaption>Welcome to the Foundry Virtual Tabletop update notes</figcaption>
+    </figure>
+</header>
+
+<section id="update-overview">
+    <p>Hello, Foundry friends! The V14 User Testing phase is now upon us with the release of <strong>Foundry Virtual Tabletop Version 14 User Testing 1 (Build 356)</strong>! This is the first V14 release that we would like to encourage any curious experienced Foundry VTT users to install and check out.</p> 
+    <p>In the User Testing phase, we focus less on new features and more on refinement and stability. The primary goal for this release is to gather feedback and testing from actual users (without add-on modules enabled, please). We look forward to hearing everyone's thoughts!</p>
+    <p class="note warning"><strong>WARNING:</strong> This is a Testing update intended for experimenting with the new features in V14, not for running actual campaign sessions.</p>
+
+    <p>Our community developer friends will also be happy to know that the V14 API documentation is now also live at https://foundryvtt.com/api/v14.</p>
+
+    <h3 id="how -to-install">How to test out the V14 User Testing 1 release</h3>
+    <p>The best way to check out non-Stable builds of Foundry VTT is to use <a href="https://foundryvtt.com/article/installation/#multiple">separate Foundry VTT installations</a> and a different User Data folder. For Windows users, you can easily do this by downloading and installing the V14 <a href="https://foundryvtt.com/article/installation/#portable">Windows Portable Build</a>. As always, be sure to <a href="https://foundryvtt.com/article/backup">backup</a> all your important worlds first!</p> 
+    <p>To test V14, you will also need to use a compatible game system such as our own <a href="https://foundryvtt.com/packages/crucible">Crucible</a> system. <u>The latest publicly released version of D&D 5E, 5.2.5, is not compatible with V14</u>. However, you can test V14 by installing version 5.3 with this Manifest URL: <code>https://github.com/foundryvtt/dnd5e/releases/download/release-5.3.0/system.json</code>.</p> 
+    <p>If you are planning on testing V14 using a Node.js dedicated server, please be aware that V13 and V14 require mutually exclusive versions of Node.js. V13 is not compatible with Node.js 24, and V14 requires it.</p>
+
+    <h2 class="border" id="v14-update-highlights">V14 Update Highlights: The Story So Far</h2>
+    <p>Although this is our first Testing build in the Version 14 development cycle, it is actually our 6th V14 release overall. If you're just starting to tune in now, here are some combined highlights from these previous releases.</p>
+    <dl>
+        <dt><strong>Scene Levels</strong></dt>
+            <dd>
+                <p>The <a href="https://foundryvtt.com/releases/14.354/#highlight-scene-levels">V14 Scene Levels feature</a> pushes the limits of what was previously possible with traditional top-down battlemaps. You can use new features to put entire multi-level castles or dungeons into a single Scene for your players to explore, and even handle tricky situations like snipers on balconies or hiding from your enemies beneath a bridge.</p>
+                <p>To show what is possible and to illustrate how this all works, we collaborated with the excellent <a href="https://www.tomcartos.com/">Tom Cartos</a> to release a free multi-level battlemap demonstration module, <a href="https://foundryvtt.com/packages/restored-keep-levels">The Restored Keep</a>.</p>
+            </dd>
+        <dt><strong>Pop-out Applications</strong></dt>
+            <dd>Foundry Virtual Tabletop now has built-in support for rendering dialogs in a separate browser window! <a href="https://foundryvtt.com/releases/14.349/#pop-out">Learn more here</a>.</dd>
+            <figure>
+                <video src="https://r2.foundryvtt.com/website-uploads-public/videos/V14PopOut.mp4" controls loop="auto" muted="true" width="50%"></video>
+                <figcaption>A video example of how pop-out applications work in Version 14.</figcaption>
+            </figure>
+            <dd>This popular feature was the winner of our <a href="https://www.patreon.com/posts/version-14-vote-129611527">Version 14 Patreon Feature Vote</a>.</dd>
+        <dt><strong>The Placeables Palette and Placeables sidebar tab</strong></dt>            
+        <div class="columns">
+            <div class="column">    
+                <dd>
+                    <p>To set up a Scene, GMs interact heavily with "placeable objects" that you can add to the canvas like Walls and Ambient Light Sources. V14 brings two powerful new tools to help with this:</p>
+                    <ul>
+                        <li><em>Placeables Palette:</em> This powerful tool is available through a new control button ( <i class="fa-solid fa-palette"> </i> ) in every layer (except Tokens). You can use it to bulk edit a group of selected objects all at once! It also is helpful while creating new objects. <a href="https://foundryvtt.com/releases/14.354/#highlight-placeables-pallette">Learn more here</a>.</li>
+                        <li><em>Placeables Sidebar Tab:</em> There can be many placeable objects in a Scene, especially if it has more than one Level. The new Placeables sidebar tab ( <i class="fa-solid fa-puzzle-piece"> </i> ) adapts to the current layer (Tokens, Walls, etc.), listing all objects of that type and allowing you to conveniently view, filter, and interact with them. <a href="https://foundryvtt.com/releases/14.355/#highlight-placeables-tab">Learn more here</a>.</li>
+                    </ul>
+                </dd>
+                <dt><strong>Active Effects V2</strong></dt>
+                    <dd>
+                        <p><a href="https://foundryvtt.com/article/active-effects/">Active Effects</a> are already powerful tools that allow you to modify Actors. V14 expands their powers significantly by adding greater control over their expiration, expiration events, and even the ability to alter the Actor's Token!</p>
+                        <p>This means that it's now possible to add an effect that lasts until combat ends or to automate the light from torches. You could create goggles that grant a new vision mode, a mask that disguises your Token with a new image, and so much more. Some of the improvements made so far can be found <a href="https://foundryvtt.com/releases/14.349/#highlight-ae">here</a> and <a href="https://foundryvtt.com/releases/14.353/#active-effects-v2">here</a>.</p>
+                    </dd>
+            </div>
+            <figure class="right"><img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/placeables-palette-walls-02060311-2026-03-11.webp" alt="The Placeables Palette, shown with an invisible wall selected">
+                <figcaption>The Placeables Palette with an invisible wall selected</figcaption>
+            </figure>
+        </div>        
+        <dt><strong>Out with Measured Templates, in with Template Regions</strong></dt>
+        <dd>
+            <p>Measured Templates are gone! This marks the first time that we have ever eliminated one of the fundamental types of data that Foundry VTT uses (called a "Document"). Scene Regions have been improved and expanded so that they can now do everything Templates used to do and much, much more.</p>
+            <p>These new <a href="">Region</a>-based templates have a new user interface, the ability to add Behaviors, and can even be attached to Tokens! We look forward to seeing what the community does with this power. <a href="https://foundryvtt.com/releases/14.352/#highlights">Learn more here.</a></p>
+        </dd>
+        <dt><strong>Scene Configuration and Shared Fog of War Exploration</strong></dt>
+            <dd>
+                <p>While adding Scene Levels to Foundry VTT, we wanted to take care to not make the already-robust Scene Configuration dialog too complex. To accomplish this goal, we added Level-related information to its own tab, made sure you could still create simple scenes without caring about Levels at all, and reorganized a number of commonly used settings into the new Basics tab.</p>
+                <p>We also added some new options like the ability to have "shared fog-of-war exploration." This new fog exploration mode reveals an area for the entire group if any one member saw it... even for players who missed the session. This is ideal for "region maps" or hexcrawling.</p>
+            </dd>
+        <dt><strong>Shiny New Animations + Scene Transitions</strong></dt>
+            <dd>
+                <p>When you change scenes, a subtle transition effect now displays as a new Scene renders. It's subtle but pleasant, and you can now also choose from several other less-subtle transition effects as well. <a href="https://foundryvtt.com/releases/14.349/#highlights">Learn more here</a>.</p>
+                <p>Additionally, we've added API to make it easy to create a dramatic Screen Shake effect, and an entire particle generation engine to create a huge variety of light-weight visual effects right inside Foundry VTT. <a href="https://foundryvtt.com/releases/14.355/#highlight-animations">Learn more here</a>.</p>
+            </dd>        
+        <dt><strong>Performance Improvements</strong></dt>
+            <dd>
+                <p>"Under the hood," Foundry VTT relies heavily on a small set of classes and functions to create the basic structure for data, save changes centrally, and also ensure that it is accurate for all connected clients. In V14, we've made some fundamental improvements to some critical components of this to be more performant and robust. Additional technical details can be found <a href="https://foundryvtt.com/releases/14.349#highlight-performance">here</a>. Our preliminary testing showed performance improvements ranging from 3% to 25% for commonly performed operations and may be higher for certain edge cases.</p> 
+            </dd>
+    </dl>
+    <p>We are quite proud of V14 so far and we look forward to your feedback to help make it even better!</p>
+    
+
+    <h2 class="border" id="update-highlights">V14 Development 1 Update Highlights</h2>
+    <p>Testing builds are primarily focused on bugfixes and API improvements, and this release features plenty of both. In addition to all that, there are also several notable improvements that we'd like to call out.</p>
+    <h3 id="update-grid-shape">"Grid Shape" regions and templates</h3>
+    <p>Scene Regions use something called Shapes to define the area in the map that they affect. Traditional Shapes like rectangles, ellipses, and cones were already available, but V14 brings an innovative addition: the Grid Shape (<code>GridShapeData</code>). This new Shape type consists of any arbitrary set of grid squares/hexes, as defined by their grid offset. Like any other Shape type, it can be used with both template and non-template Regions.</p>
+    <figure>
+        <div class="columns">
+            <div class="column">
+                <video src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/v14t1-grid-shape-square-20260312-2026-03-12.webm" controls loop="auto" autoplay muted></video>
+            </div>
+            <video src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/v14t1-grid-shape-hex-20260312-2026-03-12.webm" class="right" controls loop="auto" autoplay muted></video>
+        </div>
+        <figcaption>Video demonstration of a template using the new Grid Shape on both a square and hex grid.</figcaption>
+    </figure>
+    <p>We are still workshopping what the best user interface for this new Shape should be, so for now this Shape can only be placed using the API.</p>
+    <h3 id="highlight-macos-build">The macOS universal build</h3>
+    <p>Due to an upstream issue with one of our software dependencies, macOS users with Apple Silicon hardware have experienced abnormally slow performance. We've now managed to work around this issue by providing a new "universal" macOS build that will allow all macOS users to enjoy the expected level of performance.</p>
+    <p>This new universal macOS build is now automatically provided when you install the macOS version of Foundry VTT 14.356 (or newer) from our website. Even better, we also went ahead made this fix available for users of the latest Stable version of Foundry VTT, 13.351. If you are an affected macOS user on the latest Stable version, you can now uninstall and reinstall Foundry to take advantage of this improvement immediately.</p>
+    <!-- <h3 id="highlight-turn-marker">A new turn marker takes the initiative!</h3>
+    <p>We were excited to add turn markers in V13 to help visually keep track of turns during combat encounters. Although we added the ability to easily choose any suitable image file to use as a turn marker, due to time constraints we ended up releasing this feature with the Foundry VTT logo as the default turn marker.</p>
+    <p>We have now circled back to turn markers and have set a new, subtler Turn Marker as the default option {ADD VIDEO}. Additionally, we have included {X} other possible turn marker images to choose from located at {Core>location}.</p>-->
+    
+    <h3 id="highlight-placeables-tab">A new Visual Effects API Framework?? What?</h3>   
+    <p>Yep! We're happy to announce that this release includes the first iteration of our experimental new Visual Effects (VFX) framework. This new addition to our API allows the definition, orchestration, and playback of complex canvas animations right inside the Foundry VTT canvas. The abstraction layers that it provides allow systems and modules to create timeline-driven and composable animations to add visual splash to projectile attacks, spell effects, and more. However, because the VFX framework is still so experimental, currently each module or system that wants to use the VFX framework must first "opt in" by specifically enabling it.</p> 
+    <p>To power this new VFX framework, we added a lightweight core dependency, the <code>animejs</code> library (https://animejs.com/). When enabled, the new VFX framework is exposed under <code>foundry.canvas.vfx</code> and the entire animejs library is exposed as <code>globalThis.animejs</code>. For full technical details, please see the <a href="https://foundryvtt.com/api/v14/modules/foundry.canvas.vfx.html">VFX Framework API documentation</a>.</p>
+    <p>We are extremely excited to see what our community can do with these new tools, and we'd especially like to thank community member Codas for their help with ideation and preliminary development of VFX framework concepts.</p>    
+
+    
+
+    <h3 id="highlight-placeables-tab">Polishing the Placeables sidebar tab</h3>
+    <p>We're steadily improving the new-to-V14 Placeables Sidebar tab by adding advanced filtering customized for every type of placeable object. With this release, we added two new filters for Tiles and also several powerful new filters for Ambient Light sources, allowing you to filter lights by their color, animation type, and more.</p>
+    <h3 id="highlight-levels-ae">Ongoing betterment of Scene Levels and Active Effects</h3>
+    <p>While we provided a great many bug fixes and API improvements in the release, many of them were focused on the new V14 Scene Levels feature and the overhaul of Active Effects.</p>
+    <p>This release brings improved occlusion handling, redesigned logic for detecting Tokens on other levels, and an improved icon to mark them. Multiple Active Effect-related bugs were also squashed (thanks for the testing feedback!).</p>
+</section>
+
+<section id="features">
+<h2 class="section-header border">New Features</h2>
+    <h3 id="features-architecture" class="category-header">Architecture and Infrastructure</h3>
+    <ul>
+        <li>Provided native Apple Silicon support via a universal macOS build. <a href="https://github.com/foundryvtt/foundryvtt/issues/6538" target="_blank">(6538)</a></li>
+        <li>Added the ability for the Foundry VTT server to listen on a Unix socket instead of a TCP port. <a href="https://github.com/foundryvtt/foundryvtt/issues/9170" target="_blank">(9170)</a></li>
+    </ul>
+    <h3 id="features-docs" class="category-header">Documents and Data</h3>
+    <ul>
+        <li>Changed <code>RegionDocument#attachedToken</code> to <code>RegionDocument#attachment.token</code> so that we can potentially add additional options that affect attachments in the future. <a href="https://github.com/foundryvtt/foundryvtt/issues/13927" target="_blank">(13927)</a></li>
+        <li>Added options to <code>TokenDocument#getTestPoints</code> to make the function return suitable test points for occlusion testing. <a href="https://github.com/foundryvtt/foundryvtt/issues/13834">(13834)</a></li>
+    </ul>
+    <h3 id="features-apps" class="category-header">Applications and User Interface</h3>
+    <ul>
+        <li>Improved visibility when the Token layer is not active by occluding all foreground textures and surfaces in the level. <a href="https://github.com/foundryvtt/foundryvtt/issues/13855" target="_blank">(13855)</a></li>
+        <li>Added a control to the User Management view to login directly as a given user. <a href="https://github.com/foundryvtt/foundryvtt/issues/13898" target="_blank">(13898)</a></li>
+        <li>Unified the styling of custom elements that include a button used to select a value. <a href="https://github.com/foundryvtt/foundryvtt/issues/13769" target="_blank">(13769)</a></li>
+        <li>Clicking the button of a filepath field now opens the filepicker interface in the same (detached) window. <a href="https://github.com/foundryvtt/foundryvtt/issues/13889" target="_blank">(13889)</a></li>
+        <li>Removed the Foreground Layer toggle button from the Tile layer controls. <a href="https://github.com/foundryvtt/foundryvtt/issues/13922" target="_blank">(13922)</a></li>
+        <li>Prevented a confirmation dialog from displaying for regions without behaviors. <a href="https://github.com/foundryvtt/foundryvtt/issues/13924" target="_blank">(13924)</a></li>
+        <li>Non-GMs can no longer drag locked placeables. Additionally, when the game is paused they can no longer drag any placeables, or place new regions (including templates). <a href="https://github.com/foundryvtt/foundryvtt/issues/13926" target="_blank">(13926)</a></li>
+        <!-- <li>Updated the symbol used to indicate tokens that are on a different scene level. The <code>☵</code> symbol was replaced with the <code>{TBD}</code> symbol. <a href="https://github.com/foundryvtt/foundryvtt/issues/13761" target="_blank">(13761)</a></li>-->
+        <li>Implemented high-level token placement API (<code>TokenLayer#placeTokens</code>). <a href="https://github.com/foundryvtt/foundryvtt/issues/13932">(13932)</a></li>
+        <li>Added two new advanced filters to the Tiles version of the Placeables sidebar tab to allow filtering based on occlusion mode and weather/light restriction. <a href="https://github.com/foundryvtt/foundryvtt/issues/13933">(13933)</a></li>        
+        <li>Added several new advanced filters to the Ambient Lights version of the Placeables sidebar tab. You can now filter based on color, animation type, darkness source status, and whether the ambient light source is constrained by walls or provides vision. <a href="https://github.com/foundryvtt/foundryvtt/issues/13934">(13934)</a></li>
+        <li>Removed the "Informational Drawing" toggle in the Drawings layer in favor of using the Placeables Palette. <a href="https://github.com/foundryvtt/foundryvtt/issues/13938">(13938)</a></li>
+        <li>Introduced a dedicated VFX module specialized in the definition, orchestration, and playback of canvas animations using <code>animejs</code> as an underlying library with Foundry-specific abstraction layers. <a href="https://github.com/foundryvtt/foundryvtt/issues/13944">(13944)</a></li>
+    </ul>
+    <!-- <h3 id="features-canvas" class="category-header">The Game Canvas</h3>
+    <ul>
+        <li>Replaced the "Foundry Logo" default turn marker with a simpler one and also provided several alternative markers to choose from. <a href="https://github.com/foundryvtt/foundryvtt/issues/13818" target="_blank">(13818)</a></li>
+    </ul> -->
+</section>
+<section id="api">
+<h2 class="section-header border">API Improvements</h2>
+    <h3 id="api-docs" class="category-header">Documents and Data</h3>
+    <ul>
+        <li>Added the <code>side</code> option to <code>Scene#testSurfaceCollision</code>, essentially allowing them to only block checks that originate from above them or below them depending on the value set, much like a horizontal one-way wall. <a href="https://github.com/foundryvtt/foundryvtt/issues/13897" target="_blank">(13897)</a></li>
+        <li>Added a new type of (Region) Shape, <code>GridShapeData</code>. This new Shape type consists of any arbitrary set of grid squares/hexes, as defined by their grid offset. <a href="https://github.com/foundryvtt/foundryvtt/issues/13930" target="_blank">(13930)</a></li>
+        <li>Flipped the meaning of <code>onMove</code>/<code>onRotate</code> return values in <code>RegionLayer#placeRegion</code> for consistency with general conventions. <a href="https://github.com/foundryvtt/foundryvtt/issues/13936">(13936)</a></li>
+        <li>Changed the default Visibility (<code>RegionDocument#visibility</code>) of non-template Regions to "Only on Region layer when unlocked" (<code>LAYER_UNLOCKED</code>). <a href="https://github.com/foundryvtt/foundryvtt/issues/13937">(13937)</a></li>
+    </ul>
+    <h3 id="api-apps" class="category-header">Applications and User Interface</h3>
+    <ul>
+        <li>Changed the access modifier of <code>Canvas#_onDragCanvas</code> from <code>@internal</code> to <code>@public</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/13919" target="_blank">(13919)</a></li>
+        <li>Added object iterator helpers that are more performant than their eager counterparts, <code>Object.entries</code>, <code>Object.keys</code>, and <code>Object.values</code>. These new helpers should be preferred in cases where there are no side-effects expected from reading individual object properties. <a href="https://github.com/foundryvtt/foundryvtt/issues/13899" target="_blank">(13899)</a></li>    
+    </ul>
+    <h3 id="api-canvas" class="category-header">The Game Canvas</h3>
+    <ul>
+        <li>Provided API improvements so that intermediate waypoints can now be included in the rendered path of <code>TokenRuler</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/13417" target="_blank">(13417)</a></li>
+        <li>Added support for the configuration of terrain options for token movement. <a href="https://github.com/foundryvtt/foundryvtt/issues/13140" target="_blank">(13140)</a></li>
+        <!--<li>Added options to <code>TokenDocument#getTestPoints</code> to make the function return suitable test points for occlusion testing. <a href="https://github.com/foundryvtt/foundryvtt/issues/13834" target="_blank">(13834)</a></li>-->
+        <li>Added the <code>attachToToken</code> option to <code>RegionLayer#placeRegion</code> to make attaching regions to tokens easier. <a href="https://github.com/foundryvtt/foundryvtt/issues/13892" target="_blank">(13892)</a></li>
+        <li>Added support for placing multiple shapes via a single call to <code>RegionLayer#placeRegion</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/13900" target="_blank">(13900)</a></li>
+        <li>Added support for <code>SceneManager</code> instances in <code>CONFIG.Canvas.managedScenes</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/13904" target="_blank">(13904)</a></li>
+        <li>Measurement options are now passed to <code>Token#findMovementPath</code> and <code>Token#constrainMovementPath</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/13918" target="_blank">(13918)</a></li>
+        <li>Deprecated <code>Tile.createPreview</code> without replacement because it was unused. <a href="https://github.com/foundryvtt/foundryvtt/issues/13921" target="_blank">(13921)</a></li>
+        <li>Added the <code>tMin</code> and <code>tMax</code> options to <code>PointSourcePolygon#testCollision</code> and <code>Scene#testSurfaceCollision</code> to provide control over collision detection at specified elevations. <a href="https://github.com/foundryvtt/foundryvtt/issues/13925" target="_blank">(13925)</a></li>
+        <li>Added the <code>onChange</code> option to <code>RegionLayer#placeRegion</code>. This is called when at least one shape of the placed Region has changed. <a href="https://github.com/foundryvtt/foundryvtt/issues/13928" target="_blank">(13928)</a></li>
+        <li>Improved line-of-sight testing of Tokens in other Levels and added a new <code>DetectionMode._testCollision</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/13929" target="_blank">(13929)</a></li>
+    </ul>
+</section>
+<section id="bugs">
+<h2 class="section-header border">Bug Fixes</h2>
+    <h3 id="bugs-architecture" class="category-header">Architecture and Infrastructure</h3>
+    <ul>
+        <li>Resolved an issue where a black dot could appear in the center of tokens when the dynamic token ring was enabled for a small subset of users. <a href="https://github.com/foundryvtt/foundryvtt/issues/12887" target="_blank">(12887)</a></li>
+        <li>Resolved extremely poor macOS performance on Apple Silicon in Electron 35+ via a universal macOS build. <a href="https://github.com/foundryvtt/foundryvtt/issues/12431" target="_blank">(12431)</a></li>
+    </ul>
+    <h3 id="bugs-docs" class="category-header">Documents and Data</h3>
+    <ul>
+        <li>Improved <code>ObjectField</code> cleaning so that it now guards against infinite recursion. <a href="https://github.com/foundryvtt/foundryvtt/issues/13797" target="_blank">(13797)</a></li>
+        <li>Fixed a bug where Active Effect expiry could throw errors when deleting multiple effects in the same expiry event. <a href="https://github.com/foundryvtt/foundryvtt/issues/13873" target="_blank">(13873)</a></li>
+        <li>Fixed a bug where importing compendium documents via UI did not always correctly preserve ownership. <a href="https://github.com/foundryvtt/foundryvtt/issues/13554" target="_blank">(13554)</a></li>
+        <li>Removed a duplicate "Import Entry" context option in Active Effect compendiums that was non-functional and threw an error when clicked. <a href="https://github.com/foundryvtt/foundryvtt/issues/13895" target="_blank">(13895)</a></li>
+        <li>When attempting to add to an object via an Active Effect, the original value is now returned. <a href="https://github.com/foundryvtt/foundryvtt/issues/13869" target="_blank">(13869)</a></li>
+        <li>Fixed an issue with <code>ArrayField#_updateDiff</code> where it incorrectly failed to recognize <code>undefined -&gt; []</code> as a diff. <a href="https://github.com/foundryvtt/foundryvtt/issues/13870" target="_blank">(13870)</a></li>
+        <li>Fixed a bug where <code>BEHAVIOR_(UN)VIEWED</code> region behavior events were called twice. <a href="https://github.com/foundryvtt/foundryvtt/issues/13878" target="_blank">(13878)</a></li>
+                <li>Prevented an error that was thrown on other connected clients when a Document was modified. <a href="https://github.com/foundryvtt/foundryvtt/issues/13896" target="_blank">(13896)</a></li>        
+        <li>Fixed a bug where modifying an Active Effect reset expiry to <code>turnStart</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/13905" target="_blank">(13905)</a></li>
+        <li>Resolved an issue where turn-based Active Effect duration preparation resulted in a <code>NaN</code> value for the time remaining. <a href="https://github.com/foundryvtt/foundryvtt/issues/13906" target="_blank">(13906)</a></li>
+        <li>Fixed a bug where unguided Active Effect <code>subtract</code> changes were incorrectly treated as additions. <a href="https://github.com/foundryvtt/foundryvtt/issues/13907" target="_blank">(13907)</a></li>
+        <li>Prevented an error that was thrown when accessing <code>TeleportTokenRegionBehaviorType#destination</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/13913" target="_blank">(13913)</a></li>        
+        <li>Fixed a bug where changes to elements in a <code>TypedObjectField&lt;TypedSchemaField&gt;</code> were lost until a reload. <a href="https://github.com/foundryvtt/foundryvtt/issues/13915" target="_blank">(13915)</a></li>
+        <li>Resolved an issue where it was not possible to add a new entry to a <code>TypedObjectField&lt;TypedSchemaField&gt;</code> after the document had been created. <a href="https://github.com/foundryvtt/foundryvtt/issues/13916" target="_blank">(13916)</a></li>
+    </ul>
+    <h3 id="bugs-apps" class="category-header">Applications and User Interface</h3>
+    <ul>
+        <li>Normalized the linebreak format between ProseMirror editors in the browser and the backend. <a href="https://github.com/foundryvtt/foundryvtt/issues/11021" target="_blank">(11021)</a></li>
+        <li>Fixed a bug where the <code>get{}ContextOptions</code> hook was not called if the application class is mixed in. <a href="https://github.com/foundryvtt/foundryvtt/issues/13857" target="_blank">(13857)</a></li>
+        <li>Fixed a bug where non-owned tokens could be selected via the Combat Tracker, revealing their position. <a href="https://github.com/foundryvtt/foundryvtt/issues/13764" target="_blank">(13764)</a></li>
+        <li>Fixed a bug where passed <code>input</code> functions were non-functional when using the V2 <code>SettingsConfig</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/13670" target="_blank">(13670)</a></li>
+        <li>Fixed a bug where attempting to re-attach an application that was spawned via an already-detached application failed. <a href="https://github.com/foundryvtt/foundryvtt/issues/13887" target="_blank">(13887)</a></li>
+        <li>Fixed a bug where attempting to re-attach a secondary application inside an already-detached window rendered the application without a close button. <a href="https://github.com/foundryvtt/foundryvtt/issues/13888" target="_blank">(13888)</a></li>
+        <li>Prevented the Cut and Paste operations from being performed upon locked placeable objects. <a href="https://github.com/foundryvtt/foundryvtt/issues/13923" target="_blank">(13923)</a></li>
+    </ul>
+    <h3 id="bugs-canvas" class="category-header">The Game Canvas</h3>
+    <ul>
+        <li>Fixed a bug where <code>TokenDocument#getTestPoints</code> was not constrained by surfaces. <a href="https://github.com/foundryvtt/foundryvtt/issues/13879" target="_blank">(13879)</a></li>
+        <li>Fixed a bug where the resource bar above tokens (Resource Bar 2) did not always update properly. <a href="https://github.com/foundryvtt/foundryvtt/issues/13826" target="_blank">(13826)</a></li>
+        <li>Deprecated <code>PlaceableObject#clear</code> (now a no-op) in favor of protected <code>PlaceableObject#_clear</code>, which should be called only in <code>PlaceableObject#draw</code> before the <code>PlaceableObject#_draw</code> call. <a href="https://github.com/foundryvtt/foundryvtt/issues/13866" target="_blank">(13866)</a></li>
+        <li>Prevented an error thrown by <code>PlaceableDirectory</code> when a non-placeable layer was activated. <a href="https://github.com/foundryvtt/foundryvtt/issues/13903" target="_blank">(13903)</a></li>
+        <li>Fixed an issue where <code>sort</code> was not set for Tiles and Notes upon their initial creation. <a href="https://github.com/foundryvtt/foundryvtt/issues/13920" target="_blank">(13920)</a></li>
+        <li>Fixed a bug where placeables vanished when switching from the placeables tab to a different sidebar tab. <a href="https://github.com/foundryvtt/foundryvtt/issues/13940">(13940)</a></li>
+    </ul>
+<section id="documentation">
+<h2 class="section-header border">Documentation Improvements</h2>
+    <ul>
+        <li>Fixed incorrect documentation of the <code>SceneLevelsSetField</code> constructor's first parameter. <a href="https://github.com/foundryvtt/foundryvtt/issues/13911" target="_blank">(13911)</a></li>
+    </ul>
+</section>
