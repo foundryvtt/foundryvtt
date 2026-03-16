@@ -140,7 +140,7 @@ You can configure the demo directive of the <code>options.json</code> file used 
 
 <p><strong>Note: JSON is syntax-sensitive, and a malformed options.json file may cause Foundry to not start.</strong></p>
 <p>It is strongly advised that you back up options.json before editing it manually.</p>
-<section class="collapsible"><header class="collapsible-header">Details for options found in options.json</header>
+<section class="collapsible"><header class="collapsible-header" id="options-json">Details for options found in options.json</header>
 	<div class="collapsible-content">
 <dl>
 	<dt>port</dt>
@@ -150,7 +150,15 @@ You can configure the demo directive of the <code>options.json</code> file used 
 	<dt>dataPath</dt>
 	<dd>String -- you may specify an explicit path to the user data directory which should be used as the source for packages and other content. This option is only used of the command line flag with the same name is not also passed.</dd>
 	<dt>hostname</dt>
-	<dd>String -- a custom hostname to use in place of the host machine's public IP address when displaying the address of the game session. This allows for reverse proxies or DNS servers to modify the public address.</dd>
+	<dd>
+		<p>String -- a custom hostname to use in place of the host machine's public IP address when displaying the address of the game session. This allows for reverse proxies or DNS servers to modify the public address.</p>
+		<p>Please note that this change only affects the text of Foundry's external invitation links. Foundry's underlying network configuration and the the URL that users see when they connect to your world are both unchanged by this option.</p>
+	</dd>
+	<dt>localHostname</dt>
+	<dd>
+		<p>String -- much like <code>hostname</code>, this is a custom local hostname to use in place of the host machine's local IP address when displaying the local address of the game session. This can be useful in rare cases when a device has more than one network interface such as a VM-host/guest connection.</p>
+		<p>Please note that this change only affects the text of Foundry's local invitation links. Foundry's underlying network configuration and the the URL that users see when they connect to your world are both unchanged by this option.</p>
+	</dd>
 	<dt>routePrefix</dt>
 	<dd>String -- a path which is appended to the base hostname to serve Foundry VTT content from a specific namespace. For example setting this to <code>demo</code> will result in data being served from <code>http://x.x.x.x:30000/demo/</code>.</dd>
 	<dt>sslKey</dt>
