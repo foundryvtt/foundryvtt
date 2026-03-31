@@ -8,9 +8,9 @@
 
 <section id="update-overview">
     <p>Today is the day... <strong>Foundry Virtual Tabletop Version 14 Stable 1</strong> <em>(14.359)</em> is here! This release marks the first moment that the accumulated results of months of hard work, experimentation, and refinement is finally ready for use in live game sessions.</p>
-    <p>As the very fist Stable release, Version 14.359 is deliberately modest in scope and contains only a few changes to ensure stability, but today's patch notes also include a comprehensive list highlights and changes for those users updating from Version 13 to Version 14.</p>
+    <p>As the very first Stable release, Version 14.359 is deliberately modest in scope and contains only a few changes to ensure stability, but today's patch notes also include a comprehensive list of highlights for those users updating from Version 13 to Version 14.</p>
     <p>We're always excited to release a new major generation of Foundry VTT, but this one feels particularly extraordinary. In our completely unbiased opinion, foundations laid by previous versions such as the addition of Scene Regions and the Application V2 overhaul have allowed us to do some truly remarkable things in Version 14, and we hope you agree!</p>
-    <p>With that said, we do feel obligated to remind users that just because Foundry VTT itself has hit a Stable release, that does not mean that your favorite game systems or modules are all instantly updated as well. While our community of developers community is very dedicated and often swift to update for new versions of Foundry VTT, it does <strong>take time</strong> for them to prepare their systems and modules when we release a new version. Not all game systems and modules will be immediately compatible with Version 14 on release, so please do take the time to confirm that your favorite systems and "must have" modules are working before updating. If you're not certain whether your modules and game systems are ready for Version 14, remember that the Compatibility Preview tool is available through the update section of the setup menu so you can check how many of your current packages are V14-ready!</p>
+    <p>With that said, we do feel obligated to remind users that just because Foundry VTT itself has hit a Stable release, that does not mean that your favorite game systems or modules are all instantly updated as well. While our developer community is highly dedicated and often swift to update for new versions of Foundry VTT, it does <strong>take time</strong> for them to prepare their systems and modules when we release a new version. Not all game systems and modules will be immediately compatible with Version 14 on release, so please do take the time to confirm that your favorite systems and modules are working before updating. If you're not certain whether your modules and game systems are ready for Version 14, remember that the Compatibility Preview tool is available through the update section of the setup menu so you can check how many of your current packages are V14-ready!</p>
     <p class="note warning"><strong>WARNING:</strong> While this is categorized as a stable release there is always a possibility of unexpected bugs or compatibility issues. As with any time you update the core software, be sure to perform a complete backup of your user data to minimize any risk of data loss.</p>  
 
     <h2 class="border" id="v14-update-highlights">Foundry VTT Version 14 Update Highlights</h2>
@@ -25,10 +25,10 @@
             <dd>Foundry Virtual Tabletop now has built-in support for rendering dialogs in a separate browser window! <a href="https://foundryvtt.com/releases/14.349/#pop-out">Learn more here</a>.</dd>
             <figure>
                 <video src="https://r2.foundryvtt.com/website-uploads-public/videos/V14PopOut.mp4" controls loop="auto" muted="true" width="50%"></video>
-                <figcaption>A video example of how pop-out applications work in Version 14.</figcaption>
+                <figcaption>A video example of how pop-out applications work in Version 14</figcaption>
             </figure>
             <dd>This popular feature was the winner of our <a href="https://www.patreon.com/posts/version-14-vote-129611527">Version 14 Patreon Feature Vote</a>.</dd>
-        <dt><strong>The Placeables Palette and Placeables sidebar tab</strong></dt>            
+        <dt><strong>The Placeables Palette and Placeables Sidebar Tab</strong></dt>            
         <div class="columns">
             <div class="column">    
                 <dd>
@@ -68,98 +68,84 @@
                 <p>"Under the hood," Foundry VTT relies heavily on a small set of classes and functions to create the basic structure for data, save changes centrally, and also ensure that it is accurate for all connected clients. In V14, we've made some fundamental improvements to some critical components of this to be more performant and robust. Additional technical details can be found <a href="https://foundryvtt.com/releases/14.349#highlight-performance">here</a>. Our preliminary testing showed performance improvements ranging from 3% to 25% for commonly performed operations and may be higher for certain edge cases.</p> 
             </dd>
     </dl>
-    <p>We are quite proud of what V14 brings, and we can't wait for you all to get your hands on it</p>
+    <p>We are quite proud of what V14 brings, and we can't wait for you all to get your hands on it!</p>
 </section>
 
 <section id="features">
 <h2 class="section-header border">New Features</h2>
-    <h3 id="features-docs" class="category-header">Documents and Data</h3>
+    <h3 class="category-header" id="features-docs">Packages</h3>
     <ul>
-        <li>Changed the level deletion behavior so that it also deletes tokens in that level and all of its other placeables (excluding ones that also exist in other levels). <a href="https://github.com/foundryvtt/foundryvtt/issues/14090" target="_blank">(14090)</a></li>
-        <li>Recorded the module that was the genesis for a world quickstart as <code>relationships.required</code> for that world with <code>compatibility.minimum</code> set to the current module version. <a href="https://github.com/foundryvtt/foundryvtt/issues/14094">(14094)</a></li>
+        <li>Improved the blanket reset of active modules that occurs when launching a world in safe mode and during major generation upgrades so that certain modules can remain active. <a href="https://github.com/foundryvtt/foundryvtt/issues/14095" rel="nofollow" target="_blank">(14095)</a></li>
+        <li>When a module causes a world quickstart, that module is now recorded under <code>relationships.required</code> for that world, with <code>compatibility.minimum</code> set to the current module version. <a href="https://github.com/foundryvtt/foundryvtt/issues/14094">(14094)</a></li>
     </ul>
-    <h3 id="features-apps" class="category-header">Applications and User Interface</h3>
+    <h3 class="category-header" id="features-apps">Applications and User Interface</h3>
     <ul>
-        <li>Added a new Alpha Threshold field to the Tile Configuration dialog so that users can define the necessary opacity to consider that part of the texture "solid." The ability to set an Alpha Threshold already existed in the Level Configuration dialog, so adding this functionality to tiles as well restores the ability to place tile(s) that behave exactly like a background image. <a href="https://github.com/foundryvtt/foundryvtt/issues/14051" target="_blank">(14051)</a></li>
-        <li>Fixed a bug where the results returned by searching in the Compendium sidebar tab were not draggable. <a href="https://github.com/foundryvtt/foundryvtt/issues/14047" target="_blank">(14047)</a></li>
-        <li>Changed the "Clear All Objects" menu buttons so that they now only delete unlocked objects unless the user specifically requests the deletion of locked objects by ticking the "Delete Locked Objects" checkbox. <a href="https://github.com/foundryvtt/foundryvtt/issues/14084" target="_blank">(14084)</a></li>
-        <li>Made the "Clear/Delete all" menu buttons visible to non-GMs so that they can use them to delete all placeables in the layer that the user owns. <a href="https://github.com/foundryvtt/foundryvtt/issues/14083" target="_blank">(14083)</a></li>
-        <li>Improved the blanket reset of active modules that occurs when launching a world in safe mode and during major generation upgrades so that certain modules can remain active. <a href="https://github.com/foundryvtt/foundryvtt/issues/14095">(14095)</a></li>
-    </ul>
-    <h3 id="features-other" class="category-header">Other Changes</h3>
-    <ul>
-        <li>Updated Font Awesome to 7.2.0. <a href="https://github.com/foundryvtt/foundryvtt/issues/14072" target="_blank">(14072)</a></li>
+        <li>Added the previously API-only Alpha Threshold field to the Tile Configuration dialog so that users can define the necessary opacity to consider that part of the texture "solid." The ability to set an Alpha Threshold already existed in the Level Configuration dialog, so adding this functionality to tiles as well restores the ability to place tile(s) that behave exactly like a background image. <a href="https://github.com/foundryvtt/foundryvtt/issues/14051" rel="nofollow" target="_blank">(14051)</a></li>
+        <li>Changed the "Clear All Objects" menu buttons so that they now only delete unlocked objects unless the user specifically requests the deletion of locked objects by ticking the "Delete Locked Objects" checkbox. <a href="https://github.com/foundryvtt/foundryvtt/issues/14084" rel="nofollow" target="_blank">(14084)</a></li>
+        <li>Made the "Clear All Objects" menu buttons visible to non-GMs so that they can use them to delete all placeable objects that the user owns. <a href="https://github.com/foundryvtt/foundryvtt/issues/14083" rel="nofollow" target="_blank">(14083)</a></li>
+        <li>Updated Font Awesome to 7.2.0. <a href="https://github.com/foundryvtt/foundryvtt/issues/14072" rel="nofollow" target="_blank">(14072)</a></li>
     </ul>
 </section>
 <section id="api">
 <h2 class="section-header border">API Improvements</h2>
-    <h3 id="api-canvas" class="category-header">The Game Canvas</h3>
+    <h3 class="category-header" id="api-canvas">The Game Canvas</h3>
     <ul>
-        <li>Added the ability to customize the appearance of the token drag ruler by changing the symbol used indicate a new waypoint. <code>TokenRuler#_getWaypointStyle</code>: can be now set to a circle, square, diamond, triangle up, triangle down, hexagon flat, or hexagon pointy. <a href="https://github.com/foundryvtt/foundryvtt/issues/11895" target="_blank">(11895)</a></li>
-        <li>Added some small expansions to the <code>ParticleGenerator</code> API for randomized rotation, better initial batch randomization, and an <code>onUpdate</code> callback. <a href="https://github.com/foundryvtt/foundryvtt/issues/14077" target="_blank">(14077)</a></li>
-        <li>Added <code>shape</code> to the list of Token properties that can be targeted by Active Effects. <a href="https://github.com/foundryvtt/foundryvtt/issues/13942" target="_blank">(13942)</a></li>
-    </ul>
-    <h3 id="api-other" class="category-header">Other Changes</h3>
-    <ul>
-        <li>Added <code>RegionDocument#elevation.base</code> which returns a prepared value equal to <code>RegionDocument#elevation.bottom</code> if it is finite and 0 otherwise. <a href="https://github.com/foundryvtt/foundryvtt/issues/14087" target="_blank">(14087)</a></li>
+        <li>Added the ability to customize the appearance of the token drag ruler by changing the symbol used to indicate a new waypoint. You can now specify the shape of a waypoint within <code>TokenRuler#_getWaypointStyle</code> to be a circle, square, diamond, triangle up, triangle down, hexagon flat, or hexagon pointy. <a href="https://github.com/foundryvtt/foundryvtt/issues/11895" rel="nofollow" target="_blank">(11895)</a></li>
+        <li>Added some small expansions to the <code>ParticleGenerator</code> API for randomized rotation, better initial batch randomization, and an <code>onUpdate</code> callback. <a href="https://github.com/foundryvtt/foundryvtt/issues/14077" rel="nofollow" target="_blank">(14077)</a></li>
+        <li>Added <code>shape</code> to the list of Token properties that can be targeted by Active Effects, but require programmatic handling to enact. <a href="https://github.com/foundryvtt/foundryvtt/issues/13942" rel="nofollow" target="_blank">(13942)</a></li>
+        <li>Added <code>RegionDocument#elevation.base</code> which returns a prepared value equal to <code>RegionDocument#elevation.bottom</code> if it is finite and 0 otherwise. <a href="https://github.com/foundryvtt/foundryvtt/issues/14087" rel="nofollow" target="_blank">(14087)</a></li>
     </ul>
 </section>
 <section id="bugs">
 <h2 class="section-header border">Bug Fixes</h2>
-    <h3 id="bugs-docs" class="category-header">Documents and Data</h3>
+    <h3 class="category-header" id="bugs-docs">Documents and Data</h3>
     <ul>
-        <li>Fixed a bug where showing more than one page from a journal to the players was impossible under certain circumstances. <a href="https://github.com/foundryvtt/foundryvtt/issues/14056" target="_blank">(14056)</a></li>
-        <li>Fixed a bug where the results returned by searching in the Compendium sidebar tab did not respect filtering by Document type. <a href="https://github.com/foundryvtt/foundryvtt/issues/14046" target="_blank">(14046)</a></li>
-        <li>Fixed a bug where <code>SchemaField.getInitialValue()</code> included data defined by non-persisted fields. <a href="https://github.com/foundryvtt/foundryvtt/issues/14059" target="_blank">(14059)</a></li>
-        <li>Fixed a bug where the <code>expandKeys: false</code> option did not function correctly for <code>TypedObjectField</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/14068">(14068)</a></li>
-        <li>Fixed a bug where calling <code>Scene#getSurfaces</code> for a non-viewed scene returned surfaces of the viewed scene instead. <a href="https://github.com/foundryvtt/foundryvtt/issues/14092" target="_blank">(14092)</a></li>
+        <li>Fixed a bug where showing more than one page from a journal to the players was impossible under certain circumstances. <a href="https://github.com/foundryvtt/foundryvtt/issues/14056" rel="nofollow" target="_blank">(14056)</a></li>
+        <li>Fixed a bug where the results returned by searching in the Compendium sidebar tab did not respect filtering by Document type. <a href="https://github.com/foundryvtt/foundryvtt/issues/14046" rel="nofollow" target="_blank">(14046)</a></li>
+        <li>Fixed a bug where <code>SchemaField3getInitialValue</code> included data defined by non-persisted fields. <a href="https://github.com/foundryvtt/foundryvtt/issues/14059" rel="nofollow" target="_blank">(14059)</a></li>
+        <li>Fixed a bug where the <code>expandKeys: false</code> option did not function correctly for <code>TypedObjectField</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/14068" rel="nofollow" target="_blank">(14068)</a></li>
+        <li>Fixed a bug where calling <code>Scene#getSurfaces</code> for a non-viewed scene returned surfaces of the viewed scene instead. <a href="https://github.com/foundryvtt/foundryvtt/issues/14092" rel="nofollow" target="_blank">(14092)</a></li>
+        <li>Fixed a bug where the first update to <code>tokenActiveEffectChanges</code> for a linked token threw an error. <a href="https://github.com/foundryvtt/foundryvtt/issues/14058" rel="nofollow" target="_blank">(14058)</a></li>
     </ul>
-    <h3 id="bugs-apps" class="category-header">Applications and User Interface</h3>
+    <h3 class="category-header" id="bugs-apps">Applications and User Interface</h3>
     <ul>
-        <li>Fixed a bug where the elevation displayed in Token Ruler waypoint labels was absolute instead of relative to the viewed level's bottom elevation. <a href="https://github.com/foundryvtt/foundryvtt/issues/14052" target="_blank">(14052)</a></li>
-        <li>Resolved an issue where the up arrow (<code>^</code>) on the elevation input of the placeable HUD was out of place. <a href="https://github.com/foundryvtt/foundryvtt/issues/14040" target="_blank">(14040)</a></li>
-        <li>Fixed a bug where the elevation in the Drawing and Tile HUDs were not relative to the bottom elevation of the viewed level. <a href="https://github.com/foundryvtt/foundryvtt/issues/14073" target="_blank">(14073)</a></li>
-        <li>Fixed a bug where saving or deleting a new keybinding always caused the window to scroll back to the top. <a href="https://github.com/foundryvtt/foundryvtt/issues/14014" target="_blank">(14014)</a></li>
-        <li>Fixed a bug where documents be dragged from sidebar tabs if they ha <code>img: null</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/14063" target="_blank">(14063)</a></li>
-        <li>Fixed a bug where rolls appended to an existing chat message rendered expanded. <a href="https://github.com/foundryvtt/foundryvtt/issues/13712" target="_blank">(13712)</a></li>
-        <li>Prevented a <code>ContextMenu</code> deprecation warning in the Setup screen. <a href="https://github.com/foundryvtt/foundryvtt/issues/14062" target="_blank">(14062)</a></li>
-        <li>Fixed a bug where the "Configure Ownership" dialog in the placeable tab opened the Sheet Configuration dialog instead of the Ownership Configuration dialog. <a href="https://github.com/foundryvtt/foundryvtt/issues/14079" target="_blank">(14079)</a></li>
-        <li>Fixed a bug where hidden drawings and notes were not visible to their creators in the sidebar unless they were also GMs. <a href="https://github.com/foundryvtt/foundryvtt/issues/14080" target="_blank">(14080)</a></li>
-        <li>Fixed a bug where the visible Regions of other players prevented interaction with other user's own Regions, even if they didn't have visibility of the obscuring Regions. <a href="https://github.com/foundryvtt/foundryvtt/issues/14082" target="_blank">(14082)</a></li>
-        <li>Fixed a bug where players were able to use the Placeables sidebar to send their tokens to levels that they should not be able to access. <a href="https://github.com/foundryvtt/foundryvtt/issues/14050" target="_blank">(14050)</a></li>
-        <li>Fixed a bug where the "Clear All Objects" menu button incorrectly deleted all objects in the entire viewed Scene instead of limiting its deletions to the viewed level. <a href="https://github.com/foundryvtt/foundryvtt/issues/14091" target="_blank">(14091)</a></li>
+        <li>Fixed a bug where the results returned by searching in the Compendium sidebar tab were not draggable. <a href="https://github.com/foundryvtt/foundryvtt/issues/14047" rel="nofollow" target="_blank">(14047)</a></li>
+        <li>Fixed a bug where saving or deleting a new keybinding always caused the window to scroll back to the top. <a href="https://github.com/foundryvtt/foundryvtt/issues/14014" rel="nofollow" target="_blank">(14014)</a></li>
+        <li>Fixed a bug where documents couldn't be dragged from sidebar tabs if they had <code>img: null</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/14063" rel="nofollow" target="_blank">(14063)</a></li>
+        <li>Fixed a bug where rolls appended to an existing chat message rendered expanded. <a href="https://github.com/foundryvtt/foundryvtt/issues/13712" rel="nofollow" target="_blank">(13712)</a></li>
+        <li>Prevented a <code>ContextMenu</code> deprecation warning in the Setup screen. <a href="https://github.com/foundryvtt/foundryvtt/issues/14062" rel="nofollow" target="_blank">(14062)</a></li>
+        <li>Fixed a bug where the "Configure Ownership" dialog in the placeable tab opened the Sheet Configuration dialog instead of the Ownership Configuration dialog. <a href="https://github.com/foundryvtt/foundryvtt/issues/14079" rel="nofollow" target="_blank">(14079)</a></li>
+        <li>Fixed a bug where hidden drawings and notes were not visible to their creators in the Placeables sidebar tab unless they were also GMs. <a href="https://github.com/foundryvtt/foundryvtt/issues/14080" rel="nofollow" target="_blank">(14080)</a></li>
     </ul>
-    <h3 id="bugs-canvas" class="category-header">The Game Canvas</h3>
+    <h3 class="category-header" id="bugs-canvas">The Game Canvas</h3>
     <ul>
-        <li>Fixed a bug where Level background textures did not restrict light from lower levels. <a href="https://github.com/foundryvtt/foundryvtt/issues/14053" target="_blank">(14053)</a></li>
-        <li>Fixed a bug where <code>CanvasVisibility#surfaceExpose</code> was rendered even if there was no surface exposed. <a href="https://github.com/foundryvtt/foundryvtt/issues/14055" target="_blank">(14055)</a></li>
-        <li>Prevented an error thrown by <code>GridShapeData#move</code> which could prevent a token with attached region from moving if the grid type changed to gridless. <a href="https://github.com/foundryvtt/foundryvtt/issues/14075" target="_blank">(14075)</a></li>
-        <li>Fixed a bug where regions attached to hidden tokens were visible to non-GMs and the behaviors of attached regions were incorrectly still enabled. <a href="https://github.com/foundryvtt/foundryvtt/issues/14076" target="_blank">(14076)</a></li>
-        <li>Fixed a bug where the first update to <code>tokenActiveEffectChanges</code> for a linked token threw an error. <a href="https://github.com/foundryvtt/foundryvtt/issues/14058" target="_blank">(14058)</a></li>
-        <li>Fixed a bug where non-GMs could interact with drawings that they did not own. <a href="https://github.com/foundryvtt/foundryvtt/issues/14081" target="_blank">(14081)</a></li>
-        <li>Fixed a bug where calling <code>RegionLayer#placeRegion</code> with <code>attachToToken: true</code> did not successfully attach the region if the region layer was active. <a href="https://github.com/foundryvtt/foundryvtt/issues/14085" target="_blank">(14085)</a></li>
-        <li>Fixed a bug where <code>PointSourcePolygon#origin</code>, <code>SoundsLayer#previewSound</code>, and <code>Sound#playAtPosition</code> that played at undefined elevations incorrectly played at a default elevation of 0 instead instead of defaulting to the level's base elevation. <a href="https://github.com/foundryvtt/foundryvtt/issues/14088" target="_blank">(14088)</a></li>
+        <li>Fixed a bug where the visible Regions of other players prevented interaction with other users' own Regions, even if they didn't have visibility of the obscuring Regions. <a href="https://github.com/foundryvtt/foundryvtt/issues/14082" rel="nofollow" target="_blank">(14082)</a></li>
+        <li>Fixed a bug where players were able to use the Placeables sidebar to send their tokens to levels that they should not be able to access. <a href="https://github.com/foundryvtt/foundryvtt/issues/14050" rel="nofollow" target="_blank">(14050)</a></li>
+        <li>Fixed a bug where the "Clear All Objects" menu button incorrectly deleted all objects in the entire viewed Scene instead of limiting its deletions to the viewed level. <a href="https://github.com/foundryvtt/foundryvtt/issues/14091" rel="nofollow" target="_blank">(14091)</a></li>
+        <li>Fixed a bug where the elevation displayed in Token Ruler waypoint labels was absolute instead of relative to the viewed level's bottom elevation. <a href="https://github.com/foundryvtt/foundryvtt/issues/14052" rel="nofollow" target="_blank">(14052)</a></li>
+        <li>Resolved an issue where the up arrow (<code>^</code>) on the elevation input of the placeable HUD was out of place. <a href="https://github.com/foundryvtt/foundryvtt/issues/14040" rel="nofollow" target="_blank">(14040)</a></li>
+        <li>Fixed a bug where the elevation in the Drawing and Tile HUDs were not relative to the bottom elevation of the viewed level. <a href="https://github.com/foundryvtt/foundryvtt/issues/14073" rel="nofollow" target="_blank">(14073)</a></li>
+        <li>Fixed a bug where Level background textures did not restrict light from lower levels. <a href="https://github.com/foundryvtt/foundryvtt/issues/14053" rel="nofollow" target="_blank">(14053)</a></li>
+        <li>Fixed a bug where <code>CanvasVisibility#surfaceExpose</code> was rendered even if there was no surface exposed. <a href="https://github.com/foundryvtt/foundryvtt/issues/14055" rel="nofollow" target="_blank">(14055)</a></li>
+        <li>Prevented an error thrown by <code>GridShapeData#move</code> which could prevent a token with an attached region from moving if the grid type changed to gridless. <a href="https://github.com/foundryvtt/foundryvtt/issues/14075" rel="nofollow" target="_blank">(14075)</a></li>
+        <li>Fixed a bug where non-GMs could interact with drawings that they did not own. <a href="https://github.com/foundryvtt/foundryvtt/issues/14081" rel="nofollow" target="_blank">(14081)</a></li>
+        <li>Fixed a bug where calling <code>RegionLayer#placeRegion</code> with <code>attachToToken: true</code> did not successfully attach the region if the region layer was active. <a href="https://github.com/foundryvtt/foundryvtt/issues/14085" rel="nofollow" target="_blank">(14085)</a></li>
+        <li>Fixed a bug where <code>PointSourcePolygon#origin</code>, <code>SoundsLayer#previewSound</code>, and <code>Sound#playAtPosition</code> that played at undefined elevations incorrectly played at a default elevation of zero instead of defaulting to the level's base elevation. <a href="https://github.com/foundryvtt/foundryvtt/issues/14088" rel="nofollow" target="_blank">(14088)</a></li>
     </ul>
-    <h3 id="bugs-i18n" class="category-header">Localization and Accessibility</h3>
+    <h3 class="category-header" id="bugs-i18n">Localization and Accessibility</h3>
     <ul>
-        <li>Fixed a bug where the titles of compendiums were not localized in the Compendium sidebar tab when they were returned as search results. <a href="https://github.com/foundryvtt/foundryvtt/issues/14048" target="_blank">(14048)</a></li>
+        <li>Fixed a bug where the titles of compendiums were not localized in the Compendium sidebar tab when they were returned as search results. <a href="https://github.com/foundryvtt/foundryvtt/issues/14048" rel="nofollow" target="_blank">(14048)</a></li>
     </ul>
-    <h3 id="bugs-other" class="category-header">Other Changes</h3>
+    <h3 class="category-header" id="bugs-other">Other Changes</h3>
     <ul>
-        <li>Fixed a bug where <code>CalendarData.formatDuration</code> passed invalid keys to <code>Intl.DurationFormat.format</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/14066" target="_blank">(14066)</a></li>
-        <li>Fixed a super important bug where <code>commodities/tech/wire-copper-red (2).webp</code> incorrectly had a <code>(2)</code> in its file name. <a href="https://github.com/foundryvtt/foundryvtt/issues/14057" target="_blank">(14057)</a></li>
+        <li>Fixed a bug where <code>CalendarData.formatDuration</code> passed invalid keys to <code>Intl.DurationFormat.format</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/14066" rel="nofollow" target="_blank">(14066)</a></li>
+        <li>Fixed a super important bug where <code>commodities/tech/wire-copper-red (2).webp</code> incorrectly had a <code>(2)</code> in its file name. <a href="https://github.com/foundryvtt/foundryvtt/issues/14057" rel="nofollow" target="_blank">(14057)</a></li>
     </ul>
 </section>
 <section id="documentation">
 <h2 class="section-header border">Documentation Improvements</h2>
-    <h3 id="documentation-other" class="category-header">Other Changes</h3>
+    <h3 class="category-header" id="documentation-other">Other Changes</h3>
     <ul>
-        <li>Fixed a documentation issue where the <code>modifyBatch</code> example used <code>"TokenDocument"</code> instead of <code>"Token"</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/14065" target="_blank">(14065)</a></li>
+        <li>Fixed a documentation issue where the <code>modifyBatch</code> example used <code>"TokenDocument"</code> instead of <code>"Token"</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/14065" rel="nofollow" target="_blank">(14065)</a></li>
     </ul>
-</section>
-<section id="summary">
-<h2 class="section-header border"></h2>
-</section>
-<section id="title">
-<h2 class="section-header border"></h2>
 </section>
