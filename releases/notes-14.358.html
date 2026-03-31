@@ -1,0 +1,179 @@
+<header id="update-header">
+    <h2 id="update-title" class="border">Foundry Virtual Tabletop - Version 14 - User Testing 3 Release Notes</h2>
+    <figure id="update-banner">
+        <img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/v14-testing-3-release-banner-2026-03-27.webp" title="Foundry VTT Version 14 User Testing 3, shown with the new turn markers, icons, and two gorgeous dragons by Forgotten Adventures." alt="Foundry VTT Version 14 User Testing 3, shown with the new turn markers, icons, and two gorgeous dragons by Forgotten Adventures."/>
+        <figcaption>Foundry VTT Version 14 User Testing 3, shown with the new turn markers, icons, and two gorgeous dragons by <a href="https://www.forgotten-adventures.net/">Forgotten Adventures</a> (included free in the <a href="https://foundryvtt.com/packages/dnd5e">D&D 5E game system</a>).</figcaption>
+    </figure>
+</header>
+
+<section id="update-overview">
+    <p>Hello once again, Foundry friends! It's another Friday, and it brings another Foundry VTT release. Our developers have been furiously coding up <strong>Foundry Virtual Tabletop Version 14 User Testing 3 (Build 358)</strong> and now it's here! This is the third and <em>probably</em> final release of the User Testing phase. Functionally, today's release will be extremely similar to the V14 Stable 1, so we would like to strongly encourage any curious and experienced Foundry VTT users to install it and check it out. As always, we look forward to your invaluable feedback!</p> 
+    <p class="note warning"><strong>WARNING:</strong> This is a Testing update intended for experimenting with the new features in V14, not for running actual campaign sessions.</p>
+    <p>If you're checking out V14 for the first time, a summary of all the most important changes made so far in <a href="https://foundryvtt.com/releases/14.356/#v14-update-highlights">V14</a>.</p>
+
+    <h3 id="how -to-install">How to test out the V14 User Testing 3 release</h3>
+    <p>The best way to check out non-Stable builds of Foundry VTT is to use <a href="https://foundryvtt.com/article/installation/#multiple">separate Foundry VTT installations</a>, and a different User Data folder, and <u>no modules enabled</u>. For Windows users, you can easily do this by downloading and installing the V14 <a href="https://foundryvtt.com/article/installation/#portable">Windows Portable Build</a>. As always, be sure to <a href="https://foundryvtt.com/article/backups">backup</a> all your important worlds first!</p> 
+    <p>To test V14, you will also need to use a compatible game system such as our own <a href="https://foundryvtt.com/packages/crucible">Crucible</a> system. <u>The latest publicly released version of D&D 5E, 5.2.5, is not compatible with V14</u>. However, you can test V14 by installing version 5.3 with this Manifest URL: <code>https://github.com/foundryvtt/dnd5e/releases/download/release-5.3.0/system.json</code>.</p> 
+    <p>If you are planning on testing V14 using a Node.js dedicated server, please be aware that V13 and V14 require mutually exclusive versions of Node.js. V13 is not compatible with Node.js 24, and V14 requires it.</p>
+
+
+    <h2 class="border" id="update-highlights">V14 User Testing 2 Update Highlights</h2>
+    <p>Because we're drawing towards the end of the User Testing phase, refinements and stability were the name of the game but we managed to squeeze in quite a bit of last-minute goodness as well.</p>
+    
+    <div class="columns">
+        <div class="column">
+            <h3 id="highlight-performance">World loading times: Enhance!</h3>
+            <p>We keep a constant eye on loading times, and we noticed that although V14 contains some important overall performance updates, loading certain very large worlds could take longer than we would like.</p>
+            <p>To tighten things up, we have made some further important performance improvements. We especially noticed these loading times with <a href="https://foundryvtt.com/ember/">our innovative Ember project</a> due to the sheer amount of included content.</p>
+        </div>
+        <div class="right">
+            <table>
+                <caption>
+                    <em>Ember World loading times before and after today's release:</em>
+                </caption>
+                <thead>
+                    <tr>
+                        <th>Game System</th>
+                        <th>Before</th>
+                        <th>After</th>
+                        <th>Improvement</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>D&D 5E</td>
+                        <td>25,258ms</td>
+                        <td>10,354ms</td>
+                        <td>-14,904ms (59%)</td>
+                    </tr>
+                    <tr>
+                        <td>Crucible</td>
+                        <td>11,315ms</td>
+                        <td>4,998ms</td>
+                        <td>-6,317ms (56%)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <h3 id="highlight-turn-marker">A sleeker and shinier combat turn marker</h3>
+    <p>Overall, we were pleased with the Combat Turn Marker feature added in V13 that automatically indicates which token currently has the initiative. As part of this feature, we allowed users (and system/module developers) to define their own custom turn markers, but we felt that our initial offering of the Foundry VTT logo as a default turn marker ended up seeming a bit much in practice.</p>
+    <p>With this release, the new default combat turn marker is a sleeker, less intrusive "squared circle" in the Foundry VTT color scheme of orange and yellow. We also provided an additional light gray variant of this same design. The two new turn markers are shown in the banner above around the two dragons.</p>
+    <p>If you'd like to play around with these turn markers, you can find them by creating a new encounter in the Combat Encounters sidebar tab ( <i class="fa-solid fa-swords"> </i> ), then clicking the Settings gear ( <i class="fa-solid fa-gear"> </i> ). You may also want to experiment with the "Disposition Tinting" checkbox, which overwrites the color of the marker to better indicate whether a token is hostile, friendly, or neutral.</p>
+    
+    <!-- Will add quick video if time -->        
+    <div class="columns">
+        <div class="column"> 
+            <h3 id="highlight-icons">MOAR sci-fi icons</h3>
+            <p>Recently, we've received some feedback that it can be difficult to find appropriate-feeling icons, particularly for sci-fi themed games. We've now improved our offerings by adding almost 800 additional icons, most of which have a sci-fi-ish theme to them. Enjoy!</p>
+
+            <h3 id="highlight-compendium-search">Easily rummage through compendiums to find your stuff!</h3>
+            <p>A great deal of excellent content for both game systems and adventures can be found stored within compendiums. Keeping things in compendiums rather than importing them to the world itself is important to keep your World small and fast, but it could sometimes make it harder to find and access the content you needed.</p>
+            <p>Previously, the Compendiums sidebar tab had a filter field, but it only matched against the compendiums themselves, not within their contents. To find a particular thing, you would have to know what compendium it was stored in, and then filter within that individual compendium.</p>
+            <p>With today's release, you can now use the Compendium sidebar tab's filter to match against each Compendium and all of its contents, making it much more convenient to find what you're looking for.</p>
+        </div>
+        <figure class="right" style="max-width: 25%;"><img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/v14-testing-3-compenium-filter-20260327-2-2026-03-27.webp" alt="Improved Compendium Filtering Demo">
+            <figcaption>
+                Improved compendium filtering in action!            
+            </figcaption>
+        </figure>
+    </div>    
+</section>
+
+<section id="breaking">
+<h2 class="section-header border">Breaking Changes</h2>
+    <h3 id="breaking-apps" class="category-header">Applications and User Interface</h3>
+    <ul>
+        <li>Added <code>SceneControlTool#interaction</code>, <code>SceneControlTool#control</code>, and <code>SceneControlTool#creation</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/14034" target="_blank">(14034)</a></li>
+    </ul>
+</section>
+<section id="features">
+<h2 class="section-header border">New Features</h2>
+    <h3 id="features-docs" class="category-header">Documents and Data</h3>
+    <ul>
+        <li>When switching back to a scene that you viewed previously, the level that was viewed last is now remembered and loaded. <a href="https://github.com/foundryvtt/foundryvtt/issues/14000" target="_blank">(14000)</a></li>
+        <li>Significantly improved world loading time by eliminating accidental <code>ActorDelta</code> creation and added a world-level guard to prevent creating accidental additional ones until after documents are first initialized. </li>
+    </ul>
+    <h3 id="features-apps" class="category-header">Applications and User Interface</h3>
+    <ul>
+        <li>Pending planned movement is no longer shown when replanning. <a href="https://github.com/foundryvtt/foundryvtt/issues/14027" target="_blank">(14027)</a></li>
+        <li>You can now add shapes to regions while the Region Configuration dialog is open. <a href="https://github.com/foundryvtt/foundryvtt/issues/14033" target="_blank">(14033)</a></li>
+        <li>In the Scene Navigation UI, the level a given user is viewing is now indicated by a pip, similar to how viewed scenes are indicated. <a href="https://github.com/foundryvtt/foundryvtt/issues/14019" target="_blank">(14019)</a></li>
+        <li>Upgraded the filter of the Compendiums sidebar tab so that it now also searches for matching content within each compendium. <a href="https://github.com/foundryvtt/foundryvtt/issues/8529" target="_blank">(8529)</a></li>
+        <li>Added the ability to filter regions in the Placeables sidebar by behavior type. <a href="https://github.com/foundryvtt/foundryvtt/issues/13995" target="_blank">(13995)</a></li>
+        <li>Added the ability to the region palette to randomly select a color. <a href="https://github.com/foundryvtt/foundryvtt/issues/13996" target="_blank">(13996)</a></li>
+        <li>Replaced the placeholder symbol that was permanently displayed over tokens on different levels (<code>☵</code>). Now the <code>fa-layer-group</code> symbol only displays when you hover them. This helps avoid unnecessary visual clutter while still warning users that they will load a new level if they select that token. <a href="https://github.com/foundryvtt/foundryvtt/issues/13761" target="_blank">(13761)</a></li>
+        <li>Added a meaningful toolclip to the "Measured Template Mode" button in the "Region Controls" toolbar to explain what it does. <a href="https://github.com/foundryvtt/foundryvtt/issues/14013" target="_blank">(14013)</a></li>
+        <li>Blocked <kbd>CTRL</kbd>+<kbd>S</kbd> from prompting the user to save the webpage. <a href="https://github.com/foundryvtt/foundryvtt/issues/13910" target="_blank">(13910)</a></li>
+        <li>Changed the behavior of the sidebar tab so that clicking currently active tab an additional time no longer hides the sidebar. <a href="https://github.com/foundryvtt/foundryvtt/issues/13964" target="_blank">(13964)</a></li>
+        <li>Expanded the core icon library by adding nearly 800 additional sci-fi themed icons. <a href="https://github.com/foundryvtt/foundryvtt/issues/8038" target="_blank">(8038)</a></li>
+    </ul>
+    <h3 id="features-canvas" class="category-header">The Game Canvas</h3>
+    <ul>
+        <li>Replaced the default combat turn marker with a sleeker, less intrusive image. <a href="https://github.com/foundryvtt/foundryvtt/issues/13818" target="_blank">(13818)</a></li>
+        <li>Added a Level field to the Identity tab of the Token Configuration dialog. <a href="https://github.com/foundryvtt/foundryvtt/issues/14001" target="_blank">(14001)</a></li>
+        <li>Tokens are now categorized by level in the Placeables tab. <a href="https://github.com/foundryvtt/foundryvtt/issues/14002" target="_blank">(14002)</a></li>
+    </ul>
+    <h3 id="features-packages" class="category-header">Package Development</h3>
+    <ul>
+        <li>Improved error handling during the World creation process. <a href="https://github.com/foundryvtt/foundryvtt/issues/14029" target="_blank">(14029)</a></li>
+    </ul>
+</section>
+<section id="api">
+<h2 class="section-header border">API Improvements</h2>
+    <h3 id="api-docs" class="category-header">Documents and Data</h3>
+    <ul>
+        <li>Add the <code>viewOptions?: SceneViewOptions</code> parameter to <code>Scene#pullUsers</code> and added <code>{viewOptions?: SceneViewOptions; pullUsers?: boolean}</code> options to <code>Scene#activate</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/14011" target="_blank">(14011)</a></li>
+    </ul>
+    <h3 id="api-apps" class="category-header">Applications and User Interface</h3>
+    <ul>
+        <li>Factored out the element highlighting logic from the Tour class into the new <code>highlightElement(element, options={})</code> helper function. <a href="https://github.com/foundryvtt/foundryvtt/issues/14028" target="_blank">(14028)</a></li>
+        <li>Added <code>SceneControlTool#shapeData</code>, which defines the shape that a Region drawing tool creates. <a href="https://github.com/foundryvtt/foundryvtt/issues/14036" target="_blank">(14036)</a></li>
+    </ul>
+    <h3 id="api-canvas" class="category-header">The Game Canvas</h3>
+    <ul>
+        <li>You can now call <code>RegionDocument#spawnTokens</code> with a <code>{create: false}</code> parameter to return ephemeral tokens. <a href="https://github.com/foundryvtt/foundryvtt/issues/14003" target="_blank">(14003)</a></li>
+        <li>Added <code>SceneManager#_determineInitialLevel</code> which allows a Scene Manager implementation to control which level of a scene is viewed when it is loaded. <a href="https://github.com/foundryvtt/foundryvtt/issues/14004" target="_blank">(14004)</a></li>
+        <li>Walls and surfaces are now taken into account in <code>TokenDocument#getOccupiedGridSpaceOffsets</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/14024" target="_blank">(14024)</a></li>
+        <li>Changed the default of <code>TokenMovementAction#split</code>. Instead of always defaulting to <code>false</code>, it now only defaults to <code>false</code> if there either is no prior movement history or if both the previous and current movements were performed using the keyboard. <a href="https://github.com/foundryvtt/foundryvtt/issues/14026" target="_blank">(14026)</a></li>
+        <li>Made <code>FogManager</code> easier to extend and improved shared fog handling. <a href="https://github.com/foundryvtt/foundryvtt/issues/14032" target="_blank">(14032)</a></li>
+    </ul>
+</section>
+<section id="bugs">
+<h2 class="section-header border">Bug Fixes</h2>
+    <h3 id="bugs-docs" class="category-header">Documents and Data</h3>
+    <ul>
+        <li>Fixed a bug where updating compendium items could result in their index entries missing the added data. <a href="https://github.com/foundryvtt/foundryvtt/issues/9984" target="_blank">(9984)</a></li>
+        <li>Fixed a bug where the time remaining on combat-based active effect durations could lose accuracy across multiple combats. <a href="https://github.com/foundryvtt/foundryvtt/issues/13986" target="_blank">(13986)</a></li>
+        <li>Fixed a bug where <code>ArrayField/SetField</code>'s <code>_applyChangeAdd</code> and <code>_applyChangeSubtract</code> functions were not respecting <code>min</code> and <code>max</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/13987" target="_blank">(13987)</a></li>
+        <li>Fixed a bug where data models were not initialized when applying active effects to an <code>EmbeddedDataField</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/12528" target="_blank">(12528)</a></li>
+        <li>Fixed a bug where server-side fog exploration migration failed if neither <code>fog.exploration</code> nor <code>fogExploration</code> was contained in the source data. <a href="https://github.com/foundryvtt/foundryvtt/issues/14021" target="_blank">(14021)</a></li>
+        <li>Fixed a bug where calling <code>getDocuments()</code> on a compendium cleared <code>apps</code> data for documents from that compendium. <a href="https://github.com/foundryvtt/foundryvtt/issues/13679" target="_blank">(13679)</a></li>
+    </ul>
+    <h3 id="bugs-apps" class="category-header">Applications and User Interface</h3>
+    <ul>
+        <li>Fixed a bug where the closed and open door icons appeared "doubled up" when a door was open. <a href="https://github.com/foundryvtt/foundryvtt/issues/13994" target="_blank">(13994)</a></li>
+        <li>Improved the Wall Control preset buttons so that they now have a pip added when the contents of the Palette match their settings. <a href="https://github.com/foundryvtt/foundryvtt/issues/13960" target="_blank">(13960)</a></li>
+        <li>Fixed a regression where the arrow keys no longer offset the background when the Grid Configuration dialog was open. <a href="https://github.com/foundryvtt/foundryvtt/issues/13755" target="_blank">(13755)</a></li>
+        <li>Fixed an issue with the Placeable Palette where the Reset button cleared the Levels input instead of setting it to the currently viewed level. <a href="https://github.com/foundryvtt/foundryvtt/issues/14009" target="_blank">(14009)</a></li>
+        <li>Fixed a bug with the Wall Palette where the Wall preset button was resetting the Levels field. <a href="https://github.com/foundryvtt/foundryvtt/issues/14010" target="_blank">(14010)</a></li>
+        <li>Prevented an error that occurred when opening the Region Palette. <a href="https://github.com/foundryvtt/foundryvtt/issues/14015" target="_blank">(14015)</a></li>
+        <li>Prevented an error where the Placeables sidebar tab threw an error if the game canvas was disabled. <a href="https://github.com/foundryvtt/foundryvtt/issues/14016" target="_blank">(14016)</a></li>
+        <li>Fixed a bug where the Prototype Token Overrides Configuration dialog could render with incorrect padding or margin. <a href="https://github.com/foundryvtt/foundryvtt/issues/14017" target="_blank">(14017)</a></li>
+        <li>Fixed a bug where the Region Palette toggle sometimes remained hidden when switching to the Select tool while a region was controlled. <a href="https://github.com/foundryvtt/foundryvtt/issues/14022" target="_blank">(14022)</a></li>
+        <li>When the user selects something in the Placeables sidebar tab, the Select tool is now automatically activated for the current Layer if the previously active tool did not allow controlling placeables. <a href="https://github.com/foundryvtt/foundryvtt/issues/14035" target="_blank">(14035)</a></li>
+        <li>When generating links in a TextEditor context, using relative UUID links is now avoided for documents that do not share the same root. <a href="https://github.com/foundryvtt/foundryvtt/issues/14037" target="_blank">(14037)</a></li>
+        <li>Fixed a bug that could occur when changing Journal Entry pages where the previous page's scrollbar position was retained. <a href="https://github.com/foundryvtt/foundryvtt/issues/12852" target="_blank">(12852)</a></li>
+    </ul>
+    <h3 id="bugs-canvas" class="category-header">The Game Canvas</h3>
+    <ul>
+        <li>Prevented an error that was thrown when resetting the explored fog of war. <a href="https://github.com/foundryvtt/foundryvtt/issues/14008" target="_blank">(14008)</a></li>
+        <li>Fixed a bug where dropping an Active Effect on a token incorrectly used the token's bounds instead of its shape. <a href="https://github.com/foundryvtt/foundryvtt/issues/14018" target="_blank">(14018)</a></li>
+        <li>Fixed a bug where <code>Sound#playAtPosition</code> could incorrectly play a sound louder if its origin was a higher elevation. <a href="https://github.com/foundryvtt/foundryvtt/issues/13882" target="_blank">(13882)</a></li>
+        <li>Fixed a bug where placing a token ruler waypoint after cycling the type of movement action could incorrectly still use the "walk" action. <a href="https://github.com/foundryvtt/foundryvtt/issues/14025" target="_blank">(14025)</a></li>
+        <li>Fixed a bug where the canvas could break when a distance ruler waypoint was placed. <a href="https://github.com/foundryvtt/foundryvtt/issues/14030" target="_blank">(14030)</a></li>
+        <li>Fixed a bug where <code>VFXEffect</code> did not honor the <code>fade.out</code> value of <code>VFXParticleGeneratorComponent</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/13982" target="_blank">(13982)</a></li>
+        <li>Fixed a bug where manually added <code>tokenActiveEffectChanges</code> were not applied to synthetic actors. <a href="https://github.com/foundryvtt/foundryvtt/issues/14020" target="_blank">(14020)</a></li>
+    </ul>
+</section>
