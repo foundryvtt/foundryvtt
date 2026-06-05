@@ -1,0 +1,119 @@
+<header id="update-header">
+    <h2 id="update-title" class="border">Foundry Virtual Tabletop - Version 14 - Stable 4 Release Notes</h2>
+    <figure id="update-banner">
+        <img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/version-14-stable-4-release-banner-2026-05-20.webp" title="Foundry VTT - Version 14 - Stable 4 Release Notes" alt="Release Notes for Foundry Virtual Tabletop Version 14"/>
+        <figcaption>Foundry Version 14 Stable 4 (14.362), as shown with the ruins of an <a href="https://foundryvtt.com/ember/">Ember</a> town that has become strangely overrun with mysterious and improbable vegetation... </figcaption>
+    </figure>
+</header>
+
+<section id="update-overview">
+    <p>Today brings the release of <strong>Foundry Virtual Tabletop Version 14 Stable 4</strong> (14.362)! This is the third Stable update patch for Version 14 and it features a few tasty improvements to go along with the usual healthy helping of bugfixes:</p>
+    <ul>
+        <li>A visual and functional pass over the Scene Navigation interface, including adding the ability to activate a specific level</li>
+        <li>Improvements to texture loading through native support for optimized graphics textures</li>
+        <li>More love for Foundry VTT's new and experimental integrated Particle Generator API</li>
+    </ul>
+    <p>Because this is a relatively minor patch update, if you already installed Version 14 Stable 1 (14.359) or Stable 2 (14.360), you will not need to do a complete reinstallation.</p>
+
+    <p class="note warning"><strong>WARNING:</strong> While this is categorized as a stable release there is always a possibility of unexpected bugs or compatibility issues. As with any time you update the core software, be sure to perform a complete backup of your user data to minimize any risk of data loss.</p>
+</section>
+
+<section id="known-issues">
+    <h3 class="border">Known Issues</h3>
+    <p>When using either the native Electron app or Chrome, certain distributions of Linux may encounter some graphical issues related to surface occlusion. If you suspect that you may be experiencing this, we recommend temporarily using an alternative browser like Firefox.</p>
+</section>
+
+<section id="features">
+<h2 class="section-header border">New Features</h2>
+    <h3 id="features-architecture" class="category-header">Architecture and Infrastructure</h3>
+    <ul>
+        <li>Removed the unused <code>PlaceablesLayer.SORT_ORDER</code> from the API. <a href="https://github.com/foundryvtt/foundryvtt/issues/14353" target="_blank">(14353)</a></li>
+    </ul>
+    <h3 id="features-docs" class="category-header">Documents and Data</h3>
+    <ul>
+        <li>Improved the embeds for results of Rollable Table that contain Actors so that any available descriptive text is now also included. <a href="https://github.com/foundryvtt/foundryvtt/issues/14341" target="_blank">(14341)</a></li>
+        <li>Allowed Assistant GM users to control the "Automatic Token Rotation" and "Animate Roll Tables" without specifically needing the <code>SETTINGS_MODIFY</code> permission. <a href="https://github.com/foundryvtt/foundryvtt/issues/14391" target="_blank">(14391)</a></li>
+    </ul>
+    <h3 id="features-apps" class="category-header">Applications and User Interface</h3>
+    <ul>
+        <li>Added a new option to preload Playlists and Scenes to the context menu of their sidebar tabs. <a href="https://github.com/foundryvtt/foundryvtt/issues/13010" target="_blank">(13010)</a></li>
+        <li>Added a warning message under the Token Image Path field to clearly indicate when it is overridden by a dynamic token ring's subject texture. <a href="https://github.com/foundryvtt/foundryvtt/issues/12666" target="_blank">(12666)</a></li>
+        <li>Improved the clarity and consistency of the Scene Navigation interface in several small ways, including changing the icons used for the viewed and active scenes. <a href="https://github.com/foundryvtt/foundryvtt/issues/13821" target="_blank">(13821)</a></li>
+        <li>Added a "Pull Everyone" option to the context menu of each individual Level in the Scene Navigation interface so you can now pull all users to that Scene and Level. <a href="https://github.com/foundryvtt/foundryvtt/issues/14235" target="_blank">(14235)</a></li>
+        <li>Added an "Edit" option to the context menus of all documents in the sidebar. <a href="https://github.com/foundryvtt/foundryvtt/issues/14405" target="_blank">(14405)</a></li>
+    </ul>
+</section>
+<section id="api">
+<h2 class="section-header border">API Improvements</h2>
+    <h3 id="api-docs" class="category-header">Documents and Data</h3>
+    <ul>
+        <li>Allowed Tile textures, Level background/foreground textures, and fog textures to use <code>.ktx2</code> and <code>.basis</code> image files. <a href="https://github.com/foundryvtt/foundryvtt/issues/14390" target="_blank">(14390)</a></li>
+    </ul>
+    <h3 id="api-canvas" class="category-header">The Game Canvas</h3>
+    <ul>
+        <li>Improved KTX2 texture loading. Foundry now uses <code>libktx</code>, the official KTX library from the <a href="https://www.khronos.org/">Khronos Group</a>. This provides more reliable handling of complex <code>KTX2</code> assets in modules and systems without requiring a new API. <code>KTX2</code> assets can also include embedded <code>mip</code> levels, which Foundry will automatically use when present. <a href="https://github.com/foundryvtt/foundryvtt/issues/14343" target="_blank">(14343)</a></li>
+        <li>Expanded <code>ParticleGenerator</code> runtime controls while preserving legacy configs. <a href="https://github.com/foundryvtt/foundryvtt/issues/14393" target="_blank">(14393)</a></li>
+        <li>Added the Cull Tokens option to the Define Surface behavior to optionally allow surfaces to also block the visibility of tokens for GMs and Players who do not have controlled Token(s). Normally, surfaces only block visibility when viewing the canvas from the perspective of one or more controlled tokens.<a href="https://github.com/foundryvtt/foundryvtt/issues/14387" target="_blank">(14387)</a></li>
+         <li>Added support for polygon trees as <code>ParticleGeneratorConfiguration#area</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/14369" target="_blank">(14369)</a></li>
+    </ul>
+</section>
+<section id="bugs">
+<h2 class="section-header border">Bug Fixes</h2>
+    <h3 id="bugs-architecture" class="category-header">Architecture and Infrastructure</h3>
+    <ul>
+        <li>Fixed a Linux-only issue where Light Animations and Weather Effects were sometimes not functional. <a href="https://github.com/foundryvtt/foundryvtt/issues/14219" target="_blank">(14219)</a></li>
+        <li>Fixed a bug where universal builds failed to open on older versions of macOS. <a href="https://github.com/foundryvtt/foundryvtt/issues/14296" target="_blank">(14296)</a></li>
+    </ul>
+    <h3 id="bugs-docs" class="category-header">Documents and Data</h3>
+    <ul>
+        <li>Fixed a bug where <code>TypedObjectField#_getField</code> did not always return an element field when expected. <a href="https://github.com/foundryvtt/foundryvtt/issues/14300" target="_blank">(14300)</a></li>
+        <li>Prevented a warning that was thrown when marking a <code>Combatant</code> as defeated via the <code>CombatTracker</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/14364" target="_blank">(14364)</a></li>
+        <li>Fixed a bug where <code>validateJoint</code> saved data even if an exception was thrown. <a href="https://github.com/foundryvtt/foundryvtt/issues/14370" target="_blank">(14370)</a></li>
+        <li>Fixed a bug where adjusting time by sufficiently small increments (relative to overall duration) did not trigger <code>Actor#onUpdateEffectDurations</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/14365" target="_blank">(14365)</a></li>
+        <li>Fixed a bug where <code>ActiveEffect.#castDelta</code> called <code>_replaceDataRefs</code> on <code>this</code> rather than deferring to the implementation. <a href="https://github.com/foundryvtt/foundryvtt/issues/14354" target="_blank">(14354)</a></li>
+        <li>Fixed a bug where <code>ActiveEffect#toCompendium</code> was not clearing <code>origin</code> properly. <a href="https://github.com/foundryvtt/foundryvtt/issues/14371" target="_blank">(14371)</a></li>
+        <li>Fixed a bug where a nullable or non-required <code>SchemaField</code>-defined value could be updated to an invalid state. <a href="https://github.com/foundryvtt/foundryvtt/issues/14377" target="_blank">(14377)</a></li>
+        <li>Fixed a bug where <code>ActiveEffect.fromStatusEffect</code> was not called with options <code>{parent: this}</code> in <code>Actor#toggleStatusEffect</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/14378" target="_blank">(14378)</a></li>
+        <li>Fixed a bug where some calls to <code>DataField#getInitialValue</code> could pass undefined <code>source</code> arguments. <a href="https://github.com/foundryvtt/foundryvtt/issues/14388" target="_blank">(14388)</a></li>
+        <li>Fixed a bug where the <code>ArrayFields</code> of <code>EmbeddedDataField</code> could fail to correctly propagate <code>_state.model</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/14335" target="_blank">(14335)</a></li>
+        <li>Fixed a bug where deleting an effect did not remove it from the registry. <a href="https://github.com/foundryvtt/foundryvtt/issues/14366" target="_blank">(14366)</a></li>
+        <li>Resolved an issue where some core <code>AppV2</code>s still defined the <code>submitOnClose</code> option even though <code>AppV2</code> does not support it. <a href="https://github.com/foundryvtt/foundryvtt/issues/14204" target="_blank">(14204)</a></li>
+    </ul>
+    <h3 id="bugs-apps" class="category-header">Applications and User Interface</h3>
+    <ul>
+        <li>Fixed a (harmless) console error that often appeared when opening any Palette (<code>el.parentElement is null, reading offsetWidth</code>). <a href="https://github.com/foundryvtt/foundryvtt/issues/14317" target="_blank">(14317)</a></li>
+        <li>Fixed a bug where the Placeable palette was missing its Apply button after the locked state of a controlled item changed. <a href="https://github.com/foundryvtt/foundryvtt/issues/14330" target="_blank">(14330)</a></li>
+        <li>Fixed a bug where characters in the destination names of the Teleport Token confirmation dialog were accidentally escaped a second time. <a href="https://github.com/foundryvtt/foundryvtt/issues/14340" target="_blank">(14340)</a></li>
+        <li>Fixed a bug where non-GMs did not have access to the Region palette and instead saw the following error: <code>You do not have sufficient permission to view the sheet for this Region</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/14376" target="_blank">(14376)</a></li>
+        <li>Fixed a bug where the world settings that Assistant GMs can change without the <code>SETTINGS_MODIFY</code> permission were not rendered in the Settings Configuration unless they were also specifically assigned the <code>SETTINGS_MODIFY</code> permission. <a href="https://github.com/foundryvtt/foundryvtt/issues/14380" target="_blank">(14380)</a></li>
+        <li>Fixed a bug where filtering Ambient Lights by color failed. <a href="https://github.com/foundryvtt/foundryvtt/issues/14383" target="_blank">(14383)</a></li>
+        <li>Resolved an issue where the styling for Journal content lists was scoped too broadly. <a href="https://github.com/foundryvtt/foundryvtt/issues/14358" target="_blank">(14358)</a></li>
+        <li>Fixed a bug where the id of the Compendium ownership dialog lacked a discriminator. <a href="https://github.com/foundryvtt/foundryvtt/issues/13478" target="_blank">(13478)</a></li>
+        <li>Fixed a bug where setting the Application Color scheme to Light also incorrectly applied to the Status Effect HUD of Tokens. <a href="https://github.com/foundryvtt/foundryvtt/issues/14347" target="_blank">(14347)</a></li>
+        <li>Added scrolling to the Drawing Settings dialog. <a href="https://github.com/foundryvtt/foundryvtt/issues/13699" target="_blank">(13699)</a></li>
+        <li>Fixed a bug where bulk editing multiple different-colored Ambient Lights but leaving their colors unchanged caused all light sources to reset their color to "no color." <a href="https://github.com/foundryvtt/foundryvtt/issues/14382" target="_blank">(14382)</a></li>
+        <li>Fixed a bug where the "View Token Artwork" context menu option for unlinked tokens showed the Prototype artwork instead of the individual token's artwork. <a href="https://github.com/foundryvtt/foundryvtt/issues/13540" target="_blank">(13540)</a></li>
+        <li>Fixed a bug where detached windows were not inheriting their window title from the app title. <a href="https://github.com/foundryvtt/foundryvtt/issues/14374" target="_blank">(14374)</a></li>
+
+    </ul>
+    <h3 id="bugs-canvas" class="category-header">The Game Canvas</h3>
+    <ul>
+        <li>Fixed a bug where the canvas froze for an extended period of time when bulk (un)locking and (un)hiding many placeables. <a href="https://github.com/foundryvtt/foundryvtt/issues/14338" target="_blank">(14338)</a></li>
+        <li>Fixed a bug where the Teleport Token behavior did not change the view to the destination level for GMs due to an issue with <code>Token#segmentizeRegionMovementPath</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/14344" target="_blank">(14344)</a></li>
+        <li>Fixed a bug where changing the level of a number of tokens at once caused the destination level to be repetitively loaded for each individual token. <a href="https://github.com/foundryvtt/foundryvtt/issues/14345" target="_blank">(14345)</a></li>
+        <li>Fixed a bug where the Teleport Token/Change Level behavior did not change the view to the destination level if the player still owned other tokens in the origin level. <a href="https://github.com/foundryvtt/foundryvtt/issues/14346" target="_blank">(14346)</a></li>
+        <li>Implemented the pre-existing but previously unused <code>ChatBubbles#bubbles</code> property so that it is now a repository of active chat bubbles and the <code>id</code>s of their tokens. <a href="https://github.com/foundryvtt/foundryvtt/issues/13156" target="_blank">(13156)</a></li>
+        <li>Fixed a bug where <code>PrimaryOccludableObject#isOccludable</code> was incorrectly returning <code>true</code> when the occlusion modes of the object did not require <code>PrimaryOccludableObject#occluded</code> to be set. <a href="https://github.com/foundryvtt/foundryvtt/issues/14392" target="_blank">(14392)</a></li>
+    </ul>
+    <h3 id="bugs-i18n" class="category-header">Localization and Accessibility</h3>
+    <ul>
+        <li>Added missing localization for the "Author", "Authors", and "URL" fields in the Module Management dialogs. <a href="https://github.com/foundryvtt/foundryvtt/issues/14401" target="_blank">(14401)</a></li>
+    </ul>
+    <h3 id="bugs-other" class="category-header">Other Changes</h3>
+    <ul>
+        <li>Resolved an issue where the markup of minimized, detached windows was rendered as plaintext. <a href="https://github.com/foundryvtt/foundryvtt/issues/14352" target="_blank">(14352)</a></li>
+        <li>Fixed a bug where PDF-type journal pages were not rendered. <a href="https://github.com/foundryvtt/foundryvtt/issues/14361" target="_blank">(14361)</a></li>
+        <li>Fixed a bug where <code>HandlebarsApplicationMixin</code> did not restore the focus state after using a root partial. <a href="https://github.com/foundryvtt/foundryvtt/issues/13517" target="_blank">(13517)</a></li>
+        <li>Fixed a bug where <code>foundry.documents.modifyBatch</code> threw an <code>undefined</code> error message. <a href="https://github.com/foundryvtt/foundryvtt/issues/14356" target="_blank">(14356)</a></li>
+    </ul>
+</section>

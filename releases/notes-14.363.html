@@ -1,0 +1,43 @@
+<header id="update-header">
+    <h2 id="update-title" class="border">Foundry Virtual Tabletop - Version 14 - Stable 5 Release Notes</h2>
+    <figure id="update-banner">
+        <img src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/v14-stable-5-release-banner-2-2026-05-22.webp" title="Foundry VTT - Version 14 - Stable 5 Release Notes Banner" alt="Foundry Virtual Tabletop Version 14 Stable 5"/>
+        <figcaption>Foundry Version 14 Stable 5 (14.363), as shown with our own <a href="https://foundryvtt.com/ember/">Ember</a> project and our <a href="https://foundryvtt.com/packages/crucible">Crucible</a> game system's character sheet.</figcaption>
+    </figure>
+</header>
+
+<section id="update-overview">
+    <p>This Friday brings a much more modest release, <strong>Foundry Virtual Tabletop Version 14 Stable 5</strong> (14.363), which is mostly a hotfix patch for the release earlier this week. Before US Memorial Day weekend hit, we wanted to get a fix out for a somewhat irksome issue with creating Tokens under certain circumstances and a few other minor items tagged along for the ride. It also resolves the known issue that was listed regarding Linux Wayland and Chrome.</p>
+    <p class="note warning"><strong>WARNING:</strong> While this is categorized as a stable release there is always a possibility of unexpected bugs or compatibility issues. As with any time you update the core software, be sure to perform a complete backup of your user data to minimize any risk of data loss.</p>
+</section>
+
+<section id="features">
+<h2 class="section-header border">New Features</h2>
+    <h3 id="features-apps" class="category-header">Applications and User Interface</h3>
+    <ul>
+        <li>To reduce visual clutter, Tiles that are locked and hidden are now invisible to GMs on the canvas. They can still be managed using the Placeables tab. <a href="https://github.com/foundryvtt/foundryvtt/issues/14406" target="_blank">(14406)</a></li>
+    </ul>
+</section>
+<section id="bugs">
+<h2 class="section-header border">Bug Fixes</h2>
+    <h3 id="bugs-docs" class="category-header">Documents and Data</h3>
+    <ul>
+        <li>Fixed a bug where users could not place unlinked tokens when the token's name differed from the actor's name. <a href="https://github.com/foundryvtt/foundryvtt/issues/14412" target="_blank">(14412)</a></li>
+        <li>Fixed a bug where <code>DataModel#_getInnerModel</code> did not resolve fields that were nested under intermediate <code>SchemaFields</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/14414" target="_blank">(14414)</a></li>
+        <li>Fixed a bug where the "Import Entry" context menu option in all sidebar tabs did not ask for confirmation before replacing the existing document. <a href="https://github.com/foundryvtt/foundryvtt/issues/14415" target="_blank">(14415)</a></li>
+    </ul>
+    <h3 id="bugs-apps" class="category-header">Applications and User Interface</h3>
+    <ul>
+        <li>Resolved an issue where the the Journal Entry Page creation dialog was not showing a hint for the page type. <a href="https://github.com/foundryvtt/foundryvtt/issues/14402" target="_blank">(14402)</a></li>
+        <li>Fixed a bug where scroll position was not properly restored for internal (but public) elements of a custom element. <a href="https://github.com/foundryvtt/foundryvtt/issues/14403" target="_blank">(14403)</a></li>
+        <li>Fixed a bug in the Scene Configuration dialog where the "Background Image" and "Exploration Image" filepicker fields did not display selected <code>.ktx2</code> or <code>.basic</code> files. <a href="https://github.com/foundryvtt/foundryvtt/issues/14416" target="_blank">(14416)</a></li>
+    </ul>
+    <h3 id="bugs-canvas" class="category-header">The Game Canvas</h3>
+    <ul>
+        <li>Fixed a bug where occlusion failed to render correctly in Chrome on Linux Wayland. <a href="https://github.com/foundryvtt/foundryvtt/issues/14413" target="_blank">(14413)</a></li>
+    </ul>
+    <h3 id="bugs-i18n" class="category-header">Localization and Accessibility</h3>
+    <ul>
+        <li>Fixed localization for <code>_getStatusEffectChoices</code>. The localization was previously applied after the sort operation, causing the resulting order to feel arbitrary. <a href="https://github.com/foundryvtt/foundryvtt/issues/14400" target="_blank">(14400)</a></li>
+    </ul>
+</section>
