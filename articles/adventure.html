@@ -84,5 +84,22 @@
 </ol>
 <p class="note warning">Everything in an Adventure is replaced each time you rebuild it. That means, if you've made changes to any of the Documents in your world that are included in the Adventure they will overwrite the versions currently in the Adventure every time you press <span class="reference"> Build Adventure</span>. This <em>also</em> means if any Documents are missing in the World they will be removed from the Adventure.</p>
 
-<h3 id="packaging">Packaging Your Adventure for Distribution.</h3>
+<h2 class="border" id="quickstart">Make Your Adventure Quick-Start Compatible</h2>
+<figure>@Asset[1075]<figcaption>An example showing the Demon Queen Awakens quick-start adventure</figcaption></figure>
+<p><a href="https://github.com/foundryvtt/foundryvtt/issues/10187" target="_blank">Quick-start adventure</a> support was added in V14. When a user creates a World any registered quick-start adventures will appear as options to populate it. This helps gamemasters skip the step of activating a module and importing the adventure when they're getting started. Here is an example of a complete quick-start adventure registration (though most of these fields are not necessary) which can be added to your <code>module.json</code> file:</p>
+<pre>
+<code>
+"quickstart": {
+    "adventures": {"dnd5e": uuid.of.the.5e.adventure, "pf2e": uuid.of.the.pf2e.adventure}
+    "postImport": true,
+    "world": {
+        "background": "modules/your-modules-id/assets/background.webp",
+        "cover": "modules/your-modules-id/assets/thumb.webp"
+    }
+}
+</code>
+</pre>
+<p>It is not necessary to fill out any of these fields beyond <code>"quickstart": {}</code> however. If you don't fill anything else out Foundry will show all of the adventures in your module (filtered by the user's selected system) and grab the image from the chosen Adventure for the World background and cover images. The <code>postImport</code> field details whether the module has post-import actions to take. It will prevent any non-GM from joining the World until a GM user has joined once and allowed the post-import operations to run. You can learn more about handling <code>postImport</code> features <a href="https://github.com/foundryvtt/foundryvtt/issues/10187" target="_blank">here</a>.</p>
+
+<h2 id="packaging" class="border">Packaging Your Adventure for Distribution.</h2>
 <p>Adventures can be distributed in a module just like any other content by following the @Article[packaging-guide].</p>
