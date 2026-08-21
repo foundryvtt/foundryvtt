@@ -1,0 +1,141 @@
+<h5 class="release-date">Updated August 20, 2026 (Version 14.367)</h5>
+<p>This page defines key terms used throughout the rest of the knowledge base within the context of Foundry VTT.</p>
+<h2 class="border">User Interface</h2>
+<p>These are the key parts of the core Foundry VTT user interface.
+<p class="note info"><strong>NOTE:</strong> Systems and Modules may adjust how these components display or add their own entirely new elements, such as the advanced Calendar system in Ember.</p>
+<dl>
+    <dt>Canvas</dt>
+    <dd>The high-performance, graphical "game board" in the center of the screen. Your Scenes are all rendered inside it (and everything in them, like Tokens and Tiles).</dd>
+    <dt>Hotbar</dt>
+    <dd>The numbered button slots at the bottom of the screen for readily-accessible macros, as well as buttons to mute all sounds and open the main menu.</dd>    
+    <dt>HUD</dt>
+    <dd>A "heads-up-display" of small, clickable buttons that appear around Placeables (such as Tokens) in the Canvas to help manage them.</dd>
+    <dt>Pause</dt>
+    <dd>While the game is paused, a large Pause banner displays in the center of the screen and players cannot modify anything on the Canvas. You can can toggle pause on and off with the <kbd>spacebar</kbd>. By default, Worlds launch paused.</dd>
+    <dt>Placeables</dt>
+    <dd>Anything that you can place into the canvas, like a Token or an Ambient Light, is a "placeable." Each type of Placeable has its own layer in the Canvas with its own Scene Controls that allow you to interact with that only that one kind of Placeable.</dd>
+    <dt>Placeables Palette</dt>
+    <dd>The Placeables Palette is a special Control that is available for most types of Placeables (except Tokens). It allows you to easily control how you create new placeables and to bulk edit existing ones.</dd>
+    <dt>Players List</dt>
+    <dd>The bottom-left display that includes information about the users connected to the world as well as some basic performance stats.</dd>
+    <dt>Scene Controls</dt>
+    <dd>The buttons on the far left of the screen. Each set is associated with a specific type of Placeable Document, such as Tokens or Regions. The Scene Controls are only active if you are currently viewing a scene.</dd>
+    <dt>Scene Navigation</dt>
+    <dd>The buttons at the top-left of the screen (immediately next to the Scene Controls) that manage viewed and active scenes and levels.</dd>
+    <dt>Sidebar</dt>
+    <dd>The collection of tabs on the right side of the screen that are mostly dedicated to managing collections of Documents. The Sidebar also includes the Settings tab to help manage your World and the Placeables sidebar tab to help manage the contents of the Canvas.</dd>
+    <dt>Window</dt>
+    <dd>A Window is the visual representation of an Application. They typically display inside Foundry VTT itself or in the same browser window, but as of Version 14 they can now also be detached or "popped out" to exist on their own.</dd>
+</dl>
+<figure>@Asset[1163]
+    <figcaption>A demonstration combat using the D&D 5E game system, shown at a lower resolution.</figcaption>
+</figure>
+<h2 class="border" id="packages">Packages (Worlds, Systems and Modules)</h2>
+<p>To "run a game" on Foundry VTT, you will need a World, a System, and likely one or more optional Modules. These fundamental building blocks (Worlds, Systems, and Modules) are the three different types of "packages."</p>
+<dl>
+    <dt>Module</dt>
+    <dd>A Package that provides additional content and/or modifies your game. A given World can have any number of Modules enabled, and those modules can be freely disabled (and re-enabled) at any time. Modules can be free or paid; A full list of modules can be found in the <a src="/packages/modules">official package listing</a>, and premium content modules can be found on the <a src="https://www.foundryvtt.store/">Foundry VTT Marketplace</a>.</dd>
+    <dt>Package</dt>
+    <dd>"Package" is a general term for any World, System or Module. Packages are managed from the Setup screen, where each type of package has its own tab.</dd>
+    <dt>System</dt>
+    <dd>A Package that provides the basic logic for running a specific roleplaying game inside of Foundry. When a World is created a single system must be chosen and cannot be changed. Systems are generally free to install but their content is limited by the licensing terms of the publisher. A full list of systems can be found <a src="/packages/systems">official package listing</a>.</dd>
+    <dt>World</dt>
+    <dd>The concept of a "campaign" exists inside Foundry VTT as a special type of Package called a World. Most campaign data and progress is stored here, so it is important to back up your important Worlds regularly. You can make any number of Worlds from the setup screen, and each World must have a single System assigned to it.</dd>
+</dl>
+
+<h2 class="border" id="docs-and-data">Documents and Data</h2>
+<p>These terms relate to how Foundry VTT manages its underlying data.</p>
+<dl>
+    <dt>Application</dt>
+    <dd>A specific window within Foundry VTT. Some applications are provided by the core software, while others are managed by Systems and Modules.</dd>
+    <dt>Document</dt>
+    <dd>A specific entity that is tracked by the server.</dd>
+    <dt>Embedded Document</dt>
+    <dd>A Document that is located inside of another Document, such as the Items inside of an Actor.</dd>    
+    <dt>ID</dt>
+    <dd>A 16-character identifier unique for a document inside its collection.</dd>
+    <dt>Placeable Document</dt>
+    <dd>The Document for a Placeable that is visually represented on the Canvas at a specific location or area.</dd>
+    <dt>Sheet</dt>
+    <dd>A Sheet is a special kind of Application that allows users to view and edit a given type of Document. Foundry has default applications for almost all documents, with Actor and Item documents relying on their system to define sheets. Systems and Modules can provide alternative sheets for any Document type, which can be managed in settings.</dd>
+    <dt>UUID</dt>
+    <dd>The full data path of a document, specifying its location within Foundry. A UUID looks like <code>Compendium.dnd5e.equipment24.Item.phbwepLongsword0</code>. You can acquire a Document's UUID by clicking the <i class="fa-solid fa-passport"></i> button in its sheet header, which will copy the UUID to your clipboard.</dd>
+</dl>
+
+<h2 class="border" id="doc-types">Document Types</h2>
+<p>These are all the Document types you may encounter while using Foundry VTT.</p>
+<h3 id="doc-types-placeables" class="border">Placeable Document Types</h3>
+<p>These documents can be visually represented directly in the canvas. They each have their own set of Controls and a dedicated layer in the Canvas.</p>
+<p class="info note"><strong>NOTE: </strong>Only GM users will see Controls for every Placeable type.</p>
+<dl>
+    <dt>Ambient Light ( <i class="fa-regular fa-lightbulb"> </i> ) </dt>
+    <dd>A Placeable Document that represents a light source on the Canvas.</dd>
+    <dt>Ambient Sound ( <i class="fa-solid fa-music"> </i> )</dt>
+    <dd>A Placeable Document that represents a sound source on the Canvas.</dd>
+    <dt>Drawing ( <i class="fa-solid fa-pencil"> </i> )</dt>
+    <dd>A Placeable Document that is a combination of text and simply drawn lines</dd>
+    <dt>Measured Template <em>(obsolete)</em></dt>
+    <dd>A Placeable Document type removed in Foundry v14, these marked out shapes on the Canvas. Measured Templates have been fully replaced by Regions.</dd>
+    <dt>Note ( <i class="fa-solid fa-bookmark"> </i> ) </dt>
+    <dd>A Placeable Document type that provides a link to a Journal Entry from a specific spot on the Canvas.</dd>
+    <dt>Region ( <i class="fa-regular fa-game-board"> </i> )</dt>
+    <dd>A Placeable Document that marks out areas on the Canvas.</dd>
+    <dt>Tile ( <i class="fa-solid fa-cubes"> </i> ) </dt>
+    <dd>A Placeable Document that represents an image or video on the Canvas.</dd>
+    <dt>Token ( <i class="fa-solid fa-user-large"> </i> )</dt>
+    <dd>A Placeable Document that represents an Actor on the Canvas. Tokens can be linked or unlinked; a linked token is kept fully synched with the base actor, while an unlinked token only uses the base actor as a blueprint and can diverge from there.</dd>
+    <dt>Wall ( <i class="fa-solid fa-block-brick"> </i> )</dt>
+    <dd>A Placeable Document that represents a barrier blocking vision, movement, sound, and/or light.</dd>
+</dl>
+
+<h3 id="doc-types-other" class="border">Other Document Types</h3>
+<dl>
+    <dt>Active Effect</dt>
+    <dd>A Document responsible for applying temporary changes to an Actor or Token.</dd>
+    <dt>Actor</dt>
+    <dd>A Document that typically represents a character or NPC. Actors are represented on the Canvas by Tokens.</dd>
+    <dt>Adventure</dt>
+    <dd>A Document that only exists in Compendiums and is used to bundle other documents in a reusable format, preserving the relationships between the included Actors, Items, Scenes, Journals, etc.</dd>
+    <dt>Card</dt>
+    <dd>A Document representing a single playing card.</dd>
+    <dt>Cards</dt>
+    <dd>A Document that can be a deck, hand, or pile and have any number of embedded Card documents.</dd>
+    <dt>Chat Message</dt>
+    <dd>A Document that is a single entry in the chat log Sidebar tab.</dd>
+    <dt>Combat</dt>
+    <dd>A Document that manages rounds and turns.</dd>
+    <dt>Combatant</dt>
+    <dd>A Document that represents an individual participant of a Combat.</dd>
+    <dt>Compendium</dt>
+    <dd>A collection of documents that is associated with a specific package. Documents inside a compendium are not fully loaded with the rest of the world, only when specifically accessed, which helps with optimizing performance.</dd>
+    <dt>Folder</dt>
+    <dd>A Document that provides a simple graphical organizer in most Sidebar tabs.</dd>
+    <dt>Item</dt>
+    <dd>A Document that typically represents a distinct rules element, including not just equipment and gear but in many systems more abstract pieces like feats, talents, and classes.</dd>
+    <dt>Journal Entry</dt>
+    <dd>A Document that flexibly and generically stores information.</dd>
+    <dt>Journal Entry Page</dt>
+    <dd>A Document that is a specific entry in a Journal Entry. The core provided types include text, PDF, video, and image.</dd>
+    <dt>Journal Entry Category</dt>
+    <dd>A Document that provides a simple graphical organizer of Journal Entry Pages inside a Journal Entry.</dd>
+    <dt>Level</dt>
+    <dd>A Document that represents a single height range inside a scene.</dd>
+    <dt>Macro</dt>
+    <dd>A Document that contains a command to be run. Chat macros only create Chat Messages, while Script macros have full access to the Foundry API.</dd>
+    <dt>Playlist</dt>
+    <dd>A Document that manages audio tracks.</dd>
+    <dt>Playlist Sound</dt>
+    <dd>A Document that manages a specific audio file.</dd>
+    <dt>Region Behavior</dt>
+    <dd>A Document that provides automated logic to a Region.</dd>
+    <dt>Roll Table</dt>
+    <dd>A Document that enables randomized selection from a list of Table Results.</dd>
+    <dt>Scene</dt>
+    <dd>A Document that contains all the information to construct the Canvas.</dd>
+    <dt>Setting</dt>
+    <dd>A Document for managing the configuration of your Foundry VTT experience. Different settings have different scopes; some are for the whole World, while others are scoped to a per-user or per-device basis.</dd>
+    <dt>Table Result</dt>
+    <dd>A Document that is a specific entry in a Roll Table.</dd>
+    <dt>User</dt>
+    <dd>A Document that represents a single account for the World. Each World's users are separate from each other.</dd>
+</dl>
