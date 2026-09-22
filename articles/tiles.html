@@ -1,119 +1,142 @@
-<h2>Overview</h2>
-<p>Foundry Virtual Tabletop includes support for placing Tiles, which are individual pieces of artwork displayed above the background image of the scene to add decorations, props, or custom features to be interacted with or to change the aesthetics of the scene.</p>
-<p>This article will familiarize you with the two methods of placing tiles into scenes, and how to manipulate and configure them once placed.</p>
-
-<h2 class="border">Tile Controls</h2>
-<figure class="right">@Image[39]
-<figcaption>Tile Controls</figcaption>
-</figure>
-<p>The Tile Controls panel can be opened by clicking on the stacked cubes icon (<i class="far fa-cubes"> </i>) on the left-hand side of the user interface. This opens the tool palette, and allows you to draw new tiles or manipulate existing tiles segments.</p>
-<dl>
-<dt>Select Tiles (<i class="far fa-expand"> </i>)</dt>
-    <dd>This tool allows you to select tiles to be moved, edited, or resized. While a tile is selected you can hold down the shift or control keys and use your mouse wheel to rotate it. You can also click and drag it around the scene.</dd>
-<dt>Place Tile (<i class="fas fa-cube"> </i>)</dt>
-    <dd>This tool allows you to draw out a rectangle then opens a dialog to let you select the specific artwork you want to place inside the confines of the rectangle.</dd>
-<dt>Open Tile Browser (<i class="far fa-folder"> </i>)</dt>
-    <dd>This tool opens the @Article[file-picker] which allows you to browse images in your user data folders. You can click and drag any image in this browser to the canvas, which places that image as a tile.</dd>
-<dt>Toggle Foreground Layer (<i class="far fa-home"> </i>)</dt>
-    <dd>This button switches between editing foreground and background tiles. When on, you can only select and edit overhead tiles, when off you can only select and edit background tiles. This toggle also determines what layer all newly created tiles are placed on. This toggle defaults to off when a scene is loaded.</dd>
-</dl>
-
-<h2 class="border">Placing Tiles</h2>
-<figure class="right">@Image[139]
-<figcaption>A demonstration of the two ways you can place tiles with the tile tools. (Click to enlarge)</figcaption>
-</figure>
-<p>To place or create Tiles, activate the Tiles Layer from the controls palette on the left hand side of the screen, and select one of the tile placement tools. Depending on which tool you select, the process is slightly different:</p>
-<dl>
-<dt>Place a custom tile</dt>
-<dd>To do this use the second tool which looks like a cube and you can left-click drag a box which will form the basic shape for the tile. Once you release your left-mouse button you will be prompted to provide the configuration details for the Tile.</dd>
-<dt>Use the File Browser</dt>
-<dd>by clicking the folder icon in the tool palette you will be shown a File Picker where you can drag and drop image assets onto the Scene to create Tiles.</dd>
-</dl>
-
-<p>Once a tile has been created in a scene, they can be moved and resized at will with the Select Tiles tool (<i class="far fa-expand"> </i>). You can also edit existing tiles by double clicking on them, which opens the tile configuration panel. This configuration panel allows you to modify the appearance, dimensions, and positioning of the tile, as well as enabling options that allow it to function as an overhead tile with special occlusion modes.</p>
-
-<h4>Asset Grid Size</h4>
-<p>In the tile browser, you have an option to set an "asset grid size" which informs Foundry VTT what size of grid it should scale the assets for. This should generally match your current scene grid scale, but can be used to automatically size up or size down assets when they are being dragged from the tile browser. Setting a grid size lower than your current grid size will cause all tiles you place to be larger, while setting the asset grid size to be higher than your current scene grid size will cause all tiles you place to be smaller.</p>
-
-<section class="collapsible">
-    <header class="collapsible-header">Tile Configuration</header>
-    <div class="collapsible-content">
-<p>Once a Tile is created, you can configure all the details of the Tile by double-clicking on the Tile. Once any changes to the Tile have been made, click the "Update Tile" button to confirm your changes. The tile configuration options are described below:</p>
-<figure class="right">@Image[40]
-<figcaption>The Tile configuration sheet is accessed by double-clicking on a Tile and can customize the display and position of the Tile.</figcaption>
-</figure>
-<h3>Basic</h3>
-<dl>
-    <dt>Tile Sprite</dt>
-    <dd>The image or video file path of the displayed tile. Note that Tiles can be either static images or videos. If using Video tiles, the <code>.webm</code> format is recommended to support transparency (if needed).</dd>
-    <dt>X/Y-Position</dt>
-    <dd>The x-coordinate (horizontal) location and y-coordinate (vertical) location of the tile. These are set automatically when the tile is initially placed or moved, and uses the top-left corner of the Tile to determine the coordinates of the tile as a whole.</dd>
-    <dt>Z-Index</dt>
-    <dd>The sorting place for the tile among other tiles on that layer, with higher Z-Index numbers being drawn overtop tiles with lower numbers. This can be used to manually sort tiles and how they are layered atop each other.</dd>
-    <dt>Width/Height</dt>
-    <dd>The horizontal width and vertical height of the tile on the canvas. These are automatically set when the tile is placed or when it is resized, but can also be manually edited to fine tune the dimensions of the image.</dd>
-    <dt>Rotation</dt>
-    <dd>The rotation of the Tile, in degrees. You can directly edit this field, or quickly rotate a tile placed in a scene by holding down Shift or Control and using the W-A-S-D keys, the arrow keys, or the mouse wheel. When used with the mouse wheel, Control offers smaller increments of rotation than the Shift key, allowing for finer adjustments.</dd>
-    <dt>Tile Opacity</dt>
-    <dd>The opacity of the tile from 0 (transparent) to 1 (fully opaque). With this slider you can directly affect the default level of transparency the tile has on the canvas, which is good for tiles such as dirt, cracks, damage, and similar overlay tiles that might be too intense or stark at full opacity.</dd>
-    <dt>Tint Color</dt>
-    <dd>The color overlay on a tile represented in hex color code. The color is set to multiply over the art of the tile, which means that the darker the color is the more it will darken the tile. In this case black (#000000) will turn the tile entirely black, while white (#ffffff) will not affect the appearance of the tile at all.</dd>
-</dl>
-<h3>Overhead</h3>
-<p>The overhead tab of the tile configuration menu tab allows you to configure how a tile interacts with the canvas as an overhead tile.</p>
-<p class="note">Please be aware that token occlusion for overhead tiles does not update during a token's movement.</p>
-<dl>
-    <dt>Is Overhead?</dt>
-    <dd>Toggles if the tile is to be treated as an overhead tile. When on the tile cannot be modified while the Foreground Layer toggle is off in the Tile Layer tool sidebar. Overhead tiles are rendered above background tiles in the @Article[canvas-layers]. Overhead tiles are automatically hidden when actors move under them.</dd>
-    <dt>Is Roof?</dt>
-    <dd>Toggles if the tile is to be treated as a roof tile, which render above light sources and blocks weather effects on the map for any tokens under it.</dd>
-    <dt>Occlusion Mode</dt>
-    <dd>The occlusion mode determines how the overhead tile interacts with actor tokens on the canvas.</dd>
-        <br><strong>None</strong> turns off occlusion, making the tile never fade while tokens are under it. 
-        <br><strong>Fade</strong> causes the whole tile to fade when an actor token moves under it. This is the default setting when toggling overhead on.
-        <br><strong>Radial</strong> causes the tile to reveal the background in the vicinity of an actor token under it. The radius is determined by the token's size.
-        <br><strong>Vision</strong> causes the tile to be partially revealed based on the vision of the actor, which does not need to be under the tile to see what's beneath it. This is useful for rooves on buildings where players could see through a window or door, viewing only a portion of what is obscured by the roof itself.
-    <dt>Occlusion Alpha</dt>
-    <dd>The occlusion alpha setting determines what level of opacity the overhead tile should maintain even when an actor token is under it. The setting ranges from 0 (transparent) to 1 (fully opaque). This setting defaults to 0, meaning that all overhead tiles fully vanish when an actor token moves under them.</dd>
-</dl>
-
-<h3>Animation</h3>
-The animation tab of the tile configuration menu allows you to configure how a video tile behaves on the canvas.
-<dl>
-    <dt>Loop Video</dt>
-    <dd>This toggle determines if the video should automatically start again after playing its last frame of animation.</dd>
-    <dt>Auto-Play Video</dt>
-    <dd>This toggle determines if the video should automatically start playback when the scene loads, or if it should wait for the play button to be pressed on the token HUD.</dd>
-    <dt>Video Volume</dt>
-    <dd>This slider determines the volume of video tiles that have sound. By default all tiles start with a volume setting of 0 (muted) to prevent unwanted audio playback.</dd>
-</dl>
+<h5 class="release-date">Updated July 24, 2026 (Version 14.368)</h5>
+<div class="block toc">
+    <h2 id="toc">Table of Contents</h2>
+    <ul>
+        <li><a href="#key-concepts" rel="nofollow">Key Concepts</a></li>
+        <li><a href="#scene-controls" rel="nofollow">Scene Controls</a></li>
+        <li><a href="hud">Tile HUD</a></li>
+        <li><a href="#sidebar" rel="nofollow">Placeables Sidebar</a></li>
+        <li><a href="#sheet" rel="nofollow">Tile Config</a></li>
+        <ul>
+            <li><a href="#position" rel="nofollow">Position Tab</a></li>
+            <li><a href="#appearance" rel="nofollow">Appearance Tab</a></li>
+            <li><a href="#overhead" rel="nofollow">Overhead Tab</a></li>
+        </ul>
+        <li><a href="#api" rel="nofollow">API References</a></li>
+    </ul>
 </div>
-</section>
-
-<section class="collapsible">
-    <header class="collapsible-header">Tile Hud</header>
-    <div class="collapsible-content">
-<figure class="right">@Image[41]
-<figcaption>The Tile HUD is accessed with a single right-click.</figcaption>
-</figure>
-<p>Various quick-actions are available for tiles through the Tile in the HUD, which is accessed on a single right-click on an already selected tile.</p>
-<dl>
-<dt>Toggle Visibility</dt>
-<dd>Toggle the visibility state of the Tile, turning it from hidden to visible (or vice-versa).</dd>
-<dt>Toggle Locked State</dt>
-<dd>Toggle the locked state of the Tile. While locked, the Tile cannot be moved and is non-interactive.</dd>
-<dt>Bring to Front</dt>
-<dd>Bring the Tile to the front of the rendered Layer, displaying it above other nearby Tiles. If the tile is already at the front of the layer, this will increment the tile's Z-Index by 1 each time it's clicked.</dd>
-<dt>Send to Back</dt>
-<dd>Send the Tile to the back of the Tiles Layer, displaying it below other nearby Tiles. This will set the tile's Z-Index to one less than the lowest z-index tile in the scene. If the tile is already at the back of the layer, this will decrement the Z-Index of the tile by 1 each it's clicked.</dd>
-</dl>
+<h2 class="border" id="key-concepts">Key Concepts</h2>
+<p>Tiles render images and videos on the canvas. If you want to include multiple images in a Scene without resorting to image editing software, Tiles are an easy way to do that. Furthermore, Tiles fully integrate with elevation, allowing you to create multi-layered spectacles.</p>
+<div class="block permissions">
+    <p>From the player perspective, Tiles are indistinguishable from being part of the Scene background; they are fully affected by lighting and vision. Players do not have access to the Tiles layer, so they cannot place new Tiles or otherwise interact with them.</p>
 </div>
-</section>
+<h2 class="border" id="scene-controls">Scene Controls</h2>
+<p>The Scene Controls are on the left side of the UI, where you can click on Tile Controls <i class="fa-solid fa-cubes"> </i> to switch to the Tiles Layer.</p>
+<p>Modules and game systems may add other controls of their own. For any controls not listed here, please consult the documentation of your system and any modules that you are using.</p>
+<div class="columns">
+        <figure style="max-width:25%">@Asset[1185]
+            <figcaption>The Tiles Layer Scene Controls.</figcaption>
+        </figure>   
+    <div class="column" style="min-width:75%">
+        <dl>
+            <dt><i class="fa-solid fa-expand"> </i> Select Tile</dt>
+            <dd>You can click and box-drag to select multiple Tiles at once. Double clicking a Tile in this mode will open the Tile Config to adjust the individual Tile properties, while right clicking will activate the Tile HUD.</dd>
+            <dd>Dragging a selected Tile from inside its boundaries will move the Tile. Clicking and dragging from the triangle control will instead rotate the Tile. Clicking and dragging from the square control will resize the Tile.</dd>
+            <dt><i class="fa-solid fa-cube"> </i> Place Tile</dt>
+            <dd>While this tool is active, dragging a box will create a new Tile you can configure via the Tile Config. If you cancel out of the config then the Tile will not be created, while using the “Create Tile” button in the bottom center will save it. A Tile created this way will not be visible on other layers until an image is set. This predefines the Tile dimensions and any image for the Tile will be stretched to fit.</dd>
+            <dt><i class="fa-solid fa-folder"> </i> Tile Browser</dt>
+            <dd>This button will open up the Texture Browser, which is used to browse available media files and has a field to specify the “Asset Grid Size”. Dragging an image out of this browser onto the canvas will create a Tile with the asset that's been appropriately resized according to that grid size. The Asset Grid Size input is especially helpful when using assets from a variety of map makers who may use different default grid sizes like 100px vs 140px that differ from your current Scene.</dd>
+            <dd>As an example, the core Foundry icons are generally 256px squares; on a Scene with a 100px grid size, dragging them out will create a 2.56 x 2.56 Tile; setting the Asset Grid Size to 128 will create a 2x2 Tile, while 256 will create a 1x1 Tile.</dd>
+            <dt><i class="fa-solid fa-plus"> </i> Force Snap to Grid Vertices</dt>
+            <dd>While this toggle is active the top-left point of drawing a new Tile with the Place Tile tool will prefer to anchor from a grid vertex.</dd>
+        </dl>
+    </div>
+</div>
 
-<h2 class="border">API References</h2>
-<p>To interact with Tiles programmatically, consider using the following API concepts:</p>
+<div class="columns">
+    <figure class="column">@Asset[1186]
+            <figcaption>The Tile Palette.</figcaption>
+    </figure>
+    <div class="column">
+        <dl>
+            <dt><i class="fa-solid fa-palette"> </i> Tiles Palette</dt>
+            <dd>The Tiles Palette is an additional application that helps working with multiple Tiles at once or consecutively. The functionality of the Tile Palette depends on whether you have the select tool active or are creating Tiles with Place Tile or the Tile Browser. If you are creating Tiles, the palette controls the initial values of each new Tile you place. If you are selecting existing Tiles, the palette functions as a mass-edit tool, allowing you to adjust many selected Tiles at once. While you have one or more selected Tiles you can change the palette's fields then click "Apply" to make those changes to all selected Tiles. The "Clone" tool will commit all of the currently selected Tile(s) properties into the palette, which can then be used with creating new Tiles. Reset will remove any current changes you have to the palette to the current properties of your selected Tiles.</dd>
+        </dl>   
+    </div>
+</div>
+<h2 class="border" id="hud">Tile HUD</h2>
+<div class="columns">
+    <div class="column">
+        <p>While on the Tiles layer, you can right-click an unlocked Tile to pull up the Tile HUD. There are only a few options; the number in the top left controls the elevation of the Tile within the overall context of the canvas, while the sort button either pulls the Tile to the front or, if it's already in the front, sends it to the back. Sorting is only relevant for two Tiles at the same elevation; a Tile with higher elevation always displays above a Tile with lower elevation.</p>
+        <p>The visibility option hides the Tile from players, while the lock tool prevents further interaction. You can unlock a locked Tile from the Placeables Sidebar as described below.</p>
+    </div>
+    <figure class="column">@Asset[1188]
+        <figcaption>The Tiles HUD.</figcaption>
+    </figure>
+</div>
+            
+
+<h2 class="border" id="sidebar">Placeables Sidebar</h2>
+<div class="columns">
+    <div class="column">
+        <p>The Placeables sidebar tab has tabs for each Placeable Object type, including Tiles, which is synched to the choice of layer in the Scene controls. Here, you can see all Tiles in the Scene and filter by name, viewed, level, or even advanced filters like elevation and occlusion modes.</p>
+        <p>You can click on Tiles to select them, or hold shift to select multiple Tiles at a time. This works well in combination with the <i class="fa-solid fa-palette"> </i>palette tool which will allow you to perform edits to all selected Tiles.</p>
+        <p><strong>Locked Tile:</strong> You can lock and unlock a Tile from this sidebar tab by right clicking a Tile for the context menu; a locked Tile cannot be interacted with from the canvas and will ignore all attempts to select it. This is especially helpful when Tiles are overlapping.</p>
+    </div>
+    <figure class="column">@Asset[1187]
+        <figcaption>The Placeables Sidebar for Tiles.</figcaption>
+    </figure>
+</div>
+<h2 class="border" id="sheet">Tile Config</h2>
+<p>While on the Tiles layer, you can double click any visible Tile on the canvas or its entry in the Placeables Sidebar to open its sheet. Updates are only saved when you click the "Update Tile" button in the footer, however the Tile will preview adjustments as you edit the fields.</p>
+<h3 class="border" id="position">Position Tab</h3>
+<div class="columns">
+    <div class="column">
+        <p>The position tab manages where the Tile exists on the canvas. Typically, you should set the dimensions, rotation, and coordinates by manipulating the tile on the canvas, but for more precise values you can set them here. Similarly, the elevation and sort are available via the Tile HUD. If you want to set the Name (for the sidebar) or levels of the tile those are set here. A Tile will attempt to infer a default name from the file name, but you may still prefer to customize the label, especially if you are reusing the same asset multiple times.</p>
+    </div>
+    <figure class="column">@Asset[1189]
+        <figcaption>The Position Tab of the Tile Config.</figcaption>
+    </figure>
+</div>
+<h3 class="border" id="appearance">Appearance Tab</h3>
+<div class="columns">
+    <div class="column">
+        <p>This default tab adjusts the primary purpose of a Tile: The actual image (or video) that it shows. The anchor property adjusts where the “origin” of the Tile is, with 0,0 being the top left and 1,1 being the bottom right. This value does not have to stay within 0–1 but it is generally recommended to just stick to the center point of 0.5,0.5 unless you have a specific purpose with adjusting this property. The origin controls the axis of rotation.</p>
+    </div>
+    <figure class="column">@Asset[1190]
+        <figcaption>The Appearance Tab of the Tile Config.</figcaption>
+    </figure>
+</div>
+<h3 class="border" id="overhead">Overhead Tab</h3>
+<div class="columns">
+    <div class="column">
+        <p>This tab controls the interactive behavior of the Tile with the rest of the canvas and deserves extra attention.</p>
+        <p><strong>Occlusion:</strong> Tile occlusion controls how and when a tile is hidden to show Tokens beneath it. The modes control the conditions, while the occlusion alpha determines how hidden the Tile becomes. You can apply multiple different occlusion modes depending on the desired effect.</p>
+        <dl>
+            <dt>Fade</dt>
+            <dd>Causes the whole Tile to fade when an Token moves under it.</dd>
+            <dt>Surface</dt>
+            <dd>Causes the Tile to be partially revealed based on the occluded surfaces.</dd>
+            <dt>Radial</dt>
+            <dd>Causes the Tile to reveal the background in a circle around the Token. The radius is determined by the Token's size.</dd>
+            <dt>Vision</dt>
+            <dd>Causes the Tile to be partially revealed based on the vision of the Token, which does not need to be under the Tile to see what's beneath it. This is useful for roofs on buildings where players could see through a window or door, viewing only a portion of what is obscured by the roof itself.</dd>
+        </dl>
+    </div>
+    <figure class="column">@Asset[1191]
+        <figcaption>The Overhead Tab of the Tile Config.</figcaption>
+    </figure>
+</div>
+<p><strong>Restricts Light and Weather:</strong> These properties help further craft the visual representation of the Scene. Unlike a Surface Region Behavior, they do not impact line of sight calculations or other mechanically relevant effects, only the aesthetics.</p>
 <ul>
-<li>The @API[classes/foundry.canvas.placeables.Tile, Tile Object]</li>
-<li>The @API[classes/foundry.canvas.layers.TilesLayer, TilesLayer Canvas Layer]</li>
-<li>The @API[classes/foundry.applications.sheets.TileConfig, TileConfig Application]</li>
+    <li>When a Tile is visible, the weather coming from above it is visible but lights below the Tile are blocked.</li>
+    <li>When the Tile is occluded, the weather coming from above is blocked and lights below the Tile are visible.</li>
 </ul>
+<p>See the figures below for an example.</p>
+<div class="columns">
+<figure class="column" style="max-width:50%"">@Asset[1192]
+        <figcaption>At first when peering ahead, the adventurer can only see a cottage in the stormy night.</figcaption>
+</figure>
+<figure class="column" style="max-width:50%"">@Asset[1193]
+        <figcaption>With the cottage's roof Tile occluded, they can now peek into a seemingly cozy room...</figcaption>
+</figure>
+</div>
+
+<h2 class="border" id="api">API Reference</h2>
+<p class="block dev line">To interact with Tiles programmatically, consider using the following API concepts:</p>
+<dl>
+    <li>The <a href="/api/classes/foundry.documents.Tile.html" rel="nofollow" target="_blank" title=" Tile Document"> Tile Document</a></li>
+    <li>The <a href="/api/classes/foundry.applications.sheets.TileConfig.html" rel="nofollow" target="_blank" title=" TileConfig Application"> TileConfig Application</a></li>
+    <li>The <a href="/api/classes/foundry.canvas.layers.TilesLayer.html" rel="nofollow" target="_blank" title=" Tiles Layer"> Tiles Layer</a></li>
+    <li>The <a href="/api/classes/foundry.canvas.placeables.Tile.html" rel="nofollow" target="_blank" title=" Tile Placeable Object"> Tile Placeable object</a></li>
+</dl>
