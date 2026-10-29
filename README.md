@@ -1,5 +1,5 @@
 # Foundry Virtual Tabletop 
-<img align="right" src="https://foundryvtt.com/static/assets/icons/fvtt.png" width="150px">This repository serves as the catchpen for tracking planned features, feature requests, bugs and other issues for the [Foundry Virtual Tabletop](https://foundryvtt.com]) software. 
+<img align="right" src="https://foundryvtt.com/static/assets/icons/fvtt.png" width="150px">This repository serves as the catchpen for tracking planned features, feature requests, bugs and other issues for the [Foundry Virtual Tabletop](https://foundryvtt.com) software. 
 
 Foundry Virtual Tabletop provides an innovative online role-playing experience. The software supports Windows, Mac, and Linux and allows you to self-host a game server that players connect to for free directly through a web browser.
 
