@@ -1,20 +1,78 @@
-<h5 class="release-date">Updated October 27, 2025 (Version 13.350)</h5>
-<h2 id="overview" class="border">Overview</h2>
-<p>Pings are visual guides used to point out, highlight or alert other users. Gamemasters can also use pings to reposition player cameras to view specific parts of a canvas.</p>
-<figure class="center">
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/yX2TM22D3Mc?start=162" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<figcaption>A Summary of Pings and Their Functions</figcaption>
-</figure>
-<p>All pings are created by long left-click of the mouse on the game canvas while using any of the Token Control (<i class="fas fa-user"> </i>) tools. For more on token controls and how to use them, see the @Article[tokens] article.</p>
+<h5 class="release-date">Updated November 6, 2026 (Version 14.370)</h5>
+<p>Pings are temporary visual cues that help draw the attention of other users to a specific location in the map. Gamemasters can also use pings to forcibly reposition their players' maps to focus on the chosen location.</p>
+<p>To ping the map, you should first check if the <span class="reference"><i class="fas fa-user"> </i> Token Controls</span> layer is active and switch to it if needed, because pinging is only possible inside it. Next, just move the mouse cursor to the desired location in the map, press the <kbd>Left-Click</kbd> mouse button, and hold it down for a second.</p>
 
-<h4>Basic Ping</h4>
-<p>The most basic ping creates a pulsing circle under your cursor using your selected user color. Any users on the scene with you will see the ping, and any users on the scene with you but not looking at the same part of the canvas will see a pulsing arrow along the edge of the UI indicating the direction of the ping.</p>
-<p><i class="fas fa-bullseye"> </i> Basic Pings are created by pressing and holding <strong>Left Click</strong> on the canvas.</p>
+<div class="columns">
+    <div class="column flex2 flexcol">
+        <div class="flex1">
+            <h4 id="basic-ping"><i class="fas fa-bullseye"> </i> Basic Ping</h4>
+            <p>The most basic ping creates a pulsing ripple under your cursor using your selected user color. </p>
+            <p>Basic Pings are created by pressing and holding <kbd>Left-Click</kbd> on the canvas.</p>
+        </div>
+        <figure class="flexnone">
+            <video autoplay muted loop="loop"
+                   src="https://r2.foundryvtt.com/website-uploads-public/asset/user_16316/basic-ping-2026-11-06.webm">
+                Basic Ping
+            </video>
+            <figcaption>Basic Ping</figcaption>
+        </figure>
+    </div>
+    <div class="column flex2 flexcol">
+        <div class="flex1">
+            <h4 id="alert-ping"><span class="fa-stack fa-2xs"><i class="fa-regular fa-triangle fa-stack-2x fa-flip-vertical"> </i><span class="fa-stack-1x"><i class="fa-regular fa-triangle fa-flip-vertical fa-lg"> </i></span></span> Alert Ping</h4>
+            <p>The alert ping creates a pulsing red triangle under your cursor.</p>
+            <p>Alert Pings are created by pressing and holding <kbd>ALT</kbd> + <kbd>Left-Click</kbd> on the map.</p>
+        </div>
+        <figure class="flexnone">
+            <video autoplay muted loop="loop"
+                   src="https://r2.foundryvtt.com/website-uploads-public/asset/user_16316/warning-ping-2026-11-06.webm">
+                Alert Ping
+            </video>
+            <figcaption>Alert Ping</figcaption>
+        </figure>
+    </div>
+    <div class="column flex2 flexcol">
+        <div class="flex1">
+            <h4 id="pull-ping"><span class="fa-stack fa-2xs"><span class="fa-stack-1x"><i class="fa-regular fa-circle fa-xl"> </i></span><i class="fa-solid fa-chevron-down fa-stack-2x fa-sm"> </i></span> Pan Canvas Ping</h4>
+            <div class="block permissions">Only a Gamemaster (or Assistant) can use this ping.</div>
+            <p>The Pan Canvas Ping (or "Drag" or "Pull" Ping) creates a circle on the map followed by a downward pointing arrow, both using your selected user color.
+            </p>
+            <p>The purpose of this ping is to shift other people's perspective to match yours. All users on that scene have their views panned to center on the ping location and zoomed to match your zoom level.</p>
+            <p>Pan Canvas Pings are created by pressing and holding <kbd>SHIFT</kbd> + <kbd>Left-Click</kbd> on the map.</p>
+        </div>
+        <figure class="flexnone">
+            <video autoplay muted loop="loop"
+                   src="https://r2.foundryvtt.com/website-uploads-public/asset/user_16316/drag-ping-2026-11-06.webm">
+                Pan Canvas Ping
+            </video>
+            <figcaption>Pan Canvas Ping (Gamemaster's perspective)</figcaption>
+        </figure>
+    </div>
+</div>
+<h3 id="alternate-appearances">Alternate appearances</h3>
+<div class="columns">
+    <figure class="column flex1">
+        <video autoplay muted loop="loop"
+               src="https://r2.foundryvtt.com/website-uploads-public/asset/user_16316/pings-inside-and-outside-the-players-view-2026-11-04.webm">
+            Pings inside and outside the player's view
+        </video>
+        <figcaption>Pings inside and outside the player's view</figcaption>
+    </figure>
+    <div class="column flex2">
+        <h4>Distant pings</h4>
+        <p>
+            Any users on the scene with you will see the ping, and any users on the scene with you but not looking at the same part of the map will see a pulsing arrow along the edge of the UI indicating the direction of the ping.
+        </p>
+        <h4>Slower ping animation</h4>
+        <p>If you have Photosensitivity Mode enabled in the @Article[settings], all pings will appear to use the slow circle-and-arrow "pull" animation (even if they are not pull pings).</p>
+    </div>
+</div>
 
-<h4>Warning Ping</h4>
-<p>The warning ping creates a pulsing red triangle under your cursor. Any users on the scene with you will see the ping, and any users on the scene with you but not looking at the same part of the canvas will see a pulsing arrow along the edge of the UI indicating the direction of the ping.</p>
-<p><i class="fas fa-triangle"> </i> Warning Pings are created by pressing and holding <strong>Alt + Left Click</strong> on the canvas.</p>
-
-<h4>Drag Pings</h4>
-<p>The drag view ping creates a circle on the canvas followed by a downward pointing arrow, both using your selected user color. In addition to this, all users on that scene have their cameras moved to center on the ping location. This ping function is limited to gamemaster and assistant game master users only.</p>
-<p><i class="fas fa-arrow-alt-to-bottom"> </i> Drag Pings are created by pressing and holding <strong>Shift + Left Click</strong> on the canvas.</p>
+<h2 class="border" id="api">API Reference</h2>
+<p>To interact with pings programmatically, use the following API concepts:</p>
+<ul>
+    <li><a href="https://foundryvtt.com/api/classes/foundry.canvas.Canvas.html#ping" target="_blank">Canvas#ping</a> (display a ping at a point)</li>
+    <li><a href="https://foundryvtt.com/api/classes/foundry.canvas.layers.ControlsLayer.html#handleping" target="_blank">ControlsLayer#handleping</a> (handle a broadcast ping)</li>
+    <li>@API[classes/foundry.canvas.interaction.Ping, Ping] (base ping class)</li>
+    <li>@API[classes/foundry.canvas.interaction.PulsePing, PulsePing] (basic pulse ping) , @API[classes/foundry.canvas.interaction.AlertPing, AlertPing] (alert ping) , @API[classes/foundry.canvas.interaction.ChevronPing, ChevronPing] (pan canvas ping)</li>
+</ul>
