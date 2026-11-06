@@ -1,0 +1,128 @@
+<figure class="center noborder">
+    <img alt="V13 Feature Vote" src="https://r2.foundryvtt.com/website-uploads-public/asset/user_671/v13-feature-vote-2024-05-23.webp"/>
+    <figcaption>Our Patreon Community Votes on a Major Feature for Version 13</figcaption>
+</figure>
+<p>Now that Foundry Virtual Tabletop Version 12 has achieved a stable release, we will begin turning our focus towards planning and prioritization for Version 13. Most of our effort over the coming month will be invested towards ongoing maintenance and further refinement of V12, but in the background we will be planning ahead for what we are going to develop for Version 13.</p>
+
+<p>As with each major version of Foundry Virtual Tabletop, we allow the for our <a href="https://www.patreon.com/foundryvtt" rel="nofollow" target="_blank">Patreon Community</a> to vote on one of the major features we will prioritize in this upcoming version. We hope you will all review this article with interest to get a sense of what some of our focus areas for V13 development will be.</p>
+
+<h2 class="border">Infrastructure Investments</h2>
+<p>As part of the V13 development cycle we anticipate prioritizing the following key infrastructure investments.</p>
+
+<h3>PixiJS Version 8 and WebGPU Support</h3>
+<p>During the development period of V12 the PixiJS team released <a href="https://pixijs.com/blog/pixi-v8-launches" rel="nofollow" target="_blank">PixiJS version 8</a> - a long awaited and major overhaul and improvement of the PixiJS library. This update of PixiJS is a more significant paradigm shift than some of their previous major releases and therefore will require more effort on our side to refactor and update our usage. This is a complex undertaking, so we are budgeting a substantial part of the V13 development cycle towards this work. The more exciting benefits that PixiJS V8 adoption will bring include:</p>
+<ul>
+    <li><strong>WebGPU Support:</strong> Seamless integration with the next-generation <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGPU_API" rel="nofollow" target="_blank">WebGPU</a> renderer. Adopting WebGPU will set Foundry VTT up for the next decade of browser-based rendering while offering unprecedented performance and advanced capabilities.</li>
+    <li><strong>Next Generation API:</strong> The PIXI team has gone to considerable lengths to simplify and re-architect portions of their API to be more developer-friendly and logically structured. This has direct benefits for our team, but also for all module and system developers in the Foundry VTT ecosystem who can utilize improved canvas capabilities.</li>
+</ul>
+
+<h3>ApplicationV2 and ThemeV2 Adoption</h3>
+<p>During Foundry VTT versions 11 and 12 we added core framework for "Theme V2" (added in V11 to the Setup menu) and "Application V2" (added in V12). We intend to follow-through on these new additions by embarking on a refactor of our existing Application classes to upgrade to ApplicationV2 and to adopt new stylistic framework of Theme V2 along the way.</p>
+
+<p>Users in Version 13 will be able to choose which theme they want to use including options that look <em>similar to</em> the previous "Theme V1" as well as other new options like a more stylized fantasy or dark-mode theme. During Version 13 we will migrate most, if not all, of our Applications to this new framework.</p>
+
+<h2 class="border">Feature Prioritization Poll</h2>
+<p>In addition to these key infrastructure investments, we will prioritize one feature from the following list as selected by our <a href="https://patreon.com/foundryvtt" rel="nofollow" target="_blank">Patreon</a> supporter community. Below, you'll find a description of all the items on the V13 Prioritization Poll. Given the scope of infrastructural improvements with PIXI v8 and ApplicationV2 + ThemeV2 we have populated the poll with a selection of options that will be less disruptive to community-developed packages while adding exciting new functionality to Foundry Virtual Tabletop.</p>
+
+<p>These options are listed alphabetically. For each feature, we differentiate between aspects of the feature that we <em>will definitely do</em> if it is chosen and aspects of the feature that we <em>might implement</em> depending on their discovered complexity and time constraints that we face. We hope you'll be interested and excited by these options, and we look forward to learning which option the community chooses!</p>
+
+<h3>1. Canvas Cards</h3>
+<p>The existing Cards system allows you to create and manage decks, hands, and piles of cards which can be played, dealt, passed, or exchanged using a somewhat basic interface. A common request we see for further improvement of the Cards system is the ability to visually display and interactively play cards on the game canvas. Canvas Cards (or "Cards V2" if you will) would enhance our approach to Cards, providing a more refined visual experience.</p>
+<p><strong>This feature will:</strong></p>
+<ul>
+    <li>Create a visualized, interactive canvas layer where Cards can be played and arranged in decks, hands, and piles.</li>
+    <li>Allow these cards to be positioned either according to canvas space or according to available screen space. </li>
+</ul>
+<p><strong>This feature might:</strong></p>
+<ul>
+    <li>Create animations for certain card interactions like special types actions, such as dealing, flipping, passing, or particle effects when a certain card is triggered.</li>
+</ul>
+
+<h3>2. Combat Turn Markers</h3>
+<p>This feature would implement a framework to visually denote which Token is the current Combatant in an active Combat encounter in a way that provides clear information and visual flair. There are several great modules out there which perform a role similar to this, but we feel like it could be a worthy feature to add to the core software to provide a seamlessly integrated and consistent approach.</p>
+<p><strong>This feature will:</strong></p>
+<ul>
+    <li>Provide a customizable visual marker that draws attention to the Token whose turn it is in a Combat encounter.</li>
+    <li>Support a selection of animation options to provide visual emphasis to the acting Token.</li>
+</ul>
+<p><strong>This feature might:</strong></p>
+<ul>
+    <li>Improve the visual presentation of targeting or the way that tokens are highlighted via the Combat Tracker interface.</li>
+    <li>Support additional temporary sprites linked to Tokens that could be used for special effects like a blood splatter, footprints, sparks, dust clouds, or other "impact" effects.</li>
+</ul>
+
+<h3>3. Document Tags</h3>
+<p>You can never have enough tools in the toolbox when it comes to keeping your games organized. Document Tags would allow users to assign special tags to any existing Document (such as Journal Entries, Actors, Items, etc.) solely for the purposes of improving organization and search-ability. </p>
+<p><strong>This feature will:</strong></p>
+<ul>
+    <li>Allow any Document to be assigned tags which map to a user-defined or package-defined hierarchy. For example, an Actor could be given tags like <code>ancestry:elf</code>, <code>class:fighter:battlemaster</code>, <code>gender:nb</code>, <code>weapon:sword:2h</code>. Or a JournalEntryPage could be given tags like <code>location:town:ferncombe</code>, <code>organization:delvers</code>. Provide a search UI where you can search across all documents in your world both by name and by assigned tags. </li>
+</ul>
+<p><strong>This feature might:</strong></p>
+<ul>
+    <li>Allow using these hierarchical tags to display custom collections of content, for example a window that displays all the characters tagged as <code>ancestry:elf</code>.</li>
+    <li>Allow using document tags as a basis for randomization, for example spawn a random combatant with <code>type:undead and cr:2</code>.</li>
+</ul>
+
+<h3>4. Manual Fog of War</h3>
+<p>This is one of the most commonly requested features from fans of a more "classic" VTT experience. We would add tools for Gamemasters that provide a hands-on experience for managing fog of war reveal for players by marking areas of the map as revealed or obscured.</p>
+<p><strong>This feature will:</strong></p>
+<ul>
+    <li>Provide a GM with tools to draw geometric shapes (rectangle, ellipse, polygon) which remove or add fog of war for players.</li>
+    <li>Allow for manual fog of war exploration to be shared across all players.</li>
+</ul>
+<p><strong>This feature might:</strong></p>
+<ul>
+    <li>Allow for dynamic fog of war exploration to be shared across all players.</li>
+    <li>Support a mode which prevents tokens from moving outside the explored fog of war area.</li>
+</ul>
+
+<h3>5. Player Client</h3>
+<p>We often hear our users express a desire for a stand-alone client to connect to Foundry VTT games. While the existing Foundry VTT server software is not designed for that purpose, we can absolutely understand why users might wish to use a client that would be free of any extensions or configuration options that their main web browser might have. </p>
+<p><strong>This feature will:</strong></p>
+<ul>
+    <li>Offer a separately installable client which provides an optimized environment for connecting to Foundry VTT games as a player.</li>
+    <li>Not require a purchased software license to use, but will require a registered account on <a href="https://foundryvtt.com" rel="nofollow">https://foundryvtt.com</a> to download. </li>
+</ul>
+<p><strong>This feature might:</strong></p>
+<ul>
+    <li>Allow support for built-in Audio/Video chat or WebBluetooth integrations (such as those required by bluetooth dice) without requiring that the server host have a SSL certificate.</li>
+</ul>
+
+<h3>6. Special Effects Regions</h3>
+<p>Our ambient light sources offer a lot of animated effects that can really bring a scene to life. Many users have expressed that they would love a way to animate their scenes without having to also pierce the fog of war with a light source, and this feature would address that exact desire. Special Effects Regions would build on the existing Scene Regions framework to allow GMs and content creators even more ways to make their scenes shine.</p>
+<p><strong>This feature will:</strong></p>
+<ul>
+    <li>Extend the V12 Scene Regions system with a suite of Region Behaviors designed specifically to support visual effects rendered in scenes.</li>
+    <li>Provide a suite of preconfigured animations to represent things like fire, frost, bubbling liquids (such as acid or water), force-fields, swirling fog, or other effects without requiring them to be linked to a light source.</li>
+    <li>Provide an API framework allowing system and module developers to define new shader-based animations to be displayed within Regions. </li>
+</ul>
+<p><strong>This feature might:</strong></p>
+<ul>
+    <li>Support particle emitters in addition to shader-based effects.</li>
+    <li>Support Ambient Audio effects within a specific region as an alternative to point-source based sound effects.</li>
+</ul>
+
+<h3>7. Token Drag Measurement</h3>
+<p>The Ruler in Foundry VTT today works by prompting you to measure first and then move along that measured path. This workflow has its advantages, but an alternative workflow that many users enjoy is one where distance is automatically measured as you drag your token. This feature would add an alternative measurement mode which works in this way. Both the current and this new measurement mode would be usable side-by-side according to your individual preference or method of interaction.</p>
+<p><strong>This feature will:</strong></p>
+<ul>
+    <li>Provide an alternative token movement mode where ruler measurement is performed automatically whenever you drag your token </li>
+    <li>Add tools for GM users to perform secret measurements.</li>
+</ul>
+<p><strong>This feature might:</strong></p>
+<ul>
+    <li>Provide a more beautiful visualization of the ruler, using more advanced rendering options to make the measured distance easy to read but also more aesthetically pleasing.</li>
+    <li>Be extendable, allowing modules and systems to provide custom data to the ruler to provide a visual distinction for different types of movement at different distances, or based on limitations provided by the game rules.</li>
+</ul>
+
+<h3>8. Token Effects Animation</h3>
+<p>Users love animated effects in their games. Whether it's a token that's on fire, or protected by shimmering magical shield, these effects can really bring a game to life. While we've been slipping a few animated effects into certain token-related actions (such as changing scale, or its token image), this would let us focus on a providing a small library of animated token effects to let GMs and their players add a little extra immersion to their games. It would be our hope that these animations could then be extended by our community developers to provide even more options for users. </p>
+<p><strong>This feature will:</strong></p>
+<ul>
+    <li>Provide an initial library of around 10 different visual token effects including options like "on fire", "frozen solid", "magic shield", "turned to stone", "mirror image", "blur/displacement", or other options. (Don't worry sci-fi game fans, we'll throw some options in there for you too!)</li>
+    <li>Provide an API framework that would allow modules and systems to define shader-based token effects in a reusable way. Tokens may be assigned one or more such effects simultaneously. </li>
+</ul>
+<p><strong>This feature might:</strong></p>
+<ul>
+    <li>Provide a way to integrate this system with user-provided image or video textures that could be used as an overlay.</li>
+</ul>

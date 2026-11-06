@@ -1,0 +1,196 @@
+<figure>
+    @Asset[1242]
+    <figcaption>Patreon supporters choose a major feature for Foundry Virtual Tabletop Version 15</figcaption>
+</figure>
+<p>Foundry Virtual Tabletop Version 14 has reached its stable release and our team is ready to start looking ahead to Version 15. Each major version gives our Patreon supporters a say in what we build next, and we rely on that feedback from our most dedicated community members when deciding where to focus. This article describes the eight options on the ballot, along with a brief look at the work we've already planned. For supporters of any tier on our <a href="https://patreon.com/foundryvtt" rel="nofollow" target="_blank">Patreon</a>, voting starts today with our <a href="https://www.patreon.com/foundryvtt/posts/version-15-vote-174588457" rel="nofollow" target="_blank">V15 Patreon Prioritization Poll!</a></p>
+
+<p class="note info">The V15 Patreon Prioritization Poll opened on November 6th and will remain open until 11:59pm eastern time on Monday, November 30th.</p>
+
+<p>Our team has internally committed to the following features for Version 15, and we plan to build each of these regardless of which option wins the vote. You can read more about each one in the <a href="#planned-features" rel="nofollow">Planned Features</a> section below the poll.</p>
+<ul>
+    <li><a href="#user-experience-improvements" rel="nofollow">User Experience Improvements</a>: a broad pass to smooth out the clunkiest common workflows so that the right way to do something is also the easiest way to do it.</li>
+    <li><a href="#mobile-framework" rel="nofollow">Mobile Framework</a>: a framework that lets the core software, game systems, and modules deliver a mobile-first presentation of Foundry VTT.</li>
+    <li><a href="#manual-fog-of-war" rel="nofollow">Manual Fog of War</a>: tools for Gamemasters to manually reveal or conceal areas of the map for all players.</li>
+    <li><a href="#client-side-migration-framework" rel="nofollow">Client-Side Migration Framework</a>: a canonical, core-orchestrated way for game systems and modules to migrate their data.</li>
+    <li><a href="#compendium-translation-framework" rel="nofollow">Compendium Translation Framework</a>: a core framework for translating compendium content into other languages.</li>
+    <li><a href="#performance-profiling-and-optimization" rel="nofollow">Performance Profiling and Optimization</a>: a focused effort to keep Foundry VTT fast and fluid, even on lower-end hardware.</li>
+</ul>
+
+<h2 class="border" id="poll-options">Feature Prioritization Poll</h2>
+<p>We're looking forward to the work outlined above, and we're just as eager to find out which feature you will add to the list. Options are listed alphabetically.</p>
+
+<p>The option with the most votes from our Patreon supporters will join the Version 15 plan. Every feature on this list is one we want to build eventually; this vote exists to decide which of them we work on first! You may also notice that a few options from earlier polls are missing this time. We haven't given up on those ideas, but either we've already decided to do them, or we don't think we could reasonably take them on alongside everything else planned for Version 15.</p>
+
+<h3 class="border" id="asset-tagging-and-search">1. Asset Tagging and Search</h3>
+<blockquote>Have you amassed an epic amount of game assets to use in your games? Do you ever struggle with quickly finding tiles? Sound files? You just know that you had that one canyon battle map somewhere! Wish you had powerful tools for searching and filtering your game assets at your fingertips? Asset Tagging and Search is the feature for you!</blockquote>
+<p>You can never have enough tools in the toolbox when it comes to keeping your games organized. This feature would allow users to assign hierarchical tags to asset files (such as images, audio, and video), to provide a dimension of organization and searchability that is independent of their folder structure.</p>
+<h5>This feature would</h5>
+<ol>
+    <li>Improve the file browser interface with an eye toward usability and performance.</li>
+    <li>Make it possible to search through all subfolders at once, so you can find that one goblin token anywhere in your tokens folder instead of only within the folder you are currently viewing.</li>
+    <li>Allow files to be assigned an arbitrary number of hierarchically structured tags like <code>weapon:blades:katana</code> or <code>locations:towns:ferncombe</code>.</li>
+    <li>Provide a convenient and easily accessible way to browse available asset files that have a certain tag.</li>
+</ol>
+<h5>This feature might</h5>
+<ol start="5">
+    <li>Allow searching for a certain combination of tags with logical operations like AND, OR, and NOT. For example, a compound query like <code>(map:canyon OR map:forest) NOT map:canyon:red</code>.</li>
+    <li>Allow certain folders and filetypes to automatically be treated as tags for the purposes of searching, for example <code>type:video</code> or <code>extension:webp</code>.</li>
+    <li>Make it easier to connect additional cloud storage services, like Cloudflare R2, for hosting your assets.</li>
+    <li>Make it easier to create asset-only modules, like installable token or map packs, which work in any game system and arrive with their assets already tagged and ready to search.</li>
+    <li>Allow previewing audio or video files inside the file browser.</li>
+</ol>
+
+<h3 class="border" id="global-environment-framework">2. Global Environment Framework</h3>
+<blockquote>The party crests a ridge at dusk just as a storm breaks, and rain begins to sweep across the battlefield while fog rolls in along a river below. Do you wish your Scenes could be animated for deeper dramatic immersion? Would you like weather that looks right from overhead on a top-down map? Global Environment Framework is the feature for you!</blockquote>
+<p>Our weather effects have been a long-standing feature of the Canvas, but it's been a while since they've seen significant changes and we'd be lying if we said we didn't think they needed an update. We want to bring weather into a more cohesive set of environment settings for each Scene, where weather is one ingredient alongside haze, color, and sound. Layer all of these options together to create exactly the ambience you want. This framework would use many of the same modern techniques we've refined in our in-house premium content like Ember and Bastion of Blasphemies, making them available to all users.</p>
+<h5>This feature would</h5>
+<ol>
+    <li>Compose each Scene's environment from layers, like weather, haze, and color tint, which combine to create its overall ambience.</li>
+    <li>Allow multiple weather and environmental effects to run at once, like driving rain and rolling fog together.</li>
+    <li>Provide top-down rain and snow designed for overhead maps, alongside a refreshed and expanded library of effects.</li>
+</ol>
+<h5>This feature might</h5>
+<ol start="4">
+    <li>Automatically pair each effect with matching sound, so a rainstorm, howling wind, or raging wildfire is heard as well as seen, and each flash of lightning arrives with its thunder, all without any scripting.</li>
+    <li>Connect a Scene's environment to the passage of time, with a day-night cycle that shifts its lighting and color as the hours pass.</li>
+    <li>Provide convenient on-screen controls for the GM to adjust the environment during play, using sliders for things like wind direction or precipitation intensity.</li>
+    <li>Define a direction for the sun or moon in each Scene, which modules and content creators can use to render shadows and lighting that agree with the environment.</li>
+</ol>
+
+<h3 class="border" id="drawings">3. Improved Drawing Tools</h3>
+<blockquote>Do you find yourself sketching Scenes during gameplay to create the environment or communicate ideas? Have you ever wished you could dust a forest map with fresh snow, or paint a muddy trail across a meadow, without leaving Foundry VTT? Improved Drawing Tools is the feature for you!</blockquote>
+<p>Our drawing tools are functional, but they could offer much more, both for improvised sketching during play and for preparing Scenes ahead of time. Many Gamemasters rely heavily on drawing tools for whipping up quickly sketched maps as part of their gameplay, and many players want the ability to create more beautiful drawings. We would like to bring some of the feature richness that people enjoy in dedicated image editing software into Foundry VTT, so you can paint directly onto your Scenes without reaching for another program.</p>
+<h5>This feature would</h5>
+<ol>
+    <li>Add a brush system for painterly strokes, with configurable brush shape, size, and hardness, along with an eraser.</li>
+    <li>Support textured brushes that paint a material like snow, moss, or sand over an existing map.</li>
+    <li>Provide a convenient tool palette for changing your brush, color, and line settings while you draw, without opening a separate configuration window.</li>
+    <li>Offer richer styling for shapes and lines, like separate stroke and fill settings, drop shadows, and dashed, dotted, or arrowed lines.</li>
+</ol>
+<h5>This feature might</h5>
+<ol start="5">
+    <li>Allow users to have private drawings so they can annotate a Scene without revealing that information to other players.</li>
+    <li>Improve the existing Text drawing type to support more text styling options and multi-line editing.</li>
+    <li>Allow baking painted strokes, Drawings, or Tiles together into a single Scene background image.</li>
+    <li>Invest in an input event-handling approach that would allow these drawing tools to work well with drawing tablets or touchpads.</li>
+</ol>
+
+<h3 class="border" id="improved-vision-and-detection-modes">4. Improved Vision and Detection Modes</h3>
+<blockquote>Do you love using asymmetric information to motivate tactical gameplay? Do you want to push your immersion and imagination of Scene exploration to the next level? Want to see the world as your character would see it? Improved Vision and Detection Modes is the feature for you!</blockquote>
+<p>Our existing Vision Modes and Detection Modes have added a lot of power to Foundry Virtual Tabletop, but we feel that these tools could be both more powerful AND more user-friendly for Gamemasters and players alike. Imagine a character that can switch between darkvision and normal sight with a single click, or a monster lurking in the shadows that your players can hear but not see, revealed only as a vague shape on the map. We want every Token to perceive the world the way its character would, without complicated setup.</p>
+<h5>This feature would</h5>
+<ol>
+    <li>Allow a Token to have multiple vision modes and switch between them easily from the Token HUD.</li>
+    <li>Allow multiple detection capabilities to be active at the same time, with each one able to show its own effect on the Tokens it detects.</li>
+    <li>Support "imprecise" senses which reveal that something is there and roughly how large it is, without revealing exactly what it is.</li>
+    <li>Make it easier to configure how far each sense reaches and how it interacts with magical darkness.</li>
+</ol>
+<h5>This feature might</h5>
+<ol start="5">
+    <li>Add support for senses which are not based on sight, like thermal perception or echolocation.</li>
+    <li>Support detection and range tests that measure distance in grid spaces instead of point-to-point.</li>
+    <li>Allow game systems to configure a Token's senses automatically based on its character's abilities.</li>
+</ol>
+
+<h3 class="border" id="interactable-objects">5. Interactable Objects</h3>
+<blockquote>While exploring an ancient crypt, your players discover a hidden lever set into the wall. One of them pulls it, and a secret compartment grinds open to reveal a treasure chest. They open it and take the gold and gear inside, straight into their characters' inventories. If you've ever wanted your players to interact directly with the world they see in a Scene, Interactable Objects is the feature for you!</blockquote>
+<p>Originally prototyped in Ember, Interactable Objects would let you attach interactivity to the things in your Scenes, like a Tile or a Region. Players could pull levers, open chests, and otherwise affect the environment around them directly from the Canvas, while Gamemasters stay in control of what can be discovered, who can use each interactable object, and what happens when they do.</p>
+<h5>This feature would</h5>
+<ol>
+    <li>Allow interactivity to be attached to objects in your Scene, like Tiles or Regions, so that players can use them directly from the Canvas.</li>
+    <li>Support common interactions out of the box, like toggling lights, unlocking or opening doors, revealing hidden parts of the Scene, or retrieving items from a container.</li>
+    <li>Control when each object can be seen and used, whether it stays hidden until discovered, is reserved for the Gamemaster, or requires a Token to be standing nearby.</li>
+    <li>Work without any scripting, while allowing module and system developers to raise the ceiling by writing entirely custom interactions in JavaScript.</li>
+</ol>
+<h5>This feature might</h5>
+<ol start="5">
+    <li>Allow game systems to define rules for interacting with objects, like a skill check to pick a lock or an action cost to pull a lever.</li>
+    <li>Provide a system-agnostic way to share loot found in containers among the party.</li>
+    <li>Rebuild door controls as Interactable Objects, giving doors the same flexibility, like staying hidden until discovered or requiring a nearby Token to open.</li>
+</ol>
+
+<h3 class="border" id="scene-sub-types">6. Scene Sub-Types</h3>
+<blockquote>Do you use Scenes for more than battle maps? Do you display a single piece of artwork as the backdrop for theater-of-the-mind storytelling, or use a large region map to follow the party's travels? Would you like Foundry VTT to treat those Scenes differently from the ones you use for combat? Scene Sub-Types is the feature for you!</blockquote>
+<p>Not every Scene is a battle map. More and more users configure Scenes to display art as vignettes for theater-of-the-mind play, or as region maps that cover a far larger area than a single encounter. This feature would formalize the concept of Scene types, offering built-in support for Battle Map, Region Map, and Vignette Scenes, each with some special functionality of its own to support that style of storytelling. Scene types would also give modules a foundation to offer unique experiences that the core Canvas can't offer today, like a 3D view, an isometric perspective, or a dedicated card table, each delivered as its own specialized Scene type.</p>
+<h5>This feature would</h5>
+<ol>
+    <li>Introduce a framework for Scene types, where each type brings its own defaults and behaviors, and modules can register entirely new types of Scenes.</li>
+    <li>Provide built-in Battle Map, Region Map, and Vignette Scene types, each tailored to its style of play.</li>
+    <li>Offer stronger support for "hexploration" on region maps, allowing fog of war to be revealed within a certain number of grid spaces instead of a circular radius.</li>
+</ol>
+<h5>This feature might</h5>
+<ol start="4">
+    <li>Advance world time automatically as the party travels across a region map, based on the distance they cover.</li>
+    <li>Add Region Behaviors designed for hex exploration, which can trigger semi-random encounters or discoveries as the party enters new areas.</li>
+    <li>Add features tailored to vignette Scenes, like visual novel style interactions that modules could build upon and extend.</li>
+    <li>Add core support for top-down parallax animation in battle map Scenes, giving elements like tree canopies a sense of depth as the view moves.</li>
+</ol>
+
+<h3 class="border" id="special-effect-regions">7. Special Effect Regions</h3>
+<blockquote>Do you want the most powerful visual effects that Foundry VTT can offer? Do you want to fill your Scenes with crackling fire, drifting smoke, or shimmering water? Do you want to make your players <em>feel it</em> when they walk into a trap or hazardous environment? Special Effect Regions is the feature for you!</blockquote>
+<p>We've longed for a way to add beautiful environmental effects that bring a Scene to life. Special Effect Regions would make a wide range of animations available for depicting environments and hazards, from a smoldering lava field to a pool of bubbling acid, simply by applying them to Scene Regions.</p>
+<h5>This feature would</h5>
+<ol>
+    <li>Extend the Scene Regions system with a suite of Region Behaviors designed specifically to support rendered visual effects.</li>
+    <li>Provide a set of built-in animated effects that can be easily applied (such as fire, smoke, fog, water, lava, electricity, acid, and more).</li>
+    <li>Enable each type of effect to be customized with certain parameters like color, speed, and intensity, similar to the properties that are supported for light sources and their animations.</li>
+    <li>Provide an API framework allowing system and module developers to define new shader-based animations to be displayed on Scene Regions.</li>
+</ol>
+<h5>This feature might</h5>
+<ol start="5">
+    <li>Support configurable particle emitters in addition to shader-based effects.</li>
+    <li>Provide a visual interaction between a Region's effect and the Tokens inside it, like Tokens wading through deep water appearing partly submerged.</li>
+    <li>Integrate with Ambient Audio sources to create sound effects that are audible only within specific Regions.</li>
+    <li>Allow for more complex light areas, such as polygonal light sources.</li>
+</ol>
+
+<h3 class="border" id="token-movement-sounds">8. Token Movement Sounds</h3>
+<blockquote>The creak of a wooden floorboard under the weight of a heavy boot. Gravel crunching as a character crosses a path. Stone steps echoing in long reverberant corridors. Do you long for the immersion of hearing footsteps as your players move their Tokens? Token Movement Sounds is the feature for you!</blockquote>
+<p>Originally prototyped in Ember, Token Movement Sounds would let every Token make itself heard as it moves. A knight in plate armor, a padding wolf, and a slithering serpent should each sound different as they move around the Canvas, and their movements shouldn't carry the same audio characteristics if they're moving on different surfaces (such as a wooden bridge, muddy riverbank, and stone stairway). We know this seems like a small feature, but we feel like the simple act of hearing a Token's footsteps change as they cross from one area to another adds a surprising amount of immersion to every Scene.</p>
+<h5>This feature would</h5>
+<ol>
+    <li>Play sounds as Tokens move across the Scene, timed to match their movement animation.</li>
+    <li>Allow each Token to be configured with its own movement sounds, which can differ by how it is moving.</li>
+    <li>Extend Scene Region Surface definitions so that the ground beneath a Token, like wood, gravel, stone, or water, changes how its movement sounds.</li>
+</ol>
+<h5>This feature might</h5>
+<ol start="4">
+    <li>Provide an expanded set of built-in sounds for other ways of moving, like swimming or climbing, and for distinctive creatures, like the squelch of an ooze or the gallop of hooves.</li>
+    <li>Distinguish between walking on a surface, climbing up its side, and moving through it, like wading across a stream versus swimming beneath it, each with its own audio cues.</li>
+    <li>Apply environmental filters to movement sounds, like echoes in a cavern or muffling in deep snow.</li>
+    <li>Add support for game systems to customize who hears a Token's footfalls, so that a sneaking Token could move silently except to creatures able to perceive it.</li>
+</ol>
+
+
+<h2 class="border" id="planned-features">Planned Features</h2>
+<p>Here is a closer look at the features our team has already committed to for Version 15.</p>
+
+<h3 id="user-experience-improvements">User Experience Improvements</h3>
+<p>Some of the things you do most often during play take more clicks, or more hunting through menus, than they should. We will invest a concentrated period of time into identifying the workflows that carry the most friction and finding ways to make their most common use cases quick and obvious. This isn't really one specific feature due to its sheer size, instead it's a thematic focus that will encompass many changes across the software. Our goal is for everyone, and especially new users, to find that Foundry VTT is easy to work with.</p>
+
+<h3 id="mobile-framework">Mobile Framework</h3>
+<p>We want to make a mobile-first version of Foundry VTT possible. Your Foundry VTT experience is shaped by the core software, the game system you play, and the modules you use, so this really isn't a feature that the core software can deliver alone. Instead, our focus will be on providing a framework that makes it easy for developers to adopt mobile support. New APIs and features will be added to detect when a client is on a mobile device and present a mobile-first version of any interface that defines one. We will provide system-agnostic mobile versions for some core workflows, like reading Journal Entries, browsing Compendium packs, and possibly a 'second-screen' style interface for moving a controlled Token using a directional pad. Game systems will have ample extension points to provide mobile versions of their character sheets and other interfaces, and we plan to lead the way with mobile-friendly character sheets for D&amp;D Fifth Edition and Crucible.</p>
+
+<h3 id="manual-fog-of-war">Manual Fog of War</h3>
+<p>Manual Fog of War has been a long-standing contender on our Patreon polls, and we've decided it's time to bring it to life. Fans of a more classic VTT experience have long asked for a way to reveal or conceal portions of a Scene by hand as the players progress through an area. We will provide Gamemasters with drawing tools that clear or obscure areas of fog of war for all players, whether to reveal a room as the party enters it or to correct part of the map that was revealed by accident.</p>
+
+<h3 id="client-side-migration-framework">Client-Side Migration Framework</h3>
+<p>As game systems and modules evolve, they sometimes need to migrate existing data to a new format, and today each package handles this in its own way. We will provide a canonical, core-sponsored framework for these migrations, so that the core software knows which migrations need to run, runs them in a predictable order, and monitors whether each one succeeds or fails. This framework will also prevent players from joining a World until its migrations have finished, and manage how migrations interact with importing Adventures. As with the Mobile Framework, our goal here is to provide the engine and tooling for package developers to write the migrations, rather than trying to implement migrations on their behalf.</p>
+
+<h3 id="compendium-translation-framework">Compendium Translation Framework</h3>
+<p>For many years, our community has relied on the <a href="https://foundryvtt.com/packages/babele" rel="nofollow" target="_blank">Babele</a> module to translate compendium packs into other languages. The core software already provides a framework for translating its interface, and it's past time for us to offer a core solution for translating compendium content as well. We will build a mechanism that content creators can use to provide their compendium content in alternate languages. Exactly which technology we use remains to be determined as we scope this work, but a key goal is that compendium packs already translated with Babele can be easily migrated to, or continue working with, the new framework.</p>
+
+<h3 id="performance-profiling-and-optimization">Performance Profiling and Optimization</h3>
+<p>We want Foundry VTT to stay fast and fluid, and to remain a pleasure to use even on lower-end hardware. This has been an ongoing focus across numerous versions of the software, and is no less important in V15. This work will focus on profiling and optimizing key performance bottlenecks across the software, including:</p>
+<ul>
+    <li>Time to initially load a World.</li>
+    <li>Time to render and refresh user interface elements.</li>
+    <li>Round-trip time for database updates.</li>
+    <li>Canvas frame render time.</li>
+    <li>Computation time for vision, lighting, and fog of war updates.</li>
+</ul>
+
+<h2 class="border">How To Vote</h2>
+<p>To cast your vote, visit the <a href="https://www.patreon.com/foundryvtt/posts/version-15-vote-174588457" rel="nofollow" target="_blank">V15 Patreon Prioritization Poll</a>. The poll is open to <a href="https://patreon.com/foundryvtt" rel="nofollow" target="_blank">Patreon</a> supporters at any tier. Because Patreon polls don't offer ranked choice voting, you may vote for as many options as you would be glad to see prioritized. Whichever feature has the most votes overall when the poll closes will be the winner.</p>
+<p>Thank you to all of our Patreon supporters for helping to shape the future of Foundry Virtual Tabletop. Version 15 is set to make Foundry VTT easier to use, faster, and available on more devices and in more languages, and we can't wait to see which feature you choose to add to it. We'll share the results once the poll closes!</p>
+<p class="note info">The V15 Patreon Prioritization Poll opened on November 6th and will remain open until 11:59pm eastern time on Monday, November 30th.</p>
