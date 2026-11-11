@@ -103,7 +103,9 @@
     <div class="column" style="flex:2">
 <dl>
     <dt>cs : Count Successes</dt>
-    <dd>This modifier causes each die that rolls a specified result to be counted as a success which is tallied when the roll concludes. Without a specified number to succeed, all dice rolled are considered successes. This modifier can have the requirements for success specified through several comparison symbols, as follows:</dd>
+    <dd>This modifier causes each die that rolls a specified result to be counted as a success which is tallied when the roll concludes. Without a specified number to succeed, all dice rolled are considered successes.
+        <p>This modifier will only count <i>previously</i> rolled dice.  If you add additional modifiers beyond it (e.g. <code class="language-plaintext">/r 10d6cs=6x6</code>), the effects of the additional modifiers will be added (summed up) instead of being tallied as successes, which is likely not what you intend.  The order of operations matters.</p>
+        This modifier can have the requirements for success specified through several comparison symbols, as follows:</dd>
     <dt>cs={y}</dt><dd>Count the number of dice which resulted exactly in y.</dd>
     <dt>cs&gt;{y}</dt><dd>Count the number of dice which rolled greater than y.</dd>
     <dt>cs&gt;={y}</dt><dd>Count the number of dice which rolled greater than or equal to y.</dd>
