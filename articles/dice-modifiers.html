@@ -9,15 +9,16 @@
     <div class="column" style="flex:2">
 <dl>
     <dt>r : Reroll</dt>
-    <dd>Rerolls the die based on the set condition, keeping the outcome regardless of whether it is better. Reroll (r) will only reroll the die once, for continual rerolling see "x : explode"</dd>
+    <dd>Rerolls (replaces) the die based on the set condition, keeping the outcome regardless of whether it is better. This will only reroll each die a single time (if at all).</dd>
     <dt>rr : Recursive Reroll</dt>
-    <dd>Rerolls the die based on the set condition, and rerolls that result if it also meets the criteria, or keeps it if it does not. Unlike Reroll (r) which will only reroll the die once, recursive reroll will keep rolling as long as results meet the reroll criteria.</dd>
+    <dd>Rerolls the die based on the set condition, and rerolls that result if it also meets the criteria, or keeps it if it does not. Unlike a normal reroll (r) which will only reroll the die once, recursive reroll (rr) will keep rolling as long as results meet the reroll criteria.</dd>
     <dt>x : Explode</dt>
-    <dd>Rerolls a die continually based on the set condition, so that each occurrence of the number rolls again, continually adding to the total result.</dd>
+    <dd>Rolls another die based on the set condition, so that each occurrence of the number rolls again, continually adding to the total result.  Unlike a recursive reroll (rr), exploding dice will generate new dice and keep the old dice rolls in the result.</dd>
     <dt>xo : Explode Once</dt>
-    <dd>Rerolls a die once based on the set condition, used primarily by games which use a "dice pool", adding to the total result.</dd>
-    <dt>x1, x2, x3, x4...: Explode with Numeric Cap</dt>
-    <dd>Rerolls the die based on the set condition, but only up to a maximum of <em><strong><u>Any Number</u></strong></em>&nbsp; times. For example, adding <code class="language-plaintext">x5</code> to a roll would allow it to explode up to a maximum of 5 times, and adding <code class="language-plaintext">x1</code> to a roll is identical to adding <code class="language-plaintext">x0</code>.</dd>
+    <dd>Rolls another die based on the set condition, as with explode (x), but limited to a single additional die. Used primarily by games which use a "dice pool".</dd>
+    <dt>x1[condition], x2[condition], x3[condition], ... : Explode up to K times</dt>
+    <dd>Rolls another die based on the set condition, but limited to K additional dice. Using x1 (explode up to 1 time) is identical to using xo (explode once).
+        <p>Note that you must type a full verbose condition here, such as <code class="language-plaintext">x2=10</code> or <code class="language-plaintext">x5>=8</code>, otherwise this will be parsed as a standard Explode (e.g. <code class="language-plaintext">x3</code> is parsed as "explode continually each time you roll a 3").</p></dd>
 </dl>
 <section class="collapsible">
     <header class="collapsible-header">Re-rolls and Exploding Dice Examples</header>
@@ -28,9 +29,9 @@
         <pre><code class="language-plaintext">/r 1d20r&lt;10</code></pre>
         <p>Roll one twenty-sided die, and if the result is less than 3, re-roll it, including any results that are also less than 3.</p>
         <pre><code class="language-plaintext">/r 1d20rr&lt;3</code></pre>
-        <p>Roll five ten-sided dice, and if any of the individual results are a 10, roll another ten-sided die add the result to the total.</p>
+        <p>Roll five ten-sided dice, and if any of the individual results are a 10, roll another ten-sided die add the result to the total.  Each roll of a 10 causes another die to be added.</p>
         <pre><code class="language-plaintext">/r 5d10x10</code></pre>
-        <p>Roll one twenty-sided die, rolling additional dice if the result is less than 10, until one of the dice is ten or better, which is the only result it will keep.</p>
+        <p>Roll one twenty-sided die, rolling additional dice if the result is less than 10, until one of the dice is ten or better, which is the only result it will keep.  (This is equivalent to <code class="language-plaintext">/r 1d20rr<10</code>)</p>
         <pre><code class="language-plaintext">/r 1d20x&lt;10kh</code></pre>
         <p>Roll six ten-sided dice, and roll one additional die for each 10 rolled, but do not re-roll 10s on the additional die, adding them to the total.</p>
         <pre><code class="language-plaintext">/r 6d10xo10</code></pre>
@@ -39,12 +40,12 @@
         <p>Roll six ten-sided dice, and roll one additional die for each 9 or 10 rolled (up to a maximum of 2 times), adding them to the total.</p>
         <pre><code class="language-plaintext">/r 6d10x2>=9</code></pre>
         <p><em>Chronicles of Darkness - Rote Rolls</em>; roll five ten-sided dice, re-rolling any dice that fall under 8, and re-rolling any dice that score a 10, before counting the total successes in the roll.</p>
-        <pre><code class="language-plaintext">/r 5d10xo&lt;8x10cs&gt;=8</code></pre>    
+        <pre><code class="language-plaintext">/r 5d10xo&lt;8x10cs&gt;=8</code></pre>
     </div>
 </section>
 </div>
 <figure class="right">@Image[193]
-    <figcaption>These modifiers cause dice to continue rolling under specific conditions.</figcaption>    
+    <figcaption>These modifiers cause dice to continue rolling under specific conditions.</figcaption>
     </figure>
 </div>
 
@@ -89,14 +90,14 @@
         <p>Roll four ten-sided dice, replacing any 1s with 2s</p>
         <pre><code class="language-plaintext">/r 4d10min2</code></pre>
         <p>Roll four ten-sided dice, replacing any 9s or 10s with 8s.</p>
-        <pre><code class="language-plaintext">/r 4d10max8</code></pre>        
+        <pre><code class="language-plaintext">/r 4d10max8</code></pre>
     </div>
 </section>
 </div>
 <figure class="right">@Image[192]
     <figcaption>These modifiers cause dice to keep or remove dice results under specific conditions.</figcaption>
     </figure>
-</div>    
+</div>
 
 <h2 id="success">Successes and Failures</h2>
 <div class="columns">
@@ -164,7 +165,7 @@
         <p>Roll three six-sided dice, and subtract the value of any dice that roll lower than three.</p>
         <pre><code class="language-plaintext">/r 3d6sf&lt;3</code></pre>
         <p>Roll three six-sided dice and subtract 10 from the final result.</p>
-        <pre><code class="language-plaintext">/r 3d6ms10</code></pre>        
+        <pre><code class="language-plaintext">/r 3d6ms10</code></pre>
     </div>
 </section>
 </div>
@@ -184,7 +185,7 @@
         <p>Coins are two-sided dice with two results: heads, or tails. They can be rolled as any other die, but are not affected by mathematical expressions, though they can still be combined with other dice types. Coins also allow the roller to call (c) a specific result in advance, which will treat rolling coins similarly to "count success". By default, Coins tally the number of heads as successes in the results.</p>
         <pre><code class="language-plaintext">/roll 4dc # Flip four coins.</code></pre>
         <pre><code class="language-plaintext">/roll 3dcc1 # Flip three coins and tally the number of coins that result in Heads</code></pre>
-        <pre><code class="language-plaintext">/roll 3dcc0 # Flip a number of coins and tally the number of coins that result in Tails</code></pre>                
+        <pre><code class="language-plaintext">/roll 3dcc0 # Flip a number of coins and tally the number of coins that result in Tails</code></pre>
     </div>
 </section>
 
@@ -197,6 +198,6 @@
 </section>
 </div>
 <figure class="right">@Image[102]
-    <figcaption>These special dice are reserved for specific systems, or for special situations.</figcaption>    
+    <figcaption>These special dice are reserved for specific systems, or for special situations.</figcaption>
 </figure>
 </div>
