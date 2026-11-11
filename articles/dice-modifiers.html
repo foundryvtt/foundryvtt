@@ -118,7 +118,7 @@
     <dt>cf : Count Failures</dt>
     <dd>The syntax of this modifier works identically to count success, but counts the number of dice that failed to meet the specified criteria.</dd>
     <dt>df : Deduct Failures</dt>
-    <dd>This modifier is used to specify the criteria for a die result to be a failure, then deducts the number of failures from the dice result, counting each failure as -1. The criteria for failure are specified identically to count success. It is intended primarily for use with Count Success, but also functions on its own.</dd>
+    <dd>This modifier is used to specify the criteria for a die result to be a failure, then deducts the number of failures from the dice result, counting each failure as -1. The criteria for failure are specified identically to count success. It is intended primarily for use with Count Successes, but also functions on its own.</dd>
     <dt>sf : Subtract Failures</dt>
     <dd>This modifier sets a failure criteria, and any die that meets that criteria has its roll subtracted from the final result. The criteria for failure are specified identically to count success.</dd>
     <dt>ms : Margin of Success</dt>
@@ -141,12 +141,12 @@
         <pre><code class="language-plaintext">/roll 3d6odd</code></pre>
         <p><em>World of Darkness - Dice vs Difficulty</em>: roll five ten-sided dice, counting any roll of a 6 or higher as a success, while deducting a success for any roll that is a 1.</p>
         <pre><code class="language-plaintext">/r 5d10cs&gt;=6df=1</code></pre>
-        <p><em>Chronicles of Darkness - Dice vs Difficulty</em>: Roll five ten-sided dice, counting a success for every die that rolls 8 or higher, and rolling an additional die any time a result of 10 is rolled.</p>
-        <pre><code class="language-plaintext">/r 5d10cs&gt;=8x=10</code></pre>
-        <p><em>Chronicles of Darkness - 9 again and 8 again using exploding dice</em>: roll five dice, counting a success for every die that rolls 8 or higher, and rolling an additional d10 any time a 9 or 10 is rolled.</p>
-        <pre><code class="language-plaintext">/r 5d10cs&gt;=8x&gt;=9</code></pre>
-        <p>Roll ten dice, counting a success for every die that rolls 8 or higher, and rolling an additional d10 any time an 8 or higher is rolled.</p>
-        <pre><code class="language-plaintext">/r 10d10cs&gt;=8x&gt;=8</code></pre>
+        <p><em>Chronicles of Darkness - Dice vs Difficulty</em>: Roll five ten-sided dice, rolling an additional die any time a result of 10 is rolled, and counting a success for every die that rolls 8 or higher.</p>
+        <pre><code class="language-plaintext">/r 5d10x=10cs&gt;=8</code></pre>
+        <p><em>Chronicles of Darkness - 9 again using exploding dice</em>: Roll five dice, rolling an additional d10 any time a 9 or 10 is rolled, and counting a success for every die that rolls 8 or higher.</p>
+        <pre><code class="language-plaintext">/r 5d10x&gt;=9cs&gt;=8</code></pre>
+        <p><em>Chronicles of Darkness - 8 again using exploding dice</em>: Roll ten dice, rolling an additional d10 any time an 8 or higher is rolled, and counting a success for every die that rolls 8 or higher.</p>
+        <pre><code class="language-plaintext">/r 10d10x&gt;=8cs&gt;=8</code></pre>
         <p>Rolls ten twenty-sided dice, and counts a failure for each die which rolls a 20.</p>
         <pre><code class="language-plaintext">/r 10d20cf20</code></pre>
         <p>Roll ten twenty-sided dice and count a failure for each die which rolls over a 10.</p>
