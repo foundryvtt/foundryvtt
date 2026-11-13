@@ -1,5 +1,5 @@
 <h5 class="release-date">Updated October 18, 2026 (Version 14.369)</h5>
-<link href="https://r2.foundryvtt.com/website-static-public/css/foundry.css" rel="stylesheet"></link>
+
 <div class="block toc">
     <h2 id="toc">Table of Contents</h2>
     <ul>
@@ -9,7 +9,7 @@
             <li><a href="#regions-and-behaviors">Each Scene Region is powered by Behaviors</a></li>
             <li><a href="#templates-are-regions">"Templates" are Scene Regions</a></li>
         </ul>
-        <li><a href="#Scene-controls">Scene Controls</a></li>
+        <li><a href="#scene-controls">Scene Controls</a></li>
         <ul>
             <li><a href="#measured-template-mode">Measured Template Mode</a></li>
             <li><a href="#palette">Palette</a></li>
@@ -62,7 +62,7 @@
 </div>
 <p class="note info"><strong>Note: </strong> If you've used Foundry VTT prior to Version 14, Measured Templates have been folded into Scene Regions.</p>
 <h2 class="border" id="scene-controls">Scene Controls</h2>
-<p>The Scene Controls are on the left side of the UI. Clicking the <span class="reference"><i class="fa-regular fa-game-board"> </i> Region Controls</span> button switches to the Regions layer, where you can find a number of controls that allow you to easily create, edit and delete Regions. This Layer behaves a bit differently than the others because of <i class="fa-solid fa-ruler-combined"> </i> Measured Template Mode</span> and because each Scene Region can have many Shapes.</p>
+<p>The Scene Controls are on the left side of the UI. Clicking the <span class="reference"><i class="fa-regular fa-game-board"> </i> Region Controls</span> button switches to the Regions layer, where you can find a number of controls that allow you to easily create, edit and delete Regions. This Layer behaves a bit differently than the others because of <span class="reference"><i class="fa-solid fa-ruler-combined"> </i> Measured Template Mode</span> and because each Scene Region can have many Shapes.</p>
 <div class="columns">
     <figure class="column" style="max-width: 25%;">
         @Asset[1208]
@@ -111,7 +111,7 @@
         </dl>            
     </div>
 </div>
-<h3 class="border" id="measured-template-mode"><span><i class="fa-solid fa-ruler-combined"> </i> The Measured Template Mode</span> toggle</i></h3>
+<h3 class="border" id="measured-template-mode"><span><i class="fa-solid fa-ruler-combined"> </i> The Measured Template Mode</span> toggle</h3>
 <p>The Measured Template Mode toggle is designed to quickly reconfigure the behavior of Scene Regions and their control buttons to allow you to quickly work with "template-style" Scene Regions.</p>
 <p>Measured Template mode is enabled by default for Players and is also useful for GMs during sessions. Not only is it useful during Combat Encounters, but it also provides a simple way of marking out areas that all players can see easily.</p>
 <p>This toggle is unique because it changes which other control buttons are available and how they behave. The Measured Template Mode toggle does not change any existing Regions, but effectively replaces the job of the Palette by automatically setting the following defaults for any new Regions:</p>
@@ -221,7 +221,7 @@
         </dl>
     </div>
     <figure class="column">
-        <video autoplay="true" loop="loop" muted="true" src="https://r2.foundryvtt.com/website-uploads-public/asset/user_681/region-demo-cave-weather-suppression-2024-05-29.webm"></video>
+        @Asset[758]
         <figcaption>A cozy cave protected from the elements by the <span class="reference">Suppress Weather</span> behavior</figcaption>
     </figure>
 </div>
@@ -234,7 +234,7 @@
             <li><code>scene</code>: The Scene the behavior is included in</li>
             <li><code>region</code>: The Region the behavior is included in</li>
             <li><code>behavior</code>: The behavior being triggered</li>
-            <li><code>Event</code></dt>: Information specific to the triggering event. This includes:
+            <li><code>Event</code>: Information specific to the triggering event. This includes:
                 <ul>
                     <li><code>name</code>: The triggering event name, e.g. <code>tokenExit</code></li>
                     <li><code>data.token</code>: The triggering token</li>
@@ -268,7 +268,7 @@
         </dl>
     </div>
     <figure class="column">
-        <video autoplay="true" loop="loop" muted="true" src="https://r2.foundryvtt.com/website-uploads-public/asset/user_681/region-demo-stair-teleport-2024-05-29.webm"></video>
+        @Asset[757]
         <figcaption>A player enjoying the convenience of the <span class="reference">Teleport Token</span> Behavior</figcaption>
     </figure>
 </div>
@@ -289,7 +289,7 @@
     <dd>The inverse of Behavior Activated, this event is triggered when the Region Behavior becomes inactive, i.e. is disabled or deleted without being disabled. This event is triggered only for the Region Behavior that subscribes to this event.</dd>
     <dt>Behavior Viewed</dt>
     <dd>This event occurs when the Region Behavior is being viewed or the Scene containing its Region becomes active. This event trigger is more likely to be used by developers or content creators for the purposes of handling special animations and effects on the canvas, to activate those effects only when that portion of the scene is being viewed.</dd>
-    <dt>Behavior Unviewed</p>
+    <dt>Behavior Unviewed</dt>
     <dd>This event occurs when the Region becomes inactive or the Scene of its Region is no longer being viewed. This event trigger is more likely to be used by developers or content creators for the purposes of handling special animations and effects on the canvas, to deactivate those effects once that portion of the scene is no longer being viewed.</dd>
     <dt>Token Enters</dt>
     <dd>This event occurs whenever a token enters a region, whether it is created in the region, moves into it by way of drag or measured movement, the boundary of the region changes to encompass the token, or the region behavior is activated while tokens are within the shape.</dd>
@@ -301,7 +301,7 @@
     <dd>This event occurs when a Token begins a movement that has a destination outside a Region and the Token was inside that Region's boundaries before the movement began.</dd>               
     <dt>Token Moves Within</dt>
     <dd>This event occurs when a Token begins a movement that has a destination within the same Region shape, but not when entering or exiting the Region.</dd>
-    <dt>Token Animates In</p>
+    <dt>Token Animates In</dt>
     <dd>This event occurs if a token's movement animation would bring it into the shape of a Scene Region, but not if the token enters by other means such as creation or the changing of a region boundary. This event will only occur if the Region is being viewed while it occurs.</dd>
     <dt>Token Animates Out</dt>
     <dd>This event occurs is triggered when a token's movement animation would cause it to exit the shape of a Scene Region, but not if the token leaves by other means such as deletion or the changing of a region boundary. This event will only occur if the Region is being viewed while it occurs.</dd>                    

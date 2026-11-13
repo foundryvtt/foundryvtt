@@ -63,7 +63,7 @@
 <h3 class="border">Haul and Drag (Token Drag Measurement and Movement Changes) </h3>
 <div id="token-drag">
     <figure class="right">
-        <video autoplay="" loop="loop" muted="true" src="https://r2.foundryvtt.com/website-uploads-public/asset/user_681/token-drag-movement-demo-2025-02-28.webm"></video>
+        @Asset[882]
         <figcaption>A demonstration of a complex movement using Token Drag Measurement.</figcaption>
     </figure>
     <figure class="right"><img src="https://r2.foundryvtt.com/website-uploads-public/asset/user_671/movement-types-demo-2025-04-17.gif"/>
@@ -84,7 +84,7 @@
         <p>It wouldn't be an update to Foundry VTT without including new features for the canvas and this Version is no exception. This time around we've got a suite of small but significant changes for lighting, doors, and a couple of small perks for tokens.</p>
             <h4>Lights and Sounds</h4>
             <figure class="column right noborder">
-                <video autoplay="" controls="" loop="loop" muted="true" src="https://r2.foundryvtt.com/website-uploads-public/asset/user_70/sound-reactive-lights-trimmed-2025-04-29.webm"></video>
+                @Asset[907 videocontrols]
                 <figcaption>A demonstration of the Sound Reactive Pulse light animation.</figcaption>
             </figure>
             <p>A lot of RPGs have a concept of light and darkness competing for visibility in game terms. Does that magical darkness snuff out a torch? is it blasted away by a magical light spell? Does the black hole outside the ship consume any light you shine into it? Previously, there was no real way of handling these competing light options, but light sources now have a field for defining "priority". Setting a priority on a light or darkness source determines its relative importance— higher priority lights will overwrite lower-priority darkness, unless both have the same set priority, in which case darkness sources will always win out. </p>
@@ -92,7 +92,7 @@
             <p>If that wasn't enough, we've also introduced a new type of light source animation. Sound reactive lights automatically synchronize with game sound, pulsing in time with the beat for those times when you want to set up an encounter in a nightclub or for those deep dark cavernous goblin raves.</p>
           <h4>That's Right, The Door's Opening.</h4>
           <figure class="column right noborder">
-            <video autoplay="" loop="loop" muted="true" src="https://r2.foundryvtt.com/website-uploads-public/asset/user_671/animated-doors-demonstration-2024-10-16.webm"></video>
+            @Asset[846]
             <figcaption>A demonstration of a variety of door animations in use.</figcaption>
         </figure>
             <p>One of the first features to move from the Ember project into the main Foundry VTT codebase is a set of new options that allow animating doors. Doors can now be configured to animate when opening or closing, using one of the included default textures from our good friends at Forgotten Adventures, or using your own custom texture if you are so inclined. With them comes a suite of options allowing you to configure the speed of animation, direction of opening, and how far they open when activated.  There are a variety of animation options available, including:</p>
@@ -149,7 +149,7 @@
 </section>
 <section id="api">
 <h2 class="section-header border">API Improvements</h2>
-    <h3 class="category-header" id="bugs-docs">Documents and Data</h3>
+    <h3 class="category-header" id="documents-and-data">Documents and Data</h3>
     <ul>
         <li><code>Roll#render</code> now contains a reference to the containing <code>ChatMessage</code> Document if the Roll is being rendered in the context of a <code>ChatMessage</code>. <a href="https://github.com/foundryvtt/foundryvtt/issues/12569" rel="nofollow" target="_blank">(12569)</a></li>
         <li>If a <code>ChatMessage</code> subclass defines both <code>getHTML</code> and <code>renderHTML</code> methods it will no longer trigger an unnecessary deprecation warning. <a href="https://github.com/foundryvtt/foundryvtt/issues/12582" rel="nofollow" target="_blank">(12582)</a></li>

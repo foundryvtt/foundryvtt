@@ -29,7 +29,7 @@
         <dt><strong>Pop-out Applications</strong></dt>
             <dd>Foundry Virtual Tabletop now has built-in support for rendering dialogs in a separate browser window! <a href="https://foundryvtt.com/releases/14.349/#pop-out">Learn more here</a>.</dd>
             <figure>
-                <video src="https://r2.foundryvtt.com/website-uploads-public/videos/V14PopOut.mp4" controls loop="auto" muted="true" width="50%"></video>
+                <video src="https://r2.foundryvtt.com/website-uploads-public/videos/V14PopOut.mp4" controls loop muted width="50%"></video>
                 <figcaption>A video example of how pop-out applications work in Version 14.</figcaption>
             </figure>
             <dd>This popular feature was the winner of our <a href="https://www.patreon.com/posts/version-14-vote-129611527">Version 14 Patreon Feature Vote</a>.</dd>
@@ -83,9 +83,11 @@
     <figure>
         <div class="columns">
             <div class="column">
-                <video src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/v14t1-grid-shape-square-20260312-2026-03-12.webm" controls loop="auto" autoplay muted></video>
+                @Asset[1064]
             </div>
-            <video src="https://r2.foundryvtt.com/website-uploads-public/screen/user_681/v14t1-grid-shape-hex-20260312-2026-03-12.webm" class="right" controls loop="auto" autoplay muted></video>
+            <div class="column">
+                @Asset[1065]
+            </div>
         </div>
         <figcaption>Video demonstration of a template using the new Grid Shape on both a square and hex grid.</figcaption>
     </figure>
@@ -97,7 +99,7 @@
     <p>We were excited to add turn markers in V13 to help visually keep track of turns during combat encounters. Although we added the ability to easily choose any suitable image file to use as a turn marker, due to time constraints we ended up releasing this feature with the Foundry VTT logo as the default turn marker.</p>
     <p>We have now circled back to turn markers and have set a new, subtler Turn Marker as the default option {ADD VIDEO}. Additionally, we have included {X} other possible turn marker images to choose from located at {Core>location}.</p>-->
     
-    <h3 id="highlight-placeables-tab">A new Visual Effects API Framework?? What?</h3>   
+    <h3 id="new-vfx-framework">A new Visual Effects API Framework?? What?</h3>
     <p>Yep! We're happy to announce that this release includes the first iteration of our experimental new Visual Effects (VFX) framework. This new addition to our API allows the definition, orchestration, and playback of complex canvas animations right inside the Foundry VTT canvas. The abstraction layers that it provides allow systems and modules to create timeline-driven and composable animations to add visual splash to projectile attacks, spell effects, and more. However, because the VFX framework is still so experimental, currently each module or system that wants to use the VFX framework must first "opt in" by specifically enabling it.</p> 
     <p>To power this new VFX framework, we added a lightweight core dependency, the <code>animejs</code> library (https://animejs.com/). When enabled, the new VFX framework is exposed under <code>foundry.canvas.vfx</code> and the entire animejs library is exposed as <code>globalThis.animejs</code>. For full technical details, please see the <a href="https://foundryvtt.com/api/v14/modules/foundry.canvas.vfx.html">VFX Framework API documentation</a>.</p>
     <p>We are extremely excited to see what our community can do with these new tools, and we'd especially like to thank community member Codas for their help with ideation and preliminary development of VFX framework concepts.</p>    
@@ -216,6 +218,7 @@
         <li>Fixed an issue where <code>sort</code> was not set for Tiles and Notes upon their initial creation. <a href="https://github.com/foundryvtt/foundryvtt/issues/13920" target="_blank">(13920)</a></li>
         <li>Fixed a bug where placeables vanished when switching from the placeables tab to a different sidebar tab. <a href="https://github.com/foundryvtt/foundryvtt/issues/13940">(13940)</a></li>
     </ul>
+</section>
 <section id="documentation">
 <h2 class="section-header border">Documentation Improvements</h2>
     <ul>
